@@ -23,8 +23,11 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [ "packages/core/tsconfig.lib.json", "packages/core/tsconfig.spec.json" ],
-            "exclude": [ "**/node_modules/**" ]
+            "tsConfig": [
+              "packages/core/tsconfig.lib.json",
+              "packages/core/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -51,8 +54,11 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [ "packages/theme-shared/tsconfig.lib.json", "packages/theme-shared/tsconfig.spec.json" ],
-            "exclude": [ "**/node_modules/**" ]
+            "tsConfig": [
+              "packages/theme-shared/tsconfig.lib.json",
+              "packages/theme-shared/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -81,8 +87,11 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [ "packages/theme-basic/tsconfig.lib.json", "packages/theme-basic/tsconfig.spec.json" ],
-            "exclude": [ "**/node_modules/**" ]
+            "tsConfig": [
+              "packages/theme-basic/tsconfig.lib.json",
+              "packages/theme-basic/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -111,8 +120,11 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [ "packages/account/tsconfig.lib.json", "packages/account/tsconfig.spec.json" ],
-            "exclude": [ "**/node_modules/**" ]
+            "tsConfig": [
+              "packages/account/tsconfig.lib.json",
+              "packages/account/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -145,7 +157,7 @@
               "packages/permission-management/tsconfig.lib.json",
               "packages/permission-management/tsconfig.spec.json"
             ],
-            "exclude": [ "**/node_modules/**" ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -174,8 +186,11 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [ "packages/identity/tsconfig.lib.json", "packages/identity/tsconfig.spec.json" ],
-            "exclude": [ "**/node_modules/**" ]
+            "tsConfig": [
+              "packages/identity/tsconfig.lib.json",
+              "packages/identity/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -208,7 +223,7 @@
               "packages/feature-management/tsconfig.lib.json",
               "packages/feature-management/tsconfig.spec.json"
             ],
-            "exclude": [ "**/node_modules/**" ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -241,7 +256,7 @@
               "packages/tenant-management/tsconfig.lib.json",
               "packages/tenant-management/tsconfig.spec.json"
             ],
-            "exclude": [ "**/node_modules/**" ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -274,7 +289,7 @@
               "packages/setting-management/tsconfig.lib.json",
               "packages/setting-management/tsconfig.spec.json"
             ],
-            "exclude": [ "**/node_modules/**" ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -307,7 +322,7 @@
               "packages/setting-management-config/tsconfig.lib.json",
               "packages/setting-management-config/tsconfig.spec.json"
             ],
-            "exclude": [ "**/node_modules/**" ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -336,8 +351,11 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [ "packages/identity-config/tsconfig.lib.json", "packages/identity-config/tsconfig.spec.json" ],
-            "exclude": [ "**/node_modules/**" ]
+            "tsConfig": [
+              "packages/identity-config/tsconfig.lib.json",
+              "packages/identity-config/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -366,8 +384,11 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [ "packages/account-config/tsconfig.lib.json", "packages/account-config/tsconfig.spec.json" ],
-            "exclude": [ "**/node_modules/**" ]
+            "tsConfig": [
+              "packages/account-config/tsconfig.lib.json",
+              "packages/account-config/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -400,7 +421,7 @@
               "packages/tenant-management-config/tsconfig.lib.json",
               "packages/tenant-management-config/tsconfig.spec.json"
             ],
-            "exclude": [ "**/node_modules/**" ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -425,7 +446,10 @@
             "polyfills": "apps/dev-app/src/polyfills.ts",
             "tsConfig": "apps/dev-app/tsconfig.app.json",
             "aot": false,
-            "assets": [ "apps/dev-app/src/favicon.ico", "apps/dev-app/src/assets" ],
+            "assets": [
+              "apps/dev-app/src/favicon.ico",
+              "apps/dev-app/src/assets"
+            ],
             "extractCss": true,
             "styles": [
               "apps/dev-app/src/styles.scss",
@@ -509,7 +533,10 @@
             "polyfills": "apps/dev-app/src/polyfills.ts",
             "tsConfig": "apps/dev-app/tsconfig.spec.json",
             "karmaConfig": "apps/dev-app/karma.conf.js",
-            "assets": [ "apps/dev-app/src/favicon.ico", "apps/dev-app/src/assets" ],
+            "assets": [
+              "apps/dev-app/src/favicon.ico",
+              "apps/dev-app/src/assets"
+            ],
             "styles": [
               "apps/dev-app/src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -524,14 +551,170 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [ "apps/dev-app/tsconfig.app.json", "apps/dev-app/tsconfig.spec.json" ],
-            "exclude": [ "**/node_modules/**" ]
+            "tsConfig": [
+              "apps/dev-app/tsconfig.app.json",
+              "apps/dev-app/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "alain": {
+      "projectType": "library",
+      "root": "themes/alain",
+      "sourceRoot": "themes/alain/src",
+      "prefix": "fs",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "themes/alain/tsconfig.lib.json",
+            "project": "themes/alain/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "themes/alain/tsconfig.lib.json",
+              "themes/alain/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!themes/alain/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "themes/alain/jest.config.js",
+            "tsConfig": "themes/alain/tsconfig.spec.json",
+            "setupFile": "themes/alain/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "alain-app": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "less"
+        }
+      },
+      "root": "apps/alain-app",
+      "sourceRoot": "apps/alain-app/src",
+      "prefix": "abp",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/alain-app",
+            "index": "apps/alain-app/src/index.html",
+            "main": "apps/alain-app/src/main.ts",
+            "polyfills": "apps/alain-app/src/polyfills.ts",
+            "tsConfig": "apps/alain-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "apps/alain-app/src/favicon.ico",
+              "apps/alain-app/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
+            ],
+            "styles": [
+              "apps/alain-app/src/styles.less",
+              "node_modules/font-awesome/css/font-awesome.css"
+            ],
+            "scripts": [
+              "node_modules/@antv/g2/build/g2.js",
+              "node_modules/@antv/data-set/dist/data-set.min.js",
+              "node_modules/@antv/g2-plugin-slider/dist/g2-plugin-slider.min.js",
+              "node_modules/ajv/dist/ajv.bundle.js",
+              "node_modules/qrious/dist/qrious.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/alain-app/src/environments/environment.ts",
+                  "with": "apps/alain-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "alain-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "alain-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "alain-app:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/alain-app/tsconfig.app.json",
+              "apps/alain-app/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/alain-app/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/alain-app/jest.config.js",
+            "tsConfig": "apps/alain-app/tsconfig.spec.json",
+            "setupFile": "apps/alain-app/src/test-setup.ts"
           }
         }
       }
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
   }
 }
