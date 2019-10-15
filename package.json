@@ -29,6 +29,7 @@
   },
   "private": true,
   "dependencies": {
+    "@abp/ng.theme.shared": "^0.9.1",
     "@nrwl/angular": "^8.6.0",
     "@angular-devkit/build-angular": "~0.803.6",
     "@angular-devkit/build-ng-packagr": "~0.803.6",
