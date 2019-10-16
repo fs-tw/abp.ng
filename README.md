@@ -1,4 +1,4 @@
-# [Abp](https://github.com/abpframework/abp)+ng-alain[(https://ng-alain.github.io/ng-alain/#/dashboard/v1)] by [Nx](https://nx.dev)
+# [Abp](https://github.com/abpframework/abp)+[ng-alain](https://ng-alain.github.io/ng-alain/#/dashboard/v1) by [Nx](https://nx.dev)
 
 This project was generated using [Nx](https://nx.dev).
 
