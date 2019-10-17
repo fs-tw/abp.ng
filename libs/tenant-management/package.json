@@ -1,0 +1,9 @@
+{
+  "name": "@fs/tenant-management",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@fs/alain": "^0.0.1",
+    "@abp/ng.feature-management": "^0.9.1",
+    "@abp/ng.tenant-management": "^0.9.1"
+  }
+}

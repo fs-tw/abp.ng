@@ -1,5 +1,5 @@
 {
-  "npmScope": "abp",
+  "npmScope": "fs",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -12,6 +12,27 @@
       "tags": []
     },
     "alain-app": {
+      "tags": []
+    },
+    "account": {
+      "tags": []
+    },
+    "account-alain": {
+      "tags": []
+    },
+    "permission-management": {
+      "tags": []
+    },
+    "identity": {
+      "tags": []
+    },
+    "feature-management": {
+      "tags": []
+    },
+    "setting-management": {
+      "tags": []
+    },
+    "tenant-management": {
       "tags": []
     }
   }

@@ -11,9 +11,9 @@ import { AlainBasicModule } from '@fs/alain/basic';
   declarations: [],
     imports: [
         CoreModule,
-        ThemeSharedModule,
-        ThemeBasicModule,
-        AlainSharedModule,
+        //ThemeSharedModule,
+        //ThemeBasicModule,
+        //AlainSharedModule,
         AlainBasicModule,
         TableModule,
         NgbDropdownModule
@@ -21,9 +21,9 @@ import { AlainBasicModule } from '@fs/alain/basic';
     ],
     exports: [
         CoreModule,
-        ThemeSharedModule,
-        ThemeBasicModule,
-        AlainSharedModule,
+        //ThemeSharedModule,
+        //ThemeBasicModule,
+        //AlainSharedModule,
         AlainBasicModule,
         TableModule,
         NgbDropdownModule

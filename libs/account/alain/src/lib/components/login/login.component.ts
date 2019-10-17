@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { SocialService, SocialOpenType, ITokenService, DA_SERVICE_TOKEN } from '@delon/auth';
 import { ReuseTabService } from '@delon/abc';
-import { environment } from '../../../../environments/environment';
+//import { environment } from '../../../../environments/environment';
 import { StartupService } from '@fs/alain';
 
 @Component({
@@ -140,11 +140,11 @@ export class UserLoginComponent implements OnDestroy {
     let url = ``;
     let callback = ``;
     // tslint:disable-next-line: prefer-conditional-expression
-    if (environment.production) {
-      callback = 'https://ng-alain.github.io/ng-alain/#/callback/' + type;
-    } else {
+    //if (environment.production) {
+    //  callback = 'https://ng-alain.github.io/ng-alain/#/callback/' + type;
+    //} else {
       callback = 'http://localhost:4200/#/callback/' + type;
-    }
+    //}
     switch (type) {
       case 'auth0':
         url = `//cipchk.auth0.com/login?client=8gcNydIDzGBYxzqV0Vm1CX_RXH-wsWo5&redirect_uri=${decodeURIComponent(

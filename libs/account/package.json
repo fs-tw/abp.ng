@@ -1,0 +1,8 @@
+{
+  "name": "@fs/account",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@abp/ng.account": "^0.9.1",
+    "@fs/alain": "^0.0.1"
+  }
+}

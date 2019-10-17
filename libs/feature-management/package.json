@@ -1,0 +1,8 @@
+{
+  "name": "@fs/feature-management",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@fs/alain": "^0.0.1",
+    "@abp/ng.feature-management": "^0.9.1"
+  }
+}

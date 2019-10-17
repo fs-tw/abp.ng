@@ -10,6 +10,11 @@ import { LayoutModule } from './layout/layout.module';
         ThemeBasicModule,
         AlainSharedModule,
         LayoutModule
+    ],
+    exports: [
+        ThemeBasicModule,
+        AlainSharedModule,
+        LayoutModule
     ]
 })
 export class AlainBasicModule { }
