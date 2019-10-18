@@ -1,19 +1,23 @@
 import { NgModule, Injectable } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AccountConfigService } from '@abp/ng.account.config';
-import { addAbpRoutes, eLayoutType } from '@abp/ng.core';
+import { addAbpRoutes, eLayoutType, ABP } from '@abp/ng.core';
 //import { LayoutDefaultComponent } from '@fs/alain';
 //import { AuthGuard } from '@fs/core';
 const routes: Routes = [
-    {//default
+    //{//default
+    //    path: '',
+    //    redirectTo: 'main',
+    //    pathMatch: 'full'
+    //},
+    {
         path: '',
-        redirectTo: 'main',
-        pathMatch: 'full'
-    },
-    {//application
-        path: 'main',
-        loadChildren: () => import('./main/main.module').then(m => m.MainModule),
-        //canActivateChild: [AuthGuard]
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+        //data: {
+        //    routes: {
+        //        name: '::Menu:Home',
+        //    } as ABP.Route,
+        //},
     },
     {
         path: 'account',

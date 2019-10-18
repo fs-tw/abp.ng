@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@fs/alain';
-
+import { CoreModule} from '@abp/ng.core'
 import { LayoutDefaultComponent } from './default/default.component';
 import { LayoutFullScreenComponent } from './fullscreen/fullscreen.component';
 import { HeaderComponent } from './default/header/header.component';
@@ -42,7 +42,7 @@ import { LayoutPassportComponent } from './passport/passport.component';
 const PASSPORT = [LayoutPassportComponent];
 
 @NgModule({
-    imports: [SharedModule],
+    imports: [CoreModule,SharedModule],
     entryComponents: [...SETTINGDRAWER, LayoutDefaultComponent, LayoutFullScreenComponent, LayoutPassportComponent],
     declarations: [...COMPONENTS, ...HEADERCOMPONENTS, ...PASSPORT],
     exports: [...COMPONENTS, ...PASSPORT]
