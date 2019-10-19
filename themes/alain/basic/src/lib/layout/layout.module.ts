@@ -42,7 +42,7 @@ import { LayoutPassportComponent } from './passport/passport.component';
 const PASSPORT = [LayoutPassportComponent];
 
 @NgModule({
-    imports: [CoreModule,SharedModule],
+    imports: [CoreModule, SharedModule],
     entryComponents: [...SETTINGDRAWER, LayoutDefaultComponent, LayoutFullScreenComponent, LayoutPassportComponent],
     declarations: [...COMPONENTS, ...HEADERCOMPONENTS, ...PASSPORT],
     exports: [...COMPONENTS, ...PASSPORT]
