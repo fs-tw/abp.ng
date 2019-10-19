@@ -71,7 +71,7 @@ const FORM_MODULES = [JsonSchemaModule];
         ...GLOBAL_THIRD_MODULES,
         ...FORM_MODULES,
     ],
-    exports: [SharedModule]
+    exports: [SharedModule, ThemeSharedModule]
 })
 export class AlainSharedModule {
     static forRoot(): ModuleWithProviders {

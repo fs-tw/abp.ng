@@ -1,0 +1,8 @@
+{
+  "name": "@fs/setting-management",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@fs/alain": "^0.0.1",
+    "@abp/ng.setting-management": "^0.9.1"
+  }
+}

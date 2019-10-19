@@ -1,0 +1,8 @@
+{
+  "name": "@fs/permission-management",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@fs/alain": "^0.0.1",
+    "@abp/ng.permission-management": "^0.9.1"
+  }
+}
