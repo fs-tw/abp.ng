@@ -30,6 +30,7 @@ import { NgxAdminSharedModule } from '@fs/ngx-admin/shared';
         NgxAdminSharedModule,
         //layout
         ApplicationLayoutComponent
-    ]
+    ],
+    entryComponents: [ApplicationLayoutComponent],
 })
 export class NgxAdminBasicModule { }

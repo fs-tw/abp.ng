@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { AccountModule } from '@abp/ng.account';
-import { AccountNgxAdminModule } from './account-ngx-admin.module';
+import { AccountNgxAdminModule } from '@fs/account/ngx-admin';
 
 @NgModule({
     imports: [AccountNgxAdminModule],

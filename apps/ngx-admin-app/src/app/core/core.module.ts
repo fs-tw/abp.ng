@@ -14,7 +14,7 @@ import { AccountConfigModule, AccountConfigService } from '@abp/ng.account.confi
 import { IdentityConfigModule } from '@abp/ng.identity.config';
 import { TenantManagementConfigModule } from '@abp/ng.tenant-management.config';
 import { SettingManagementConfigModule } from '@abp/ng.setting-management.config';
-import { LayoutDefaultComponent , LayoutPassportComponent, LayoutFullScreenComponent } from '@fs/alain/basic';
+import { ApplicationLayoutComponent} from '@fs/ngx-admin/basic';
 import { Router } from '@angular/router';
 import { ThemeModule } from '@fs/ngx-admin';
 import { NbSidebarModule, NbMenuModule, NbDatepickerModule, NbDialogModule, NbWindowModule, NbToastrModule, NbChatModule } from '@nebular/theme';
@@ -22,7 +22,7 @@ import { NbAuthComponent, NbAuthModule } from '@nebular/auth';
 
 
 
-const NgxAdminLayouts = [];//[ApplicationLayoutComponent, AccountLayoutComponent, ApplicationLayoutComponent];
+const NgxAdminLayouts = [ApplicationLayoutComponent, ApplicationLayoutComponent, ApplicationLayoutComponent];
 
 @NgModule({
     declarations: [
