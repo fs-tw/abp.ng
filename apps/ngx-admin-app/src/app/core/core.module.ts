@@ -48,7 +48,6 @@ const NgxAdminLayouts = [];//[ApplicationLayoutComponent, AccountLayoutComponent
 
         //ngx-admin
         ThemeModule.forRoot(),
-
         NbSidebarModule.forRoot(),
         NbMenuModule.forRoot(),
         NbDatepickerModule.forRoot(),

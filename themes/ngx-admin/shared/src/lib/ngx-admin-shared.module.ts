@@ -2,15 +2,29 @@ import { CoreModule } from '@abp/ng.core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { SharedModule } from '@fs/alain';
+import { NbAuthModule } from '@nebular/auth';
+import { NbMenuModule } from '@nebular/theme';
+import { ThemeModule } from '@fs/ngx-admin';
+
 @NgModule({
     imports: [
         CommonModule,
+        //abp,
         CoreModule,
-        ThemeSharedModule,//abp
-        SharedModule,//alain
+        ThemeSharedModule,
+        //ngx-admin
+        NbAuthModule,
+        NbMenuModule,
+        ThemeModule
     ],
-    exports: [SharedModule, ThemeSharedModule]
+    exports: [
+        //abp,
+        ThemeSharedModule,
+        //ngx-admin
+        NbAuthModule,
+        NbMenuModule,
+        ThemeModule
+    ]
 })
 export class NgxAdminSharedModule {
     static forRoot(): ModuleWithProviders {

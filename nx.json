@@ -38,9 +38,6 @@
     "ngx-admin": {
       "tags": []
     },
-    "ngx-admin-app-e2e": {
-      "tags": []
-    },
     "ngx-admin-app": {
       "tags": []
     }

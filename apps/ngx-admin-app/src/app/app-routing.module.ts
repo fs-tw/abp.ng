@@ -38,11 +38,11 @@ const routes: Routes = [
         loadChildren: () =>
             import('./lazy-libs/setting-management-wrapper.module').then(m => m.SettingManagementWrapperModule),
     },
-    //{
-    //    path: 'pages',
-    //    loadChildren: () => import('./pages/pages.module')
-    //        .then(m => m.PagesModule),
-    //},
+    {
+        path: 'pages',
+        loadChildren: () => import('./pages/pages.module')
+            .then(m => m.PagesModule),
+    },
     {
         path: 'auth',
         component: NbAuthComponent,
