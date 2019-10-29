@@ -8,6 +8,7 @@ import { NbAuthModule } from '@nebular/auth';
 import { NbMenuModule } from '@nebular/theme';
 import { ThemeModule } from '@fs/ngx-admin';
 import { CoreModule as NgxAdminCoreModule } from '@fs/ngx-admin';
+import { NgxAdminSharedModule } from '@fs/ngx-admin/shared';
 @NgModule({
     declarations: [
         ApplicationLayoutComponent
@@ -18,9 +19,7 @@ import { CoreModule as NgxAdminCoreModule } from '@fs/ngx-admin';
         ThemeBasicModule,
 
         //ngx-admin
-        NbAuthModule,
-        NbMenuModule,
-        ThemeModule
+        NgxAdminSharedModule
     ],
     exports: [
         //abp
@@ -28,10 +27,10 @@ import { CoreModule as NgxAdminCoreModule } from '@fs/ngx-admin';
         ThemeBasicModule,
 
         //ngx-admin
-        NbAuthModule,
-        NbMenuModule,
-        ThemeModule,
+        NgxAdminSharedModule,
+        //layout
         ApplicationLayoutComponent
-    ]
+    ],
+    entryComponents: [ApplicationLayoutComponent],
 })
 export class NgxAdminBasicModule { }

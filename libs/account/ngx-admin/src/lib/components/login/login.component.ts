@@ -15,7 +15,7 @@ import { ToasterService } from '@abp/ng.theme.shared';
 @Component({
     selector: 'passport-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.less']
+    styleUrls: []
 })
 export class UserLoginComponent extends LoginComponent {
 

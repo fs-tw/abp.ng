@@ -1,1 +1,1 @@
-export * from './lib/account-alain.module';
+export * from './lib/account-ngx-admin.module';

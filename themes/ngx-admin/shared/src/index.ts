@@ -1,1 +1,1 @@
-export * from './lib/alain-shared.module';
+export * from './lib/index';
