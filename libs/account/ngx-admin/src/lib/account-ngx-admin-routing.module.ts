@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DynamicLayoutComponent, ABP, eLayoutType } from '@abp/ng.core';
-import { LayoutPassportComponent } from '@fs/alain/basic';
+import { LayoutPassportComponent } from '@fs/ng-alain/basic';
 import { NbAuthComponent } from '@nebular/auth';
 import { LoginComponent } from '@abp/ng.account';
 import { RegisterComponent } from '@abp/ng.account';

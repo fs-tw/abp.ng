@@ -1,10 +1,6 @@
 {
   "name": "@fs/ngx-admin",
   "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/common": "^8.2.4",
-    "@angular/core": "^8.2.4"
-  },
   "dependencies": {
     "@agm/core": "^1.0.0-beta.5",
     "@angular/animations": "^8.0.0",

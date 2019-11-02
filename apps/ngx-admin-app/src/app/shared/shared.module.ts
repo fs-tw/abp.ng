@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 import { ThemeBasicModule } from '@abp/ng.theme.basic';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { TableModule } from 'primeng/table';
-import { AlainSharedModule } from '@fs/alain/shared';
-import { AlainBasicModule } from '@fs/alain/basic';
 import { ThemeModule } from '@fs/ngx-admin';
 import { NbAuthModule } from '@nebular/auth';
 import { NbMenuModule } from '@nebular/theme';

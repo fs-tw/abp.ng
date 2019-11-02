@@ -38,53 +38,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./lazy-libs/setting-management-wrapper.module').then(m => m.SettingManagementWrapperModule),
   },
-  {
-    path: 'cms',
-    loadChildren: () => import('./lazy-libs/cms-wrapper.module').then(m => m.CmsWrapperModule),
-    data: {
-      routes: {
-        parentName: 'AbpUiNavigation::Menu:Administration',
-        name: 'cms',
-        iconClass: 'fa fa-id-card-o',
-        children: [
-          { path: 'news', name: 'news', order: 1 },
-          { path: 'news-type', name: 'news-type', order: 2 }
-
-        ],
-      } as ABP.Route,
-    }
-  },
-  {
-    path: 'dynform',
-    loadChildren: () => import('./lazy-libs/dynform-wrapper.module').then(m => m.DynformWrapperModule),
-    data: {
-      routes: {
-        parentName: 'AbpUiNavigation::Menu:Administration',
-        name: 'dynform',
-        iconClass: 'fa fa-id-card-o',
-        children: [
-          { path: 'formal', name: 'formal', order: 1 },
-          { path: 'group', name: 'group', order: 2 }
-
-        ],
-      } as ABP.Route,
-    }
-  },
-  {
-    path: 'common',
-    loadChildren: () => import('./lazy-libs/common-wrapper.module').then(m => m.CommonWrapperModule),
-    data: {
-      routes: {
-        parentName: 'AbpUiNavigation::Menu:Administration',
-        name: 'common',
-        iconClass: 'fa fa-id-card-o',
-        children: [
-          { path: 'common', name: 'common', order: 1 }
-
-        ],
-      } as ABP.Route,
-    }
-  },
   {//alain routers demo
     path: '',
     loadChildren: () => import('./routes/routes.module').then(m => m.RoutesModule)

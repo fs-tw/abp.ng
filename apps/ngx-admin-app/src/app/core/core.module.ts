@@ -2,7 +2,6 @@ import { NgModule, Injectable } from '@angular/core';
 import {  CoreModule as NgxAdminCoreModule } from '@fs/ngx-admin';
 import { HttpClient } from '@angular/common/http'; import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { AlainSharedModule } from '@fs/alain/shared';
 import { LAYOUTS } from '@abp/ng.theme.basic';
 import { CoreModule as AbpCoreModule, RestService, addAbpRoutes, eLayoutType } from '@abp/ng.core';
 import { environment } from '../../environments/environment';
