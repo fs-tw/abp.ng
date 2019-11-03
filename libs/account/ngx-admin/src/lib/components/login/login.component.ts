@@ -6,7 +6,7 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { SocialService, SocialOpenType, ITokenService, DA_SERVICE_TOKEN } from '@delon/auth';
 import { ReuseTabService } from '@delon/abc';
 //import { environment } from '../../../../environments/environment';
-import { StartupService } from '@fs/alain';
+import { StartupService } from '@fs/ng-alain';
 import { LoginComponent, Options } from '@abp/ng.account';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Store } from '@ngxs/store';

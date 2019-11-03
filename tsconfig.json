@@ -16,23 +16,22 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@abp/ng.core": [ "dist/core" ],
-      //"@abp/ng.core/*": [ "packages/core/src/lib/*" ],
-      "@abp/ng.theme.shared": [ "dist/theme-shared" ],
-      "@abp/ng.theme.basic": [ "packages/theme-basic/src/public-api.ts" ],
-      "@abp/ng.theme.basic/*": [ "packages/theme-basic/src/lib/*" ],
-      "@abp/ng.account": [ "packages/account/src/public-api.ts" ],
-      "@abp/ng.account/*": [ "packages/account/src/lib/*" ],
-      "@abp/ng.account.config": [ "packages/account-config/src/public-api.ts" ],
-      "@abp/ng.account.config/*": [ "packages/account-config/src/lib/*" ],
-      "@abp/ng.identity": [ "packages/identity/src/public-api.ts" ],
-      "@abp/ng.identity/*": [ "packages/identity/src/lib/*" ],
-      "@abp/ng.identity.config": [ "packages/identity-config/src/public-api.ts" ],
-      "@abp/ng.identity.config/*": [ "packages/identity-config/src/lib/*" ],
+      "@abp/ng.core": ["dist/core"],
+      "@abp/ng.theme.shared": ["dist/theme-shared"],
+      "@abp/ng.theme.basic": ["packages/theme-basic/src/public-api.ts"],
+      "@abp/ng.theme.basic/*": ["packages/theme-basic/src/lib/*"],
+      "@abp/ng.account": ["packages/account/src/public-api.ts"],
+      "@abp/ng.account/*": ["packages/account/src/lib/*"],
+      "@abp/ng.account.config": ["packages/account-config/src/public-api.ts"],
+      "@abp/ng.account.config/*": ["packages/account-config/src/lib/*"],
+      "@abp/ng.identity": ["packages/identity/src/public-api.ts"],
+      "@abp/ng.identity/*": ["packages/identity/src/lib/*"],
+      "@abp/ng.identity.config": ["packages/identity-config/src/public-api.ts"],
+      "@abp/ng.identity.config/*": ["packages/identity-config/src/lib/*"],
       "@abp/ng.tenant-management": [
         "packages/tenant-management/src/public-api.ts"
       ],
-      "@abp/ng.tenant-management/*": [ "packages/tenant-management/src/lib/*" ],
+      "@abp/ng.tenant-management/*": ["packages/tenant-management/src/lib/*"],
       "@abp/ng.tenant-management.config": [
         "packages/tenant-management-config/src/public-api.ts"
       ],
@@ -42,7 +41,7 @@
       "@abp/ng.setting-management": [
         "packages/setting-management/src/public-api.ts"
       ],
-      "@abp/ng.setting-management/*": [ "packages/setting-management/src/lib/*" ],
+      "@abp/ng.setting-management/*": ["packages/setting-management/src/lib/*"],
       "@abp/ng.setting-management.config": [
         "packages/setting-management-config/src/public-api.ts"
       ],
@@ -58,18 +57,27 @@
       "@abp/ng.feature-management": [
         "packages/feature-management/src/public-api.ts"
       ],
-      "@abp/ng.feature-management/*": [ "packages/feature-management/src/lib/*" ],
-      "@fs/alain": [ "themes/alain/src/index.ts" ],
-      "@fs/alain/*": [ "themes/alain/*/src/index.ts" ],
-      "@fs/account": [ "libs/account/src/index.ts" ],
-      "@fs/account/*": [ "libs/account/*/src/index.ts" ],
-      "@fs/permission-management": [ "libs/permission-management/src/index.ts" ],
-      "@fs/identity": [ "libs/identity/src/index.ts" ],
-      "@fs/feature-management": [ "libs/feature-management/src/index.ts" ],
-      "@fs/setting-management": [ "libs/setting-management/src/index.ts" ],
-      "@fs/tenant-management": [ "libs/tenant-management/src/index.ts" ],
-      "@fs/ngx-admin": [ "themes/ngx-admin/src/index.ts" ],
-      "@fs/ngx-admin/*": [ "themes/ngx-admin/*/src/index.ts" ]
+      "@abp/ng.feature-management/*": ["packages/feature-management/src/lib/*"],
+      "@fs/ng-alain": ["themes/ng-alain/src/index.ts"],
+      "@fs/ng-alain/*": ["themes/ng-alain/*/src/index.ts"],
+      "@fs/account": ["libs/account/src/index.ts"],
+      "@fs/account/*": ["libs/account/*/src/index.ts"],
+      "@fs/permission-management": ["libs/permission-management/src/index.ts"],
+      "@fs/identity": ["libs/identity/src/index.ts"],
+      "@fs/feature-management": ["libs/feature-management/src/index.ts"],
+      "@fs/setting-management": ["libs/setting-management/src/index.ts"],
+      "@fs/tenant-management": ["libs/tenant-management/src/index.ts"],
+      "@fs/ngx-admin": ["themes/ngx-admin/src/index.ts"],
+      "@fs/ngx-admin/*": ["themes/ngx-admin/*/src/index.ts"],
+      "@fs/cms": ["libs/cms/src/index.ts"],
+      "@fs/cms/*": ["libs/cms/*/src/index.ts"],
+      "@fs/common": ["libs/common/src/index.ts"],
+      "@fs/common/*": ["libs/common/*/src/index.ts"],
+      "@fs/dynform": ["libs/dynform/src/index.ts"],
+      "@fs/dynform/*": ["libs/dynform/*/src/index.ts"],
+      "@fs/ng-admin-ms": ["themes/ng-admin-ms/src/index.ts"],
+      "@fs/ng-alain-ms": ["themes/ng-alain-ms/src/index.ts"],
+      "@fs/dev": ["themes/dev/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
