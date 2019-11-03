@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { SharedModule } from '@fs/ng-alain';
 import { default as ngLang } from '@angular/common/locales/zh';
-import { NZ_I18N, zh_CN as zorroLang } from 'ng-zorro-antd';
+import { NZ_I18N, zh_CN as zorroLang, NzModalModule } from 'ng-zorro-antd';
 import { ALAIN_I18N_TOKEN, DELON_LOCALE, zh_CN as delonLang } from '@delon/theme';
 import { registerLocaleData } from '@angular/common';
 import { I18NService } from '@fs/ng-alain';
@@ -60,8 +60,13 @@ const I18NSERVICE_MODULES = [
 ];
 const GLOBAL_THIRD_MODULES = [];
 import { JsonSchemaModule } from '@fs/ng-alain';
+import { ConfirmationService } from './services';
+import { ConfirmationService as AbpConfirmationService } from '@abp/ng.theme.shared';
 const FORM_MODULES = [JsonSchemaModule];
 @NgModule({
+    declarations: [
+        
+    ],
     imports: [
         CoreModule,
         CommonModule,
@@ -69,9 +74,9 @@ const FORM_MODULES = [JsonSchemaModule];
         SharedModule,//alain
         //...I18NSERVICE_MODULES,
         ...GLOBAL_THIRD_MODULES,
-        ...FORM_MODULES,
+        ...FORM_MODULES
     ],
-    exports: [SharedModule, ThemeSharedModule]
+    exports: [SharedModule, ThemeSharedModule ]
 })
 export class NgAlainSharedModule {
     static forRoot(): ModuleWithProviders {
@@ -81,7 +86,8 @@ export class NgAlainSharedModule {
                 ...APPINIT_PROVIDES,
                 ...LANG_PROVIDES,
                 ...INTERCEPTOR_PROVIDES,
-                ...I18NSERVICE_PROVIDES
+                ...I18NSERVICE_PROVIDES,
+                { provide: AbpConfirmationService, useClass: ConfirmationService }
             ]
         };
     }

@@ -1,0 +1,160 @@
+<page-header [title]="'AbpIdentity::NewUser' | abpLocalization"></page-header>
+<nz-card [nzBordered]="false">
+  <button nz-button
+          [abpPermission]="'AbpIdentity.Users.Create'"
+          id="create-role"
+          (click)="onAdd()"
+          [nzType]="'primary'">
+    <i nz-icon nzType="plus"></i>
+    <span>{{ 'AbpIdentity::NewUser' | abpLocalization }}</span>
+  </button>
+  <nz-table [nzData]="data$ | async">
+    <thead>
+      <tr>
+        <th>
+          {{ 'AbpIdentity::Actions' | abpLocalization }}
+        </th>
+        <th>
+          {{ 'AbpIdentity::UserName' | abpLocalization }}
+          <abp-sort-order-icon #sortOrderIcon key="userName" [(selectedKey)]="sortKey" [(order)]="sortOrder"></abp-sort-order-icon>
+        </th>
+        <th>
+          {{ 'AbpIdentity::EmailAddress' | abpLocalization }}
+          <abp-sort-order-icon key="email" [(selectedKey)]="sortKey" [(order)]="sortOrder"></abp-sort-order-icon>
+        </th>
+        <th>
+          {{ 'AbpIdentity::PhoneNumber' | abpLocalization }}
+          <abp-sort-order-icon key="phoneNumber" [(selectedKey)]="sortKey" [(order)]="sortOrder"></abp-sort-order-icon>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of data$ | async">
+        <td>
+          <a class="ant-dropdown-link" nz-dropdown [nzDropdownMenu]="opMenu">
+            {{ 'AbpIdentity::Actions' | abpLocalization }}
+            <i nz-icon nzType="down"></i>
+          </a>
+          <nz-dropdown-menu #opMenu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item [abpPermission]="'AbpIdentity.Users.Update'" (click)="onEdit(data.id)">{{ 'AbpIdentity::Edit' | abpLocalization }}</li>
+              <li nz-menu-item [abpPermission]="'AbpIdentity.Users.ManagePermissions'" (click)="providerKey = data.id; visiblePermissions = true">{{ 'AbpIdentity::Permissions' | abpLocalization }}</li>
+              <li nz-menu-item [abpPermission]="'AbpIdentity.Users.Delete'" (click)="delete(data.id, data.userName)">{{ 'AbpIdentity::Delete' | abpLocalization }}</li>
+            </ul>
+          </nz-dropdown-menu>
+        </td>
+        <td>{{ data.userName }}</td>
+        <td>{{ data.email }}</td>
+        <td>{{ data.phoneNumber }}</td>
+      </tr>
+    </tbody>
+
+  </nz-table>
+</nz-card>
+<nz-modal [(nzVisible)]="isModalVisible"
+          [nzTitle]="modalTitle"
+          [nzContent]="modalContent"
+          [nzFooter]="modalFooter"
+          (nzOnCancel)="isModalVisible=false" >
+  <ng-template #modalTitle>
+    {{(selected?.id ? 'AbpIdentity::Edit' : 'AbpIdentity::NewUser') | abpLocalization}}
+  </ng-template>
+
+  <ng-template #modalContent>
+    <ng-template #loaderRef>
+      <div class="text-center"><i class="fa fa-pulse fa-spinner"></i></div>
+    </ng-template>
+
+    <form nz-form *ngIf="form; else loaderRef" [formGroup]="form" (ngSubmit)="save()">
+      <nz-tabset>
+        <nz-tab nzTitle="{{'AbpIdentity::UserInformations' | abpLocalization}}">
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="user-name">{{ 'AbpIdentity::UserName' | abpLocalization }}</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" >
+              <input nz-input formControlName="userName" id="user-name" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name">{{ 'AbpIdentity::DisplayName:Name' | abpLocalization }}</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input formControlName="name" id="name" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="surname">{{ 'AbpIdentity::DisplayName:Surname' | abpLocalization }}</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input formControlName="surname" id="surname" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>{{ 'AbpIdentity::Password' | abpLocalization }}</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" >
+              <input nz-input
+                     type="password"
+                     id="password"
+                     formControlName="password" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">{{ 'AbpIdentity::EmailAddress' | abpLocalization }}</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input formControlName="email" id="email" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber">{{ 'AbpIdentity::PhoneNumber' | abpLocalization }}</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+              <input nz-input formControlName="phoneNumber" id="phoneNumber" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <label nz-checkbox formControlName="lockoutEnabled">
+                <span>
+                  {{
+                  'AbpIdentity::DisplayName:LockoutEnabled' | abpLocalization
+                  }}
+                </span>
+              </label>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <label nz-checkbox formControlName="twoFactorEnabled">
+                <span>
+                  {{
+                  'AbpIdentity::DisplayName:TwoFactorEnabled' | abpLocalization
+                  }}
+                </span>
+              </label>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-tab>
+        <nz-tab nzTitle="{{'AbpIdentity::Roles' | abpLocalization}}">
+          <nz-form-item>
+            <nz-form-control *ngFor="let roleGroup of roleGroups; let i = index; trackBy: trackByFn">
+              <label nz-checkbox [formControl]="roleGroup.controls[roles[i].name]">
+                <span>
+                  {{ roles[i].name }}
+                </span>
+              </label>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-tab>
+      </nz-tabset>
+    </form>
+  </ng-template>
+
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="isModalVisible=false">
+      {{ 'AbpIdentity::Cancel' | abpLocalization }}
+    </button>
+    <button nz-button nzType="primary" (click)="save()" [disabled]="form?.invalid">
+      {{
+      'AbpIdentity::Save' | abpLocalization
+      }}
+    </button>
+  </ng-template>
+</nz-modal>
+<abp-permission-management [(visible)]="visiblePermissions" providerName="U" [providerKey]="providerKey">
+</abp-permission-management>
