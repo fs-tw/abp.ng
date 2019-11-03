@@ -8,10 +8,16 @@
     "nx.json": "*"
   },
   "projects": {
-    "alain": {
+    "ng-alain": {
       "tags": []
     },
-    "alain-app": {
+    "ng-alain-app": {
+      "tags": []
+    },
+    "ngx-admin": {
+      "tags": []
+    },
+    "ngx-admin-app": {
       "tags": []
     },
     "account": {
@@ -35,10 +41,22 @@
     "tenant-management": {
       "tags": []
     },
-    "ngx-admin": {
+    "cms": {
       "tags": []
     },
-    "ngx-admin-app": {
+    "common": {
+      "tags": []
+    },
+    "dynform": {
+      "tags": []
+    },
+    "ng-alain-ms": {
+      "tags": []
+    },
+    "ng-alain-ms-app": {
+      "tags": []
+    },
+    "dev": {
       "tags": []
     }
   }
