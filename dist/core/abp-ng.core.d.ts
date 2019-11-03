@@ -21,7 +21,7 @@ export { ApiInterceptor as ɵbi } from './lib/interceptors/api.interceptor';
 export { ABP as ɵl, Profile as ɵg } from './lib/models';
 export { LocalizationPipe as ɵy } from './lib/pipes/localization.pipe';
 export { SortPipe as ɵx } from './lib/pipes/sort.pipe';
-export { ConfigPlugin as ɵbh, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbg } from './lib/plugins/config.plugin';
+export { ConfigPlugin as ɵbh, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbg } from './lib/plugins/config/config.plugin';
 export { LocaleId as ɵbe, LocaleProvider as ɵbf } from './lib/providers/locale.provider';
 export { ApplicationConfigurationService as ɵn } from './lib/services/application-configuration.service';
 export { LocalizationService as ɵi } from './lib/services/localization.service';

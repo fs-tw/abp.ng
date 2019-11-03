@@ -1,15 +1,17 @@
-import { ConfigState, StartLoader, StopLoader, RestOccurError, LazyLoadService, CoreModule } from '@abp/ng.core';
-import { Component, EventEmitter, Renderer2, Input, Output, ViewChild, ElementRef, ChangeDetectorRef, Injectable, ɵɵdefineInjectable, ɵɵinject, ContentChild, ViewChildren, NgZone, ApplicationRef, ComponentFactoryResolver, RendererFactory2, Injector, INJECTOR, APP_INITIALIZER, NgModule } from '@angular/core';
+import { ConfigState, ChangePassword, StartLoader, StopLoader, GetProfile, UpdateProfile, ProfileState, RestOccurError, LazyLoadService, CoreModule } from '@abp/ng.core';
+import { Component, EventEmitter, Renderer2, Input, Output, ViewChild, Injectable, ɵɵdefineInjectable, ɵɵinject, ElementRef, ChangeDetectorRef, ContentChild, ViewChildren, NgZone, ApplicationRef, ComponentFactoryResolver, RendererFactory2, Injector, INJECTOR, APP_INITIALIZER, NgModule } from '@angular/core';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ToastModule } from 'primeng/toast';
-import { ReplaySubject, BehaviorSubject, Subject, fromEvent, interval, timer, forkJoin } from 'rxjs';
+import { Subject, ReplaySubject, BehaviorSubject, fromEvent, interval, timer, Observable, forkJoin } from 'rxjs';
 import { Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
-import { Store, ofActionSuccessful, Actions } from '@ngxs/store';
-import { takeUntil, debounceTime, filter } from 'rxjs/operators';
-import { takeUntilDestroy, NgxValidateCoreModule } from '@ngx-validate/core';
-import { animation, style, animate, trigger, transition, useAnimation, keyframes, state } from '@angular/animations';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Store, ofActionSuccessful, Actions, Select } from '@ngxs/store';
+import { Validators, FormBuilder } from '@angular/forms';
+import { comparePasswords, takeUntilDestroy, NgxValidateCoreModule } from '@ngx-validate/core';
 import snq from 'snq';
+import { finalize, takeUntil, debounceTime, filter, withLatestFrom, take } from 'rxjs/operators';
+import { animation, style, animate, trigger, transition, useAnimation, keyframes, state } from '@angular/animations';
+import { __decorate, __metadata } from 'tslib';
+import { HttpErrorResponse } from '@angular/common/http';
 
 /**
  * @fileoverview added by tsickle
@@ -132,30 +134,6 @@ class ButtonComponent {
             }));
         }
     }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    onClick(event) {
-        event.stopPropagation();
-        this.click.next(event);
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    onFocus(event) {
-        event.stopPropagation();
-        this.focus.next(event);
-    }
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    onBlur(event) {
-        event.stopPropagation();
-        this.blur.next(event);
-    }
 }
 ButtonComponent.decorators = [
     { type: Component, args: [{
@@ -167,9 +145,9 @@ ButtonComponent.decorators = [
       [attr.type]="buttonType || type"
       [ngClass]="buttonClass"
       [disabled]="loading || disabled"
-      (click)="onClick($event)"
-      (focus)="onFocus($event)"
-      (blur)="onBlur($event)"
+      (click)="click.emit($event)"
+      (focus)="focus.emit($event)"
+      (blur)="blur.emit($event)"
     >
       <i [ngClass]="icon" class="mr-1"></i><ng-content></ng-content>
     </button>
@@ -224,6 +202,291 @@ if (false) {
      * @private
      */
     ButtonComponent.prototype.renderer;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ * @template T
+ */
+class AbstractToaster {
+    /**
+     * @param {?} messageService
+     */
+    constructor(messageService) {
+        this.messageService = messageService;
+        this.key = 'abpToast';
+        this.sticky = false;
+    }
+    /**
+     * @param {?} message
+     * @param {?} title
+     * @param {?=} options
+     * @return {?}
+     */
+    info(message, title, options) {
+        return this.show(message, title, 'info', options);
+    }
+    /**
+     * @param {?} message
+     * @param {?} title
+     * @param {?=} options
+     * @return {?}
+     */
+    success(message, title, options) {
+        return this.show(message, title, 'success', options);
+    }
+    /**
+     * @param {?} message
+     * @param {?} title
+     * @param {?=} options
+     * @return {?}
+     */
+    warn(message, title, options) {
+        return this.show(message, title, 'warn', options);
+    }
+    /**
+     * @param {?} message
+     * @param {?} title
+     * @param {?=} options
+     * @return {?}
+     */
+    error(message, title, options) {
+        return this.show(message, title, 'error', options);
+    }
+    /**
+     * @protected
+     * @param {?} message
+     * @param {?} title
+     * @param {?} severity
+     * @param {?=} options
+     * @return {?}
+     */
+    show(message, title, severity, options) {
+        this.messageService.clear(this.key);
+        this.messageService.add(Object.assign({ severity, detail: message || '', summary: title || '' }, options, { key: this.key }, (typeof (options || ((/** @type {?} */ ({})))).sticky === 'undefined' && { sticky: this.sticky })));
+        this.status$ = new Subject();
+        return this.status$;
+    }
+    /**
+     * @param {?=} status
+     * @return {?}
+     */
+    clear(status) {
+        this.messageService.clear(this.key);
+        this.status$.next(status || "dismiss" /* dismiss */);
+        this.status$.complete();
+    }
+}
+if (false) {
+    /** @type {?} */
+    AbstractToaster.prototype.status$;
+    /** @type {?} */
+    AbstractToaster.prototype.key;
+    /** @type {?} */
+    AbstractToaster.prototype.sticky;
+    /**
+     * @type {?}
+     * @protected
+     */
+    AbstractToaster.prototype.messageService;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class ToasterService extends AbstractToaster {
+    /**
+     * @param {?} messages
+     * @return {?}
+     */
+    addAll(messages) {
+        this.messageService.addAll(messages.map((/**
+         * @param {?} message
+         * @return {?}
+         */
+        message => (Object.assign({ key: this.key }, message)))));
+    }
+}
+ToasterService.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root' },] }
+];
+/** @nocollapse */ ToasterService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ToasterService_Factory() { return new ToasterService(ɵɵinject(MessageService)); }, token: ToasterService, providedIn: "root" });
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+const { minLength, required } = Validators;
+/** @type {?} */
+const PASSWORD_FIELDS = ['newPassword', 'repeatNewPassword'];
+class ChangePasswordComponent {
+    /**
+     * @param {?} fb
+     * @param {?} store
+     * @param {?} toasterService
+     */
+    constructor(fb, store, toasterService) {
+        this.fb = fb;
+        this.store = store;
+        this.toasterService = toasterService;
+        this.visibleChange = new EventEmitter();
+        this.modalBusy = false;
+        this.mapErrorsFn = (/**
+         * @param {?} errors
+         * @param {?} groupErrors
+         * @param {?} control
+         * @return {?}
+         */
+        (errors, groupErrors, control) => {
+            if (PASSWORD_FIELDS.indexOf(control.name) < 0)
+                return errors;
+            return errors.concat(groupErrors.filter((/**
+             * @param {?} __0
+             * @return {?}
+             */
+            ({ key }) => key === 'passwordMismatch')));
+        });
+    }
+    /**
+     * @return {?}
+     */
+    get visible() {
+        return this._visible;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set visible(value) {
+        this._visible = value;
+        this.visibleChange.emit(value);
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this.form = this.fb.group({
+            password: ['', required],
+            newPassword: ['', required],
+            repeatNewPassword: ['', required],
+        }, {
+            validators: [comparePasswords(PASSWORD_FIELDS)],
+        });
+    }
+    /**
+     * @return {?}
+     */
+    onSubmit() {
+        if (this.form.invalid)
+            return;
+        this.modalBusy = true;
+        this.store
+            .dispatch(new ChangePassword({
+            currentPassword: this.form.get('password').value,
+            newPassword: this.form.get('newPassword').value,
+        }))
+            .pipe(finalize((/**
+         * @return {?}
+         */
+        () => {
+            this.modalBusy = false;
+        })))
+            .subscribe({
+            next: (/**
+             * @return {?}
+             */
+            () => {
+                this.visible = false;
+                this.form.reset();
+            }),
+            error: (/**
+             * @param {?} err
+             * @return {?}
+             */
+            err => {
+                this.toasterService.error(snq((/**
+                 * @return {?}
+                 */
+                () => err.error.error.message), 'AbpAccount::DefaultErrorMessage'), 'Error', {
+                    life: 7000,
+                });
+            }),
+        });
+    }
+    /**
+     * @return {?}
+     */
+    openModal() {
+        this.visible = true;
+    }
+    /**
+     * @param {?} __0
+     * @return {?}
+     */
+    ngOnChanges({ visible }) {
+        if (!visible)
+            return;
+        if (visible.currentValue) {
+            this.openModal();
+        }
+        else if (visible.currentValue === false && this.visible) {
+            this.visible = false;
+        }
+    }
+}
+ChangePasswordComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-change-password',
+                template: "<abp-modal [(visible)]=\"visible\" [busy]=\"modalBusy\">\r\n  <ng-template #abpHeader>\r\n    <h4>{{ 'AbpIdentity::ChangePassword' | abpLocalization }}</h4>\r\n  </ng-template>\r\n  <ng-template #abpBody>\r\n    <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\" [mapErrorsFn]=\"mapErrorsFn\">\r\n      <div class=\"form-group\">\r\n        <label for=\"current-password\">{{ 'AbpIdentity::DisplayName:CurrentPassword' | abpLocalization }}</label\r\n        ><span> * </span\r\n        ><input type=\"password\" id=\"current-password\" class=\"form-control\" formControlName=\"password\" autofocus />\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"new-password\">{{ 'AbpIdentity::DisplayName:NewPassword' | abpLocalization }}</label\r\n        ><span> * </span><input type=\"password\" id=\"new-password\" class=\"form-control\" formControlName=\"newPassword\" />\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"confirm-new-password\">{{ 'AbpIdentity::DisplayName:NewPasswordConfirm' | abpLocalization }}</label\r\n        ><span> * </span\r\n        ><input type=\"password\" id=\"confirm-new-password\" class=\"form-control\" formControlName=\"repeatNewPassword\" />\r\n      </div>\r\n    </form>\r\n  </ng-template>\r\n  <ng-template #abpFooter>\r\n    <button type=\"button\" class=\"btn btn-secondary color-white\" #abpClose>\r\n      {{ 'AbpIdentity::Cancel' | abpLocalization }}\r\n    </button>\r\n    <abp-button iconClass=\"fa fa-check\" buttonClass=\"btn btn-primary color-white\" (click)=\"onSubmit()\">{{\r\n      'AbpIdentity::Save' | abpLocalization\r\n    }}</abp-button>\r\n  </ng-template>\r\n</abp-modal>\r\n"
+            }] }
+];
+/** @nocollapse */
+ChangePasswordComponent.ctorParameters = () => [
+    { type: FormBuilder },
+    { type: Store },
+    { type: ToasterService }
+];
+ChangePasswordComponent.propDecorators = {
+    visible: [{ type: Input }],
+    visibleChange: [{ type: Output }],
+    modalContent: [{ type: ViewChild, args: ['modalContent', { static: false },] }]
+};
+if (false) {
+    /**
+     * @type {?}
+     * @protected
+     */
+    ChangePasswordComponent.prototype._visible;
+    /** @type {?} */
+    ChangePasswordComponent.prototype.visibleChange;
+    /** @type {?} */
+    ChangePasswordComponent.prototype.modalContent;
+    /** @type {?} */
+    ChangePasswordComponent.prototype.form;
+    /** @type {?} */
+    ChangePasswordComponent.prototype.modalBusy;
+    /** @type {?} */
+    ChangePasswordComponent.prototype.mapErrorsFn;
+    /**
+     * @type {?}
+     * @private
+     */
+    ChangePasswordComponent.prototype.fb;
+    /**
+     * @type {?}
+     * @private
+     */
+    ChangePasswordComponent.prototype.store;
+    /**
+     * @type {?}
+     * @private
+     */
+    ChangePasswordComponent.prototype.toasterService;
 }
 
 /**
@@ -464,97 +727,6 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/**
- * @abstract
- * @template T
- */
-class AbstractToaster {
-    /**
-     * @param {?} messageService
-     */
-    constructor(messageService) {
-        this.messageService = messageService;
-        this.key = 'abpToast';
-        this.sticky = false;
-    }
-    /**
-     * @param {?} message
-     * @param {?} title
-     * @param {?=} options
-     * @return {?}
-     */
-    info(message, title, options) {
-        return this.show(message, title, 'info', options);
-    }
-    /**
-     * @param {?} message
-     * @param {?} title
-     * @param {?=} options
-     * @return {?}
-     */
-    success(message, title, options) {
-        return this.show(message, title, 'success', options);
-    }
-    /**
-     * @param {?} message
-     * @param {?} title
-     * @param {?=} options
-     * @return {?}
-     */
-    warn(message, title, options) {
-        return this.show(message, title, 'warn', options);
-    }
-    /**
-     * @param {?} message
-     * @param {?} title
-     * @param {?=} options
-     * @return {?}
-     */
-    error(message, title, options) {
-        return this.show(message, title, 'error', options);
-    }
-    /**
-     * @protected
-     * @param {?} message
-     * @param {?} title
-     * @param {?} severity
-     * @param {?=} options
-     * @return {?}
-     */
-    show(message, title, severity, options) {
-        this.messageService.clear(this.key);
-        this.messageService.add(Object.assign({ severity, detail: message || '', summary: title || '' }, options, { key: this.key }, (typeof (options || ((/** @type {?} */ ({})))).sticky === 'undefined' && { sticky: this.sticky })));
-        this.status$ = new Subject();
-        return this.status$;
-    }
-    /**
-     * @param {?=} status
-     * @return {?}
-     */
-    clear(status) {
-        this.messageService.clear(this.key);
-        this.status$.next(status || "dismiss" /* dismiss */);
-        this.status$.complete();
-    }
-}
-if (false) {
-    /** @type {?} */
-    AbstractToaster.prototype.status$;
-    /** @type {?} */
-    AbstractToaster.prototype.key;
-    /** @type {?} */
-    AbstractToaster.prototype.sticky;
-    /**
-     * @type {?}
-     * @protected
-     */
-    AbstractToaster.prototype.messageService;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 class ConfirmationService extends AbstractToaster {
     /**
      * @param {?} messageService
@@ -734,7 +906,7 @@ ErrorComponent.decorators = [
     { type: Component, args: [{
                 selector: 'abp-error',
                 template: "<div class=\"error\">\r\n  <button id=\"abp-close-button mr-3\" type=\"button\" class=\"close\" (click)=\"destroy()\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n  <div class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>\r\n          {{ title | abpLocalization }}\r\n        </h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a (click)=\"destroy()\" routerLink=\"/\" class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
-                styles: [".error{position:fixed;top:0;background-color:#fff;width:100vw;height:100vh;z-index:999999}.centered{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%)}"]
+                styles: [".error{position:fixed;top:0;background-color:#fff;width:100vw;height:100vh;z-index:999999}.centered{position:fixed;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}"]
             }] }
 ];
 if (false) {
@@ -873,7 +1045,7 @@ LoaderBarComponent.decorators = [
       ></div>
     </div>
   `,
-                styles: [".abp-loader-bar{left:0;opacity:0;position:fixed;top:0;transition:opacity .4s linear .4s;z-index:99999}.abp-loader-bar.is-loading{opacity:1;transition:none}.abp-loader-bar .abp-progress{height:3px;left:0;position:fixed;top:0;transition:width .4s}"]
+                styles: [".abp-loader-bar{left:0;opacity:0;position:fixed;top:0;-webkit-transition:opacity .4s linear .4s;transition:opacity .4s linear .4s;z-index:99999}.abp-loader-bar.is-loading{opacity:1;-webkit-transition:none;transition:none}.abp-loader-bar .abp-progress{height:3px;left:0;position:fixed;top:0;-webkit-transition:width .4s;transition:width .4s}"]
             }] }
 ];
 /** @nocollapse */
@@ -1235,6 +1407,140 @@ function hasNgDirty(nodes) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+const { maxLength, required: required$1, email } = Validators;
+class ProfileComponent {
+    /**
+     * @param {?} fb
+     * @param {?} store
+     */
+    constructor(fb, store) {
+        this.fb = fb;
+        this.store = store;
+        this.visibleChange = new EventEmitter();
+        this.modalBusy = false;
+    }
+    /**
+     * @return {?}
+     */
+    get visible() {
+        return this._visible;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set visible(value) {
+        this._visible = value;
+        this.visibleChange.emit(value);
+    }
+    /**
+     * @return {?}
+     */
+    buildForm() {
+        this.store
+            .dispatch(new GetProfile())
+            .pipe(withLatestFrom(this.profile$), take(1))
+            .subscribe((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        ([, profile]) => {
+            this.form = this.fb.group({
+                userName: [profile.userName, [required$1, maxLength(256)]],
+                email: [profile.email, [required$1, email, maxLength(256)]],
+                name: [profile.name || '', [maxLength(64)]],
+                surname: [profile.surname || '', [maxLength(64)]],
+                phoneNumber: [profile.phoneNumber || '', [maxLength(16)]]
+            });
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    submit() {
+        if (this.form.invalid)
+            return;
+        this.modalBusy = true;
+        this.store.dispatch(new UpdateProfile(this.form.value)).subscribe((/**
+         * @return {?}
+         */
+        () => {
+            this.modalBusy = false;
+            this.visible = false;
+            this.form.reset();
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    openModal() {
+        this.buildForm();
+        this.visible = true;
+    }
+    /**
+     * @param {?} __0
+     * @return {?}
+     */
+    ngOnChanges({ visible }) {
+        if (!visible)
+            return;
+        if (visible.currentValue) {
+            this.openModal();
+        }
+        else if (visible.currentValue === false && this.visible) {
+            this.visible = false;
+        }
+    }
+}
+ProfileComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-profile',
+                template: "<abp-modal [(visible)]=\"visible\" [busy]=\"modalBusy\">\r\n  <ng-template #abpHeader>\r\n    <h4>{{ 'AbpIdentity::PersonalInfo' | abpLocalization }}</h4>\r\n  </ng-template>\r\n  <ng-template #abpBody>\r\n    <form novalidate *ngIf=\"form\" [formGroup]=\"form\" (ngSubmit)=\"submit()\">\r\n      <div class=\"form-group\">\r\n        <label for=\"username\">{{ 'AbpIdentity::DisplayName:UserName' | abpLocalization }}</label\r\n        ><span> * </span><input type=\"text\" id=\"username\" class=\"form-control\" formControlName=\"userName\" autofocus />\r\n      </div>\r\n      <div class=\"row\">\r\n        <div class=\"col col-md-6\">\r\n          <div class=\"form-group\">\r\n            <label for=\"name\">{{ 'AbpIdentity::DisplayName:Name' | abpLocalization }}</label\r\n            ><input type=\"text\" id=\"name\" class=\"form-control\" formControlName=\"name\" />\r\n          </div>\r\n        </div>\r\n        <div class=\"col col-md-6\">\r\n          <div class=\"form-group\">\r\n            <label for=\"surname\">{{ 'AbpIdentity::DisplayName:Surname' | abpLocalization }}</label\r\n            ><input type=\"text\" id=\"surname\" class=\"form-control\" formControlName=\"surname\" />\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"email-address\">{{ 'AbpIdentity::DisplayName:Email' | abpLocalization }}</label\r\n        ><span> * </span><input type=\"text\" id=\"email-address\" class=\"form-control\" formControlName=\"email\" />\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"phone-number\">{{ 'AbpIdentity::DisplayName:PhoneNumber' | abpLocalization }}</label\r\n        ><input type=\"text\" id=\"phone-number\" class=\"form-control\" formControlName=\"phoneNumber\" />\r\n      </div>\r\n    </form>\r\n  </ng-template>\r\n  <ng-template #abpFooter>\r\n    <button #abpClose type=\"button\" class=\"btn btn-secondary color-white\">\r\n      {{ 'AbpIdentity::Cancel' | abpLocalization }}\r\n    </button>\r\n    <abp-button iconClass=\"fa fa-check\" buttonClass=\"btn btn-primary color-white\" (click)=\"submit()\">{{ 'AbpIdentity::Save' | abpLocalization }}</abp-button>\r\n  </ng-template>\r\n</abp-modal>\r\n"
+            }] }
+];
+/** @nocollapse */
+ProfileComponent.ctorParameters = () => [
+    { type: FormBuilder },
+    { type: Store }
+];
+ProfileComponent.propDecorators = {
+    visible: [{ type: Input }],
+    visibleChange: [{ type: Output }]
+};
+__decorate([
+    Select(ProfileState.getProfile),
+    __metadata("design:type", Observable)
+], ProfileComponent.prototype, "profile$", void 0);
+if (false) {
+    /**
+     * @type {?}
+     * @protected
+     */
+    ProfileComponent.prototype._visible;
+    /** @type {?} */
+    ProfileComponent.prototype.visibleChange;
+    /** @type {?} */
+    ProfileComponent.prototype.profile$;
+    /** @type {?} */
+    ProfileComponent.prototype.form;
+    /** @type {?} */
+    ProfileComponent.prototype.modalBusy;
+    /**
+     * @type {?}
+     * @private
+     */
+    ProfileComponent.prototype.fb;
+    /**
+     * @type {?}
+     * @private
+     */
+    ProfileComponent.prototype.store;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 class ToastComponent {
 }
 ToastComponent.decorators = [
@@ -1401,18 +1707,6 @@ var styles = `
   min-width: 215px;
 }
 
-.ui-table-scrollable-body::-webkit-scrollbar {
-  height: 5px !important;
-}
-
-.ui-table-scrollable-body::-webkit-scrollbar-track {
-  background: #ddd;
-}
-
-.ui-table-scrollable-body::-webkit-scrollbar-thumb {
-  background: #8a8686;
-}
-
 .modal.show {
   display: block !important;
 }
@@ -1567,35 +1861,6 @@ var styles = `
   animation: fadeOutTop 0.2s ease-in-out;
 }
 
-.abp-collapsed-height {
-  -moz-transition: max-height linear 0.35s;
-  -ms-transition: max-height linear 0.35s;
-  -o-transition: max-height linear 0.35s;
-  -webkit-transition: max-height linear 0.35s;
-  overflow:hidden;
-  transition:max-height 0.35s linear;
-  height:auto;
-  max-height: 0;
-}
-
-.abp-mh-25 {
-  max-height: 25vh;
-}
-
-.abp-mh-50 {
-  transition:max-height 0.65s linear;
-  max-height: 50vh;
-}
-
-.abp-mh-75 {
-  transition:max-height 0.85s linear;
-  max-height: 75vh;
-}
-
-.abp-mh-100 {
-  transition:max-height 1s linear;
-  max-height: 100vh;
-}
 
 @keyframes fadeInTop {
   from {
@@ -1951,11 +2216,13 @@ ThemeSharedModule.decorators = [
                 declarations: [
                     BreadcrumbComponent,
                     ButtonComponent,
+                    ChangePasswordComponent,
                     ChartComponent,
                     ConfirmationComponent,
                     ErrorComponent,
                     LoaderBarComponent,
                     ModalComponent,
+                    ProfileComponent,
                     TableEmptyMessageComponent,
                     ToastComponent,
                     SortOrderIconComponent,
@@ -1963,10 +2230,12 @@ ThemeSharedModule.decorators = [
                 exports: [
                     BreadcrumbComponent,
                     ButtonComponent,
+                    ChangePasswordComponent,
                     ChartComponent,
                     ConfirmationComponent,
                     LoaderBarComponent,
                     ModalComponent,
+                    ProfileComponent,
                     TableEmptyMessageComponent,
                     ToastComponent,
                     SortOrderIconComponent,
@@ -2003,53 +2272,29 @@ const bounceIn = animation([
 /** @type {?} */
 const collapseY = animation([
     style({ height: '*', overflow: 'hidden', 'box-sizing': 'border-box' }),
-    animate('{{ time }} {{ easing }}', style({ height: '0', padding: '0px' })),
+    animate('{{ time }} {{ easing }}', style({ height: '0', padding: '0px' }))
 ], { params: { time: '350ms', easing: 'ease' } });
-/** @type {?} */
-const collapseYWithMargin = animation([style({ 'margin-top': '0' }), animate('{{ time }} {{ easing }}', style({ 'margin-top': '-100%' }))], {
-    params: { time: '500ms', easing: 'ease' },
-});
 /** @type {?} */
 const collapseX = animation([
     style({ width: '*', overflow: 'hidden', 'box-sizing': 'border-box' }),
-    animate('{{ time }} {{ easing }}', style({ width: '0', padding: '0px' })),
+    animate('{{ time }} {{ easing }}', style({ width: '0', padding: '0px' }))
 ], { params: { time: '350ms', easing: 'ease' } });
 /** @type {?} */
 const expandY = animation([
     style({ height: '0', overflow: 'hidden', 'box-sizing': 'border-box' }),
-    animate('{{ time }} {{ easing }}', style({ height: '*', padding: '*' })),
+    animate('{{ time }} {{ easing }}', style({ height: '*', padding: '*' }))
 ], { params: { time: '350ms', easing: 'ease' } });
-/** @type {?} */
-const expandYWithMargin = animation([style({ 'margin-top': '-100%' }), animate('{{ time }} {{ easing }}', style({ 'margin-top': '0' }))], {
-    params: { time: '500ms', easing: 'ease' },
-});
 /** @type {?} */
 const expandX = animation([
     style({ width: '0', overflow: 'hidden', 'box-sizing': 'border-box' }),
-    animate('{{ time }} {{ easing }}', style({ width: '*', padding: '*' })),
+    animate('{{ time }} {{ easing }}', style({ width: '*', padding: '*' }))
 ], { params: { time: '350ms', easing: 'ease' } });
 /** @type {?} */
 const collapse = trigger('collapse', [
     state('collapsed', style({ height: '0', overflow: 'hidden' })),
     state('expanded', style({ height: '*', overflow: 'hidden' })),
     transition('expanded => collapsed', useAnimation(collapseY)),
-    transition('collapsed => expanded', useAnimation(expandY)),
-]);
-/** @type {?} */
-const collapseWithMargin = trigger('collapseWithMargin', [
-    state('collapsed', style({ 'margin-top': '-100%' })),
-    state('expanded', style({ 'margin-top': '0' })),
-    transition('expanded => collapsed', useAnimation(collapseYWithMargin), {
-        params: { time: '400ms', easing: 'linear' },
-    }),
-    transition('collapsed => expanded', useAnimation(expandYWithMargin)),
-]);
-/** @type {?} */
-const collapseLinearWithMargin = trigger('collapseLinearWithMargin', [
-    state('collapsed', style({ 'margin-top': '-100%' })),
-    state('expanded', style({ 'margin-top': '0' })),
-    transition('expanded => collapsed', useAnimation(collapseYWithMargin, { params: { time: '200ms', easing: 'linear' } })),
-    transition('collapsed => expanded', useAnimation(expandYWithMargin, { params: { time: '250ms', easing: 'linear' } })),
+    transition('collapsed => expanded', useAnimation(expandY))
 ]);
 
 /**
@@ -2205,23 +2450,6 @@ var Toaster;
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class ToasterService extends AbstractToaster {
-    /**
-     * @param {?} messages
-     * @return {?}
-     */
-    addAll(messages) {
-        this.messageService.addAll(messages.map((/**
-         * @param {?} message
-         * @return {?}
-         */
-        message => (Object.assign({ key: this.key }, message)))));
-    }
-}
-ToasterService.decorators = [
-    { type: Injectable, args: [{ providedIn: 'root' },] }
-];
-/** @nocollapse */ ToasterService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ToasterService_Factory() { return new ToasterService(ɵɵinject(MessageService)); }, token: ToasterService, providedIn: "root" });
 
 /**
  * @fileoverview added by tsickle
@@ -2238,10 +2466,5 @@ ToasterService.decorators = [
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-export { BreadcrumbComponent, ButtonComponent, ChartComponent, ConfirmationComponent, ConfirmationService, LoaderBarComponent, ModalComponent, SortOrderIconComponent, TableEmptyMessageComponent, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, ChartComponent as ɵc, ConfirmationComponent as ɵd, ConfirmationService as ɵe, AbstractToaster as ɵf, ErrorComponent as ɵg, LoaderBarComponent as ɵh, ModalComponent as ɵi, fadeAnimation as ɵj, dialogAnimation as ɵk, fadeIn as ɵl, fadeOut as ɵm, fadeInDown as ɵn, TableEmptyMessageComponent as ɵo, ToastComponent as ɵp, SortOrderIconComponent as ɵq, ErrorHandler as ɵr };
+export { BreadcrumbComponent, ButtonComponent, ChangePasswordComponent, ChartComponent, ConfirmationComponent, ConfirmationService, LoaderBarComponent, ModalComponent, ProfileComponent, SortOrderIconComponent, TableEmptyMessageComponent, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseX, collapseY, dialogAnimation, expandX, expandY, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, ChangePasswordComponent as ɵc, ToasterService as ɵd, AbstractToaster as ɵe, ChartComponent as ɵf, ConfirmationComponent as ɵg, ConfirmationService as ɵh, ErrorComponent as ɵi, LoaderBarComponent as ɵj, ModalComponent as ɵk, fadeAnimation as ɵl, dialogAnimation as ɵm, fadeIn as ɵn, fadeOut as ɵo, fadeInDown as ɵp, ProfileComponent as ɵq, TableEmptyMessageComponent as ɵr, ToastComponent as ɵs, SortOrderIconComponent as ɵt, ErrorHandler as ɵu };
 //# sourceMappingURL=abp-ng.theme.shared.js.map

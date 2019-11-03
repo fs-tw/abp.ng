@@ -1,5 +1,5 @@
 import { NgModule, Injectable } from '@angular/core';
-import {  CoreModule as NgxAdminCoreModule } from '@fs/ngx-admin';
+import { CoreModule as NgxAdminCoreModule } from '@fs/ngx-admin';
 import { HttpClient } from '@angular/common/http'; import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { LAYOUTS } from '@abp/ng.theme.basic';
@@ -13,53 +13,55 @@ import { AccountConfigModule, AccountConfigService } from '@abp/ng.account.confi
 import { IdentityConfigModule } from '@abp/ng.identity.config';
 import { TenantManagementConfigModule } from '@abp/ng.tenant-management.config';
 import { SettingManagementConfigModule } from '@abp/ng.setting-management.config';
-import { ApplicationLayoutComponent} from '@fs/ngx-admin/basic';
+import { ApplicationLayoutComponent } from '@fs/ngx-admin/basic';
 import { Router } from '@angular/router';
 import { ThemeModule } from '@fs/ngx-admin';
 import { NbSidebarModule, NbMenuModule, NbDatepickerModule, NbDialogModule, NbWindowModule, NbToastrModule, NbChatModule } from '@nebular/theme';
 import { NbAuthComponent, NbAuthModule } from '@nebular/auth';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 
 
 const NgxAdminLayouts = [ApplicationLayoutComponent, ApplicationLayoutComponent, ApplicationLayoutComponent];
 
 @NgModule({
-    declarations: [
+  declarations: [
 
-    ],
-    imports: [
-        //abp
-        AbpCoreModule.forRoot({
-            environment,
-            requirements: {
-                layouts: NgxAdminLayouts,
-            },
-        }),
-        ThemeSharedModule.forRoot(),
-        AccountConfigModule.forRoot({ redirectUrl: '/' }),
-        IdentityConfigModule,
-        TenantManagementConfigModule,
-        SettingManagementConfigModule,
-        OAuthModule.forRoot(),
-        NgxsModule.forRoot([]),
+  ],
+  imports: [
+    //abp
+    AbpCoreModule.forRoot({
+      environment,
+      requirements: {
+        layouts: NgxAdminLayouts,
+      },
+    }),
+    ThemeSharedModule.forRoot(),
+    AccountConfigModule.forRoot({ redirectUrl: '/' }),
+    IdentityConfigModule,
+    TenantManagementConfigModule,
+    SettingManagementConfigModule,
+    OAuthModule.forRoot(),
+    NgxsModule.forRoot([]),
 
-        NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
 
-        //ngx-admin
-        ThemeModule.forRoot(),
-        NbSidebarModule.forRoot(),
-        NbMenuModule.forRoot(),
-        NbDatepickerModule.forRoot(),
-        NbDialogModule.forRoot(),
-        NbWindowModule.forRoot(),
-        NbToastrModule.forRoot(),
-        NbChatModule.forRoot({
-            messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
-        }),
-        NgxAdminCoreModule.forRoot(),
-        //modules
-    ],
-    exports: [
-    ]
+    //ngx-admin
+    ThemeModule.forRoot(),
+    NbSidebarModule.forRoot(),
+    NbMenuModule.forRoot(),
+    NbDatepickerModule.forRoot(),
+    NbDialogModule.forRoot(),
+    NbWindowModule.forRoot(),
+    NbToastrModule.forRoot(),
+    NbChatModule.forRoot({
+      messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
+    }),
+    NgxAdminCoreModule.forRoot(),
+    NbEvaIconsModule
+    //modules
+  ],
+  exports: [
+  ]
 })
 export class CoreModule { }

@@ -354,7 +354,8 @@
               "node_modules/angular-tree-component/dist/angular-tree-component.css",
               "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
               "node_modules/leaflet/dist/leaflet.css",
-              "apps/ngx-admin-app/src/app/@theme/styles/styles.scss"
+              "apps/ngx-admin-app/src/app/@theme/styles/styles.scss",
+              "node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": [
               "node_modules/pace-js/pace.min.js",
