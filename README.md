@@ -1,5 +1,9 @@
 # [Abp](https://github.com/abpframework/abp)+[ng-alain](https://ng-alain.github.io/ng-alain/#/dashboard/v1) by [Nx](https://nx.dev)
 
+- git submodule update --init --recursive
+
+
+
 This project was generated using [Nx](https://nx.dev).
 
 <p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
