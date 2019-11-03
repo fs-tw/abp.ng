@@ -1,6 +1,9 @@
 {
   "name": "@fs/ngx-admin",
   "version": "0.0.1",
+  "peerDependencies": {
+
+  },
   "dependencies": {
     "@agm/core": "^1.0.0-beta.5",
     "@angular/animations": "^8.0.0",
@@ -47,7 +50,9 @@
     "tslib": "^1.9.0",
     "typeface-exo": "0.0.22",
     "web-animations-js": "github:angular/web-animations-js#release_pr208",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+
+    "@types/googlemaps": "^3.30.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.800.2",

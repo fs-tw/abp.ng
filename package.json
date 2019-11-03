@@ -29,9 +29,6 @@
   },
   "private": true,
   "dependencies": {
-    "@fs/dev": "file:themes/dev",
-    "@fs/ng-alain": "file:themes/ng-alain",
-    "@fs/ngx-admin": "file:themes/ngx-admin",
     "@nrwl/angular": "^8.7.0",
     "tslib": "^1.10.0",
     "@angular/animations": "^8.2.8",
@@ -43,10 +40,13 @@
     "@angular/platform-browser-dynamic": "^8.2.8",
     "@angular/router": "^8.2.8",
     "core-js": "^2.5.4",
-    "rxjs": "~6.5.3",
+    "rxjs": "6.5.2",
     "zone.js": "^0.9.1"
   },
   "devDependencies": {
+    "@fs/dev": "file:themes/dev",
+    "@fs/ng-alain": "file:themes/ng-alain",
+    "@fs/ngx-admin": "file:themes/ngx-admin",
     "@angular-devkit/build-angular": "~0.803.3",
     "@angular-devkit/build-ng-packagr": "~0.803.3",
     "@angular/cli": "8.3.3",
