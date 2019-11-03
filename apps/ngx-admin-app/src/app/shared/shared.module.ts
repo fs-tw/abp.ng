@@ -21,8 +21,8 @@ import { NgxAdminBasicModule} from '@fs/ngx-admin/basic'
         TableModule,
         NgbDropdownModule,
         //ngx-admin
-        NgxAdminBasicModule
-        //ThemeModule
+        NgxAdminBasicModule,
+        ThemeModule
         
 
     ],
@@ -34,8 +34,8 @@ import { NgxAdminBasicModule} from '@fs/ngx-admin/basic'
         TableModule,
         NgbDropdownModule,
         //ngx-admin
-        NgxAdminBasicModule
-        //ThemeModule
+        NgxAdminBasicModule,
+        ThemeModule
         
 
     ],

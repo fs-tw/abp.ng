@@ -2614,6 +2614,7 @@ var VisibilityDirective = /** @class */ (function () {
     function VisibilityDirective(elRef, renderer) {
         this.elRef = elRef;
         this.renderer = renderer;
+        this.mutationObserverEnabled = true;
         this.completed$ = new Subject();
     }
     /**
@@ -2629,51 +2630,64 @@ var VisibilityDirective = /** @class */ (function () {
         }
         /** @type {?} */
         var observer;
-        observer = new MutationObserver((/**
-         * @param {?} mutations
-         * @return {?}
-         */
-        function (mutations) {
-            mutations.forEach((/**
-             * @param {?} mutation
+        if (this.mutationObserverEnabled) {
+            observer = new MutationObserver((/**
+             * @param {?} mutations
              * @return {?}
              */
-            function (mutation) {
-                if (!mutation.target)
-                    return;
+            function (mutations) {
+                mutations.forEach((/**
+                 * @param {?} mutation
+                 * @return {?}
+                 */
+                function (mutation) {
+                    if (!mutation.target)
+                        return;
+                    /** @type {?} */
+                    var htmlNodes = snq((/**
+                     * @return {?}
+                     */
+                    function () { return Array.from(mutation.target.childNodes).filter((/**
+                     * @param {?} node
+                     * @return {?}
+                     */
+                    function (node) { return node instanceof HTMLElement; })); }), []);
+                    if (!htmlNodes.length) {
+                        _this.removeFromDOM();
+                        _this.disconnect();
+                    }
+                    else {
+                        setTimeout((/**
+                         * @return {?}
+                         */
+                        function () {
+                            _this.disconnect();
+                        }), 0);
+                    }
+                }));
+            }));
+            observer.observe(this.focusedElement, {
+                childList: true,
+            });
+        }
+        else {
+            setTimeout((/**
+             * @return {?}
+             */
+            function () {
                 /** @type {?} */
                 var htmlNodes = snq((/**
                  * @return {?}
                  */
-                function () { return Array.from(mutation.target.childNodes).filter((/**
+                function () { return Array.from(_this.focusedElement.childNodes).filter((/**
                  * @param {?} node
                  * @return {?}
                  */
                 function (node) { return node instanceof HTMLElement; })); }), []);
-                if (!htmlNodes.length) {
+                if (!htmlNodes.length)
                     _this.removeFromDOM();
-                }
-            }));
-        }));
-        observer.observe(this.focusedElement, {
-            childList: true,
-        });
-        setTimeout((/**
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
-            var htmlNodes = snq((/**
-             * @return {?}
-             */
-            function () { return Array.from(_this.focusedElement.childNodes).filter((/**
-             * @param {?} node
-             * @return {?}
-             */
-            function (node) { return node instanceof HTMLElement; })); }), []);
-            if (!htmlNodes.length)
-                _this.removeFromDOM();
-        }), 0);
+            }), 0);
+        }
         this.completed$.subscribe((/**
          * @return {?}
          */
@@ -2696,10 +2710,7 @@ var VisibilityDirective = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (!this.elRef.nativeElement)
-            return;
         this.renderer.removeChild(this.elRef.nativeElement.parentElement, this.elRef.nativeElement);
-        this.disconnect();
     };
     VisibilityDirective.decorators = [
         { type: Directive, args: [{
@@ -2712,13 +2723,16 @@ var VisibilityDirective = /** @class */ (function () {
         { type: Renderer2 }
     ]; };
     VisibilityDirective.propDecorators = {
-        focusedElement: [{ type: Input, args: ['abpVisibility',] }]
+        focusedElement: [{ type: Input, args: ['abpVisibility',] }],
+        mutationObserverEnabled: [{ type: Input }]
     };
     return VisibilityDirective;
 }());
 if (false) {
     /** @type {?} */
     VisibilityDirective.prototype.focusedElement;
+    /** @type {?} */
+    VisibilityDirective.prototype.mutationObserverEnabled;
     /** @type {?} */
     VisibilityDirective.prototype.completed$;
     /**

@@ -2381,6 +2381,7 @@ class VisibilityDirective {
     constructor(elRef, renderer) {
         this.elRef = elRef;
         this.renderer = renderer;
+        this.mutationObserverEnabled = true;
         this.completed$ = new Subject();
     }
     /**
@@ -2392,51 +2393,64 @@ class VisibilityDirective {
         }
         /** @type {?} */
         let observer;
-        observer = new MutationObserver((/**
-         * @param {?} mutations
-         * @return {?}
-         */
-        mutations => {
-            mutations.forEach((/**
-             * @param {?} mutation
+        if (this.mutationObserverEnabled) {
+            observer = new MutationObserver((/**
+             * @param {?} mutations
              * @return {?}
              */
-            mutation => {
-                if (!mutation.target)
-                    return;
+            mutations => {
+                mutations.forEach((/**
+                 * @param {?} mutation
+                 * @return {?}
+                 */
+                mutation => {
+                    if (!mutation.target)
+                        return;
+                    /** @type {?} */
+                    const htmlNodes = snq((/**
+                     * @return {?}
+                     */
+                    () => Array.from(mutation.target.childNodes).filter((/**
+                     * @param {?} node
+                     * @return {?}
+                     */
+                    node => node instanceof HTMLElement))), []);
+                    if (!htmlNodes.length) {
+                        this.removeFromDOM();
+                        this.disconnect();
+                    }
+                    else {
+                        setTimeout((/**
+                         * @return {?}
+                         */
+                        () => {
+                            this.disconnect();
+                        }), 0);
+                    }
+                }));
+            }));
+            observer.observe(this.focusedElement, {
+                childList: true,
+            });
+        }
+        else {
+            setTimeout((/**
+             * @return {?}
+             */
+            () => {
                 /** @type {?} */
                 const htmlNodes = snq((/**
                  * @return {?}
                  */
-                () => Array.from(mutation.target.childNodes).filter((/**
+                () => Array.from(this.focusedElement.childNodes).filter((/**
                  * @param {?} node
                  * @return {?}
                  */
                 node => node instanceof HTMLElement))), []);
-                if (!htmlNodes.length) {
+                if (!htmlNodes.length)
                     this.removeFromDOM();
-                }
-            }));
-        }));
-        observer.observe(this.focusedElement, {
-            childList: true,
-        });
-        setTimeout((/**
-         * @return {?}
-         */
-        () => {
-            /** @type {?} */
-            const htmlNodes = snq((/**
-             * @return {?}
-             */
-            () => Array.from(this.focusedElement.childNodes).filter((/**
-             * @param {?} node
-             * @return {?}
-             */
-            node => node instanceof HTMLElement))), []);
-            if (!htmlNodes.length)
-                this.removeFromDOM();
-        }), 0);
+            }), 0);
+        }
         this.completed$.subscribe((/**
          * @return {?}
          */
@@ -2453,10 +2467,7 @@ class VisibilityDirective {
      * @return {?}
      */
     removeFromDOM() {
-        if (!this.elRef.nativeElement)
-            return;
         this.renderer.removeChild(this.elRef.nativeElement.parentElement, this.elRef.nativeElement);
-        this.disconnect();
     }
 }
 VisibilityDirective.decorators = [
@@ -2470,11 +2481,14 @@ VisibilityDirective.ctorParameters = () => [
     { type: Renderer2 }
 ];
 VisibilityDirective.propDecorators = {
-    focusedElement: [{ type: Input, args: ['abpVisibility',] }]
+    focusedElement: [{ type: Input, args: ['abpVisibility',] }],
+    mutationObserverEnabled: [{ type: Input }]
 };
 if (false) {
     /** @type {?} */
     VisibilityDirective.prototype.focusedElement;
+    /** @type {?} */
+    VisibilityDirective.prototype.mutationObserverEnabled;
     /** @type {?} */
     VisibilityDirective.prototype.completed$;
     /**

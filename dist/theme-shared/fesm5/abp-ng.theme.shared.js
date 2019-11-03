@@ -1,16 +1,17 @@
-import { ConfigState, StartLoader, StopLoader, RestOccurError, LazyLoadService, CoreModule } from '@abp/ng.core';
-import { Component, EventEmitter, Renderer2, Input, Output, ViewChild, ElementRef, ChangeDetectorRef, Injectable, ɵɵdefineInjectable, ɵɵinject, ContentChild, ViewChildren, NgZone, ApplicationRef, ComponentFactoryResolver, RendererFactory2, Injector, INJECTOR, APP_INITIALIZER, NgModule } from '@angular/core';
+import { ConfigState, ChangePassword, StartLoader, StopLoader, GetProfile, UpdateProfile, ProfileState, RestOccurError, LazyLoadService, CoreModule } from '@abp/ng.core';
+import { Component, EventEmitter, Renderer2, Input, Output, ViewChild, Injectable, ɵɵdefineInjectable, ɵɵinject, ElementRef, ChangeDetectorRef, ContentChild, ViewChildren, NgZone, ApplicationRef, ComponentFactoryResolver, RendererFactory2, Injector, INJECTOR, APP_INITIALIZER, NgModule } from '@angular/core';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ToastModule } from 'primeng/toast';
-import { ReplaySubject, BehaviorSubject, Subject, fromEvent, interval, timer, forkJoin } from 'rxjs';
-import { __read, __assign, __extends, __spread } from 'tslib';
+import { Subject, ReplaySubject, BehaviorSubject, fromEvent, interval, timer, Observable, forkJoin } from 'rxjs';
+import { __read, __assign, __extends, __spread, __decorate, __metadata } from 'tslib';
 import { Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
-import { Store, ofActionSuccessful, Actions } from '@ngxs/store';
-import { takeUntil, debounceTime, filter } from 'rxjs/operators';
-import { takeUntilDestroy, NgxValidateCoreModule } from '@ngx-validate/core';
+import { Store, ofActionSuccessful, Actions, Select } from '@ngxs/store';
+import { Validators, FormBuilder } from '@angular/forms';
+import { comparePasswords, takeUntilDestroy, NgxValidateCoreModule } from '@ngx-validate/core';
+import snq from 'snq';
+import { finalize, takeUntil, debounceTime, filter, withLatestFrom, take } from 'rxjs/operators';
 import { animation, style, animate, trigger, transition, useAnimation, keyframes, state } from '@angular/animations';
 import { HttpErrorResponse } from '@angular/common/http';
-import snq from 'snq';
 
 /**
  * @fileoverview added by tsickle
@@ -142,47 +143,11 @@ var ButtonComponent = /** @class */ (function () {
             }));
         }
     };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    ButtonComponent.prototype.onClick = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        event.stopPropagation();
-        this.click.next(event);
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    ButtonComponent.prototype.onFocus = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        event.stopPropagation();
-        this.focus.next(event);
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    ButtonComponent.prototype.onBlur = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        event.stopPropagation();
-        this.blur.next(event);
-    };
     ButtonComponent.decorators = [
         { type: Component, args: [{
                     selector: 'abp-button',
                     // tslint:disable-next-line: component-max-inline-declarations
-                    template: "\n    <button\n      #button\n      [attr.type]=\"buttonType || type\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click)=\"onClick($event)\"\n      (focus)=\"onFocus($event)\"\n      (blur)=\"onBlur($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
+                    template: "\n    <button\n      #button\n      [attr.type]=\"buttonType || type\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click)=\"click.emit($event)\"\n      (focus)=\"focus.emit($event)\"\n      (blur)=\"blur.emit($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
                 }] }
     ];
     /** @nocollapse */
@@ -235,6 +200,357 @@ if (false) {
      * @private
      */
     ButtonComponent.prototype.renderer;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ * @template T
+ */
+var  /**
+ * @abstract
+ * @template T
+ */
+AbstractToaster = /** @class */ (function () {
+    function AbstractToaster(messageService) {
+        this.messageService = messageService;
+        this.key = 'abpToast';
+        this.sticky = false;
+    }
+    /**
+     * @param {?} message
+     * @param {?} title
+     * @param {?=} options
+     * @return {?}
+     */
+    AbstractToaster.prototype.info = /**
+     * @param {?} message
+     * @param {?} title
+     * @param {?=} options
+     * @return {?}
+     */
+    function (message, title, options) {
+        return this.show(message, title, 'info', options);
+    };
+    /**
+     * @param {?} message
+     * @param {?} title
+     * @param {?=} options
+     * @return {?}
+     */
+    AbstractToaster.prototype.success = /**
+     * @param {?} message
+     * @param {?} title
+     * @param {?=} options
+     * @return {?}
+     */
+    function (message, title, options) {
+        return this.show(message, title, 'success', options);
+    };
+    /**
+     * @param {?} message
+     * @param {?} title
+     * @param {?=} options
+     * @return {?}
+     */
+    AbstractToaster.prototype.warn = /**
+     * @param {?} message
+     * @param {?} title
+     * @param {?=} options
+     * @return {?}
+     */
+    function (message, title, options) {
+        return this.show(message, title, 'warn', options);
+    };
+    /**
+     * @param {?} message
+     * @param {?} title
+     * @param {?=} options
+     * @return {?}
+     */
+    AbstractToaster.prototype.error = /**
+     * @param {?} message
+     * @param {?} title
+     * @param {?=} options
+     * @return {?}
+     */
+    function (message, title, options) {
+        return this.show(message, title, 'error', options);
+    };
+    /**
+     * @protected
+     * @param {?} message
+     * @param {?} title
+     * @param {?} severity
+     * @param {?=} options
+     * @return {?}
+     */
+    AbstractToaster.prototype.show = /**
+     * @protected
+     * @param {?} message
+     * @param {?} title
+     * @param {?} severity
+     * @param {?=} options
+     * @return {?}
+     */
+    function (message, title, severity, options) {
+        this.messageService.clear(this.key);
+        this.messageService.add(__assign({ severity: severity, detail: message || '', summary: title || '' }, options, { key: this.key }, (typeof (options || ((/** @type {?} */ ({})))).sticky === 'undefined' && { sticky: this.sticky })));
+        this.status$ = new Subject();
+        return this.status$;
+    };
+    /**
+     * @param {?=} status
+     * @return {?}
+     */
+    AbstractToaster.prototype.clear = /**
+     * @param {?=} status
+     * @return {?}
+     */
+    function (status) {
+        this.messageService.clear(this.key);
+        this.status$.next(status || "dismiss" /* dismiss */);
+        this.status$.complete();
+    };
+    return AbstractToaster;
+}());
+if (false) {
+    /** @type {?} */
+    AbstractToaster.prototype.status$;
+    /** @type {?} */
+    AbstractToaster.prototype.key;
+    /** @type {?} */
+    AbstractToaster.prototype.sticky;
+    /**
+     * @type {?}
+     * @protected
+     */
+    AbstractToaster.prototype.messageService;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var ToasterService = /** @class */ (function (_super) {
+    __extends(ToasterService, _super);
+    function ToasterService() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * @param {?} messages
+     * @return {?}
+     */
+    ToasterService.prototype.addAll = /**
+     * @param {?} messages
+     * @return {?}
+     */
+    function (messages) {
+        var _this = this;
+        this.messageService.addAll(messages.map((/**
+         * @param {?} message
+         * @return {?}
+         */
+        function (message) { return (__assign({ key: _this.key }, message)); })));
+    };
+    ToasterService.decorators = [
+        { type: Injectable, args: [{ providedIn: 'root' },] }
+    ];
+    /** @nocollapse */ ToasterService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ToasterService_Factory() { return new ToasterService(ɵɵinject(MessageService)); }, token: ToasterService, providedIn: "root" });
+    return ToasterService;
+}(AbstractToaster));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var minLength = Validators.minLength, required = Validators.required;
+/** @type {?} */
+var PASSWORD_FIELDS = ['newPassword', 'repeatNewPassword'];
+var ChangePasswordComponent = /** @class */ (function () {
+    function ChangePasswordComponent(fb, store, toasterService) {
+        this.fb = fb;
+        this.store = store;
+        this.toasterService = toasterService;
+        this.visibleChange = new EventEmitter();
+        this.modalBusy = false;
+        this.mapErrorsFn = (/**
+         * @param {?} errors
+         * @param {?} groupErrors
+         * @param {?} control
+         * @return {?}
+         */
+        function (errors, groupErrors, control) {
+            if (PASSWORD_FIELDS.indexOf(control.name) < 0)
+                return errors;
+            return errors.concat(groupErrors.filter((/**
+             * @param {?} __0
+             * @return {?}
+             */
+            function (_a) {
+                var key = _a.key;
+                return key === 'passwordMismatch';
+            })));
+        });
+    }
+    Object.defineProperty(ChangePasswordComponent.prototype, "visible", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._visible;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._visible = value;
+            this.visibleChange.emit(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    ChangePasswordComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        this.form = this.fb.group({
+            password: ['', required],
+            newPassword: ['', required],
+            repeatNewPassword: ['', required],
+        }, {
+            validators: [comparePasswords(PASSWORD_FIELDS)],
+        });
+    };
+    /**
+     * @return {?}
+     */
+    ChangePasswordComponent.prototype.onSubmit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.form.invalid)
+            return;
+        this.modalBusy = true;
+        this.store
+            .dispatch(new ChangePassword({
+            currentPassword: this.form.get('password').value,
+            newPassword: this.form.get('newPassword').value,
+        }))
+            .pipe(finalize((/**
+         * @return {?}
+         */
+        function () {
+            _this.modalBusy = false;
+        })))
+            .subscribe({
+            next: (/**
+             * @return {?}
+             */
+            function () {
+                _this.visible = false;
+                _this.form.reset();
+            }),
+            error: (/**
+             * @param {?} err
+             * @return {?}
+             */
+            function (err) {
+                _this.toasterService.error(snq((/**
+                 * @return {?}
+                 */
+                function () { return err.error.error.message; }), 'AbpAccount::DefaultErrorMessage'), 'Error', {
+                    life: 7000,
+                });
+            }),
+        });
+    };
+    /**
+     * @return {?}
+     */
+    ChangePasswordComponent.prototype.openModal = /**
+     * @return {?}
+     */
+    function () {
+        this.visible = true;
+    };
+    /**
+     * @param {?} __0
+     * @return {?}
+     */
+    ChangePasswordComponent.prototype.ngOnChanges = /**
+     * @param {?} __0
+     * @return {?}
+     */
+    function (_a) {
+        var visible = _a.visible;
+        if (!visible)
+            return;
+        if (visible.currentValue) {
+            this.openModal();
+        }
+        else if (visible.currentValue === false && this.visible) {
+            this.visible = false;
+        }
+    };
+    ChangePasswordComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'abp-change-password',
+                    template: "<abp-modal [(visible)]=\"visible\" [busy]=\"modalBusy\">\r\n  <ng-template #abpHeader>\r\n    <h4>{{ 'AbpIdentity::ChangePassword' | abpLocalization }}</h4>\r\n  </ng-template>\r\n  <ng-template #abpBody>\r\n    <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\" [mapErrorsFn]=\"mapErrorsFn\">\r\n      <div class=\"form-group\">\r\n        <label for=\"current-password\">{{ 'AbpIdentity::DisplayName:CurrentPassword' | abpLocalization }}</label\r\n        ><span> * </span\r\n        ><input type=\"password\" id=\"current-password\" class=\"form-control\" formControlName=\"password\" autofocus />\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"new-password\">{{ 'AbpIdentity::DisplayName:NewPassword' | abpLocalization }}</label\r\n        ><span> * </span><input type=\"password\" id=\"new-password\" class=\"form-control\" formControlName=\"newPassword\" />\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"confirm-new-password\">{{ 'AbpIdentity::DisplayName:NewPasswordConfirm' | abpLocalization }}</label\r\n        ><span> * </span\r\n        ><input type=\"password\" id=\"confirm-new-password\" class=\"form-control\" formControlName=\"repeatNewPassword\" />\r\n      </div>\r\n    </form>\r\n  </ng-template>\r\n  <ng-template #abpFooter>\r\n    <button type=\"button\" class=\"btn btn-secondary color-white\" #abpClose>\r\n      {{ 'AbpIdentity::Cancel' | abpLocalization }}\r\n    </button>\r\n    <abp-button iconClass=\"fa fa-check\" buttonClass=\"btn btn-primary color-white\" (click)=\"onSubmit()\">{{\r\n      'AbpIdentity::Save' | abpLocalization\r\n    }}</abp-button>\r\n  </ng-template>\r\n</abp-modal>\r\n"
+                }] }
+    ];
+    /** @nocollapse */
+    ChangePasswordComponent.ctorParameters = function () { return [
+        { type: FormBuilder },
+        { type: Store },
+        { type: ToasterService }
+    ]; };
+    ChangePasswordComponent.propDecorators = {
+        visible: [{ type: Input }],
+        visibleChange: [{ type: Output }],
+        modalContent: [{ type: ViewChild, args: ['modalContent', { static: false },] }]
+    };
+    return ChangePasswordComponent;
+}());
+if (false) {
+    /**
+     * @type {?}
+     * @protected
+     */
+    ChangePasswordComponent.prototype._visible;
+    /** @type {?} */
+    ChangePasswordComponent.prototype.visibleChange;
+    /** @type {?} */
+    ChangePasswordComponent.prototype.modalContent;
+    /** @type {?} */
+    ChangePasswordComponent.prototype.form;
+    /** @type {?} */
+    ChangePasswordComponent.prototype.modalBusy;
+    /** @type {?} */
+    ChangePasswordComponent.prototype.mapErrorsFn;
+    /**
+     * @type {?}
+     * @private
+     */
+    ChangePasswordComponent.prototype.fb;
+    /**
+     * @type {?}
+     * @private
+     */
+    ChangePasswordComponent.prototype.store;
+    /**
+     * @type {?}
+     * @private
+     */
+    ChangePasswordComponent.prototype.toasterService;
 }
 
 /**
@@ -490,135 +806,6 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-/**
- * @abstract
- * @template T
- */
-var  /**
- * @abstract
- * @template T
- */
-AbstractToaster = /** @class */ (function () {
-    function AbstractToaster(messageService) {
-        this.messageService = messageService;
-        this.key = 'abpToast';
-        this.sticky = false;
-    }
-    /**
-     * @param {?} message
-     * @param {?} title
-     * @param {?=} options
-     * @return {?}
-     */
-    AbstractToaster.prototype.info = /**
-     * @param {?} message
-     * @param {?} title
-     * @param {?=} options
-     * @return {?}
-     */
-    function (message, title, options) {
-        return this.show(message, title, 'info', options);
-    };
-    /**
-     * @param {?} message
-     * @param {?} title
-     * @param {?=} options
-     * @return {?}
-     */
-    AbstractToaster.prototype.success = /**
-     * @param {?} message
-     * @param {?} title
-     * @param {?=} options
-     * @return {?}
-     */
-    function (message, title, options) {
-        return this.show(message, title, 'success', options);
-    };
-    /**
-     * @param {?} message
-     * @param {?} title
-     * @param {?=} options
-     * @return {?}
-     */
-    AbstractToaster.prototype.warn = /**
-     * @param {?} message
-     * @param {?} title
-     * @param {?=} options
-     * @return {?}
-     */
-    function (message, title, options) {
-        return this.show(message, title, 'warn', options);
-    };
-    /**
-     * @param {?} message
-     * @param {?} title
-     * @param {?=} options
-     * @return {?}
-     */
-    AbstractToaster.prototype.error = /**
-     * @param {?} message
-     * @param {?} title
-     * @param {?=} options
-     * @return {?}
-     */
-    function (message, title, options) {
-        return this.show(message, title, 'error', options);
-    };
-    /**
-     * @protected
-     * @param {?} message
-     * @param {?} title
-     * @param {?} severity
-     * @param {?=} options
-     * @return {?}
-     */
-    AbstractToaster.prototype.show = /**
-     * @protected
-     * @param {?} message
-     * @param {?} title
-     * @param {?} severity
-     * @param {?=} options
-     * @return {?}
-     */
-    function (message, title, severity, options) {
-        this.messageService.clear(this.key);
-        this.messageService.add(__assign({ severity: severity, detail: message || '', summary: title || '' }, options, { key: this.key }, (typeof (options || ((/** @type {?} */ ({})))).sticky === 'undefined' && { sticky: this.sticky })));
-        this.status$ = new Subject();
-        return this.status$;
-    };
-    /**
-     * @param {?=} status
-     * @return {?}
-     */
-    AbstractToaster.prototype.clear = /**
-     * @param {?=} status
-     * @return {?}
-     */
-    function (status) {
-        this.messageService.clear(this.key);
-        this.status$.next(status || "dismiss" /* dismiss */);
-        this.status$.complete();
-    };
-    return AbstractToaster;
-}());
-if (false) {
-    /** @type {?} */
-    AbstractToaster.prototype.status$;
-    /** @type {?} */
-    AbstractToaster.prototype.key;
-    /** @type {?} */
-    AbstractToaster.prototype.sticky;
-    /**
-     * @type {?}
-     * @protected
-     */
-    AbstractToaster.prototype.messageService;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 var ConfirmationService = /** @class */ (function (_super) {
     __extends(ConfirmationService, _super);
     function ConfirmationService(messageService) {
@@ -776,7 +963,7 @@ var ErrorComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'abp-error',
                     template: "<div class=\"error\">\r\n  <button id=\"abp-close-button mr-3\" type=\"button\" class=\"close\" (click)=\"destroy()\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n  <div class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>\r\n          {{ title | abpLocalization }}\r\n        </h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a (click)=\"destroy()\" routerLink=\"/\" class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
-                    styles: [".error{position:fixed;top:0;background-color:#fff;width:100vw;height:100vh;z-index:999999}.centered{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%)}"]
+                    styles: [".error{position:fixed;top:0;background-color:#fff;width:100vw;height:100vh;z-index:999999}.centered{position:fixed;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}"]
                 }] }
     ];
     return ErrorComponent;
@@ -918,7 +1105,7 @@ var LoaderBarComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'abp-loader-bar',
                     template: "\n    <div id=\"abp-loader-bar\" [ngClass]=\"containerClass\" [class.is-loading]=\"isLoading\">\n      <div\n        class=\"abp-progress\"\n        [style.width.vw]=\"progressLevel\"\n        [ngStyle]=\"{\n          'background-color': color,\n          'box-shadow': boxShadow\n        }\"\n      ></div>\n    </div>\n  ",
-                    styles: [".abp-loader-bar{left:0;opacity:0;position:fixed;top:0;transition:opacity .4s linear .4s;z-index:99999}.abp-loader-bar.is-loading{opacity:1;transition:none}.abp-loader-bar .abp-progress{height:3px;left:0;position:fixed;top:0;transition:width .4s}"]
+                    styles: [".abp-loader-bar{left:0;opacity:0;position:fixed;top:0;-webkit-transition:opacity .4s linear .4s;transition:opacity .4s linear .4s;z-index:99999}.abp-loader-bar.is-loading{opacity:1;-webkit-transition:none;transition:none}.abp-loader-bar .abp-progress{height:3px;left:0;position:fixed;top:0;-webkit-transition:width .4s;transition:width .4s}"]
                 }] }
     ];
     /** @nocollapse */
@@ -1299,6 +1486,158 @@ function hasNgDirty(nodes) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var maxLength = Validators.maxLength, required$1 = Validators.required, email = Validators.email;
+var ProfileComponent = /** @class */ (function () {
+    function ProfileComponent(fb, store) {
+        this.fb = fb;
+        this.store = store;
+        this.visibleChange = new EventEmitter();
+        this.modalBusy = false;
+    }
+    Object.defineProperty(ProfileComponent.prototype, "visible", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._visible;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._visible = value;
+            this.visibleChange.emit(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    ProfileComponent.prototype.buildForm = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this.store
+            .dispatch(new GetProfile())
+            .pipe(withLatestFrom(this.profile$), take(1))
+            .subscribe((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        function (_a) {
+            var _b = __read(_a, 2), profile = _b[1];
+            _this.form = _this.fb.group({
+                userName: [profile.userName, [required$1, maxLength(256)]],
+                email: [profile.email, [required$1, email, maxLength(256)]],
+                name: [profile.name || '', [maxLength(64)]],
+                surname: [profile.surname || '', [maxLength(64)]],
+                phoneNumber: [profile.phoneNumber || '', [maxLength(16)]]
+            });
+        }));
+    };
+    /**
+     * @return {?}
+     */
+    ProfileComponent.prototype.submit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.form.invalid)
+            return;
+        this.modalBusy = true;
+        this.store.dispatch(new UpdateProfile(this.form.value)).subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.modalBusy = false;
+            _this.visible = false;
+            _this.form.reset();
+        }));
+    };
+    /**
+     * @return {?}
+     */
+    ProfileComponent.prototype.openModal = /**
+     * @return {?}
+     */
+    function () {
+        this.buildForm();
+        this.visible = true;
+    };
+    /**
+     * @param {?} __0
+     * @return {?}
+     */
+    ProfileComponent.prototype.ngOnChanges = /**
+     * @param {?} __0
+     * @return {?}
+     */
+    function (_a) {
+        var visible = _a.visible;
+        if (!visible)
+            return;
+        if (visible.currentValue) {
+            this.openModal();
+        }
+        else if (visible.currentValue === false && this.visible) {
+            this.visible = false;
+        }
+    };
+    ProfileComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'abp-profile',
+                    template: "<abp-modal [(visible)]=\"visible\" [busy]=\"modalBusy\">\r\n  <ng-template #abpHeader>\r\n    <h4>{{ 'AbpIdentity::PersonalInfo' | abpLocalization }}</h4>\r\n  </ng-template>\r\n  <ng-template #abpBody>\r\n    <form novalidate *ngIf=\"form\" [formGroup]=\"form\" (ngSubmit)=\"submit()\">\r\n      <div class=\"form-group\">\r\n        <label for=\"username\">{{ 'AbpIdentity::DisplayName:UserName' | abpLocalization }}</label\r\n        ><span> * </span><input type=\"text\" id=\"username\" class=\"form-control\" formControlName=\"userName\" autofocus />\r\n      </div>\r\n      <div class=\"row\">\r\n        <div class=\"col col-md-6\">\r\n          <div class=\"form-group\">\r\n            <label for=\"name\">{{ 'AbpIdentity::DisplayName:Name' | abpLocalization }}</label\r\n            ><input type=\"text\" id=\"name\" class=\"form-control\" formControlName=\"name\" />\r\n          </div>\r\n        </div>\r\n        <div class=\"col col-md-6\">\r\n          <div class=\"form-group\">\r\n            <label for=\"surname\">{{ 'AbpIdentity::DisplayName:Surname' | abpLocalization }}</label\r\n            ><input type=\"text\" id=\"surname\" class=\"form-control\" formControlName=\"surname\" />\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"email-address\">{{ 'AbpIdentity::DisplayName:Email' | abpLocalization }}</label\r\n        ><span> * </span><input type=\"text\" id=\"email-address\" class=\"form-control\" formControlName=\"email\" />\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"phone-number\">{{ 'AbpIdentity::DisplayName:PhoneNumber' | abpLocalization }}</label\r\n        ><input type=\"text\" id=\"phone-number\" class=\"form-control\" formControlName=\"phoneNumber\" />\r\n      </div>\r\n    </form>\r\n  </ng-template>\r\n  <ng-template #abpFooter>\r\n    <button #abpClose type=\"button\" class=\"btn btn-secondary color-white\">\r\n      {{ 'AbpIdentity::Cancel' | abpLocalization }}\r\n    </button>\r\n    <abp-button iconClass=\"fa fa-check\" buttonClass=\"btn btn-primary color-white\" (click)=\"submit()\">{{ 'AbpIdentity::Save' | abpLocalization }}</abp-button>\r\n  </ng-template>\r\n</abp-modal>\r\n"
+                }] }
+    ];
+    /** @nocollapse */
+    ProfileComponent.ctorParameters = function () { return [
+        { type: FormBuilder },
+        { type: Store }
+    ]; };
+    ProfileComponent.propDecorators = {
+        visible: [{ type: Input }],
+        visibleChange: [{ type: Output }]
+    };
+    __decorate([
+        Select(ProfileState.getProfile),
+        __metadata("design:type", Observable)
+    ], ProfileComponent.prototype, "profile$", void 0);
+    return ProfileComponent;
+}());
+if (false) {
+    /**
+     * @type {?}
+     * @protected
+     */
+    ProfileComponent.prototype._visible;
+    /** @type {?} */
+    ProfileComponent.prototype.visibleChange;
+    /** @type {?} */
+    ProfileComponent.prototype.profile$;
+    /** @type {?} */
+    ProfileComponent.prototype.form;
+    /** @type {?} */
+    ProfileComponent.prototype.modalBusy;
+    /**
+     * @type {?}
+     * @private
+     */
+    ProfileComponent.prototype.fb;
+    /**
+     * @type {?}
+     * @private
+     */
+    ProfileComponent.prototype.store;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 var ToastComponent = /** @class */ (function () {
     function ToastComponent() {
     }
@@ -1437,7 +1776,7 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var styles = "\n.is-invalid .form-control {\n  border-color: #dc3545;\n  border-style: solid !important;\n}\n\n.is-invalid .invalid-feedback,\n.is-invalid + * .invalid-feedback {\n  display: block;\n}\n\n.data-tables-filter {\n  text-align: right;\n}\n\n.pointer {\n  cursor: pointer;\n}\n\n.navbar .dropdown-submenu a::after {\n  transform: rotate(-90deg);\n  position: absolute;\n  right: 16px;\n  top: 18px;\n}\n\n.navbar .dropdown-menu {\n  min-width: 215px;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar {\n  height: 5px !important;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.modal.show {\n  display: block !important;\n}\n\n.modal-backdrop {\n  position: absolute !important;\n  top: 0 !important;\n  left: 0 !important;\n  width: 100% !important;\n  height: 100% !important;\n  background-color: rgba(0, 0, 0, 0.6) !important;\n  z-index: 1040 !important;\n}\n\n.modal-dialog {\n  z-index: 1050 !important;\n}\n\n.abp-ellipsis-inline {\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-ellipsis {\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-toast .ui-toast-message {\n  box-sizing: border-box !important;\n  border: 2px solid transparent !important;\n  border-radius: 4px !important;\n  background-color: #f4f4f7 !important;\n  color: #1b1d29 !important;\n}\n\n.abp-toast .ui-toast-message-content {\n  padding: 10px !important;\n}\n\n.abp-toast .ui-toast-message-content .ui-toast-icon {\n  top: 0 !important;\n  left: 0 !important;\n  padding: 10px !important;\n}\n\n.abp-toast .ui-toast-summary {\n  margin: 0 !important;\n  font-weight: 700 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-error {\n  border-color: #ba1659 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-error .ui-toast-message-content .ui-toast-icon {\n  color: #ba1659 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-warning {\n  border-color: #ed5d98 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-warning .ui-toast-message-content .ui-toast-icon {\n  color: #ed5d98 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-success {\n  border-color: #1c9174 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-success .ui-toast-message-content .ui-toast-icon {\n  color: #1c9174 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-info {\n  border-color: #fccb31 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-info .ui-toast-message-content .ui-toast-icon {\n  color: #fccb31 !important;\n}\n\n.abp-confirm .ui-toast-message {\n  box-sizing: border-box !important;\n  padding: 0px !important;\n  border:0 none !important;\n  border-radius: 4px !important;\n  background-color: #fff !important;\n  color: rgba(0, 0, 0, .65) !important;\n  font-family: \"Poppins\", sans-serif;\n  text-align: center !important;\n}\n\n.abp-confirm .ui-toast-message-content {\n  padding: 0px !important;\n}\n\n.abp-confirm .abp-confirm-icon {\n  margin: 32px 50px 5px !important;\n  color: #f8bb86 !important;\n  font-size: 52px !important;\n}\n\n.abp-confirm .ui-toast-close-icon {\n  display: none !important;\n}\n\n.abp-confirm .abp-confirm-summary {\n  display: block !important;\n  margin-bottom: 13px !important;\n  padding: 13px 16px 0px !important;\n  font-weight: 600 !important;\n  font-size: 18px !important;\n}\n\n.abp-confirm .abp-confirm-body {\n  display: inline-block !important;\n  padding: 0px 10px !important;\n}\n\n.abp-confirm .abp-confirm-footer {\n  display: block !important;\n  margin-top: 30px !important;\n  padding: 16px !important;\n  background-color: #f4f4f7 !important;\n  text-align: right !important;\n}\n\n.abp-confirm .abp-confirm-footer .btn {\n  margin-left: 10px !important;\n}\n\n.ui-widget-overlay {\n  z-index: 1000;\n}\n\n.color-white {\n  color: #FFF !important;\n}\n\n/* <animations */\n\n.fade-in-top {\n  animation: fadeInTop 0.2s ease-in-out;\n}\n\n.fade-out-top {\n  animation: fadeOutTop 0.2s ease-in-out;\n}\n\n.abp-collapsed-height {\n  -moz-transition: max-height linear 0.35s;\n  -ms-transition: max-height linear 0.35s;\n  -o-transition: max-height linear 0.35s;\n  -webkit-transition: max-height linear 0.35s;\n  overflow:hidden;\n  transition:max-height 0.35s linear;\n  height:auto;\n  max-height: 0;\n}\n\n.abp-mh-25 {\n  max-height: 25vh;\n}\n\n.abp-mh-50 {\n  transition:max-height 0.65s linear;\n  max-height: 50vh;\n}\n\n.abp-mh-75 {\n  transition:max-height 0.85s linear;\n  max-height: 75vh;\n}\n\n.abp-mh-100 {\n  transition:max-height 1s linear;\n  max-height: 100vh;\n}\n\n@keyframes fadeInTop {\n  from {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n\n  to {\n    transform: translateY(0px);\n    opacity: 1;\n  }\n}\n\n@keyframes fadeOutTop {\n  to {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n}\n\n/* </animations */\n\n";
+var styles = "\n.is-invalid .form-control {\n  border-color: #dc3545;\n  border-style: solid !important;\n}\n\n.is-invalid .invalid-feedback,\n.is-invalid + * .invalid-feedback {\n  display: block;\n}\n\n.data-tables-filter {\n  text-align: right;\n}\n\n.pointer {\n  cursor: pointer;\n}\n\n.navbar .dropdown-submenu a::after {\n  transform: rotate(-90deg);\n  position: absolute;\n  right: 16px;\n  top: 18px;\n}\n\n.navbar .dropdown-menu {\n  min-width: 215px;\n}\n\n.modal.show {\n  display: block !important;\n}\n\n.modal-backdrop {\n  position: absolute !important;\n  top: 0 !important;\n  left: 0 !important;\n  width: 100% !important;\n  height: 100% !important;\n  background-color: rgba(0, 0, 0, 0.6) !important;\n  z-index: 1040 !important;\n}\n\n.modal-dialog {\n  z-index: 1050 !important;\n}\n\n.abp-ellipsis-inline {\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-ellipsis {\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-toast .ui-toast-message {\n  box-sizing: border-box !important;\n  border: 2px solid transparent !important;\n  border-radius: 4px !important;\n  background-color: #f4f4f7 !important;\n  color: #1b1d29 !important;\n}\n\n.abp-toast .ui-toast-message-content {\n  padding: 10px !important;\n}\n\n.abp-toast .ui-toast-message-content .ui-toast-icon {\n  top: 0 !important;\n  left: 0 !important;\n  padding: 10px !important;\n}\n\n.abp-toast .ui-toast-summary {\n  margin: 0 !important;\n  font-weight: 700 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-error {\n  border-color: #ba1659 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-error .ui-toast-message-content .ui-toast-icon {\n  color: #ba1659 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-warning {\n  border-color: #ed5d98 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-warning .ui-toast-message-content .ui-toast-icon {\n  color: #ed5d98 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-success {\n  border-color: #1c9174 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-success .ui-toast-message-content .ui-toast-icon {\n  color: #1c9174 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-info {\n  border-color: #fccb31 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-info .ui-toast-message-content .ui-toast-icon {\n  color: #fccb31 !important;\n}\n\n.abp-confirm .ui-toast-message {\n  box-sizing: border-box !important;\n  padding: 0px !important;\n  border:0 none !important;\n  border-radius: 4px !important;\n  background-color: #fff !important;\n  color: rgba(0, 0, 0, .65) !important;\n  font-family: \"Poppins\", sans-serif;\n  text-align: center !important;\n}\n\n.abp-confirm .ui-toast-message-content {\n  padding: 0px !important;\n}\n\n.abp-confirm .abp-confirm-icon {\n  margin: 32px 50px 5px !important;\n  color: #f8bb86 !important;\n  font-size: 52px !important;\n}\n\n.abp-confirm .ui-toast-close-icon {\n  display: none !important;\n}\n\n.abp-confirm .abp-confirm-summary {\n  display: block !important;\n  margin-bottom: 13px !important;\n  padding: 13px 16px 0px !important;\n  font-weight: 600 !important;\n  font-size: 18px !important;\n}\n\n.abp-confirm .abp-confirm-body {\n  display: inline-block !important;\n  padding: 0px 10px !important;\n}\n\n.abp-confirm .abp-confirm-footer {\n  display: block !important;\n  margin-top: 30px !important;\n  padding: 16px !important;\n  background-color: #f4f4f7 !important;\n  text-align: right !important;\n}\n\n.abp-confirm .abp-confirm-footer .btn {\n  margin-left: 10px !important;\n}\n\n.ui-widget-overlay {\n  z-index: 1000;\n}\n\n.color-white {\n  color: #FFF !important;\n}\n\n/* <animations */\n\n.fade-in-top {\n  animation: fadeInTop 0.2s ease-in-out;\n}\n\n.fade-out-top {\n  animation: fadeOutTop 0.2s ease-in-out;\n}\n\n\n@keyframes fadeInTop {\n  from {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n\n  to {\n    transform: translateY(0px);\n    opacity: 1;\n  }\n}\n\n@keyframes fadeOutTop {\n  to {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n}\n\n/* </animations */\n\n";
 
 /**
  * @fileoverview added by tsickle
@@ -1782,11 +2121,13 @@ var ThemeSharedModule = /** @class */ (function () {
                     declarations: [
                         BreadcrumbComponent,
                         ButtonComponent,
+                        ChangePasswordComponent,
                         ChartComponent,
                         ConfirmationComponent,
                         ErrorComponent,
                         LoaderBarComponent,
                         ModalComponent,
+                        ProfileComponent,
                         TableEmptyMessageComponent,
                         ToastComponent,
                         SortOrderIconComponent,
@@ -1794,10 +2135,12 @@ var ThemeSharedModule = /** @class */ (function () {
                     exports: [
                         BreadcrumbComponent,
                         ButtonComponent,
+                        ChangePasswordComponent,
                         ChartComponent,
                         ConfirmationComponent,
                         LoaderBarComponent,
                         ModalComponent,
+                        ProfileComponent,
                         TableEmptyMessageComponent,
                         ToastComponent,
                         SortOrderIconComponent,
@@ -1836,53 +2179,29 @@ var bounceIn = animation([
 /** @type {?} */
 var collapseY = animation([
     style({ height: '*', overflow: 'hidden', 'box-sizing': 'border-box' }),
-    animate('{{ time }} {{ easing }}', style({ height: '0', padding: '0px' })),
+    animate('{{ time }} {{ easing }}', style({ height: '0', padding: '0px' }))
 ], { params: { time: '350ms', easing: 'ease' } });
-/** @type {?} */
-var collapseYWithMargin = animation([style({ 'margin-top': '0' }), animate('{{ time }} {{ easing }}', style({ 'margin-top': '-100%' }))], {
-    params: { time: '500ms', easing: 'ease' },
-});
 /** @type {?} */
 var collapseX = animation([
     style({ width: '*', overflow: 'hidden', 'box-sizing': 'border-box' }),
-    animate('{{ time }} {{ easing }}', style({ width: '0', padding: '0px' })),
+    animate('{{ time }} {{ easing }}', style({ width: '0', padding: '0px' }))
 ], { params: { time: '350ms', easing: 'ease' } });
 /** @type {?} */
 var expandY = animation([
     style({ height: '0', overflow: 'hidden', 'box-sizing': 'border-box' }),
-    animate('{{ time }} {{ easing }}', style({ height: '*', padding: '*' })),
+    animate('{{ time }} {{ easing }}', style({ height: '*', padding: '*' }))
 ], { params: { time: '350ms', easing: 'ease' } });
-/** @type {?} */
-var expandYWithMargin = animation([style({ 'margin-top': '-100%' }), animate('{{ time }} {{ easing }}', style({ 'margin-top': '0' }))], {
-    params: { time: '500ms', easing: 'ease' },
-});
 /** @type {?} */
 var expandX = animation([
     style({ width: '0', overflow: 'hidden', 'box-sizing': 'border-box' }),
-    animate('{{ time }} {{ easing }}', style({ width: '*', padding: '*' })),
+    animate('{{ time }} {{ easing }}', style({ width: '*', padding: '*' }))
 ], { params: { time: '350ms', easing: 'ease' } });
 /** @type {?} */
 var collapse = trigger('collapse', [
     state('collapsed', style({ height: '0', overflow: 'hidden' })),
     state('expanded', style({ height: '*', overflow: 'hidden' })),
     transition('expanded => collapsed', useAnimation(collapseY)),
-    transition('collapsed => expanded', useAnimation(expandY)),
-]);
-/** @type {?} */
-var collapseWithMargin = trigger('collapseWithMargin', [
-    state('collapsed', style({ 'margin-top': '-100%' })),
-    state('expanded', style({ 'margin-top': '0' })),
-    transition('expanded => collapsed', useAnimation(collapseYWithMargin), {
-        params: { time: '400ms', easing: 'linear' },
-    }),
-    transition('collapsed => expanded', useAnimation(expandYWithMargin)),
-]);
-/** @type {?} */
-var collapseLinearWithMargin = trigger('collapseLinearWithMargin', [
-    state('collapsed', style({ 'margin-top': '-100%' })),
-    state('expanded', style({ 'margin-top': '0' })),
-    transition('expanded => collapsed', useAnimation(collapseYWithMargin, { params: { time: '200ms', easing: 'linear' } })),
-    transition('collapsed => expanded', useAnimation(expandYWithMargin, { params: { time: '250ms', easing: 'linear' } })),
+    transition('collapsed => expanded', useAnimation(expandY))
 ]);
 
 /**
@@ -2038,33 +2357,6 @@ var Toaster;
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var ToasterService = /** @class */ (function (_super) {
-    __extends(ToasterService, _super);
-    function ToasterService() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * @param {?} messages
-     * @return {?}
-     */
-    ToasterService.prototype.addAll = /**
-     * @param {?} messages
-     * @return {?}
-     */
-    function (messages) {
-        var _this = this;
-        this.messageService.addAll(messages.map((/**
-         * @param {?} message
-         * @return {?}
-         */
-        function (message) { return (__assign({ key: _this.key }, message)); })));
-    };
-    ToasterService.decorators = [
-        { type: Injectable, args: [{ providedIn: 'root' },] }
-    ];
-    /** @nocollapse */ ToasterService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ToasterService_Factory() { return new ToasterService(ɵɵinject(MessageService)); }, token: ToasterService, providedIn: "root" });
-    return ToasterService;
-}(AbstractToaster));
 
 /**
  * @fileoverview added by tsickle
@@ -2081,10 +2373,5 @@ var ToasterService = /** @class */ (function (_super) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-
-export { BreadcrumbComponent, ButtonComponent, ChartComponent, ConfirmationComponent, ConfirmationService, LoaderBarComponent, ModalComponent, SortOrderIconComponent, TableEmptyMessageComponent, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, ChartComponent as ɵc, ConfirmationComponent as ɵd, ConfirmationService as ɵe, AbstractToaster as ɵf, ErrorComponent as ɵg, LoaderBarComponent as ɵh, ModalComponent as ɵi, fadeAnimation as ɵj, dialogAnimation as ɵk, fadeIn as ɵl, fadeOut as ɵm, fadeInDown as ɵn, TableEmptyMessageComponent as ɵo, ToastComponent as ɵp, SortOrderIconComponent as ɵq, ErrorHandler as ɵr };
+export { BreadcrumbComponent, ButtonComponent, ChangePasswordComponent, ChartComponent, ConfirmationComponent, ConfirmationService, LoaderBarComponent, ModalComponent, ProfileComponent, SortOrderIconComponent, TableEmptyMessageComponent, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseX, collapseY, dialogAnimation, expandX, expandY, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, ChangePasswordComponent as ɵc, ToasterService as ɵd, AbstractToaster as ɵe, ChartComponent as ɵf, ConfirmationComponent as ɵg, ConfirmationService as ɵh, ErrorComponent as ɵi, LoaderBarComponent as ɵj, ModalComponent as ɵk, fadeAnimation as ɵl, dialogAnimation as ɵm, fadeIn as ɵn, fadeOut as ɵo, fadeInDown as ɵp, ProfileComponent as ɵq, TableEmptyMessageComponent as ɵr, ToastComponent as ɵs, SortOrderIconComponent as ɵt, ErrorHandler as ɵu };
 //# sourceMappingURL=abp-ng.theme.shared.js.map

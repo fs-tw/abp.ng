@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/router'), require('@ngxs/store'), require('rxjs'), require('snq'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/common'), require('just-compare'), require('just-clone'), require('@angular/forms'), require('primeng/table'), require('angular-oauth2-oidc'), require('@ngxs/router-plugin'), require('@ngxs/storage-plugin'), require('@ngx-validate/core')) :
     typeof define === 'function' && define.amd ? define('@abp/ng.core', ['exports', '@angular/core', '@angular/router', '@ngxs/store', 'rxjs', 'snq', 'rxjs/operators', '@angular/common/http', '@angular/common', 'just-compare', 'just-clone', '@angular/forms', 'primeng/table', 'angular-oauth2-oidc', '@ngxs/router-plugin', '@ngxs/storage-plugin', '@ngx-validate/core'], factory) :
     (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.core = {}), global.ng.core, global.ng.router, global.store, global.rxjs, global.snq, global.rxjs.operators, global.ng.common.http, global.ng.common, global.compare, global.clone, global.ng.forms, global.table, global.angularOauth2Oidc, global.routerPlugin, global.storagePlugin, global.core$1));
-}(this, function (exports, core, router, store, rxjs, snq, operators, http, common, compare, clone, forms, table, angularOauth2Oidc, routerPlugin, storagePlugin, core$1) { 'use strict';
+}(this, (function (exports, core, router, store, rxjs, snq, operators, http, common, compare, clone, forms, table, angularOauth2Oidc, routerPlugin, storagePlugin, core$1) { 'use strict';
 
     snq = snq && snq.hasOwnProperty('default') ? snq['default'] : snq;
     compare = compare && compare.hasOwnProperty('default') ? compare['default'] : compare;
@@ -2803,6 +2803,7 @@
         function VisibilityDirective(elRef, renderer) {
             this.elRef = elRef;
             this.renderer = renderer;
+            this.mutationObserverEnabled = true;
             this.completed$ = new rxjs.Subject();
         }
         /**
@@ -2818,51 +2819,64 @@
             }
             /** @type {?} */
             var observer;
-            observer = new MutationObserver((/**
-             * @param {?} mutations
-             * @return {?}
-             */
-            function (mutations) {
-                mutations.forEach((/**
-                 * @param {?} mutation
+            if (this.mutationObserverEnabled) {
+                observer = new MutationObserver((/**
+                 * @param {?} mutations
                  * @return {?}
                  */
-                function (mutation) {
-                    if (!mutation.target)
-                        return;
+                function (mutations) {
+                    mutations.forEach((/**
+                     * @param {?} mutation
+                     * @return {?}
+                     */
+                    function (mutation) {
+                        if (!mutation.target)
+                            return;
+                        /** @type {?} */
+                        var htmlNodes = snq((/**
+                         * @return {?}
+                         */
+                        function () { return Array.from(mutation.target.childNodes).filter((/**
+                         * @param {?} node
+                         * @return {?}
+                         */
+                        function (node) { return node instanceof HTMLElement; })); }), []);
+                        if (!htmlNodes.length) {
+                            _this.removeFromDOM();
+                            _this.disconnect();
+                        }
+                        else {
+                            setTimeout((/**
+                             * @return {?}
+                             */
+                            function () {
+                                _this.disconnect();
+                            }), 0);
+                        }
+                    }));
+                }));
+                observer.observe(this.focusedElement, {
+                    childList: true,
+                });
+            }
+            else {
+                setTimeout((/**
+                 * @return {?}
+                 */
+                function () {
                     /** @type {?} */
                     var htmlNodes = snq((/**
                      * @return {?}
                      */
-                    function () { return Array.from(mutation.target.childNodes).filter((/**
+                    function () { return Array.from(_this.focusedElement.childNodes).filter((/**
                      * @param {?} node
                      * @return {?}
                      */
                     function (node) { return node instanceof HTMLElement; })); }), []);
-                    if (!htmlNodes.length) {
+                    if (!htmlNodes.length)
                         _this.removeFromDOM();
-                    }
-                }));
-            }));
-            observer.observe(this.focusedElement, {
-                childList: true,
-            });
-            setTimeout((/**
-             * @return {?}
-             */
-            function () {
-                /** @type {?} */
-                var htmlNodes = snq((/**
-                 * @return {?}
-                 */
-                function () { return Array.from(_this.focusedElement.childNodes).filter((/**
-                 * @param {?} node
-                 * @return {?}
-                 */
-                function (node) { return node instanceof HTMLElement; })); }), []);
-                if (!htmlNodes.length)
-                    _this.removeFromDOM();
-            }), 0);
+                }), 0);
+            }
             this.completed$.subscribe((/**
              * @return {?}
              */
@@ -2885,10 +2899,7 @@
          * @return {?}
          */
         function () {
-            if (!this.elRef.nativeElement)
-                return;
             this.renderer.removeChild(this.elRef.nativeElement.parentElement, this.elRef.nativeElement);
-            this.disconnect();
         };
         VisibilityDirective.decorators = [
             { type: core.Directive, args: [{
@@ -2901,13 +2912,16 @@
             { type: core.Renderer2 }
         ]; };
         VisibilityDirective.propDecorators = {
-            focusedElement: [{ type: core.Input, args: ['abpVisibility',] }]
+            focusedElement: [{ type: core.Input, args: ['abpVisibility',] }],
+            mutationObserverEnabled: [{ type: core.Input }]
         };
         return VisibilityDirective;
     }());
     if (false) {
         /** @type {?} */
         VisibilityDirective.prototype.focusedElement;
+        /** @type {?} */
+        VisibilityDirective.prototype.mutationObserverEnabled;
         /** @type {?} */
         VisibilityDirective.prototype.completed$;
         /**
@@ -4510,5 +4524,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=abp-ng.core.umd.js.map
