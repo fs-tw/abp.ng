@@ -67,6 +67,7 @@
       "@fs/account": [ "libs/account/src/index.ts" ],
       "@fs/account/*": [ "libs/account/*/src/index.ts" ],
       "@fs/permission-management": [ "libs/permission-management/src/index.ts" ],
+      "@fs/permission-management/*": [ "libs/permission-management/*/src/index.ts" ],
       "@fs/identity": [ "libs/identity/src/index.ts" ],
       "@fs/identity/*": [ "libs/identity/*/src/index.ts" ],
       "@fs/feature-management": [ "libs/feature-management/src/index.ts" ],

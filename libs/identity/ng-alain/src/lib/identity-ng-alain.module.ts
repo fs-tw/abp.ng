@@ -5,6 +5,7 @@ import { NgAlainBasicModule } from '@fs/ng-alain/basic';
 import { IdentityNgAlainRoutingModule } from './identity-ng-alain-routing.module';
 import { UsersComponent } from './components/users/users.component';
 import { RolesComponent } from './components/roles/roles.component';
+import { PermissionManagementNgAlainModule } from '@fs/permission-management/ng-alain';
 
 @NgModule({
     declarations: [UsersComponent,RolesComponent],
@@ -12,6 +13,7 @@ import { RolesComponent } from './components/roles/roles.component';
         CoreModule,
         NgAlainBasicModule,
         IdentityNgAlainRoutingModule,
+        PermissionManagementNgAlainModule,
         IdentityModule
     ]
 })
