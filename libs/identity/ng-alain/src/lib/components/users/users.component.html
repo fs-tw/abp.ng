@@ -55,7 +55,7 @@
           [nzTitle]="modalTitle"
           [nzContent]="modalContent"
           [nzFooter]="modalFooter"
-          (nzOnCancel)="isModalVisible=false" >
+          (nzOnCancel)="isModalVisible=false">
   <ng-template #modalTitle>
     {{(selected?.id ? 'AbpIdentity::Edit' : 'AbpIdentity::NewUser') | abpLocalization}}
   </ng-template>
@@ -70,7 +70,7 @@
         <nz-tab nzTitle="{{'AbpIdentity::UserInformations' | abpLocalization}}">
           <nz-form-item>
             <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="user-name">{{ 'AbpIdentity::UserName' | abpLocalization }}</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" >
+            <nz-form-control [nzSm]="14" [nzXs]="24">
               <input nz-input formControlName="userName" id="user-name" />
             </nz-form-control>
           </nz-form-item>
@@ -88,7 +88,7 @@
           </nz-form-item>
           <nz-form-item>
             <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>{{ 'AbpIdentity::Password' | abpLocalization }}</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" >
+            <nz-form-control [nzSm]="14" [nzXs]="24">
               <input nz-input
                      type="password"
                      id="password"
@@ -156,5 +156,5 @@
     </button>
   </ng-template>
 </nz-modal>
-<abp-permission-management [(visible)]="visiblePermissions" providerName="U" [providerKey]="providerKey">
-</abp-permission-management>
+<ng-alain-permission-management [(visible)]="visiblePermissions" providerName="U" [providerKey]="providerKey">
+</ng-alain-permission-management>
