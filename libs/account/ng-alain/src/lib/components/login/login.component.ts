@@ -13,7 +13,7 @@ import { Store } from '@ngxs/store';
 import { ToasterService } from '@abp/ng.theme.shared';
 
 @Component({
-    selector: 'fs-login',
+    selector: 'ng-alain-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.less']
 })

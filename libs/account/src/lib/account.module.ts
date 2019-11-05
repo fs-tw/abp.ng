@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AccountModule as AbpAccountModule } from '@abp/ng.account';
+import { NgxValidateCoreModule } from '@ngx-validate/core';
 
 @NgModule({
-  imports: [CommonModule]
+    imports: [AbpAccountModule],
+    exports: [AbpAccountModule, NgxValidateCoreModule]
 })
 export class AccountModule {}
