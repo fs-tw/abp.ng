@@ -2,7 +2,6 @@
 <nz-card [nzBordered]="false">
   <button nz-button
           [abpPermission]="'AbpIdentity.Users.Create'"
-          id="create-role"
           (click)="onAdd()"
           [nzType]="'primary'">
     <i nz-icon nzType="plus"></i>
@@ -51,7 +50,8 @@
 
   </nz-table>
 </nz-card>
-<nz-modal [(nzVisible)]="isModalVisible"
+<nz-modal [nzStyle]="{ top: '20px' }"
+          [(nzVisible)]="isModalVisible"
           [nzTitle]="modalTitle"
           [nzContent]="modalContent"
           [nzFooter]="modalFooter"

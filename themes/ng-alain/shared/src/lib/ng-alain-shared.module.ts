@@ -60,8 +60,9 @@ const I18NSERVICE_MODULES = [
 ];
 const GLOBAL_THIRD_MODULES = [];
 import { JsonSchemaModule } from '@fs/ng-alain';
-import { ConfirmationService } from './services';
-import { ConfirmationService as AbpConfirmationService } from '@abp/ng.theme.shared';
+import { ConfirmationService } from './services/confirmation.service';
+import { ToasterService } from './services/toaster.service';
+import { ConfirmationService as AbpConfirmationService, ToasterService as AbpToasterService } from '@abp/ng.theme.shared';
 const FORM_MODULES = [JsonSchemaModule];
 @NgModule({
     declarations: [
@@ -87,7 +88,8 @@ export class NgAlainSharedModule {
                 ...LANG_PROVIDES,
                 ...INTERCEPTOR_PROVIDES,
                 ...I18NSERVICE_PROVIDES,
-                { provide: AbpConfirmationService, useClass: ConfirmationService }
+                { provide: AbpConfirmationService, useClass: ConfirmationService },
+                { provide: AbpToasterService, useClass: ToasterService }
             ]
         };
     }
