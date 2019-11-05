@@ -1,153 +1,105 @@
-<div class="row entry-row">
-  <div class="col-auto">
-    <h1 class="content-header-title">{{ 'AbpIdentity::Roles' | abpLocalization }}</h1>
-  </div>
-  <div class="col">
-    <div class="text-lg-right pt-2" id="AbpContentToolbar">
-      <button
-        [abpPermission]="'AbpIdentity.Roles.Create'"
-        id="create-role"
-        class="btn btn-primary"
-        type="button"
-        (click)="onAdd()"
-      >
-        <i class="fa fa-plus mr-1"></i> <span>{{ 'AbpIdentity::NewRole' | abpLocalization }}</span>
-      </button>
-    </div>
-  </div>
-</div>
+<page-header [title]="'AbpIdentity::Roles' | abpLocalization"></page-header>
+<nz-card [nzBordered]="false">
+  <button nz-button
+          [abpPermission]="'AbpIdentity.Roles.Create'"
+          (click)="onAdd()"
+          [nzType]="'primary'">
+    <i nz-icon nzType="plus"></i>
+    <span>{{ 'AbpIdentity::NewRole' | abpLocalization }}</span>
+  </button>
+  <nz-table [nzData]="data$ | async">
+    <thead>
+      <tr>
+        <th>
+          {{ 'AbpIdentity::Actions' | abpLocalization }}
+        </th>
+        <th>
+          {{ 'AbpIdentity::RoleName' | abpLocalization }}
+          <abp-sort-order-icon #sortOrderIcon key="name" [(selectedKey)]="sortKey" [(order)]="sortOrder"></abp-sort-order-icon>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of data$ | async">
+        <td>
+          <a nz-dropdown [nzDropdownMenu]="opMenu">
+            {{ 'AbpIdentity::Actions' | abpLocalization }}
+            <i nz-icon nzType="down"></i>
+          </a>
+          <nz-dropdown-menu #opMenu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item [abpPermission]="'AbpIdentity.Roles.Update'" (click)="onEdit(data.id)">{{ 'AbpIdentity::Edit' | abpLocalization }}</li>
+              <li nz-menu-item [abpPermission]="'AbpIdentity.Roles.ManagePermissions'" (click)="providerKey = data.name; visiblePermissions = true">{{ 'AbpIdentity::Permissions' | abpLocalization }}</li>
+              <li nz-menu-item [abpPermission]="'AbpIdentity.Roles.Delete'" (click)="delete(data.id, data.name)">{{ 'AbpIdentity::Delete' | abpLocalization }}</li>
+            </ul>
+          </nz-dropdown-menu>
+        </td>
+        <td>{{ data.name }}</td>
+      </tr>
+    </tbody>
 
-<div id="identity-roles-wrapper" class="card">
-  <div class="card-body">
-    <div id="data-tables-table-filter" class="data-tables-filter">
-      <label
-        ><input
-          type="search"
-          class="form-control form-control-sm"
-          [placeholder]="'AbpUi::PagerSearch' | abpLocalization"
-          (input.debounce)="onSearch($event.target.value)"
-      /></label>
-    </div>
-    <p-table
-      *ngIf="[150, 0] as columnWidths"
-      [value]="data$ | async"
-      [abpTableSort]="{ key: sortKey, order: sortOrder }"
-      [lazy]="true"
-      [lazyLoadOnInit]="false"
-      [paginator]="true"
-      [rows]="10"
-      [totalRecords]="totalCount$ | async"
-      [loading]="loading"
-      [resizableColumns]="true"
-      [scrollable]="true"
-      (onLazyLoad)="onPageChange($event)"
-    >
-      <ng-template pTemplate="colgroup">
-        <colgroup>
-          <col *ngFor="let width of columnWidths" [ngStyle]="{ 'width.px': width || undefined }" />
-        </colgroup>
-      </ng-template>
-      <ng-template pTemplate="emptymessage" let-columns>
-        <tr
-          abp-table-empty-message
-          [attr.colspan]="columnWidths.length"
-          localizationResource="AbpIdentity"
-          localizationProp="NoDataAvailableInDatatable"
-        ></tr>
-      </ng-template>
-      <ng-template pTemplate="header" let-columns>
-        <tr>
-          <th>{{ 'AbpIdentity::Actions' | abpLocalization }}</th>
-          <th pResizableColumn (click)="sortOrderIcon.sort('name')">
-            {{ 'AbpIdentity::RoleName' | abpLocalization }}
-            <abp-sort-order-icon
-              #sortOrderIcon
-              key="name"
-              [(selectedKey)]="sortKey"
-              [(order)]="sortOrder"
-            ></abp-sort-order-icon>
-          </th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-data>
-        <tr>
-          <td class="text-center">
-            <div ngbDropdown container="body" class="d-inline-block">
-              <button
-                class="btn btn-primary btn-sm dropdown-toggle"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                ngbDropdownToggle
-              >
-                <i class="fa fa-cog mr-1"></i>{{ 'AbpIdentity::Actions' | abpLocalization }}
-              </button>
-              <div ngbDropdownMenu>
-                <button
-                  [abpPermission]="'AbpIdentity.Roles.Update'"
-                  ngbDropdownItem
-                  (click)="onEdit(data.id)"
-                >
-                  {{ 'AbpIdentity::Edit' | abpLocalization }}
-                </button>
-                <button
-                  [abpPermission]="'AbpIdentity.Roles.ManagePermissions'"
-                  ngbDropdownItem
-                  (click)="providerKey = data.name; visiblePermissions = true"
-                >
-                  {{ 'AbpIdentity::Permissions' | abpLocalization }}
-                </button>
-                <button
-                  [abpPermission]="'AbpIdentity.Roles.Delete'"
-                  ngbDropdownItem (click)="delete(data.id, data.name)"
-                >
-                  {{ 'AbpIdentity::Delete' | abpLocalization }}
-                </button>
-              </div>
-            </div>
-          </td>
-          <td>{{ data.name }}</td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-</div>
-
-<abp-modal size="md" [(visible)]="isModalVisible" [busy]="modalBusy">
-  <ng-template #abpHeader>
-    <h3>{{ (selected?.id ? 'AbpIdentity::Edit' : 'AbpIdentity::NewRole') | abpLocalization }}</h3>
+  </nz-table>
+</nz-card>
+<nz-modal [nzStyle]="{ top: '20px' }"
+          [(nzVisible)]="isModalVisible"
+          [nzTitle]="modalTitle"
+          [nzContent]="modalContent"
+          [nzFooter]="modalFooter"
+          (nzOnCancel)="isModalVisible=false">
+  <ng-template #modalTitle>
+    {{(selected?.id ? 'AbpIdentity::Edit' : 'AbpIdentity::NewRole') | abpLocalization}}
   </ng-template>
 
-  <ng-template #abpBody>
-    <form [formGroup]="form" (ngSubmit)="save()">
-      <div class="form-group">
-        <label for="role-name">{{ 'AbpIdentity::RoleName' | abpLocalization }}</label
-        ><span> * </span>
-        <input autofocus type="text" id="role-name" class="form-control" formControlName="name" />
-      </div>
+  <ng-template #modalContent>
+    <ng-template #loaderRef>
+      <div class="text-center"><i class="fa fa-pulse fa-spinner"></i></div>
+    </ng-template>
 
-      <div class="custom-checkbox custom-control mb-2">
-        <input type="checkbox" id="role-is-default" class="custom-control-input" formControlName="isDefault" />
-        <label class="custom-control-label" for="role-is-default">{{
-          'AbpIdentity::DisplayName:IsDefault' | abpLocalization
-        }}</label>
-      </div>
+    <form nz-form *ngIf="form; else loaderRef" [formGroup]="form" (ngSubmit)="save()">
 
-      <div class="custom-checkbox custom-control mb-2">
-        <input type="checkbox" id="role-is-public" class="custom-control-input" formControlName="isPublic" />
-        <label class="custom-control-label" for="role-is-public">{{
-          'AbpIdentity::DisplayName:IsPublic' | abpLocalization
-        }}</label>
-      </div>
+
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="role-name">{{ 'AbpIdentity::RoleName' | abpLocalization }}</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24">
+          <input nz-input formControlName="name" id="role-name" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+          <label nz-checkbox formControlName="isDefault">
+            <span>
+              {{
+                  'AbpIdentity::DisplayName:IsDefault' | abpLocalization
+              }}
+            </span>
+          </label>
+          <label nz-checkbox formControlName="isPublic">
+            <span>
+              {{
+                  'AbpIdentity::DisplayName:IsPublic' | abpLocalization
+              }}
+            </span>
+          </label>
+        </nz-form-control>
+      </nz-form-item>
     </form>
   </ng-template>
 
-  <ng-template #abpFooter>
-    <button type="button" class="btn btn-secondary" #abpClose>
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="isModalVisible=false">
       {{ 'AbpIdentity::Cancel' | abpLocalization }}
     </button>
-    <abp-button iconClass="fa fa-check" (click)="save()">{{ 'AbpIdentity::Save' | abpLocalization }}</abp-button>
+    <button nz-button nzType="primary" (click)="save()" [disabled]="form?.invalid">
+      {{
+      'AbpIdentity::Save' | abpLocalization
+      }}
+    </button>
   </ng-template>
-</abp-modal>
+</nz-modal>
+<ng-alain-permission-management [(visible)]="visiblePermissions" providerName="R" [providerKey]="providerKey">
+</ng-alain-permission-management>
 
-<abp-permission-management [(visible)]="visiblePermissions" providerName="R" [providerKey]="providerKey">
-</abp-permission-management>
+
+
+
+

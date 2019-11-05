@@ -1,32 +1,25 @@
-import { SettingsService, _HttpClient } from '@delon/theme';
-import { Component, OnDestroy, Inject, Optional } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NzMessageService, NzModalService } from 'ng-zorro-antd';
-import { SocialService, SocialOpenType, ITokenService, DA_SERVICE_TOKEN } from '@delon/auth';
-import { ReuseTabService } from '@delon/abc';
-//import { environment } from '../../../../environments/environment';
-import { StartupService } from '@fs/ng-alain';
 import { LoginComponent, Options } from '@abp/ng.account';
-import { OAuthService } from 'angular-oauth2-oidc';
-import { Store } from '@ngxs/store';
 import { ToasterService } from '@abp/ng.theme.shared';
+import { Component, Inject, Optional } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Store } from '@ngxs/store';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
-    selector: 'fs-login',
+    selector: 'ng-alain-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.less']
 })
 export class UserLoginComponent extends LoginComponent {
 
     constructor(
-        fb: FormBuilder,
-        oauthService: OAuthService,
-        store: Store,
-        toasterService: ToasterService,
-        @Optional() @Inject('ACCOUNT_OPTIONS') options: Options,
+        _fb: FormBuilder,
+        _oauthService: OAuthService,
+        _store: Store,
+        _toasterService: ToasterService,
+        @Optional() @Inject('ACCOUNT_OPTIONS') _options: Options,
     ) {
-        super(fb, oauthService, store, toasterService, options);
+        super(_fb, _oauthService, _store, _toasterService, _options);
     }
 
 }

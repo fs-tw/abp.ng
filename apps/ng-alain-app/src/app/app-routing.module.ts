@@ -25,7 +25,7 @@ const routes: Routes = [
     },
     {
         path: 'account',
-        loadChildren: () => import('./lazy-libs/account-wrapper.module').then(m => m.AccountWrapperModule),
+        loadChildren: () => import('./lazy-libs/account-wrapper.module').then(m => m.AccountWrapperModule)
     },
     {
         path: 'identity',
