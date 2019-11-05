@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
 import { TenantManagementNgAlainRoutingModule } from './tenant-management-ng-alain-routing.module';
 import { TenantsComponent } from './components/tenants/tenants.component';
+import { FeatureManagementNgAlainModule } from '@fs/feature-management/ng-alain'
 
 @NgModule({
     declarations: [TenantsComponent],
@@ -11,7 +12,8 @@ import { TenantsComponent } from './components/tenants/tenants.component';
         CoreModule,
         NgAlainBasicModule,
         TenantManagementNgAlainRoutingModule,
-        TenantManagementModule
+        TenantManagementModule,
+        FeatureManagementNgAlainModule
     ]
 })
 export class TenantManagementNgAlainModule { }
