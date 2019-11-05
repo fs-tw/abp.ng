@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UserLoginComponent } from './components/login/login.component'
 import { UserRegisterComponent } from './components/register/register.component';
-import { DynamicLayoutComponent } from '@abp/ng.core';
+import { DynamicLayoutComponent, AuthGuard } from '@abp/ng.core';
 import { LayoutPassportComponent,LayoutDefaultComponent } from '@fs/ng-alain/basic';
 import { ManageProfileComponent } from './components/manage-profile/manage-profile.component';
 
@@ -13,6 +13,7 @@ const routes: Routes = [
         component: LayoutDefaultComponent,
         children: [
             {
+                canActivate: [AuthGuard],
                 path: 'manage-profile',
                 component: ManageProfileComponent,
             }
