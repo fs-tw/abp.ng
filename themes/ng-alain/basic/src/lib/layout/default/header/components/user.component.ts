@@ -5,20 +5,20 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 import { Store, Select } from '@ngxs/store';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Navigate, RouterState } from '@ngxs/router-plugin';
-import { GetAppConfiguration, ConfigState, ApplicationConfiguration } from '@abp/ng.core';
+import { GetAppConfiguration, ConfigState, ApplicationConfiguration, SessionState, ABP } from '@abp/ng.core';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'header-user',
-    template: `
+  selector: 'header-user',
+  template: `
     <div
       class="alain-default__nav-item d-flex align-items-center px-sm"
       nz-dropdown
       nzPlacement="bottomRight"
       [nzDropdownMenu]="userMenu"
     >
-      <nz-avatar [nzSrc]="settings.user.avatar" nzSize="small" class="mr-sm"></nz-avatar>
-      {{ (currentUser$ | async)?.userName }}
+      <!--<nz-avatar [nzSrc]="settings.user.avatar" nzSize="small" class="mr-sm"></nz-avatar>-->
+      {{tenantName}}/{{ (currentUser$ | async)?.userName }}
     </div>
     <nz-dropdown-menu #userMenu="nzDropdownMenu">
       <div nz-menu class="width-sm">
@@ -34,30 +34,40 @@ import { Observable } from 'rxjs';
       </div>
     </nz-dropdown-menu>
   `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderUserComponent {
-    @Select(ConfigState.getOne('currentUser'))
-    currentUser$: Observable<ApplicationConfiguration.CurrentUser>;
-    constructor(
-        public settings: SettingsService,
-        private router: Router,
-        @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
-        private store: Store,
-        private oauthService: OAuthService
-    ) { }
+  @Select(ConfigState.getOne('currentUser'))
+  currentUser$: Observable<ApplicationConfiguration.CurrentUser>;
 
-    //logout() {
-    //  this.tokenService.clear();
-    //  this.router.navigateByUrl(this.tokenService.login_url!);
-    //  }
-    logout() {
-        this.oauthService.logOut();
-        this.store.dispatch(
-            new Navigate(['/'], null, {
-                state: { redirectUrl: this.store.selectSnapshot(RouterState).state.url }
-            })
-        );
-        this.store.dispatch(new GetAppConfiguration());
-    }
+  tenant = {} as ABP.BasicItem;
+
+  tenantName: string;
+
+  constructor(
+    public settings: SettingsService,
+    private router: Router,
+    @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
+    private store: Store,
+    private oauthService: OAuthService
+  ) {
+    this.tenant =
+      this.store.selectSnapshot(SessionState.getTenant) ||
+      ({} as ABP.BasicItem);
+    this.tenantName = this.tenant.name || '.';
+  }
+
+  //logout() {
+  //  this.tokenService.clear();
+  //  this.router.navigateByUrl(this.tokenService.login_url!);
+  //  }
+  logout() {
+    this.oauthService.logOut();
+    this.store.dispatch(
+      new Navigate(['/'], null, {
+        state: { redirectUrl: this.store.selectSnapshot(RouterState).state.url }
+      })
+    );
+    this.store.dispatch(new GetAppConfiguration());
+  }
 }

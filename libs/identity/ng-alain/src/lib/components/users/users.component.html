@@ -2,7 +2,7 @@
 <nz-card [nzBordered]="false">
   <button nz-button
           [abpPermission]="'AbpIdentity.Users.Create'"
-          (click)="onAdd()"
+          (click)="add()"
           [nzType]="'primary'">
     <i nz-icon nzType="plus"></i>
     <span>{{ 'AbpIdentity::NewUser' | abpLocalization }}</span>
@@ -36,7 +36,7 @@
           </a>
           <nz-dropdown-menu #opMenu="nzDropdownMenu">
             <ul nz-menu>
-              <li nz-menu-item [abpPermission]="'AbpIdentity.Users.Update'" (click)="onEdit(data.id)">{{ 'AbpIdentity::Edit' | abpLocalization }}</li>
+              <li nz-menu-item [abpPermission]="'AbpIdentity.Users.Update'" (click)="edit(data.id)">{{ 'AbpIdentity::Edit' | abpLocalization }}</li>
               <li nz-menu-item [abpPermission]="'AbpIdentity.Users.ManagePermissions'" (click)="providerKey = data.id; visiblePermissions = true">{{ 'AbpIdentity::Permissions' | abpLocalization }}</li>
               <li nz-menu-item [abpPermission]="'AbpIdentity.Users.Delete'" (click)="delete(data.id, data.userName)">{{ 'AbpIdentity::Delete' | abpLocalization }}</li>
             </ul>

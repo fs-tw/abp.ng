@@ -1,34 +1,39 @@
-<form nz-form [formGroup]="form" (ngSubmit)="onSubmit()" role="form">
-  <nz-tabset [nzAnimated]="false" class="tabs" (nzSelectChange)="switch($event)">
-    <nz-tab [nzTitle]="'AbpAccount::Login' | abpLocalization">
-      <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
+<ng-alain-auth-wrapper [mainContentRef]="mainContentRef">
+  <ng-template #mainContentRef>
+    <form nz-form [formGroup]="form" (ngSubmit)="onSubmit()" role="form">
+      <nz-tabset [nzAnimated]="false" class="tabs" (nzSelectChange)="switch($event)">
+        <nz-tab [nzTitle]="'AbpAccount::Login' | abpLocalization">
+          <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
+          <nz-form-item>
+            <nz-form-control [nzErrorTip]="'Please enter mobile number!' | abpLocalization">
+              <nz-input-group nzSize="large" nzPrefixIcon="user">
+                <input nz-input formControlName="username" placeholder="{{'AbpAccount::UserNameOrEmailAddress' | abpLocalization}}" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control [nzErrorTip]="'Please enter password!' | abpLocalization">
+              <nz-input-group nzSize="large" nzPrefixIcon="lock">
+                <input nz-input type="password" formControlName="password" placeholder="{{ 'AbpAccount::Password' | abpLocalization }}" />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-tab>
+      </nz-tabset>
       <nz-form-item>
-        <nz-form-control [nzErrorTip]="'Please enter mobile number!' | abpLocalization">
-          <nz-input-group nzSize="large" nzPrefixIcon="user">
-            <input nz-input formControlName="username" placeholder="{{'AbpAccount::UserNameOrEmailAddress' | abpLocalization}}" />
-          </nz-input-group>
-        </nz-form-control>
+        <nz-col [nzSpan]="12">
+          <label nz-checkbox formControlName="remember">{{ 'AbpAccount::RememberMe' | abpLocalization }}</label>
+        </nz-col>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-control [nzErrorTip]="'Please enter password!' | abpLocalization">
-          <nz-input-group nzSize="large" nzPrefixIcon="lock">
-            <input nz-input type="password" formControlName="password" placeholder="{{ 'AbpAccount::Password' | abpLocalization }}" />
-          </nz-input-group>
-        </nz-form-control>
+        <button nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="inProgress" nzBlock>
+          {{ 'AbpAccount::Login' | abpLocalization }}
+        </button>
       </nz-form-item>
-    </nz-tab>
-  </nz-tabset>
-  <nz-form-item>
-    <nz-col [nzSpan]="12">
-      <label nz-checkbox formControlName="remember">{{ 'AbpAccount::RememberMe' | abpLocalization }}</label>
-    </nz-col>
-  </nz-form-item>
-  <nz-form-item>
-    <button nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="inProgress" nzBlock>
-      {{ 'AbpAccount::Login' | abpLocalization }}
-    </button>
-  </nz-form-item>
-</form>
-<div class="other">
-  <a class="register" routerLink="/account/register">{{ 'AbpAccount::Register' | abpLocalization }}</a>
-</div>
+    </form>
+    <div class="other">
+      <a class="register" routerLink="/account/register">{{ 'AbpAccount::Register' | abpLocalization }}</a>
+    </div>
+  </ng-template>
+</ng-alain-auth-wrapper>
+

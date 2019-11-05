@@ -38,7 +38,7 @@
             <nz-checkbox-wrapper>
               <label nz-checkbox
                      [ngModel]="getChecked(permission.name)"
-                     [nzDisabled]="isGrantedByRole(permission.grantedProviders)"
+                     [nzDisabled]="isGrantedByOtherProviderName(permission.grantedProviders)"
                      (ngModelChange)="onClickCheckbox(permission)"
                      >
                 {{ permission.displayName }}
