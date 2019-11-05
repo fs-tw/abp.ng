@@ -2,7 +2,7 @@
 <nz-card [nzBordered]="false">
   <button nz-button
           [abpPermission]="'AbpIdentity.Roles.Create'"
-          (click)="onAdd()"
+          (click)="add()"
           [nzType]="'primary'">
     <i nz-icon nzType="plus"></i>
     <span>{{ 'AbpIdentity::NewRole' | abpLocalization }}</span>
@@ -28,13 +28,17 @@
           </a>
           <nz-dropdown-menu #opMenu="nzDropdownMenu">
             <ul nz-menu>
-              <li nz-menu-item [abpPermission]="'AbpIdentity.Roles.Update'" (click)="onEdit(data.id)">{{ 'AbpIdentity::Edit' | abpLocalization }}</li>
+              <li nz-menu-item [abpPermission]="'AbpIdentity.Roles.Update'" (click)="edit(data.id)">{{ 'AbpIdentity::Edit' | abpLocalization }}</li>
               <li nz-menu-item [abpPermission]="'AbpIdentity.Roles.ManagePermissions'" (click)="providerKey = data.name; visiblePermissions = true">{{ 'AbpIdentity::Permissions' | abpLocalization }}</li>
               <li nz-menu-item [abpPermission]="'AbpIdentity.Roles.Delete'" (click)="delete(data.id, data.name)">{{ 'AbpIdentity::Delete' | abpLocalization }}</li>
             </ul>
           </nz-dropdown-menu>
         </td>
-        <td>{{ data.name }}</td>
+        <td>
+          {{ data.name }}
+          <nz-tag [nzColor]="'#17a2b8'" *ngIf="data.isPublic">Public</nz-tag>
+          <nz-tag [nzColor]="'#28a745'" *ngIf="data.isDefault">Default</nz-tag>
+        </td>
       </tr>
     </tbody>
 

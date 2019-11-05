@@ -10,7 +10,6 @@ import { registerLocaleData, CommonModule } from '@angular/common';
 import compare from 'just-compare';
 import clone from 'just-clone';
 import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Table } from 'primeng/table';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
@@ -500,6 +499,14 @@ function sortRoutes(routes) {
     if (!routes.length)
         return [];
     return routes
+        .map((/**
+     * @param {?} route
+     * @param {?} index
+     * @return {?}
+     */
+    function (route, index) {
+        return __assign({}, route, { order: typeof route.order === 'undefined' ? index + 1 : route.order });
+    }))
         .sort((/**
      * @param {?} a
      * @param {?} b
@@ -620,7 +627,7 @@ function localeInitializer(injector) {
             registerLocale(lang).then((/**
              * @return {?}
              */
-            function () { return resolve(); }), reject);
+            function () { return resolve('resolved'); }), reject);
         }));
     });
     return fn;
@@ -2457,164 +2464,10 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var SortPipe = /** @class */ (function () {
-    function SortPipe() {
-    }
-    /**
-     * @param {?} value
-     * @param {?=} sortOrder
-     * @param {?=} sortKey
-     * @return {?}
-     */
-    SortPipe.prototype.transform = /**
-     * @param {?} value
-     * @param {?=} sortOrder
-     * @param {?=} sortKey
-     * @return {?}
-     */
-    function (value, sortOrder, sortKey) {
-        if (sortOrder === void 0) { sortOrder = 'asc'; }
-        sortOrder = sortOrder && ((/** @type {?} */ (sortOrder.toLowerCase())));
-        if (!value || (sortOrder !== 'asc' && sortOrder !== 'desc'))
-            return value;
-        /** @type {?} */
-        var numberArray = [];
-        /** @type {?} */
-        var stringArray = [];
-        if (!sortKey) {
-            numberArray = value.filter((/**
-             * @param {?} item
-             * @return {?}
-             */
-            function (item) { return typeof item === 'number'; })).sort();
-            stringArray = value.filter((/**
-             * @param {?} item
-             * @return {?}
-             */
-            function (item) { return typeof item === 'string'; })).sort();
-        }
-        else {
-            numberArray = value.filter((/**
-             * @param {?} item
-             * @return {?}
-             */
-            function (item) { return typeof item[sortKey] === 'number'; })).sort((/**
-             * @param {?} a
-             * @param {?} b
-             * @return {?}
-             */
-            function (a, b) { return a[sortKey] - b[sortKey]; }));
-            stringArray = value
-                .filter((/**
-             * @param {?} item
-             * @return {?}
-             */
-            function (item) { return typeof item[sortKey] === 'string'; }))
-                .sort((/**
-             * @param {?} a
-             * @param {?} b
-             * @return {?}
-             */
-            function (a, b) {
-                if (a[sortKey] < b[sortKey])
-                    return -1;
-                else if (a[sortKey] > b[sortKey])
-                    return 1;
-                else
-                    return 0;
-            }));
-        }
-        /** @type {?} */
-        var sorted = numberArray.concat(stringArray);
-        return sortOrder === 'asc' ? sorted : sorted.reverse();
-    };
-    SortPipe.decorators = [
-        { type: Injectable },
-        { type: Pipe, args: [{
-                    name: 'abpSort',
-                },] }
-    ];
-    return SortPipe;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @record
- */
-function TableSortOptions() { }
-if (false) {
-    /** @type {?} */
-    TableSortOptions.prototype.key;
-    /** @type {?} */
-    TableSortOptions.prototype.order;
-}
-var TableSortDirective = /** @class */ (function () {
-    function TableSortDirective(table, sortPipe) {
-        this.table = table;
-        this.sortPipe = sortPipe;
-        this.value = [];
-    }
-    /**
-     * @param {?} __0
-     * @return {?}
-     */
-    TableSortDirective.prototype.ngOnChanges = /**
-     * @param {?} __0
-     * @return {?}
-     */
-    function (_a) {
-        var value = _a.value, abpTableSort = _a.abpTableSort;
-        if (value || abpTableSort) {
-            this.abpTableSort = this.abpTableSort || ((/** @type {?} */ ({})));
-            this.table.value = this.sortPipe.transform(clone(this.value), this.abpTableSort.order, this.abpTableSort.key);
-        }
-    };
-    TableSortDirective.decorators = [
-        { type: Directive, args: [{
-                    selector: '[abpTableSort]',
-                    providers: [SortPipe],
-                },] }
-    ];
-    /** @nocollapse */
-    TableSortDirective.ctorParameters = function () { return [
-        { type: Table, decorators: [{ type: Optional }, { type: Self }] },
-        { type: SortPipe }
-    ]; };
-    TableSortDirective.propDecorators = {
-        abpTableSort: [{ type: Input }],
-        value: [{ type: Input }]
-    };
-    return TableSortDirective;
-}());
-if (false) {
-    /** @type {?} */
-    TableSortDirective.prototype.abpTableSort;
-    /** @type {?} */
-    TableSortDirective.prototype.value;
-    /**
-     * @type {?}
-     * @private
-     */
-    TableSortDirective.prototype.table;
-    /**
-     * @type {?}
-     * @private
-     */
-    TableSortDirective.prototype.sortPipe;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 var VisibilityDirective = /** @class */ (function () {
     function VisibilityDirective(elRef, renderer) {
         this.elRef = elRef;
         this.renderer = renderer;
-        this.mutationObserverEnabled = true;
         this.completed$ = new Subject();
     }
     /**
@@ -2630,64 +2483,51 @@ var VisibilityDirective = /** @class */ (function () {
         }
         /** @type {?} */
         var observer;
-        if (this.mutationObserverEnabled) {
-            observer = new MutationObserver((/**
-             * @param {?} mutations
+        observer = new MutationObserver((/**
+         * @param {?} mutations
+         * @return {?}
+         */
+        function (mutations) {
+            mutations.forEach((/**
+             * @param {?} mutation
              * @return {?}
              */
-            function (mutations) {
-                mutations.forEach((/**
-                 * @param {?} mutation
-                 * @return {?}
-                 */
-                function (mutation) {
-                    if (!mutation.target)
-                        return;
-                    /** @type {?} */
-                    var htmlNodes = snq((/**
-                     * @return {?}
-                     */
-                    function () { return Array.from(mutation.target.childNodes).filter((/**
-                     * @param {?} node
-                     * @return {?}
-                     */
-                    function (node) { return node instanceof HTMLElement; })); }), []);
-                    if (!htmlNodes.length) {
-                        _this.removeFromDOM();
-                        _this.disconnect();
-                    }
-                    else {
-                        setTimeout((/**
-                         * @return {?}
-                         */
-                        function () {
-                            _this.disconnect();
-                        }), 0);
-                    }
-                }));
-            }));
-            observer.observe(this.focusedElement, {
-                childList: true,
-            });
-        }
-        else {
-            setTimeout((/**
-             * @return {?}
-             */
-            function () {
+            function (mutation) {
+                if (!mutation.target)
+                    return;
                 /** @type {?} */
                 var htmlNodes = snq((/**
                  * @return {?}
                  */
-                function () { return Array.from(_this.focusedElement.childNodes).filter((/**
+                function () { return Array.from(mutation.target.childNodes).filter((/**
                  * @param {?} node
                  * @return {?}
                  */
                 function (node) { return node instanceof HTMLElement; })); }), []);
-                if (!htmlNodes.length)
+                if (!htmlNodes.length) {
                     _this.removeFromDOM();
-            }), 0);
-        }
+                }
+            }));
+        }));
+        observer.observe(this.focusedElement, {
+            childList: true,
+        });
+        setTimeout((/**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var htmlNodes = snq((/**
+             * @return {?}
+             */
+            function () { return Array.from(_this.focusedElement.childNodes).filter((/**
+             * @param {?} node
+             * @return {?}
+             */
+            function (node) { return node instanceof HTMLElement; })); }), []);
+            if (!htmlNodes.length)
+                _this.removeFromDOM();
+        }), 0);
         this.completed$.subscribe((/**
          * @return {?}
          */
@@ -2710,7 +2550,10 @@ var VisibilityDirective = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        if (!this.elRef.nativeElement)
+            return;
         this.renderer.removeChild(this.elRef.nativeElement.parentElement, this.elRef.nativeElement);
+        this.disconnect();
     };
     VisibilityDirective.decorators = [
         { type: Directive, args: [{
@@ -2723,16 +2566,13 @@ var VisibilityDirective = /** @class */ (function () {
         { type: Renderer2 }
     ]; };
     VisibilityDirective.propDecorators = {
-        focusedElement: [{ type: Input, args: ['abpVisibility',] }],
-        mutationObserverEnabled: [{ type: Input }]
+        focusedElement: [{ type: Input, args: ['abpVisibility',] }]
     };
     return VisibilityDirective;
 }());
 if (false) {
     /** @type {?} */
     VisibilityDirective.prototype.focusedElement;
-    /** @type {?} */
-    VisibilityDirective.prototype.mutationObserverEnabled;
     /** @type {?} */
     VisibilityDirective.prototype.completed$;
     /**
@@ -3355,6 +3195,7 @@ var LocalizationPipe = /** @class */ (function () {
         function (acc, val) { return (Array.isArray(val) ? __spread(acc, val) : __spread(acc, [val])); }), []))));
     };
     LocalizationPipe.decorators = [
+        { type: Injectable },
         { type: Pipe, args: [{
                     name: 'abpLocalization',
                 },] }
@@ -3372,6 +3213,90 @@ if (false) {
      */
     LocalizationPipe.prototype.store;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var SortPipe = /** @class */ (function () {
+    function SortPipe() {
+    }
+    /**
+     * @param {?} value
+     * @param {?=} sortOrder
+     * @param {?=} sortKey
+     * @return {?}
+     */
+    SortPipe.prototype.transform = /**
+     * @param {?} value
+     * @param {?=} sortOrder
+     * @param {?=} sortKey
+     * @return {?}
+     */
+    function (value, sortOrder, sortKey) {
+        if (sortOrder === void 0) { sortOrder = 'asc'; }
+        sortOrder = sortOrder && ((/** @type {?} */ (sortOrder.toLowerCase())));
+        if (!value || (sortOrder !== 'asc' && sortOrder !== 'desc'))
+            return value;
+        /** @type {?} */
+        var numberArray = [];
+        /** @type {?} */
+        var stringArray = [];
+        if (!sortKey) {
+            numberArray = value.filter((/**
+             * @param {?} item
+             * @return {?}
+             */
+            function (item) { return typeof item === 'number'; })).sort();
+            stringArray = value.filter((/**
+             * @param {?} item
+             * @return {?}
+             */
+            function (item) { return typeof item === 'string'; })).sort();
+        }
+        else {
+            numberArray = value.filter((/**
+             * @param {?} item
+             * @return {?}
+             */
+            function (item) { return typeof item[sortKey] === 'number'; })).sort((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            function (a, b) { return a[sortKey] - b[sortKey]; }));
+            stringArray = value
+                .filter((/**
+             * @param {?} item
+             * @return {?}
+             */
+            function (item) { return typeof item[sortKey] === 'string'; }))
+                .sort((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            function (a, b) {
+                if (a[sortKey] < b[sortKey])
+                    return -1;
+                else if (a[sortKey] > b[sortKey])
+                    return 1;
+                else
+                    return 0;
+            }));
+        }
+        /** @type {?} */
+        var sorted = numberArray.concat(stringArray);
+        return sortOrder === 'asc' ? sorted : sorted.reverse();
+    };
+    SortPipe.decorators = [
+        { type: Injectable },
+        { type: Pipe, args: [{
+                    name: 'abpSort',
+                },] }
+    ];
+    return SortPipe;
+}());
 
 /**
  * @fileoverview added by tsickle
@@ -4205,7 +4130,6 @@ var CoreModule = /** @class */ (function () {
                         EllipsisDirective,
                         ForDirective,
                         FormSubmitDirective,
-                        TableSortDirective,
                         LocalizationPipe,
                         SortPipe,
                         PermissionDirective,
@@ -4228,7 +4152,6 @@ var CoreModule = /** @class */ (function () {
                         FormSubmitDirective,
                         LocalizationPipe,
                         SortPipe,
-                        TableSortDirective,
                         PermissionDirective,
                         VisibilityDirective,
                         InputEventDebounceDirective,
@@ -4253,5 +4176,5 @@ var CoreModule = /** @class */ (function () {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AbstractNgModelComponent, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, LazyLoadService, LocalizationPipe, LocalizationService, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetTenant, SortPipe, StartLoader, StopLoader, TableSortDirective, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, uuid, ProfileState as ɵa, ProfileService as ɵb, VisibilityDirective as ɵba, InputEventDebounceDirective as ɵbb, ClickEventStopPropagationDirective as ɵbc, AbstractNgModelComponent as ɵbd, LocaleId as ɵbe, LocaleProvider as ɵbf, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbg, ConfigPlugin as ɵbh, ApiInterceptor as ɵbi, getInitialData as ɵbj, localeInitializer as ɵbk, RestService as ɵc, GetProfile as ɵd, UpdateProfile as ɵe, ChangePassword as ɵf, SessionState as ɵh, LocalizationService as ɵi, SetLanguage as ɵj, SetTenant as ɵk, ConfigState as ɵm, ApplicationConfigurationService as ɵn, PatchRouteByName as ɵo, GetAppConfiguration as ɵp, RouterOutletComponent as ɵq, DynamicLayoutComponent as ɵr, AutofocusDirective as ɵs, EllipsisDirective as ɵt, ForDirective as ɵu, FormSubmitDirective as ɵv, TableSortDirective as ɵw, SortPipe as ɵx, LocalizationPipe as ɵy, PermissionDirective as ɵz };
+export { AbstractNgModelComponent, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, LazyLoadService, LocalizationPipe, LocalizationService, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, uuid, ProfileState as ɵa, ProfileService as ɵb, InputEventDebounceDirective as ɵba, ClickEventStopPropagationDirective as ɵbb, AbstractNgModelComponent as ɵbc, LocaleId as ɵbd, LocaleProvider as ɵbe, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbf, ConfigPlugin as ɵbg, ApiInterceptor as ɵbh, getInitialData as ɵbi, localeInitializer as ɵbj, RestService as ɵc, GetProfile as ɵd, UpdateProfile as ɵe, ChangePassword as ɵf, SessionState as ɵh, LocalizationService as ɵi, SetLanguage as ɵj, SetTenant as ɵk, ConfigState as ɵm, ApplicationConfigurationService as ɵn, PatchRouteByName as ɵo, GetAppConfiguration as ɵp, RouterOutletComponent as ɵq, DynamicLayoutComponent as ɵr, AutofocusDirective as ɵs, EllipsisDirective as ɵt, ForDirective as ɵu, FormSubmitDirective as ɵv, LocalizationPipe as ɵw, SortPipe as ɵx, PermissionDirective as ɵy, VisibilityDirective as ɵz };
 //# sourceMappingURL=abp-ng.core.js.map

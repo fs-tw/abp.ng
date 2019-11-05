@@ -8,20 +8,24 @@ import { UserRegisterComponent } from './components/register/register.component'
 import { ManageProfileComponent } from './components/manage-profile/manage-profile.component';
 import { PersonalSettingsComponent } from './components/personal-settings/personal-settings.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.component';
+import { TenantBoxComponent } from './components/tenant-box/tenant-box.component';
 
 @NgModule({
-    declarations: [
-        UserLoginComponent,
-        UserRegisterComponent,
-        ManageProfileComponent,
-        PersonalSettingsComponent,
-        ChangePasswordComponent
-    ],
-    imports: [
-        CoreModule,
-        NgAlainBasicModule,
-        AccountNgAlainRoutingModule,
-        AccountModule
-    ]
+  declarations: [
+    AuthWrapperComponent,
+    TenantBoxComponent,
+    UserLoginComponent,
+    UserRegisterComponent,
+    ManageProfileComponent,
+    PersonalSettingsComponent,
+    ChangePasswordComponent
+  ],
+  imports: [
+    CoreModule,
+    NgAlainBasicModule,
+    AccountNgAlainRoutingModule,
+    AccountModule
+  ]
 })
 export class AccountNgAlainModule { }
