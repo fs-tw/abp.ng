@@ -34,7 +34,11 @@
             </ul>
           </nz-dropdown-menu>
         </td>
-        <td>{{ data.name }}</td>
+        <td>
+          {{ data.name }}
+          <nz-tag [nzColor]="'#17a2b8'" *ngIf="data.isPublic">Public</nz-tag>
+          <nz-tag [nzColor]="'#28a745'" *ngIf="data.isDefault">Default</nz-tag>
+        </td>
       </tr>
     </tbody>
 
