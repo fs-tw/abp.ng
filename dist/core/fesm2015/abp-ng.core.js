@@ -10,7 +10,6 @@ import { registerLocaleData, CommonModule } from '@angular/common';
 import compare from 'just-compare';
 import clone from 'just-clone';
 import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Table } from 'primeng/table';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
@@ -475,6 +474,14 @@ function sortRoutes(routes = []) {
     if (!routes.length)
         return [];
     return routes
+        .map((/**
+     * @param {?} route
+     * @param {?} index
+     * @return {?}
+     */
+    (route, index) => {
+        return Object.assign({}, route, { order: typeof route.order === 'undefined' ? index + 1 : route.order });
+    }))
         .sort((/**
      * @param {?} a
      * @param {?} b
@@ -595,7 +602,7 @@ function localeInitializer(injector) {
             registerLocale(lang).then((/**
              * @return {?}
              */
-            () => resolve()), reject);
+            () => resolve('resolved')), reject);
         }));
     });
     return fn;
@@ -2232,147 +2239,6 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class SortPipe {
-    /**
-     * @param {?} value
-     * @param {?=} sortOrder
-     * @param {?=} sortKey
-     * @return {?}
-     */
-    transform(value, sortOrder = 'asc', sortKey) {
-        sortOrder = sortOrder && ((/** @type {?} */ (sortOrder.toLowerCase())));
-        if (!value || (sortOrder !== 'asc' && sortOrder !== 'desc'))
-            return value;
-        /** @type {?} */
-        let numberArray = [];
-        /** @type {?} */
-        let stringArray = [];
-        if (!sortKey) {
-            numberArray = value.filter((/**
-             * @param {?} item
-             * @return {?}
-             */
-            item => typeof item === 'number')).sort();
-            stringArray = value.filter((/**
-             * @param {?} item
-             * @return {?}
-             */
-            item => typeof item === 'string')).sort();
-        }
-        else {
-            numberArray = value.filter((/**
-             * @param {?} item
-             * @return {?}
-             */
-            item => typeof item[sortKey] === 'number')).sort((/**
-             * @param {?} a
-             * @param {?} b
-             * @return {?}
-             */
-            (a, b) => a[sortKey] - b[sortKey]));
-            stringArray = value
-                .filter((/**
-             * @param {?} item
-             * @return {?}
-             */
-            item => typeof item[sortKey] === 'string'))
-                .sort((/**
-             * @param {?} a
-             * @param {?} b
-             * @return {?}
-             */
-            (a, b) => {
-                if (a[sortKey] < b[sortKey])
-                    return -1;
-                else if (a[sortKey] > b[sortKey])
-                    return 1;
-                else
-                    return 0;
-            }));
-        }
-        /** @type {?} */
-        const sorted = numberArray.concat(stringArray);
-        return sortOrder === 'asc' ? sorted : sorted.reverse();
-    }
-}
-SortPipe.decorators = [
-    { type: Injectable },
-    { type: Pipe, args: [{
-                name: 'abpSort',
-            },] }
-];
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @record
- */
-function TableSortOptions() { }
-if (false) {
-    /** @type {?} */
-    TableSortOptions.prototype.key;
-    /** @type {?} */
-    TableSortOptions.prototype.order;
-}
-class TableSortDirective {
-    /**
-     * @param {?} table
-     * @param {?} sortPipe
-     */
-    constructor(table, sortPipe) {
-        this.table = table;
-        this.sortPipe = sortPipe;
-        this.value = [];
-    }
-    /**
-     * @param {?} __0
-     * @return {?}
-     */
-    ngOnChanges({ value, abpTableSort }) {
-        if (value || abpTableSort) {
-            this.abpTableSort = this.abpTableSort || ((/** @type {?} */ ({})));
-            this.table.value = this.sortPipe.transform(clone(this.value), this.abpTableSort.order, this.abpTableSort.key);
-        }
-    }
-}
-TableSortDirective.decorators = [
-    { type: Directive, args: [{
-                selector: '[abpTableSort]',
-                providers: [SortPipe],
-            },] }
-];
-/** @nocollapse */
-TableSortDirective.ctorParameters = () => [
-    { type: Table, decorators: [{ type: Optional }, { type: Self }] },
-    { type: SortPipe }
-];
-TableSortDirective.propDecorators = {
-    abpTableSort: [{ type: Input }],
-    value: [{ type: Input }]
-};
-if (false) {
-    /** @type {?} */
-    TableSortDirective.prototype.abpTableSort;
-    /** @type {?} */
-    TableSortDirective.prototype.value;
-    /**
-     * @type {?}
-     * @private
-     */
-    TableSortDirective.prototype.table;
-    /**
-     * @type {?}
-     * @private
-     */
-    TableSortDirective.prototype.sortPipe;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 class VisibilityDirective {
     /**
      * @param {?} elRef
@@ -2381,7 +2247,6 @@ class VisibilityDirective {
     constructor(elRef, renderer) {
         this.elRef = elRef;
         this.renderer = renderer;
-        this.mutationObserverEnabled = true;
         this.completed$ = new Subject();
     }
     /**
@@ -2393,64 +2258,51 @@ class VisibilityDirective {
         }
         /** @type {?} */
         let observer;
-        if (this.mutationObserverEnabled) {
-            observer = new MutationObserver((/**
-             * @param {?} mutations
+        observer = new MutationObserver((/**
+         * @param {?} mutations
+         * @return {?}
+         */
+        mutations => {
+            mutations.forEach((/**
+             * @param {?} mutation
              * @return {?}
              */
-            mutations => {
-                mutations.forEach((/**
-                 * @param {?} mutation
-                 * @return {?}
-                 */
-                mutation => {
-                    if (!mutation.target)
-                        return;
-                    /** @type {?} */
-                    const htmlNodes = snq((/**
-                     * @return {?}
-                     */
-                    () => Array.from(mutation.target.childNodes).filter((/**
-                     * @param {?} node
-                     * @return {?}
-                     */
-                    node => node instanceof HTMLElement))), []);
-                    if (!htmlNodes.length) {
-                        this.removeFromDOM();
-                        this.disconnect();
-                    }
-                    else {
-                        setTimeout((/**
-                         * @return {?}
-                         */
-                        () => {
-                            this.disconnect();
-                        }), 0);
-                    }
-                }));
-            }));
-            observer.observe(this.focusedElement, {
-                childList: true,
-            });
-        }
-        else {
-            setTimeout((/**
-             * @return {?}
-             */
-            () => {
+            mutation => {
+                if (!mutation.target)
+                    return;
                 /** @type {?} */
                 const htmlNodes = snq((/**
                  * @return {?}
                  */
-                () => Array.from(this.focusedElement.childNodes).filter((/**
+                () => Array.from(mutation.target.childNodes).filter((/**
                  * @param {?} node
                  * @return {?}
                  */
                 node => node instanceof HTMLElement))), []);
-                if (!htmlNodes.length)
+                if (!htmlNodes.length) {
                     this.removeFromDOM();
-            }), 0);
-        }
+                }
+            }));
+        }));
+        observer.observe(this.focusedElement, {
+            childList: true,
+        });
+        setTimeout((/**
+         * @return {?}
+         */
+        () => {
+            /** @type {?} */
+            const htmlNodes = snq((/**
+             * @return {?}
+             */
+            () => Array.from(this.focusedElement.childNodes).filter((/**
+             * @param {?} node
+             * @return {?}
+             */
+            node => node instanceof HTMLElement))), []);
+            if (!htmlNodes.length)
+                this.removeFromDOM();
+        }), 0);
         this.completed$.subscribe((/**
          * @return {?}
          */
@@ -2467,7 +2319,10 @@ class VisibilityDirective {
      * @return {?}
      */
     removeFromDOM() {
+        if (!this.elRef.nativeElement)
+            return;
         this.renderer.removeChild(this.elRef.nativeElement.parentElement, this.elRef.nativeElement);
+        this.disconnect();
     }
 }
 VisibilityDirective.decorators = [
@@ -2481,14 +2336,11 @@ VisibilityDirective.ctorParameters = () => [
     { type: Renderer2 }
 ];
 VisibilityDirective.propDecorators = {
-    focusedElement: [{ type: Input, args: ['abpVisibility',] }],
-    mutationObserverEnabled: [{ type: Input }]
+    focusedElement: [{ type: Input, args: ['abpVisibility',] }]
 };
 if (false) {
     /** @type {?} */
     VisibilityDirective.prototype.focusedElement;
-    /** @type {?} */
-    VisibilityDirective.prototype.mutationObserverEnabled;
     /** @type {?} */
     VisibilityDirective.prototype.completed$;
     /**
@@ -3096,6 +2948,7 @@ class LocalizationPipe {
     }
 }
 LocalizationPipe.decorators = [
+    { type: Injectable },
     { type: Pipe, args: [{
                 name: 'abpLocalization',
             },] }
@@ -3111,6 +2964,80 @@ if (false) {
      */
     LocalizationPipe.prototype.store;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class SortPipe {
+    /**
+     * @param {?} value
+     * @param {?=} sortOrder
+     * @param {?=} sortKey
+     * @return {?}
+     */
+    transform(value, sortOrder = 'asc', sortKey) {
+        sortOrder = sortOrder && ((/** @type {?} */ (sortOrder.toLowerCase())));
+        if (!value || (sortOrder !== 'asc' && sortOrder !== 'desc'))
+            return value;
+        /** @type {?} */
+        let numberArray = [];
+        /** @type {?} */
+        let stringArray = [];
+        if (!sortKey) {
+            numberArray = value.filter((/**
+             * @param {?} item
+             * @return {?}
+             */
+            item => typeof item === 'number')).sort();
+            stringArray = value.filter((/**
+             * @param {?} item
+             * @return {?}
+             */
+            item => typeof item === 'string')).sort();
+        }
+        else {
+            numberArray = value.filter((/**
+             * @param {?} item
+             * @return {?}
+             */
+            item => typeof item[sortKey] === 'number')).sort((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            (a, b) => a[sortKey] - b[sortKey]));
+            stringArray = value
+                .filter((/**
+             * @param {?} item
+             * @return {?}
+             */
+            item => typeof item[sortKey] === 'string'))
+                .sort((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            (a, b) => {
+                if (a[sortKey] < b[sortKey])
+                    return -1;
+                else if (a[sortKey] > b[sortKey])
+                    return 1;
+                else
+                    return 0;
+            }));
+        }
+        /** @type {?} */
+        const sorted = numberArray.concat(stringArray);
+        return sortOrder === 'asc' ? sorted : sorted.reverse();
+    }
+}
+SortPipe.decorators = [
+    { type: Injectable },
+    { type: Pipe, args: [{
+                name: 'abpSort',
+            },] }
+];
 
 /**
  * @fileoverview added by tsickle
@@ -3839,7 +3766,6 @@ CoreModule.decorators = [
                     EllipsisDirective,
                     ForDirective,
                     FormSubmitDirective,
-                    TableSortDirective,
                     LocalizationPipe,
                     SortPipe,
                     PermissionDirective,
@@ -3862,7 +3788,6 @@ CoreModule.decorators = [
                     FormSubmitDirective,
                     LocalizationPipe,
                     SortPipe,
-                    TableSortDirective,
                     PermissionDirective,
                     VisibilityDirective,
                     InputEventDebounceDirective,
@@ -3885,5 +3810,5 @@ CoreModule.decorators = [
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AbstractNgModelComponent, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, LazyLoadService, LocalizationPipe, LocalizationService, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetTenant, SortPipe, StartLoader, StopLoader, TableSortDirective, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, uuid, ProfileState as ɵa, ProfileService as ɵb, VisibilityDirective as ɵba, InputEventDebounceDirective as ɵbb, ClickEventStopPropagationDirective as ɵbc, AbstractNgModelComponent as ɵbd, LocaleId as ɵbe, LocaleProvider as ɵbf, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbg, ConfigPlugin as ɵbh, ApiInterceptor as ɵbi, getInitialData as ɵbj, localeInitializer as ɵbk, RestService as ɵc, GetProfile as ɵd, UpdateProfile as ɵe, ChangePassword as ɵf, SessionState as ɵh, LocalizationService as ɵi, SetLanguage as ɵj, SetTenant as ɵk, ConfigState as ɵm, ApplicationConfigurationService as ɵn, PatchRouteByName as ɵo, GetAppConfiguration as ɵp, RouterOutletComponent as ɵq, DynamicLayoutComponent as ɵr, AutofocusDirective as ɵs, EllipsisDirective as ɵt, ForDirective as ɵu, FormSubmitDirective as ɵv, TableSortDirective as ɵw, SortPipe as ɵx, LocalizationPipe as ɵy, PermissionDirective as ɵz };
+export { AbstractNgModelComponent, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, LazyLoadService, LocalizationPipe, LocalizationService, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, uuid, ProfileState as ɵa, ProfileService as ɵb, InputEventDebounceDirective as ɵba, ClickEventStopPropagationDirective as ɵbb, AbstractNgModelComponent as ɵbc, LocaleId as ɵbd, LocaleProvider as ɵbe, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbf, ConfigPlugin as ɵbg, ApiInterceptor as ɵbh, getInitialData as ɵbi, localeInitializer as ɵbj, RestService as ɵc, GetProfile as ɵd, UpdateProfile as ɵe, ChangePassword as ɵf, SessionState as ɵh, LocalizationService as ɵi, SetLanguage as ɵj, SetTenant as ɵk, ConfigState as ɵm, ApplicationConfigurationService as ɵn, PatchRouteByName as ɵo, GetAppConfiguration as ɵp, RouterOutletComponent as ɵq, DynamicLayoutComponent as ɵr, AutofocusDirective as ɵs, EllipsisDirective as ɵt, ForDirective as ɵu, FormSubmitDirective as ɵv, LocalizationPipe as ɵw, SortPipe as ɵx, PermissionDirective as ɵy, VisibilityDirective as ɵz };
 //# sourceMappingURL=abp-ng.core.js.map

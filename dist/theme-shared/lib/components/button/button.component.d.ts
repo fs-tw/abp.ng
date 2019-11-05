@@ -19,4 +19,7 @@ export declare class ButtonComponent implements OnInit {
     readonly icon: string;
     constructor(renderer: Renderer2);
     ngOnInit(): void;
+    onClick(event: MouseEvent): void;
+    onFocus(event: FocusEvent): void;
+    onBlur(event: FocusEvent): void;
 }

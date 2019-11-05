@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/router'), require('@ngxs/store'), require('rxjs'), require('snq'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/common'), require('just-compare'), require('just-clone'), require('@angular/forms'), require('primeng/table'), require('angular-oauth2-oidc'), require('@ngxs/router-plugin'), require('@ngxs/storage-plugin'), require('@ngx-validate/core')) :
-    typeof define === 'function' && define.amd ? define('@abp/ng.core', ['exports', '@angular/core', '@angular/router', '@ngxs/store', 'rxjs', 'snq', 'rxjs/operators', '@angular/common/http', '@angular/common', 'just-compare', 'just-clone', '@angular/forms', 'primeng/table', 'angular-oauth2-oidc', '@ngxs/router-plugin', '@ngxs/storage-plugin', '@ngx-validate/core'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.core = {}), global.ng.core, global.ng.router, global.store, global.rxjs, global.snq, global.rxjs.operators, global.ng.common.http, global.ng.common, global.compare, global.clone, global.ng.forms, global.table, global.angularOauth2Oidc, global.routerPlugin, global.storagePlugin, global.core$1));
-}(this, (function (exports, core, router, store, rxjs, snq, operators, http, common, compare, clone, forms, table, angularOauth2Oidc, routerPlugin, storagePlugin, core$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/router'), require('@ngxs/store'), require('rxjs'), require('snq'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/common'), require('just-compare'), require('just-clone'), require('@angular/forms'), require('angular-oauth2-oidc'), require('@ngxs/router-plugin'), require('@ngxs/storage-plugin'), require('@ngx-validate/core')) :
+    typeof define === 'function' && define.amd ? define('@abp/ng.core', ['exports', '@angular/core', '@angular/router', '@ngxs/store', 'rxjs', 'snq', 'rxjs/operators', '@angular/common/http', '@angular/common', 'just-compare', 'just-clone', '@angular/forms', 'angular-oauth2-oidc', '@ngxs/router-plugin', '@ngxs/storage-plugin', '@ngx-validate/core'], factory) :
+    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.core = {}), global.ng.core, global.ng.router, global.store, global.rxjs, global.snq, global.rxjs.operators, global.ng.common.http, global.ng.common, global.compare, global.clone, global.ng.forms, global.angularOauth2Oidc, global.routerPlugin, global.storagePlugin, global.core$1));
+}(this, (function (exports, core, router, store, rxjs, snq, operators, http, common, compare, clone, forms, angularOauth2Oidc, routerPlugin, storagePlugin, core$1) { 'use strict';
 
     snq = snq && snq.hasOwnProperty('default') ? snq['default'] : snq;
     compare = compare && compare.hasOwnProperty('default') ? compare['default'] : compare;
@@ -689,6 +689,14 @@
         if (!routes.length)
             return [];
         return routes
+            .map((/**
+         * @param {?} route
+         * @param {?} index
+         * @return {?}
+         */
+        function (route, index) {
+            return __assign({}, route, { order: typeof route.order === 'undefined' ? index + 1 : route.order });
+        }))
             .sort((/**
          * @param {?} a
          * @param {?} b
@@ -809,7 +817,7 @@
                 registerLocale(lang).then((/**
                  * @return {?}
                  */
-                function () { return resolve(); }), reject);
+                function () { return resolve('resolved'); }), reject);
             }));
         });
         return fn;
@@ -2646,164 +2654,10 @@
      * @fileoverview added by tsickle
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var SortPipe = /** @class */ (function () {
-        function SortPipe() {
-        }
-        /**
-         * @param {?} value
-         * @param {?=} sortOrder
-         * @param {?=} sortKey
-         * @return {?}
-         */
-        SortPipe.prototype.transform = /**
-         * @param {?} value
-         * @param {?=} sortOrder
-         * @param {?=} sortKey
-         * @return {?}
-         */
-        function (value, sortOrder, sortKey) {
-            if (sortOrder === void 0) { sortOrder = 'asc'; }
-            sortOrder = sortOrder && ((/** @type {?} */ (sortOrder.toLowerCase())));
-            if (!value || (sortOrder !== 'asc' && sortOrder !== 'desc'))
-                return value;
-            /** @type {?} */
-            var numberArray = [];
-            /** @type {?} */
-            var stringArray = [];
-            if (!sortKey) {
-                numberArray = value.filter((/**
-                 * @param {?} item
-                 * @return {?}
-                 */
-                function (item) { return typeof item === 'number'; })).sort();
-                stringArray = value.filter((/**
-                 * @param {?} item
-                 * @return {?}
-                 */
-                function (item) { return typeof item === 'string'; })).sort();
-            }
-            else {
-                numberArray = value.filter((/**
-                 * @param {?} item
-                 * @return {?}
-                 */
-                function (item) { return typeof item[sortKey] === 'number'; })).sort((/**
-                 * @param {?} a
-                 * @param {?} b
-                 * @return {?}
-                 */
-                function (a, b) { return a[sortKey] - b[sortKey]; }));
-                stringArray = value
-                    .filter((/**
-                 * @param {?} item
-                 * @return {?}
-                 */
-                function (item) { return typeof item[sortKey] === 'string'; }))
-                    .sort((/**
-                 * @param {?} a
-                 * @param {?} b
-                 * @return {?}
-                 */
-                function (a, b) {
-                    if (a[sortKey] < b[sortKey])
-                        return -1;
-                    else if (a[sortKey] > b[sortKey])
-                        return 1;
-                    else
-                        return 0;
-                }));
-            }
-            /** @type {?} */
-            var sorted = numberArray.concat(stringArray);
-            return sortOrder === 'asc' ? sorted : sorted.reverse();
-        };
-        SortPipe.decorators = [
-            { type: core.Injectable },
-            { type: core.Pipe, args: [{
-                        name: 'abpSort',
-                    },] }
-        ];
-        return SortPipe;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /**
-     * @record
-     */
-    function TableSortOptions() { }
-    if (false) {
-        /** @type {?} */
-        TableSortOptions.prototype.key;
-        /** @type {?} */
-        TableSortOptions.prototype.order;
-    }
-    var TableSortDirective = /** @class */ (function () {
-        function TableSortDirective(table, sortPipe) {
-            this.table = table;
-            this.sortPipe = sortPipe;
-            this.value = [];
-        }
-        /**
-         * @param {?} __0
-         * @return {?}
-         */
-        TableSortDirective.prototype.ngOnChanges = /**
-         * @param {?} __0
-         * @return {?}
-         */
-        function (_a) {
-            var value = _a.value, abpTableSort = _a.abpTableSort;
-            if (value || abpTableSort) {
-                this.abpTableSort = this.abpTableSort || ((/** @type {?} */ ({})));
-                this.table.value = this.sortPipe.transform(clone(this.value), this.abpTableSort.order, this.abpTableSort.key);
-            }
-        };
-        TableSortDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[abpTableSort]',
-                        providers: [SortPipe],
-                    },] }
-        ];
-        /** @nocollapse */
-        TableSortDirective.ctorParameters = function () { return [
-            { type: table.Table, decorators: [{ type: core.Optional }, { type: core.Self }] },
-            { type: SortPipe }
-        ]; };
-        TableSortDirective.propDecorators = {
-            abpTableSort: [{ type: core.Input }],
-            value: [{ type: core.Input }]
-        };
-        return TableSortDirective;
-    }());
-    if (false) {
-        /** @type {?} */
-        TableSortDirective.prototype.abpTableSort;
-        /** @type {?} */
-        TableSortDirective.prototype.value;
-        /**
-         * @type {?}
-         * @private
-         */
-        TableSortDirective.prototype.table;
-        /**
-         * @type {?}
-         * @private
-         */
-        TableSortDirective.prototype.sortPipe;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
     var VisibilityDirective = /** @class */ (function () {
         function VisibilityDirective(elRef, renderer) {
             this.elRef = elRef;
             this.renderer = renderer;
-            this.mutationObserverEnabled = true;
             this.completed$ = new rxjs.Subject();
         }
         /**
@@ -2819,64 +2673,51 @@
             }
             /** @type {?} */
             var observer;
-            if (this.mutationObserverEnabled) {
-                observer = new MutationObserver((/**
-                 * @param {?} mutations
+            observer = new MutationObserver((/**
+             * @param {?} mutations
+             * @return {?}
+             */
+            function (mutations) {
+                mutations.forEach((/**
+                 * @param {?} mutation
                  * @return {?}
                  */
-                function (mutations) {
-                    mutations.forEach((/**
-                     * @param {?} mutation
-                     * @return {?}
-                     */
-                    function (mutation) {
-                        if (!mutation.target)
-                            return;
-                        /** @type {?} */
-                        var htmlNodes = snq((/**
-                         * @return {?}
-                         */
-                        function () { return Array.from(mutation.target.childNodes).filter((/**
-                         * @param {?} node
-                         * @return {?}
-                         */
-                        function (node) { return node instanceof HTMLElement; })); }), []);
-                        if (!htmlNodes.length) {
-                            _this.removeFromDOM();
-                            _this.disconnect();
-                        }
-                        else {
-                            setTimeout((/**
-                             * @return {?}
-                             */
-                            function () {
-                                _this.disconnect();
-                            }), 0);
-                        }
-                    }));
-                }));
-                observer.observe(this.focusedElement, {
-                    childList: true,
-                });
-            }
-            else {
-                setTimeout((/**
-                 * @return {?}
-                 */
-                function () {
+                function (mutation) {
+                    if (!mutation.target)
+                        return;
                     /** @type {?} */
                     var htmlNodes = snq((/**
                      * @return {?}
                      */
-                    function () { return Array.from(_this.focusedElement.childNodes).filter((/**
+                    function () { return Array.from(mutation.target.childNodes).filter((/**
                      * @param {?} node
                      * @return {?}
                      */
                     function (node) { return node instanceof HTMLElement; })); }), []);
-                    if (!htmlNodes.length)
+                    if (!htmlNodes.length) {
                         _this.removeFromDOM();
-                }), 0);
-            }
+                    }
+                }));
+            }));
+            observer.observe(this.focusedElement, {
+                childList: true,
+            });
+            setTimeout((/**
+             * @return {?}
+             */
+            function () {
+                /** @type {?} */
+                var htmlNodes = snq((/**
+                 * @return {?}
+                 */
+                function () { return Array.from(_this.focusedElement.childNodes).filter((/**
+                 * @param {?} node
+                 * @return {?}
+                 */
+                function (node) { return node instanceof HTMLElement; })); }), []);
+                if (!htmlNodes.length)
+                    _this.removeFromDOM();
+            }), 0);
             this.completed$.subscribe((/**
              * @return {?}
              */
@@ -2899,7 +2740,10 @@
          * @return {?}
          */
         function () {
+            if (!this.elRef.nativeElement)
+                return;
             this.renderer.removeChild(this.elRef.nativeElement.parentElement, this.elRef.nativeElement);
+            this.disconnect();
         };
         VisibilityDirective.decorators = [
             { type: core.Directive, args: [{
@@ -2912,16 +2756,13 @@
             { type: core.Renderer2 }
         ]; };
         VisibilityDirective.propDecorators = {
-            focusedElement: [{ type: core.Input, args: ['abpVisibility',] }],
-            mutationObserverEnabled: [{ type: core.Input }]
+            focusedElement: [{ type: core.Input, args: ['abpVisibility',] }]
         };
         return VisibilityDirective;
     }());
     if (false) {
         /** @type {?} */
         VisibilityDirective.prototype.focusedElement;
-        /** @type {?} */
-        VisibilityDirective.prototype.mutationObserverEnabled;
         /** @type {?} */
         VisibilityDirective.prototype.completed$;
         /**
@@ -3544,6 +3385,7 @@
             function (acc, val) { return (Array.isArray(val) ? __spread(acc, val) : __spread(acc, [val])); }), []))));
         };
         LocalizationPipe.decorators = [
+            { type: core.Injectable },
             { type: core.Pipe, args: [{
                         name: 'abpLocalization',
                     },] }
@@ -3561,6 +3403,90 @@
          */
         LocalizationPipe.prototype.store;
     }
+
+    /**
+     * @fileoverview added by tsickle
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var SortPipe = /** @class */ (function () {
+        function SortPipe() {
+        }
+        /**
+         * @param {?} value
+         * @param {?=} sortOrder
+         * @param {?=} sortKey
+         * @return {?}
+         */
+        SortPipe.prototype.transform = /**
+         * @param {?} value
+         * @param {?=} sortOrder
+         * @param {?=} sortKey
+         * @return {?}
+         */
+        function (value, sortOrder, sortKey) {
+            if (sortOrder === void 0) { sortOrder = 'asc'; }
+            sortOrder = sortOrder && ((/** @type {?} */ (sortOrder.toLowerCase())));
+            if (!value || (sortOrder !== 'asc' && sortOrder !== 'desc'))
+                return value;
+            /** @type {?} */
+            var numberArray = [];
+            /** @type {?} */
+            var stringArray = [];
+            if (!sortKey) {
+                numberArray = value.filter((/**
+                 * @param {?} item
+                 * @return {?}
+                 */
+                function (item) { return typeof item === 'number'; })).sort();
+                stringArray = value.filter((/**
+                 * @param {?} item
+                 * @return {?}
+                 */
+                function (item) { return typeof item === 'string'; })).sort();
+            }
+            else {
+                numberArray = value.filter((/**
+                 * @param {?} item
+                 * @return {?}
+                 */
+                function (item) { return typeof item[sortKey] === 'number'; })).sort((/**
+                 * @param {?} a
+                 * @param {?} b
+                 * @return {?}
+                 */
+                function (a, b) { return a[sortKey] - b[sortKey]; }));
+                stringArray = value
+                    .filter((/**
+                 * @param {?} item
+                 * @return {?}
+                 */
+                function (item) { return typeof item[sortKey] === 'string'; }))
+                    .sort((/**
+                 * @param {?} a
+                 * @param {?} b
+                 * @return {?}
+                 */
+                function (a, b) {
+                    if (a[sortKey] < b[sortKey])
+                        return -1;
+                    else if (a[sortKey] > b[sortKey])
+                        return 1;
+                    else
+                        return 0;
+                }));
+            }
+            /** @type {?} */
+            var sorted = numberArray.concat(stringArray);
+            return sortOrder === 'asc' ? sorted : sorted.reverse();
+        };
+        SortPipe.decorators = [
+            { type: core.Injectable },
+            { type: core.Pipe, args: [{
+                        name: 'abpSort',
+                    },] }
+        ];
+        return SortPipe;
+    }());
 
     /**
      * @fileoverview added by tsickle
@@ -4394,7 +4320,6 @@
                             EllipsisDirective,
                             ForDirective,
                             FormSubmitDirective,
-                            TableSortDirective,
                             LocalizationPipe,
                             SortPipe,
                             PermissionDirective,
@@ -4417,7 +4342,6 @@
                             FormSubmitDirective,
                             LocalizationPipe,
                             SortPipe,
-                            TableSortDirective,
                             PermissionDirective,
                             VisibilityDirective,
                             InputEventDebounceDirective,
@@ -4470,7 +4394,6 @@
     exports.SortPipe = SortPipe;
     exports.StartLoader = StartLoader;
     exports.StopLoader = StopLoader;
-    exports.TableSortDirective = TableSortDirective;
     exports.UpdateProfile = UpdateProfile;
     exports.VisibilityDirective = VisibilityDirective;
     exports.addAbpRoutes = addAbpRoutes;
@@ -4488,17 +4411,16 @@
     exports.uuid = uuid;
     exports.ɵa = ProfileState;
     exports.ɵb = ProfileService;
-    exports.ɵba = VisibilityDirective;
-    exports.ɵbb = InputEventDebounceDirective;
-    exports.ɵbc = ClickEventStopPropagationDirective;
-    exports.ɵbd = AbstractNgModelComponent;
-    exports.ɵbe = LocaleId;
-    exports.ɵbf = LocaleProvider;
-    exports.ɵbg = NGXS_CONFIG_PLUGIN_OPTIONS;
-    exports.ɵbh = ConfigPlugin;
-    exports.ɵbi = ApiInterceptor;
-    exports.ɵbj = getInitialData;
-    exports.ɵbk = localeInitializer;
+    exports.ɵba = InputEventDebounceDirective;
+    exports.ɵbb = ClickEventStopPropagationDirective;
+    exports.ɵbc = AbstractNgModelComponent;
+    exports.ɵbd = LocaleId;
+    exports.ɵbe = LocaleProvider;
+    exports.ɵbf = NGXS_CONFIG_PLUGIN_OPTIONS;
+    exports.ɵbg = ConfigPlugin;
+    exports.ɵbh = ApiInterceptor;
+    exports.ɵbi = getInitialData;
+    exports.ɵbj = localeInitializer;
     exports.ɵc = RestService;
     exports.ɵd = GetProfile;
     exports.ɵe = UpdateProfile;
@@ -4517,10 +4439,10 @@
     exports.ɵt = EllipsisDirective;
     exports.ɵu = ForDirective;
     exports.ɵv = FormSubmitDirective;
-    exports.ɵw = TableSortDirective;
+    exports.ɵw = LocalizationPipe;
     exports.ɵx = SortPipe;
-    exports.ɵy = LocalizationPipe;
-    exports.ɵz = PermissionDirective;
+    exports.ɵy = PermissionDirective;
+    exports.ɵz = VisibilityDirective;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -2,7 +2,7 @@
 <nz-card [nzBordered]="false">
   <button nz-button
           [abpPermission]="'AbpTenantManagement.Tenants.Create'"
-          (click)="onAddTenant()"
+          (click)="addTenant()"
           [nzType]="'primary'">
     <i nz-icon nzType="plus"></i>
     <span>{{ 'AbpTenantManagement::NewTenant' | abpLocalization }}</span>
@@ -36,7 +36,7 @@
           </a>
           <nz-dropdown-menu #opMenu="nzDropdownMenu">
             <ul nz-menu>
-              <li nz-menu-item [abpPermission]="'AbpTenantManagement.Tenants.Update'" (click)="onEditTenant(data.id)">{{ 'AbpTenantManagement::Edit' | abpLocalization }}</li>
+              <li nz-menu-item [abpPermission]="'AbpTenantManagement.Tenants.Update'" (click)="editTenant(data.id)">{{ 'AbpTenantManagement::Edit' | abpLocalization }}</li>
               <li nz-menu-item [abpPermission]="'AbpTenantManagement.Tenants.ManageConnectionStrings'" (click)="onEditConnectionString(data.id)">{{ 'AbpTenantManagement::Permission:ManageConnectionStrings' | abpLocalization }}</li>
               <li nz-menu-item [abpPermission]="'AbpTenantManagement.Tenants.ManageFeatures'" (click)="providerKey = data.id; visibleFeatures = true">{{ 'AbpTenantManagement::Permission:ManageFeatures' | abpLocalization }}</li>
               <li nz-menu-item [abpPermission]="'AbpTenantManagement.Tenants.Delete'" (click)="delete(data.id, data.name)">{{ 'AbpTenantManagement::Delete' | abpLocalization }}</li>
