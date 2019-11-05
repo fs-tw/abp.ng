@@ -50,7 +50,8 @@
 
   </nz-table>
 </nz-card>
-<nz-modal [(nzVisible)]="isModalVisible"
+<nz-modal [nzStyle]="{ top: '20px' }"
+          [(nzVisible)]="isModalVisible"
           [nzTitle]="modalTitle"
           [nzContent]="modalContent"
           [nzFooter]="modalFooter"

@@ -1,7 +1,7 @@
 import { MessageService } from 'primeng/components/common/messageservice';
 import { Observable, Subject } from 'rxjs';
 import { Toaster } from '@abp/ng.theme.shared';
-import { NzModalService } from 'ng-zorro-antd';
+import { NzModalService, NzNotificationService } from 'ng-zorro-antd';
 import { LocalizationPipe } from '@abp/ng.core';
 
 export abstract class AbstractToaster<T = Toaster.Options> {
@@ -14,6 +14,7 @@ export abstract class AbstractToaster<T = Toaster.Options> {
 
     constructor(
         protected modalService: NzModalService,
+        protected notificationService: NzNotificationService,
         private localizationPipe: LocalizationPipe
     ) { }
 

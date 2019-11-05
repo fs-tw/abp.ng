@@ -5,7 +5,7 @@ import { Confirmation } from '@abp/ng.theme.shared';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { takeUntil, debounceTime, filter } from 'rxjs/operators';
 import { Toaster } from '@abp/ng.theme.shared';
-import { NzModalService } from 'ng-zorro-antd';
+import { NzModalService, NzNotificationService } from 'ng-zorro-antd';
 import { LocalizationPipe } from '@abp/ng.core';
 
 @Injectable({ providedIn: 'root' })
@@ -18,9 +18,10 @@ export class ConfirmationService extends AbstractToaster<Confirmation.Options> {
 
     constructor(
         private _modalService: NzModalService,
+        private _notificationService: NzNotificationService,
         private _localizationPipe: LocalizationPipe
     ) {
-        super(_modalService, _localizationPipe);
+        super(_modalService, _notificationService, _localizationPipe);
     }
 
     show(
