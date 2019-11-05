@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import './ckeditor.loader';
-import 'ckeditor';
+import 'ckeditor4';
 
 @Component({
   selector: 'ngx-ckeditor',
