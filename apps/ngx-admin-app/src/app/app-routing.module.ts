@@ -8,7 +8,7 @@ import {
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
 } from '@nebular/auth';
-import { ABP } from '@abp/ng.core';
+import { ABP, eLayoutType } from '@abp/ng.core';
 
 const routes: Routes = [
   {
@@ -26,6 +26,19 @@ const routes: Routes = [
   {
     path: 'account',
     loadChildren: () => import('./lazy-libs/account-wrapper.module').then(m => m.AccountWrapperModule),
+    // data:{
+    //   routes:{
+    //     name: 'YinChang',
+    //     path: 'account',
+    //     invisible: false,
+    //     layout: eLayoutType.application,
+    //     children: [
+    //       { path: 'login', name: 'AbpAccount::Login', order: 1 },
+    //       { path: 'register', name: 'AbpAccount::Register', order: 2 },
+    //       { path: 'manage-profile', name: 'AbpAccount::ManageYourProfile', order: 3 },
+    //     ],
+    //   } 
+    // }   
   },
   {
     path: 'identity',

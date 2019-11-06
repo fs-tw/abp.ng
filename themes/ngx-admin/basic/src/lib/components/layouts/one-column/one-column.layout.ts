@@ -21,6 +21,8 @@ import { Component } from '@angular/core';
         <ngx-footer></ngx-footer>
       </nb-layout-footer>
     </nb-layout>
+    <abp-confirmation></abp-confirmation>
+    <abp-toast></abp-toast>
   `,
 })
 export class OneColumnLayoutComponent {}

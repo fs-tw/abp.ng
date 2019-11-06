@@ -5,12 +5,13 @@ import { LayoutPassportComponent } from '@fs/ng-alain/basic';
 import { NbAuthComponent, NbLoginComponent, NbRegisterComponent } from '@nebular/auth';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AccountLayoutComponent } from '@fs/ngx-admin/basic';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   {
     path: '',
-    component: NbAuthComponent,
+    component: DynamicLayoutComponent,
     children: [{ path: 'login', component: LoginComponent }, { path: 'register', component: RegisterComponent }]
   },
 ];

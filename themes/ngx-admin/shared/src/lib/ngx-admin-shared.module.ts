@@ -6,8 +6,9 @@ import { NbAuthModule } from '@nebular/auth';
 import { NbMenuModule, NbIconModule, NbAlertModule, NbInputModule, NbButtonModule, NbCheckboxModule, NbCardModule, NbActionsModule, NbLayoutModule, NbSidebarModule, NbSelectModule, NbSearchModule, NbContextMenuModule, NbUserModule } from '@nebular/theme';
 import { ThemeModule } from '@fs/ngx-admin';
 import { NbSecurityModule } from '@nebular/security';
-
 @NgModule({
+  declarations: [
+  ],
   imports: [
     CommonModule,
     //abp,
@@ -40,6 +41,10 @@ import { NbSecurityModule } from '@nebular/security';
     NbSecurityModule,
     NbContextMenuModule
     
+  ],
+  providers: [
+  ],
+  entryComponents: [
   ]
 })
 export class NgxAdminSharedModule {

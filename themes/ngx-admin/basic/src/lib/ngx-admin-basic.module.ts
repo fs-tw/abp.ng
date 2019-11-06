@@ -5,13 +5,17 @@ import { NgxAdminSharedModule } from '@fs/ngx-admin/shared';
 import { ApplicationLayoutComponent } from './components/application-layout/application-layout.component';
 import { OneColumnLayoutComponent } from './components/layouts/one-column/one-column.layout';
 import { HeaderComponent } from './components/header/header.component';
-import { NbUserModule } from '@nebular/theme';
+import { AccountLayoutComponent } from './components/account-layout/account-layout.component'
+import { EmptyLayoutComponent } from './components/empty-layout/empty-layout.component';
+import { NbUserModule } from '@nebular/theme';  
+
+export const LAYOUTS = [ApplicationLayoutComponent, AccountLayoutComponent, EmptyLayoutComponent];
 
 @NgModule({
   declarations: [
     HeaderComponent,
     OneColumnLayoutComponent,
-    ApplicationLayoutComponent
+    ...LAYOUTS
   ],
   imports: [
     //abp
@@ -31,12 +35,8 @@ import { NbUserModule } from '@nebular/theme';
     NgxAdminSharedModule,
     
 
-
-
-
-    //layout
-    ApplicationLayoutComponent
+    ...LAYOUTS
   ],
-  entryComponents: [ApplicationLayoutComponent],
+  entryComponents: [...LAYOUTS],
 })
 export class NgxAdminBasicModule { }
