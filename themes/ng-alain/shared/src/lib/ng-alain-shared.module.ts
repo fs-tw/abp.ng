@@ -60,9 +60,6 @@ const I18NSERVICE_MODULES = [
 ];
 const GLOBAL_THIRD_MODULES = [];
 import { JsonSchemaModule } from '@fs/ng-alain';
-import { ConfirmationService } from './services/confirmation.service';
-import { ToasterService } from './services/toaster.service';
-import { ConfirmationService as AbpConfirmationService, ToasterService as AbpToasterService } from '@abp/ng.theme.shared';
 
 const FORM_MODULES = [JsonSchemaModule];
 @NgModule({

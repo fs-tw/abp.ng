@@ -17,8 +17,6 @@ import { SettingManagementConfigModule } from '@abp/ng.setting-management.config
 import { LayoutDefaultComponent, LayoutPassportComponent, LayoutFullScreenComponent } from '@fs/ng-alain/basic';
 import { Router } from '@angular/router';
 
-import { ToasterService, ConfirmationService } from '@fs/ng-alain/shared';
-import { ToasterService as AbpToasterService, ConfirmationService as AbpConfirmationService } from '@abp/ng.theme.shared';
 
 // 加载i18n语言文件
 export function I18nHttpLoaderFactory(http: HttpClient) {
@@ -70,8 +68,8 @@ const AlainLayouts = [LayoutDefaultComponent, LayoutPassportComponent, LayoutFul
 
   ],
   providers: [
-    { provide: AbpConfirmationService, useClass: ConfirmationService },
-    { provide: AbpToasterService, useClass: ToasterService }
+    // { provide: AbpConfirmationService, useClass: ConfirmationService },
+    // { provide: AbpToasterService, useClass: ToasterService }
   ]
 
 })

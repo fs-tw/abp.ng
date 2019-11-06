@@ -14,8 +14,8 @@ export class AccountConfigService {
       layout: eLayoutType.account,
       children: [
         { path: 'login', name: 'AbpAccount::Login', order: 1 },
-        { path: 'register', name: 'AbpAccount::Register', order: 2 },
-        { path: 'manage-profile', name: 'AbpAccount::ManageYourProfile', order: 3 },
+        { path: 'register', name: 'AbpAccount::Register', order: 2  },
+        { path: 'manage-profile', name: 'AbpAccount::ManageYourProfile', order: 3,layout: eLayoutType.application  },
       ],
     });
   }
