@@ -1,16 +1,16 @@
 import { CoreModule } from '@abp/ng.core';
 import { ThemeBasicModule } from '@abp/ng.theme.basic';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ApplicationLayoutComponent } from './components/application-layout/application-layout.component';
-import { NbAuthModule } from '@nebular/auth';
-import { NbMenuModule, NbIconModule } from '@nebular/theme';
-import { ThemeModule } from '@fs/ngx-admin';
-import { CoreModule as NgxAdminCoreModule } from '@fs/ngx-admin';
 import { NgxAdminSharedModule } from '@fs/ngx-admin/shared';
+import { ApplicationLayoutComponent } from './components/application-layout/application-layout.component';
+import { OneColumnLayoutComponent } from './components/layouts/one-column/one-column.layout';
+import { HeaderComponent } from './components/header/header.component';
+import { NbUserModule } from '@nebular/theme';
 
 @NgModule({
   declarations: [
+    HeaderComponent,
+    OneColumnLayoutComponent,
     ApplicationLayoutComponent
   ],
   imports: [
@@ -19,7 +19,8 @@ import { NgxAdminSharedModule } from '@fs/ngx-admin/shared';
     ThemeBasicModule,
 
     //ngx-admin
-    NgxAdminSharedModule
+    NgxAdminSharedModule,
+    NbUserModule
   ],
   exports: [
     //abp
@@ -28,6 +29,11 @@ import { NgxAdminSharedModule } from '@fs/ngx-admin/shared';
 
     //ngx-admin
     NgxAdminSharedModule,
+    
+
+
+
+
     //layout
     ApplicationLayoutComponent
   ],
