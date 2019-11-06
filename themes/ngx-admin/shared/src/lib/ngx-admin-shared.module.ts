@@ -3,7 +3,7 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { NbAuthModule } from '@nebular/auth';
-import { NbMenuModule, NbIconModule } from '@nebular/theme';
+import { NbMenuModule, NbIconModule, NbAlertModule, NbInputModule, NbButtonModule, NbCheckboxModule, NbCardModule, NbActionsModule } from '@nebular/theme';
 import { ThemeModule } from '@fs/ngx-admin';
 
 @NgModule({
@@ -25,8 +25,13 @@ import { ThemeModule } from '@fs/ngx-admin';
     NbAuthModule,
     NbMenuModule,
     ThemeModule,
-    NbIconModule
-    
+    NbIconModule,
+    NbAlertModule,
+    NbInputModule,
+    NbButtonModule,
+    NbCheckboxModule,
+    NbCardModule,
+    NbActionsModule,
   ]
 })
 export class NgxAdminSharedModule {
