@@ -1,34 +1,43 @@
 <page-header [title]="'AbpIdentity::NewUser' | abpLocalization"></page-header>
 <nz-card [nzBordered]="false">
-  <button nz-button
-          [abpPermission]="'AbpIdentity.Users.Create'"
-          (click)="add()"
-          [nzType]="'primary'">
+  <button nz-button [abpPermission]="'AbpIdentity.Users.Create'" (click)="add()" [nzType]="'primary'">
     <i nz-icon nzType="plus"></i>
     <span>{{ 'AbpIdentity::NewUser' | abpLocalization }}</span>
   </button>
-  <nz-table [nzData]="data$ | async">
-    <thead>
+  <p-table *ngIf="[150, 250, 250, 250] as columnWidths" [value]="data$ | async"
+    [abpTableSort]="{ key: sortKey, order: sortOrder }" [lazy]="true" [lazyLoadOnInit]="false" [paginator]="true"
+    [rows]="10" [totalRecords]="totalCount$ | async" [loading]="loading" [resizableColumns]="true" [scrollable]="true"
+    (onLazyLoad)="onPageChange($event)">
+    <ng-template pTemplate="colgroup">
+      <colgroup>
+        <col *ngFor="let width of columnWidths" [ngStyle]="{ 'width.px': width || undefined }" />
+      </colgroup>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr abp-table-empty-message [attr.colspan]="columnWidths.length" localizationResource="AbpIdentity"
+        localizationProp="NoDataAvailableInDatatable"></tr>
+    </ng-template>
+    <ng-template pTemplate="header">
       <tr>
-        <th>
-          {{ 'AbpIdentity::Actions' | abpLocalization }}
-        </th>
-        <th>
+        <th>{{ 'AbpIdentity::Actions' | abpLocalization }}</th>
+        <th pResizableColumn (click)="sortOrderIcon.sort('userName')">
           {{ 'AbpIdentity::UserName' | abpLocalization }}
-          <abp-sort-order-icon #sortOrderIcon key="userName" [(selectedKey)]="sortKey" [(order)]="sortOrder"></abp-sort-order-icon>
+          <abp-sort-order-icon #sortOrderIcon key="userName" [(selectedKey)]="sortKey" [(order)]="sortOrder">
+          </abp-sort-order-icon>
         </th>
-        <th>
+        <th pResizableColumn (click)="sortOrderIcon.sort('email')">
           {{ 'AbpIdentity::EmailAddress' | abpLocalization }}
           <abp-sort-order-icon key="email" [(selectedKey)]="sortKey" [(order)]="sortOrder"></abp-sort-order-icon>
         </th>
-        <th>
+        <th pResizableColumn (click)="sortOrderIcon.sort('phoneNumber')">
           {{ 'AbpIdentity::PhoneNumber' | abpLocalization }}
-          <abp-sort-order-icon key="phoneNumber" [(selectedKey)]="sortKey" [(order)]="sortOrder"></abp-sort-order-icon>
+          <abp-sort-order-icon key="phoneNumber" [(selectedKey)]="sortKey" [(order)]="sortOrder">
+          </abp-sort-order-icon>
         </th>
       </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of data$ | async">
+    </ng-template>
+    <ng-template pTemplate="body" let-data>
+      <tr>
         <td>
           <a class="ant-dropdown-link" nz-dropdown [nzDropdownMenu]="opMenu">
             {{ 'AbpIdentity::Actions' | abpLocalization }}
@@ -36,9 +45,13 @@
           </a>
           <nz-dropdown-menu #opMenu="nzDropdownMenu">
             <ul nz-menu>
-              <li nz-menu-item [abpPermission]="'AbpIdentity.Users.Update'" (click)="edit(data.id)">{{ 'AbpIdentity::Edit' | abpLocalization }}</li>
-              <li nz-menu-item [abpPermission]="'AbpIdentity.Users.ManagePermissions'" (click)="providerKey = data.id; visiblePermissions = true">{{ 'AbpIdentity::Permissions' | abpLocalization }}</li>
-              <li nz-menu-item [abpPermission]="'AbpIdentity.Users.Delete'" (click)="delete(data.id, data.userName)">{{ 'AbpIdentity::Delete' | abpLocalization }}</li>
+              <li nz-menu-item [abpPermission]="'AbpIdentity.Users.Update'" (click)="edit(data.id)">
+                {{ 'AbpIdentity::Edit' | abpLocalization }}</li>
+              <li nz-menu-item [abpPermission]="'AbpIdentity.Users.ManagePermissions'"
+                (click)="providerKey = data.id; visiblePermissions = true">
+                {{ 'AbpIdentity::Permissions' | abpLocalization }}</li>
+              <li nz-menu-item [abpPermission]="'AbpIdentity.Users.Delete'" (click)="delete(data.id, data.userName)">
+                {{ 'AbpIdentity::Delete' | abpLocalization }}</li>
             </ul>
           </nz-dropdown-menu>
         </td>
@@ -46,16 +59,11 @@
         <td>{{ data.email }}</td>
         <td>{{ data.phoneNumber }}</td>
       </tr>
-    </tbody>
-
-  </nz-table>
+    </ng-template>
+  </p-table>
 </nz-card>
-<nz-modal [nzStyle]="{ top: '20px' }"
-          [(nzVisible)]="isModalVisible"
-          [nzTitle]="modalTitle"
-          [nzContent]="modalContent"
-          [nzFooter]="modalFooter"
-          (nzOnCancel)="isModalVisible=false">
+<nz-modal [nzStyle]="{ top: '20px' }" [(nzVisible)]="isModalVisible" [nzTitle]="modalTitle" [nzContent]="modalContent"
+  [nzFooter]="modalFooter" (nzOnCancel)="isModalVisible=false">
   <ng-template #modalTitle>
     {{(selected?.id ? 'AbpIdentity::Edit' : 'AbpIdentity::NewUser') | abpLocalization}}
   </ng-template>
@@ -69,40 +77,43 @@
       <nz-tabset>
         <nz-tab nzTitle="{{'AbpIdentity::UserInformations' | abpLocalization}}">
           <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="user-name">{{ 'AbpIdentity::UserName' | abpLocalization }}</nz-form-label>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="user-name">
+              {{ 'AbpIdentity::UserName' | abpLocalization }}</nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
               <input nz-input formControlName="userName" id="user-name" />
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name">{{ 'AbpIdentity::DisplayName:Name' | abpLocalization }}</nz-form-label>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name">{{ 'AbpIdentity::DisplayName:Name' | abpLocalization }}
+            </nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
               <input nz-input formControlName="name" id="name" />
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="surname">{{ 'AbpIdentity::DisplayName:Surname' | abpLocalization }}</nz-form-label>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="surname">
+              {{ 'AbpIdentity::DisplayName:Surname' | abpLocalization }}</nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
               <input nz-input formControlName="surname" id="surname" />
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>{{ 'AbpIdentity::Password' | abpLocalization }}</nz-form-label>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>
+              {{ 'AbpIdentity::Password' | abpLocalization }}</nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
-              <input nz-input
-                     type="password"
-                     id="password"
-                     formControlName="password" />
+              <input nz-input type="password" id="password" formControlName="password" />
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">{{ 'AbpIdentity::EmailAddress' | abpLocalization }}</nz-form-label>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">
+              {{ 'AbpIdentity::EmailAddress' | abpLocalization }}</nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
               <input nz-input formControlName="email" id="email" />
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber">{{ 'AbpIdentity::PhoneNumber' | abpLocalization }}</nz-form-label>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber">{{ 'AbpIdentity::PhoneNumber' | abpLocalization }}
+            </nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24">
               <input nz-input formControlName="phoneNumber" id="phoneNumber" />
             </nz-form-control>

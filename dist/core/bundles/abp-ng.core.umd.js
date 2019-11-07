@@ -4305,8 +4305,9 @@
             { type: core.NgModule, args: [{
                         imports: [
                             store.NgxsModule.forFeature([ProfileState, SessionState, ConfigState]),
-                            storagePlugin.NgxsStoragePluginModule.forRoot({ key: 'SessionState' }),
                             routerPlugin.NgxsRouterPluginModule.forRoot(),
+                            storagePlugin.NgxsStoragePluginModule.forRoot({ key: ['SessionState'] }),
+                            angularOauth2Oidc.OAuthModule.forRoot(),
                             common.CommonModule,
                             http.HttpClientModule,
                             forms.FormsModule,

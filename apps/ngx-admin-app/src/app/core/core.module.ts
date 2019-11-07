@@ -1,4 +1,4 @@
-import { NgModule, Injectable } from '@angular/core';
+import { NgModule, Injectable, ModuleWithProviders, InjectionToken } from '@angular/core';
 import { CoreModule as NgxAdminCoreModule } from '@fs/ngx-admin';
 import { HttpClient } from '@angular/common/http'; import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -7,9 +7,9 @@ import { CoreModule as AbpCoreModule, RestService, addAbpRoutes, eLayoutType } f
 import { environment } from '../../environments/environment';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { OAuthModule } from 'angular-oauth2-oidc';
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsModule } from '@ngxs/store';
-import { AccountConfigModule, AccountConfigService } from '@abp/ng.account.config';
+import { AccountConfigModule } from '@fs/account/ngx-admin/config';
 import { IdentityConfigModule } from '@abp/ng.identity.config';
 import { TenantManagementConfigModule } from '@abp/ng.tenant-management.config';
 import { SettingManagementConfigModule } from '@abp/ng.setting-management.config';
@@ -19,14 +19,14 @@ import { ThemeModule } from '@fs/ngx-admin';
 import { NbSidebarModule, NbMenuModule, NbDatepickerModule, NbDialogModule, NbWindowModule, NbToastrModule, NbChatModule } from '@nebular/theme';
 import { NbAuthComponent, NbAuthModule } from '@nebular/auth';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-
-
-
-const NgxAdminLayouts = [ApplicationLayoutComponent, ApplicationLayoutComponent, ApplicationLayoutComponent];
+import { LAYOUTS as NgxAdminLayouts } from '@fs/ngx-admin/basic'
+const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
 
 @NgModule({
   declarations: [
 
+  ],
+  providers: [
   ],
   imports: [
     //abp
@@ -41,10 +41,8 @@ const NgxAdminLayouts = [ApplicationLayoutComponent, ApplicationLayoutComponent,
     IdentityConfigModule,
     TenantManagementConfigModule,
     SettingManagementConfigModule,
-    OAuthModule.forRoot(),
     NgxsModule.forRoot([]),
-
-    NgxsReduxDevtoolsPluginModule.forRoot(),
+    ...(environment.production ? [] : LOGGERS),
 
     //ngx-admin
     ThemeModule.forRoot(),
@@ -64,4 +62,5 @@ const NgxAdminLayouts = [ApplicationLayoutComponent, ApplicationLayoutComponent,
   exports: [
   ]
 })
-export class CoreModule { }
+export class CoreModule {
+}

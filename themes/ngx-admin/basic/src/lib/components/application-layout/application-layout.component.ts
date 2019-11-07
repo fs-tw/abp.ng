@@ -8,12 +8,13 @@ import { map } from 'rxjs/operators';
 import { NbMenuItem, NbIconLibraries } from '@nebular/theme';
 
 @Component({
+  selector: 'ngx-admin-layout-application',
   styleUrls: ['application-layout.component.scss'],
   template: `
-    <ngx-one-column-layout>
+    <ngx-admin-one-column-layout>
       <nb-menu [items]="menu"></nb-menu>
       <router-outlet></router-outlet>
-    </ngx-one-column-layout>
+    </ngx-admin-one-column-layout>
   `,
 })
 export class ApplicationLayoutComponent {

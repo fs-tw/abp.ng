@@ -10,7 +10,7 @@ import { registerLocaleData, CommonModule } from '@angular/common';
 import compare from 'just-compare';
 import clone from 'just-clone';
 import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { OAuthService, OAuthModule } from 'angular-oauth2-oidc';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { takeUntilDestroy as takeUntilDestroy$1 } from '@ngx-validate/core';
@@ -3751,8 +3751,9 @@ CoreModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
                     NgxsModule.forFeature([ProfileState, SessionState, ConfigState]),
-                    NgxsStoragePluginModule.forRoot({ key: 'SessionState' }),
                     NgxsRouterPluginModule.forRoot(),
+                    NgxsStoragePluginModule.forRoot({ key: ['SessionState'] }),
+                    OAuthModule.forRoot(),
                     CommonModule,
                     HttpClientModule,
                     FormsModule,

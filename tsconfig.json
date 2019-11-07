@@ -85,8 +85,6 @@
       "@fs/common/*": [ "libs/common/*/src/index.ts" ],
       "@fs/dynform": [ "libs/dynform/src/index.ts" ],
       "@fs/dynform/*": [ "libs/dynform/*/src/index.ts" ],
-      "@fs/ng-admin-ms": [ "themes/ng-admin-ms/src/index.ts" ],
-      "@fs/ng-alain-ms": [ "themes/ng-alain-ms/src/index.ts" ],
       "@fs/dev": [ "themes/dev/src/index.ts" ]
     }
   },
