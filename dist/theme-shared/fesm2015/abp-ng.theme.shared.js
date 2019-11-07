@@ -26,16 +26,16 @@ class BreadcrumbComponent {
         this.router = router;
         this.store = store;
         this.segments = [];
-        this.show = !!this.store.selectSnapshot((/**
-         * @param {?} state
-         * @return {?}
-         */
-        state => state.LeptonLayoutState));
     }
     /**
      * @return {?}
      */
     ngOnInit() {
+        this.show = !!this.store.selectSnapshot((/**
+         * @param {?} state
+         * @return {?}
+         */
+        state => state.LeptonLayoutState));
         /** @type {?} */
         const splittedUrl = this.router.url.split('/').filter((/**
          * @param {?} chunk
@@ -281,11 +281,11 @@ class ChartComponent {
                 const element = this.chart.getElementAtEvent(event);
                 /** @type {?} */
                 const dataset = this.chart.getDatasetAtEvent(event);
-                if (element && element[0] && dataset) {
+                if (element && element.length && dataset) {
                     this.onDataSelect.emit({
                         originalEvent: event,
                         element: element[0],
-                        dataset
+                        dataset,
                     });
                 }
             }
@@ -301,11 +301,11 @@ class ChartComponent {
             if (opts.responsive && (this.height || this.width)) {
                 opts.maintainAspectRatio = false;
             }
-            this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
+            this.chart = new Chart(this.canvas, {
                 type: this.type,
                 data: this.data,
                 options: this.options,
-                plugins: this.plugins
+                plugins: this.plugins,
             });
             this.cdRef.detectChanges();
         });
@@ -370,19 +370,24 @@ class ChartComponent {
          * @return {?}
          */
         () => {
-            try {
-                // tslint:disable-next-line: no-unused-expression
-                Chart;
-            }
-            catch (error) {
-                console.error(`Chart is not found. Import the Chart from app.module like shown below:
-        import('chart.js');
-        `);
-                return;
-            }
+            this.testChartJs();
             this.initChart();
             this._initialized = true;
         }));
+    }
+    /**
+     * @return {?}
+     */
+    testChartJs() {
+        try {
+            // tslint:disable-next-line: no-unused-expression
+            Chart;
+        }
+        catch (error) {
+            throw new Error(`Chart is not found. Import the Chart from app.module like shown below:
+      import('chart.js');
+      `);
+        }
     }
     /**
      * @return {?}
@@ -735,7 +740,7 @@ class ErrorComponent {
 ErrorComponent.decorators = [
     { type: Component, args: [{
                 selector: 'abp-error',
-                template: "<div class=\"error\">\r\n  <button id=\"abp-close-button mr-3\" type=\"button\" class=\"close\" (click)=\"destroy()\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n  <div class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>\r\n          {{ title | abpLocalization }}\r\n        </h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a (click)=\"destroy()\" routerLink=\"/\" class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                template: "<div id=\"abp-error\" class=\"error\">\r\n  <button id=\"abp-close-button\" class=\"mr-3\" type=\"button\" class=\"close\" (click)=\"destroy()\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n  <div class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>\r\n          {{ title | abpLocalization }}\r\n        </h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a (click)=\"destroy()\" routerLink=\"/\" class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
                 styles: [".error{position:fixed;top:0;background-color:#fff;width:100vw;height:100vh;z-index:999999}.centered{position:fixed;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}"]
             }] }
 ];
@@ -770,12 +775,25 @@ class LoaderBarComponent {
         this.color = '#77b6ff';
         this.isLoading = false;
         this.progressLevel = 0;
+        this.intervalPeriod = 350;
+        this.stopDelay = 820;
         this.filter = (/**
          * @param {?} action
          * @return {?}
          */
         (action) => action.payload.url.indexOf('openid-configuration') < 0);
-        actions
+    }
+    /**
+     * @return {?}
+     */
+    get boxShadow() {
+        return `0 0 10px rgba(${this.color}, 0.5)`;
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this.actions
             .pipe(ofActionSuccessful(StartLoader, StopLoader), filter(this.filter), takeUntilDestroy(this))
             .subscribe((/**
          * @param {?} action
@@ -787,7 +805,7 @@ class LoaderBarComponent {
             else
                 this.stopLoading();
         }));
-        router.events
+        this.router.events
             .pipe(filter((/**
          * @param {?} event
          * @return {?}
@@ -807,12 +825,6 @@ class LoaderBarComponent {
     /**
      * @return {?}
      */
-    get boxShadow() {
-        return `0 0 10px rgba(${this.color}, 0.5)`;
-    }
-    /**
-     * @return {?}
-     */
     ngOnDestroy() {
         this.interval.unsubscribe();
     }
@@ -823,7 +835,7 @@ class LoaderBarComponent {
         if (this.isLoading || this.progressLevel !== 0)
             return;
         this.isLoading = true;
-        this.interval = interval(350).subscribe((/**
+        this.interval = interval(this.intervalPeriod).subscribe((/**
          * @return {?}
          */
         () => {
@@ -851,7 +863,7 @@ class LoaderBarComponent {
         this.isLoading = false;
         if (this.timer && !this.timer.closed)
             return;
-        this.timer = timer(820).subscribe((/**
+        this.timer = timer(this.stopDelay).subscribe((/**
          * @return {?}
          */
         () => {
@@ -903,6 +915,10 @@ if (false) {
     LoaderBarComponent.prototype.interval;
     /** @type {?} */
     LoaderBarComponent.prototype.timer;
+    /** @type {?} */
+    LoaderBarComponent.prototype.intervalPeriod;
+    /** @type {?} */
+    LoaderBarComponent.prototype.stopDelay;
     /** @type {?} */
     LoaderBarComponent.prototype.filter;
     /**
@@ -1102,12 +1118,11 @@ class ModalComponent {
          * @param {?} key
          * @return {?}
          */
-        (key) => key && key.code === 'Escape')))
+        (key) => key && key.key === 'Escape')))
             .subscribe((/**
-         * @param {?} _
          * @return {?}
          */
-        _ => {
+        () => {
             this.close();
         }));
         setTimeout((/**
@@ -1132,7 +1147,7 @@ class ModalComponent {
 ModalComponent.decorators = [
     { type: Component, args: [{
                 selector: 'abp-modal',
-                template: "<ng-container *ngIf=\"visible\">\r\n  <div class=\"modal show {{ modalClass }}\" tabindex=\"-1\" role=\"dialog\">\r\n    <div class=\"modal-backdrop\" [@fade]=\"isModalOpen\" (click)=\"close()\"></div>\r\n    <div\r\n      id=\"abp-modal-dialog\"\r\n      class=\"modal-dialog modal-{{ size }}\"\r\n      role=\"document\"\r\n      [@dialog]=\"isModalOpen\"\r\n      #abpModalContent\r\n    >\r\n      <div id=\"abp-modal-content\" class=\"modal-content\">\r\n        <div id=\"abp-modal-header\" class=\"modal-header\">\r\n          <ng-container *ngTemplateOutlet=\"abpHeader\"></ng-container>\r\n          \u200B\r\n          <button id=\"abp-modal-close-button\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"close()\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div id=\"abp-modal-body\" class=\"modal-body\">\r\n          <ng-container *ngTemplateOutlet=\"abpBody\"></ng-container>\r\n        </div>\r\n        <div id=\"abp-modal-footer\" class=\"modal-footer\">\r\n          <ng-container *ngTemplateOutlet=\"abpFooter\"></ng-container>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <ng-content></ng-content>\r\n  </div>\r\n</ng-container>\r\n",
+                template: "<ng-container *ngIf=\"visible\">\r\n  <div class=\"modal show {{ modalClass }}\" tabindex=\"-1\" role=\"dialog\">\r\n    <div class=\"modal-backdrop\" [@fade]=\"isModalOpen\" (click)=\"close()\"></div>\r\n    <div\r\n      id=\"abp-modal-dialog\"\r\n      class=\"modal-dialog modal-{{ size }}\"\r\n      role=\"document\"\r\n      [class.modal-dialog-centered]=\"centered\"\r\n      [@dialog]=\"isModalOpen\"\r\n      #abpModalContent\r\n    >\r\n      <div id=\"abp-modal-content\" class=\"modal-content\">\r\n        <div id=\"abp-modal-header\" class=\"modal-header\">\r\n          <ng-container *ngTemplateOutlet=\"abpHeader\"></ng-container>\r\n          \u200B\r\n          <button id=\"abp-modal-close-button\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"close()\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div id=\"abp-modal-body\" class=\"modal-body\">\r\n          <ng-container *ngTemplateOutlet=\"abpBody\"></ng-container>\r\n        </div>\r\n        <div id=\"abp-modal-footer\" class=\"modal-footer\">\r\n          <ng-container *ngTemplateOutlet=\"abpFooter\"></ng-container>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <ng-content></ng-content>\r\n  </div>\r\n</ng-container>\r\n",
                 animations: [fadeAnimation, dialogAnimation]
             }] }
 ];

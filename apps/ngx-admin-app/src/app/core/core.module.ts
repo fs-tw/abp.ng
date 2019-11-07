@@ -7,7 +7,7 @@ import { CoreModule as AbpCoreModule, RestService, addAbpRoutes, eLayoutType } f
 import { environment } from '../../environments/environment';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { OAuthModule } from 'angular-oauth2-oidc';
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsModule } from '@ngxs/store';
 import { AccountConfigModule } from '@fs/account/ngx-admin/config';
 import { IdentityConfigModule } from '@abp/ng.identity.config';
@@ -20,6 +20,7 @@ import { NbSidebarModule, NbMenuModule, NbDatepickerModule, NbDialogModule, NbWi
 import { NbAuthComponent, NbAuthModule } from '@nebular/auth';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { LAYOUTS as NgxAdminLayouts } from '@fs/ngx-admin/basic'
+const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
 
 @NgModule({
   declarations: [
@@ -40,10 +41,8 @@ import { LAYOUTS as NgxAdminLayouts } from '@fs/ngx-admin/basic'
     IdentityConfigModule,
     TenantManagementConfigModule,
     SettingManagementConfigModule,
-    OAuthModule.forRoot(),
     NgxsModule.forRoot([]),
-
-    NgxsReduxDevtoolsPluginModule.forRoot(),
+    ...(environment.production ? [] : LOGGERS),
 
     //ngx-admin
     ThemeModule.forRoot(),

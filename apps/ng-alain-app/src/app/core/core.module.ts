@@ -8,7 +8,7 @@ import { CoreModule as AbpCoreModule, RestService, addAbpRoutes, eLayoutType } f
 import { environment } from '../../environments/environment';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { OAuthModule } from 'angular-oauth2-oidc';
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsModule } from '@ngxs/store';
 import { AccountConfigModule, AccountConfigService } from '@abp/ng.account.config';
 import { IdentityConfigModule } from '@abp/ng.identity.config';
@@ -33,6 +33,8 @@ const I18NSERVICE_MODULES = [
     isolate: true
   }),
 ];
+
+const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
 const AlainLayouts = [LayoutDefaultComponent, LayoutPassportComponent, LayoutFullScreenComponent];
 
 @NgModule({
@@ -52,10 +54,9 @@ const AlainLayouts = [LayoutDefaultComponent, LayoutPassportComponent, LayoutFul
     IdentityConfigModule,
     TenantManagementConfigModule,
     SettingManagementConfigModule,
-    OAuthModule.forRoot(),
     NgxsModule.forRoot([]),
 
-    NgxsReduxDevtoolsPluginModule.forRoot(),
+    ...(environment.production ? [] : LOGGERS),
 
     //ng-alain
     AlainCoreModule,
