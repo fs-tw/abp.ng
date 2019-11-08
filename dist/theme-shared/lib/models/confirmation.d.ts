@@ -1,17 +1,18 @@
 import { Toaster } from './toaster';
+import { Config } from '@abp/ng.core';
 export declare namespace Confirmation {
     interface Options extends Toaster.Options {
         hideCancelBtn?: boolean;
         hideYesBtn?: boolean;
-        cancelText?: string;
-        yesText?: string;
+        cancelText?: Config.LocalizationParam;
+        yesText?: Config.LocalizationParam;
         /**
          * @deprecated to be deleted in v2
          */
-        cancelCopy?: string;
+        cancelCopy?: Config.LocalizationParam;
         /**
          * @deprecated to be deleted in v2
          */
-        yesCopy?: string;
+        yesCopy?: Config.LocalizationParam;
     }
 }
