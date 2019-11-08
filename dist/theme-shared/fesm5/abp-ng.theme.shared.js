@@ -1,6 +1,6 @@
-import { ConfigState, StartLoader, StopLoader, SortPipe, RestOccurError, LazyLoadService, CoreModule } from '@abp/ng.core';
-import { Component, EventEmitter, Renderer2, Input, Output, ViewChild, ElementRef, ChangeDetectorRef, Injectable, ɵɵdefineInjectable, ɵɵinject, ContentChild, ViewChildren, Directive, Optional, Self, NgZone, ApplicationRef, ComponentFactoryResolver, RendererFactory2, Injector, INJECTOR, APP_INITIALIZER, NgModule } from '@angular/core';
-import { takeUntilDestroy, NgxValidateCoreModule } from '@ngx-validate/core';
+import { ConfigState, takeUntilDestroy, StartLoader, StopLoader, SortPipe, RestOccurError, LazyLoadService, CoreModule } from '@abp/ng.core';
+import { Component, EventEmitter, Renderer2, Input, Output, ViewChild, ElementRef, ChangeDetectorRef, Injectable, ɵɵdefineInjectable, ɵɵinject, ContentChild, ViewChildren, Directive, Optional, Self, InjectionToken, ApplicationRef, ComponentFactoryResolver, RendererFactory2, Injector, Inject, INJECTOR, APP_INITIALIZER, NgModule } from '@angular/core';
+import { takeUntilDestroy as takeUntilDestroy$1, NgxValidateCoreModule } from '@ngx-validate/core';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ToastModule } from 'primeng/toast';
 import { ReplaySubject, BehaviorSubject, Subject, fromEvent, interval, timer, forkJoin } from 'rxjs';
@@ -12,6 +12,7 @@ import { animation, style, animate, trigger, transition, useAnimation, keyframes
 import { Table } from 'primeng/table';
 import clone from 'just-clone';
 import { HttpErrorResponse } from '@angular/common/http';
+import { RouterError, RouterDataResolved, RouterState, Navigate } from '@ngxs/router-plugin';
 import snq from 'snq';
 
 /**
@@ -103,6 +104,7 @@ var ButtonComponent = /** @class */ (function () {
     function ButtonComponent(renderer) {
         this.renderer = renderer;
         this.buttonClass = 'btn btn-primary';
+        this.buttonType = 'button';
         this.loading = false;
         this.disabled = false;
         // tslint:disable-next-line: no-output-native
@@ -111,10 +113,6 @@ var ButtonComponent = /** @class */ (function () {
         this.focus = new EventEmitter();
         // tslint:disable-next-line: no-output-native
         this.blur = new EventEmitter();
-        /**
-         * @deprecated Use buttonType instead. To be deleted in v1
-         */
-        this.type = 'button';
     }
     Object.defineProperty(ButtonComponent.prototype, "icon", {
         get: /**
@@ -184,7 +182,7 @@ var ButtonComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'abp-button',
                     // tslint:disable-next-line: component-max-inline-declarations
-                    template: "\n    <button\n      #button\n      [attr.type]=\"buttonType || type\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click)=\"onClick($event)\"\n      (focus)=\"onFocus($event)\"\n      (blur)=\"onBlur($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
+                    template: "\n    <button\n      #button\n      [attr.type]=\"buttonType\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click)=\"onClick($event)\"\n      (focus)=\"onFocus($event)\"\n      (blur)=\"onBlur($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
                 }] }
     ];
     /** @nocollapse */
@@ -201,8 +199,7 @@ var ButtonComponent = /** @class */ (function () {
         click: [{ type: Output }],
         focus: [{ type: Output }],
         blur: [{ type: Output }],
-        buttonRef: [{ type: ViewChild, args: ['button', { static: true },] }],
-        type: [{ type: Input }]
+        buttonRef: [{ type: ViewChild, args: ['button', { static: true },] }]
     };
     return ButtonComponent;
 }());
@@ -227,11 +224,6 @@ if (false) {
     ButtonComponent.prototype.blur;
     /** @type {?} */
     ButtonComponent.prototype.buttonRef;
-    /**
-     * @deprecated Use buttonType instead. To be deleted in v1
-     * @type {?}
-     */
-    ButtonComponent.prototype.type;
     /**
      * @type {?}
      * @private
@@ -741,7 +733,7 @@ var ConfirmationComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'abp-confirmation',
                     // tslint:disable-next-line: component-max-inline-declarations
-                    template: "\n    <p-toast\n      position=\"center\"\n      key=\"abpConfirmation\"\n      (onClose)=\"close(dismiss)\"\n      [modal]=\"true\"\n      [baseZIndex]=\"1000\"\n      styleClass=\"abp-confirm\"\n    >\n      <ng-template let-message pTemplate=\"message\">\n        <i class=\"fa fa-exclamation-circle abp-confirm-icon\"></i>\n        <div *ngIf=\"message.summary\" class=\"abp-confirm-summary\">\n          {{ message.summary | abpLocalization: message.titleLocalizationParams }}\n        </div>\n        <div class=\"abp-confirm-body\">\n          {{ message.detail | abpLocalization: message.messageLocalizationParams }}\n        </div>\n\n        <div class=\"abp-confirm-footer justify-content-center\">\n          <button\n            *ngIf=\"!message.hideCancelBtn\"\n            id=\"cancel\"\n            type=\"button\"\n            class=\"btn btn-sm btn-primary\"\n            (click)=\"close(reject)\"\n          >\n            {{ message.cancelText || message.cancelCopy || 'AbpIdentity::Cancel' | abpLocalization }}\n          </button>\n          <button\n            *ngIf=\"!message.hideYesBtn\"\n            id=\"confirm\"\n            type=\"button\"\n            class=\"btn btn-sm btn-primary\"\n            (click)=\"close(confirm)\"\n            autofocus\n          >\n            <span>{{ message.yesText || 'AbpIdentity::Yes' | abpLocalization }}</span>\n          </button>\n        </div>\n      </ng-template>\n    </p-toast>\n  "
+                    template: "\n    <p-toast\n      position=\"center\"\n      key=\"abpConfirmation\"\n      (onClose)=\"close(dismiss)\"\n      [modal]=\"true\"\n      [baseZIndex]=\"1000\"\n      styleClass=\"abp-confirm\"\n    >\n      <ng-template let-message pTemplate=\"message\">\n        <i class=\"fa fa-exclamation-circle abp-confirm-icon\"></i>\n        <div *ngIf=\"message.summary\" class=\"abp-confirm-summary\">\n          {{ message.summary | abpLocalization: message.titleLocalizationParams }}\n        </div>\n        <div class=\"abp-confirm-body\">\n          {{ message.detail | abpLocalization: message.messageLocalizationParams }}\n        </div>\n\n        <div class=\"abp-confirm-footer justify-content-center\">\n          <button\n            *ngIf=\"!message.hideCancelBtn\"\n            id=\"cancel\"\n            type=\"button\"\n            class=\"btn btn-sm btn-primary\"\n            (click)=\"close(reject)\"\n          >\n            {{ message.cancelText || message.cancelCopy || 'AbpIdentity::Cancel' | abpLocalization }}\n          </button>\n          <button\n            *ngIf=\"!message.hideYesBtn\"\n            id=\"confirm\"\n            type=\"button\"\n            class=\"btn btn-sm btn-primary\"\n            (click)=\"close(confirm)\"\n            autofocus\n          >\n            <span>{{ message.yesText || message.yesCopy || 'AbpIdentity::Yes' | abpLocalization }}</span>\n          </button>\n        </div>\n      </ng-template>\n    </p-toast>\n  "
                 }] }
     ];
     /** @nocollapse */
@@ -770,9 +762,56 @@ if (false) {
  */
 var ErrorComponent = /** @class */ (function () {
     function ErrorComponent() {
+        this.status = 0;
         this.title = 'Oops!';
         this.details = 'Sorry, an error has occured.';
+        this.customComponent = null;
     }
+    Object.defineProperty(ErrorComponent.prototype, "statusText", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this.status ? "[" + this.status + "]" : '';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    ErrorComponent.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this.customComponent) {
+            /** @type {?} */
+            var customComponentRef = this.cfRes.resolveComponentFactory(this.customComponent).create(null);
+            customComponentRef.instance.errorStatus = this.status;
+            this.containerRef.nativeElement.appendChild(((/** @type {?} */ (customComponentRef.hostView))).rootNodes[0]);
+            customComponentRef.changeDetectorRef.detectChanges();
+        }
+        fromEvent(document, 'keyup')
+            .pipe(takeUntilDestroy(this), debounceTime(150), filter((/**
+         * @param {?} key
+         * @return {?}
+         */
+        function (key) { return key && key.key === 'Escape'; })))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.destroy();
+        }));
+    };
+    /**
+     * @return {?}
+     */
+    ErrorComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () { };
     /**
      * @return {?}
      */
@@ -780,28 +819,36 @@ var ErrorComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.renderer.removeChild(this.host, this.elementRef.nativeElement);
+        this.destroy$.next();
+        this.destroy$.complete();
     };
     ErrorComponent.decorators = [
         { type: Component, args: [{
                     selector: 'abp-error',
-                    template: "<div id=\"abp-error\" class=\"error\">\r\n  <button id=\"abp-close-button\" class=\"mr-3\" type=\"button\" class=\"close\" (click)=\"destroy()\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n  <div class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>\r\n          {{ title | abpLocalization }}\r\n        </h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a (click)=\"destroy()\" routerLink=\"/\" class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                    template: "<div #container id=\"abp-error\" class=\"error\">\r\n  <button id=\"abp-close-button\" type=\"button\" class=\"close mr-3\" (click)=\"destroy()\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n\r\n  <div *ngIf=\"!customComponent\" class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>{{ statusText }} {{ title | abpLocalization }}</h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a (click)=\"destroy()\" routerLink=\"/\" class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
                     styles: [".error{position:fixed;top:0;background-color:#fff;width:100vw;height:100vh;z-index:999999}.centered{position:fixed;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}"]
                 }] }
     ];
+    ErrorComponent.propDecorators = {
+        containerRef: [{ type: ViewChild, args: ['container', { static: false },] }]
+    };
     return ErrorComponent;
 }());
 if (false) {
+    /** @type {?} */
+    ErrorComponent.prototype.cfRes;
+    /** @type {?} */
+    ErrorComponent.prototype.status;
     /** @type {?} */
     ErrorComponent.prototype.title;
     /** @type {?} */
     ErrorComponent.prototype.details;
     /** @type {?} */
-    ErrorComponent.prototype.renderer;
+    ErrorComponent.prototype.customComponent;
     /** @type {?} */
-    ErrorComponent.prototype.elementRef;
+    ErrorComponent.prototype.destroy$;
     /** @type {?} */
-    ErrorComponent.prototype.host;
+    ErrorComponent.prototype.containerRef;
 }
 
 /**
@@ -844,7 +891,7 @@ var LoaderBarComponent = /** @class */ (function () {
     function () {
         var _this = this;
         this.actions
-            .pipe(ofActionSuccessful(StartLoader, StopLoader), filter(this.filter), takeUntilDestroy(this))
+            .pipe(ofActionSuccessful(StartLoader, StopLoader), filter(this.filter), takeUntilDestroy$1(this))
             .subscribe((/**
          * @param {?} action
          * @return {?}
@@ -862,7 +909,7 @@ var LoaderBarComponent = /** @class */ (function () {
          */
         function (event) {
             return event instanceof NavigationStart || event instanceof NavigationEnd || event instanceof NavigationError;
-        })), takeUntilDestroy(this))
+        })), takeUntilDestroy$1(this))
             .subscribe((/**
          * @param {?} event
          * @return {?}
@@ -1581,6 +1628,24 @@ if (false) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @param {?=} config
+ * @return {?}
+ */
+function httpErrorConfigFactory(config) {
+    if (config === void 0) { config = (/** @type {?} */ ({})); }
+    if (config.errorScreen && config.errorScreen.component && !config.errorScreen.forWhichErrors) {
+        config.errorScreen.forWhichErrors = [401, 403, 404, 500];
+    }
+    return (/** @type {?} */ (__assign({ errorScreen: {} }, config)));
+}
+/** @type {?} */
+var HTTP_ERROR_CONFIG = new InjectionToken('HTTP_ERROR_CONFIG');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 /** @type {?} */
 var DEFAULT_ERROR_MESSAGES = {
     defaultError: {
@@ -1601,86 +1666,159 @@ var DEFAULT_ERROR_MESSAGES = {
     },
     defaultError500: {
         title: '500',
-        details: { key: 'AbpAccount::InternalServerErrorMessage', defaultValue: 'Error detail not sent by server.' },
-    },
-    defaultErrorUnknown: {
-        title: 'Unknown Error',
-        details: { key: 'AbpAccount::InternalServerErrorMessage', defaultValue: 'Error detail not sent by server.' },
+        details: 'Error detail not sent by server.',
     },
 };
 var ErrorHandler = /** @class */ (function () {
-    function ErrorHandler(actions, router, ngZone, store, confirmationService, appRef, cfRes, rendererFactory, injector) {
+    function ErrorHandler(actions, store, confirmationService, appRef, cfRes, rendererFactory, injector, httpErrorConfig) {
         var _this = this;
         this.actions = actions;
-        this.router = router;
-        this.ngZone = ngZone;
         this.store = store;
         this.confirmationService = confirmationService;
         this.appRef = appRef;
         this.cfRes = cfRes;
         this.rendererFactory = rendererFactory;
         this.injector = injector;
-        actions.pipe(ofActionSuccessful(RestOccurError)).subscribe((/**
+        this.httpErrorConfig = httpErrorConfig;
+        this.actions.pipe(ofActionSuccessful(RestOccurError, RouterError, RouterDataResolved)).subscribe((/**
          * @param {?} res
          * @return {?}
          */
         function (res) {
-            var _a = res.payload, err = _a === void 0 ? (/** @type {?} */ ({})) : _a;
-            /** @type {?} */
-            var body = snq((/**
-             * @return {?}
-             */
-            function () { return ((/** @type {?} */ (err))).error.error; }), DEFAULT_ERROR_MESSAGES.defaultError.title);
-            if (err instanceof HttpErrorResponse && err.headers.get('_AbpErrorFormat')) {
+            if (res instanceof RestOccurError) {
+                var _a = res.payload, err_1 = _a === void 0 ? (/** @type {?} */ ({})) : _a;
                 /** @type {?} */
-                var confirmation$ = _this.showError(null, null, body);
-                if (err.status === 401) {
-                    confirmation$.subscribe((/**
-                     * @return {?}
-                     */
-                    function () {
-                        _this.navigateToLogin();
-                    }));
-                }
-            }
-            else {
-                switch (((/** @type {?} */ (err))).status) {
-                    case 401:
-                        _this.showError(DEFAULT_ERROR_MESSAGES.defaultError401.details, DEFAULT_ERROR_MESSAGES.defaultError401.title).subscribe((/**
+                var body = snq((/**
+                 * @return {?}
+                 */
+                function () { return ((/** @type {?} */ (err_1))).error.error; }), DEFAULT_ERROR_MESSAGES.defaultError.title);
+                if (err_1 instanceof HttpErrorResponse && err_1.headers.get('_AbpErrorFormat')) {
+                    /** @type {?} */
+                    var confirmation$ = _this.showError(null, null, body);
+                    if (err_1.status === 401) {
+                        confirmation$.subscribe((/**
                          * @return {?}
                          */
-                        function () { return _this.navigateToLogin(); }));
-                        break;
-                    case 403:
-                        _this.createErrorComponent({
-                            title: DEFAULT_ERROR_MESSAGES.defaultError403.title,
-                            details: DEFAULT_ERROR_MESSAGES.defaultError403.details,
-                        });
-                        break;
-                    case 404:
-                        _this.showError(DEFAULT_ERROR_MESSAGES.defaultError404.details, DEFAULT_ERROR_MESSAGES.defaultError404.title);
-                        break;
-                    case 500:
-                        _this.createErrorComponent({
-                            title: DEFAULT_ERROR_MESSAGES.defaultError500.title,
-                            details: DEFAULT_ERROR_MESSAGES.defaultError500.details,
-                        });
-                        break;
-                    case 0:
-                        if (((/** @type {?} */ (err))).statusText === 'Unknown Error') {
-                            _this.createErrorComponent({
-                                title: DEFAULT_ERROR_MESSAGES.defaultErrorUnknown.title,
-                                details: DEFAULT_ERROR_MESSAGES.defaultErrorUnknown.details,
-                            });
-                        }
-                        break;
-                    default:
-                        _this.showError(DEFAULT_ERROR_MESSAGES.defaultError.details, DEFAULT_ERROR_MESSAGES.defaultError.title);
-                        break;
+                        function () {
+                            _this.navigateToLogin();
+                        }));
+                    }
                 }
+                else {
+                    switch (((/** @type {?} */ (err_1))).status) {
+                        case 401:
+                            _this.canCreateCustomError(401)
+                                ? _this.show401Page()
+                                : _this.showError({
+                                    key: 'AbpAccount::DefaultErrorMessage401',
+                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError401.title,
+                                }, {
+                                    key: 'AbpAccount::DefaultErrorMessage401Detail',
+                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError401.details,
+                                }).subscribe((/**
+                                 * @return {?}
+                                 */
+                                function () { return _this.navigateToLogin(); }));
+                            break;
+                        case 403:
+                            _this.createErrorComponent({
+                                title: {
+                                    key: 'AbpAccount::DefaultErrorMessage403',
+                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError403.title,
+                                },
+                                details: {
+                                    key: 'AbpAccount::DefaultErrorMessage403Detail',
+                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError403.details,
+                                },
+                                status: 403,
+                            });
+                            break;
+                        case 404:
+                            _this.canCreateCustomError(404)
+                                ? _this.show404Page()
+                                : _this.showError({
+                                    key: 'AbpAccount::DefaultErrorMessage404',
+                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.title,
+                                }, {
+                                    key: 'AbpAccount::DefaultErrorMessage404Detail',
+                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.details,
+                                });
+                            break;
+                        case 500:
+                            _this.createErrorComponent({
+                                title: {
+                                    key: 'AbpAccount::500Message',
+                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError500.title,
+                                },
+                                details: {
+                                    key: 'AbpAccount::InternalServerErrorMessage',
+                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError500.details,
+                                },
+                                status: 500,
+                            });
+                            break;
+                        case 0:
+                            if (((/** @type {?} */ (err_1))).statusText === 'Unknown Error') {
+                                _this.createErrorComponent({
+                                    title: {
+                                        key: 'AbpAccount::DefaultErrorMessage',
+                                        defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.title,
+                                    },
+                                });
+                            }
+                            break;
+                        default:
+                            _this.showError(DEFAULT_ERROR_MESSAGES.defaultError.details, DEFAULT_ERROR_MESSAGES.defaultError.title);
+                            break;
+                    }
+                }
+            }
+            else if (res instanceof RouterError && snq((/**
+             * @return {?}
+             */
+            function () { return res.event.error.indexOf('Cannot match') > -1; }), false)) {
+                _this.show404Page();
+            }
+            else if (res instanceof RouterDataResolved && _this.componentRef) {
+                _this.componentRef.destroy();
+                _this.componentRef = null;
             }
         }));
     }
+    /**
+     * @private
+     * @return {?}
+     */
+    ErrorHandler.prototype.show401Page = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        this.createErrorComponent({
+            title: {
+                key: 'AbpAccount::401Message',
+                defaultValue: DEFAULT_ERROR_MESSAGES.defaultError401.title,
+            },
+            status: 401,
+        });
+    };
+    /**
+     * @private
+     * @return {?}
+     */
+    ErrorHandler.prototype.show404Page = /**
+     * @private
+     * @return {?}
+     */
+    function () {
+        this.createErrorComponent({
+            title: {
+                key: 'AbpAccount::404Message',
+                defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.title,
+            },
+            status: 404,
+        });
+    };
     /**
      * @private
      * @param {?=} message
@@ -1707,7 +1845,7 @@ var ErrorHandler = /** @class */ (function () {
         }
         return this.confirmationService.error(message, title, {
             hideCancelBtn: true,
-            yesCopy: 'OK',
+            yesText: 'AbpAccount::Close',
         });
     };
     /**
@@ -1719,15 +1857,8 @@ var ErrorHandler = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var _this = this;
-        this.ngZone.run((/**
-         * @return {?}
-         */
-        function () {
-            _this.router.navigate(['/account/login'], {
-                state: { redirectUrl: _this.router.url },
-            });
-        }));
+        console.warn(this.store.selectSnapshot(RouterState.url));
+        this.store.dispatch(new Navigate(['/account/login'], null, { state: { redirectUrl: this.store.selectSnapshot(RouterState.url) } }));
     };
     /**
      * @param {?} instance
@@ -1738,22 +1869,51 @@ var ErrorHandler = /** @class */ (function () {
      * @return {?}
      */
     function (instance) {
+        var _this = this;
         /** @type {?} */
         var renderer = this.rendererFactory.createRenderer(null, null);
         /** @type {?} */
         var host = renderer.selectRootElement(document.body, true);
-        /** @type {?} */
-        var componentRef = this.cfRes.resolveComponentFactory(ErrorComponent).create(this.injector);
-        for (var key in componentRef.instance) {
-            if (componentRef.instance.hasOwnProperty(key)) {
-                componentRef.instance[key] = instance[key];
+        this.componentRef = this.cfRes.resolveComponentFactory(ErrorComponent).create(this.injector);
+        for (var key in this.componentRef.instance) {
+            if (this.componentRef.instance.hasOwnProperty(key)) {
+                this.componentRef.instance[key] = instance[key];
             }
         }
-        this.appRef.attachView(componentRef.hostView);
-        renderer.appendChild(host, ((/** @type {?} */ (componentRef.hostView))).rootNodes[0]);
-        componentRef.instance.renderer = renderer;
-        componentRef.instance.elementRef = componentRef.location;
-        componentRef.instance.host = host;
+        if (this.canCreateCustomError((/** @type {?} */ (instance.status)))) {
+            this.componentRef.instance.cfRes = this.cfRes;
+            this.componentRef.instance.customComponent = this.httpErrorConfig.errorScreen.component;
+        }
+        this.appRef.attachView(this.componentRef.hostView);
+        renderer.appendChild(host, ((/** @type {?} */ (this.componentRef.hostView))).rootNodes[0]);
+        /** @type {?} */
+        var destroy$ = new Subject();
+        this.componentRef.instance.destroy$ = destroy$;
+        destroy$.subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.componentRef.destroy();
+            _this.componentRef = null;
+        }));
+    };
+    /**
+     * @param {?} status
+     * @return {?}
+     */
+    ErrorHandler.prototype.canCreateCustomError = /**
+     * @param {?} status
+     * @return {?}
+     */
+    function (status) {
+        var _this = this;
+        return snq((/**
+         * @return {?}
+         */
+        function () {
+            return _this.httpErrorConfig.errorScreen.component &&
+                _this.httpErrorConfig.errorScreen.forWhichErrors.indexOf(status) > -1;
+        }));
     };
     ErrorHandler.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] }
@@ -1761,34 +1921,25 @@ var ErrorHandler = /** @class */ (function () {
     /** @nocollapse */
     ErrorHandler.ctorParameters = function () { return [
         { type: Actions },
-        { type: Router },
-        { type: NgZone },
         { type: Store },
         { type: ConfirmationService },
         { type: ApplicationRef },
         { type: ComponentFactoryResolver },
         { type: RendererFactory2 },
-        { type: Injector }
+        { type: Injector },
+        { type: undefined, decorators: [{ type: Inject, args: [HTTP_ERROR_CONFIG,] }] }
     ]; };
-    /** @nocollapse */ ErrorHandler.ngInjectableDef = ɵɵdefineInjectable({ factory: function ErrorHandler_Factory() { return new ErrorHandler(ɵɵinject(Actions), ɵɵinject(Router), ɵɵinject(NgZone), ɵɵinject(Store), ɵɵinject(ConfirmationService), ɵɵinject(ApplicationRef), ɵɵinject(ComponentFactoryResolver), ɵɵinject(RendererFactory2), ɵɵinject(INJECTOR)); }, token: ErrorHandler, providedIn: "root" });
+    /** @nocollapse */ ErrorHandler.ngInjectableDef = ɵɵdefineInjectable({ factory: function ErrorHandler_Factory() { return new ErrorHandler(ɵɵinject(Actions), ɵɵinject(Store), ɵɵinject(ConfirmationService), ɵɵinject(ApplicationRef), ɵɵinject(ComponentFactoryResolver), ɵɵinject(RendererFactory2), ɵɵinject(INJECTOR), ɵɵinject(HTTP_ERROR_CONFIG)); }, token: ErrorHandler, providedIn: "root" });
     return ErrorHandler;
 }());
 if (false) {
+    /** @type {?} */
+    ErrorHandler.prototype.componentRef;
     /**
      * @type {?}
      * @private
      */
     ErrorHandler.prototype.actions;
-    /**
-     * @type {?}
-     * @private
-     */
-    ErrorHandler.prototype.router;
-    /**
-     * @type {?}
-     * @private
-     */
-    ErrorHandler.prototype.ngZone;
     /**
      * @type {?}
      * @private
@@ -1819,6 +1970,11 @@ if (false) {
      * @private
      */
     ErrorHandler.prototype.injector;
+    /**
+     * @type {?}
+     * @private
+     */
+    ErrorHandler.prototype.httpErrorConfig;
 }
 
 /**
@@ -1849,12 +2005,15 @@ var ThemeSharedModule = /** @class */ (function () {
     function ThemeSharedModule() {
     }
     /**
+     * @param {?=} options
      * @return {?}
      */
     ThemeSharedModule.forRoot = /**
+     * @param {?=} options
      * @return {?}
      */
-    function () {
+    function (options) {
+        if (options === void 0) { options = (/** @type {?} */ ({})); }
         return {
             ngModule: ThemeSharedModule,
             providers: [
@@ -1865,6 +2024,12 @@ var ThemeSharedModule = /** @class */ (function () {
                     useFactory: appendScript,
                 },
                 { provide: MessageService, useClass: MessageService },
+                { provide: HTTP_ERROR_CONFIG, useValue: options.httpErrorConfig },
+                {
+                    provide: 'HTTP_ERROR_CONFIG',
+                    useFactory: httpErrorConfigFactory,
+                    deps: [HTTP_ERROR_CONFIG],
+                },
             ],
         };
     };
@@ -2005,6 +2170,27 @@ var slideFromBottom = trigger('slideFromBottom', [
  * @fileoverview added by tsickle
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @record
+ */
+function RootParams() { }
+if (false) {
+    /** @type {?} */
+    RootParams.prototype.httpErrorConfig;
+}
+/**
+ * @record
+ */
+function HttpErrorConfig() { }
+if (false) {
+    /** @type {?|undefined} */
+    HttpErrorConfig.prototype.errorScreen;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2208,5 +2394,5 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { BreadcrumbComponent, ButtonComponent, ChartComponent, ConfirmationComponent, ConfirmationService, LoaderBarComponent, ModalComponent, SortOrderIconComponent, TableEmptyMessageComponent, TableSortDirective, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, ChartComponent as ɵc, ConfirmationComponent as ɵd, ConfirmationService as ɵe, AbstractToaster as ɵf, ErrorComponent as ɵg, LoaderBarComponent as ɵh, ModalComponent as ɵi, fadeAnimation as ɵj, dialogAnimation as ɵk, fadeIn as ɵl, fadeOut as ɵm, fadeInDown as ɵn, TableEmptyMessageComponent as ɵo, ToastComponent as ɵp, SortOrderIconComponent as ɵq, TableSortDirective as ɵr, ErrorHandler as ɵs };
+export { BreadcrumbComponent, ButtonComponent, ChartComponent, ConfirmationComponent, ConfirmationService, LoaderBarComponent, ModalComponent, SortOrderIconComponent, TableEmptyMessageComponent, TableSortDirective, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, ChartComponent as ɵc, ConfirmationComponent as ɵd, ConfirmationService as ɵe, AbstractToaster as ɵf, ErrorComponent as ɵg, LoaderBarComponent as ɵh, ModalComponent as ɵi, fadeAnimation as ɵj, dialogAnimation as ɵk, fadeIn as ɵl, fadeOut as ɵm, fadeInDown as ɵn, TableEmptyMessageComponent as ɵo, ToastComponent as ɵp, SortOrderIconComponent as ɵq, TableSortDirective as ɵr, ErrorHandler as ɵs, httpErrorConfigFactory as ɵt, HTTP_ERROR_CONFIG as ɵu };
 //# sourceMappingURL=abp-ng.theme.shared.js.map
