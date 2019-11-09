@@ -17,6 +17,7 @@ import { takeUntilDestroy as takeUntilDestroy$1 } from '@ngx-validate/core';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/abstracts/ng-model.component.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -119,11 +120,13 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/abstracts/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/actions/config.actions.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class PatchRouteByName {
@@ -155,6 +158,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/actions/loader.actions.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class StartLoader {
@@ -190,6 +194,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/actions/profile.actions.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class GetProfile {
@@ -232,6 +237,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/actions/rest.actions.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class RestOccurError {
@@ -252,6 +258,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/actions/session.actions.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class SetLanguage {
@@ -287,11 +294,13 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/actions/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/rest.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class RestService {
@@ -363,6 +372,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/application-configuration.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class ApplicationConfigurationService {
@@ -404,6 +414,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/utils/route-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -520,6 +531,7 @@ function getAbpRoutes() {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/constants/different-locales.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Different locales from .NET
@@ -557,6 +569,7 @@ var localesMapping = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/utils/initial-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -625,6 +638,7 @@ function registerLocale(locale) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/localization.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class LocalizationService {
@@ -730,6 +744,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/states/session.state.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 let SessionState = class SessionState {
@@ -1207,6 +1222,7 @@ function patchRouteDeep(routes, name, newValue, parentUrl = '') {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/utils/rxjs-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1250,6 +1266,7 @@ const takeUntilDestroy = (/**
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/components/dynamic-layout.component.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class DynamicLayoutComponent {
@@ -1393,6 +1410,7 @@ function findLayout(segments, routes) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/components/router-outlet.component.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class RouterOutletComponent {
@@ -1408,16 +1426,19 @@ RouterOutletComponent.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/components/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/constants/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/autofocus.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class AutofocusDirective {
@@ -1463,6 +1484,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/ellipsis.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class EllipsisDirective {
@@ -1496,18 +1518,9 @@ class EllipsisDirective {
     /**
      * @return {?}
      */
-    ngAfterContentInit() {
-        setTimeout((/**
-         * @return {?}
-         */
-        () => {
-            /** @type {?} */
-            const title = this.title;
-            this.title = title || ((/** @type {?} */ (this.elRef.nativeElement))).innerText;
-            if (this.title !== title) {
-                this.cdRef.detectChanges();
-            }
-        }), 0);
+    ngAfterViewInit() {
+        this.title = this.title || ((/** @type {?} */ (this.elRef.nativeElement))).innerText;
+        this.cdRef.detectChanges();
     }
 }
 EllipsisDirective.decorators = [
@@ -1549,6 +1562,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/for.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class AbpForContext {
@@ -1823,6 +1837,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/utils/common-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1840,6 +1855,7 @@ function noop() {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/utils/generator-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1855,11 +1871,13 @@ function uuid(a) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/utils/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/form-submit.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class FormSubmitDirective {
@@ -1995,6 +2013,7 @@ function setDirty(controls) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/profile.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class ProfileService {
@@ -2063,6 +2082,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/states/profile.state.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 let ProfileState = class ProfileState {
@@ -2159,11 +2179,13 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/states/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/permission.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class PermissionDirective {
@@ -2237,6 +2259,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/visibility.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class VisibilityDirective {
@@ -2357,31 +2380,35 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/enums/common.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @enum {string} */
 const eLayoutType = {
-    account: 'account',
-    application: 'application',
-    empty: 'empty',
+    account: "account",
+    application: "application",
+    empty: "empty",
     /**
      * @deprecated since version 0.9.0
      */
-    setting: 'setting',
+    setting: "setting",
 };
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/enums/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/guards/auth.guard.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class AuthGuard {
@@ -2433,6 +2460,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/guards/permission.guard.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class PermissionGuard {
@@ -2480,11 +2508,13 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/guards/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/interceptors/api.interceptor.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class ApiInterceptor {
@@ -2553,11 +2583,13 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/interceptors/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/application-configuration.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ApplicationConfiguration;
@@ -2654,6 +2686,7 @@ var ApplicationConfiguration;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/common.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ABP;
@@ -2751,6 +2784,7 @@ var ABP;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/config.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var Config;
@@ -2812,6 +2846,7 @@ var Config;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/rest.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var Rest;
@@ -2855,6 +2890,7 @@ var Rest;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/session.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var Session;
@@ -2874,6 +2910,7 @@ var Session;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/profile.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var Profile;
@@ -2919,11 +2956,13 @@ var Profile;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/pipes/localization.pipe.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class LocalizationPipe {
@@ -2967,6 +3006,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/pipes/sort.pipe.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class SortPipe {
@@ -3041,11 +3081,13 @@ SortPipe.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/pipes/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/plugins/config.plugin.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -3236,11 +3278,13 @@ function flatRoutes(routes) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/plugins/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/config-state.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class ConfigStateService {
@@ -3339,6 +3383,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/lazy-load.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class LazyLoadService {
@@ -3433,6 +3478,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/profile-state.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class ProfileStateService {
@@ -3469,6 +3515,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/session-state.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class SessionStateService {
@@ -3511,11 +3558,13 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/tokens/common.token.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -3539,20 +3588,20 @@ const CONFIG = new InjectionToken('CONFIG');
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/tokens/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/debounce.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class InputEventDebounceDirective {
     /**
-     * @param {?} renderer
      * @param {?} el
      */
-    constructor(renderer, el) {
-        this.renderer = renderer;
+    constructor(el) {
         this.el = el;
         this.debounce = 300;
         this.debounceEvent = new EventEmitter();
@@ -3571,16 +3620,19 @@ class InputEventDebounceDirective {
             this.debounceEvent.emit(event);
         }));
     }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() { }
 }
 InputEventDebounceDirective.decorators = [
     { type: Directive, args: [{
                 // tslint:disable-next-line: directive-selector
-                selector: '[input.debounce]'
+                selector: '[input.debounce]',
             },] }
 ];
 /** @nocollapse */
 InputEventDebounceDirective.ctorParameters = () => [
-    { type: Renderer2 },
     { type: ElementRef }
 ];
 InputEventDebounceDirective.propDecorators = {
@@ -3596,25 +3648,19 @@ if (false) {
      * @type {?}
      * @private
      */
-    InputEventDebounceDirective.prototype.renderer;
-    /**
-     * @type {?}
-     * @private
-     */
     InputEventDebounceDirective.prototype.el;
 }
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/stop-propagation.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class ClickEventStopPropagationDirective {
     /**
-     * @param {?} renderer
      * @param {?} el
      */
-    constructor(renderer, el) {
-        this.renderer = renderer;
+    constructor(el) {
         this.el = el;
         this.stopPropEvent = new EventEmitter();
     }
@@ -3633,16 +3679,19 @@ class ClickEventStopPropagationDirective {
             this.stopPropEvent.emit(event);
         }));
     }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() { }
 }
 ClickEventStopPropagationDirective.decorators = [
     { type: Directive, args: [{
                 // tslint:disable-next-line: directive-selector
-                selector: '[click.stop]'
+                selector: '[click.stop]',
             },] }
 ];
 /** @nocollapse */
 ClickEventStopPropagationDirective.ctorParameters = () => [
-    { type: Renderer2 },
     { type: ElementRef }
 ];
 ClickEventStopPropagationDirective.propDecorators = {
@@ -3655,16 +3704,12 @@ if (false) {
      * @type {?}
      * @private
      */
-    ClickEventStopPropagationDirective.prototype.renderer;
-    /**
-     * @type {?}
-     * @private
-     */
     ClickEventStopPropagationDirective.prototype.el;
 }
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/providers/locale.provider.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class LocaleId extends String {
@@ -3705,6 +3750,7 @@ const LocaleProvider = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/core.module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class CoreModule {
@@ -3803,11 +3849,13 @@ CoreModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: abp-ng.core.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
