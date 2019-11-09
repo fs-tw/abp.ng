@@ -17,6 +17,7 @@ import { takeUntilDestroy as takeUntilDestroy$1 } from '@ngx-validate/core';
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/abstracts/ng-model.component.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -141,11 +142,13 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/abstracts/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/actions/config.actions.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var PatchRouteByName = /** @class */ (function () {
@@ -177,6 +180,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/actions/loader.actions.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var StartLoader = /** @class */ (function () {
@@ -208,6 +212,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/actions/profile.actions.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var GetProfile = /** @class */ (function () {
@@ -249,6 +254,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/actions/rest.actions.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var RestOccurError = /** @class */ (function () {
@@ -267,6 +273,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/actions/session.actions.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var SetLanguage = /** @class */ (function () {
@@ -298,11 +305,13 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/actions/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/rest.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var RestService = /** @class */ (function () {
@@ -383,6 +392,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/application-configuration.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ApplicationConfigurationService = /** @class */ (function () {
@@ -425,6 +435,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/utils/route-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -545,6 +556,7 @@ function getAbpRoutes() {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/constants/different-locales.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 // Different locales from .NET
@@ -582,6 +594,7 @@ var localesMapping = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/utils/initial-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -650,6 +663,7 @@ function registerLocale(locale) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/localization.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var LocalizationService = /** @class */ (function () {
@@ -788,6 +802,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/states/session.state.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var SessionState = /** @class */ (function () {
@@ -903,6 +918,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/states/config.state.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ConfigState = /** @class */ (function () {
@@ -1349,6 +1365,7 @@ function patchRouteDeep(routes, name, newValue, parentUrl) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/utils/rxjs-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -1395,6 +1412,7 @@ function (componentInstance, destroyMethodName) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/components/dynamic-layout.component.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var DynamicLayoutComponent = /** @class */ (function () {
@@ -1534,6 +1552,7 @@ function findLayout(segments, routes) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/components/router-outlet.component.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var RouterOutletComponent = /** @class */ (function () {
@@ -1550,16 +1569,19 @@ var RouterOutletComponent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/components/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/constants/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/autofocus.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var AutofocusDirective = /** @class */ (function () {
@@ -1607,6 +1629,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/ellipsis.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var EllipsisDirective = /** @class */ (function () {
@@ -1648,22 +1671,12 @@ var EllipsisDirective = /** @class */ (function () {
     /**
      * @return {?}
      */
-    EllipsisDirective.prototype.ngAfterContentInit = /**
+    EllipsisDirective.prototype.ngAfterViewInit = /**
      * @return {?}
      */
     function () {
-        var _this = this;
-        setTimeout((/**
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
-            var title = _this.title;
-            _this.title = title || ((/** @type {?} */ (_this.elRef.nativeElement))).innerText;
-            if (_this.title !== title) {
-                _this.cdRef.detectChanges();
-            }
-        }), 0);
+        this.title = this.title || ((/** @type {?} */ (this.elRef.nativeElement))).innerText;
+        this.cdRef.detectChanges();
     };
     EllipsisDirective.decorators = [
         { type: Directive, args: [{
@@ -1706,6 +1719,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/for.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var AbpForContext = /** @class */ (function () {
@@ -2003,6 +2017,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/utils/common-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -2020,6 +2035,7 @@ function noop() {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/utils/generator-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -2035,11 +2051,13 @@ function uuid(a) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/utils/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/form-submit.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var FormSubmitDirective = /** @class */ (function () {
@@ -2181,6 +2199,7 @@ function setDirty(controls) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/profile.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ProfileService = /** @class */ (function () {
@@ -2260,6 +2279,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/states/profile.state.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ProfileState = /** @class */ (function () {
@@ -2381,11 +2401,13 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/states/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/permission.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var PermissionDirective = /** @class */ (function () {
@@ -2462,6 +2484,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/visibility.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var VisibilityDirective = /** @class */ (function () {
@@ -2589,31 +2612,35 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/enums/common.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @enum {string} */
 var eLayoutType = {
-    account: 'account',
-    application: 'application',
-    empty: 'empty',
+    account: "account",
+    application: "application",
+    empty: "empty",
     /**
      * @deprecated since version 0.9.0
      */
-    setting: 'setting',
+    setting: "setting",
 };
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/enums/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/guards/auth.guard.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var AuthGuard = /** @class */ (function () {
@@ -2667,6 +2694,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/guards/permission.guard.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var PermissionGuard = /** @class */ (function () {
@@ -2718,11 +2746,13 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/guards/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/interceptors/api.interceptor.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ApiInterceptor = /** @class */ (function () {
@@ -2794,11 +2824,13 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/interceptors/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/application-configuration.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ApplicationConfiguration;
@@ -2895,6 +2927,7 @@ var ApplicationConfiguration;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/common.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ABP;
@@ -2992,6 +3025,7 @@ var ABP;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/config.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var Config;
@@ -3053,6 +3087,7 @@ var Config;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/rest.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var Rest;
@@ -3096,6 +3131,7 @@ var Rest;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/session.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var Session;
@@ -3115,6 +3151,7 @@ var Session;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/profile.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var Profile;
@@ -3160,11 +3197,13 @@ var Profile;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/pipes/localization.pipe.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var LocalizationPipe = /** @class */ (function () {
@@ -3216,6 +3255,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/pipes/sort.pipe.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var SortPipe = /** @class */ (function () {
@@ -3300,11 +3340,13 @@ var SortPipe = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/pipes/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/plugins/config.plugin.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /** @type {?} */
@@ -3500,11 +3542,13 @@ function flatRoutes(routes) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/plugins/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/config-state.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ConfigStateService = /** @class */ (function () {
@@ -3671,6 +3715,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/lazy-load.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var LazyLoadService = /** @class */ (function () {
@@ -3778,6 +3823,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/profile-state.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ProfileStateService = /** @class */ (function () {
@@ -3815,6 +3861,7 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/session-state.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var SessionStateService = /** @class */ (function () {
@@ -3861,11 +3908,13 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/tokens/common.token.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
@@ -3889,16 +3938,17 @@ var CONFIG = new InjectionToken('CONFIG');
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/tokens/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/debounce.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var InputEventDebounceDirective = /** @class */ (function () {
-    function InputEventDebounceDirective(renderer, el) {
-        this.renderer = renderer;
+    function InputEventDebounceDirective(el) {
         this.el = el;
         this.debounce = 300;
         this.debounceEvent = new EventEmitter();
@@ -3921,15 +3971,21 @@ var InputEventDebounceDirective = /** @class */ (function () {
             _this.debounceEvent.emit(event);
         }));
     };
+    /**
+     * @return {?}
+     */
+    InputEventDebounceDirective.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () { };
     InputEventDebounceDirective.decorators = [
         { type: Directive, args: [{
                     // tslint:disable-next-line: directive-selector
-                    selector: '[input.debounce]'
+                    selector: '[input.debounce]',
                 },] }
     ];
     /** @nocollapse */
     InputEventDebounceDirective.ctorParameters = function () { return [
-        { type: Renderer2 },
         { type: ElementRef }
     ]; };
     InputEventDebounceDirective.propDecorators = {
@@ -3947,21 +4003,16 @@ if (false) {
      * @type {?}
      * @private
      */
-    InputEventDebounceDirective.prototype.renderer;
-    /**
-     * @type {?}
-     * @private
-     */
     InputEventDebounceDirective.prototype.el;
 }
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/stop-propagation.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ClickEventStopPropagationDirective = /** @class */ (function () {
-    function ClickEventStopPropagationDirective(renderer, el) {
-        this.renderer = renderer;
+    function ClickEventStopPropagationDirective(el) {
         this.el = el;
         this.stopPropEvent = new EventEmitter();
     }
@@ -3984,15 +4035,21 @@ var ClickEventStopPropagationDirective = /** @class */ (function () {
             _this.stopPropEvent.emit(event);
         }));
     };
+    /**
+     * @return {?}
+     */
+    ClickEventStopPropagationDirective.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () { };
     ClickEventStopPropagationDirective.decorators = [
         { type: Directive, args: [{
                     // tslint:disable-next-line: directive-selector
-                    selector: '[click.stop]'
+                    selector: '[click.stop]',
                 },] }
     ];
     /** @nocollapse */
     ClickEventStopPropagationDirective.ctorParameters = function () { return [
-        { type: Renderer2 },
         { type: ElementRef }
     ]; };
     ClickEventStopPropagationDirective.propDecorators = {
@@ -4007,16 +4064,12 @@ if (false) {
      * @type {?}
      * @private
      */
-    ClickEventStopPropagationDirective.prototype.renderer;
-    /**
-     * @type {?}
-     * @private
-     */
     ClickEventStopPropagationDirective.prototype.el;
 }
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/providers/locale.provider.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var LocaleId = /** @class */ (function (_super) {
@@ -4063,6 +4116,7 @@ var LocaleProvider = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/core.module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var CoreModule = /** @class */ (function () {
@@ -4169,11 +4223,13 @@ var CoreModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: abp-ng.core.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
