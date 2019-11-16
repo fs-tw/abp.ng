@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@angular/core'), require('@ngx-validate/core'), require('primeng/components/common/messageservice'), require('primeng/toast'), require('rxjs'), require('@angular/router'), require('@ngxs/store'), require('rxjs/operators'), require('@angular/animations'), require('primeng/table'), require('just-clone'), require('@angular/common/http'), require('@ngxs/router-plugin'), require('snq')) :
-    typeof define === 'function' && define.amd ? define('@abp/ng.theme.shared', ['exports', '@abp/ng.core', '@angular/core', '@ngx-validate/core', 'primeng/components/common/messageservice', 'primeng/toast', 'rxjs', '@angular/router', '@ngxs/store', 'rxjs/operators', '@angular/animations', 'primeng/table', 'just-clone', '@angular/common/http', '@ngxs/router-plugin', 'snq'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.theme = global.abp.ng.theme || {}, global.abp.ng.theme.shared = {}), global.ng_core, global.ng.core, global.core$1, global.messageservice, global.toast, global.rxjs, global.ng.router, global.store, global.rxjs.operators, global.ng.animations, global.table, global.clone, global.ng.common.http, global.routerPlugin, global.snq));
-}(this, (function (exports, ng_core, core, core$1, messageservice, toast, rxjs, router, store, operators, animations, table, clone, http, routerPlugin, snq) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@angular/core'), require('@ngx-validate/core'), require('primeng/components/common/messageservice'), require('primeng/toast'), require('rxjs'), require('@angular/router'), require('@ngxs/store'), require('rxjs/operators'), require('@angular/animations'), require('primeng/table'), require('just-clone'), require('@angular/common/http'), require('@ngxs/router-plugin'), require('snq'), require('@ng-bootstrap/ng-bootstrap'), require('@angular/common')) :
+    typeof define === 'function' && define.amd ? define('@abp/ng.theme.shared', ['exports', '@abp/ng.core', '@angular/core', '@ngx-validate/core', 'primeng/components/common/messageservice', 'primeng/toast', 'rxjs', '@angular/router', '@ngxs/store', 'rxjs/operators', '@angular/animations', 'primeng/table', 'just-clone', '@angular/common/http', '@ngxs/router-plugin', 'snq', '@ng-bootstrap/ng-bootstrap', '@angular/common'], factory) :
+    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.theme = global.abp.ng.theme || {}, global.abp.ng.theme.shared = {}), global.ng_core, global.ng.core, global.core$1, global.messageservice, global.toast, global.rxjs, global.ng.router, global.store, global.rxjs.operators, global.ng.animations, global.table, global.clone, global.ng.common.http, global.routerPlugin, global.snq, global.ngBootstrap, global.ng.common));
+}(this, (function (exports, ng_core, core, core$1, messageservice, toast, rxjs, router, store, operators, animations, table, clone, http, routerPlugin, snq, ngBootstrap, common) { 'use strict';
 
     clone = clone && clone.hasOwnProperty('default') ? clone['default'] : clone;
     snq = snq && snq.hasOwnProperty('default') ? snq['default'] : snq;
@@ -294,6 +294,7 @@
     var ButtonComponent = /** @class */ (function () {
         function ButtonComponent(renderer) {
             this.renderer = renderer;
+            this.buttonId = '';
             this.buttonClass = 'btn btn-primary';
             this.buttonType = 'button';
             this.loading = false;
@@ -373,7 +374,7 @@
             { type: core.Component, args: [{
                         selector: 'abp-button',
                         // tslint:disable-next-line: component-max-inline-declarations
-                        template: "\n    <button\n      #button\n      [attr.type]=\"buttonType\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click)=\"onClick($event)\"\n      (focus)=\"onFocus($event)\"\n      (blur)=\"onBlur($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
+                        template: "\n    <button\n      #button\n      [id]=\"buttonId\"\n      [attr.type]=\"buttonType\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click)=\"onClick($event)\"\n      (focus)=\"onFocus($event)\"\n      (blur)=\"onBlur($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
                     }] }
         ];
         /** @nocollapse */
@@ -381,6 +382,7 @@
             { type: core.Renderer2 }
         ]; };
         ButtonComponent.propDecorators = {
+            buttonId: [{ type: core.Input }],
             buttonClass: [{ type: core.Input }],
             buttonType: [{ type: core.Input }],
             iconClass: [{ type: core.Input }],
@@ -395,6 +397,8 @@
         return ButtonComponent;
     }());
     if (false) {
+        /** @type {?} */
+        ButtonComponent.prototype.buttonId;
         /** @type {?} */
         ButtonComponent.prototype.buttonClass;
         /** @type {?} */
@@ -963,6 +967,7 @@
             this.title = 'Oops!';
             this.details = 'Sorry, an error has occured.';
             this.customComponent = null;
+            this.hideCloseIcon = false;
         }
         Object.defineProperty(ErrorComponent.prototype, "statusText", {
             get: /**
@@ -984,8 +989,10 @@
             var _this = this;
             if (this.customComponent) {
                 /** @type {?} */
-                var customComponentRef = this.cfRes.resolveComponentFactory(this.customComponent).create(null);
+                var customComponentRef = this.cfRes.resolveComponentFactory(this.customComponent).create(this.injector);
                 customComponentRef.instance.errorStatus = this.status;
+                customComponentRef.instance.destroy$ = this.destroy$;
+                this.appRef.attachView(customComponentRef.hostView);
                 this.containerRef.nativeElement.appendChild(((/** @type {?} */ (customComponentRef.hostView))).rootNodes[0]);
                 customComponentRef.changeDetectorRef.detectChanges();
             }
@@ -1022,7 +1029,7 @@
         ErrorComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'abp-error',
-                        template: "<div #container id=\"abp-error\" class=\"error\">\r\n  <button id=\"abp-close-button\" type=\"button\" class=\"close mr-3\" (click)=\"destroy()\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n\r\n  <div *ngIf=\"!customComponent\" class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>{{ statusText }} {{ title | abpLocalization }}</h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a (click)=\"destroy()\" routerLink=\"/\" class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                        template: "<div #container id=\"abp-error\" class=\"error\">\r\n  <button *ngIf=\"!hideCloseIcon\" id=\"abp-close-button\" type=\"button\" class=\"close mr-2\" (click)=\"destroy()\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n\r\n  <div *ngIf=\"!customComponent\" class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>{{ statusText }} {{ title | abpLocalization }}</h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a (click)=\"destroy()\" routerLink=\"/\" class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
                         styles: [".error{position:fixed;top:0;background-color:#fff;width:100vw;height:100vh;z-index:999999}.centered{position:fixed;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}"]
                     }] }
         ];
@@ -1033,7 +1040,11 @@
     }());
     if (false) {
         /** @type {?} */
+        ErrorComponent.prototype.appRef;
+        /** @type {?} */
         ErrorComponent.prototype.cfRes;
+        /** @type {?} */
+        ErrorComponent.prototype.injector;
         /** @type {?} */
         ErrorComponent.prototype.status;
         /** @type {?} */
@@ -1044,6 +1055,8 @@
         ErrorComponent.prototype.customComponent;
         /** @type {?} */
         ErrorComponent.prototype.destroy$;
+        /** @type {?} */
+        ErrorComponent.prototype.hideCloseIcon;
         /** @type {?} */
         ErrorComponent.prototype.containerRef;
     }
@@ -1355,6 +1368,7 @@
                 else {
                     this.renderer.removeClass(document.body, 'modal-open');
                     this.disappear.emit();
+                    this.destroy$.next();
                 }
             },
             enumerable: true,
@@ -1400,7 +1414,12 @@
             if (this.busy)
                 return;
             /** @type {?} */
-            var nodes = getFlatNodes(((/** @type {?} */ (this.modalContent.nativeElement.querySelector('#abp-modal-body')))).childNodes);
+            var node;
+            if (!this.modalContent) {
+                node = (/** @type {?} */ (document.getElementById('modal-container')));
+            }
+            /** @type {?} */
+            var nodes = getFlatNodes(((/** @type {?} */ ((node || this.modalContent.nativeElement).querySelector('#abp-modal-body')))).childNodes);
             if (hasNgDirty(nodes)) {
                 if (this.isConfirmationOpen)
                     return;
@@ -1463,7 +1482,7 @@
         ModalComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'abp-modal',
-                        template: "<ng-container *ngIf=\"visible\">\r\n  <div class=\"modal show {{ modalClass }}\" tabindex=\"-1\" role=\"dialog\">\r\n    <div class=\"modal-backdrop\" [@fade]=\"isModalOpen\" (click)=\"close()\"></div>\r\n    <div\r\n      id=\"abp-modal-dialog\"\r\n      class=\"modal-dialog modal-{{ size }}\"\r\n      role=\"document\"\r\n      [class.modal-dialog-centered]=\"centered\"\r\n      [@dialog]=\"isModalOpen\"\r\n      #abpModalContent\r\n    >\r\n      <div id=\"abp-modal-content\" class=\"modal-content\">\r\n        <div id=\"abp-modal-header\" class=\"modal-header\">\r\n          <ng-container *ngTemplateOutlet=\"abpHeader\"></ng-container>\r\n          \u200B\r\n          <button id=\"abp-modal-close-button\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"close()\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div id=\"abp-modal-body\" class=\"modal-body\">\r\n          <ng-container *ngTemplateOutlet=\"abpBody\"></ng-container>\r\n        </div>\r\n        <div id=\"abp-modal-footer\" class=\"modal-footer\">\r\n          <ng-container *ngTemplateOutlet=\"abpFooter\"></ng-container>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <ng-content></ng-content>\r\n  </div>\r\n</ng-container>\r\n",
+                        template: "<ng-container *ngIf=\"visible\">\r\n  <div id=\"modal-container\" class=\"modal show {{ modalClass }}\" tabindex=\"-1\" role=\"dialog\">\r\n    <div class=\"modal-backdrop\" [@fade]=\"isModalOpen\" (click)=\"close()\"></div>\r\n    <div\r\n      id=\"abp-modal-dialog\"\r\n      class=\"modal-dialog modal-{{ size }}\"\r\n      role=\"document\"\r\n      [class.modal-dialog-centered]=\"centered\"\r\n      [@dialog]=\"isModalOpen\"\r\n      #abpModalContent\r\n    >\r\n      <div id=\"abp-modal-content\" class=\"modal-content\">\r\n        <div id=\"abp-modal-header\" class=\"modal-header\">\r\n          <ng-container *ngTemplateOutlet=\"abpHeader\"></ng-container>\r\n          \u200B\r\n          <button id=\"abp-modal-close-button\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"close()\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div id=\"abp-modal-body\" class=\"modal-body\">\r\n          <ng-container *ngTemplateOutlet=\"abpBody\"></ng-container>\r\n        </div>\r\n        <div id=\"abp-modal-footer\" class=\"modal-footer\">\r\n          <ng-container *ngTemplateOutlet=\"abpFooter\"></ng-container>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <ng-content></ng-content>\r\n  </div>\r\n</ng-container>\r\n",
                         animations: [fadeAnimation, dialogAnimation]
                     }] }
         ];
@@ -1832,25 +1851,6 @@
 
     /**
      * @fileoverview added by tsickle
-     * Generated from: lib/tokens/error-pages.token.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /**
-     * @param {?=} config
-     * @return {?}
-     */
-    function httpErrorConfigFactory(config) {
-        if (config === void 0) { config = (/** @type {?} */ ({})); }
-        if (config.errorScreen && config.errorScreen.component && !config.errorScreen.forWhichErrors) {
-            config.errorScreen.forWhichErrors = [401, 403, 404, 500];
-        }
-        return (/** @type {?} */ (__assign({ errorScreen: {} }, config)));
-    }
-    /** @type {?} */
-    var HTTP_ERROR_CONFIG = new core.InjectionToken('HTTP_ERROR_CONFIG');
-
-    /**
-     * @fileoverview added by tsickle
      * Generated from: lib/handlers/error.handler.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
@@ -1873,7 +1873,7 @@
             details: 'The resource requested could not found on the server.',
         },
         defaultError500: {
-            title: '500',
+            title: 'Internal server error',
             details: 'Error detail not sent by server.',
         },
     };
@@ -1946,10 +1946,10 @@
                                     ? _this.show404Page()
                                     : _this.showError({
                                         key: 'AbpAccount::DefaultErrorMessage404',
-                                        defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.title,
+                                        defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.details,
                                     }, {
                                         key: 'AbpAccount::DefaultErrorMessage404Detail',
-                                        defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.details,
+                                        defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.title,
                                     });
                                 break;
                             case 500:
@@ -2065,7 +2065,6 @@
          * @return {?}
          */
         function () {
-            console.warn(this.store.selectSnapshot(routerPlugin.RouterState.url));
             this.store.dispatch(new routerPlugin.Navigate(['/account/login'], null, { state: { redirectUrl: this.store.selectSnapshot(routerPlugin.RouterState.url) } }));
         };
         /**
@@ -2088,8 +2087,11 @@
                     this.componentRef.instance[key] = instance[key];
                 }
             }
+            this.componentRef.instance.hideCloseIcon = this.httpErrorConfig.errorScreen.hideCloseIcon;
             if (this.canCreateCustomError((/** @type {?} */ (instance.status)))) {
                 this.componentRef.instance.cfRes = this.cfRes;
+                this.componentRef.instance.appRef = this.appRef;
+                this.componentRef.instance.injector = this.injector;
                 this.componentRef.instance.customComponent = this.httpErrorConfig.errorScreen.component;
             }
             this.appRef.attachView(this.componentRef.hostView);
@@ -2135,9 +2137,9 @@
             { type: core.ComponentFactoryResolver },
             { type: core.RendererFactory2 },
             { type: core.Injector },
-            { type: undefined, decorators: [{ type: core.Inject, args: [HTTP_ERROR_CONFIG,] }] }
+            { type: undefined, decorators: [{ type: core.Inject, args: ['HTTP_ERROR_CONFIG',] }] }
         ]; };
-        /** @nocollapse */ ErrorHandler.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function ErrorHandler_Factory() { return new ErrorHandler(core.ɵɵinject(store.Actions), core.ɵɵinject(store.Store), core.ɵɵinject(ConfirmationService), core.ɵɵinject(core.ApplicationRef), core.ɵɵinject(core.ComponentFactoryResolver), core.ɵɵinject(core.RendererFactory2), core.ɵɵinject(core.INJECTOR), core.ɵɵinject(HTTP_ERROR_CONFIG)); }, token: ErrorHandler, providedIn: "root" });
+        /** @nocollapse */ ErrorHandler.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function ErrorHandler_Factory() { return new ErrorHandler(core.ɵɵinject(store.Actions), core.ɵɵinject(store.Store), core.ɵɵinject(ConfirmationService), core.ɵɵinject(core.ApplicationRef), core.ɵɵinject(core.ComponentFactoryResolver), core.ɵɵinject(core.RendererFactory2), core.ɵɵinject(core.INJECTOR), core.ɵɵinject("HTTP_ERROR_CONFIG")); }, token: ErrorHandler, providedIn: "root" });
         return ErrorHandler;
     }());
     if (false) {
@@ -2183,6 +2185,122 @@
          * @private
          */
         ErrorHandler.prototype.httpErrorConfig;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/tokens/http-error.token.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @param {?=} config
+     * @return {?}
+     */
+    function httpErrorConfigFactory(config) {
+        if (config === void 0) { config = (/** @type {?} */ ({})); }
+        if (config.errorScreen && config.errorScreen.component && !config.errorScreen.forWhichErrors) {
+            config.errorScreen.forWhichErrors = [401, 403, 404, 500];
+        }
+        return (/** @type {?} */ (__assign({ errorScreen: {} }, config)));
+    }
+    /** @type {?} */
+    var HTTP_ERROR_CONFIG = new core.InjectionToken('HTTP_ERROR_CONFIG');
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/utils/date-parser-formatter.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    function padNumber(value) {
+        if (isNumber(value)) {
+            return ("0" + value).slice(-2);
+        }
+        else {
+            return '';
+        }
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    function isNumber(value) {
+        return !isNaN(toInteger(value));
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    function toInteger(value) {
+        return parseInt("" + value, 10);
+    }
+    var DateParserFormatter = /** @class */ (function (_super) {
+        __extends(DateParserFormatter, _super);
+        function DateParserFormatter(datePipe) {
+            var _this = _super.call(this) || this;
+            _this.datePipe = datePipe;
+            return _this;
+        }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        DateParserFormatter.prototype.parse = /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            if (value) {
+                /** @type {?} */
+                var dateParts = value.trim().split('-');
+                if (dateParts.length === 1 && isNumber(dateParts[0])) {
+                    return { year: toInteger(dateParts[0]), month: null, day: null };
+                }
+                else if (dateParts.length === 2 && isNumber(dateParts[0]) && isNumber(dateParts[1])) {
+                    return { year: toInteger(dateParts[0]), month: toInteger(dateParts[1]), day: null };
+                }
+                else if (dateParts.length === 3 && isNumber(dateParts[0]) && isNumber(dateParts[1]) && isNumber(dateParts[2])) {
+                    return { year: toInteger(dateParts[0]), month: toInteger(dateParts[1]), day: toInteger(dateParts[2]) };
+                }
+            }
+            return null;
+        };
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        DateParserFormatter.prototype.format = /**
+         * @param {?} date
+         * @return {?}
+         */
+        function (date) {
+            if (date && this.datePipe) {
+                return this.datePipe.transform(new Date(date.year, date.month, date.day), 'shortDate');
+            }
+            else {
+                return date
+                    ? date.year + "-" + (isNumber(date.month) ? padNumber(date.month) : '') + "-" + (isNumber(date.day) ? padNumber(date.day) : '')
+                    : '';
+            }
+        };
+        DateParserFormatter.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        DateParserFormatter.ctorParameters = function () { return [
+            { type: common.DatePipe, decorators: [{ type: core.Optional }] }
+        ]; };
+        return DateParserFormatter;
+    }(ngBootstrap.NgbDateParserFormatter));
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        DateParserFormatter.prototype.datePipe;
     }
 
     /**
@@ -2239,6 +2357,7 @@
                         useFactory: httpErrorConfigFactory,
                         deps: [HTTP_ERROR_CONFIG],
                     },
+                    { provide: ngBootstrap.NgbDateParserFormatter, useClass: DateParserFormatter },
                 ],
             };
         };
@@ -2270,6 +2389,7 @@
                             SortOrderIconComponent,
                             TableSortDirective,
                         ],
+                        providers: [common.DatePipe],
                         entryComponents: [ErrorComponent],
                     },] }
         ];
@@ -2601,6 +2721,7 @@
     exports.ChartComponent = ChartComponent;
     exports.ConfirmationComponent = ConfirmationComponent;
     exports.ConfirmationService = ConfirmationService;
+    exports.DateParserFormatter = DateParserFormatter;
     exports.LoaderBarComponent = LoaderBarComponent;
     exports.ModalComponent = ModalComponent;
     exports.SortOrderIconComponent = SortOrderIconComponent;
@@ -2656,8 +2777,9 @@
     exports.ɵq = SortOrderIconComponent;
     exports.ɵr = TableSortDirective;
     exports.ɵs = ErrorHandler;
-    exports.ɵt = httpErrorConfigFactory;
-    exports.ɵu = HTTP_ERROR_CONFIG;
+    exports.ɵu = httpErrorConfigFactory;
+    exports.ɵv = HTTP_ERROR_CONFIG;
+    exports.ɵw = DateParserFormatter;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

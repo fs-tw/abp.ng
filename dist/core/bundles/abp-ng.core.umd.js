@@ -2288,19 +2288,6 @@
                 }
                 _this.executedNgSubmit = false;
             }));
-            rxjs.fromEvent(this.host.nativeElement, 'submit')
-                .pipe(takeUntilDestroy(this), operators.filter((/**
-             * @return {?}
-             */
-            function () { return !_this.notValidateOnSubmit && typeof _this.notValidateOnSubmit !== 'string'; })))
-                .subscribe((/**
-             * @return {?}
-             */
-            function () {
-                if (!_this.executedNgSubmit) {
-                    _this.markAsDirty();
-                }
-            }));
         };
         /**
          * @return {?}
@@ -2324,7 +2311,7 @@
         FormSubmitDirective.decorators = [
             { type: core.Directive, args: [{
                         // tslint:disable-next-line: directive-selector
-                        selector: 'form[ngSubmit][formGroup]'
+                        selector: 'form[ngSubmit][formGroup]',
                     },] }
         ];
         /** @nocollapse */
