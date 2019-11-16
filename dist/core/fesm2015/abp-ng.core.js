@@ -1919,19 +1919,6 @@ class FormSubmitDirective {
             }
             this.executedNgSubmit = false;
         }));
-        fromEvent(this.host.nativeElement, 'submit')
-            .pipe(takeUntilDestroy(this), filter((/**
-         * @return {?}
-         */
-        () => !this.notValidateOnSubmit && typeof this.notValidateOnSubmit !== 'string')))
-            .subscribe((/**
-         * @return {?}
-         */
-        () => {
-            if (!this.executedNgSubmit) {
-                this.markAsDirty();
-            }
-        }));
     }
     /**
      * @return {?}
@@ -1950,7 +1937,7 @@ class FormSubmitDirective {
 FormSubmitDirective.decorators = [
     { type: Directive, args: [{
                 // tslint:disable-next-line: directive-selector
-                selector: 'form[ngSubmit][formGroup]'
+                selector: 'form[ngSubmit][formGroup]',
             },] }
 ];
 /** @nocollapse */

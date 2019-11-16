@@ -17,6 +17,7 @@ export { TableEmptyMessageComponent as ɵo } from './lib/components/table-empty-
 export { ToastComponent as ɵp } from './lib/components/toast/toast.component';
 export { TableSortDirective as ɵr } from './lib/directives/table-sort.directive';
 export { ErrorHandler as ɵs } from './lib/handlers/error.handler';
-export { HttpErrorConfig as ɵv } from './lib/models/common';
+export { HttpErrorConfig as ɵt } from './lib/models/common';
 export { ConfirmationService as ɵe } from './lib/services/confirmation.service';
-export { HTTP_ERROR_CONFIG as ɵu, httpErrorConfigFactory as ɵt } from './lib/tokens/error-pages.token';
+export { HTTP_ERROR_CONFIG as ɵv, httpErrorConfigFactory as ɵu } from './lib/tokens/http-error.token';
+export { DateParserFormatter as ɵw } from './lib/utils/date-parser-formatter';
