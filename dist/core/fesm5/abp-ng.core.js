@@ -2098,19 +2098,6 @@ var FormSubmitDirective = /** @class */ (function () {
             }
             _this.executedNgSubmit = false;
         }));
-        fromEvent(this.host.nativeElement, 'submit')
-            .pipe(takeUntilDestroy(this), filter((/**
-         * @return {?}
-         */
-        function () { return !_this.notValidateOnSubmit && typeof _this.notValidateOnSubmit !== 'string'; })))
-            .subscribe((/**
-         * @return {?}
-         */
-        function () {
-            if (!_this.executedNgSubmit) {
-                _this.markAsDirty();
-            }
-        }));
     };
     /**
      * @return {?}
@@ -2134,7 +2121,7 @@ var FormSubmitDirective = /** @class */ (function () {
     FormSubmitDirective.decorators = [
         { type: Directive, args: [{
                     // tslint:disable-next-line: directive-selector
-                    selector: 'form[ngSubmit][formGroup]'
+                    selector: 'form[ngSubmit][formGroup]',
                 },] }
     ];
     /** @nocollapse */

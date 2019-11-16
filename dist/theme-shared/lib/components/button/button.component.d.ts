@@ -2,6 +2,7 @@ import { EventEmitter, ElementRef, Renderer2, OnInit } from '@angular/core';
 import { ABP } from '@abp/ng.core';
 export declare class ButtonComponent implements OnInit {
     private renderer;
+    buttonId: string;
     buttonClass: string;
     buttonType: string;
     iconClass: string;
