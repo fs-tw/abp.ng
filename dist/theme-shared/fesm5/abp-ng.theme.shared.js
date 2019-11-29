@@ -3,17 +3,17 @@ import { Component, EventEmitter, Renderer2, Input, Output, ViewChild, ElementRe
 import { takeUntilDestroy as takeUntilDestroy$1, NgxValidateCoreModule } from '@ngx-validate/core';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ToastModule } from 'primeng/toast';
-import { ReplaySubject, BehaviorSubject, Subject, fromEvent, interval, timer, forkJoin } from 'rxjs';
 import { __read, __assign, __extends, __spread } from 'tslib';
 import { Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 import { Store, ofActionSuccessful, Actions } from '@ngxs/store';
+import { ReplaySubject, BehaviorSubject, Subject, fromEvent, interval, timer } from 'rxjs';
 import { takeUntil, debounceTime, filter } from 'rxjs/operators';
+import snq from 'snq';
 import { animation, style, animate, trigger, transition, useAnimation, keyframes, state } from '@angular/animations';
 import { Table } from 'primeng/table';
 import clone from 'just-clone';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterError, RouterDataResolved, Navigate, RouterState } from '@ngxs/router-plugin';
-import snq from 'snq';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
 
@@ -40,32 +40,42 @@ var BreadcrumbComponent = /** @class */ (function () {
          * @return {?}
          */
         function (state) { return state.LeptonLayoutState; }));
-        /** @type {?} */
-        var splittedUrl = this.router.url.split('/').filter((/**
-         * @param {?} chunk
-         * @return {?}
-         */
-        function (chunk) { return chunk; }));
-        /** @type {?} */
-        var currentUrl = this.store.selectSnapshot(ConfigState.getRoute(splittedUrl[0]));
-        this.segments.push(currentUrl.name);
-        if (splittedUrl.length > 1) {
-            var _a = __read(splittedUrl), arr = _a.slice(1);
+        if (this.show) {
             /** @type {?} */
-            var childRoute = currentUrl;
-            var _loop_1 = function (i) {
+            var splittedUrl = this.router.url.split('/').filter((/**
+             * @param {?} chunk
+             * @return {?}
+             */
+            function (chunk) { return chunk; }));
+            /** @type {?} */
+            var currentUrl = this.store.selectSnapshot(ConfigState.getRoute(splittedUrl[0]));
+            if (!currentUrl) {
+                currentUrl = this.store.selectSnapshot(ConfigState.getRoute(null, null, this.router.url));
+                splittedUrl = [this.router.url];
+                if (!currentUrl) {
+                    this.show = false;
+                    return;
+                }
+            }
+            this.segments.push(currentUrl.name);
+            if (splittedUrl.length > 1) {
+                var _a = __read(splittedUrl), arr = _a.slice(1);
                 /** @type {?} */
-                var element = arr[i];
-                childRoute = childRoute.children.find((/**
-                 * @param {?} child
-                 * @return {?}
-                 */
-                function (child) { return child.path === element; }));
-                this_1.segments.push(childRoute.name);
-            };
-            var this_1 = this;
-            for (var i = 0; i < arr.length; i++) {
-                _loop_1(i);
+                var childRoute = currentUrl;
+                var _loop_1 = function (i) {
+                    /** @type {?} */
+                    var element = arr[i];
+                    childRoute = childRoute.children.find((/**
+                     * @param {?} child
+                     * @return {?}
+                     */
+                    function (child) { return child.path === element; }));
+                    this_1.segments.push(childRoute.name);
+                };
+                var this_1 = this;
+                for (var i = 0; i < arr.length; i++) {
+                    _loop_1(i);
+                }
             }
         }
     };
@@ -112,12 +122,33 @@ var ButtonComponent = /** @class */ (function () {
         this.buttonType = 'button';
         this.loading = false;
         this.disabled = false;
+        /*
+           *
+           *
+           * @deprecated use abpClick instead
+           */
         // tslint:disable-next-line: no-output-native
         this.click = new EventEmitter();
+        /*
+           *
+           *
+           * @deprecated use abpFocus instead
+           */
         // tslint:disable-next-line: no-output-native
         this.focus = new EventEmitter();
+        /*
+           *
+           *
+           * @deprecated use abpBlur instead
+           */
         // tslint:disable-next-line: no-output-native
         this.blur = new EventEmitter();
+        // tslint:disable-next-line: no-output-native
+        this.abpClick = new EventEmitter();
+        // tslint:disable-next-line: no-output-native
+        this.abpFocus = new EventEmitter();
+        // tslint:disable-next-line: no-output-native
+        this.abpBlur = new EventEmitter();
     }
     Object.defineProperty(ButtonComponent.prototype, "icon", {
         get: /**
@@ -147,47 +178,11 @@ var ButtonComponent = /** @class */ (function () {
             }));
         }
     };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    ButtonComponent.prototype.onClick = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        event.stopPropagation();
-        this.click.next(event);
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    ButtonComponent.prototype.onFocus = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        event.stopPropagation();
-        this.focus.next(event);
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    ButtonComponent.prototype.onBlur = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        event.stopPropagation();
-        this.blur.next(event);
-    };
     ButtonComponent.decorators = [
         { type: Component, args: [{
                     selector: 'abp-button',
                     // tslint:disable-next-line: component-max-inline-declarations
-                    template: "\n    <button\n      #button\n      [id]=\"buttonId\"\n      [attr.type]=\"buttonType\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click)=\"onClick($event)\"\n      (focus)=\"onFocus($event)\"\n      (blur)=\"onBlur($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
+                    template: "\n    <button\n      #button\n      [id]=\"buttonId\"\n      [attr.type]=\"buttonType\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click.stop)=\"click.next($event); abpClick.next($event)\"\n      (focus)=\"focus.next($event); abpFocus.next($event)\"\n      (blur)=\"blur.next($event); abpBlur.next($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
                 }] }
     ];
     /** @nocollapse */
@@ -205,6 +200,9 @@ var ButtonComponent = /** @class */ (function () {
         click: [{ type: Output }],
         focus: [{ type: Output }],
         blur: [{ type: Output }],
+        abpClick: [{ type: Output }],
+        abpFocus: [{ type: Output }],
+        abpBlur: [{ type: Output }],
         buttonRef: [{ type: ViewChild, args: ['button', { static: true },] }]
     };
     return ButtonComponent;
@@ -230,6 +228,12 @@ if (false) {
     ButtonComponent.prototype.focus;
     /** @type {?} */
     ButtonComponent.prototype.blur;
+    /** @type {?} */
+    ButtonComponent.prototype.abpClick;
+    /** @type {?} */
+    ButtonComponent.prototype.abpFocus;
+    /** @type {?} */
+    ButtonComponent.prototype.abpBlur;
     /** @type {?} */
     ButtonComponent.prototype.buttonRef;
     /**
@@ -771,18 +775,18 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/components/error/error.component.ts
+ * Generated from: lib/components/http-error-wrapper/http-error-wrapper.component.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var ErrorComponent = /** @class */ (function () {
-    function ErrorComponent() {
+var HttpErrorWrapperComponent = /** @class */ (function () {
+    function HttpErrorWrapperComponent() {
         this.status = 0;
         this.title = 'Oops!';
         this.details = 'Sorry, an error has occured.';
         this.customComponent = null;
         this.hideCloseIcon = false;
     }
-    Object.defineProperty(ErrorComponent.prototype, "statusText", {
+    Object.defineProperty(HttpErrorWrapperComponent.prototype, "statusText", {
         get: /**
          * @return {?}
          */
@@ -795,7 +799,20 @@ var ErrorComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
-    ErrorComponent.prototype.ngAfterViewInit = /**
+    HttpErrorWrapperComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        this.backgroundColor =
+            snq((/**
+             * @return {?}
+             */
+            function () { return window.getComputedStyle(document.body).getPropertyValue('background-color'); })) || '#fff';
+    };
+    /**
+     * @return {?}
+     */
+    HttpErrorWrapperComponent.prototype.ngAfterViewInit = /**
      * @return {?}
      */
     function () {
@@ -825,53 +842,55 @@ var ErrorComponent = /** @class */ (function () {
     /**
      * @return {?}
      */
-    ErrorComponent.prototype.ngOnDestroy = /**
+    HttpErrorWrapperComponent.prototype.ngOnDestroy = /**
      * @return {?}
      */
     function () { };
     /**
      * @return {?}
      */
-    ErrorComponent.prototype.destroy = /**
+    HttpErrorWrapperComponent.prototype.destroy = /**
      * @return {?}
      */
     function () {
         this.destroy$.next();
         this.destroy$.complete();
     };
-    ErrorComponent.decorators = [
+    HttpErrorWrapperComponent.decorators = [
         { type: Component, args: [{
-                    selector: 'abp-error',
-                    template: "<div #container id=\"abp-error\" class=\"error\">\r\n  <button *ngIf=\"!hideCloseIcon\" id=\"abp-close-button\" type=\"button\" class=\"close mr-2\" (click)=\"destroy()\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n\r\n  <div *ngIf=\"!customComponent\" class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>{{ statusText }} {{ title | abpLocalization }}</h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a (click)=\"destroy()\" routerLink=\"/\" class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
-                    styles: [".error{position:fixed;top:0;background-color:#fff;width:100vw;height:100vh;z-index:999999}.centered{position:fixed;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}"]
+                    selector: 'abp-http-error-wrapper',
+                    template: "<div #container id=\"abp-http-error-container\" class=\"error\" [style.backgroundColor]=\"backgroundColor\">\r\n  <button *ngIf=\"!hideCloseIcon\" id=\"abp-close-button\" type=\"button\" class=\"close mr-2\" (click)=\"destroy()\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n\r\n  <div *ngIf=\"!customComponent\" class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>{{ statusText }} {{ title | abpLocalization }}</h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a (click)=\"destroy()\" routerLink=\"/\" class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".error{position:fixed;top:0;width:100vw;height:100vh;z-index:999999}.centered{position:fixed;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}"]
                 }] }
     ];
-    ErrorComponent.propDecorators = {
+    HttpErrorWrapperComponent.propDecorators = {
         containerRef: [{ type: ViewChild, args: ['container', { static: false },] }]
     };
-    return ErrorComponent;
+    return HttpErrorWrapperComponent;
 }());
 if (false) {
     /** @type {?} */
-    ErrorComponent.prototype.appRef;
+    HttpErrorWrapperComponent.prototype.appRef;
     /** @type {?} */
-    ErrorComponent.prototype.cfRes;
+    HttpErrorWrapperComponent.prototype.cfRes;
     /** @type {?} */
-    ErrorComponent.prototype.injector;
+    HttpErrorWrapperComponent.prototype.injector;
     /** @type {?} */
-    ErrorComponent.prototype.status;
+    HttpErrorWrapperComponent.prototype.status;
     /** @type {?} */
-    ErrorComponent.prototype.title;
+    HttpErrorWrapperComponent.prototype.title;
     /** @type {?} */
-    ErrorComponent.prototype.details;
+    HttpErrorWrapperComponent.prototype.details;
     /** @type {?} */
-    ErrorComponent.prototype.customComponent;
+    HttpErrorWrapperComponent.prototype.customComponent;
     /** @type {?} */
-    ErrorComponent.prototype.destroy$;
+    HttpErrorWrapperComponent.prototype.destroy$;
     /** @type {?} */
-    ErrorComponent.prototype.hideCloseIcon;
+    HttpErrorWrapperComponent.prototype.hideCloseIcon;
     /** @type {?} */
-    ErrorComponent.prototype.containerRef;
+    HttpErrorWrapperComponent.prototype.backgroundColor;
+    /** @type {?} */
+    HttpErrorWrapperComponent.prototype.containerRef;
 }
 
 /**
@@ -1295,8 +1314,8 @@ var ModalComponent = /** @class */ (function () {
     ModalComponent.decorators = [
         { type: Component, args: [{
                     selector: 'abp-modal',
-                    template: "<ng-container *ngIf=\"visible\">\r\n  <div id=\"modal-container\" class=\"modal show {{ modalClass }}\" tabindex=\"-1\" role=\"dialog\">\r\n    <div class=\"modal-backdrop\" [@fade]=\"isModalOpen\" (click)=\"close()\"></div>\r\n    <div\r\n      id=\"abp-modal-dialog\"\r\n      class=\"modal-dialog modal-{{ size }}\"\r\n      role=\"document\"\r\n      [class.modal-dialog-centered]=\"centered\"\r\n      [@dialog]=\"isModalOpen\"\r\n      #abpModalContent\r\n    >\r\n      <div id=\"abp-modal-content\" class=\"modal-content\">\r\n        <div id=\"abp-modal-header\" class=\"modal-header\">\r\n          <ng-container *ngTemplateOutlet=\"abpHeader\"></ng-container>\r\n          \u200B\r\n          <button id=\"abp-modal-close-button\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"close()\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div id=\"abp-modal-body\" class=\"modal-body\">\r\n          <ng-container *ngTemplateOutlet=\"abpBody\"></ng-container>\r\n        </div>\r\n        <div id=\"abp-modal-footer\" class=\"modal-footer\">\r\n          <ng-container *ngTemplateOutlet=\"abpFooter\"></ng-container>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <ng-content></ng-content>\r\n  </div>\r\n</ng-container>\r\n",
-                    animations: [fadeAnimation, dialogAnimation]
+                    template: "<div\r\n  *ngIf=\"visible\"\r\n  [@fade]=\"isModalOpen\"\r\n  id=\"modal-container\"\r\n  class=\"modal show {{ modalClass }}\"\r\n  tabindex=\"-1\"\r\n  role=\"dialog\"\r\n>\r\n  <div class=\"modal-backdrop\" (click)=\"close()\"></div>\r\n  <div\r\n    id=\"abp-modal-dialog\"\r\n    class=\"modal-dialog modal-{{ size }}\"\r\n    role=\"document\"\r\n    [class.modal-dialog-centered]=\"centered\"\r\n    #abpModalContent\r\n  >\r\n    <div id=\"abp-modal-content\" class=\"modal-content\">\r\n      <div id=\"abp-modal-header\" class=\"modal-header\">\r\n        <ng-container *ngTemplateOutlet=\"abpHeader\"></ng-container>\r\n        \u200B\r\n        <button id=\"abp-modal-close-button\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"close()\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div id=\"abp-modal-body\" class=\"modal-body\">\r\n        <ng-container *ngTemplateOutlet=\"abpBody\"></ng-container>\r\n      </div>\r\n      <div id=\"abp-modal-footer\" class=\"modal-footer\">\r\n        <ng-container *ngTemplateOutlet=\"abpFooter\"></ng-container>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                    animations: [fadeAnimation]
                 }] }
     ];
     /** @nocollapse */
@@ -1406,6 +1425,7 @@ function hasNgDirty(nodes) {
 var SortOrderIconComponent = /** @class */ (function () {
     function SortOrderIconComponent() {
         this.selectedKeyChange = new EventEmitter();
+        this.selectedSortKeyChange = new EventEmitter();
         this.orderChange = new EventEmitter();
     }
     Object.defineProperty(SortOrderIconComponent.prototype, "selectedKey", {
@@ -1413,15 +1433,58 @@ var SortOrderIconComponent = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this._selectedKey;
+            return this._selectedSortKey;
+        },
+        /**
+         * @deprecated use selectedSortKey instead.
+         */
+        set: /**
+         * @deprecated use selectedSortKey instead.
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this.selectedSortKey = value;
+            this.selectedKeyChange.emit(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SortOrderIconComponent.prototype, "selectedSortKey", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._selectedSortKey;
         },
         set: /**
          * @param {?} value
          * @return {?}
          */
         function (value) {
-            this._selectedKey = value;
-            this.selectedKeyChange.emit(value);
+            this._selectedSortKey = value;
+            this.selectedSortKeyChange.emit(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(SortOrderIconComponent.prototype, "key", {
+        /**
+         * @deprecated use sortKey instead.
+         */
+        get: /**
+         * @deprecated use sortKey instead.
+         * @return {?}
+         */
+        function () {
+            return this.sortKey;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this.sortKey = value;
         },
         enumerable: true,
         configurable: true
@@ -1449,9 +1512,9 @@ var SortOrderIconComponent = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            if (!this.selectedKey)
+            if (!this.selectedSortKey)
                 return 'fa-sort';
-            if (this.selectedKey === this.key)
+            if (this.selectedSortKey === this.sortKey)
                 return "fa-sort-" + this.order;
             else
                 return '';
@@ -1468,10 +1531,12 @@ var SortOrderIconComponent = /** @class */ (function () {
      * @return {?}
      */
     function (key) {
-        this.selectedKey = key;
+        this.selectedKey = key; // TODO: To be removed
+        this.selectedSortKey = key;
         switch (this.order) {
             case '':
                 this.order = 'asc';
+                this.orderChange.emit('asc');
                 break;
             case 'asc':
                 this.order = 'desc';
@@ -1479,7 +1544,8 @@ var SortOrderIconComponent = /** @class */ (function () {
                 break;
             case 'desc':
                 this.order = '';
-                this.selectedKey = '';
+                this.selectedKey = ''; // TODO: To be removed
+                this.orderChange.emit('');
                 break;
         }
     };
@@ -1491,8 +1557,11 @@ var SortOrderIconComponent = /** @class */ (function () {
     ];
     SortOrderIconComponent.propDecorators = {
         selectedKey: [{ type: Input }],
+        selectedSortKey: [{ type: Input }],
         selectedKeyChange: [{ type: Output }],
+        selectedSortKeyChange: [{ type: Output }],
         key: [{ type: Input }],
+        sortKey: [{ type: Input }],
         order: [{ type: Input }],
         orderChange: [{ type: Output }],
         iconClass: [{ type: Input }]
@@ -1509,11 +1578,13 @@ if (false) {
      * @type {?}
      * @private
      */
-    SortOrderIconComponent.prototype._selectedKey;
+    SortOrderIconComponent.prototype._selectedSortKey;
     /** @type {?} */
     SortOrderIconComponent.prototype.selectedKeyChange;
     /** @type {?} */
-    SortOrderIconComponent.prototype.key;
+    SortOrderIconComponent.prototype.selectedSortKeyChange;
+    /** @type {?} */
+    SortOrderIconComponent.prototype.sortKey;
     /** @type {?} */
     SortOrderIconComponent.prototype.orderChange;
     /** @type {?} */
@@ -1587,10 +1658,10 @@ var ToastComponent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/contants/styles.ts
+ * Generated from: lib/constants/styles.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var styles = "\n.is-invalid .form-control {\n  border-color: #dc3545;\n  border-style: solid !important;\n}\n\n.is-invalid .invalid-feedback,\n.is-invalid + * .invalid-feedback {\n  display: block;\n}\n\n.data-tables-filter {\n  text-align: right;\n}\n\n.pointer {\n  cursor: pointer;\n}\n\n.navbar .dropdown-submenu a::after {\n  transform: rotate(-90deg);\n  position: absolute;\n  right: 16px;\n  top: 18px;\n}\n\n.navbar .dropdown-menu {\n  min-width: 215px;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar {\n  height: 5px !important;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.modal.show {\n  display: block !important;\n}\n\n.modal-backdrop {\n  position: absolute !important;\n  top: 0 !important;\n  left: 0 !important;\n  width: 100% !important;\n  height: 100% !important;\n  background-color: rgba(0, 0, 0, 0.6) !important;\n  z-index: 1040 !important;\n}\n\n.modal-dialog {\n  z-index: 1050 !important;\n}\n\n.abp-ellipsis-inline {\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-ellipsis {\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-toast .ui-toast-message {\n  box-sizing: border-box !important;\n  border: 2px solid transparent !important;\n  border-radius: 4px !important;\n  background-color: #f4f4f7 !important;\n  color: #1b1d29 !important;\n}\n\n.abp-toast .ui-toast-message-content {\n  padding: 10px !important;\n}\n\n.abp-toast .ui-toast-message-content .ui-toast-icon {\n  top: 0 !important;\n  left: 0 !important;\n  padding: 10px !important;\n}\n\n.abp-toast .ui-toast-summary {\n  margin: 0 !important;\n  font-weight: 700 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-error {\n  border-color: #ba1659 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-error .ui-toast-message-content .ui-toast-icon {\n  color: #ba1659 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-warning {\n  border-color: #ed5d98 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-warning .ui-toast-message-content .ui-toast-icon {\n  color: #ed5d98 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-success {\n  border-color: #1c9174 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-success .ui-toast-message-content .ui-toast-icon {\n  color: #1c9174 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-info {\n  border-color: #fccb31 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-info .ui-toast-message-content .ui-toast-icon {\n  color: #fccb31 !important;\n}\n\n.abp-confirm .ui-toast-message {\n  box-sizing: border-box !important;\n  padding: 0px !important;\n  border:0 none !important;\n  border-radius: 4px !important;\n  background-color: #fff !important;\n  color: rgba(0, 0, 0, .65) !important;\n  font-family: \"Poppins\", sans-serif;\n  text-align: center !important;\n}\n\n.abp-confirm .ui-toast-message-content {\n  padding: 0px !important;\n}\n\n.abp-confirm .abp-confirm-icon {\n  margin: 32px 50px 5px !important;\n  color: #f8bb86 !important;\n  font-size: 52px !important;\n}\n\n.abp-confirm .ui-toast-close-icon {\n  display: none !important;\n}\n\n.abp-confirm .abp-confirm-summary {\n  display: block !important;\n  margin-bottom: 13px !important;\n  padding: 13px 16px 0px !important;\n  font-weight: 600 !important;\n  font-size: 18px !important;\n}\n\n.abp-confirm .abp-confirm-body {\n  display: inline-block !important;\n  padding: 0px 10px !important;\n}\n\n.abp-confirm .abp-confirm-footer {\n  display: block !important;\n  margin-top: 30px !important;\n  padding: 16px !important;\n  background-color: #f4f4f7 !important;\n  text-align: right !important;\n}\n\n.abp-confirm .abp-confirm-footer .btn {\n  margin-left: 10px !important;\n}\n\n.ui-widget-overlay {\n  z-index: 1000;\n}\n\n.color-white {\n  color: #FFF !important;\n}\n\n/* <animations */\n\n.fade-in-top {\n  animation: fadeInTop 0.2s ease-in-out;\n}\n\n.fade-out-top {\n  animation: fadeOutTop 0.2s ease-in-out;\n}\n\n.abp-collapsed-height {\n  -moz-transition: max-height linear 0.35s;\n  -ms-transition: max-height linear 0.35s;\n  -o-transition: max-height linear 0.35s;\n  -webkit-transition: max-height linear 0.35s;\n  overflow:hidden;\n  transition:max-height 0.35s linear;\n  height:auto;\n  max-height: 0;\n}\n\n.abp-mh-25 {\n  max-height: 25vh;\n}\n\n.abp-mh-50 {\n  transition:max-height 0.65s linear;\n  max-height: 50vh;\n}\n\n.abp-mh-75 {\n  transition:max-height 0.85s linear;\n  max-height: 75vh;\n}\n\n.abp-mh-100 {\n  transition:max-height 1s linear;\n  max-height: 100vh;\n}\n\n@keyframes fadeInTop {\n  from {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n\n  to {\n    transform: translateY(0px);\n    opacity: 1;\n  }\n}\n\n@keyframes fadeOutTop {\n  to {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n}\n\n/* </animations */\n\n";
+var styles = "\n.is-invalid .form-control {\n  border-color: #dc3545;\n  border-style: solid !important;\n}\n\n.is-invalid .invalid-feedback,\n.is-invalid + * .invalid-feedback {\n  display: block;\n}\n\n.data-tables-filter {\n  text-align: right;\n}\n\n.pointer {\n  cursor: pointer;\n}\n\n.navbar .dropdown-submenu a::after {\n  transform: rotate(-90deg);\n  position: absolute;\n  right: 16px;\n  top: 18px;\n}\n\n.navbar .dropdown-menu {\n  min-width: 215px;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar {\n  height: 5px !important;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.modal.show {\n  display: block !important;\n}\n\n.modal-backdrop {\n  position: fixed !important;\n  top: 0 !important;\n  left: 0 !important;\n  width: calc(100% - 7px) !important;\n  height: 100% !important;\n  background-color: rgba(0, 0, 0, 0.6) !important;\n  z-index: 1040 !important;\n}\n\n.modal::-webkit-scrollbar {\n  width: 7px;\n}\n\n.modal::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.modal::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.modal-dialog {\n  z-index: 1050 !important;\n}\n\n.abp-ellipsis-inline {\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-ellipsis {\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-toast .ui-toast-message {\n  box-sizing: border-box !important;\n  border: 2px solid transparent !important;\n  border-radius: 4px !important;\n  background-color: #f4f4f7 !important;\n  color: #1b1d29 !important;\n}\n\n.abp-toast .ui-toast-message-content {\n  padding: 10px !important;\n}\n\n.abp-toast .ui-toast-message-content .ui-toast-icon {\n  top: 0 !important;\n  left: 0 !important;\n  padding: 10px !important;\n}\n\n.abp-toast .ui-toast-summary {\n  margin: 0 !important;\n  font-weight: 700 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-error {\n  border-color: #ba1659 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-error .ui-toast-message-content .ui-toast-icon {\n  color: #ba1659 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-warning {\n  border-color: #ed5d98 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-warning .ui-toast-message-content .ui-toast-icon {\n  color: #ed5d98 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-success {\n  border-color: #1c9174 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-success .ui-toast-message-content .ui-toast-icon {\n  color: #1c9174 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-info {\n  border-color: #fccb31 !important;\n}\n\n.abp-toast .ui-toast-message.ui-toast-message-info .ui-toast-message-content .ui-toast-icon {\n  color: #fccb31 !important;\n}\n\n.abp-confirm .ui-toast-message {\n  box-sizing: border-box !important;\n  padding: 0px !important;\n  border:0 none !important;\n  border-radius: 4px !important;\n  background-color: #fff !important;\n  color: rgba(0, 0, 0, .65) !important;\n  font-family: \"Poppins\", sans-serif;\n  text-align: center !important;\n}\n\n.abp-confirm .ui-toast-message-content {\n  padding: 0px !important;\n}\n\n.abp-confirm .abp-confirm-icon {\n  margin: 32px 50px 5px !important;\n  color: #f8bb86 !important;\n  font-size: 52px !important;\n}\n\n.abp-confirm .ui-toast-close-icon {\n  display: none !important;\n}\n\n.abp-confirm .abp-confirm-summary {\n  display: block !important;\n  margin-bottom: 13px !important;\n  padding: 13px 16px 0px !important;\n  font-weight: 600 !important;\n  font-size: 18px !important;\n}\n\n.abp-confirm .abp-confirm-body {\n  display: inline-block !important;\n  padding: 0px 10px !important;\n}\n\n.abp-confirm .abp-confirm-footer {\n  display: block !important;\n  margin-top: 30px !important;\n  padding: 16px !important;\n  background-color: #f4f4f7 !important;\n  text-align: right !important;\n}\n\n.abp-confirm .abp-confirm-footer .btn {\n  margin-left: 10px !important;\n}\n\n.ui-widget-overlay {\n  z-index: 1000;\n}\n\n.color-white {\n  color: #FFF !important;\n}\n\n.custom-checkbox > label {\n  cursor: pointer;\n}\n\n/* <animations */\n\n.fade-in-top {\n  animation: fadeInTop 0.2s ease-in-out;\n}\n\n.fade-out-top {\n  animation: fadeOutTop 0.2s ease-in-out;\n}\n\n.abp-collapsed-height {\n  -moz-transition: max-height linear 0.35s;\n  -ms-transition: max-height linear 0.35s;\n  -o-transition: max-height linear 0.35s;\n  -webkit-transition: max-height linear 0.35s;\n  overflow:hidden;\n  transition:max-height 0.35s linear;\n  height:auto;\n  max-height: 0;\n}\n\n.abp-mh-25 {\n  max-height: 25vh;\n}\n\n.abp-mh-50 {\n  transition:max-height 0.65s linear;\n  max-height: 50vh;\n}\n\n.abp-mh-75 {\n  transition:max-height 0.85s linear;\n  max-height: 75vh;\n}\n\n.abp-mh-100 {\n  transition:max-height 1s linear;\n  max-height: 100vh;\n}\n\n@keyframes fadeInTop {\n  from {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n\n  to {\n    transform: translateY(0px);\n    opacity: 1;\n  }\n}\n\n@keyframes fadeOutTop {\n  to {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n}\n\n/* </animations */\n\n";
 
 /**
  * @fileoverview added by tsickle
@@ -1894,7 +1965,7 @@ var ErrorHandler = /** @class */ (function () {
         var renderer = this.rendererFactory.createRenderer(null, null);
         /** @type {?} */
         var host = renderer.selectRootElement(document.body, true);
-        this.componentRef = this.cfRes.resolveComponentFactory(ErrorComponent).create(this.injector);
+        this.componentRef = this.cfRes.resolveComponentFactory(HttpErrorWrapperComponent).create(this.injector);
         for (var key in this.componentRef.instance) {
             if (this.componentRef.instance.hasOwnProperty(key)) {
                 this.componentRef.instance[key] = instance[key];
@@ -2137,12 +2208,13 @@ function appendScript(injector) {
         function () { return chartJsLoaded$.next(true); }));
         /** @type {?} */
         var lazyLoadService = injector.get(LazyLoadService);
-        return forkJoin(lazyLoadService.load(null, 'style', styles, 'head', 'afterbegin') /* lazyLoadService.load(null, 'script', scripts) */).toPromise();
+        return lazyLoadService.load(null, 'style', styles, 'head', 'afterbegin').toPromise();
     });
     return fn;
 }
 var ThemeSharedModule = /** @class */ (function () {
-    function ThemeSharedModule() {
+    function ThemeSharedModule(errorHandler) {
+        this.errorHandler = errorHandler;
     }
     /**
      * @param {?=} options
@@ -2160,7 +2232,7 @@ var ThemeSharedModule = /** @class */ (function () {
                 {
                     provide: APP_INITIALIZER,
                     multi: true,
-                    deps: [Injector, ErrorHandler],
+                    deps: [Injector],
                     useFactory: appendScript,
                 },
                 { provide: MessageService, useClass: MessageService },
@@ -2182,7 +2254,7 @@ var ThemeSharedModule = /** @class */ (function () {
                         ButtonComponent,
                         ChartComponent,
                         ConfirmationComponent,
-                        ErrorComponent,
+                        HttpErrorWrapperComponent,
                         LoaderBarComponent,
                         ModalComponent,
                         TableEmptyMessageComponent,
@@ -2203,11 +2275,22 @@ var ThemeSharedModule = /** @class */ (function () {
                         TableSortDirective,
                     ],
                     providers: [DatePipe],
-                    entryComponents: [ErrorComponent],
+                    entryComponents: [HttpErrorWrapperComponent],
                 },] }
     ];
+    /** @nocollapse */
+    ThemeSharedModule.ctorParameters = function () { return [
+        { type: ErrorHandler }
+    ]; };
     return ThemeSharedModule;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ThemeSharedModule.prototype.errorHandler;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2553,5 +2636,5 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { BreadcrumbComponent, ButtonComponent, ChartComponent, ConfirmationComponent, ConfirmationService, DateParserFormatter, LoaderBarComponent, ModalComponent, SortOrderIconComponent, TableEmptyMessageComponent, TableSortDirective, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, ChartComponent as ɵc, ConfirmationComponent as ɵd, ConfirmationService as ɵe, AbstractToaster as ɵf, ErrorComponent as ɵg, LoaderBarComponent as ɵh, ModalComponent as ɵi, fadeAnimation as ɵj, dialogAnimation as ɵk, fadeIn as ɵl, fadeOut as ɵm, fadeInDown as ɵn, TableEmptyMessageComponent as ɵo, ToastComponent as ɵp, SortOrderIconComponent as ɵq, TableSortDirective as ɵr, ErrorHandler as ɵs, httpErrorConfigFactory as ɵu, HTTP_ERROR_CONFIG as ɵv, DateParserFormatter as ɵw };
+export { BreadcrumbComponent, ButtonComponent, ChartComponent, ConfirmationComponent, ConfirmationService, DateParserFormatter, LoaderBarComponent, ModalComponent, SortOrderIconComponent, TableEmptyMessageComponent, TableSortDirective, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, ChartComponent as ɵc, ConfirmationComponent as ɵd, ConfirmationService as ɵe, AbstractToaster as ɵf, HttpErrorWrapperComponent as ɵg, LoaderBarComponent as ɵh, ModalComponent as ɵi, fadeAnimation as ɵj, fadeIn as ɵk, fadeOut as ɵl, TableEmptyMessageComponent as ɵm, ToastComponent as ɵn, SortOrderIconComponent as ɵo, TableSortDirective as ɵp, ErrorHandler as ɵq, httpErrorConfigFactory as ɵs, HTTP_ERROR_CONFIG as ɵt, DateParserFormatter as ɵu };
 //# sourceMappingURL=abp-ng.theme.shared.js.map
