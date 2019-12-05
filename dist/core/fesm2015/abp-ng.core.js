@@ -3511,7 +3511,7 @@ class LazyLoadService {
      * @param {?=} position
      * @return {?}
      */
-    load(urlOrUrls, type, content = '', targetQuery = 'body', position = 'afterend') {
+    load(urlOrUrls, type, content = '', targetQuery = 'body', position = 'beforeend') {
         if (!urlOrUrls && !content) {
             return throwError('Should pass url or content');
         }

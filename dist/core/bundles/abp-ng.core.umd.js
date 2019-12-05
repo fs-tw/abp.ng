@@ -4056,7 +4056,7 @@
             var _this = this;
             if (content === void 0) { content = ''; }
             if (targetQuery === void 0) { targetQuery = 'body'; }
-            if (position === void 0) { position = 'afterend'; }
+            if (position === void 0) { position = 'beforeend'; }
             if (!urlOrUrls && !content) {
                 return rxjs.throwError('Should pass url or content');
             }

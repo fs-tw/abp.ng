@@ -1620,13 +1620,13 @@ var styles = `
 }
 
 .modal-backdrop {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: calc(100% - 7px) !important;
-  height: 100% !important;
-  background-color: rgba(0, 0, 0, 0.6) !important;
-  z-index: 1040 !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100% - 7px);
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1040;
 }
 
 .modal::-webkit-scrollbar {
@@ -1642,7 +1642,7 @@ var styles = `
 }
 
 .modal-dialog {
-  z-index: 1050 !important;
+  z-index: 1050;
 }
 
 .abp-ellipsis-inline {
@@ -1659,73 +1659,75 @@ var styles = `
 }
 
 .abp-toast .ui-toast-message {
-  box-sizing: border-box !important;
-  border: 2px solid transparent !important;
-  border-radius: 4px !important;
-  background-color: #f4f4f7 !important;
-  color: #1b1d29 !important;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  color: #1b1d29;
 }
 
 .abp-toast .ui-toast-message-content {
-  padding: 10px !important;
+  padding: 10px;
 }
 
 .abp-toast .ui-toast-message-content .ui-toast-icon {
-  top: 0 !important;
-  left: 0 !important;
-  padding: 10px !important;
+  top: 0;
+  left: 0;
+  padding: 10px;
 }
 
 .abp-toast .ui-toast-summary {
-  margin: 0 !important;
-  font-weight: 700 !important;
+  margin: 0;
+  font-weight: 700;
 }
 
-.abp-toast .ui-toast-message.ui-toast-message-error {
-  border-color: #ba1659 !important;
+body abp-toast .ui-toast .ui-toast-message.ui-toast-message-error {
+  border: 2px solid #ba1659;
+  background-color: #f4f4f7;
 }
 
-.abp-toast .ui-toast-message.ui-toast-message-error .ui-toast-message-content .ui-toast-icon {
-  color: #ba1659 !important;
+body abp-toast .ui-toast .ui-toast-message.ui-toast-message-error .ui-toast-message-content .ui-toast-icon {
+  color: #ba1659;
 }
 
-.abp-toast .ui-toast-message.ui-toast-message-warning {
-  border-color: #ed5d98 !important;
+body abp-toast .ui-toast .ui-toast-message.ui-toast-message-warn {
+  border: 2px solid #ed5d98;
+  background-color: #f4f4f7;
 }
 
-.abp-toast .ui-toast-message.ui-toast-message-warning .ui-toast-message-content .ui-toast-icon {
-  color: #ed5d98 !important;
+body abp-toast .ui-toast .ui-toast-message.ui-toast-message-warn .ui-toast-message-content .ui-toast-icon {
+  color: #ed5d98;
 }
 
-.abp-toast .ui-toast-message.ui-toast-message-success {
-  border-color: #1c9174 !important;
+body abp-toast .ui-toast .ui-toast-message.ui-toast-message-success {
+  border: 2px solid #1c9174;
+  background-color: #f4f4f7;
 }
 
-.abp-toast .ui-toast-message.ui-toast-message-success .ui-toast-message-content .ui-toast-icon {
-  color: #1c9174 !important;
+body abp-toast .ui-toast .ui-toast-message.ui-toast-message-success .ui-toast-message-content .ui-toast-icon {
+  color: #1c9174;
 }
 
-.abp-toast .ui-toast-message.ui-toast-message-info {
-  border-color: #fccb31 !important;
+body abp-toast .ui-toast .ui-toast-message.ui-toast-message-info {
+  border: 2px solid #fccb31;
+  background-color: #f4f4f7;
 }
 
-.abp-toast .ui-toast-message.ui-toast-message-info .ui-toast-message-content .ui-toast-icon {
-  color: #fccb31 !important;
+body abp-toast .ui-toast .ui-toast-message.ui-toast-message-info .ui-toast-message-content .ui-toast-icon {
+  color: #fccb31;
 }
 
 .abp-confirm .ui-toast-message {
-  box-sizing: border-box !important;
-  padding: 0px !important;
-  border:0 none !important;
-  border-radius: 4px !important;
-  background-color: #fff !important;
-  color: rgba(0, 0, 0, .65) !important;
+  box-sizing: border-box;
+  padding: 0px;
+  border:0 none;
+  border-radius: 4px;
+  background-color: transparent !important;
   font-family: "Poppins", sans-serif;
-  text-align: center !important;
+  text-align: center;
 }
 
 .abp-confirm .ui-toast-message-content {
-  padding: 0px !important;
+  padding: 0px;
 }
 
 .abp-confirm .abp-confirm-icon {
@@ -1752,11 +1754,10 @@ var styles = `
 }
 
 .abp-confirm .abp-confirm-footer {
-  display: block !important;
-  margin-top: 30px !important;
-  padding: 16px !important;
-  background-color: #f4f4f7 !important;
-  text-align: right !important;
+  display: block;
+  margin-top: 30px;
+  padding: 16px;
+  text-align: right;
 }
 
 .abp-confirm .abp-confirm-footer .btn {
@@ -2349,7 +2350,7 @@ function appendScript(injector) {
         () => chartJsLoaded$.next(true)));
         /** @type {?} */
         const lazyLoadService = injector.get(LazyLoadService);
-        return lazyLoadService.load(null, 'style', styles, 'head', 'afterbegin').toPromise();
+        return lazyLoadService.load(null, 'style', styles, 'head', 'beforeend').toPromise();
     });
     return fn;
 }
