@@ -684,7 +684,7 @@ var LocalizationService = /** @class */ (function () {
         this.router = router;
         this.ngZone = ngZone;
         if (otherInstance)
-            throw new Error('LocaleService should have only one instance.');
+            throw new Error('LocalizationService should have only one instance.');
     }
     Object.defineProperty(LocalizationService.prototype, "currentLang", {
         get: /**
@@ -4149,7 +4149,7 @@ var ClickEventStopPropagationDirective = /** @class */ (function () {
     function () {
         var _this = this;
         fromEvent(this.el.nativeElement, 'click')
-            .pipe(takeUntilDestroy$1(this))
+            .pipe(takeUntilDestroy(this))
             .subscribe((/**
          * @param {?} event
          * @return {?}

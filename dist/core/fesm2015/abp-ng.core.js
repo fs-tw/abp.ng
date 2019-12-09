@@ -662,7 +662,7 @@ class LocalizationService {
         this.router = router;
         this.ngZone = ngZone;
         if (otherInstance)
-            throw new Error('LocaleService should have only one instance.');
+            throw new Error('LocalizationService should have only one instance.');
     }
     /**
      * @return {?}
@@ -3782,7 +3782,7 @@ class ClickEventStopPropagationDirective {
      */
     ngOnInit() {
         fromEvent(this.el.nativeElement, 'click')
-            .pipe(takeUntilDestroy$1(this))
+            .pipe(takeUntilDestroy(this))
             .subscribe((/**
          * @param {?} event
          * @return {?}

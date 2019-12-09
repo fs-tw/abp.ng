@@ -122,32 +122,23 @@ var ButtonComponent = /** @class */ (function () {
         this.buttonType = 'button';
         this.loading = false;
         this.disabled = false;
-        /*
-           *
-           *
-           * @deprecated use abpClick instead
-           */
-        // tslint:disable-next-line: no-output-native
+        // tslint:disable
+        /**
+         * @deprecated use abpClick instead
+         */
         this.click = new EventEmitter();
-        /*
-           *
-           *
-           * @deprecated use abpFocus instead
-           */
+        /**
+         * @deprecated use abpFocus instead
+         */
         // tslint:disable-next-line: no-output-native
         this.focus = new EventEmitter();
-        /*
-           *
-           *
-           * @deprecated use abpBlur instead
-           */
-        // tslint:disable-next-line: no-output-native
+        /**
+         * @deprecated use abpBlur instead
+         */
         this.blur = new EventEmitter();
-        // tslint:disable-next-line: no-output-native
+        // tslint:enable
         this.abpClick = new EventEmitter();
-        // tslint:disable-next-line: no-output-native
         this.abpFocus = new EventEmitter();
-        // tslint:disable-next-line: no-output-native
         this.abpBlur = new EventEmitter();
     }
     Object.defineProperty(ButtonComponent.prototype, "icon", {
@@ -181,7 +172,6 @@ var ButtonComponent = /** @class */ (function () {
     ButtonComponent.decorators = [
         { type: Component, args: [{
                     selector: 'abp-button',
-                    // tslint:disable-next-line: component-max-inline-declarations
                     template: "\n    <button\n      #button\n      [id]=\"buttonId\"\n      [attr.type]=\"buttonType\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click.stop)=\"click.next($event); abpClick.next($event)\"\n      (focus)=\"focus.next($event); abpFocus.next($event)\"\n      (blur)=\"blur.next($event); abpBlur.next($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
                 }] }
     ];
@@ -222,11 +212,20 @@ if (false) {
     ButtonComponent.prototype.disabled;
     /** @type {?} */
     ButtonComponent.prototype.attributes;
-    /** @type {?} */
+    /**
+     * @deprecated use abpClick instead
+     * @type {?}
+     */
     ButtonComponent.prototype.click;
-    /** @type {?} */
+    /**
+     * @deprecated use abpFocus instead
+     * @type {?}
+     */
     ButtonComponent.prototype.focus;
-    /** @type {?} */
+    /**
+     * @deprecated use abpBlur instead
+     * @type {?}
+     */
     ButtonComponent.prototype.blur;
     /** @type {?} */
     ButtonComponent.prototype.abpClick;

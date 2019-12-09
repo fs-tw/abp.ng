@@ -874,7 +874,7 @@
             this.router = router;
             this.ngZone = ngZone;
             if (otherInstance)
-                throw new Error('LocaleService should have only one instance.');
+                throw new Error('LocalizationService should have only one instance.');
         }
         Object.defineProperty(LocalizationService.prototype, "currentLang", {
             get: /**
@@ -4339,7 +4339,7 @@
         function () {
             var _this = this;
             rxjs.fromEvent(this.el.nativeElement, 'click')
-                .pipe(core$1.takeUntilDestroy(this))
+                .pipe(takeUntilDestroy(this))
                 .subscribe((/**
              * @param {?} event
              * @return {?}
