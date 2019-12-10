@@ -1,1 +1,1 @@
-export * from './lib/setting-management.module';
+export * from './lib/index';
