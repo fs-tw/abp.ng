@@ -13,7 +13,7 @@ import { NgxsModule } from '@ngxs/store';
 import { AccountConfigModule, AccountConfigService } from '@abp/ng.account.config';
 import { IdentityConfigModule } from '@abp/ng.identity.config';
 import { TenantManagementConfigModule } from '@abp/ng.tenant-management.config';
-import { SettingManagementConfigModule } from '@abp/ng.setting-management.config';
+import { SettingManagementConfigModule } from '@fs/setting-management/config';
 import { LayoutDefaultComponent, LayoutPassportComponent, LayoutFullScreenComponent } from '@fs/ng-alain/basic';
 import { Router } from '@angular/router';
 

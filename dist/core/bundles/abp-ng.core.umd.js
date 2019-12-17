@@ -4325,15 +4325,15 @@
      * Generated from: lib/directives/stop-propagation.directive.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var ClickEventStopPropagationDirective = /** @class */ (function () {
-        function ClickEventStopPropagationDirective(el) {
+    var StopPropagationDirective = /** @class */ (function () {
+        function StopPropagationDirective(el) {
             this.el = el;
             this.stopPropEvent = new core.EventEmitter();
         }
         /**
          * @return {?}
          */
-        ClickEventStopPropagationDirective.prototype.ngOnInit = /**
+        StopPropagationDirective.prototype.ngOnInit = /**
          * @return {?}
          */
         function () {
@@ -4352,33 +4352,33 @@
         /**
          * @return {?}
          */
-        ClickEventStopPropagationDirective.prototype.ngOnDestroy = /**
+        StopPropagationDirective.prototype.ngOnDestroy = /**
          * @return {?}
          */
         function () { };
-        ClickEventStopPropagationDirective.decorators = [
+        StopPropagationDirective.decorators = [
             { type: core.Directive, args: [{
                         // tslint:disable-next-line: directive-selector
                         selector: '[click.stop]',
                     },] }
         ];
         /** @nocollapse */
-        ClickEventStopPropagationDirective.ctorParameters = function () { return [
+        StopPropagationDirective.ctorParameters = function () { return [
             { type: core.ElementRef }
         ]; };
-        ClickEventStopPropagationDirective.propDecorators = {
+        StopPropagationDirective.propDecorators = {
             stopPropEvent: [{ type: core.Output, args: ['click.stop',] }]
         };
-        return ClickEventStopPropagationDirective;
+        return StopPropagationDirective;
     }());
     if (false) {
         /** @type {?} */
-        ClickEventStopPropagationDirective.prototype.stopPropEvent;
+        StopPropagationDirective.prototype.stopPropEvent;
         /**
          * @type {?}
          * @private
          */
-        ClickEventStopPropagationDirective.prototype.el;
+        StopPropagationDirective.prototype.el;
     }
 
     /**
@@ -4519,7 +4519,7 @@
                             PermissionDirective,
                             VisibilityDirective,
                             InputEventDebounceDirective,
-                            ClickEventStopPropagationDirective,
+                            StopPropagationDirective,
                             AbstractNgModelComponent,
                         ],
                         exports: [
@@ -4540,7 +4540,7 @@
                             VisibilityDirective,
                             InputEventDebounceDirective,
                             LocalizationPipe,
-                            ClickEventStopPropagationDirective,
+                            StopPropagationDirective,
                             AbstractNgModelComponent,
                         ],
                         providers: [LocalizationPipe],
@@ -4606,7 +4606,7 @@
     exports.ɵa = ProfileState;
     exports.ɵb = ProfileService;
     exports.ɵba = InputEventDebounceDirective;
-    exports.ɵbb = ClickEventStopPropagationDirective;
+    exports.ɵbb = StopPropagationDirective;
     exports.ɵbc = AbstractNgModelComponent;
     exports.ɵbd = LocaleId;
     exports.ɵbe = LocaleProvider;
