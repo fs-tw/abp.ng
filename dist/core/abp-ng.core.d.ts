@@ -14,7 +14,7 @@ export { EllipsisDirective as ɵt } from './lib/directives/ellipsis.directive';
 export { ForDirective as ɵu } from './lib/directives/for.directive';
 export { FormSubmitDirective as ɵv } from './lib/directives/form-submit.directive';
 export { PermissionDirective as ɵy } from './lib/directives/permission.directive';
-export { ClickEventStopPropagationDirective as ɵbb } from './lib/directives/stop-propagation.directive';
+export { StopPropagationDirective as ɵbb } from './lib/directives/stop-propagation.directive';
 export { VisibilityDirective as ɵz } from './lib/directives/visibility.directive';
 export { ApiInterceptor as ɵbh } from './lib/interceptors/api.interceptor';
 export { ABP as ɵl, Profile as ɵg } from './lib/models';

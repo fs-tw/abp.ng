@@ -4135,15 +4135,15 @@ if (false) {
  * Generated from: lib/directives/stop-propagation.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var ClickEventStopPropagationDirective = /** @class */ (function () {
-    function ClickEventStopPropagationDirective(el) {
+var StopPropagationDirective = /** @class */ (function () {
+    function StopPropagationDirective(el) {
         this.el = el;
         this.stopPropEvent = new EventEmitter();
     }
     /**
      * @return {?}
      */
-    ClickEventStopPropagationDirective.prototype.ngOnInit = /**
+    StopPropagationDirective.prototype.ngOnInit = /**
      * @return {?}
      */
     function () {
@@ -4162,33 +4162,33 @@ var ClickEventStopPropagationDirective = /** @class */ (function () {
     /**
      * @return {?}
      */
-    ClickEventStopPropagationDirective.prototype.ngOnDestroy = /**
+    StopPropagationDirective.prototype.ngOnDestroy = /**
      * @return {?}
      */
     function () { };
-    ClickEventStopPropagationDirective.decorators = [
+    StopPropagationDirective.decorators = [
         { type: Directive, args: [{
                     // tslint:disable-next-line: directive-selector
                     selector: '[click.stop]',
                 },] }
     ];
     /** @nocollapse */
-    ClickEventStopPropagationDirective.ctorParameters = function () { return [
+    StopPropagationDirective.ctorParameters = function () { return [
         { type: ElementRef }
     ]; };
-    ClickEventStopPropagationDirective.propDecorators = {
+    StopPropagationDirective.propDecorators = {
         stopPropEvent: [{ type: Output, args: ['click.stop',] }]
     };
-    return ClickEventStopPropagationDirective;
+    return StopPropagationDirective;
 }());
 if (false) {
     /** @type {?} */
-    ClickEventStopPropagationDirective.prototype.stopPropEvent;
+    StopPropagationDirective.prototype.stopPropEvent;
     /**
      * @type {?}
      * @private
      */
-    ClickEventStopPropagationDirective.prototype.el;
+    StopPropagationDirective.prototype.el;
 }
 
 /**
@@ -4329,7 +4329,7 @@ var CoreModule = /** @class */ (function () {
                         PermissionDirective,
                         VisibilityDirective,
                         InputEventDebounceDirective,
-                        ClickEventStopPropagationDirective,
+                        StopPropagationDirective,
                         AbstractNgModelComponent,
                     ],
                     exports: [
@@ -4350,7 +4350,7 @@ var CoreModule = /** @class */ (function () {
                         VisibilityDirective,
                         InputEventDebounceDirective,
                         LocalizationPipe,
-                        ClickEventStopPropagationDirective,
+                        StopPropagationDirective,
                         AbstractNgModelComponent,
                     ],
                     providers: [LocalizationPipe],
@@ -4372,5 +4372,5 @@ var CoreModule = /** @class */ (function () {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AbstractNgModelComponent, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, LazyLoadService, LocalizationPipe, LocalizationService, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, uuid, ProfileState as ɵa, ProfileService as ɵb, InputEventDebounceDirective as ɵba, ClickEventStopPropagationDirective as ɵbb, AbstractNgModelComponent as ɵbc, LocaleId as ɵbd, LocaleProvider as ɵbe, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbf, ConfigPlugin as ɵbg, ApiInterceptor as ɵbh, getInitialData as ɵbi, localeInitializer as ɵbj, RestService as ɵc, GetProfile as ɵd, UpdateProfile as ɵe, ChangePassword as ɵf, SessionState as ɵh, LocalizationService as ɵi, SetLanguage as ɵj, SetTenant as ɵk, ConfigState as ɵm, ApplicationConfigurationService as ɵn, PatchRouteByName as ɵo, GetAppConfiguration as ɵp, RouterOutletComponent as ɵq, DynamicLayoutComponent as ɵr, AutofocusDirective as ɵs, EllipsisDirective as ɵt, ForDirective as ɵu, FormSubmitDirective as ɵv, LocalizationPipe as ɵw, SortPipe as ɵx, PermissionDirective as ɵy, VisibilityDirective as ɵz };
+export { AbstractNgModelComponent, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, LazyLoadService, LocalizationPipe, LocalizationService, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, uuid, ProfileState as ɵa, ProfileService as ɵb, InputEventDebounceDirective as ɵba, StopPropagationDirective as ɵbb, AbstractNgModelComponent as ɵbc, LocaleId as ɵbd, LocaleProvider as ɵbe, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbf, ConfigPlugin as ɵbg, ApiInterceptor as ɵbh, getInitialData as ɵbi, localeInitializer as ɵbj, RestService as ɵc, GetProfile as ɵd, UpdateProfile as ɵe, ChangePassword as ɵf, SessionState as ɵh, LocalizationService as ɵi, SetLanguage as ɵj, SetTenant as ɵk, ConfigState as ɵm, ApplicationConfigurationService as ɵn, PatchRouteByName as ɵo, GetAppConfiguration as ɵp, RouterOutletComponent as ɵq, DynamicLayoutComponent as ɵr, AutofocusDirective as ɵs, EllipsisDirective as ɵt, ForDirective as ɵu, FormSubmitDirective as ɵv, LocalizationPipe as ɵw, SortPipe as ɵx, PermissionDirective as ɵy, VisibilityDirective as ɵz };
 //# sourceMappingURL=abp-ng.core.js.map
