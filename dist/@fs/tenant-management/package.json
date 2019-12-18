@@ -1,11 +1,12 @@
 {
   "name": "@fs/tenant-management",
-  "version": "1.1.1",
-  "peerDependencies": {
+  "version": "1.1.2-alpha.0",
+  "dependencies": {
     "@abp/ng.tenant-management": "^1.1.1",
-    "@fs/feature-management": "^1.1.1",
-    "@fs/ng-alain": "^1.1.1",
-    "@fs/ngx-admin": "^1.1.1"
+    "@fs/feature-management": "^1.1.2-alpha.0",
+    "@fs/ng-alain": "^1.1.2-alpha.0",
+    "@fs/ngx-admin": "^1.1.2-alpha.0",
+    "tslib": "^1.9.0"
   },
   "main": "bundles/fs-tenant-management.umd.js",
   "module": "fesm5/fs-tenant-management.js",
@@ -16,8 +17,5 @@
   "fesm2015": "fesm2015/fs-tenant-management.js",
   "typings": "fs-tenant-management.d.ts",
   "metadata": "fs-tenant-management.metadata.json",
-  "sideEffects": false,
-  "dependencies": {
-    "tslib": "^1.9.0"
-  }
+  "sideEffects": false
 }
