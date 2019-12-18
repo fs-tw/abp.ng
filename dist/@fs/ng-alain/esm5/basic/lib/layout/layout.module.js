@@ -1,0 +1,62 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/layout/layout.module.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+import * as tslib_1 from "tslib";
+import { NgModule } from '@angular/core';
+import { NgAlainSharedModule } from '@fs/ng-alain/shared';
+import { CoreModule } from '@abp/ng.core';
+import { LayoutDefaultComponent } from './default/default.component';
+import { LayoutFullScreenComponent } from './fullscreen/fullscreen.component';
+import { HeaderComponent } from './default/header/header.component';
+import { SidebarComponent } from './default/sidebar/sidebar.component';
+import { HeaderSearchComponent } from './default/header/components/search.component';
+import { HeaderNotifyComponent } from './default/header/components/notify.component';
+import { HeaderTaskComponent } from './default/header/components/task.component';
+import { HeaderIconComponent } from './default/header/components/icon.component';
+import { HeaderFullScreenComponent } from './default/header/components/fullscreen.component';
+import { HeaderI18nComponent } from './default/header/components/i18n.component';
+import { HeaderStorageComponent } from './default/header/components/storage.component';
+import { HeaderUserComponent } from './default/header/components/user.component';
+import { SettingDrawerComponent } from './default/setting-drawer/setting-drawer.component';
+import { SettingDrawerItemComponent } from './default/setting-drawer/setting-drawer-item.component';
+/** @type {?} */
+var SETTINGDRAWER = [SettingDrawerComponent, SettingDrawerItemComponent];
+/** @type {?} */
+var COMPONENTS = tslib_1.__spread([
+    LayoutDefaultComponent,
+    LayoutFullScreenComponent,
+    HeaderComponent,
+    SidebarComponent
+], SETTINGDRAWER);
+/** @type {?} */
+var HEADERCOMPONENTS = [
+    HeaderSearchComponent,
+    HeaderNotifyComponent,
+    HeaderTaskComponent,
+    HeaderIconComponent,
+    HeaderFullScreenComponent,
+    HeaderI18nComponent,
+    HeaderStorageComponent,
+    HeaderUserComponent,
+];
+// passport
+import { LayoutPassportComponent } from './passport/passport.component';
+/** @type {?} */
+var PASSPORT = [LayoutPassportComponent];
+var LayoutModule = /** @class */ (function () {
+    function LayoutModule() {
+    }
+    LayoutModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [CoreModule, NgAlainSharedModule],
+                    entryComponents: tslib_1.__spread(SETTINGDRAWER, [LayoutDefaultComponent, LayoutFullScreenComponent, LayoutPassportComponent]),
+                    declarations: tslib_1.__spread(COMPONENTS, HEADERCOMPONENTS, PASSPORT),
+                    exports: tslib_1.__spread(COMPONENTS, PASSPORT)
+                },] }
+    ];
+    return LayoutModule;
+}());
+export { LayoutModule };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibGF5b3V0Lm1vZHVsZS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0Bmcy9uZy1hbGFpbi9iYXNpYy8iLCJzb3VyY2VzIjpbImxpYi9sYXlvdXQvbGF5b3V0Lm1vZHVsZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxPQUFPLEVBQUUsUUFBUSxFQUFFLE1BQU0sZUFBZSxDQUFDO0FBQ3pDLE9BQU8sRUFBRSxtQkFBbUIsRUFBRSxNQUFNLHFCQUFxQixDQUFDO0FBQzFELE9BQU8sRUFBRSxVQUFVLEVBQUMsTUFBTSxjQUFjLENBQUE7QUFDeEMsT0FBTyxFQUFFLHNCQUFzQixFQUFFLE1BQU0sNkJBQTZCLENBQUM7QUFDckUsT0FBTyxFQUFFLHlCQUF5QixFQUFFLE1BQU0sbUNBQW1DLENBQUM7QUFDOUUsT0FBTyxFQUFFLGVBQWUsRUFBRSxNQUFNLG1DQUFtQyxDQUFDO0FBQ3BFLE9BQU8sRUFBRSxnQkFBZ0IsRUFBRSxNQUFNLHFDQUFxQyxDQUFDO0FBQ3ZFLE9BQU8sRUFBRSxxQkFBcUIsRUFBRSxNQUFNLDhDQUE4QyxDQUFDO0FBQ3JGLE9BQU8sRUFBRSxxQkFBcUIsRUFBRSxNQUFNLDhDQUE4QyxDQUFDO0FBQ3JGLE9BQU8sRUFBRSxtQkFBbUIsRUFBRSxNQUFNLDRDQUE0QyxDQUFDO0FBQ2pGLE9BQU8sRUFBRSxtQkFBbUIsRUFBRSxNQUFNLDRDQUE0QyxDQUFDO0FBQ2pGLE9BQU8sRUFBRSx5QkFBeUIsRUFBRSxNQUFNLGtEQUFrRCxDQUFDO0FBQzdGLE9BQU8sRUFBRSxtQkFBbUIsRUFBRSxNQUFNLDRDQUE0QyxDQUFDO0FBQ2pGLE9BQU8sRUFBRSxzQkFBc0IsRUFBRSxNQUFNLCtDQUErQyxDQUFDO0FBQ3ZGLE9BQU8sRUFBRSxtQkFBbUIsRUFBRSxNQUFNLDRDQUE0QyxDQUFDO0FBRWpGLE9BQU8sRUFBRSxzQkFBc0IsRUFBRSxNQUFNLG1EQUFtRCxDQUFDO0FBQzNGLE9BQU8sRUFBRSwwQkFBMEIsRUFBRSxNQUFNLHdEQUF3RCxDQUFDOztJQUU5RixhQUFhLEdBQUcsQ0FBQyxzQkFBc0IsRUFBRSwwQkFBMEIsQ0FBQzs7SUFDcEUsVUFBVTtJQUNaLHNCQUFzQjtJQUN0Qix5QkFBeUI7SUFDekIsZUFBZTtJQUNmLGdCQUFnQjtHQUNiLGFBQWEsQ0FDbkI7O0lBRUssZ0JBQWdCLEdBQUc7SUFDckIscUJBQXFCO0lBQ3JCLHFCQUFxQjtJQUNyQixtQkFBbUI7SUFDbkIsbUJBQW1CO0lBQ25CLHlCQUF5QjtJQUN6QixtQkFBbUI7SUFDbkIsc0JBQXNCO0lBQ3RCLG1CQUFtQjtDQUN0Qjs7QUFHRCxPQUFPLEVBQUUsdUJBQXVCLEVBQUUsTUFBTSwrQkFBK0IsQ0FBQzs7SUFDbEUsUUFBUSxHQUFHLENBQUMsdUJBQXVCLENBQUM7QUFFMUM7SUFBQTtJQU00QixDQUFDOztnQkFONUIsUUFBUSxTQUFDO29CQUNOLE9BQU8sRUFBRSxDQUFDLFVBQVUsRUFBRSxtQkFBbUIsQ0FBQztvQkFDMUMsZUFBZSxtQkFBTSxhQUFhLEdBQUUsc0JBQXNCLEVBQUUseUJBQXlCLEVBQUUsdUJBQXVCLEVBQUM7b0JBQy9HLFlBQVksbUJBQU0sVUFBVSxFQUFLLGdCQUFnQixFQUFLLFFBQVEsQ0FBQztvQkFDL0QsT0FBTyxtQkFBTSxVQUFVLEVBQUssUUFBUSxDQUFDO2lCQUN4Qzs7SUFDMkIsbUJBQUM7Q0FBQSxBQU43QixJQU02QjtTQUFoQixZQUFZIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgTmdNb2R1bGUgfSBmcm9tICdAYW5ndWxhci9jb3JlJztcclxuaW1wb3J0IHsgTmdBbGFpblNoYXJlZE1vZHVsZSB9IGZyb20gJ0Bmcy9uZy1hbGFpbi9zaGFyZWQnO1xyXG5pbXBvcnQgeyBDb3JlTW9kdWxlfSBmcm9tICdAYWJwL25nLmNvcmUnXHJcbmltcG9ydCB7IExheW91dERlZmF1bHRDb21wb25lbnQgfSBmcm9tICcuL2RlZmF1bHQvZGVmYXVsdC5jb21wb25lbnQnO1xyXG5pbXBvcnQgeyBMYXlvdXRGdWxsU2NyZWVuQ29tcG9uZW50IH0gZnJvbSAnLi9mdWxsc2NyZWVuL2Z1bGxzY3JlZW4uY29tcG9uZW50JztcclxuaW1wb3J0IHsgSGVhZGVyQ29tcG9uZW50IH0gZnJvbSAnLi9kZWZhdWx0L2hlYWRlci9oZWFkZXIuY29tcG9uZW50JztcclxuaW1wb3J0IHsgU2lkZWJhckNvbXBvbmVudCB9IGZyb20gJy4vZGVmYXVsdC9zaWRlYmFyL3NpZGViYXIuY29tcG9uZW50JztcclxuaW1wb3J0IHsgSGVhZGVyU2VhcmNoQ29tcG9uZW50IH0gZnJvbSAnLi9kZWZhdWx0L2hlYWRlci9jb21wb25lbnRzL3NlYXJjaC5jb21wb25lbnQnO1xyXG5pbXBvcnQgeyBIZWFkZXJOb3RpZnlDb21wb25lbnQgfSBmcm9tICcuL2RlZmF1bHQvaGVhZGVyL2NvbXBvbmVudHMvbm90aWZ5LmNvbXBvbmVudCc7XHJcbmltcG9ydCB7IEhlYWRlclRhc2tDb21wb25lbnQgfSBmcm9tICcuL2RlZmF1bHQvaGVhZGVyL2NvbXBvbmVudHMvdGFzay5jb21wb25lbnQnO1xyXG5pbXBvcnQgeyBIZWFkZXJJY29uQ29tcG9uZW50IH0gZnJvbSAnLi9kZWZhdWx0L2hlYWRlci9jb21wb25lbnRzL2ljb24uY29tcG9uZW50JztcclxuaW1wb3J0IHsgSGVhZGVyRnVsbFNjcmVlbkNvbXBvbmVudCB9IGZyb20gJy4vZGVmYXVsdC9oZWFkZXIvY29tcG9uZW50cy9mdWxsc2NyZWVuLmNvbXBvbmVudCc7XHJcbmltcG9ydCB7IEhlYWRlckkxOG5Db21wb25lbnQgfSBmcm9tICcuL2RlZmF1bHQvaGVhZGVyL2NvbXBvbmVudHMvaTE4bi5jb21wb25lbnQnO1xyXG5pbXBvcnQgeyBIZWFkZXJTdG9yYWdlQ29tcG9uZW50IH0gZnJvbSAnLi9kZWZhdWx0L2hlYWRlci9jb21wb25lbnRzL3N0b3JhZ2UuY29tcG9uZW50JztcclxuaW1wb3J0IHsgSGVhZGVyVXNlckNvbXBvbmVudCB9IGZyb20gJy4vZGVmYXVsdC9oZWFkZXIvY29tcG9uZW50cy91c2VyLmNvbXBvbmVudCc7XHJcblxyXG5pbXBvcnQgeyBTZXR0aW5nRHJhd2VyQ29tcG9uZW50IH0gZnJvbSAnLi9kZWZhdWx0L3NldHRpbmctZHJhd2VyL3NldHRpbmctZHJhd2VyLmNvbXBvbmVudCc7XHJcbmltcG9ydCB7IFNldHRpbmdEcmF3ZXJJdGVtQ29tcG9uZW50IH0gZnJvbSAnLi9kZWZhdWx0L3NldHRpbmctZHJhd2VyL3NldHRpbmctZHJhd2VyLWl0ZW0uY29tcG9uZW50JztcclxuXHJcbmNvbnN0IFNFVFRJTkdEUkFXRVIgPSBbU2V0dGluZ0RyYXdlckNvbXBvbmVudCwgU2V0dGluZ0RyYXdlckl0ZW1Db21wb25lbnRdO1xyXG5jb25zdCBDT01QT05FTlRTID0gW1xyXG4gICAgTGF5b3V0RGVmYXVsdENvbXBvbmVudCxcclxuICAgIExheW91dEZ1bGxTY3JlZW5Db21wb25lbnQsXHJcbiAgICBIZWFkZXJDb21wb25lbnQsXHJcbiAgICBTaWRlYmFyQ29tcG9uZW50LFxyXG4gICAgLi4uU0VUVElOR0RSQVdFUixcclxuXTtcclxuXHJcbmNvbnN0IEhFQURFUkNPTVBPTkVOVFMgPSBbXHJcbiAgICBIZWFkZXJTZWFyY2hDb21wb25lbnQsXHJcbiAgICBIZWFkZXJOb3RpZnlDb21wb25lbnQsXHJcbiAgICBIZWFkZXJUYXNrQ29tcG9uZW50LFxyXG4gICAgSGVhZGVySWNvbkNvbXBvbmVudCxcclxuICAgIEhlYWRlckZ1bGxTY3JlZW5Db21wb25lbnQsXHJcbiAgICBIZWFkZXJJMThuQ29tcG9uZW50LFxyXG4gICAgSGVhZGVyU3RvcmFnZUNvbXBvbmVudCxcclxuICAgIEhlYWRlclVzZXJDb21wb25lbnQsXHJcbl07XHJcblxyXG4vLyBwYXNzcG9ydFxyXG5pbXBvcnQgeyBMYXlvdXRQYXNzcG9ydENvbXBvbmVudCB9IGZyb20gJy4vcGFzc3BvcnQvcGFzc3BvcnQuY29tcG9uZW50JztcclxuY29uc3QgUEFTU1BPUlQgPSBbTGF5b3V0UGFzc3BvcnRDb21wb25lbnRdO1xyXG5cclxuQE5nTW9kdWxlKHtcclxuICAgIGltcG9ydHM6IFtDb3JlTW9kdWxlLCBOZ0FsYWluU2hhcmVkTW9kdWxlXSxcclxuICAgIGVudHJ5Q29tcG9uZW50czogWy4uLlNFVFRJTkdEUkFXRVIsIExheW91dERlZmF1bHRDb21wb25lbnQsIExheW91dEZ1bGxTY3JlZW5Db21wb25lbnQsIExheW91dFBhc3Nwb3J0Q29tcG9uZW50XSxcclxuICAgIGRlY2xhcmF0aW9uczogWy4uLkNPTVBPTkVOVFMsIC4uLkhFQURFUkNPTVBPTkVOVFMsIC4uLlBBU1NQT1JUXSxcclxuICAgIGV4cG9ydHM6IFsuLi5DT01QT05FTlRTLCAuLi5QQVNTUE9SVF1cclxufSlcclxuZXhwb3J0IGNsYXNzIExheW91dE1vZHVsZSB7IH1cclxuIl19

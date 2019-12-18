@@ -1396,7 +1396,7 @@
         }
       }
     },
-    "abp.dev": {
+    "fs.dev": {
       "projectType": "library",
       "root": "themes/dev",
       "sourceRoot": "themes/dev/src",

@@ -6,7 +6,15 @@
     "declaration": true,
     "inlineSources": true,
     "types": [],
-    "lib": ["dom", "es2018"]
+    "lib": ["dom", "es2018"],
+    "paths": {
+      "@abp/ng.account": [ "dist/account" ],
+      "@abp/ng.account/*": [ "dist/account/lib/*" ],
+      "@fs/ng-alain": [ "dist/@fs/ng-alain" ],
+      "@fs/ng-alain/*": [ "dist/@fs/ng-alain/*" ],
+      "@fs/ngx-admin": [ "dist/@fs/ngx-admin" ],
+      "@fs/ngx-admin/*": [ "dist/@fs/ngx-admin/*" ]
+    }    
   },
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,

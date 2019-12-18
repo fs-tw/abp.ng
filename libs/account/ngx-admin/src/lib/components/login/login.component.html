@@ -47,7 +47,7 @@
       </button>
     </form>
 
-    <section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">
+    <!-- <section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">
       or enter with:
       <div class="socials">
         <ng-container *ngFor="let socialLink of socialLinks">
@@ -69,7 +69,7 @@
           </a>
         </ng-container>
       </div>
-    </section>
+    </section> -->
 
     <section class="another-action" aria-label="Register">
       {{ 'AbpAccount::AreYouANewUser' | abpLocalization }} <a class="text-link" routerLink="/account/register">{{ 'AbpAccount::Register' | abpLocalization }}</a>

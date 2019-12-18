@@ -5,8 +5,8 @@ import { Store } from '@ngxs/store';
 import { throwError } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 import snq from 'snq';
-import { AccountService } from '@abp/ng.account/services/account.service';
-import { TenantBoxComponent as AbpTenantBoxComponent} from '@abp/ng.account/components/tenant-box/tenant-box.component'
+import { AccountService } from '@abp/ng.account/services/account.service';//'../../../../../../../packages/account/src/lib/services/account.service';
+import { TenantBoxComponent as AbpTenantBoxComponent} from '@abp/ng.account/components/tenant-box/tenant-box.component';//'../../../../../../../packages/account/src/lib/components/tenant-box/tenant-box.component';
 
 @Component({
   selector: 'ng-alain-tenant-box',

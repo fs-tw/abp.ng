@@ -1,10 +1,12 @@
 {
   "name": "@fs/ngx-admin",
-  "version": "0.0.1",
+  "version": "1.1.1",
   "peerDependencies": {
 
   },
   "dependencies": {
+    "@fs/dev": "^1.1.1",
+
     "@agm/core": "^1.0.0-beta.5",
     "@angular/animations": "^8.2.14",
     "@angular/cdk": "^8.2.3",
@@ -19,7 +21,7 @@
     "@nebular/auth": "4.4.0",
     "@nebular/eva-icons": "4.4.0",
     "@nebular/security": "4.4.0",
-    "@nebular/theme": "4.4.0",
+    "@nebular/theme": "4.6.0",
     "@swimlane/ngx-charts": "^10.0.0",
     "angular-tree-component": "7.2.0",
     "angular2-chartjs": "0.4.1",

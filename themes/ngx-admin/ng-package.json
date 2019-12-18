@@ -1,7 +1,8 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/themes/ngx-admin",
+  "dest": "../../dist/@fs/ngx-admin",
   "lib": {
     "entryFile": "src/index.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [ "." ]
 }

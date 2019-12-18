@@ -8,10 +8,10 @@ import { Store } from '@ngxs/store';
   templateUrl: './roles.component.html',
 })
 export class RolesComponent extends AbpRolesComponent implements OnInit {
-    constructor(
-        private _confirmationService: ConfirmationService,
-        private _fb: FormBuilder,
-        private _store: Store) {
-        super(_confirmationService, _fb, _store);
-    }
+  constructor(
+    private _confirmationService: ConfirmationService,
+    private _fb: FormBuilder,
+    private _store: Store) {
+    super(_confirmationService, _fb, _store);
+  }
 }

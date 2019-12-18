@@ -1,0 +1,11 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: fs-permission-management-ng-alain.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+export { PermissionManagementNgAlainModule } from './index';
+export { PermissionManagementComponent as ɵa } from './lib/components/permission-management.component';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZnMtcGVybWlzc2lvbi1tYW5hZ2VtZW50LW5nLWFsYWluLmpzIiwic291cmNlUm9vdCI6Im5nOi8vQGZzL3Blcm1pc3Npb24tbWFuYWdlbWVudC9uZy1hbGFpbi8iLCJzb3VyY2VzIjpbImZzLXBlcm1pc3Npb24tbWFuYWdlbWVudC1uZy1hbGFpbi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7OztBQUlBLGtEQUFjLFNBQVMsQ0FBQztBQUV4QixPQUFPLEVBQUMsNkJBQTZCLElBQUksRUFBRSxFQUFDLE1BQU0sa0RBQWtELENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEdlbmVyYXRlZCBidW5kbGUgaW5kZXguIERvIG5vdCBlZGl0LlxuICovXG5cbmV4cG9ydCAqIGZyb20gJy4vaW5kZXgnO1xuXG5leHBvcnQge1Blcm1pc3Npb25NYW5hZ2VtZW50Q29tcG9uZW50IGFzIMm1YX0gZnJvbSAnLi9saWIvY29tcG9uZW50cy9wZXJtaXNzaW9uLW1hbmFnZW1lbnQuY29tcG9uZW50JzsiXX0=

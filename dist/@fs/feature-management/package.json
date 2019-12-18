@@ -1,0 +1,22 @@
+{
+  "name": "@fs/feature-management",
+  "version": "1.1.1",
+  "peerDependencies": {
+    "@abp/ng.feature-management": "^1.1.1",
+    "@fs/ng-alain": "^1.1.1",
+    "@fs/ngx-admin": "^1.1.1"
+  },
+  "main": "bundles/fs-feature-management.umd.js",
+  "module": "fesm5/fs-feature-management.js",
+  "es2015": "fesm2015/fs-feature-management.js",
+  "esm5": "esm5/fs-feature-management.js",
+  "esm2015": "esm2015/fs-feature-management.js",
+  "fesm5": "fesm5/fs-feature-management.js",
+  "fesm2015": "fesm2015/fs-feature-management.js",
+  "typings": "fs-feature-management.d.ts",
+  "metadata": "fs-feature-management.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}

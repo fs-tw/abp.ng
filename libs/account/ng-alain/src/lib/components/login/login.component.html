@@ -1,9 +1,8 @@
 <ng-alain-auth-wrapper [mainContentRef]="mainContentRef">
   <ng-template #mainContentRef>
     <form nz-form [formGroup]="form" (ngSubmit)="onSubmit()" role="form">
-      <nz-tabset [nzAnimated]="false" class="tabs" (nzSelectChange)="switch($event)">
+      <nz-tabset [nzAnimated]="false" class="tabs">
         <nz-tab [nzTitle]="'AbpAccount::Login' | abpLocalization">
-          <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
           <nz-form-item>
             <nz-form-control [nzErrorTip]="'Please enter mobile number!' | abpLocalization">
               <nz-input-group nzSize="large" nzPrefixIcon="user">

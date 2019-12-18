@@ -1,0 +1,12 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: fs-tenant-management-ng-alain.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+export { TenantManagementNgAlainModule } from './index';
+export { TenantsComponent as ɵa } from './lib/components/tenants/tenants.component';
+export { TenantManagementNgAlainRoutingModule as ɵb } from './lib/tenant-management-ng-alain-routing.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZnMtdGVuYW50LW1hbmFnZW1lbnQtbmctYWxhaW4uanMiLCJzb3VyY2VSb290Ijoibmc6Ly9AZnMvdGVuYW50LW1hbmFnZW1lbnQvbmctYWxhaW4vIiwic291cmNlcyI6WyJmcy10ZW5hbnQtbWFuYWdlbWVudC1uZy1hbGFpbi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7OztBQUlBLDhDQUFjLFNBQVMsQ0FBQztBQUV4QixPQUFPLEVBQUMsZ0JBQWdCLElBQUksRUFBRSxFQUFDLE1BQU0sNENBQTRDLENBQUM7QUFDbEYsT0FBTyxFQUFDLG9DQUFvQyxJQUFJLEVBQUUsRUFBQyxNQUFNLGlEQUFpRCxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBHZW5lcmF0ZWQgYnVuZGxlIGluZGV4LiBEbyBub3QgZWRpdC5cbiAqL1xuXG5leHBvcnQgKiBmcm9tICcuL2luZGV4JztcblxuZXhwb3J0IHtUZW5hbnRzQ29tcG9uZW50IGFzIMm1YX0gZnJvbSAnLi9saWIvY29tcG9uZW50cy90ZW5hbnRzL3RlbmFudHMuY29tcG9uZW50JztcbmV4cG9ydCB7VGVuYW50TWFuYWdlbWVudE5nQWxhaW5Sb3V0aW5nTW9kdWxlIGFzIMm1Yn0gZnJvbSAnLi9saWIvdGVuYW50LW1hbmFnZW1lbnQtbmctYWxhaW4tcm91dGluZy5tb2R1bGUnOyJdfQ==

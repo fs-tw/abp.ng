@@ -1,0 +1,11 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: fs-setting-management-config.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+export { SettingManagementConfigModule } from './index';
+export { SettingManagementConfigService as ɵa } from './lib/services/setting-management-config.service';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZnMtc2V0dGluZy1tYW5hZ2VtZW50LWNvbmZpZy5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0Bmcy9zZXR0aW5nLW1hbmFnZW1lbnQvY29uZmlnLyIsInNvdXJjZXMiOlsiZnMtc2V0dGluZy1tYW5hZ2VtZW50LWNvbmZpZy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7OztBQUlBLDhDQUFjLFNBQVMsQ0FBQztBQUV4QixPQUFPLEVBQUMsOEJBQThCLElBQUksRUFBRSxFQUFDLE1BQU0sa0RBQWtELENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEdlbmVyYXRlZCBidW5kbGUgaW5kZXguIERvIG5vdCBlZGl0LlxuICovXG5cbmV4cG9ydCAqIGZyb20gJy4vaW5kZXgnO1xuXG5leHBvcnQge1NldHRpbmdNYW5hZ2VtZW50Q29uZmlnU2VydmljZSBhcyDJtWF9IGZyb20gJy4vbGliL3NlcnZpY2VzL3NldHRpbmctbWFuYWdlbWVudC1jb25maWcuc2VydmljZSc7Il19

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { FeatureManagementComponent as AbpFeatureManagementComponent } from '@abp/ng.feature-management';
 @Component({
@@ -6,7 +6,27 @@ import { FeatureManagementComponent as AbpFeatureManagementComponent } from '@ab
   templateUrl: './feature-management.component.html'
 })
 export class FeatureManagementComponent extends AbpFeatureManagementComponent {
-    constructor(private _store: Store) {
-        super(_store);
-    }
+  @Input()
+  providerKey: string;
+
+  @Input()
+  providerName: string;
+
+  protected _visible;
+
+  @Input()
+  get visible(): boolean {
+    return this._visible;
+  }
+
+  set visible(value: boolean) {
+    this._visible = value;
+    this.visibleChange.emit(value);
+
+    if (value) this.openModal();
+  }
+    
+  constructor(private _store: Store) {
+    super(_store);
+  }
 }
