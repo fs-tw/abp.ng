@@ -1,264 +1,480 @@
 "use strict";
+// import { join, normalize } from '@angular-devkit/core';
+// import {
+//     apply,
+//     chain,
+//     externalSchematic,
+//     MergeStrategy,
+//     mergeWith,
+//     move,
+//     noop,
+//     Rule,
+//     schematic,
+//     SchematicContext,
+//     template,
+//     Tree,
+//     url
+// } from '@angular-devkit/schematics';
+// import { Schema } from './schema';
+// import * as path from 'path';
+// import * as ts from 'typescript';
 Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var core_1 = require("@angular-devkit/core");
+// import {
+//     addGlobal,
+//     addIncludeToTsConfig,
+//     addLintFiles,
+//     formatFiles,
+//     getNpmScope,
+//     getWorkspacePath,
+//     insert,
+//     Linter,
+//     NxJson,
+//     offsetFromRoot,
+//     readJsonInTree,
+//     replaceAppNameWithPath,
+//     toClassName,
+//     toFileName,
+//     toPropertyName,
+//     updateJsonInTree
+// } from '@nrwl/workspace';
+// import { addUnitTestRunner } from '@nrwl/angular/src/schematics/init/init';
+// import { addImportToModule, addRoute } from '@nrwl/angular/src/utils/ast-utils';
+// import { insertImport } from '@nrwl/workspace/src/utils/ast-utils';
+// interface NormalizedSchema extends Schema {
+//     name: string;
+//     fileName: string;
+//     projectRoot: string;
+//     entryFile: string;
+//     modulePath: string;
+//     moduleName: string;
+//     projectDirectory: string;
+//     parsedTags: string[];
+// }
+// function addLazyLoadedRouterConfiguration(options: NormalizedSchema): Rule {
+//     return (host: Tree) => {
+//         const moduleSource = host.read(options.modulePath)!.toString('utf-8');
+//         const sourceFile = ts.createSourceFile(
+//             options.modulePath,
+//             moduleSource,
+//             ts.ScriptTarget.Latest,
+//             true
+//         );
+//         insert(host, options.modulePath, [
+//             insertImport(
+//                 sourceFile,
+//                 options.modulePath,
+//                 'RouterModule',
+//                 '@angular/router'
+//             ),
+//             ...addImportToModule(
+//                 sourceFile,
+//                 options.modulePath,
+//                 `
+//         RouterModule.forChild([
+//         /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */
+//        ]) `
+//             )
+//         ]);
+//         return host;
+//     };
+// }
+// function addRouterConfiguration(options: NormalizedSchema): Rule {
+//     return (host: Tree) => {
+//         const moduleSource = host.read(options.modulePath)!.toString('utf-8');
+//         const moduleSourceFile = ts.createSourceFile(
+//             options.modulePath,
+//             moduleSource,
+//             ts.ScriptTarget.Latest,
+//             true
+//         );
+//         const constName = `${toPropertyName(options.fileName)}Routes`;
+//         insert(host, options.modulePath, [
+//             insertImport(
+//                 moduleSourceFile,
+//                 options.modulePath,
+//                 'RouterModule, Route',
+//                 '@angular/router'
+//             ),
+//             ...addImportToModule(
+//                 moduleSourceFile,
+//                 options.modulePath,
+//                 `RouterModule`
+//             ),
+//             ...addGlobal(
+//                 moduleSourceFile,
+//                 options.modulePath,
+//                 `export const ${constName}: Route[] = [];`
+//             )
+//         ]);
+//         return host;
+//     };
+// }
+// function addLoadChildren(options: NormalizedSchema): Rule {
+//     return (host: Tree) => {
+//         const npmScope = getNpmScope(host);
+//         if (!host.exists(options.parentModule)) {
+//             throw new Error(`Cannot find '${options.parentModule}'`);
+//         }
+//         const moduleSource = host.read(options.parentModule)!.toString('utf-8');
+//         const sourceFile = ts.createSourceFile(
+//             options.parentModule,
+//             moduleSource,
+//             ts.ScriptTarget.Latest,
+//             true
+//         );
+//         insert(host, options.parentModule, [
+//             ...addRoute(
+//                 options.parentModule,
+//                 sourceFile,
+//                 `{path: '${toFileName(
+//                     options.fileName
+//                 )}', loadChildren: () => import('@${npmScope}/${
+//                 options.projectDirectory
+//                 }').then(module => module.${options.moduleName})}`
+//             )
+//         ]);
+//         const tsConfig = findClosestTsConfigApp(host, options.parentModule);
+//         if (tsConfig) {
+//             const tsConfigAppSource = host.read(tsConfig)!.toString('utf-8');
+//             const tsConfigAppFile = ts.createSourceFile(
+//                 tsConfig,
+//                 tsConfigAppSource,
+//                 ts.ScriptTarget.Latest,
+//                 true
+//             );
+//             const offset = offsetFromRoot(path.dirname(tsConfig));
+//             insert(host, tsConfig, [
+//                 ...addIncludeToTsConfig(
+//                     tsConfig,
+//                     tsConfigAppFile,
+//                     `\n    , "${offset}${options.projectRoot}/src/index.ts"\n`
+//                 )
+//             ]);
+//         } else {
+//             // we should warn the user about not finding the config
+//         }
+//         return host;
+//     };
+// }
+// function findClosestTsConfigApp(
+//     host: Tree,
+//     parentModule: string
+// ): string | null {
+//     const dir = path.parse(parentModule).dir;
+//     if (host.exists(`${dir}/tsconfig.app.json`)) {
+//         return `${dir}/tsconfig.app.json`;
+//     } else if (dir != '') {
+//         return findClosestTsConfigApp(host, dir);
+//     } else {
+//         return null;
+//     }
+// }
+// function addChildren(options: NormalizedSchema): Rule {
+//     return (host: Tree) => {
+//         const npmScope = getNpmScope(host);
+//         if (!host.exists(options.parentModule)) {
+//             throw new Error(`Cannot find '${options.parentModule}'`);
+//         }
+//         const moduleSource = host.read(options.parentModule)!.toString('utf-8');
+//         const sourceFile = ts.createSourceFile(
+//             options.parentModule,
+//             moduleSource,
+//             ts.ScriptTarget.Latest,
+//             true
+//         );
+//         const constName = `${toPropertyName(options.fileName)}Routes`;
+//         const importPath = `@${npmScope}/${options.projectDirectory}`;
+//         insert(host, options.parentModule, [
+//             insertImport(
+//                 sourceFile,
+//                 options.parentModule,
+//                 `${options.moduleName}, ${constName}`,
+//                 importPath
+//             ),
+//             ...addImportToModule(
+//                 sourceFile,
+//                 options.parentModule,
+//                 options.moduleName
+//             ),
+//             ...addRoute(
+//                 options.parentModule,
+//                 sourceFile,
+//                 `{path: '${toFileName(options.fileName)}', children: ${constName}}`
+//             )
+//         ]);
+//         return host;
+//     };
+// }
+// function updateNgPackage(options: NormalizedSchema): Rule {
+//     if (!options.publishable) {
+//         return noop();
+//     }
+//     const dest = `${offsetFromRoot(options.projectRoot)}dist/themes/${
+//         options.projectDirectory
+//         }`;
+//     return chain([
+//         updateJsonInTree(`${options.projectRoot}/ng-package.json`, json => {
+//             let $schema = json.$schema;
+//             if (json.$schema && json.$schema.indexOf('node_modules') >= 0) {
+//                 $schema = `${offsetFromRoot(
+//                     options.projectRoot
+//                 )}${json.$schema.substring(
+//                     json.$schema.indexOf('node_modules'),
+//                     json.$schema.length
+//                 )}`;
+//             }
+//             return {
+//                 ...json,
+//                 dest,
+//                 $schema
+//             };
+//         })
+//     ]);
+// }
+// function updateProject(options: NormalizedSchema): Rule {
+//     return (host: Tree, context: SchematicContext) => {
+//         const libRoot = `${options.projectRoot}/src/lib/`;
+//         host.delete(path.join(libRoot, `${options.name}.service.ts`));
+//         host.delete(path.join(libRoot, `${options.name}.service.spec.ts`));
+//         host.delete(path.join(libRoot, `${options.name}.component.ts`));
+//         host.delete(path.join(libRoot, `${options.name}.component.spec.ts`));
+//         if (!options.publishable) {
+//             host.delete(path.join(options.projectRoot, 'ng-package.json'));
+//             host.delete(path.join(options.projectRoot, 'package.json'));
+//         }
+//         host.delete(path.join(options.projectRoot, 'karma.conf.js'));
+//         host.delete(path.join(options.projectRoot, 'src/test.ts'));
+//         host.delete(path.join(options.projectRoot, 'tsconfig.spec.json'));
+//         host.delete(path.join(libRoot, `${options.name}.module.ts`));
+//         host.create(
+//             path.join(libRoot, `${options.fileName}.module.ts`),
+//             `
+//         import { NgModule } from '@angular/core';
+//         import { CommonModule } from '@angular/common';
+//         @NgModule({
+//           imports: [
+//             CommonModule
+//           ]
+//         })
+//         export class ${options.moduleName} { }
+//         `
+//         );
+//         if (options.unitTestRunner !== 'none') {
+//             host.create(
+//                 path.join(libRoot, `${options.fileName}.module.spec.ts`),
+//                 `
+//     import { async, TestBed } from '@angular/core/testing';
+//     import { ${options.moduleName} } from './${options.fileName}.module';
+//     describe('${options.moduleName}', () => {
+//       beforeEach(async(() => {
+//         TestBed.configureTestingModule({
+//           imports: [ ${options.moduleName} ]
+//         })
+//         .compileComponents();
+//       }));
+//       it('should create', () => {
+//         expect(${options.moduleName}).toBeDefined();
+//       });
+//     });
+//           `
+//             );
+//         }
+//         host.overwrite(
+//             `${options.projectRoot}/src/index.ts`,
+//             `
+//         export * from './lib/${options.fileName}.module';
+//         `
+//         );
+//         return chain([
+//             mergeWith(
+//                 apply(url('./files/lib'), [
+//                     template({
+//                         ...options,
+//                         offsetFromRoot: offsetFromRoot(options.projectRoot)
+//                     }),
+//                     move(options.projectRoot)
+//                 ]),
+//                 MergeStrategy.Overwrite
+//             ),
+//             updateJsonInTree(getWorkspacePath(host), json => {
+//                 const project = json.projects[options.name];
+//                 const fixedProject = replaceAppNameWithPath(
+//                     project,
+//                     options.name,
+//                     options.projectRoot
+//                 );
+//                 fixedProject.schematics = fixedProject.schematics || {};
+//                 if (options.style !== 'css') {
+//                     fixedProject.schematics = {
+//                         ...fixedProject.schematics,
+//                         '@nrwl/angular:component': {
+//                             styleext: options.style
+//                         }
+//                     };
+//                 }
+//                 if (!options.publishable) {
+//                     delete fixedProject.architect.build;
+//                 }
+//                 delete fixedProject.architect.test;
+//                 fixedProject.architect.lint.options.tsConfig = fixedProject.architect.lint.options.tsConfig.filter(
+//                     path =>
+//                         path !== join(normalize(options.projectRoot), 'tsconfig.spec.json')
+//                 );
+//                 fixedProject.architect.lint.options.exclude.push(
+//                     '!' + join(normalize(options.projectRoot), '**')
+//                 );
+//                 json.projects[options.name] = fixedProject;
+//                 return json;
+//             }),
+//             updateJsonInTree(`${options.projectRoot}/tsconfig.lib.json`, json => {
+//                 if (options.unitTestRunner === 'jest') {
+//                     json.exclude = ['src/test-setup.ts', '**/*.spec.ts'];
+//                 } else if (options.unitTestRunner === 'none') {
+//                     json.exclude = [];
+//                 } else {
+//                     json.exclude = json.exclude || [];
+//                 }
+//                 return {
+//                     ...json,
+//                     extends: `./tsconfig.json`,
+//                     compilerOptions: {
+//                         ...json.compilerOptions,
+//                         outDir: `${offsetFromRoot(options.projectRoot)}dist/out-tsc`
+//                     }
+//                 };
+//             }),
+//             updateJsonInTree(`${options.projectRoot}/tslint.json`, json => {
+//                 return {
+//                     ...json,
+//                     extends: `${offsetFromRoot(options.projectRoot)}tslint.json`
+//                 };
+//             }),
+//             updateJsonInTree(`/nx.json`, json => {
+//                 return {
+//                     ...json,
+//                     projects: {
+//                         ...json.projects,
+//                         [options.name]: { tags: options.parsedTags }
+//                     }
+//                 };
+//             }),
+//             updateNgPackage(options)
+//         ])(host, context);
+//     };
+// }
+// function updateTsConfig(options: NormalizedSchema): Rule {
+//     return chain([
+//         (host: Tree, context: SchematicContext) => {
+//             const nxJson = readJsonInTree<NxJson>(host, 'nx.json');
+//             return updateJsonInTree('tsconfig.json', json => {
+//                 const c = json.compilerOptions;
+//                 delete c.paths[options.name];
+//                 c.paths[`@${nxJson.npmScope}/${options.projectDirectory}`] = [
+//                     `themes/${options.projectDirectory}/src/index.ts`
+//                 ];
+//                 return json;
+//             })(host, context);
+//         }
+//     ]);
+// }
+// function updateLibPackageNpmScope(options: NormalizedSchema): Rule {
+//     return (host: Tree) => {
+//         return updateJsonInTree(`${options.projectRoot}/package.json`, json => {
+//             json.name = `@${getNpmScope(host)}/${options.name}`;
+//             return json;
+//         });
+//     };
+// }
+// function addModule(options: NormalizedSchema): Rule {
+//     return chain([
+//         options.routing && options.lazy
+//             ? addLazyLoadedRouterConfiguration(options)
+//             : noop(),
+//         options.routing && options.lazy && options.parentModule
+//             ? addLoadChildren(options)
+//             : noop(),
+//         options.routing && !options.lazy ? addRouterConfiguration(options) : noop(),
+//         options.routing && !options.lazy && options.parentModule
+//             ? addChildren(options)
+//             : noop()
+//     ]);
+// }
+// export default function (schema: Schema): Rule {
+//     return (host: Tree, context: SchematicContext) => {
+//         const options = normalizeOptions(host, schema);
+//         if (!options.routing && options.lazy) {
+//             throw new Error(`routing must be set`);
+//         }
+//         return chain([
+//             addLintFiles(options.projectRoot, Linter.TsLint, { onlyGlobal: true }),
+//             addUnitTestRunner(options),
+//             externalSchematic('@schematics/angular', 'library', {
+//                 name: options.name,
+//                 prefix: options.prefix,
+//                 style: options.style,
+//                 entryFile: 'index',
+//                 skipPackageJson: !options.publishable,
+//                 skipTsConfig: true
+//             }),
+//             move(options.name, options.projectRoot),
+//             updateProject(options),
+//             updateTsConfig(options),
+//             options.unitTestRunner === 'jest'
+//                 ? externalSchematic('@nrwl/jest', 'jest-project', {
+//                     project: options.name,
+//                     setupFile: 'angular',
+//                     supportTsx: false,
+//                     skipSerializers: false
+//                 })
+//                 : noop(),
+//             options.unitTestRunner === 'karma'
+//                 ? schematic('karma-project', {
+//                     project: options.name
+//                 })
+//                 : noop(),
+//             options.publishable ? updateLibPackageNpmScope(options) : noop(),
+//             addModule(options),
+//             formatFiles(options)
+//         ])(host, context);
+//     };
+// }
+// function normalizeOptions(host: Tree, options: Schema): NormalizedSchema {
+//     const name = toFileName(options.name);
+//     const projectDirectory = options.directory
+//         ? `${toFileName(options.directory)}/${name}`
+//         : name;
+//     const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
+//     const fileName = options.simpleModuleName ? name : projectName;
+//     const projectRoot = `themes/${projectDirectory}`;
+//     const moduleName = `${toClassName(fileName)}Module`;
+//     const parsedTags = options.tags
+//         ? options.tags.split(',').map(s => s.trim())
+//         : [];
+//     const modulePath = `${projectRoot}/src/lib/${fileName}.module.ts`;
+//     const defaultPrefix = getNpmScope(host);
+//     return {
+//         ...options,
+//         prefix: options.prefix ? options.prefix : defaultPrefix,
+//         name: projectName,
+//         projectRoot,
+//         entryFile: 'index',
+//         moduleName,
+//         projectDirectory,
+//         modulePath,
+//         parsedTags,
+//         fileName
+//     };
+// }
+//todo
 var schematics_1 = require("@angular-devkit/schematics");
-var path = require("path");
-var ts = require("typescript");
-var workspace_1 = require("@nrwl/workspace");
-var init_1 = require("@nrwl/angular/src/schematics/init/init");
-var ast_utils_1 = require("@nrwl/angular/src/utils/ast-utils");
-var ast_utils_2 = require("@nrwl/workspace/src/utils/ast-utils");
-function addLazyLoadedRouterConfiguration(options) {
-    return function (host) {
-        var moduleSource = host.read(options.modulePath).toString('utf-8');
-        var sourceFile = ts.createSourceFile(options.modulePath, moduleSource, ts.ScriptTarget.Latest, true);
-        workspace_1.insert(host, options.modulePath, [
-            ast_utils_2.insertImport(sourceFile, options.modulePath, 'RouterModule', '@angular/router')
-        ].concat(ast_utils_1.addImportToModule(sourceFile, options.modulePath, "\n        RouterModule.forChild([\n        /* {path: '', pathMatch: 'full', component: InsertYourComponentHere} */\n       ]) ")));
-        return host;
-    };
-}
-function addRouterConfiguration(options) {
-    return function (host) {
-        var moduleSource = host.read(options.modulePath).toString('utf-8');
-        var moduleSourceFile = ts.createSourceFile(options.modulePath, moduleSource, ts.ScriptTarget.Latest, true);
-        var constName = workspace_1.toPropertyName(options.fileName) + "Routes";
-        workspace_1.insert(host, options.modulePath, [
-            ast_utils_2.insertImport(moduleSourceFile, options.modulePath, 'RouterModule, Route', '@angular/router')
-        ].concat(ast_utils_1.addImportToModule(moduleSourceFile, options.modulePath, "RouterModule"), workspace_1.addGlobal(moduleSourceFile, options.modulePath, "export const " + constName + ": Route[] = [];")));
-        return host;
-    };
-}
-function addLoadChildren(options) {
-    return function (host) {
-        var npmScope = workspace_1.getNpmScope(host);
-        if (!host.exists(options.parentModule)) {
-            throw new Error("Cannot find '" + options.parentModule + "'");
-        }
-        var moduleSource = host.read(options.parentModule).toString('utf-8');
-        var sourceFile = ts.createSourceFile(options.parentModule, moduleSource, ts.ScriptTarget.Latest, true);
-        workspace_1.insert(host, options.parentModule, ast_utils_1.addRoute(options.parentModule, sourceFile, "{path: '" + workspace_1.toFileName(options.fileName) + "', loadChildren: () => import('@" + npmScope + "/" + options.projectDirectory + "').then(module => module." + options.moduleName + ")}").slice());
-        var tsConfig = findClosestTsConfigApp(host, options.parentModule);
-        if (tsConfig) {
-            var tsConfigAppSource = host.read(tsConfig).toString('utf-8');
-            var tsConfigAppFile = ts.createSourceFile(tsConfig, tsConfigAppSource, ts.ScriptTarget.Latest, true);
-            var offset = workspace_1.offsetFromRoot(path.dirname(tsConfig));
-            workspace_1.insert(host, tsConfig, workspace_1.addIncludeToTsConfig(tsConfig, tsConfigAppFile, "\n    , \"" + offset + options.projectRoot + "/src/index.ts\"\n").slice());
-        }
-        else {
-            // we should warn the user about not finding the config
-        }
-        return host;
-    };
-}
-function findClosestTsConfigApp(host, parentModule) {
-    var dir = path.parse(parentModule).dir;
-    if (host.exists(dir + "/tsconfig.app.json")) {
-        return dir + "/tsconfig.app.json";
-    }
-    else if (dir != '') {
-        return findClosestTsConfigApp(host, dir);
-    }
-    else {
-        return null;
-    }
-}
-function addChildren(options) {
-    return function (host) {
-        var npmScope = workspace_1.getNpmScope(host);
-        if (!host.exists(options.parentModule)) {
-            throw new Error("Cannot find '" + options.parentModule + "'");
-        }
-        var moduleSource = host.read(options.parentModule).toString('utf-8');
-        var sourceFile = ts.createSourceFile(options.parentModule, moduleSource, ts.ScriptTarget.Latest, true);
-        var constName = workspace_1.toPropertyName(options.fileName) + "Routes";
-        var importPath = "@" + npmScope + "/" + options.projectDirectory;
-        workspace_1.insert(host, options.parentModule, [
-            ast_utils_2.insertImport(sourceFile, options.parentModule, options.moduleName + ", " + constName, importPath)
-        ].concat(ast_utils_1.addImportToModule(sourceFile, options.parentModule, options.moduleName), ast_utils_1.addRoute(options.parentModule, sourceFile, "{path: '" + workspace_1.toFileName(options.fileName) + "', children: " + constName + "}")));
-        return host;
-    };
-}
-function updateNgPackage(options) {
-    if (!options.publishable) {
-        return schematics_1.noop();
-    }
-    var dest = workspace_1.offsetFromRoot(options.projectRoot) + "dist/themes/" + options.projectDirectory;
+function default_1(schema) {
     return schematics_1.chain([
-        workspace_1.updateJsonInTree(options.projectRoot + "/ng-package.json", function (json) {
-            var $schema = json.$schema;
-            if (json.$schema && json.$schema.indexOf('node_modules') >= 0) {
-                $schema = "" + workspace_1.offsetFromRoot(options.projectRoot) + json.$schema.substring(json.$schema.indexOf('node_modules'), json.$schema.length);
-            }
-            return tslib_1.__assign({}, json, { dest: dest,
-                $schema: $schema });
+        schematics_1.externalSchematic('@nrwl/angular', 'app', {
+            name: schema.name,
+            e2eTestRunner: 'none',
+            routing: true
         })
     ]);
 }
-function updateProject(options) {
-    return function (host, context) {
-        var libRoot = options.projectRoot + "/src/lib/";
-        host.delete(path.join(libRoot, options.name + ".service.ts"));
-        host.delete(path.join(libRoot, options.name + ".service.spec.ts"));
-        host.delete(path.join(libRoot, options.name + ".component.ts"));
-        host.delete(path.join(libRoot, options.name + ".component.spec.ts"));
-        if (!options.publishable) {
-            host.delete(path.join(options.projectRoot, 'ng-package.json'));
-            host.delete(path.join(options.projectRoot, 'package.json'));
-        }
-        host.delete(path.join(options.projectRoot, 'karma.conf.js'));
-        host.delete(path.join(options.projectRoot, 'src/test.ts'));
-        host.delete(path.join(options.projectRoot, 'tsconfig.spec.json'));
-        host.delete(path.join(libRoot, options.name + ".module.ts"));
-        host.create(path.join(libRoot, options.fileName + ".module.ts"), "\n        import { NgModule } from '@angular/core';\n        import { CommonModule } from '@angular/common';\n        \n        @NgModule({\n          imports: [\n            CommonModule\n          ]\n        })\n        export class " + options.moduleName + " { }\n        ");
-        if (options.unitTestRunner !== 'none') {
-            host.create(path.join(libRoot, options.fileName + ".module.spec.ts"), "\n    import { async, TestBed } from '@angular/core/testing';\n    import { " + options.moduleName + " } from './" + options.fileName + ".module';\n    \n    describe('" + options.moduleName + "', () => {\n      beforeEach(async(() => {\n        TestBed.configureTestingModule({\n          imports: [ " + options.moduleName + " ]\n        })\n        .compileComponents();\n      }));\n    \n      it('should create', () => {\n        expect(" + options.moduleName + ").toBeDefined();\n      });\n    });\n          ");
-        }
-        host.overwrite(options.projectRoot + "/src/index.ts", "\n        export * from './lib/" + options.fileName + ".module';\n        ");
-        return schematics_1.chain([
-            schematics_1.mergeWith(schematics_1.apply(schematics_1.url('./files/lib'), [
-                schematics_1.template(tslib_1.__assign({}, options, { offsetFromRoot: workspace_1.offsetFromRoot(options.projectRoot) })),
-                schematics_1.move(options.projectRoot)
-            ]), schematics_1.MergeStrategy.Overwrite),
-            workspace_1.updateJsonInTree(workspace_1.getWorkspacePath(host), function (json) {
-                var project = json.projects[options.name];
-                var fixedProject = workspace_1.replaceAppNameWithPath(project, options.name, options.projectRoot);
-                fixedProject.schematics = fixedProject.schematics || {};
-                if (options.style !== 'css') {
-                    fixedProject.schematics = tslib_1.__assign({}, fixedProject.schematics, { '@nrwl/angular:component': {
-                            styleext: options.style
-                        } });
-                }
-                if (!options.publishable) {
-                    delete fixedProject.architect.build;
-                }
-                delete fixedProject.architect.test;
-                fixedProject.architect.lint.options.tsConfig = fixedProject.architect.lint.options.tsConfig.filter(function (path) {
-                    return path !== core_1.join(core_1.normalize(options.projectRoot), 'tsconfig.spec.json');
-                });
-                fixedProject.architect.lint.options.exclude.push('!' + core_1.join(core_1.normalize(options.projectRoot), '**'));
-                json.projects[options.name] = fixedProject;
-                return json;
-            }),
-            workspace_1.updateJsonInTree(options.projectRoot + "/tsconfig.lib.json", function (json) {
-                if (options.unitTestRunner === 'jest') {
-                    json.exclude = ['src/test-setup.ts', '**/*.spec.ts'];
-                }
-                else if (options.unitTestRunner === 'none') {
-                    json.exclude = [];
-                }
-                else {
-                    json.exclude = json.exclude || [];
-                }
-                return tslib_1.__assign({}, json, { extends: "./tsconfig.json", compilerOptions: tslib_1.__assign({}, json.compilerOptions, { outDir: workspace_1.offsetFromRoot(options.projectRoot) + "dist/out-tsc" }) });
-            }),
-            workspace_1.updateJsonInTree(options.projectRoot + "/tslint.json", function (json) {
-                return tslib_1.__assign({}, json, { extends: workspace_1.offsetFromRoot(options.projectRoot) + "tslint.json" });
-            }),
-            workspace_1.updateJsonInTree("/nx.json", function (json) {
-                var _a;
-                return tslib_1.__assign({}, json, { projects: tslib_1.__assign({}, json.projects, (_a = {}, _a[options.name] = { tags: options.parsedTags }, _a)) });
-            }),
-            updateNgPackage(options)
-        ])(host, context);
-    };
-}
-function updateTsConfig(options) {
-    return schematics_1.chain([
-        function (host, context) {
-            var nxJson = workspace_1.readJsonInTree(host, 'nx.json');
-            return workspace_1.updateJsonInTree('tsconfig.json', function (json) {
-                var c = json.compilerOptions;
-                delete c.paths[options.name];
-                c.paths["@" + nxJson.npmScope + "/" + options.projectDirectory] = [
-                    "themes/" + options.projectDirectory + "/src/index.ts"
-                ];
-                return json;
-            })(host, context);
-        }
-    ]);
-}
-function updateLibPackageNpmScope(options) {
-    return function (host) {
-        return workspace_1.updateJsonInTree(options.projectRoot + "/package.json", function (json) {
-            json.name = "@" + workspace_1.getNpmScope(host) + "/" + options.name;
-            return json;
-        });
-    };
-}
-function addModule(options) {
-    return schematics_1.chain([
-        options.routing && options.lazy
-            ? addLazyLoadedRouterConfiguration(options)
-            : schematics_1.noop(),
-        options.routing && options.lazy && options.parentModule
-            ? addLoadChildren(options)
-            : schematics_1.noop(),
-        options.routing && !options.lazy ? addRouterConfiguration(options) : schematics_1.noop(),
-        options.routing && !options.lazy && options.parentModule
-            ? addChildren(options)
-            : schematics_1.noop()
-    ]);
-}
-function default_1(schema) {
-    return function (host, context) {
-        var options = normalizeOptions(host, schema);
-        if (!options.routing && options.lazy) {
-            throw new Error("routing must be set");
-        }
-        return schematics_1.chain([
-            workspace_1.addLintFiles(options.projectRoot, "tslint" /* TsLint */, { onlyGlobal: true }),
-            init_1.addUnitTestRunner(options),
-            schematics_1.externalSchematic('@schematics/angular', 'library', {
-                name: options.name,
-                prefix: options.prefix,
-                style: options.style,
-                entryFile: 'index',
-                skipPackageJson: !options.publishable,
-                skipTsConfig: true
-            }),
-            schematics_1.move(options.name, options.projectRoot),
-            updateProject(options),
-            updateTsConfig(options),
-            options.unitTestRunner === 'jest'
-                ? schematics_1.externalSchematic('@nrwl/jest', 'jest-project', {
-                    project: options.name,
-                    setupFile: 'angular',
-                    supportTsx: false,
-                    skipSerializers: false
-                })
-                : schematics_1.noop(),
-            options.unitTestRunner === 'karma'
-                ? schematics_1.schematic('karma-project', {
-                    project: options.name
-                })
-                : schematics_1.noop(),
-            options.publishable ? updateLibPackageNpmScope(options) : schematics_1.noop(),
-            addModule(options),
-            workspace_1.formatFiles(options)
-        ])(host, context);
-    };
-}
 exports.default = default_1;
-function normalizeOptions(host, options) {
-    var name = workspace_1.toFileName(options.name);
-    var projectDirectory = options.directory
-        ? workspace_1.toFileName(options.directory) + "/" + name
-        : name;
-    var projectName = projectDirectory.replace(new RegExp('/', 'g'), '-');
-    var fileName = options.simpleModuleName ? name : projectName;
-    var projectRoot = "themes/" + projectDirectory;
-    var moduleName = workspace_1.toClassName(fileName) + "Module";
-    var parsedTags = options.tags
-        ? options.tags.split(',').map(function (s) { return s.trim(); })
-        : [];
-    var modulePath = projectRoot + "/src/lib/" + fileName + ".module.ts";
-    var defaultPrefix = workspace_1.getNpmScope(host);
-    return tslib_1.__assign({}, options, { prefix: options.prefix ? options.prefix : defaultPrefix, name: projectName, projectRoot: projectRoot, entryFile: 'index', moduleName: moduleName,
-        projectDirectory: projectDirectory,
-        modulePath: modulePath,
-        parsedTags: parsedTags,
-        fileName: fileName });
-}
 //# sourceMappingURL=index.js.map

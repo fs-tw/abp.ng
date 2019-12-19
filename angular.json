@@ -21,10 +21,7 @@
               "themes/ng-alain/tsconfig.lib.json",
               "themes/ng-alain/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!themes/ng-alain/**"
-            ]
+            "exclude": ["**/node_modules/**", "!themes/ng-alain/**"]
           }
         },
         "test": {
@@ -58,10 +55,7 @@
               "themes/ngx-admin/tsconfig.lib.json",
               "themes/ngx-admin/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!themes/ngx-admin/**"
-            ]
+            "exclude": ["**/node_modules/**", "!themes/ngx-admin/**"]
           }
         },
         "test": {
@@ -204,9 +198,7 @@
               "apps/dev-app/tsconfig.app.json",
               "apps/dev-app/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -311,10 +303,7 @@
               "apps/ng-alain-app/tsconfig.app.json",
               "apps/ng-alain-app/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ng-alain-app/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/ng-alain-app/**"]
           }
         },
         "test": {
@@ -443,10 +432,7 @@
               "apps/ngx-admin-app/tsconfig.app.json",
               "apps/ngx-admin-app/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ngx-admin-app/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/ngx-admin-app/**"]
           }
         },
         "test": {
@@ -485,9 +471,7 @@
               "packages/core/tsconfig.lib.json",
               "packages/core/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -518,9 +502,7 @@
               "packages/theme-shared/tsconfig.lib.json",
               "packages/theme-shared/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -553,9 +535,7 @@
               "packages/theme-basic/tsconfig.lib.json",
               "packages/theme-basic/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -588,9 +568,7 @@
               "packages/account/tsconfig.lib.json",
               "packages/account/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -623,9 +601,7 @@
               "packages/permission-management/tsconfig.lib.json",
               "packages/permission-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -658,9 +634,7 @@
               "packages/identity/tsconfig.lib.json",
               "packages/identity/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -693,9 +667,7 @@
               "packages/feature-management/tsconfig.lib.json",
               "packages/feature-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -728,9 +700,7 @@
               "packages/tenant-management/tsconfig.lib.json",
               "packages/tenant-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -763,9 +733,7 @@
               "packages/setting-management/tsconfig.lib.json",
               "packages/setting-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -798,9 +766,7 @@
               "packages/setting-management-config/tsconfig.lib.json",
               "packages/setting-management-config/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -833,9 +799,7 @@
               "packages/identity-config/tsconfig.lib.json",
               "packages/identity-config/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -868,9 +832,7 @@
               "packages/account-config/tsconfig.lib.json",
               "packages/account-config/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -903,9 +865,7 @@
               "packages/tenant-management-config/tsconfig.lib.json",
               "packages/tenant-management-config/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -930,10 +890,7 @@
               "libs/account/tsconfig.lib.json",
               "libs/account/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/account/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/account/**"]
           }
         },
         "test": {
@@ -967,10 +924,7 @@
               "libs/permission-management/tsconfig.lib.json",
               "libs/permission-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/permission-management/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/permission-management/**"]
           }
         },
         "test": {
@@ -1004,10 +958,7 @@
               "libs/identity/tsconfig.lib.json",
               "libs/identity/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/identity/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/identity/**"]
           }
         },
         "test": {
@@ -1041,10 +992,7 @@
               "libs/feature-management/tsconfig.lib.json",
               "libs/feature-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/feature-management/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/feature-management/**"]
           }
         },
         "test": {
@@ -1078,10 +1026,7 @@
               "libs/setting-management/tsconfig.lib.json",
               "libs/setting-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/setting-management/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/setting-management/**"]
           }
         },
         "test": {
@@ -1115,10 +1060,7 @@
               "libs/tenant-management/tsconfig.lib.json",
               "libs/tenant-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/tenant-management/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/tenant-management/**"]
           }
         },
         "test": {
@@ -1152,10 +1094,7 @@
               "libs/cms/tsconfig.lib.json",
               "libs/cms/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/cms/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/cms/**"]
           }
         },
         "test": {
@@ -1189,10 +1128,7 @@
               "libs/common/tsconfig.lib.json",
               "libs/common/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/common/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/common/**"]
           }
         },
         "test": {
@@ -1226,10 +1162,7 @@
               "libs/dynform/tsconfig.lib.json",
               "libs/dynform/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/dynform/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/dynform/**"]
           }
         },
         "test": {
@@ -1263,10 +1196,7 @@
               "themes/ng-alain-ms/tsconfig.lib.json",
               "themes/ng-alain-ms/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!themes/ng-alain-ms/**"
-            ]
+            "exclude": ["**/node_modules/**", "!themes/ng-alain-ms/**"]
           }
         },
         "test": {
@@ -1380,10 +1310,7 @@
               "apps/ng-alain-ms-app/tsconfig.app.json",
               "apps/ng-alain-ms-app/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ng-alain-ms-app/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/ng-alain-ms-app/**"]
           }
         },
         "test": {
@@ -1416,10 +1343,7 @@
               "themes/dev/tsconfig.lib.json",
               "themes/dev/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!themes/dev/**"
-            ]
+            "exclude": ["**/node_modules/**", "!themes/dev/**"]
           }
         },
         "test": {

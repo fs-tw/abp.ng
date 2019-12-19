@@ -40,7 +40,7 @@
     "@fs/dev": "file:themes/dev",
     "@fs/ng-alain": "file:themes/ng-alain",
     "@fs/ngx-admin": "file:themes/ngx-admin",
-    "@nrwl/angular": "^8.7.0",
+    "@nrwl/angular": "^8.9.0",
     "core-js": "^2.5.4",
     "rxjs": "6.5.2",
     "tslib": "^1.10.0",
