@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { NzMessageService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { RegisterComponent as AbpRegisterComponent } from '@abp/ng.account';
-import { AccountService } from '@abp/ng.account/services/account.service';
+import { AccountService } from '@abp/ng.account';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Store } from '@ngxs/store';
 import { ToasterService } from '@abp/ng.theme.shared';

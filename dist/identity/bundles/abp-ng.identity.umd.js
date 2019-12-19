@@ -1625,6 +1625,12 @@
 
     /**
      * @fileoverview added by tsickle
+     * Generated from: lib/components/index.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
      * Generated from: lib/constants/routes.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
@@ -1776,8 +1782,8 @@
     exports.RolesComponent = RolesComponent;
     exports.UpdateRole = UpdateRole;
     exports.UpdateUser = UpdateUser;
-    exports.ɵb = UsersComponent;
-    exports.ɵc = IdentityRoutingModule;
+    exports.UsersComponent = UsersComponent;
+    exports.ɵb = IdentityRoutingModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

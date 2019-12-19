@@ -1,5 +1,5 @@
-import { TenantBoxComponent as AbpTenantBoxComponent } from '@abp/ng.account/components/tenant-box/tenant-box.component';
-import { AccountService } from '@abp/ng.account/services/account.service';
+import { TenantBoxComponent as AbpTenantBoxComponent } from '@abp/ng.account';
+import { AccountService } from '@abp/ng.account';
 import { ToasterService } from '@abp/ng.theme.shared';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';

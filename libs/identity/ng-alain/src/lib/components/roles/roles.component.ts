@@ -1,4 +1,4 @@
-import { RolesComponent as AbpRolesComponent } from '@abp/ng.identity/components/roles/roles.component';
+import { RolesComponent as AbpRolesComponent } from '@abp/ng.identity';
 import { ConfirmationService } from '@abp/ng.theme.shared';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';

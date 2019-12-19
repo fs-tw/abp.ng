@@ -1206,11 +1206,13 @@
     exports.ACCOUNT_ROUTES = ACCOUNT_ROUTES;
     exports.AccountModule = AccountModule;
     exports.AccountProviders = AccountProviders;
+    exports.AccountService = AccountService;
     exports.ChangePasswordComponent = ChangePasswordComponent;
     exports.LoginComponent = LoginComponent;
     exports.ManageProfileComponent = ManageProfileComponent;
     exports.PersonalSettingsComponent = PersonalSettingsComponent;
     exports.RegisterComponent = RegisterComponent;
+    exports.TenantBoxComponent = TenantBoxComponent;
     exports.optionsFactory = optionsFactory;
     exports.ɵa = AuthWrapperComponent;
     exports.ɵb = LoginComponent;

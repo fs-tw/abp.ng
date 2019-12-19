@@ -984,6 +984,12 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/index.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -994,5 +1000,5 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { ACCOUNT_OPTIONS, ACCOUNT_ROUTES, AccountModule, AccountProviders, ChangePasswordComponent, LoginComponent, ManageProfileComponent, PersonalSettingsComponent, RegisterComponent, optionsFactory, AuthWrapperComponent as ɵa, LoginComponent as ɵb, RegisterComponent as ɵd, AccountService as ɵe, TenantBoxComponent as ɵf, ChangePasswordComponent as ɵg, ManageProfileComponent as ɵh, PersonalSettingsComponent as ɵi, AccountRoutingModule as ɵj, optionsFactory as ɵk, ACCOUNT_OPTIONS as ɵl };
+export { ACCOUNT_OPTIONS, ACCOUNT_ROUTES, AccountModule, AccountProviders, AccountService, ChangePasswordComponent, LoginComponent, ManageProfileComponent, PersonalSettingsComponent, RegisterComponent, TenantBoxComponent, optionsFactory, AuthWrapperComponent as ɵa, LoginComponent as ɵb, RegisterComponent as ɵd, AccountService as ɵe, TenantBoxComponent as ɵf, ChangePasswordComponent as ɵg, ManageProfileComponent as ɵh, PersonalSettingsComponent as ɵi, AccountRoutingModule as ɵj, optionsFactory as ɵk, ACCOUNT_OPTIONS as ɵl };
 //# sourceMappingURL=abp-ng.account.js.map

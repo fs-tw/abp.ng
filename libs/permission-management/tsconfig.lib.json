@@ -10,10 +10,11 @@
     "paths": {
       "@abp/ng.permission-management": [ "dist/permission-management" ],
       "@abp/ng.permission-management/*": [ "dist/permission-management/lib/*" ],
-      "@fs/ng-alain": [ "dist/@fs/ng-alain" ],
-      "@fs/ng-alain/*": [ "dist/@fs/ng-alain/*" ],
-      "@fs/ngx-admin": [ "dist/@fs/ngx-admin" ],
-      "@fs/ngx-admin/*": [ "dist/@fs/ngx-admin/*" ]
+
+      "@fs/ng-alain": [ "themes/ng-alain/dist" ],
+      "@fs/ng-alain/*": [ "themes/ng-alain/dist/*" ],
+      "@fs/ngx-admin": [ "themes/ngx-admin/dist" ],
+      "@fs/ngx-admin/*": [ "themes/ngx-admin/dist/*" ]
     }       
   },
   "angularCompilerOptions": {

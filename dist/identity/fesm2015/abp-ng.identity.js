@@ -1226,6 +1226,12 @@ function IdentityProviders() {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/components/index.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/constants/routes.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -1372,5 +1378,5 @@ var Identity;
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { CreateRole, CreateUser, DeleteRole, DeleteUser, GetRoleById, GetRoles, GetUserById, GetUserRoles, GetUsers, IDENTITY_ROUTES, IdentityModule, IdentityProviders, IdentityService, IdentityState, RolesComponent, UpdateRole, UpdateUser, UsersComponent as ɵb, IdentityRoutingModule as ɵc };
+export { CreateRole, CreateUser, DeleteRole, DeleteUser, GetRoleById, GetRoles, GetUserById, GetUserRoles, GetUsers, IDENTITY_ROUTES, IdentityModule, IdentityProviders, IdentityService, IdentityState, RolesComponent, UpdateRole, UpdateUser, UsersComponent, IdentityRoutingModule as ɵb };
 //# sourceMappingURL=abp-ng.identity.js.map
