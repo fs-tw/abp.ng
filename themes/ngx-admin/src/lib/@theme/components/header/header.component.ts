@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
-import { UserData } from '@fs/ngx-admin';
-import { LayoutService } from '@fs/ngx-admin';
+import { UserData } from '../../../@core/data/users';
+import { LayoutService } from '../../../@core/utils/layout.service';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 

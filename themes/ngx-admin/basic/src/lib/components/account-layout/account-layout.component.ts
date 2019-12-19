@@ -9,7 +9,7 @@ import { eLayoutType } from '@abp/ng.core';
         <nb-card>
           <nb-card-header>
             <nav class="navigation">
-              <a href="#" (click)="back()" class="link back-link" aria-label="Back">
+              <a href="#" class="link back-link" aria-label="Back">
                 <nb-icon icon="arrow-back"></nb-icon>
               </a>
             </nav>

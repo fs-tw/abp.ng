@@ -16,24 +16,22 @@ import {
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbSecurityModule } from '@nebular/security';
 
-import {
-  FooterComponent,
-  HeaderComponent,
-  SearchInputComponent,
-  TinyMCEComponent,
-} from './components';
-import {
-  CapitalizePipe,
-  PluralPipe,
-  RoundPipe,
-  TimingPipe,
-  NumberWithCommasPipe,
-} from './pipes';
-import {
-  OneColumnLayoutComponent,
-  ThreeColumnsLayoutComponent,
-  TwoColumnsLayoutComponent,
-} from './layouts';
+
+import {FooterComponent} from './components/footer/footer.component';
+import {HeaderComponent} from './components/header/header.component';
+import {SearchInputComponent} from './components/search-input/search-input.component';
+import {TinyMCEComponent} from './components/tiny-mce/tiny-mce.component';
+
+import {CapitalizePipe} from './pipes/capitalize.pipe';
+import {PluralPipe} from './pipes/plural.pipe';
+import {RoundPipe} from './pipes/round.pipe';
+import {TimingPipe} from './pipes/timing.pipe';
+import {NumberWithCommasPipe} from './pipes/number-with-commas.pipe';
+
+import {OneColumnLayoutComponent} from './layouts/one-column/one-column.layout';
+import {ThreeColumnsLayoutComponent} from './layouts/three-columns/three-columns.layout';
+import {TwoColumnsLayoutComponent} from './layouts/two-columns/two-columns.layout';
+
 import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';

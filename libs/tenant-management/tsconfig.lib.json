@@ -6,7 +6,18 @@
     "declaration": true,
     "inlineSources": true,
     "types": [],
-    "lib": ["dom", "es2018"]
+    "lib": ["dom", "es2018"],
+    "paths": {
+      "@abp/ng.tenant-management": [ "dist/tenant-management" ],
+      "@abp/ng.tenant-management/*": [ "dist/tenant-management/lib/*" ],
+      "@fs/feature-management": [ "libs/feature-management/dist" ],
+      "@fs/feature-management/*": [ "libs/feature-management/dist/*" ],
+
+      "@fs/ng-alain": [ "themes/ng-alain/dist" ],
+      "@fs/ng-alain/*": [ "themes/ng-alain/dist/*" ],
+      "@fs/ngx-admin": [ "themes/ngx-admin/dist" ],
+      "@fs/ngx-admin/*": [ "themes/ngx-admin/dist/*" ]
+    }       
   },
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,

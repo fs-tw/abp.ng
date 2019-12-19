@@ -15,7 +15,8 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { SimpleInterceptor } from '@delon/auth';
 import { DefaultInterceptor } from '@fs/ng-alain';
 export function StartupServiceFactory(startupService: StartupService) {
-  return () => startupService.load();
+  const startupServiceLoad=()=>startupService.load();
+  return startupServiceLoad;
 }
 const APPINIT_PROVIDES = [
   StartupService,

@@ -1,5 +1,5 @@
 import { PermissionManagementComponent as AbpPermissionManagementComponent, PermissionManagement } from '@abp/ng.permission-management';
-import { Component, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnChanges, OnInit, Renderer2, Input } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { take } from 'rxjs/operators';
 @Component({
@@ -8,7 +8,28 @@ import { take } from 'rxjs/operators';
   templateUrl: './permission-management.component.html'
 })
 export class PermissionManagementComponent extends AbpPermissionManagementComponent implements OnInit, OnChanges {
+  @Input()
+  providerName: string;
 
+  @Input()
+  providerKey: string;
+
+  @Input()
+  get visible(): boolean {
+    return this._visible;
+  }
+
+  set visible(value: boolean) {
+    if (!this.selectedGroup) return;
+
+    this._visible = value;
+    this.visibleChange.emit(value);
+
+    if (!value) {
+      this.selectedGroup = null;
+    }
+  }
+  
   selectAllIndeterminate = false;
   selectAllThisTabIndeterminate = false;
   constructor(private _store: Store, private _renderer: Renderer2) {

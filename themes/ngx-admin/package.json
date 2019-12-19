@@ -1,8 +1,8 @@
 {
   "name": "@fs/ngx-admin",
-  "version": "0.0.1",
-  "peerDependencies": {
-
+  "version": "1.1.2-alpha.6",
+  "scripts": {
+    "build": "ng build fs.ngx-admin"
   },
   "dependencies": {
     "@agm/core": "^1.0.0-beta.5",
@@ -16,11 +16,13 @@
     "@angular/platform-browser-dynamic": "^8.2.14",
     "@angular/router": "^8.2.14",
     "@asymmetrik/ngx-leaflet": "3.0.1",
+    "@fs/dev": "^1.1.2-alpha.6",
     "@nebular/auth": "4.4.0",
     "@nebular/eva-icons": "4.4.0",
     "@nebular/security": "4.4.0",
-    "@nebular/theme": "4.4.0",
+    "@nebular/theme": "4.6.0",
     "@swimlane/ngx-charts": "^10.0.0",
+    "@types/googlemaps": "^3.30.4",
     "angular-tree-component": "7.2.0",
     "angular2-chartjs": "0.4.1",
     "angular2-toaster": "^7.0.0",
@@ -50,9 +52,7 @@
     "tslib": "^1.9.0",
     "typeface-exo": "0.0.22",
     "web-animations-js": "github:angular/web-animations-js#release_pr208",
-    "zone.js": "~0.9.1",
-
-    "@types/googlemaps": "^3.30.4"
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.800.2",

@@ -2,7 +2,8 @@
           [nzTitle]="modalTitle"
           [nzContent]="modalContent"
           [nzFooter]="modalFooter"
-          (nzOnCancel)="visible=false">
+          (nzOnCancel)="visible=false"
+>
   <ng-template #modalTitle>
     <h3>{{ 'AbpTenantManagement::Permission:ManageFeatures' | abpLocalization }}</h3>
   </ng-template>

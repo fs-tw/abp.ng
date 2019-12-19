@@ -6,7 +6,12 @@
     "declaration": true,
     "inlineSources": true,
     "types": [],
-    "lib": ["dom", "es2018"]
+    "lib": ["dom", "es2018"],
+    "paths": {
+      "@abp/ng.core": [ "dist/core" ],
+      "@abp/ng.theme.shared": [ "dist/theme-shared" ],
+      "@abp/ng.theme.basic": [ "dist/theme-basic" ]
+    }      
   },
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,

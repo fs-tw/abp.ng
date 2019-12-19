@@ -5,7 +5,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { RegisterComponent } from '@abp/ng.account';
 import { ToasterService } from '@abp/ng.theme.shared';
-import { AccountService } from '@abp/ng.account/services/account.service';
+import { AccountService } from '@abp/ng.account';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Store } from '@ngxs/store';
 

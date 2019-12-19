@@ -1,0 +1,13 @@
+{
+  "main": "../bundles/fs-ngx-admin-shared.umd.js",
+  "module": "../fesm5/fs-ngx-admin-shared.js",
+  "es2015": "../fesm2015/fs-ngx-admin-shared.js",
+  "esm5": "../esm5/shared/fs-ngx-admin-shared.js",
+  "esm2015": "../esm2015/shared/fs-ngx-admin-shared.js",
+  "fesm5": "../fesm5/fs-ngx-admin-shared.js",
+  "fesm2015": "../fesm2015/fs-ngx-admin-shared.js",
+  "typings": "fs-ngx-admin-shared.d.ts",
+  "metadata": "fs-ngx-admin-shared.metadata.json",
+  "sideEffects": false,
+  "name": "@fs/ngx-admin/shared"
+}

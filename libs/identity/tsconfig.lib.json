@@ -6,7 +6,18 @@
     "declaration": true,
     "inlineSources": true,
     "types": [],
-    "lib": ["dom", "es2018"]
+    "lib": ["dom", "es2018"],
+    "paths": {
+      "@abp/ng.identity": [ "dist/identity" ],
+      "@abp/ng.identity/*": [ "dist/identity/lib/*" ],      
+      "@fs/permission-management": [ "libs/permission-management/dist" ],
+      "@fs/permission-management/*": [ "libs/permission-management/dist/*" ],
+
+      "@fs/ng-alain": [ "themes/ng-alain/dist" ],
+      "@fs/ng-alain/*": [ "themes/ng-alain/dist/*" ],
+      "@fs/ngx-admin": [ "themes/ngx-admin/dist" ],
+      "@fs/ngx-admin/*": [ "themes/ngx-admin/dist/*" ]
+    } 
   },
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,

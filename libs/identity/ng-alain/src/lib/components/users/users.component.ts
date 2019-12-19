@@ -1,4 +1,4 @@
-import { UsersComponent as AbpUsersComponent } from '@abp/ng.identity/components/users/users.component';
+import { UsersComponent as AbpUsersComponent } from '@abp/ng.identity';
 import { ConfirmationService } from '@abp/ng.theme.shared';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';

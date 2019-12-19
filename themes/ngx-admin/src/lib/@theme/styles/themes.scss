@@ -1,7 +1,8 @@
 // @nebular theming framework
-@import '~@nebular/theme/styles/theming';
+@import '~@nebular/theme/styles/_theming';
 // @nebular out of the box themes
-@import '~@nebular/theme/styles/themes';
+@import '~@nebular/theme/styles/_themes';
+
 
 $nb-themes: nb-register-theme((
   layout-padding-top: 2.25rem,
