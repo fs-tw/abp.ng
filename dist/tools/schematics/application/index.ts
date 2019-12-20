@@ -1,4 +1,17 @@
-import { chain, externalSchematic, Rule, mergeWith, apply, move, Tree, url, SchematicContext, HostTree,template } from '@angular-devkit/schematics';
+import {
+  apply,
+  chain,
+  externalSchematic,
+  mergeWith,
+  move,
+  noop,
+  Rule,
+  schematic,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
 import { updateJsonInTree, getWorkspacePath, toFileName, readJsonInTree } from '@nrwl/workspace';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
@@ -10,7 +23,7 @@ function addSchematicFiles(): Rule {
   return chain([
     host => {
       host.visit(file => {
-        if (file.startsWith(`/apps/${appProjectRoot}/src/`)) {
+        if (file.startsWith(`/apps/${appProjectRoot}/`)) {
           host.delete(file);
           console.log('delete file', file);
         }
@@ -23,44 +36,41 @@ function addSchematicFiles(): Rule {
     )
   ]);
 }
-
 function updateProject(): Rule {
   return (host: Tree) => {
     return chain([
-      host=>{
-        updateJsonInTree(getWorkspacePath(host),json=>{
-          json.projects[appProjectName]
-          .architect.build.options.assets =
-          [
-            `apps/${appProjectRoot}/src/favicon.ico`,
-            `apps/${appProjectRoot}/src/assets`,
-            {
-              "glob": "**/*",
-              "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-              "output": "/assets/"
-            }
-          ];
-        json.projects[appProjectName]
-          .architect.build.options.styles =
-          [
-            `apps/${appProjectRoot}/src/styles.less`,
-            "node_modules/font-awesome/css/font-awesome.css",
-            "node_modules/primeng/resources/themes/nova-light/theme.css",
-            "node_modules/primeicons/primeicons.css",
-            "node_modules/primeng/resources/primeng.min.css"
-          ];          
-        json.projects[appProjectName]
-          .architect.build.options.scripts =
-          [
-            "node_modules/@antv/g2/build/g2.js",
-            "node_modules/@antv/data-set/dist/data-set.min.js",
-            "node_modules/@antv/g2-plugin-slider/dist/g2-plugin-slider.min.js",
-            "node_modules/ajv/dist/ajv.bundle.js",
-            "node_modules/qrious/dist/qrious.min.js"
-          ];
-        return json;          
-        });
-      } 
+      updateJsonInTree(getWorkspacePath(host),json=>{
+        json.projects[appProjectRoot]
+        .architect.build.options.assets =
+        [
+          `apps/${appProjectRoot}/src/favicon.ico`,
+          `apps/${appProjectRoot}/src/assets`,
+          {
+            "glob": "**/*",
+            "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+            "output": "/assets/"
+          }
+        ];
+      json.projects[appProjectName]
+        .architect.build.options.styles =
+        [
+          `apps/${appProjectRoot}/src/styles.less`,
+          "node_modules/font-awesome/css/font-awesome.css",
+          "node_modules/primeng/resources/themes/nova-light/theme.css",
+          "node_modules/primeicons/primeicons.css",
+          "node_modules/primeng/resources/primeng.min.css"
+        ];          
+      json.projects[appProjectName]
+        .architect.build.options.scripts =
+        [
+          "node_modules/@antv/g2/build/g2.js",
+          "node_modules/@antv/data-set/dist/data-set.min.js",
+          "node_modules/@antv/g2-plugin-slider/dist/g2-plugin-slider.min.js",
+          "node_modules/ajv/dist/ajv.bundle.js",
+          "node_modules/qrious/dist/qrious.min.js"
+        ];
+      return json;          
+      })
     ]);
   };
 }
@@ -68,6 +78,8 @@ function updateProject(): Rule {
 function doUpdateJsonInTree(){
   return (host: Tree) => {
       return updateJsonInTree(getWorkspacePath(host), json => {
+        console.log(json);
+        console.log("project="+appProjectName);
         json.projects[appProjectName]
           .architect.build.options.assets =
           [
@@ -129,6 +141,7 @@ export default function(schema: any): Rule {
         style: 'less'
       }),
       addSchematicFiles(),
+      //doUpdateJsonInTree(),
       updateProject(),
       //installPackages()
     ])(host, context);

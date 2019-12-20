@@ -9,7 +9,7 @@ function addSchematicFiles() {
     return schematics_1.chain([
         function (host) {
             host.visit(function (file) {
-                if (file.startsWith("/apps/" + appProjectRoot + "/src/")) {
+                if (file.startsWith("/apps/" + appProjectRoot + "/")) {
                     host.delete(file);
                     console.log('delete file', file);
                 }
@@ -23,46 +23,46 @@ function addSchematicFiles() {
 function updateProject() {
     return function (host) {
         return schematics_1.chain([
-            function (host) {
-                workspace_1.updateJsonInTree(workspace_1.getWorkspacePath(host), function (json) {
-                    json.projects[appProjectName]
-                        .architect.build.options.assets =
-                        [
-                            "apps/" + appProjectRoot + "/src/favicon.ico",
-                            "apps/" + appProjectRoot + "/src/assets",
-                            {
-                                "glob": "**/*",
-                                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                                "output": "/assets/"
-                            }
-                        ];
-                    json.projects[appProjectName]
-                        .architect.build.options.styles =
-                        [
-                            "apps/" + appProjectRoot + "/src/styles.less",
-                            "node_modules/font-awesome/css/font-awesome.css",
-                            "node_modules/primeng/resources/themes/nova-light/theme.css",
-                            "node_modules/primeicons/primeicons.css",
-                            "node_modules/primeng/resources/primeng.min.css"
-                        ];
-                    json.projects[appProjectName]
-                        .architect.build.options.scripts =
-                        [
-                            "node_modules/@antv/g2/build/g2.js",
-                            "node_modules/@antv/data-set/dist/data-set.min.js",
-                            "node_modules/@antv/g2-plugin-slider/dist/g2-plugin-slider.min.js",
-                            "node_modules/ajv/dist/ajv.bundle.js",
-                            "node_modules/qrious/dist/qrious.min.js"
-                        ];
-                    return json;
-                });
-            }
+            workspace_1.updateJsonInTree(workspace_1.getWorkspacePath(host), function (json) {
+                json.projects[appProjectRoot]
+                    .architect.build.options.assets =
+                    [
+                        "apps/" + appProjectRoot + "/src/favicon.ico",
+                        "apps/" + appProjectRoot + "/src/assets",
+                        {
+                            "glob": "**/*",
+                            "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                            "output": "/assets/"
+                        }
+                    ];
+                json.projects[appProjectName]
+                    .architect.build.options.styles =
+                    [
+                        "apps/" + appProjectRoot + "/src/styles.less",
+                        "node_modules/font-awesome/css/font-awesome.css",
+                        "node_modules/primeng/resources/themes/nova-light/theme.css",
+                        "node_modules/primeicons/primeicons.css",
+                        "node_modules/primeng/resources/primeng.min.css"
+                    ];
+                json.projects[appProjectName]
+                    .architect.build.options.scripts =
+                    [
+                        "node_modules/@antv/g2/build/g2.js",
+                        "node_modules/@antv/data-set/dist/data-set.min.js",
+                        "node_modules/@antv/g2-plugin-slider/dist/g2-plugin-slider.min.js",
+                        "node_modules/ajv/dist/ajv.bundle.js",
+                        "node_modules/qrious/dist/qrious.min.js"
+                    ];
+                return json;
+            })
         ]);
     };
 }
 function doUpdateJsonInTree() {
     return function (host) {
         return workspace_1.updateJsonInTree(workspace_1.getWorkspacePath(host), function (json) {
+            console.log(json);
+            console.log("project=" + appProjectName);
             json.projects[appProjectName]
                 .architect.build.options.assets =
                 [
@@ -120,6 +120,7 @@ function default_1(schema) {
                 style: 'less'
             }),
             addSchematicFiles(),
+            //doUpdateJsonInTree(),
             updateProject(),
         ])(host, context);
     };
