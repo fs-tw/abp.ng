@@ -1,0 +1,13 @@
+{
+  "main": "../bundles/fs-ngx-admin-basic.umd.js",
+  "module": "../fesm5/fs-ngx-admin-basic.js",
+  "es2015": "../fesm2015/fs-ngx-admin-basic.js",
+  "esm5": "../esm5/basic/fs-ngx-admin-basic.js",
+  "esm2015": "../esm2015/basic/fs-ngx-admin-basic.js",
+  "fesm5": "../fesm5/fs-ngx-admin-basic.js",
+  "fesm2015": "../fesm2015/fs-ngx-admin-basic.js",
+  "typings": "fs-ngx-admin-basic.d.ts",
+  "metadata": "fs-ngx-admin-basic.metadata.json",
+  "sideEffects": false,
+  "name": "@fs/ngx-admin/basic"
+}

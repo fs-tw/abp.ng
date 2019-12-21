@@ -1,0 +1,13 @@
+{
+  "main": "../bundles/fs-ng-alain-shared.umd.js",
+  "module": "../fesm5/fs-ng-alain-shared.js",
+  "es2015": "../fesm2015/fs-ng-alain-shared.js",
+  "esm5": "../esm5/shared/fs-ng-alain-shared.js",
+  "esm2015": "../esm2015/shared/fs-ng-alain-shared.js",
+  "fesm5": "../fesm5/fs-ng-alain-shared.js",
+  "fesm2015": "../fesm2015/fs-ng-alain-shared.js",
+  "typings": "fs-ng-alain-shared.d.ts",
+  "metadata": "fs-ng-alain-shared.metadata.json",
+  "sideEffects": false,
+  "name": "@fs/ng-alain/shared"
+}

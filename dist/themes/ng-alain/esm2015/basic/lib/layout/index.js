@@ -1,0 +1,10 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/layout/index.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+// layout
+export { LayoutDefaultComponent } from './default/default.component';
+export { LayoutFullScreenComponent } from './fullscreen/fullscreen.component';
+export { LayoutPassportComponent } from './passport/passport.component';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290Ijoibmc6Ly9AZnMvbmctYWxhaW4vYmFzaWMvIiwic291cmNlcyI6WyJsaWIvbGF5b3V0L2luZGV4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztBQUdBLHVDQUFjLDZCQUE2QixDQUFDO0FBQzVDLDBDQUFjLG1DQUFtQyxDQUFDO0FBQ2xELHdDQUFjLCtCQUErQixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiXHJcblxyXG4vLyBsYXlvdXRcclxuZXhwb3J0ICogZnJvbSAnLi9kZWZhdWx0L2RlZmF1bHQuY29tcG9uZW50JztcclxuZXhwb3J0ICogZnJvbSAnLi9mdWxsc2NyZWVuL2Z1bGxzY3JlZW4uY29tcG9uZW50JztcclxuZXhwb3J0ICogZnJvbSAnLi9wYXNzcG9ydC9wYXNzcG9ydC5jb21wb25lbnQnO1xyXG5cclxuXHJcbiJdfQ==
