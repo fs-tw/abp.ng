@@ -11,6 +11,33 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 var __read = (this && this.__read) || function (o, n) {
     var m = typeof Symbol === "function" && o[Symbol.iterator];
     if (!m) return o;
@@ -32,6 +59,3688 @@ var __spread = (this && this.__spread) || function () {
     return ar;
 };
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"], {
+        /***/ "../../dist/core/fesm2015/abp-ng.core.js": 
+        /*!*****************************************************************************************!*\
+          !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/dist/core/fesm2015/abp-ng.core.js ***!
+          \*****************************************************************************************/
+        /*! exports provided: AbstractNgModelComponent, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, LazyLoadService, LocalizationPipe, LocalizationService, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, uuid, ɵa, ɵb, ɵba, ɵbb, ɵbc, ɵbd, ɵbe, ɵbf, ɵbg, ɵbh, ɵbi, ɵbj, ɵc, ɵd, ɵe, ɵf, ɵh, ɵi, ɵj, ɵk, ɵm, ɵn, ɵo, ɵp, ɵq, ɵr, ɵs, ɵt, ɵu, ɵv, ɵw, ɵx, ɵy, ɵz */
+        /***/ (function (module, __webpack_exports__, __webpack_require__) {
+            "use strict";
+            __webpack_require__.r(__webpack_exports__);
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AbstractNgModelComponent", function () { return AbstractNgModelComponent; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiInterceptor", function () { return ApiInterceptor; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApplicationConfigurationService", function () { return ApplicationConfigurationService; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGuard", function () { return AuthGuard; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutofocusDirective", function () { return AutofocusDirective; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONFIG", function () { return CONFIG; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChangePassword", function () { return ChangePassword; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfigPlugin", function () { return ConfigPlugin; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfigState", function () { return ConfigState; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConfigStateService", function () { return ConfigStateService; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CoreModule", function () { return CoreModule; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DynamicLayoutComponent", function () { return DynamicLayoutComponent; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ENVIRONMENT", function () { return ENVIRONMENT; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EllipsisDirective", function () { return EllipsisDirective; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ForDirective", function () { return ForDirective; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormSubmitDirective", function () { return FormSubmitDirective; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetAppConfiguration", function () { return GetAppConfiguration; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetProfile", function () { return GetProfile; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LazyLoadService", function () { return LazyLoadService; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocalizationPipe", function () { return LocalizationPipe; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocalizationService", function () { return LocalizationService; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NGXS_CONFIG_PLUGIN_OPTIONS", function () { return NGXS_CONFIG_PLUGIN_OPTIONS; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PatchRouteByName", function () { return PatchRouteByName; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PermissionDirective", function () { return PermissionDirective; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PermissionGuard", function () { return PermissionGuard; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileService", function () { return ProfileService; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileState", function () { return ProfileState; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileStateService", function () { return ProfileStateService; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Rest", function () { return Rest; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RestOccurError", function () { return RestOccurError; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RestService", function () { return RestService; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RouterOutletComponent", function () { return RouterOutletComponent; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SessionState", function () { return SessionState; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SessionStateService", function () { return SessionStateService; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetLanguage", function () { return SetLanguage; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetTenant", function () { return SetTenant; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SortPipe", function () { return SortPipe; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StartLoader", function () { return StartLoader; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StopLoader", function () { return StopLoader; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateProfile", function () { return UpdateProfile; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VisibilityDirective", function () { return VisibilityDirective; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addAbpRoutes", function () { return addAbpRoutes; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "configFactory", function () { return configFactory; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environmentFactory", function () { return environmentFactory; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAbpRoutes", function () { return getAbpRoutes; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInitialData", function () { return getInitialData; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "localeInitializer", function () { return localeInitializer; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "noop", function () { return noop; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "organizeRoutes", function () { return organizeRoutes; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerLocale", function () { return registerLocale; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setChildRoute", function () { return setChildRoute; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sortRoutes", function () { return sortRoutes; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "takeUntilDestroy", function () { return takeUntilDestroy; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uuid", function () { return uuid; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵa", function () { return ProfileState; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵb", function () { return ProfileService; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵba", function () { return InputEventDebounceDirective; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵbb", function () { return StopPropagationDirective; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵbc", function () { return AbstractNgModelComponent; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵbd", function () { return LocaleId; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵbe", function () { return LocaleProvider; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵbf", function () { return NGXS_CONFIG_PLUGIN_OPTIONS; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵbg", function () { return ConfigPlugin; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵbh", function () { return ApiInterceptor; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵbi", function () { return getInitialData; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵbj", function () { return localeInitializer; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵc", function () { return RestService; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵd", function () { return GetProfile; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵe", function () { return UpdateProfile; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵf", function () { return ChangePassword; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵh", function () { return SessionState; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵi", function () { return LocalizationService; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵj", function () { return SetLanguage; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵk", function () { return SetTenant; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵm", function () { return ConfigState; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵn", function () { return ApplicationConfigurationService; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵo", function () { return PatchRouteByName; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵp", function () { return GetAppConfiguration; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵq", function () { return RouterOutletComponent; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵr", function () { return DynamicLayoutComponent; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵs", function () { return AutofocusDirective; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵt", function () { return EllipsisDirective; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵu", function () { return ForDirective; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵv", function () { return FormSubmitDirective; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵw", function () { return LocalizationPipe; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵx", function () { return SortPipe; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵy", function () { return PermissionDirective; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵz", function () { return VisibilityDirective; });
+            /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
+            /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
+            /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm2015/router.js");
+            /* harmony import */ var _ngxs_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngxs/store */ "../../node_modules/@ngxs/store/fesm2015/ngxs-store.js");
+            /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "../../node_modules/rxjs/_esm2015/index.js");
+            /* harmony import */ var snq__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! snq */ "../../node_modules/snq/dist/snq.es5.js");
+            /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "../../node_modules/rxjs/_esm2015/operators/index.js");
+            /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ "../../node_modules/@angular/common/fesm2015/http.js");
+            /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm2015/common.js");
+            /* harmony import */ var just_compare__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! just-compare */ "../../node_modules/just-compare/index.js");
+            /* harmony import */ var just_compare__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/ __webpack_require__.n(just_compare__WEBPACK_IMPORTED_MODULE_9__);
+            /* harmony import */ var just_clone__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! just-clone */ "../../node_modules/just-clone/index.js");
+            /* harmony import */ var just_clone__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/ __webpack_require__.n(just_clone__WEBPACK_IMPORTED_MODULE_10__);
+            /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/forms */ "../../node_modules/@angular/forms/fesm2015/forms.js");
+            /* harmony import */ var angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! angular-oauth2-oidc */ "../../node_modules/angular-oauth2-oidc/fesm2015/angular-oauth2-oidc.js");
+            /* harmony import */ var _ngxs_router_plugin__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ngxs/router-plugin */ "../../node_modules/@ngxs/router-plugin/fesm2015/ngxs-router-plugin.js");
+            /* harmony import */ var _ngxs_storage_plugin__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ngxs/storage-plugin */ "../../node_modules/@ngxs/storage-plugin/fesm2015/ngxs-storage-plugin.js");
+            /* harmony import */ var _ngx_validate_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ngx-validate/core */ "../../node_modules/@ngx-validate/core/fesm2015/ngx-validate-core.js");
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/abstracts/ng-model.component.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @template T
+             */
+            var AbstractNgModelComponent = /** @class */ (function () {
+                /**
+                 * @param {?} injector
+                 */
+                function AbstractNgModelComponent(injector) {
+                    this.injector = injector;
+                    this.cdRef = injector.get(( /** @type {?} */(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"])));
+                }
+                Object.defineProperty(AbstractNgModelComponent.prototype, "value", {
+                    /**
+                     * @return {?}
+                     */
+                    get: function () {
+                        return this._value;
+                    },
+                    /**
+                     * @param {?} value
+                     * @return {?}
+                     */
+                    set: function (value) {
+                        this._value = value;
+                        this.notifyValueChange();
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                /**
+                 * @return {?}
+                 */
+                AbstractNgModelComponent.prototype.notifyValueChange = function () {
+                    if (this.onChange) {
+                        this.onChange(this.value);
+                    }
+                };
+                /**
+                 * @param {?} value
+                 * @return {?}
+                 */
+                AbstractNgModelComponent.prototype.writeValue = function (value) {
+                    var _this = this;
+                    this._value = value;
+                    setTimeout(( /**
+                     * @return {?}
+                     */function () { return _this.cdRef.detectChanges(); }), 0);
+                };
+                /**
+                 * @param {?} fn
+                 * @return {?}
+                 */
+                AbstractNgModelComponent.prototype.registerOnChange = function (fn) {
+                    this.onChange = fn;
+                };
+                /**
+                 * @param {?} fn
+                 * @return {?}
+                 */
+                AbstractNgModelComponent.prototype.registerOnTouched = function (fn) {
+                    this.onTouched = fn;
+                };
+                /**
+                 * @param {?} isDisabled
+                 * @return {?}
+                 */
+                AbstractNgModelComponent.prototype.setDisabledState = function (isDisabled) {
+                    this.disabled = isDisabled;
+                };
+                return AbstractNgModelComponent;
+            }());
+            AbstractNgModelComponent.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{ selector: 'abp-abstract-ng-model', template: '' }] }
+            ];
+            /** @nocollapse */
+            AbstractNgModelComponent.ctorParameters = function () { return [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"] }
+            ]; };
+            AbstractNgModelComponent.propDecorators = {
+                disabled: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+                value: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }]
+            };
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/abstracts/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/actions/config.actions.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var PatchRouteByName = /** @class */ (function () {
+                /**
+                 * @param {?} name
+                 * @param {?} newValue
+                 */
+                function PatchRouteByName(name, newValue) {
+                    this.name = name;
+                    this.newValue = newValue;
+                }
+                return PatchRouteByName;
+            }());
+            PatchRouteByName.type = '[Config] Patch Route By Name';
+            if (false) { }
+            var GetAppConfiguration = /** @class */ (function () {
+                function GetAppConfiguration() {
+                }
+                return GetAppConfiguration;
+            }());
+            GetAppConfiguration.type = '[Config] Get App Configuration';
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/actions/loader.actions.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var StartLoader = /** @class */ (function () {
+                /**
+                 * @param {?} payload
+                 */
+                function StartLoader(payload) {
+                    this.payload = payload;
+                }
+                return StartLoader;
+            }());
+            StartLoader.type = '[Loader] Start';
+            if (false) { }
+            var StopLoader = /** @class */ (function () {
+                /**
+                 * @param {?} payload
+                 */
+                function StopLoader(payload) {
+                    this.payload = payload;
+                }
+                return StopLoader;
+            }());
+            StopLoader.type = '[Loader] Stop';
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/actions/profile.actions.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var GetProfile = /** @class */ (function () {
+                function GetProfile() {
+                }
+                return GetProfile;
+            }());
+            GetProfile.type = '[Profile] Get';
+            if (false) { }
+            var UpdateProfile = /** @class */ (function () {
+                /**
+                 * @param {?} payload
+                 */
+                function UpdateProfile(payload) {
+                    this.payload = payload;
+                }
+                return UpdateProfile;
+            }());
+            UpdateProfile.type = '[Profile] Update';
+            if (false) { }
+            var ChangePassword = /** @class */ (function () {
+                /**
+                 * @param {?} payload
+                 */
+                function ChangePassword(payload) {
+                    this.payload = payload;
+                }
+                return ChangePassword;
+            }());
+            ChangePassword.type = '[Profile] Change Password';
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/actions/rest.actions.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var RestOccurError = /** @class */ (function () {
+                /**
+                 * @param {?} payload
+                 */
+                function RestOccurError(payload) {
+                    this.payload = payload;
+                }
+                return RestOccurError;
+            }());
+            RestOccurError.type = '[Rest] Error';
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/actions/session.actions.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var SetLanguage = /** @class */ (function () {
+                /**
+                 * @param {?} payload
+                 */
+                function SetLanguage(payload) {
+                    this.payload = payload;
+                }
+                return SetLanguage;
+            }());
+            SetLanguage.type = '[Session] Set Language';
+            if (false) { }
+            var SetTenant = /** @class */ (function () {
+                /**
+                 * @param {?} payload
+                 */
+                function SetTenant(payload) {
+                    this.payload = payload;
+                }
+                return SetTenant;
+            }());
+            SetTenant.type = '[Session] Set Tenant';
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/actions/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/services/rest.service.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var RestService = /** @class */ (function () {
+                /**
+                 * @param {?} http
+                 * @param {?} store
+                 */
+                function RestService(http, store) {
+                    this.http = http;
+                    this.store = store;
+                }
+                /**
+                 * @param {?} err
+                 * @return {?}
+                 */
+                RestService.prototype.handleError = function (err) {
+                    this.store.dispatch(new RestOccurError(err));
+                    console.error(err);
+                    return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(err);
+                };
+                /**
+                 * @template T, R
+                 * @param {?} request
+                 * @param {?=} config
+                 * @param {?=} api
+                 * @return {?}
+                 */
+                RestService.prototype.request = function (request, config, api) {
+                    var _this = this;
+                    config = config || (( /** @type {?} */({})));
+                    var _a = config.observe /* Body */, observe = _a === void 0 ? "body" : _a /* Body */, skipHandleError = config.skipHandleError;
+                    /** @type {?} */
+                    var url = (api || this.store.selectSnapshot(ConfigState.getApiUrl())) + request.url;
+                    var method = request.method, params = request.params, options = Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__rest"])(request, ["method", "params"]);
+                    return this.http
+                        .request(method, url, ( /** @type {?} */(Object.assign({ observe: observe }, (params && {
+                        params: Object.keys(params).reduce(( /**
+                         * @param {?} acc
+                         * @param {?} key
+                         * @return {?}
+                         */function (acc, key) {
+                            var _a;
+                            return (Object.assign({}, acc, (typeof params[key] !== 'undefined' && params[key] !== '' && (_a = {}, _a[key] = params[key], _a))));
+                        }), {}),
+                    }), options))))
+                        .pipe(observe === "body" /* Body */ ? Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1) : Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])(( /**
+                 * @param {?} err
+                 * @return {?}
+                 */function (/**
+                 * @param {?} err
+                 * @return {?}
+                 */ err) {
+                        if (skipHandleError) {
+                            return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(err);
+                        }
+                        return _this.handleError(err);
+                    })));
+                };
+                return RestService;
+            }());
+            RestService.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                            providedIn: 'root',
+                        },] }
+            ];
+            /** @nocollapse */
+            RestService.ctorParameters = function () { return [
+                { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClient"] },
+                { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }
+            ]; };
+            /** @nocollapse */ RestService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function RestService_Factory() { return new RestService(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClient"]), Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"])); }, token: RestService, providedIn: "root" });
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/services/application-configuration.service.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var ApplicationConfigurationService = /** @class */ (function () {
+                /**
+                 * @param {?} rest
+                 */
+                function ApplicationConfigurationService(rest) {
+                    this.rest = rest;
+                }
+                /**
+                 * @return {?}
+                 */
+                ApplicationConfigurationService.prototype.getConfiguration = function () {
+                    /** @type {?} */
+                    var request = {
+                        method: 'GET',
+                        url: '/api/abp/application-configuration',
+                    };
+                    return this.rest.request(request);
+                };
+                return ApplicationConfigurationService;
+            }());
+            ApplicationConfigurationService.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                            providedIn: 'root',
+                        },] }
+            ];
+            /** @nocollapse */
+            ApplicationConfigurationService.ctorParameters = function () { return [
+                { type: RestService }
+            ]; };
+            /** @nocollapse */ ApplicationConfigurationService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function ApplicationConfigurationService_Factory() { return new ApplicationConfigurationService(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(RestService)); }, token: ApplicationConfigurationService, providedIn: "root" });
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/utils/route-utils.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @param {?} routes
+             * @param {?=} wrappers
+             * @param {?=} parentNameArr
+             * @param {?=} parentName
+             * @return {?}
+             */
+            function organizeRoutes(routes, wrappers, parentNameArr, parentName) {
+                if (wrappers === void 0) { wrappers = []; }
+                if (parentNameArr === void 0) { parentNameArr = ( /** @type {?} */([])); }
+                if (parentName === void 0) { parentName = null; }
+                /** @type {?} */
+                var filter = ( /**
+                 * @param {?} route
+                 * @return {?}
+                 */function (/**
+                 * @param {?} route
+                 * @return {?}
+                 */ route) {
+                    if (route.children && route.children.length) {
+                        route.children = organizeRoutes(route.children, wrappers, parentNameArr, route.name);
+                    }
+                    if (route.parentName && route.parentName !== parentName) {
+                        parentNameArr.push(route);
+                        return false;
+                    }
+                    return true;
+                });
+                if (parentName) {
+                    // recursive block
+                    return routes.filter(filter);
+                }
+                /** @type {?} */
+                var filteredRoutes = routes.filter(filter);
+                if (parentNameArr.length) {
+                    return sortRoutes(setChildRoute(__spread(filteredRoutes, wrappers), parentNameArr));
+                }
+                return filteredRoutes;
+            }
+            /**
+             * @param {?} routes
+             * @param {?} parentNameArr
+             * @return {?}
+             */
+            function setChildRoute(routes, parentNameArr) {
+                return routes.map(( /**
+                 * @param {?} route
+                 * @return {?}
+                 */function (/**
+                 * @param {?} route
+                 * @return {?}
+                 */ route) {
+                    if (route.children && route.children.length) {
+                        route.children = setChildRoute(route.children, parentNameArr);
+                    }
+                    /** @type {?} */
+                    var foundedChildren = parentNameArr.filter(( /**
+                     * @param {?} parent
+                     * @return {?}
+                     */function (/**
+                     * @param {?} parent
+                     * @return {?}
+                     */ parent) { return parent.parentName === route.name; }));
+                    if (foundedChildren && foundedChildren.length) {
+                        route.children = __spread((route.children || []), foundedChildren);
+                    }
+                    return route;
+                }));
+            }
+            /**
+             * @param {?=} routes
+             * @return {?}
+             */
+            function sortRoutes(routes) {
+                if (routes === void 0) { routes = []; }
+                if (!routes.length)
+                    return [];
+                return routes
+                    .map(( /**
+             * @param {?} route
+             * @param {?} index
+             * @return {?}
+             */function (route, index) {
+                    return Object.assign({}, route, { order: typeof route.order === 'undefined' ? index + 1 : route.order });
+                }))
+                    .sort(( /**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */function (a, b) { return a.order - b.order; }))
+                    .map(( /**
+             * @param {?} route
+             * @return {?}
+             */function (/**
+             * @param {?} route
+             * @return {?}
+             */ route) {
+                    if (route.children && route.children.length) {
+                        route.children = sortRoutes(route.children);
+                    }
+                    return route;
+                }));
+            }
+            /** @type {?} */
+            var ABP_ROUTES = ( /** @type {?} */([]));
+            /**
+             * @param {?} routes
+             * @return {?}
+             */
+            function addAbpRoutes(routes) {
+                if (!Array.isArray(routes)) {
+                    routes = [routes];
+                }
+                ABP_ROUTES.push.apply(ABP_ROUTES, __spread(routes));
+            }
+            /**
+             * @return {?}
+             */
+            function getAbpRoutes() {
+                return ABP_ROUTES;
+            }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/constants/different-locales.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            // Different locales from .NET
+            // Key is .NET locale, value is Angular locale
+            var localesMapping = {
+                'ar-sa': 'ar-SA',
+                'ca-ES-valencia': 'ca-ES-VALENCIA',
+                'de-de': 'de',
+                'es-ES': 'es',
+                'en-US': 'en',
+                'fil-Latn': 'en',
+                'ku-Arab': 'en',
+                'ky-Cyrl': 'en',
+                'mi-Latn': 'en',
+                'prs-Arab': 'en',
+                'qut-Latn': 'en',
+                nso: 'en',
+                quz: 'en',
+                'fr-FR': 'fr',
+                'gd-Latn': 'gd',
+                'ha-Latn': 'ha',
+                'ig-Latn': 'ig',
+                'it-it': 'it',
+                'mn-Cyrl': 'mn',
+                'pt-BR': 'pt',
+                'sd-Arab': 'pa-Arab',
+                'sr-Cyrl-RS': 'sr-Cyrl',
+                'sr-Latn-RS': 'sr-Latn',
+                'tg-Cyrl': 'tg',
+                'tk-Latn': 'tk',
+                'tt-Cyrl': 'tt',
+                'ug-Arab': 'ug',
+                'yo-Latn': 'yo',
+            };
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/utils/initial-utils.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @param {?} injector
+             * @return {?}
+             */
+            function getInitialData(injector) {
+                /** @type {?} */
+                var fn = ( /**
+                 * @return {?}
+                 */function () {
+                    /** @type {?} */
+                    var store = injector.get(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"]);
+                    return store.dispatch(new GetAppConfiguration()).toPromise();
+                });
+                return fn;
+            }
+            /**
+             * @param {?} injector
+             * @return {?}
+             */
+            function localeInitializer(injector) {
+                /** @type {?} */
+                var fn = ( /**
+                 * @return {?}
+                 */function () {
+                    /** @type {?} */
+                    var store = injector.get(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"]);
+                    /** @type {?} */
+                    var lang = store.selectSnapshot(( /**
+                     * @param {?} state
+                     * @return {?}
+                     */function (/**
+                     * @param {?} state
+                     * @return {?}
+                     */ state) { return state.SessionState.language; })) || 'en';
+                    return new Promise(( /**
+                     * @param {?} resolve
+                     * @param {?} reject
+                     * @return {?}
+                     */function (resolve, reject) {
+                        registerLocale(lang).then(( /**
+                         * @return {?}
+                         */function () { return resolve('resolved'); }), reject);
+                    }));
+                });
+                return fn;
+            }
+            /**
+             * @param {?} locale
+             * @return {?}
+             */
+            function registerLocale(locale) {
+                return __webpack_require__("../../node_modules/@angular/common/locales lazy recursive ^\\.\\/.*\\.js$ include: (af|am|ar-SA|as|az-Latn|be|bg|bn-BD|bn-IN|bs|ca|ca-ES-VALENCIA|cs|cy|da|de|de|el|en-GB|en|es|en|es-US|es-MX|et|eu|fa|fi|en|fr|fr|fr-CA|ga|gd|gl|gu|ha|he|hi|hr|hu|hy|id|ig|is|it|it|ja|ka|kk|km|kn|ko|kok|en|en|lb|lt|lv|en|mk|ml|mn|mr|ms|mt|nb|ne|nl|nl-BE|nn|en|or|pa|pa-Arab|pl|en|pt|pt-PT|en|en|ro|ru|rw|pa-Arab|si|sk|sl|sq|sr-Cyrl-BA|sr-Cyrl|sr-Latn|sv|sw|ta|te|tg|th|ti|tk|tn|tr|tt|ug|uk|ur|uz-Latn|vi|wo|xh|yo|zh-Hans|zh-Hant|zu)\\.js$")("./" + (localesMapping[locale] || locale) + ".js").then(( /**
+                 * @param {?} module
+                 * @return {?}
+                 */function (/**
+                 * @param {?} module
+                 * @return {?}
+                 */ module) {
+                    Object(_angular_common__WEBPACK_IMPORTED_MODULE_8__["registerLocaleData"])(module.default);
+                }));
+            }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/services/localization.service.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var LocalizationService = /** @class */ (function () {
+                /**
+                 * @param {?} store
+                 * @param {?} router
+                 * @param {?} ngZone
+                 * @param {?} otherInstance
+                 */
+                function LocalizationService(store, router, ngZone, otherInstance) {
+                    this.store = store;
+                    this.router = router;
+                    this.ngZone = ngZone;
+                    if (otherInstance)
+                        throw new Error('LocalizationService should have only one instance.');
+                }
+                Object.defineProperty(LocalizationService.prototype, "currentLang", {
+                    /**
+                     * @return {?}
+                     */
+                    get: function () {
+                        return this.store.selectSnapshot(( /**
+                         * @param {?} state
+                         * @return {?}
+                         */function (/**
+                         * @param {?} state
+                         * @return {?}
+                         */ state) { return state.SessionState.language; }));
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                /**
+                 * @param {?} reuse
+                 * @return {?}
+                 */
+                LocalizationService.prototype.setRouteReuse = function (reuse) {
+                    this.router.routeReuseStrategy.shouldReuseRoute = reuse;
+                };
+                /**
+                 * @param {?} locale
+                 * @return {?}
+                 */
+                LocalizationService.prototype.registerLocale = function (locale) {
+                    var _this = this;
+                    var shouldReuseRoute = this.router.routeReuseStrategy.shouldReuseRoute;
+                    this.setRouteReuse(( /**
+                     * @return {?}
+                     */function () { return false; }));
+                    this.router.navigated = false;
+                    return registerLocale(locale).then(( /**
+                     * @return {?}
+                     */function () {
+                        _this.ngZone.run(( /**
+                         * @return {?}
+                         */function () { return Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__awaiter"])(_this, void 0, void 0, function () {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, this.router.navigateByUrl(this.router.url).catch(rxjs__WEBPACK_IMPORTED_MODULE_4__["noop"])];
+                                    case 1:
+                                        _a.sent();
+                                        this.setRouteReuse(shouldReuseRoute);
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); }));
+                    }));
+                };
+                /**
+                 * @param {?} key
+                 * @param {...?} interpolateParams
+                 * @return {?}
+                 */
+                LocalizationService.prototype.get = function (key) {
+                    var interpolateParams = [];
+                    for (var _i = 1; _i < arguments.length; _i++) {
+                        interpolateParams[_i - 1] = arguments[_i];
+                    }
+                    return this.store.select(ConfigState.getLocalization.apply(ConfigState, __spread([key], interpolateParams)));
+                };
+                /**
+                 * @param {?} key
+                 * @param {...?} interpolateParams
+                 * @return {?}
+                 */
+                LocalizationService.prototype.instant = function (key) {
+                    var interpolateParams = [];
+                    for (var _i = 1; _i < arguments.length; _i++) {
+                        interpolateParams[_i - 1] = arguments[_i];
+                    }
+                    return this.store.selectSnapshot(ConfigState.getLocalization.apply(ConfigState, __spread([key], interpolateParams)));
+                };
+                return LocalizationService;
+            }());
+            LocalizationService.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{ providedIn: 'root' },] }
+            ];
+            /** @nocollapse */
+            LocalizationService.ctorParameters = function () { return [
+                { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"] },
+                { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] },
+                { type: LocalizationService, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["SkipSelf"] }] }
+            ]; };
+            /** @nocollapse */ LocalizationService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function LocalizationService_Factory() { return new LocalizationService(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"]), Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]), Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(LocalizationService, 12)); }, token: LocalizationService, providedIn: "root" });
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/states/session.state.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var SessionState = /** @class */ (function () {
+                /**
+                 * @param {?} localizationService
+                 */
+                function SessionState(localizationService) {
+                    this.localizationService = localizationService;
+                }
+                /**
+                 * @param {?} __0
+                 * @return {?}
+                 */
+                SessionState.getLanguage = function (_a) {
+                    var language = _a.language;
+                    return language;
+                };
+                /**
+                 * @param {?} __0
+                 * @return {?}
+                 */
+                SessionState.getTenant = function (_a) {
+                    var tenant = _a.tenant;
+                    return tenant;
+                };
+                /**
+                 * @param {?} __0
+                 * @param {?} __1
+                 * @return {?}
+                 */
+                SessionState.prototype.setLanguage = function (_a, _b) {
+                    var _this = this;
+                    var patchState = _a.patchState, dispatch = _a.dispatch;
+                    var payload = _b.payload;
+                    patchState({
+                        language: payload,
+                    });
+                    return dispatch(new GetAppConfiguration()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["switchMap"])(( /**
+                     * @return {?}
+                     */function () { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["from"])(_this.localizationService.registerLocale(payload)); })));
+                };
+                /**
+                 * @param {?} __0
+                 * @param {?} __1
+                 * @return {?}
+                 */
+                SessionState.prototype.setTenant = function (_a, _b) {
+                    var patchState = _a.patchState;
+                    var payload = _b.payload;
+                    patchState({
+                        tenant: payload,
+                    });
+                };
+                return SessionState;
+            }());
+            SessionState.ctorParameters = function () { return [
+                { type: LocalizationService }
+            ]; };
+            Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Action"])(SetLanguage),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:type", Function),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [Object, SetLanguage]),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:returntype", void 0)
+            ], SessionState.prototype, "setLanguage", null);
+            Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Action"])(SetTenant),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:type", Function),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [Object, SetTenant]),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:returntype", void 0)
+            ], SessionState.prototype, "setTenant", null);
+            Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Selector"])(),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:type", Function),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [Object]),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:returntype", String)
+            ], SessionState, "getLanguage", null);
+            Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Selector"])(),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:type", Function),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [Object]),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:returntype", Object)
+            ], SessionState, "getTenant", null);
+            SessionState = Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["State"])({
+                    name: 'SessionState',
+                    defaults: ( /** @type {?} */({})),
+                }),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [LocalizationService])
+            ], SessionState);
+            if (false) { }
+            var ConfigState_1;
+            var ConfigState = ConfigState_1 = /** @class */ (function () {
+                /**
+                 * @param {?} appConfigurationService
+                 * @param {?} store
+                 */
+                function ConfigState(appConfigurationService, store) {
+                    this.appConfigurationService = appConfigurationService;
+                    this.store = store;
+                }
+                /**
+                 * @param {?} state
+                 * @return {?}
+                 */
+                ConfigState.getAll = function (state) {
+                    return state;
+                };
+                /**
+                 * @param {?} state
+                 * @return {?}
+                 */
+                ConfigState.getApplicationInfo = function (state) {
+                    return state.environment.application || (( /** @type {?} */({})));
+                };
+                /**
+                 * @param {?} key
+                 * @return {?}
+                 */
+                ConfigState.getOne = function (key) {
+                    /** @type {?} */
+                    var selector = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["createSelector"])([ConfigState_1], ( /**
+                     * @param {?} state
+                     * @return {?}
+                     */function (state) {
+                        return state[key];
+                    }));
+                    return selector;
+                };
+                /**
+                 * @param {?} keys
+                 * @return {?}
+                 */
+                ConfigState.getDeep = function (keys) {
+                    if (typeof keys === 'string') {
+                        keys = keys.split('.');
+                    }
+                    if (!Array.isArray(keys)) {
+                        throw new Error('The argument must be a dot string or an string array.');
+                    }
+                    /** @type {?} */
+                    var selector = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["createSelector"])([ConfigState_1], ( /**
+                     * @param {?} state
+                     * @return {?}
+                     */function (state) {
+                        return (( /** @type {?} */(keys))).reduce(( /**
+                         * @param {?} acc
+                         * @param {?} val
+                         * @return {?}
+                         */function (acc, val) {
+                            if (acc) {
+                                return acc[val];
+                            }
+                            return undefined;
+                        }), state);
+                    }));
+                    return selector;
+                };
+                /**
+                 * @param {?=} path
+                 * @param {?=} name
+                 * @param {?=} url
+                 * @return {?}
+                 */
+                ConfigState.getRoute = function (path, name, url) {
+                    /** @type {?} */
+                    var selector = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["createSelector"])([ConfigState_1], ( /**
+                     * @param {?} state
+                     * @return {?}
+                     */function (state) {
+                        var flattedRoutes = state.flattedRoutes;
+                        return (( /** @type {?} */(flattedRoutes))).find(( /**
+                         * @param {?} route
+                         * @return {?}
+                         */function (/**
+                         * @param {?} route
+                         * @return {?}
+                         */ route) {
+                            if (path && route.path === path) {
+                                return route;
+                            }
+                            else if (name && route.name === name) {
+                                return route;
+                            }
+                            else if (url && route.url === url) {
+                                return route;
+                            }
+                        }));
+                    }));
+                    return selector;
+                };
+                /**
+                 * @param {?=} key
+                 * @return {?}
+                 */
+                ConfigState.getApiUrl = function (key) {
+                    /** @type {?} */
+                    var selector = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["createSelector"])([ConfigState_1], ( /**
+                     * @param {?} state
+                     * @return {?}
+                     */function (state) {
+                        return state.environment.apis[key || 'default'].url;
+                    }));
+                    return selector;
+                };
+                /**
+                 * @param {?} key
+                 * @return {?}
+                 */
+                ConfigState.getSetting = function (key) {
+                    /** @type {?} */
+                    var selector = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["createSelector"])([ConfigState_1], ( /**
+                     * @param {?} state
+                     * @return {?}
+                     */function (state) {
+                        return Object(snq__WEBPACK_IMPORTED_MODULE_5__["default"])(( /**
+                         * @return {?}
+                         */function () { return state.setting.values[key]; }));
+                    }));
+                    return selector;
+                };
+                /**
+                 * @param {?=} keyword
+                 * @return {?}
+                 */
+                ConfigState.getSettings = function (keyword) {
+                    /** @type {?} */
+                    var selector = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["createSelector"])([ConfigState_1], ( /**
+                     * @param {?} state
+                     * @return {?}
+                     */function (state) {
+                        if (keyword) {
+                            /** @type {?} */
+                            var keys = Object(snq__WEBPACK_IMPORTED_MODULE_5__["default"])(( /**
+                             * @return {?}
+                             */function () { return Object.keys(state.setting.values).filter(( /**
+                             * @param {?} key
+                             * @return {?}
+                             */function (/**
+                             * @param {?} key
+                             * @return {?}
+                             */ key) { return key.indexOf(keyword) > -1; })); }), []);
+                            if (keys.length) {
+                                return keys.reduce(( /**
+                                 * @param {?} acc
+                                 * @param {?} key
+                                 * @return {?}
+                                 */function (acc, key) {
+                                    var _a;
+                                    return (Object.assign({}, acc, (_a = {}, _a[key] = state.setting.values[key], _a)));
+                                }), {});
+                            }
+                        }
+                        return Object(snq__WEBPACK_IMPORTED_MODULE_5__["default"])(( /**
+                         * @return {?}
+                         */function () { return state.setting.values; }), {});
+                    }));
+                    return selector;
+                };
+                /**
+                 * @param {?} key
+                 * @return {?}
+                 */
+                ConfigState.getGrantedPolicy = function (key) {
+                    /** @type {?} */
+                    var selector = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["createSelector"])([ConfigState_1], ( /**
+                     * @param {?} state
+                     * @return {?}
+                     */function (state) {
+                        if (!key)
+                            return true;
+                        /** @type {?} */
+                        var getPolicy = ( /**
+                         * @param {?} k
+                         * @return {?}
+                         */function (/**
+                         * @param {?} k
+                         * @return {?}
+                         */ k) { return Object(snq__WEBPACK_IMPORTED_MODULE_5__["default"])(( /**
+                         * @return {?}
+                         */function () { return state.auth.grantedPolicies[k]; }), false); });
+                        /** @type {?} */
+                        var orRegexp = /\|\|/g;
+                        /** @type {?} */
+                        var andRegexp = /&&/g;
+                        if (orRegexp.test(key)) {
+                            /** @type {?} */
+                            var keys = key.split('||').filter(( /**
+                             * @param {?} k
+                             * @return {?}
+                             */function (/**
+                             * @param {?} k
+                             * @return {?}
+                             */ k) { return !!k; }));
+                            if (keys.length !== 2)
+                                return false;
+                            return getPolicy(keys[0].trim()) || getPolicy(keys[1].trim());
+                        }
+                        else if (andRegexp.test(key)) {
+                            /** @type {?} */
+                            var keys = key.split('&&').filter(( /**
+                             * @param {?} k
+                             * @return {?}
+                             */function (/**
+                             * @param {?} k
+                             * @return {?}
+                             */ k) { return !!k; }));
+                            if (keys.length !== 2)
+                                return false;
+                            return getPolicy(keys[0].trim()) && getPolicy(keys[1].trim());
+                        }
+                        return getPolicy(key);
+                    }));
+                    return selector;
+                };
+                /**
+                 * @param {?} key
+                 * @param {...?} interpolateParams
+                 * @return {?}
+                 */
+                ConfigState.getLocalization = function (key) {
+                    var interpolateParams = [];
+                    for (var _i = 1; _i < arguments.length; _i++) {
+                        interpolateParams[_i - 1] = arguments[_i];
+                    }
+                    /** @type {?} */
+                    var defaultValue;
+                    if (typeof key !== 'string') {
+                        defaultValue = key.defaultValue;
+                        key = key.key;
+                    }
+                    if (!key)
+                        key = '';
+                    /** @type {?} */
+                    var keys = ( /** @type {?} */(key.split('::')));
+                    /** @type {?} */
+                    var selector = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["createSelector"])([ConfigState_1], ( /**
+                     * @param {?} state
+                     * @return {?}
+                     */function (state) {
+                        if (!state.localization)
+                            return defaultValue || key;
+                        var defaultResourceName = state.environment.localization.defaultResourceName;
+                        if (keys[0] === '') {
+                            if (!defaultResourceName) {
+                                throw new Error("Please check your environment. May you forget set defaultResourceName?\n              Here is the example:\n               { production: false,\n                 localization: {\n                   defaultResourceName: 'MyProjectName'\n                  }\n               }");
+                            }
+                            keys[0] = Object(snq__WEBPACK_IMPORTED_MODULE_5__["default"])(( /**
+                             * @return {?}
+                             */function () { return defaultResourceName; }));
+                        }
+                        /** @type {?} */
+                        var localization = (( /** @type {?} */(keys))).reduce(( /**
+                         * @param {?} acc
+                         * @param {?} val
+                         * @return {?}
+                         */function (acc, val) {
+                            if (acc) {
+                                return acc[val];
+                            }
+                            return undefined;
+                        }), state.localization.values);
+                        interpolateParams = interpolateParams.filter(( /**
+                         * @param {?} params
+                         * @return {?}
+                         */function (/**
+                         * @param {?} params
+                         * @return {?}
+                         */ params) { return params != null; }));
+                        if (localization && interpolateParams && interpolateParams.length) {
+                            interpolateParams.forEach(( /**
+                             * @param {?} param
+                             * @return {?}
+                             */function (/**
+                             * @param {?} param
+                             * @return {?}
+                             */ param) {
+                                localization = localization.replace(/[\'\"]?\{[\d]+\}[\'\"]?/, param);
+                            }));
+                        }
+                        if (typeof localization !== 'string')
+                            localization = '';
+                        return localization || defaultValue || key;
+                    }));
+                    return selector;
+                };
+                /**
+                 * @param {?} __0
+                 * @return {?}
+                 */
+                ConfigState.prototype.addData = function (_a) {
+                    var _this = this;
+                    var patchState = _a.patchState, dispatch = _a.dispatch;
+                    return this.appConfigurationService.getConfiguration().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(( /**
+                     * @param {?} configuration
+                     * @return {?}
+                     */function (/**
+                     * @param {?} configuration
+                     * @return {?}
+                     */ configuration) { return patchState(Object.assign({}, configuration)); })), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["switchMap"])(( /**
+                     * @param {?} configuration
+                     * @return {?}
+                     */function (/**
+                     * @param {?} configuration
+                     * @return {?}
+                     */ configuration) {
+                        /** @type {?} */
+                        var defaultLang = configuration.setting.values['Abp.Localization.DefaultLanguage'];
+                        if (defaultLang.includes(';')) {
+                            defaultLang = defaultLang.split(';')[0];
+                        }
+                        return _this.store.selectSnapshot(SessionState.getLanguage)
+                            ? Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["of"])(null)
+                            : dispatch(new SetLanguage(defaultLang));
+                    })));
+                };
+                /**
+                 * @param {?} __0
+                 * @param {?} __1
+                 * @return {?}
+                 */
+                ConfigState.prototype.patchRoute = function (_a, _b) {
+                    var patchState = _a.patchState, getState = _a.getState;
+                    var name = _b.name, newValue = _b.newValue;
+                    /** @type {?} */
+                    var routes = getState().routes;
+                    /** @type {?} */
+                    var index = routes.findIndex(( /**
+                     * @param {?} route
+                     * @return {?}
+                     */function (/**
+                     * @param {?} route
+                     * @return {?}
+                     */ route) { return route.name === name; }));
+                    routes = patchRouteDeep(routes, name, newValue);
+                    return patchState({
+                        routes: routes,
+                    });
+                };
+                return ConfigState;
+            }());
+            ConfigState.ctorParameters = function () { return [
+                { type: ApplicationConfigurationService },
+                { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }
+            ]; };
+            Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Action"])(GetAppConfiguration),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:type", Function),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [Object]),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:returntype", void 0)
+            ], ConfigState.prototype, "addData", null);
+            Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Action"])(PatchRouteByName),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:type", Function),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [Object, PatchRouteByName]),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:returntype", void 0)
+            ], ConfigState.prototype, "patchRoute", null);
+            Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Selector"])(),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:type", Function),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [Object]),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:returntype", void 0)
+            ], ConfigState, "getAll", null);
+            Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Selector"])(),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:type", Function),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [Object]),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:returntype", Object)
+            ], ConfigState, "getApplicationInfo", null);
+            ConfigState = ConfigState_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["State"])({
+                    name: 'ConfigState',
+                    defaults: ( /** @type {?} */({})),
+                }),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [ApplicationConfigurationService,
+                    _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"]])
+            ], ConfigState);
+            if (false) { }
+            /**
+             * @param {?} routes
+             * @param {?} name
+             * @param {?} newValue
+             * @param {?=} parentUrl
+             * @return {?}
+             */
+            function patchRouteDeep(routes, name, newValue, parentUrl) {
+                if (parentUrl === void 0) { parentUrl = ''; }
+                routes = routes.map(( /**
+                 * @param {?} route
+                 * @return {?}
+                 */function (/**
+                 * @param {?} route
+                 * @return {?}
+                 */ route) {
+                    if (route.name === name) {
+                        newValue.url = parentUrl + "/" + ((!newValue.path && newValue.path === ''
+                            ? route.path
+                            : newValue.path) || '');
+                        if (newValue.children && newValue.children.length) {
+                            newValue.children = newValue.children.map(( /**
+                             * @param {?} child
+                             * @return {?}
+                             */function (/**
+                             * @param {?} child
+                             * @return {?}
+                             */ child) { return (Object.assign({}, child, { url: (newValue.url + "/" + child.path).replace('//', '/') })); }));
+                        }
+                        return Object.assign({}, route, newValue);
+                    }
+                    else if (route.children && route.children.length) {
+                        route.children = patchRouteDeep(route.children, name, newValue, (parentUrl || '/') + route.path);
+                    }
+                    return route;
+                }));
+                if (parentUrl) {
+                    // recursive block
+                    return routes;
+                }
+                return organizeRoutes(routes);
+            }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/utils/rxjs-utils.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @param {?} value
+             * @return {?}
+             */
+            function isFunction(value) {
+                return typeof value === 'function';
+            }
+            /** @type {?} */
+            var takeUntilDestroy = ( /**
+             * @param {?} componentInstance
+             * @param {?=} destroyMethodName
+             * @return {?}
+             */function (componentInstance, destroyMethodName) {
+                if (destroyMethodName === void 0) { destroyMethodName = 'ngOnDestroy'; }
+                return ( /**
+                 * @template T
+                 * @param {?} source
+                 * @return {?}
+                 */function (source) {
+                    /** @type {?} */
+                    var originalDestroy = componentInstance[destroyMethodName];
+                    if (isFunction(originalDestroy) === false) {
+                        throw new Error(componentInstance.constructor.name + " is using untilDestroyed but doesn't implement " + destroyMethodName);
+                    }
+                    if (!componentInstance['__takeUntilDestroy']) {
+                        componentInstance['__takeUntilDestroy'] = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+                        componentInstance[destroyMethodName] = ( /**
+                         * @return {?}
+                         */function () {
+                            // tslint:disable-next-line: no-unused-expression
+                            isFunction(originalDestroy) && originalDestroy.apply(this, arguments);
+                            componentInstance['__takeUntilDestroy'].next(true);
+                            componentInstance['__takeUntilDestroy'].complete();
+                        });
+                    }
+                    return source.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["takeUntil"])(componentInstance['__takeUntilDestroy']));
+                });
+            });
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/components/dynamic-layout.component.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var DynamicLayoutComponent = /** @class */ (function () {
+                /**
+                 * @param {?} router
+                 * @param {?} route
+                 * @param {?} store
+                 */
+                function DynamicLayoutComponent(router, route, store) {
+                    var _this = this;
+                    this.router = router;
+                    this.route = route;
+                    this.store = store;
+                    var _a = this.store.selectSnapshot(ConfigState.getAll), layouts = _a.requirements.layouts, routes = _a.routes;
+                    if ((this.route.snapshot.data || {}).layout) {
+                        this.layout = layouts
+                            .filter(( /**
+                     * @param {?} l
+                     * @return {?}
+                     */function (/**
+                     * @param {?} l
+                     * @return {?}
+                     */ l) { return !!l; }))
+                            .find(( /**
+                     * @param {?} l
+                     * @return {?}
+                     */function (l) { return Object(snq__WEBPACK_IMPORTED_MODULE_5__["default"])(( /**
+                         * @return {?}
+                         */function () { return l.type.toLowerCase().indexOf(_this.route.snapshot.data.layout); }), -1) > -1; }));
+                    }
+                    this.router.events.pipe(takeUntilDestroy(this)).subscribe(( /**
+                     * @param {?} event
+                     * @return {?}
+                     */function (/**
+                     * @param {?} event
+                     * @return {?}
+                     */ event) {
+                        if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"]) {
+                            var segments = _this.router.parseUrl(event.url).root.children.primary.segments;
+                            /** @type {?} */
+                            var layout_1 = (_this.route.snapshot.data || {}).layout || findLayout(segments, routes);
+                            _this.layout = layouts
+                                .filter(( /**
+                         * @param {?} l
+                         * @return {?}
+                         */function (/**
+                         * @param {?} l
+                         * @return {?}
+                         */ l) { return !!l; }))
+                                .find(( /**
+                         * @param {?} l
+                         * @return {?}
+                         */function (l) { return Object(snq__WEBPACK_IMPORTED_MODULE_5__["default"])(( /**
+                             * @return {?}
+                             */function () { return l.type.toLowerCase().indexOf(layout_1); }), -1) > -1; }));
+                        }
+                    }));
+                }
+                /**
+                 * @return {?}
+                 */
+                DynamicLayoutComponent.prototype.ngOnDestroy = function () { };
+                return DynamicLayoutComponent;
+            }());
+            DynamicLayoutComponent.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                            selector: 'abp-dynamic-layout',
+                            template: "\n    <ng-container *ngTemplateOutlet=\"layout ? componentOutlet : routerOutlet\"></ng-container>\n    <ng-template #routerOutlet><router-outlet></router-outlet></ng-template>\n    <ng-template #componentOutlet><ng-container *ngComponentOutlet=\"layout\"></ng-container></ng-template>\n  "
+                        }] }
+            ];
+            /** @nocollapse */
+            DynamicLayoutComponent.ctorParameters = function () { return [
+                { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+                { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
+                { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }
+            ]; };
+            Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Select"])(ConfigState.getOne('requirements')),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:type", rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"])
+            ], DynamicLayoutComponent.prototype, "requirements$", void 0);
+            if (false) { }
+            /**
+             * @param {?} segments
+             * @param {?} routes
+             * @return {?}
+             */
+            function findLayout(segments, routes) {
+                /** @type {?} */
+                var layout = "empty" /* empty */;
+                /** @type {?} */
+                var route = routes
+                    .reduce(( /**
+             * @param {?} acc
+             * @param {?} val
+             * @return {?}
+             */function (acc, val) { return (val.wrapper ? __spread(acc, val.children) : __spread(acc, [val])); }), [])
+                    .find(( /**
+             * @param {?} r
+             * @return {?}
+             */function (/**
+             * @param {?} r
+             * @return {?}
+             */ r) { return r.path === segments[0].path; }));
+                if (route) {
+                    if (route.layout) {
+                        layout = route.layout;
+                    }
+                    if (route.children && route.children.length && segments.length > 1) {
+                        /** @type {?} */
+                        var child = route.children.find(( /**
+                         * @param {?} c
+                         * @return {?}
+                         */function (/**
+                         * @param {?} c
+                         * @return {?}
+                         */ c) { return c.path === segments[1].path; }));
+                        if (child && child.layout) {
+                            layout = child.layout;
+                        }
+                    }
+                }
+                return layout;
+            }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/components/router-outlet.component.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var RouterOutletComponent = /** @class */ (function () {
+                function RouterOutletComponent() {
+                }
+                return RouterOutletComponent;
+            }());
+            RouterOutletComponent.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"], args: [{
+                            selector: 'abp-router-outlet',
+                            template: "\n    <router-outlet></router-outlet>\n  "
+                        }] }
+            ];
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/components/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/constants/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/directives/autofocus.directive.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var AutofocusDirective = /** @class */ (function () {
+                /**
+                 * @param {?} elRef
+                 */
+                function AutofocusDirective(elRef) {
+                    this.elRef = elRef;
+                    this.delay = 0;
+                }
+                /**
+                 * @return {?}
+                 */
+                AutofocusDirective.prototype.ngAfterViewInit = function () {
+                    var _this = this;
+                    setTimeout(( /**
+                     * @return {?}
+                     */function () { return _this.elRef.nativeElement.focus(); }), this.delay);
+                };
+                return AutofocusDirective;
+            }());
+            AutofocusDirective.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                            // tslint:disable-next-line: directive-selector
+                            selector: '[autofocus]'
+                        },] }
+            ];
+            /** @nocollapse */
+            AutofocusDirective.ctorParameters = function () { return [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+            ]; };
+            AutofocusDirective.propDecorators = {
+                delay: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['autofocus',] }]
+            };
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/directives/ellipsis.directive.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var EllipsisDirective = /** @class */ (function () {
+                /**
+                 * @param {?} cdRef
+                 * @param {?} elRef
+                 */
+                function EllipsisDirective(cdRef, elRef) {
+                    this.cdRef = cdRef;
+                    this.elRef = elRef;
+                    this.enabled = true;
+                }
+                Object.defineProperty(EllipsisDirective.prototype, "inlineClass", {
+                    /**
+                     * @return {?}
+                     */
+                    get: function () {
+                        return this.enabled && this.width;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(EllipsisDirective.prototype, "class", {
+                    /**
+                     * @return {?}
+                     */
+                    get: function () {
+                        return this.enabled && !this.width;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(EllipsisDirective.prototype, "maxWidth", {
+                    /**
+                     * @return {?}
+                     */
+                    get: function () {
+                        return this.enabled && this.width ? this.width || '170px' : undefined;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                /**
+                 * @return {?}
+                 */
+                EllipsisDirective.prototype.ngAfterViewInit = function () {
+                    this.title = this.title || (( /** @type {?} */(this.elRef.nativeElement))).innerText;
+                    this.cdRef.detectChanges();
+                };
+                return EllipsisDirective;
+            }());
+            EllipsisDirective.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                            selector: '[abpEllipsis]',
+                        },] }
+            ];
+            /** @nocollapse */
+            EllipsisDirective.ctorParameters = function () { return [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"] },
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+            ]; };
+            EllipsisDirective.propDecorators = {
+                width: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['abpEllipsis',] }],
+                title: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['title',] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+                enabled: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['abpEllipsisEnabled',] }],
+                inlineClass: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['class.abp-ellipsis-inline',] }],
+                class: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['class.abp-ellipsis',] }],
+                maxWidth: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostBinding"], args: ['style.max-width',] }]
+            };
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/directives/for.directive.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var AbpForContext = /** @class */ (function () {
+                /**
+                 * @param {?} $implicit
+                 * @param {?} index
+                 * @param {?} count
+                 * @param {?} list
+                 */
+                function AbpForContext($implicit, index, count, list) {
+                    this.$implicit = $implicit;
+                    this.index = index;
+                    this.count = count;
+                    this.list = list;
+                }
+                return AbpForContext;
+            }());
+            if (false) { }
+            var RecordView = /** @class */ (function () {
+                /**
+                 * @param {?} record
+                 * @param {?} view
+                 */
+                function RecordView(record, view) {
+                    this.record = record;
+                    this.view = view;
+                }
+                return RecordView;
+            }());
+            if (false) { }
+            var ForDirective = /** @class */ (function () {
+                /**
+                 * @param {?} tempRef
+                 * @param {?} vcRef
+                 * @param {?} differs
+                 */
+                function ForDirective(tempRef, vcRef, differs) {
+                    this.tempRef = tempRef;
+                    this.vcRef = vcRef;
+                    this.differs = differs;
+                }
+                Object.defineProperty(ForDirective.prototype, "compareFn", {
+                    /**
+                     * @return {?}
+                     */
+                    get: function () {
+                        return this.compareBy || just_compare__WEBPACK_IMPORTED_MODULE_9___default.a;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(ForDirective.prototype, "trackByFn", {
+                    /**
+                     * @return {?}
+                     */
+                    get: function () {
+                        return this.trackBy || (( /**
+                         * @param {?} index
+                         * @param {?} item
+                         * @return {?}
+                         */function (index, item) { return (( /** @type {?} */(item))).id || index; }));
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                /**
+                 * @private
+                 * @param {?} changes
+                 * @return {?}
+                 */
+                ForDirective.prototype.iterateOverAppliedOperations = function (changes) {
+                    var _this = this;
+                    /** @type {?} */
+                    var rw = [];
+                    changes.forEachOperation(( /**
+                     * @param {?} record
+                     * @param {?} previousIndex
+                     * @param {?} currentIndex
+                     * @return {?}
+                     */function (record, previousIndex, currentIndex) {
+                        if (record.previousIndex == null) {
+                            /** @type {?} */
+                            var view = _this.vcRef.createEmbeddedView(_this.tempRef, new AbpForContext(null, -1, -1, _this.items), currentIndex);
+                            rw.push(new RecordView(record, view));
+                        }
+                        else if (currentIndex == null) {
+                            _this.vcRef.remove(previousIndex);
+                        }
+                        else {
+                            /** @type {?} */
+                            var view = _this.vcRef.get(previousIndex);
+                            _this.vcRef.move(view, currentIndex);
+                            rw.push(new RecordView(record, ( /** @type {?} */(view))));
+                        }
+                    }));
+                    for (var i = 0, l = rw.length; i < l; i++) {
+                        rw[i].view.context.$implicit = rw[i].record.item;
+                    }
+                };
+                /**
+                 * @private
+                 * @param {?} changes
+                 * @return {?}
+                 */
+                ForDirective.prototype.iterateOverAttachedViews = function (changes) {
+                    var _this = this;
+                    for (var i = 0, l = this.vcRef.length; i < l; i++) {
+                        /** @type {?} */
+                        var viewRef = ( /** @type {?} */(this.vcRef.get(i)));
+                        viewRef.context.index = i;
+                        viewRef.context.count = l;
+                        viewRef.context.list = this.items;
+                    }
+                    changes.forEachIdentityChange(( /**
+                     * @param {?} record
+                     * @return {?}
+                     */function (record) {
+                        /** @type {?} */
+                        var viewRef = ( /** @type {?} */(_this.vcRef.get(record.currentIndex)));
+                        viewRef.context.$implicit = record.item;
+                    }));
+                };
+                /**
+                 * @private
+                 * @param {?} items
+                 * @return {?}
+                 */
+                ForDirective.prototype.projectItems = function (items) {
+                    if (!items.length && this.emptyRef) {
+                        this.vcRef.clear();
+                        // tslint:disable-next-line: no-unused-expression
+                        this.vcRef.createEmbeddedView(this.emptyRef).rootNodes;
+                        this.isShowEmptyRef = true;
+                        this.differ = null;
+                        return;
+                    }
+                    if (this.emptyRef && this.isShowEmptyRef) {
+                        this.vcRef.clear();
+                        this.isShowEmptyRef = false;
+                    }
+                    if (!this.differ && items) {
+                        this.differ = this.differs.find(items).create(this.trackByFn);
+                    }
+                    if (this.differ) {
+                        /** @type {?} */
+                        var changes = this.differ.diff(items);
+                        if (changes) {
+                            this.iterateOverAppliedOperations(changes);
+                            this.iterateOverAttachedViews(changes);
+                        }
+                    }
+                };
+                /**
+                 * @private
+                 * @param {?} items
+                 * @return {?}
+                 */
+                ForDirective.prototype.sortItems = function (items) {
+                    var _this = this;
+                    if (this.orderBy) {
+                        items.sort(( /**
+                         * @param {?} a
+                         * @param {?} b
+                         * @return {?}
+                         */function (a, b) { return (a[_this.orderBy] > b[_this.orderBy] ? 1 : a[_this.orderBy] < b[_this.orderBy] ? -1 : 0); }));
+                    }
+                    else {
+                        items.sort();
+                    }
+                };
+                /**
+                 * @return {?}
+                 */
+                ForDirective.prototype.ngOnChanges = function () {
+                    var _this = this;
+                    /** @type {?} */
+                    var items = ( /** @type {?} */(just_clone__WEBPACK_IMPORTED_MODULE_10___default()(this.items)));
+                    if (!Array.isArray(items))
+                        return;
+                    /** @type {?} */
+                    var compareFn = this.compareFn;
+                    if (typeof this.filterBy !== 'undefined' && typeof this.filterVal !== 'undefined' && this.filterVal !== '') {
+                        items = items.filter(( /**
+                         * @param {?} item
+                         * @return {?}
+                         */function (/**
+                         * @param {?} item
+                         * @return {?}
+                         */ item) { return compareFn(item[_this.filterBy], _this.filterVal); }));
+                    }
+                    switch (this.orderDir) {
+                        case 'ASC':
+                            this.sortItems(items);
+                            this.projectItems(items);
+                            break;
+                        case 'DESC':
+                            this.sortItems(items);
+                            items.reverse();
+                            this.projectItems(items);
+                            break;
+                        default:
+                            this.projectItems(items);
+                    }
+                };
+                return ForDirective;
+            }());
+            ForDirective.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                            selector: '[abpFor]',
+                        },] }
+            ];
+            /** @nocollapse */
+            ForDirective.ctorParameters = function () { return [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"] },
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewContainerRef"] },
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["IterableDiffers"] }
+            ]; };
+            ForDirective.propDecorators = {
+                items: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['abpForOf',] }],
+                orderBy: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['abpForOrderBy',] }],
+                orderDir: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['abpForOrderDir',] }],
+                filterBy: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['abpForFilterBy',] }],
+                filterVal: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['abpForFilterVal',] }],
+                trackBy: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['abpForTrackBy',] }],
+                compareBy: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['abpForCompareBy',] }],
+                emptyRef: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['abpForEmptyRef',] }]
+            };
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/utils/common-utils.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @return {?}
+             */
+            function noop() {
+                // tslint:disable-next-line: only-arrow-functions
+                /** @type {?} */
+                var fn = ( /**
+                 * @return {?}
+                 */function () { });
+                return fn;
+            }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/utils/generator-utils.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @param {?=} a
+             * @return {?}
+             */
+            function uuid(a) {
+                return a
+                    ? // tslint:disable-next-line: no-bitwise
+                        (a ^ ((Math.random() * 16) >> (a / 4))).toString(16)
+                    : ('' + 1e7 + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, uuid);
+            }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/utils/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/directives/form-submit.directive.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var FormSubmitDirective = /** @class */ (function () {
+                /**
+                 * @param {?} formGroupDirective
+                 * @param {?} host
+                 * @param {?} cdRef
+                 */
+                function FormSubmitDirective(formGroupDirective, host, cdRef) {
+                    this.formGroupDirective = formGroupDirective;
+                    this.host = host;
+                    this.cdRef = cdRef;
+                    this.debounce = 200;
+                    this.ngSubmit = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+                    this.executedNgSubmit = false;
+                }
+                /**
+                 * @return {?}
+                 */
+                FormSubmitDirective.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this.formGroupDirective.ngSubmit.pipe(takeUntilDestroy(this)).subscribe(( /**
+                     * @return {?}
+                     */function () {
+                        _this.markAsDirty();
+                        _this.executedNgSubmit = true;
+                    }));
+                    Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["fromEvent"])(( /** @type {?} */(this.host.nativeElement)), 'keyup')
+                        .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["debounceTime"])(this.debounce), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["filter"])(( /**
+                 * @param {?} key
+                 * @return {?}
+                 */function (key) { return key && key.key === 'Enter'; })), takeUntilDestroy(this))
+                        .subscribe(( /**
+                 * @return {?}
+                 */function () {
+                        if (!_this.executedNgSubmit) {
+                            _this.host.nativeElement.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+                        }
+                        _this.executedNgSubmit = false;
+                    }));
+                };
+                /**
+                 * @return {?}
+                 */
+                FormSubmitDirective.prototype.ngOnDestroy = function () { };
+                /**
+                 * @return {?}
+                 */
+                FormSubmitDirective.prototype.markAsDirty = function () {
+                    var form = this.formGroupDirective.form;
+                    setDirty(( /** @type {?} */(form.controls)));
+                    form.markAsDirty();
+                    this.cdRef.detectChanges();
+                };
+                return FormSubmitDirective;
+            }());
+            FormSubmitDirective.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                            // tslint:disable-next-line: directive-selector
+                            selector: 'form[ngSubmit][formGroup]',
+                        },] }
+            ];
+            /** @nocollapse */
+            FormSubmitDirective.ctorParameters = function () { return [
+                { type: _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormGroupDirective"], decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Self"] }] },
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"] }
+            ]; };
+            FormSubmitDirective.propDecorators = {
+                debounce: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+                notValidateOnSubmit: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+                ngSubmit: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"] }]
+            };
+            if (false) { }
+            /**
+             * @param {?} controls
+             * @return {?}
+             */
+            function setDirty(controls) {
+                if (Array.isArray(controls)) {
+                    controls.forEach(( /**
+                     * @param {?} group
+                     * @return {?}
+                     */function (/**
+                     * @param {?} group
+                     * @return {?}
+                     */ group) {
+                        setDirty(( /** @type {?} */(group.controls)));
+                    }));
+                    return;
+                }
+                Object.keys(controls).forEach(( /**
+                 * @param {?} key
+                 * @return {?}
+                 */function (/**
+                 * @param {?} key
+                 * @return {?}
+                 */ key) {
+                    controls[key].markAsDirty();
+                    controls[key].updateValueAndValidity();
+                }));
+            }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/services/profile.service.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var ProfileService = /** @class */ (function () {
+                /**
+                 * @param {?} rest
+                 */
+                function ProfileService(rest) {
+                    this.rest = rest;
+                }
+                /**
+                 * @return {?}
+                 */
+                ProfileService.prototype.get = function () {
+                    /** @type {?} */
+                    var request = {
+                        method: 'GET',
+                        url: '/api/identity/my-profile',
+                    };
+                    return this.rest.request(request);
+                };
+                /**
+                 * @param {?} body
+                 * @return {?}
+                 */
+                ProfileService.prototype.update = function (body) {
+                    /** @type {?} */
+                    var request = {
+                        method: 'PUT',
+                        url: '/api/identity/my-profile',
+                        body: body,
+                    };
+                    return this.rest.request(request);
+                };
+                /**
+                 * @param {?} body
+                 * @param {?=} skipHandleError
+                 * @return {?}
+                 */
+                ProfileService.prototype.changePassword = function (body, skipHandleError) {
+                    if (skipHandleError === void 0) { skipHandleError = false; }
+                    /** @type {?} */
+                    var request = {
+                        method: 'POST',
+                        url: '/api/identity/my-profile/change-password',
+                        body: body,
+                    };
+                    return this.rest.request(request, { skipHandleError: skipHandleError });
+                };
+                return ProfileService;
+            }());
+            ProfileService.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                            providedIn: 'root',
+                        },] }
+            ];
+            /** @nocollapse */
+            ProfileService.ctorParameters = function () { return [
+                { type: RestService }
+            ]; };
+            /** @nocollapse */ ProfileService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function ProfileService_Factory() { return new ProfileService(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(RestService)); }, token: ProfileService, providedIn: "root" });
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/states/profile.state.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var ProfileState = /** @class */ (function () {
+                /**
+                 * @param {?} profileService
+                 */
+                function ProfileState(profileService) {
+                    this.profileService = profileService;
+                }
+                /**
+                 * @param {?} __0
+                 * @return {?}
+                 */
+                ProfileState.getProfile = function (_a) {
+                    var profile = _a.profile;
+                    return profile;
+                };
+                /**
+                 * @param {?} __0
+                 * @return {?}
+                 */
+                ProfileState.prototype.getProfile = function (_a) {
+                    var patchState = _a.patchState;
+                    return this.profileService.get().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(( /**
+                     * @param {?} profile
+                     * @return {?}
+                     */function (/**
+                     * @param {?} profile
+                     * @return {?}
+                     */ profile) { return patchState({
+                        profile: profile,
+                    }); })));
+                };
+                /**
+                 * @param {?} __0
+                 * @param {?} __1
+                 * @return {?}
+                 */
+                ProfileState.prototype.updateProfile = function (_a, _b) {
+                    var patchState = _a.patchState;
+                    var payload = _b.payload;
+                    return this.profileService.update(payload).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(( /**
+                     * @param {?} profile
+                     * @return {?}
+                     */function (/**
+                     * @param {?} profile
+                     * @return {?}
+                     */ profile) { return patchState({
+                        profile: profile,
+                    }); })));
+                };
+                /**
+                 * @param {?} _
+                 * @param {?} __1
+                 * @return {?}
+                 */
+                ProfileState.prototype.changePassword = function (_, _a) {
+                    var payload = _a.payload;
+                    return this.profileService.changePassword(payload, true);
+                };
+                return ProfileState;
+            }());
+            ProfileState.ctorParameters = function () { return [
+                { type: ProfileService }
+            ]; };
+            Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Action"])(GetProfile),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:type", Function),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [Object]),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:returntype", void 0)
+            ], ProfileState.prototype, "getProfile", null);
+            Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Action"])(UpdateProfile),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:type", Function),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [Object, UpdateProfile]),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:returntype", void 0)
+            ], ProfileState.prototype, "updateProfile", null);
+            Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Action"])(ChangePassword),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:type", Function),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [Object, ChangePassword]),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:returntype", void 0)
+            ], ProfileState.prototype, "changePassword", null);
+            Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Selector"])(),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:type", Function),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [Object]),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:returntype", Object)
+            ], ProfileState, "getProfile", null);
+            ProfileState = Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__decorate"])([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["State"])({
+                    name: 'ProfileState',
+                    defaults: ( /** @type {?} */({})),
+                }),
+                Object(tslib__WEBPACK_IMPORTED_MODULE_1__["__metadata"])("design:paramtypes", [ProfileService])
+            ], ProfileState);
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/states/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/directives/permission.directive.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var PermissionDirective = /** @class */ (function () {
+                /**
+                 * @param {?} elRef
+                 * @param {?} renderer
+                 * @param {?} store
+                 * @param {?} templateRef
+                 * @param {?} vcRef
+                 */
+                function PermissionDirective(elRef, renderer, store, templateRef, vcRef) {
+                    this.elRef = elRef;
+                    this.renderer = renderer;
+                    this.store = store;
+                    this.templateRef = templateRef;
+                    this.vcRef = vcRef;
+                }
+                /**
+                 * @private
+                 * @return {?}
+                 */
+                PermissionDirective.prototype.check = function () {
+                    var _this = this;
+                    if (this.subscription) {
+                        this.subscription.unsubscribe();
+                    }
+                    this.subscription = this.store
+                        .select(ConfigState.getGrantedPolicy(this.condition))
+                        .pipe(takeUntilDestroy(this))
+                        .subscribe(( /**
+                 * @param {?} isGranted
+                 * @return {?}
+                 */function (/**
+                 * @param {?} isGranted
+                 * @return {?}
+                 */ isGranted) {
+                        if (_this.templateRef && isGranted) {
+                            _this.vcRef.clear();
+                            _this.vcRef.createEmbeddedView(_this.templateRef);
+                        }
+                        else if (_this.templateRef && !isGranted) {
+                            _this.vcRef.clear();
+                        }
+                        else if (!isGranted && !_this.templateRef) {
+                            _this.renderer.removeChild((( /** @type {?} */(_this.elRef.nativeElement))).parentElement, _this.elRef.nativeElement);
+                        }
+                    }));
+                };
+                /**
+                 * @return {?}
+                 */
+                PermissionDirective.prototype.ngOnInit = function () {
+                    if (this.templateRef && !this.condition) {
+                        this.vcRef.createEmbeddedView(this.templateRef);
+                    }
+                };
+                /**
+                 * @return {?}
+                 */
+                PermissionDirective.prototype.ngOnDestroy = function () { };
+                /**
+                 * @param {?} __0
+                 * @return {?}
+                 */
+                PermissionDirective.prototype.ngOnChanges = function (_a) {
+                    var condition = _a.condition;
+                    if ((condition || { currentValue: null }).currentValue) {
+                        this.check();
+                    }
+                };
+                return PermissionDirective;
+            }());
+            PermissionDirective.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                            selector: '[abpPermission]',
+                        },] }
+            ];
+            /** @nocollapse */
+            PermissionDirective.ctorParameters = function () { return [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] },
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] },
+                { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"] },
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["TemplateRef"], decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }] },
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewContainerRef"] }
+            ]; };
+            PermissionDirective.propDecorators = {
+                condition: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['abpPermission',] }]
+            };
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/directives/visibility.directive.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var VisibilityDirective = /** @class */ (function () {
+                /**
+                 * @param {?} elRef
+                 * @param {?} renderer
+                 */
+                function VisibilityDirective(elRef, renderer) {
+                    this.elRef = elRef;
+                    this.renderer = renderer;
+                    this.completed$ = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+                }
+                /**
+                 * @return {?}
+                 */
+                VisibilityDirective.prototype.ngAfterViewInit = function () {
+                    var _this = this;
+                    if (!this.focusedElement && this.elRef) {
+                        this.focusedElement = this.elRef.nativeElement;
+                    }
+                    /** @type {?} */
+                    var observer;
+                    observer = new MutationObserver(( /**
+                     * @param {?} mutations
+                     * @return {?}
+                     */function (/**
+                     * @param {?} mutations
+                     * @return {?}
+                     */ mutations) {
+                        mutations.forEach(( /**
+                         * @param {?} mutation
+                         * @return {?}
+                         */function (/**
+                         * @param {?} mutation
+                         * @return {?}
+                         */ mutation) {
+                            if (!mutation.target)
+                                return;
+                            /** @type {?} */
+                            var htmlNodes = Object(snq__WEBPACK_IMPORTED_MODULE_5__["default"])(( /**
+                             * @return {?}
+                             */function () { return Array.from(mutation.target.childNodes).filter(( /**
+                             * @param {?} node
+                             * @return {?}
+                             */function (/**
+                             * @param {?} node
+                             * @return {?}
+                             */ node) { return node instanceof HTMLElement; })); }), []);
+                            if (!htmlNodes.length) {
+                                _this.removeFromDOM();
+                            }
+                        }));
+                    }));
+                    observer.observe(this.focusedElement, {
+                        childList: true,
+                    });
+                    setTimeout(( /**
+                     * @return {?}
+                     */function () {
+                        /** @type {?} */
+                        var htmlNodes = Object(snq__WEBPACK_IMPORTED_MODULE_5__["default"])(( /**
+                         * @return {?}
+                         */function () { return Array.from(_this.focusedElement.childNodes).filter(( /**
+                         * @param {?} node
+                         * @return {?}
+                         */function (/**
+                         * @param {?} node
+                         * @return {?}
+                         */ node) { return node instanceof HTMLElement; })); }), []);
+                        if (!htmlNodes.length)
+                            _this.removeFromDOM();
+                    }), 0);
+                    this.completed$.subscribe(( /**
+                     * @return {?}
+                     */function () { return observer.disconnect(); }));
+                };
+                /**
+                 * @return {?}
+                 */
+                VisibilityDirective.prototype.disconnect = function () {
+                    this.completed$.next();
+                    this.completed$.complete();
+                };
+                /**
+                 * @return {?}
+                 */
+                VisibilityDirective.prototype.removeFromDOM = function () {
+                    if (!this.elRef.nativeElement)
+                        return;
+                    this.renderer.removeChild(this.elRef.nativeElement.parentElement, this.elRef.nativeElement);
+                    this.disconnect();
+                };
+                return VisibilityDirective;
+            }());
+            VisibilityDirective.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                            selector: '[abpVisibility]',
+                        },] }
+            ];
+            /** @nocollapse */
+            VisibilityDirective.ctorParameters = function () { return [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Optional"] }] },
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"] }
+            ]; };
+            VisibilityDirective.propDecorators = {
+                focusedElement: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"], args: ['abpVisibility',] }]
+            };
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/directives/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/enums/common.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /** @enum {string} */
+            var eLayoutType = {
+                account: "account",
+                application: "application",
+                empty: "empty",
+                /**
+                 * @deprecated since version 0.9.0
+                 */
+                setting: "setting",
+            };
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/enums/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/guards/auth.guard.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var AuthGuard = /** @class */ (function () {
+                /**
+                 * @param {?} oauthService
+                 * @param {?} router
+                 */
+                function AuthGuard(oauthService, router) {
+                    this.oauthService = oauthService;
+                    this.router = router;
+                }
+                /**
+                 * @param {?} _
+                 * @param {?} state
+                 * @return {?}
+                 */
+                AuthGuard.prototype.canActivate = function (_, state) {
+                    /** @type {?} */
+                    var hasValidAccessToken = this.oauthService.hasValidAccessToken();
+                    if (hasValidAccessToken) {
+                        return hasValidAccessToken;
+                    }
+                    return this.router.createUrlTree(['/account/login'], { state: { redirectUrl: state.url } });
+                };
+                return AuthGuard;
+            }());
+            AuthGuard.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                            providedIn: 'root',
+                        },] }
+            ];
+            /** @nocollapse */
+            AuthGuard.ctorParameters = function () { return [
+                { type: angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_12__["OAuthService"] },
+                { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+            ]; };
+            /** @nocollapse */ AuthGuard.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function AuthGuard_Factory() { return new AuthGuard(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_12__["OAuthService"]), Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"])); }, token: AuthGuard, providedIn: "root" });
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/guards/permission.guard.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var PermissionGuard = /** @class */ (function () {
+                /**
+                 * @param {?} store
+                 */
+                function PermissionGuard(store) {
+                    this.store = store;
+                }
+                /**
+                 * @param {?} route
+                 * @param {?} state
+                 * @return {?}
+                 */
+                PermissionGuard.prototype.canActivate = function (route, state) {
+                    var _this = this;
+                    /** @type {?} */
+                    var resource = Object(snq__WEBPACK_IMPORTED_MODULE_5__["default"])(( /**
+                     * @return {?}
+                     */function () { return route.data.routes.requiredPolicy; })) || Object(snq__WEBPACK_IMPORTED_MODULE_5__["default"])(( /**
+                     * @return {?}
+                     */function () { return ( /** @type {?} */(route.data.requiredPolicy)); }));
+                    if (!resource) {
+                        resource = Object(snq__WEBPACK_IMPORTED_MODULE_5__["default"])(( /**
+                         * @return {?}
+                         */function () { return route.routeConfig.children.find(( /**
+                         * @param {?} child
+                         * @return {?}
+                         */function (/**
+                         * @param {?} child
+                         * @return {?}
+                         */ child) { return state.url.indexOf(child.path) > -1; })).data.requiredPolicy; }));
+                    }
+                    return this.store.select(ConfigState.getGrantedPolicy(resource)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["tap"])(( /**
+                     * @param {?} access
+                     * @return {?}
+                     */function (/**
+                     * @param {?} access
+                     * @return {?}
+                     */ access) {
+                        if (!access) {
+                            _this.store.dispatch(new RestOccurError({ status: 403 }));
+                        }
+                    })));
+                };
+                return PermissionGuard;
+            }());
+            PermissionGuard.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                            providedIn: 'root',
+                        },] }
+            ];
+            /** @nocollapse */
+            PermissionGuard.ctorParameters = function () { return [
+                { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }
+            ]; };
+            /** @nocollapse */ PermissionGuard.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function PermissionGuard_Factory() { return new PermissionGuard(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"])); }, token: PermissionGuard, providedIn: "root" });
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/guards/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/interceptors/api.interceptor.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var ApiInterceptor = /** @class */ (function () {
+                /**
+                 * @param {?} oAuthService
+                 * @param {?} store
+                 */
+                function ApiInterceptor(oAuthService, store) {
+                    this.oAuthService = oAuthService;
+                    this.store = store;
+                }
+                /**
+                 * @param {?} request
+                 * @param {?} next
+                 * @return {?}
+                 */
+                ApiInterceptor.prototype.intercept = function (request, next) {
+                    var _this = this;
+                    this.store.dispatch(new StartLoader(request));
+                    /** @type {?} */
+                    var headers = ( /** @type {?} */({}));
+                    /** @type {?} */
+                    var token = this.oAuthService.getAccessToken();
+                    if (!request.headers.has('Authorization') && token) {
+                        headers['Authorization'] = "Bearer " + token;
+                    }
+                    /** @type {?} */
+                    var lang = this.store.selectSnapshot(SessionState.getLanguage);
+                    if (!request.headers.has('Accept-Language') && lang) {
+                        headers['Accept-Language'] = lang;
+                    }
+                    /** @type {?} */
+                    var tenant = this.store.selectSnapshot(SessionState.getTenant);
+                    if (!request.headers.has('__tenant') && tenant) {
+                        headers['__tenant'] = tenant.id;
+                    }
+                    return next
+                        .handle(request.clone({
+                        setHeaders: headers,
+                    }))
+                        .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["finalize"])(( /**
+                 * @return {?}
+                 */function () { return _this.store.dispatch(new StopLoader(request)); })));
+                };
+                return ApiInterceptor;
+            }());
+            ApiInterceptor.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] }
+            ];
+            /** @nocollapse */
+            ApiInterceptor.ctorParameters = function () { return [
+                { type: angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_12__["OAuthService"] },
+                { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }
+            ]; };
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/interceptors/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/models/application-configuration.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var ApplicationConfiguration;
+            (function (ApplicationConfiguration) {
+                /**
+                 * @record
+                 */
+                function Response() { }
+                ApplicationConfiguration.Response = Response;
+                if (false) { }
+                /**
+                 * @record
+                 */
+                function Localization() { }
+                ApplicationConfiguration.Localization = Localization;
+                if (false) { }
+                /**
+                 * @record
+                 */
+                function LocalizationValue() { }
+                ApplicationConfiguration.LocalizationValue = LocalizationValue;
+                /**
+                 * @record
+                 */
+                function Language() { }
+                ApplicationConfiguration.Language = Language;
+                if (false) { }
+                /**
+                 * @record
+                 */
+                function Auth() { }
+                ApplicationConfiguration.Auth = Auth;
+                if (false) { }
+                /**
+                 * @record
+                 */
+                function Policy() { }
+                ApplicationConfiguration.Policy = Policy;
+                /**
+                 * @record
+                 */
+                function Value() { }
+                ApplicationConfiguration.Value = Value;
+                if (false) { }
+                /**
+                 * @record
+                 */
+                function CurrentUser() { }
+                ApplicationConfiguration.CurrentUser = CurrentUser;
+                if (false) { }
+            })(ApplicationConfiguration || (ApplicationConfiguration = {}));
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/models/common.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var ABP;
+            (function (ABP) {
+                /**
+                 * @record
+                 */
+                function Root() { }
+                ABP.Root = Root;
+                if (false) { }
+                /**
+                 * @record
+                 * @template T
+                 */
+                function PagedItemsResponse() { }
+                ABP.PagedItemsResponse = PagedItemsResponse;
+                if (false) { }
+                /**
+                 * @record
+                 */
+                function PageQueryParams() { }
+                ABP.PageQueryParams = PageQueryParams;
+                if (false) { }
+                /**
+                 * @record
+                 */
+                function Route() { }
+                ABP.Route = Route;
+                if (false) { }
+                /**
+                 * @record
+                 */
+                function FullRoute() { }
+                ABP.FullRoute = FullRoute;
+                if (false) { }
+                /**
+                 * @record
+                 */
+                function BasicItem() { }
+                ABP.BasicItem = BasicItem;
+                if (false) { }
+                /**
+                 * @record
+                 * @template T
+                 */
+                function Dictionary() { }
+                ABP.Dictionary = Dictionary;
+            })(ABP || (ABP = {}));
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/models/config.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var Config;
+            (function (Config) {
+                /**
+                 * @record
+                 */
+                function Environment() { }
+                Config.Environment = Environment;
+                if (false) { }
+                /**
+                 * @record
+                 */
+                function Application() { }
+                Config.Application = Application;
+                if (false) { }
+                /**
+                 * @record
+                 */
+                function Apis() { }
+                Config.Apis = Apis;
+                /**
+                 * @record
+                 */
+                function Requirements() { }
+                Config.Requirements = Requirements;
+                if (false) { }
+                /**
+                 * @record
+                 */
+                function LocalizationWithDefault() { }
+                Config.LocalizationWithDefault = LocalizationWithDefault;
+                if (false) { }
+            })(Config || (Config = {}));
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/models/rest.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var Rest;
+            (function (Rest) {
+                /**
+                 * @record
+                 */
+                function Config() { }
+                Rest.Config = Config;
+                if (false) { }
+                /**
+                 * @record
+                 * @template T
+                 */
+                function Request() { }
+                Rest.Request = Request;
+                if (false) { }
+            })(Rest || (Rest = {}));
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/models/session.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var Session;
+            (function (Session) {
+                /**
+                 * @record
+                 */
+                function State() { }
+                Session.State = State;
+                if (false) { }
+            })(Session || (Session = {}));
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/models/profile.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var Profile;
+            (function (Profile) {
+                /**
+                 * @record
+                 */
+                function State() { }
+                Profile.State = State;
+                if (false) { }
+                /**
+                 * @record
+                 */
+                function Response() { }
+                Profile.Response = Response;
+                if (false) { }
+                /**
+                 * @record
+                 */
+                function ChangePasswordRequest() { }
+                Profile.ChangePasswordRequest = ChangePasswordRequest;
+                if (false) { }
+            })(Profile || (Profile = {}));
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/models/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/pipes/localization.pipe.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var LocalizationPipe = /** @class */ (function () {
+                /**
+                 * @param {?} store
+                 */
+                function LocalizationPipe(store) {
+                    this.store = store;
+                }
+                /**
+                 * @param {?=} value
+                 * @param {...?} interpolateParams
+                 * @return {?}
+                 */
+                LocalizationPipe.prototype.transform = function (value) {
+                    if (value === void 0) { value = ''; }
+                    var interpolateParams = [];
+                    for (var _i = 1; _i < arguments.length; _i++) {
+                        interpolateParams[_i - 1] = arguments[_i];
+                    }
+                    return this.store.selectSnapshot(ConfigState.getLocalization.apply(ConfigState, __spread([value], interpolateParams.reduce(( /**
+                     * @param {?} acc
+                     * @param {?} val
+                     * @return {?}
+                     */function (acc, val) { return (Array.isArray(val) ? __spread(acc, val) : __spread(acc, [val])); }), []))));
+                };
+                return LocalizationPipe;
+            }());
+            LocalizationPipe.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"], args: [{
+                            name: 'abpLocalization',
+                        },] }
+            ];
+            /** @nocollapse */
+            LocalizationPipe.ctorParameters = function () { return [
+                { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }
+            ]; };
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/pipes/sort.pipe.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var SortPipe = /** @class */ (function () {
+                function SortPipe() {
+                }
+                /**
+                 * @param {?} value
+                 * @param {?=} sortOrder
+                 * @param {?=} sortKey
+                 * @return {?}
+                 */
+                SortPipe.prototype.transform = function (value, sortOrder, sortKey) {
+                    if (sortOrder === void 0) { sortOrder = 'asc'; }
+                    sortOrder = sortOrder && (( /** @type {?} */(sortOrder.toLowerCase())));
+                    if (!value || (sortOrder !== 'asc' && sortOrder !== 'desc'))
+                        return value;
+                    /** @type {?} */
+                    var numberArray = [];
+                    /** @type {?} */
+                    var stringArray = [];
+                    if (!sortKey) {
+                        numberArray = value.filter(( /**
+                         * @param {?} item
+                         * @return {?}
+                         */function (/**
+                         * @param {?} item
+                         * @return {?}
+                         */ item) { return typeof item === 'number'; })).sort();
+                        stringArray = value.filter(( /**
+                         * @param {?} item
+                         * @return {?}
+                         */function (/**
+                         * @param {?} item
+                         * @return {?}
+                         */ item) { return typeof item === 'string'; })).sort();
+                    }
+                    else {
+                        numberArray = value
+                            .filter(( /**
+                     * @param {?} item
+                     * @return {?}
+                     */function (/**
+                     * @param {?} item
+                     * @return {?}
+                     */ item) { return typeof item[sortKey] === 'number'; }))
+                            .sort(( /**
+                     * @param {?} a
+                     * @param {?} b
+                     * @return {?}
+                     */function (a, b) { return a[sortKey] - b[sortKey]; }));
+                        stringArray = value
+                            .filter(( /**
+                     * @param {?} item
+                     * @return {?}
+                     */function (/**
+                     * @param {?} item
+                     * @return {?}
+                     */ item) { return typeof item[sortKey] === 'string'; }))
+                            .sort(( /**
+                     * @param {?} a
+                     * @param {?} b
+                     * @return {?}
+                     */function (a, b) {
+                            if (a[sortKey] < b[sortKey])
+                                return -1;
+                            else if (a[sortKey] > b[sortKey])
+                                return 1;
+                            else
+                                return 0;
+                        }));
+                    }
+                    /** @type {?} */
+                    var sorted = __spread(numberArray, stringArray, value.filter(( /**
+                     * @param {?} item
+                     * @return {?}
+                     */function (/**
+                     * @param {?} item
+                     * @return {?}
+                     */ item) { return typeof (sortKey ? item[sortKey] : item) !== 'number' &&
+                        typeof (sortKey ? item[sortKey] : item) !== 'string'; })));
+                    return sortOrder === 'asc' ? sorted : sorted.reverse();
+                };
+                return SortPipe;
+            }());
+            SortPipe.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] },
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"], args: [{
+                            name: 'abpSort',
+                        },] }
+            ];
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/pipes/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/plugins/config.plugin.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /** @type {?} */
+            var NGXS_CONFIG_PLUGIN_OPTIONS = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('NGXS_CONFIG_PLUGIN_OPTIONS');
+            var ConfigPlugin = /** @class */ (function () {
+                /**
+                 * @param {?} options
+                 * @param {?} router
+                 */
+                function ConfigPlugin(options, router) {
+                    this.options = options;
+                    this.router = router;
+                    this.initialized = false;
+                }
+                /**
+                 * @param {?} state
+                 * @param {?} event
+                 * @param {?} next
+                 * @return {?}
+                 */
+                ConfigPlugin.prototype.handle = function (state, event, next) {
+                    /** @type {?} */
+                    var matches = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["actionMatcher"])(event);
+                    /** @type {?} */
+                    var isInitAction = matches(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["InitState"]) || matches(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["UpdateState"]);
+                    if (isInitAction && !this.initialized) {
+                        /** @type {?} */
+                        var transformedRoutes = transformRoutes(this.router.config);
+                        var routes = transformedRoutes.routes;
+                        var wrappers = transformedRoutes.wrappers;
+                        routes = organizeRoutes(routes, wrappers);
+                        /** @type {?} */
+                        var flattedRoutes = flatRoutes(just_clone__WEBPACK_IMPORTED_MODULE_10___default()(routes));
+                        state = Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["setValue"])(state, 'ConfigState', Object.assign({}, (state.ConfigState && Object.assign({}, state.ConfigState)), this.options, { routes: routes,
+                            flattedRoutes: flattedRoutes }));
+                        this.initialized = true;
+                    }
+                    return next(state, event);
+                };
+                return ConfigPlugin;
+            }());
+            ConfigPlugin.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"] }
+            ];
+            /** @nocollapse */
+            ConfigPlugin.ctorParameters = function () { return [
+                { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [NGXS_CONFIG_PLUGIN_OPTIONS,] }] },
+                { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+            ]; };
+            if (false) { }
+            /**
+             * @param {?=} routes
+             * @param {?=} wrappers
+             * @return {?}
+             */
+            function transformRoutes(routes, wrappers) {
+                if (routes === void 0) { routes = []; }
+                if (wrappers === void 0) { wrappers = []; }
+                // TODO: remove in v1
+                /** @type {?} */
+                var oldAbpRoutes = routes
+                    .filter(( /**
+             * @param {?} route
+             * @return {?}
+             */function (/**
+             * @param {?} route
+             * @return {?}
+             */ route) {
+                    return Object(snq__WEBPACK_IMPORTED_MODULE_5__["default"])(( /**
+                     * @return {?}
+                     */function () { return route.data.routes.routes.find(( /**
+                     * @param {?} r
+                     * @return {?}
+                     */function (/**
+                     * @param {?} r
+                     * @return {?}
+                     */ r) { return r.path === route.path; })); }), false);
+                }))
+                    .reduce(( /**
+             * @param {?} acc
+             * @param {?} val
+             * @return {?}
+             */function (acc, val) { return __spread(acc, val.data.routes.routes); }), []);
+                // tslint:disable-next-line: deprecation
+                /** @type {?} */
+                var abpRoutes = __spread(getAbpRoutes(), oldAbpRoutes);
+                wrappers = abpRoutes.filter(( /**
+                 * @param {?} ar
+                 * @return {?}
+                 */function (/**
+                 * @param {?} ar
+                 * @return {?}
+                 */ ar) { return ar.wrapper; }));
+                /** @type {?} */
+                var transformed = ( /** @type {?} */([]));
+                routes
+                    .filter(( /**
+             * @param {?} route
+             * @return {?}
+             */function (/**
+             * @param {?} route
+             * @return {?}
+             */ route) { return route.component || route.loadChildren; }))
+                    .forEach(( /**
+             * @param {?} route
+             * @return {?}
+             */function (/**
+             * @param {?} route
+             * @return {?}
+             */ route) {
+                    /** @type {?} */
+                    var abpPackage = abpRoutes.find(( /**
+                     * @param {?} abp
+                     * @return {?}
+                     */function (/**
+                     * @param {?} abp
+                     * @return {?}
+                     */ abp) { return abp.path.toLowerCase() === route.path.toLowerCase() && !abp.wrapper; }));
+                    var length = transformed.length;
+                    if (abpPackage) {
+                        transformed.push(abpPackage);
+                    }
+                    if (transformed.length === length && (route.data || {}).routes) {
+                        transformed.push(( /** @type {?} */(Object.assign({}, route.data.routes, { path: route.path, name: Object(snq__WEBPACK_IMPORTED_MODULE_5__["default"])(( /**
+                                 * @return {?}
+                                 */function () { return route.data.routes.name; }), route.path), children: route.data.routes.children || [] }))));
+                    }
+                }));
+                return { routes: setUrls(transformed), wrappers: wrappers };
+            }
+            /**
+             * @param {?} routes
+             * @param {?=} parentUrl
+             * @return {?}
+             */
+            function setUrls(routes, parentUrl) {
+                if (parentUrl) {
+                    // this if block using for only recursive call
+                    return routes.map(( /**
+                     * @param {?} route
+                     * @return {?}
+                     */function (/**
+                     * @param {?} route
+                     * @return {?}
+                     */ route) { return (Object.assign({}, route, { url: parentUrl + "/" + route.path }, (route.children &&
+                        route.children.length && {
+                        children: setUrls(route.children, parentUrl + "/" + route.path),
+                    }))); }));
+                }
+                return routes.map(( /**
+                 * @param {?} route
+                 * @return {?}
+                 */function (/**
+                 * @param {?} route
+                 * @return {?}
+                 */ route) { return (Object.assign({}, route, { url: "/" + route.path }, (route.children &&
+                    route.children.length && {
+                    children: setUrls(route.children, "/" + route.path),
+                }))); }));
+            }
+            /**
+             * @param {?} routes
+             * @return {?}
+             */
+            function flatRoutes(routes) {
+                /** @type {?} */
+                var flat = ( /**
+                 * @param {?} r
+                 * @return {?}
+                 */function (r) {
+                    return r.reduce(( /**
+                     * @param {?} acc
+                     * @param {?} val
+                     * @return {?}
+                     */function (acc, val) {
+                        /** @type {?} */
+                        var value = [val];
+                        if (val.children) {
+                            value = __spread([val], flat(val.children));
+                        }
+                        return __spread(acc, value);
+                    }), []);
+                });
+                return flat(routes);
+            }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/plugins/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/services/config-state.service.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var ConfigStateService = /** @class */ (function () {
+                /**
+                 * @param {?} store
+                 */
+                function ConfigStateService(store) {
+                    this.store = store;
+                }
+                /**
+                 * @return {?}
+                 */
+                ConfigStateService.prototype.getAll = function () {
+                    return this.store.selectSnapshot(ConfigState.getAll);
+                };
+                /**
+                 * @return {?}
+                 */
+                ConfigStateService.prototype.getApplicationInfo = function () {
+                    return this.store.selectSnapshot(ConfigState.getApplicationInfo);
+                };
+                /**
+                 * @param {...?} args
+                 * @return {?}
+                 */
+                ConfigStateService.prototype.getOne = function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    return this.store.selectSnapshot(ConfigState.getOne.apply(ConfigState, __spread(args)));
+                };
+                /**
+                 * @param {...?} args
+                 * @return {?}
+                 */
+                ConfigStateService.prototype.getDeep = function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    return this.store.selectSnapshot(ConfigState.getDeep.apply(ConfigState, __spread(args)));
+                };
+                /**
+                 * @param {...?} args
+                 * @return {?}
+                 */
+                ConfigStateService.prototype.getRoute = function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    return this.store.selectSnapshot(ConfigState.getRoute.apply(ConfigState, __spread(args)));
+                };
+                /**
+                 * @param {...?} args
+                 * @return {?}
+                 */
+                ConfigStateService.prototype.getApiUrl = function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    return this.store.selectSnapshot(ConfigState.getApiUrl.apply(ConfigState, __spread(args)));
+                };
+                /**
+                 * @param {...?} args
+                 * @return {?}
+                 */
+                ConfigStateService.prototype.getSetting = function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    return this.store.selectSnapshot(ConfigState.getSetting.apply(ConfigState, __spread(args)));
+                };
+                /**
+                 * @param {...?} args
+                 * @return {?}
+                 */
+                ConfigStateService.prototype.getSettings = function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    return this.store.selectSnapshot(ConfigState.getSettings.apply(ConfigState, __spread(args)));
+                };
+                /**
+                 * @param {...?} args
+                 * @return {?}
+                 */
+                ConfigStateService.prototype.getGrantedPolicy = function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    return this.store.selectSnapshot(ConfigState.getGrantedPolicy.apply(ConfigState, __spread(args)));
+                };
+                /**
+                 * @param {...?} args
+                 * @return {?}
+                 */
+                ConfigStateService.prototype.getLocalization = function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    return this.store.selectSnapshot(ConfigState.getLocalization.apply(ConfigState, __spread(args)));
+                };
+                return ConfigStateService;
+            }());
+            ConfigStateService.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                            providedIn: 'root',
+                        },] }
+            ];
+            /** @nocollapse */
+            ConfigStateService.ctorParameters = function () { return [
+                { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }
+            ]; };
+            /** @nocollapse */ ConfigStateService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function ConfigStateService_Factory() { return new ConfigStateService(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"])); }, token: ConfigStateService, providedIn: "root" });
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/services/lazy-load.service.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var LazyLoadService = /** @class */ (function () {
+                function LazyLoadService() {
+                    this.loadedLibraries = {};
+                }
+                /**
+                 * @param {?} urlOrUrls
+                 * @param {?} type
+                 * @param {?=} content
+                 * @param {?=} targetQuery
+                 * @param {?=} position
+                 * @return {?}
+                 */
+                LazyLoadService.prototype.load = function (urlOrUrls, type, content, targetQuery, position) {
+                    var _this = this;
+                    if (content === void 0) { content = ''; }
+                    if (targetQuery === void 0) { targetQuery = 'body'; }
+                    if (position === void 0) { position = 'beforeend'; }
+                    if (!urlOrUrls && !content) {
+                        return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])('Should pass url or content');
+                    }
+                    else if (!urlOrUrls && content) {
+                        urlOrUrls = [null];
+                    }
+                    if (!Array.isArray(urlOrUrls)) {
+                        urlOrUrls = [urlOrUrls];
+                    }
+                    return new rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"](( /**
+                     * @param {?} subscriber
+                     * @return {?}
+                     */function (/**
+                     * @param {?} subscriber
+                     * @return {?}
+                     */ subscriber) {
+                        (( /** @type {?} */(urlOrUrls))).forEach(( /**
+                         * @param {?} url
+                         * @param {?} index
+                         * @return {?}
+                         */function (url, index) {
+                            /** @type {?} */
+                            var key = url ? url.slice(url.lastIndexOf('/') + 1) : uuid();
+                            if (_this.loadedLibraries[key]) {
+                                subscriber.next();
+                                subscriber.complete();
+                                return;
+                            }
+                            _this.loadedLibraries[key] = new rxjs__WEBPACK_IMPORTED_MODULE_4__["ReplaySubject"]();
+                            /** @type {?} */
+                            var library;
+                            if (type === 'script') {
+                                library = document.createElement('script');
+                                library.type = 'text/javascript';
+                                if (url) {
+                                    (( /** @type {?} */(library))).src = url;
+                                }
+                                (( /** @type {?} */(library))).text = content;
+                            }
+                            else if (url) {
+                                library = document.createElement('link');
+                                library.type = 'text/css';
+                                (( /** @type {?} */(library))).rel = 'stylesheet';
+                                if (url) {
+                                    (( /** @type {?} */(library))).href = url;
+                                }
+                            }
+                            else {
+                                library = document.createElement('style');
+                                (( /** @type {?} */(library))).textContent = content;
+                            }
+                            library.onload = ( /**
+                             * @return {?}
+                             */function () {
+                                _this.loadedLibraries[key].next();
+                                _this.loadedLibraries[key].complete();
+                                if (index === urlOrUrls.length - 1) {
+                                    subscriber.next();
+                                    subscriber.complete();
+                                }
+                            });
+                            document.querySelector(targetQuery).insertAdjacentElement(position, library);
+                        }));
+                    }));
+                };
+                return LazyLoadService;
+            }());
+            LazyLoadService.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                            providedIn: 'root',
+                        },] }
+            ];
+            /** @nocollapse */ LazyLoadService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function LazyLoadService_Factory() { return new LazyLoadService(); }, token: LazyLoadService, providedIn: "root" });
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/services/profile-state.service.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var ProfileStateService = /** @class */ (function () {
+                /**
+                 * @param {?} store
+                 */
+                function ProfileStateService(store) {
+                    this.store = store;
+                }
+                /**
+                 * @return {?}
+                 */
+                ProfileStateService.prototype.getProfile = function () {
+                    return this.store.selectSnapshot(ProfileState.getProfile);
+                };
+                return ProfileStateService;
+            }());
+            ProfileStateService.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                            providedIn: 'root',
+                        },] }
+            ];
+            /** @nocollapse */
+            ProfileStateService.ctorParameters = function () { return [
+                { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }
+            ]; };
+            /** @nocollapse */ ProfileStateService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function ProfileStateService_Factory() { return new ProfileStateService(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"])); }, token: ProfileStateService, providedIn: "root" });
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/services/session-state.service.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var SessionStateService = /** @class */ (function () {
+                /**
+                 * @param {?} store
+                 */
+                function SessionStateService(store) {
+                    this.store = store;
+                }
+                /**
+                 * @return {?}
+                 */
+                SessionStateService.prototype.getLanguage = function () {
+                    return this.store.selectSnapshot(SessionState.getLanguage);
+                };
+                /**
+                 * @return {?}
+                 */
+                SessionStateService.prototype.getTenant = function () {
+                    return this.store.selectSnapshot(SessionState.getTenant);
+                };
+                return SessionStateService;
+            }());
+            SessionStateService.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"], args: [{
+                            providedIn: 'root',
+                        },] }
+            ];
+            /** @nocollapse */
+            SessionStateService.ctorParameters = function () { return [
+                { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"] }
+            ]; };
+            /** @nocollapse */ SessionStateService.ngInjectableDef = Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"])({ factory: function SessionStateService_Factory() { return new SessionStateService(Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"])(_ngxs_store__WEBPACK_IMPORTED_MODULE_3__["Store"])); }, token: SessionStateService, providedIn: "root" });
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/services/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/tokens/common.token.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @param {?} environment
+             * @return {?}
+             */
+            function environmentFactory(environment) {
+                return Object.assign({}, environment);
+            }
+            /**
+             * @param {?} config
+             * @return {?}
+             */
+            function configFactory(config) {
+                return Object.assign({}, config);
+            }
+            /** @type {?} */
+            var ENVIRONMENT = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('ENVIRONMENT');
+            /** @type {?} */
+            var CONFIG = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["InjectionToken"]('CONFIG');
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/tokens/index.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/directives/debounce.directive.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var InputEventDebounceDirective = /** @class */ (function () {
+                /**
+                 * @param {?} el
+                 */
+                function InputEventDebounceDirective(el) {
+                    this.el = el;
+                    this.debounce = 300;
+                    this.debounceEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+                }
+                /**
+                 * @return {?}
+                 */
+                InputEventDebounceDirective.prototype.ngOnInit = function () {
+                    var _this = this;
+                    Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["fromEvent"])(this.el.nativeElement, 'input')
+                        .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["debounceTime"])(this.debounce), Object(_ngx_validate_core__WEBPACK_IMPORTED_MODULE_15__["takeUntilDestroy"])(this))
+                        .subscribe(( /**
+                 * @param {?} event
+                 * @return {?}
+                 */function (event) {
+                        _this.debounceEvent.emit(event);
+                    }));
+                };
+                /**
+                 * @return {?}
+                 */
+                InputEventDebounceDirective.prototype.ngOnDestroy = function () { };
+                return InputEventDebounceDirective;
+            }());
+            InputEventDebounceDirective.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                            // tslint:disable-next-line: directive-selector
+                            selector: '[input.debounce]',
+                        },] }
+            ];
+            /** @nocollapse */
+            InputEventDebounceDirective.ctorParameters = function () { return [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+            ]; };
+            InputEventDebounceDirective.propDecorators = {
+                debounce: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"] }],
+                debounceEvent: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"], args: ['input.debounce',] }]
+            };
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/directives/stop-propagation.directive.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var StopPropagationDirective = /** @class */ (function () {
+                /**
+                 * @param {?} el
+                 */
+                function StopPropagationDirective(el) {
+                    this.el = el;
+                    this.stopPropEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+                }
+                /**
+                 * @return {?}
+                 */
+                StopPropagationDirective.prototype.ngOnInit = function () {
+                    var _this = this;
+                    Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["fromEvent"])(this.el.nativeElement, 'click')
+                        .pipe(takeUntilDestroy(this))
+                        .subscribe(( /**
+                 * @param {?} event
+                 * @return {?}
+                 */function (event) {
+                        event.stopPropagation();
+                        _this.stopPropEvent.emit(event);
+                    }));
+                };
+                /**
+                 * @return {?}
+                 */
+                StopPropagationDirective.prototype.ngOnDestroy = function () { };
+                return StopPropagationDirective;
+            }());
+            StopPropagationDirective.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"], args: [{
+                            // tslint:disable-next-line: directive-selector
+                            selector: '[click.stop]',
+                        },] }
+            ];
+            /** @nocollapse */
+            StopPropagationDirective.ctorParameters = function () { return [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }
+            ]; };
+            StopPropagationDirective.propDecorators = {
+                stopPropEvent: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"], args: ['click.stop',] }]
+            };
+            if (false) { }
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/providers/locale.provider.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var LocaleId = /** @class */ (function (_super) {
+                __extends(LocaleId, _super);
+                /**
+                 * @param {?} localizationService
+                 */
+                function LocaleId(localizationService) {
+                    var _this = _super.call(this) || this;
+                    _this.localizationService = localizationService;
+                    return _this;
+                }
+                /**
+                 * @return {?}
+                 */
+                LocaleId.prototype.toString = function () {
+                    var currentLang = this.localizationService.currentLang;
+                    return localesMapping[currentLang] || currentLang;
+                };
+                /**
+                 * @return {?}
+                 */
+                LocaleId.prototype.valueOf = function () {
+                    return this.toString();
+                };
+                return LocaleId;
+            }(String));
+            if (false) { }
+            /** @type {?} */
+            var LocaleProvider = {
+                provide: _angular_core__WEBPACK_IMPORTED_MODULE_0__["LOCALE_ID"],
+                useClass: LocaleId,
+                deps: [LocalizationService],
+            };
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/utils/date-extensions.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            Date.prototype.toLocalISOString = ( /**
+             * @this {?}
+             * @return {?}
+             */function () {
+                /** @type {?} */
+                var timezoneOffset = this.getTimezoneOffset();
+                return new Date(this.getTime() - timezoneOffset * 60000).toISOString();
+            });
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: lib/core.module.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            var CoreModule = /** @class */ (function () {
+                function CoreModule() {
+                }
+                /**
+                 * @param {?=} options
+                 * @return {?}
+                 */
+                CoreModule.forRoot = function (options) {
+                    if (options === void 0) { options = ( /** @type {?} */({})); }
+                    return {
+                        ngModule: CoreModule,
+                        providers: [
+                            LocaleProvider,
+                            {
+                                provide: _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["NGXS_PLUGINS"],
+                                useClass: ConfigPlugin,
+                                multi: true,
+                            },
+                            {
+                                provide: NGXS_CONFIG_PLUGIN_OPTIONS,
+                                useValue: options,
+                            },
+                            {
+                                provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HTTP_INTERCEPTORS"],
+                                useClass: ApiInterceptor,
+                                multi: true,
+                            },
+                            {
+                                provide: _angular_core__WEBPACK_IMPORTED_MODULE_0__["APP_INITIALIZER"],
+                                multi: true,
+                                deps: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"]],
+                                useFactory: getInitialData,
+                            },
+                            {
+                                provide: _angular_core__WEBPACK_IMPORTED_MODULE_0__["APP_INITIALIZER"],
+                                multi: true,
+                                deps: [_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"]],
+                                useFactory: localeInitializer,
+                            },
+                        ],
+                    };
+                };
+                return CoreModule;
+            }());
+            CoreModule.decorators = [
+                { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"], args: [{
+                            imports: [
+                                _ngxs_store__WEBPACK_IMPORTED_MODULE_3__["NgxsModule"].forFeature([ProfileState, SessionState, ConfigState]),
+                                _ngxs_router_plugin__WEBPACK_IMPORTED_MODULE_13__["NgxsRouterPluginModule"].forRoot(),
+                                _ngxs_storage_plugin__WEBPACK_IMPORTED_MODULE_14__["NgxsStoragePluginModule"].forRoot({ key: ['SessionState'] }),
+                                angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_12__["OAuthModule"].forRoot(),
+                                _angular_common__WEBPACK_IMPORTED_MODULE_8__["CommonModule"],
+                                _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClientModule"],
+                                _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"],
+                                _angular_forms__WEBPACK_IMPORTED_MODULE_11__["ReactiveFormsModule"],
+                                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"],
+                            ],
+                            declarations: [
+                                RouterOutletComponent,
+                                DynamicLayoutComponent,
+                                AutofocusDirective,
+                                EllipsisDirective,
+                                ForDirective,
+                                FormSubmitDirective,
+                                LocalizationPipe,
+                                SortPipe,
+                                PermissionDirective,
+                                VisibilityDirective,
+                                InputEventDebounceDirective,
+                                StopPropagationDirective,
+                                AbstractNgModelComponent,
+                            ],
+                            exports: [
+                                _angular_common__WEBPACK_IMPORTED_MODULE_8__["CommonModule"],
+                                _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClientModule"],
+                                _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"],
+                                _angular_forms__WEBPACK_IMPORTED_MODULE_11__["ReactiveFormsModule"],
+                                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"],
+                                RouterOutletComponent,
+                                DynamicLayoutComponent,
+                                AutofocusDirective,
+                                EllipsisDirective,
+                                ForDirective,
+                                FormSubmitDirective,
+                                LocalizationPipe,
+                                SortPipe,
+                                PermissionDirective,
+                                VisibilityDirective,
+                                InputEventDebounceDirective,
+                                LocalizationPipe,
+                                StopPropagationDirective,
+                                AbstractNgModelComponent,
+                            ],
+                            providers: [LocalizationPipe],
+                            entryComponents: [RouterOutletComponent, DynamicLayoutComponent],
+                        },] }
+            ];
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: public-api.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            /**
+             * @fileoverview added by tsickle
+             * Generated from: abp-ng.core.ts
+             * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+             */
+            //# sourceMappingURL=abp-ng.core.js.map
+            /***/ 
+        }),
         /***/ "../../dist/theme-shared/fesm2015/abp-ng.theme.shared.js": 
         /*!*********************************************************************************************************!*\
           !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/dist/theme-shared/fesm2015/abp-ng.theme.shared.js ***!
@@ -103,7 +3812,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵs", function () { return httpErrorConfigFactory; });
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵt", function () { return HTTP_ERROR_CONFIG; });
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵu", function () { return DateParserFormatter; });
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _ngx_validate_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-validate/core */ "../../node_modules/@ngx-validate/core/fesm2015/ngx-validate-core.js");
             /* harmony import */ var primeng_components_common_messageservice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primeng/components/common/messageservice */ "../../node_modules/primeng/components/common/messageservice.js");
@@ -2214,7 +5923,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SettingManagementConfigService", function () { return SettingManagementConfigService; });
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var _ngxs_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngxs/store */ "../../node_modules/@ngxs/store/fesm2015/ngxs-store.js");
             var SettingManagementConfigService = /** @class */ (function () {
                 function SettingManagementConfigService(store) {
@@ -2269,7 +5978,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _services_setting_management_config_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/setting-management-config.service */ "../../libs/setting-management/config/src/lib/services/setting-management-config.service.ts");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             var SettingManagementConfigModule = /** @class */ (function () {
                 function SettingManagementConfigModule() {
                 }
@@ -3620,7 +7329,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ACCOUNT_OPTIONS", function () { return ACCOUNT_OPTIONS; });
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountConfigModule", function () { return AccountConfigModule; });
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var _abp_ng_theme_shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @abp/ng.theme.shared */ "../../dist/theme-shared/fesm2015/abp-ng.theme.shared.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _services_account_config_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/account-config.service */ "../../packages/account-config/src/lib/services/account-config.service.ts");
@@ -3666,7 +7375,7 @@ var __spread = (this && this.__spread) || function () {
             __webpack_require__.r(__webpack_exports__);
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountConfigService", function () { return AccountConfigService; });
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm2015/router.js");
             var AccountConfigService = /** @class */ (function () {
@@ -3726,7 +7435,7 @@ var __spread = (this && this.__spread) || function () {
             __webpack_require__.r(__webpack_exports__);
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IdentityConfigModule", function () { return IdentityConfigModule; });
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _services_identity_config_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/identity-config.service */ "../../packages/identity-config/src/lib/services/identity-config.service.ts");
             var IdentityConfigModule = /** @class */ (function () {
@@ -3751,7 +7460,7 @@ var __spread = (this && this.__spread) || function () {
             __webpack_require__.r(__webpack_exports__);
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IdentityConfigService", function () { return IdentityConfigService; });
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "../../node_modules/@angular/router/fesm2015/router.js");
             var IdentityConfigService = /** @class */ (function () {
@@ -3820,7 +7529,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TenantManagementConfigService", function () { return TenantManagementConfigService; });
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             var TenantManagementConfigService = /** @class */ (function () {
                 function TenantManagementConfigService() {
                     Object(_abp_ng_core__WEBPACK_IMPORTED_MODULE_2__["addAbpRoutes"])({
@@ -3861,7 +7570,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _services_tenant_management_config_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/tenant-management-config.service */ "../../packages/tenant-management-config/src/lib/services/tenant-management-config.service.ts");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             var TenantManagementConfigModule = /** @class */ (function () {
                 function TenantManagementConfigModule() {
                 }
@@ -3966,7 +7675,7 @@ var __spread = (this && this.__spread) || function () {
             __webpack_require__.r(__webpack_exports__);
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApplicationLayoutComponent", function () { return ApplicationLayoutComponent; });
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var _abp_ng_theme_shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @abp/ng.theme.shared */ "../../dist/theme-shared/fesm2015/abp-ng.theme.shared.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _ngxs_router_plugin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngxs/router-plugin */ "../../node_modules/@ngxs/router-plugin/fesm2015/ngxs-router-plugin.js");
@@ -4176,7 +7885,7 @@ var __spread = (this && this.__spread) || function () {
         /*!********************************************************************************************************!*\
           !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/theme-basic/src/lib/components/index.ts ***!
           \********************************************************************************************************/
-        /*! exports provided: AccountLayoutComponent, ApplicationLayoutComponent, EmptyLayoutComponent, ValidationErrorComponent */
+        /*! exports provided: EmptyLayoutComponent, ValidationErrorComponent, AccountLayoutComponent, ApplicationLayoutComponent */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
@@ -4260,7 +7969,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitialService", function () { return InitialService; });
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var _constants_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constants/styles */ "../../packages/theme-basic/src/lib/constants/styles.ts");
             var InitialService = /** @class */ (function () {
                 function InitialService(lazyLoadService) {
@@ -4386,7 +8095,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LAYOUTS", function () { return LAYOUTS; });
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ThemeBasicModule", function () { return ThemeBasicModule; });
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var _abp_ng_theme_shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @abp/ng.theme.shared */ "../../dist/theme-shared/fesm2015/abp-ng.theme.shared.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "../../node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
@@ -4446,7 +8155,7 @@ var __spread = (this && this.__spread) || function () {
         /*!**********************************************************************************************!*\
           !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/theme-basic/src/public-api.ts ***!
           \**********************************************************************************************/
-        /*! exports provided: LAYOUTS, ThemeBasicModule, AddNavigationElement, RemoveNavigationElementByName, AccountLayoutComponent, ApplicationLayoutComponent, EmptyLayoutComponent, ValidationErrorComponent, LayoutState */
+        /*! exports provided: LAYOUTS, ThemeBasicModule, EmptyLayoutComponent, ValidationErrorComponent, LayoutState, AddNavigationElement, RemoveNavigationElementByName, AccountLayoutComponent, ApplicationLayoutComponent */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
@@ -4458,10 +8167,10 @@ var __spread = (this && this.__spread) || function () {
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AddNavigationElement", function () { return _lib_actions__WEBPACK_IMPORTED_MODULE_2__["AddNavigationElement"]; });
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RemoveNavigationElementByName", function () { return _lib_actions__WEBPACK_IMPORTED_MODULE_2__["RemoveNavigationElementByName"]; });
             /* harmony import */ var _lib_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/components */ "../../packages/theme-basic/src/lib/components/index.ts");
-            /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AccountLayoutComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_3__["AccountLayoutComponent"]; });
-            /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ApplicationLayoutComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_3__["ApplicationLayoutComponent"]; });
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EmptyLayoutComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_3__["EmptyLayoutComponent"]; });
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ValidationErrorComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_3__["ValidationErrorComponent"]; });
+            /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AccountLayoutComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_3__["AccountLayoutComponent"]; });
+            /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ApplicationLayoutComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_3__["ApplicationLayoutComponent"]; });
             /* harmony import */ var _lib_states__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/states */ "../../packages/theme-basic/src/lib/states/index.ts");
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayoutState", function () { return _lib_states__WEBPACK_IMPORTED_MODULE_4__["LayoutState"]; });
             /*
@@ -4671,7 +8380,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _ngxs_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngxs/store */ "../../node_modules/@ngxs/store/fesm2015/ngxs-store.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "../../themes/ng-alain/node_modules/rxjs/_esm2015/index.js");
             /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "../../themes/ng-alain/node_modules/rxjs/_esm2015/operators/index.js");
             /* harmony import */ var snq__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! snq */ "../../node_modules/snq/dist/snq.es5.js");
@@ -5129,7 +8838,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony import */ var _ngxs_store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngxs/store */ "../../node_modules/@ngxs/store/fesm2015/ngxs-store.js");
             /* harmony import */ var angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! angular-oauth2-oidc */ "../../node_modules/angular-oauth2-oidc/fesm2015/angular-oauth2-oidc.js");
             /* harmony import */ var _ngxs_router_plugin__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ngxs/router-plugin */ "../../node_modules/@ngxs/router-plugin/fesm2015/ngxs-router-plugin.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs */ "../../themes/ng-alain/node_modules/rxjs/_esm2015/index.js");
             var HeaderUserComponent = /** @class */ (function () {
                 function HeaderUserComponent(settings, router, tokenService, store, oauthService) {
@@ -5649,7 +9358,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony import */ var _delon_theme__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @delon/theme */ "../../node_modules/@delon/theme/fesm2015/theme.js");
             /* harmony import */ var _ngxs_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngxs/store */ "../../node_modules/@ngxs/store/fesm2015/ngxs-store.js");
             /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "../../themes/ng-alain/node_modules/rxjs/_esm2015/index.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "../../themes/ng-alain/node_modules/rxjs/_esm2015/operators/index.js");
             var SidebarComponent = /** @class */ (function () {
                 function SidebarComponent(settings, menuService, localizationPipe) {
@@ -5790,7 +9499,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _fs_ng_alain_shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fs/ng-alain/shared */ "../../themes/ng-alain/shared/src/index.ts");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var _default_default_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./default/default.component */ "../../themes/ng-alain/basic/src/lib/layout/default/default.component.ts");
             /* harmony import */ var _fullscreen_fullscreen_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./fullscreen/fullscreen.component */ "../../themes/ng-alain/basic/src/lib/layout/fullscreen/fullscreen.component.ts");
             /* harmony import */ var _default_header_header_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./default/header/header.component */ "../../themes/ng-alain/basic/src/lib/layout/default/header/header.component.ts");
@@ -5901,7 +9610,7 @@ var __spread = (this && this.__spread) || function () {
             __webpack_require__.r(__webpack_exports__);
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgAlainBasicModule", function () { return NgAlainBasicModule; });
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var _abp_ng_theme_basic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @abp/ng.theme.basic */ "../../packages/theme-basic/src/public-api.ts");
             /* harmony import */ var _fs_ng_alain_shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fs/ng-alain/shared */ "../../themes/ng-alain/shared/src/index.ts");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
@@ -5970,7 +9679,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "I18nHttpLoaderFactory", function () { return I18nHttpLoaderFactory; });
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgAlainSharedModule", function () { return NgAlainSharedModule; });
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "../../node_modules/@angular/common/fesm2015/common.js");
             /* harmony import */ var _abp_ng_theme_shared__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @abp/ng.theme.shared */ "../../dist/theme-shared/fesm2015/abp-ng.theme.shared.js");
@@ -8241,7 +11950,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/http-loader */ "../../node_modules/@ngx-translate/http-loader/fesm2015/ngx-translate-http-loader.js");
             /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/core */ "../../node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
             /* harmony import */ var _fs_ng_alain_shared__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fs/ng-alain/shared */ "../../themes/ng-alain/shared/src/index.ts");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
             /* harmony import */ var _abp_ng_theme_shared__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @abp/ng.theme.shared */ "../../dist/theme-shared/fesm2015/abp-ng.theme.shared.js");
             /* harmony import */ var _ngxs_logger_plugin__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ngxs/logger-plugin */ "../../node_modules/@ngxs/logger-plugin/fesm2015/ngxs-logger-plugin.js");
@@ -8315,7 +12024,7 @@ var __spread = (this && this.__spread) || function () {
             __webpack_require__.r(__webpack_exports__);
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharedModule", function () { return SharedModule; });
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
-            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../node_modules/@abp/ng.core/fesm2015/abp-ng.core.js");
+            /* harmony import */ var _abp_ng_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @abp/ng.core */ "../../dist/core/fesm2015/abp-ng.core.js");
             /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "../../node_modules/@ng-bootstrap/ng-bootstrap/fesm2015/ng-bootstrap.js");
             /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
             /* harmony import */ var primeng_table__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primeng/table */ "../../node_modules/primeng/table.js");
