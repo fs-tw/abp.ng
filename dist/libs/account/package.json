@@ -1,0 +1,20 @@
+{
+  "name": "@fs/account",
+  "version": "1.1.2-alpha.8",
+  "dependencies": {
+    "@abp/ng.account": "^1.1.2-alpha.8",
+    "@fs/ng-alain": "^1.1.2-alpha.6",
+    "@fs/ngx-admin": "^1.1.2-alpha.6",
+    "tslib": "^1.9.0"
+  },
+  "main": "bundles/fs-account.umd.js",
+  "module": "fesm5/fs-account.js",
+  "es2015": "fesm2015/fs-account.js",
+  "esm5": "esm5/fs-account.js",
+  "esm2015": "esm2015/fs-account.js",
+  "fesm5": "fesm5/fs-account.js",
+  "fesm2015": "fesm2015/fs-account.js",
+  "typings": "fs-account.d.ts",
+  "metadata": "fs-account.metadata.json",
+  "sideEffects": false
+}

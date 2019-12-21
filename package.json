@@ -29,6 +29,8 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/core": "8.3.3",
+    "@angular-devkit/schematics": "8.3.3",
     "@angular/animations": "^8.2.13",
     "@angular/common": "^8.2.13",
     "@angular/compiler": "^8.2.13",
@@ -40,7 +42,7 @@
     "@fs/dev": "file:themes/dev",
     "@fs/ng-alain": "file:themes/ng-alain",
     "@fs/ngx-admin": "file:themes/ngx-admin",
-    "@nrwl/angular": "^8.7.0",
+    "@nrwl/angular": "^8.9.0",
     "core-js": "^2.5.4",
     "rxjs": "6.5.2",
     "tslib": "^1.10.0",
