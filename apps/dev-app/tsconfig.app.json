@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../out-tsc/app",
+    "outDir": "../../dist/out-tsc",
     "types": [],
     "paths": {
       "@abp/ng.core": [ "packages/core/src/public-api.ts" ],
