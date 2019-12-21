@@ -1,6 +1,6 @@
 {
   "name": "@fs/identity",
-  "version": "0.0.0",
+  "version": "1.1.2-alpha.9",
   "dependencies": {
     "@abp/ng.identity": "^1.1.2-alpha.0",
     "@fs/ng-alain": "^1.1.2-alpha.6",
