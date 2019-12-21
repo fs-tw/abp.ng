@@ -8,55 +8,79 @@
     "nx.json": "*"
   },
   "projects": {
-    "ng-alain": {
+    "abp.core":{
+      "tags":[]
+    },
+    "abp.theme-shared":{
+      "tags":[]
+    },
+    "abp.theme-basic":{
+      "tags":[]
+    },
+    "abp.account":{
+      "tags":[]
+    },
+    "abp.account-config":{
+      "tags":[]
+    },
+    "abp.feature-management":{
+      "tags":[]
+    },    
+    "abp.permission-management":{
+      "tags":[]
+    },
+    "abp.identity":{
+      "tags":[]
+    },
+    "abp.identity-config":{
+      "tags":[]
+    },
+    "abp.setting-management":{
+      "tags":[]
+    },
+    "abp.setting-management-config":{
+      "tags":[]
+    },
+    "abp.tenant-management":{
+      "tags":[]
+    },
+    "abp.tenant-management-config":{
+      "tags":[]
+    },
+    "fs.feature-management": {
       "tags": []
     },
-    "ng-alain-app": {
+    "fs.permission-management": {
       "tags": []
     },
-    "ngx-admin": {
+    "fs.account": {
       "tags": []
     },
-    "ngx-admin-app": {
+    "fs.identity": {
       "tags": []
     },
-    "account": {
+    "fs.setting-management": {
       "tags": []
     },
-    "account-alain": {
+    "fs.tenant-management": {
       "tags": []
     },
-    "permission-management": {
+    "fs.dev": {
       "tags": []
     },
-    "identity": {
+    "fs.dev-app": {
       "tags": []
     },
-    "feature-management": {
+    "fs.ng-alain": {
       "tags": []
     },
-    "setting-management": {
+    "fs.ng-alain-app": {
       "tags": []
     },
-    "tenant-management": {
+    "fs.ngx-admin": {
       "tags": []
     },
-    "cms": {
-      "tags": []
-    },
-    "common": {
-      "tags": []
-    },
-    "dynform": {
-      "tags": []
-    },
-    "ng-alain-ms": {
-      "tags": []
-    },
-    "ng-alain-ms-app": {
-      "tags": []
-    },
-    "dev": {
+    "fs.ngx-admin-app": {
       "tags": []
     }
   }

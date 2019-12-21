@@ -1,10 +1,9 @@
 {
   "packages": [
-    "themes/*",
-    "libs/*",
-    "dist/tools/*"
+    "dist/*",
+    "dist/*/*"
   ],
-  "version": "1.1.2-alpha.6",
+  "version": "1.1.2-alpha.8",
   "command": {
     "publish": {
       "registry": "http://localhost:4873/"

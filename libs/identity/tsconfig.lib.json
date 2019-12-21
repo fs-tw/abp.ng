@@ -9,14 +9,14 @@
     "lib": ["dom", "es2018"],
     "paths": {
       "@abp/ng.identity": [ "dist/identity" ],
-      "@abp/ng.identity/*": [ "dist/identity/lib/*" ],      
-      "@fs/permission-management": [ "libs/permission-management/dist" ],
-      "@fs/permission-management/*": [ "libs/permission-management/dist/*" ],
+      "@abp/ng.identity/*": [ "dist/identity/lib/*" ],
+      "@fs/permission-management": [ "dist/libs/permission-management" ],
+      "@fs/permission-management/*": [ "dist/libs/permission-management/*" ],
 
-      "@fs/ng-alain": [ "themes/ng-alain/dist" ],
-      "@fs/ng-alain/*": [ "themes/ng-alain/dist/*" ],
-      "@fs/ngx-admin": [ "themes/ngx-admin/dist" ],
-      "@fs/ngx-admin/*": [ "themes/ngx-admin/dist/*" ]
+      "@fs/ng-alain": [ "dist/themes/ng-alain" ],
+      "@fs/ng-alain/*": [ "dist/themes/ng-alain/*" ],
+      "@fs/ngx-admin": [ "dist/themes/ngx-admin" ],
+      "@fs/ngx-admin/*": [ "dist/themes/ngx-admin/*" ]
     } 
   },
   "angularCompilerOptions": {
