@@ -4826,9 +4826,9 @@ class SortOrderIconComponent {
      */
     get icon() {
         if (!this.selectedSortKey)
-            return 'fa-sort';
+            return 'sorting';
         if (this.selectedSortKey === this.sortKey)
-            return `fa-sort-${this.order}`;
+            return `sorting_${this.order}`;
         else
             return '';
     }
@@ -4859,7 +4859,7 @@ class SortOrderIconComponent {
 SortOrderIconComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"], args: [{
                 selector: 'abp-sort-order-icon',
-                template: "<span class=\"float-right {{ iconClass }}\">\r\n  <i class=\"fa {{ icon }}\"></i>\r\n</span>\r\n"
+                template: "<div class=\"float-right {{ iconClass }}\">\r\n  <span class=\"{{ icon }}\"></span>\r\n</div>\r\n"
             }] }
 ];
 SortOrderIconComponent.propDecorators = {
@@ -5191,6 +5191,33 @@ body abp-toast .ui-toast .ui-toast-message.ui-toast-message-info .ui-toast-messa
 .abp-mh-100 {
   transition:max-height 1s linear;
   max-height: 100vh;
+}
+
+[class^="sorting"] {
+  opacity: .3;
+  cursor: pointer;
+}
+[class^="sorting"]:before {
+  right: 0.5rem;
+  content: "↑";
+}
+[class^="sorting"]:after {
+  right: 0.5rem;
+  content: "↓";
+}
+
+.sorting_desc {
+  opacity: 1;
+}
+.sorting_desc:before {
+  opacity: .3;
+}
+
+.sorting_asc {
+  opacity: 1;
+}
+.sorting_asc:after {
+  opacity: .3;
 }
 
 @keyframes fadeInTop {
@@ -8055,7 +8082,7 @@ EmptyLayoutComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!********************************************************************************************************!*\
   !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/theme-basic/src/lib/components/index.ts ***!
   \********************************************************************************************************/
-/*! exports provided: EmptyLayoutComponent, ValidationErrorComponent, AccountLayoutComponent, ApplicationLayoutComponent */
+/*! exports provided: AccountLayoutComponent, ApplicationLayoutComponent, EmptyLayoutComponent, ValidationErrorComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8443,7 +8470,7 @@ ThemeBasicModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!**********************************************************************************************!*\
   !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/theme-basic/src/public-api.ts ***!
   \**********************************************************************************************/
-/*! exports provided: LAYOUTS, ThemeBasicModule, EmptyLayoutComponent, ValidationErrorComponent, LayoutState, AddNavigationElement, RemoveNavigationElementByName, AccountLayoutComponent, ApplicationLayoutComponent */
+/*! exports provided: LAYOUTS, ThemeBasicModule, AddNavigationElement, RemoveNavigationElementByName, AccountLayoutComponent, ApplicationLayoutComponent, EmptyLayoutComponent, ValidationErrorComponent, LayoutState */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8460,13 +8487,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RemoveNavigationElementByName", function() { return _lib_actions__WEBPACK_IMPORTED_MODULE_2__["RemoveNavigationElementByName"]; });
 
 /* harmony import */ var _lib_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/components */ "../../packages/theme-basic/src/lib/components/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EmptyLayoutComponent", function() { return _lib_components__WEBPACK_IMPORTED_MODULE_3__["EmptyLayoutComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ValidationErrorComponent", function() { return _lib_components__WEBPACK_IMPORTED_MODULE_3__["ValidationErrorComponent"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AccountLayoutComponent", function() { return _lib_components__WEBPACK_IMPORTED_MODULE_3__["AccountLayoutComponent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ApplicationLayoutComponent", function() { return _lib_components__WEBPACK_IMPORTED_MODULE_3__["ApplicationLayoutComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EmptyLayoutComponent", function() { return _lib_components__WEBPACK_IMPORTED_MODULE_3__["EmptyLayoutComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ValidationErrorComponent", function() { return _lib_components__WEBPACK_IMPORTED_MODULE_3__["ValidationErrorComponent"]; });
 
 /* harmony import */ var _lib_states__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/states */ "../../packages/theme-basic/src/lib/states/index.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayoutState", function() { return _lib_states__WEBPACK_IMPORTED_MODULE_4__["LayoutState"]; });

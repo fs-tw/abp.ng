@@ -177,6 +177,22 @@ if (false) {
     /** @type {?} */
     GetAppConfiguration.type;
 }
+/**
+ * @see usage: https://github.com/abpframework/abp/pull/2425#issue-355018812
+ */
+var AddRoute = /** @class */ (function () {
+    function AddRoute(payload) {
+        this.payload = payload;
+    }
+    AddRoute.type = '[Config] Add Route';
+    return AddRoute;
+}());
+if (false) {
+    /** @type {?} */
+    AddRoute.type;
+    /** @type {?} */
+    AddRoute.prototype.payload;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1114,13 +1130,11 @@ var ConfigState = /** @class */ (function () {
                 var keys = snq((/**
                  * @return {?}
                  */
-                function () {
-                    return Object.keys(state.setting.values).filter((/**
-                     * @param {?} key
-                     * @return {?}
-                     */
-                    function (key) { return key.indexOf(keyword) > -1; }));
-                }), []);
+                function () { return Object.keys(state.setting.values).filter((/**
+                 * @param {?} key
+                 * @return {?}
+                 */
+                function (key) { return key.indexOf(keyword) > -1; })); }), []);
                 if (keys.length) {
                     return keys.reduce((/**
                      * @param {?} acc
@@ -1318,15 +1332,106 @@ var ConfigState = /** @class */ (function () {
         var name = _b.name, newValue = _b.newValue;
         /** @type {?} */
         var routes = getState().routes;
+        routes = patchRouteDeep(routes, name, newValue);
         /** @type {?} */
-        var index = routes.findIndex((/**
+        var flattedRoutes = getState().flattedRoutes;
+        /** @type {?} */
+        var index = flattedRoutes.findIndex((/**
          * @param {?} route
          * @return {?}
          */
         function (route) { return route.name === name; }));
-        routes = patchRouteDeep(routes, name, newValue);
+        if (index > -1) {
+            flattedRoutes[index] = (/** @type {?} */ (newValue));
+        }
         return patchState({
             routes: routes,
+            flattedRoutes: flattedRoutes,
+        });
+    };
+    /**
+     * @param {?} __0
+     * @param {?} __1
+     * @return {?}
+     */
+    ConfigState.prototype.addRoute = /**
+     * @param {?} __0
+     * @param {?} __1
+     * @return {?}
+     */
+    function (_a, _b) {
+        var patchState = _a.patchState, getState = _a.getState;
+        var payload = _b.payload;
+        /** @type {?} */
+        var routes = getState().routes;
+        /** @type {?} */
+        var flattedRoutes = getState().flattedRoutes;
+        /** @type {?} */
+        var route = __assign({}, payload);
+        if (route.parentName) {
+            /** @type {?} */
+            var index = flattedRoutes.findIndex((/**
+             * @param {?} r
+             * @return {?}
+             */
+            function (r) { return r.name === route.parentName; }));
+            if (index < 0)
+                return;
+            /** @type {?} */
+            var parent_1 = flattedRoutes[index];
+            if (parent_1.url.replace('/', '')) {
+                route.url = parent_1.url + "/" + route.path;
+            }
+            else {
+                route.url = "/" + route.path;
+            }
+            route.order = route.order || route.order === 0 ? route.order : parent_1.children.length;
+            parent_1.children = __spread((parent_1.children || []), [route]).sort((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            function (a, b) { return a.order - b.order; }));
+            flattedRoutes[index] = parent_1;
+            flattedRoutes.push(route);
+            /** @type {?} */
+            var parentName_1 = parent_1.name;
+            /** @type {?} */
+            var parentNameArr = [parentName_1];
+            while (parentName_1) {
+                parentName_1 = snq((/**
+                 * @return {?}
+                 */
+                function () { return flattedRoutes.find((/**
+                 * @param {?} r
+                 * @return {?}
+                 */
+                function (r) { return r.name === parentName_1; })).parentName; }));
+                if (parentName_1) {
+                    parentNameArr.unshift(parentName_1);
+                }
+            }
+            routes = updateRouteDeep(routes, parentNameArr, parent_1);
+        }
+        else {
+            route.url = "/" + route.path;
+            if (route.order || route.order === 0) {
+                routes = __spread(routes, [route]).sort((/**
+                 * @param {?} a
+                 * @param {?} b
+                 * @return {?}
+                 */
+                function (a, b) { return a.order - b.order; }));
+            }
+            else {
+                route.order = routes.length;
+                routes = __spread(routes, [route]);
+            }
+            flattedRoutes.push(route);
+        }
+        return patchState({
+            routes: routes,
+            flattedRoutes: flattedRoutes,
         });
     };
     var ConfigState_1;
@@ -1346,6 +1451,12 @@ var ConfigState = /** @class */ (function () {
         __metadata("design:paramtypes", [Object, PatchRouteByName]),
         __metadata("design:returntype", void 0)
     ], ConfigState.prototype, "patchRoute", null);
+    __decorate([
+        Action(AddRoute),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, AddRoute]),
+        __metadata("design:returntype", void 0)
+    ], ConfigState.prototype, "addRoute", null);
     __decorate([
         Selector(),
         __metadata("design:type", Function),
@@ -1417,6 +1528,29 @@ function patchRouteDeep(routes, name, newValue, parentUrl) {
         return routes;
     }
     return organizeRoutes(routes);
+}
+/**
+ * @param {?} routes
+ * @param {?} parentNameArr
+ * @param {?} newValue
+ * @param {?=} parentIndex
+ * @return {?}
+ */
+function updateRouteDeep(routes, parentNameArr, newValue, parentIndex) {
+    if (parentIndex === void 0) { parentIndex = 0; }
+    /** @type {?} */
+    var index = routes.findIndex((/**
+     * @param {?} route
+     * @return {?}
+     */
+    function (route) { return route.name === parentNameArr[parentIndex]; }));
+    if (parentIndex === parentNameArr.length - 1) {
+        routes[index] = newValue;
+    }
+    else {
+        routes[index].children = updateRouteDeep(routes[index].children, parentNameArr, newValue, parentIndex + 1);
+    }
+    return routes;
 }
 
 /**
@@ -3547,32 +3681,8 @@ if (false) {
 function transformRoutes(routes, wrappers) {
     if (routes === void 0) { routes = []; }
     if (wrappers === void 0) { wrappers = []; }
-    // TODO: remove in v1
     /** @type {?} */
-    var oldAbpRoutes = routes
-        .filter((/**
-     * @param {?} route
-     * @return {?}
-     */
-    function (route) {
-        return snq((/**
-         * @return {?}
-         */
-        function () { return route.data.routes.routes.find((/**
-         * @param {?} r
-         * @return {?}
-         */
-        function (r) { return r.path === route.path; })); }), false);
-    }))
-        .reduce((/**
-     * @param {?} acc
-     * @param {?} val
-     * @return {?}
-     */
-    function (acc, val) { return __spread(acc, val.data.routes.routes); }), []);
-    // tslint:disable-next-line: deprecation
-    /** @type {?} */
-    var abpRoutes = __spread(getAbpRoutes(), oldAbpRoutes);
+    var abpRoutes = __spread(getAbpRoutes());
     wrappers = abpRoutes.filter((/**
      * @param {?} ar
      * @return {?}
@@ -3617,7 +3727,7 @@ function transformRoutes(routes, wrappers) {
  */
 function setUrls(routes, parentUrl) {
     if (parentUrl) {
-        // this if block using for only recursive call
+        // recursive block
         return routes.map((/**
          * @param {?} route
          * @return {?}
@@ -3656,6 +3766,11 @@ function flatRoutes(routes) {
             /** @type {?} */
             var value = [val];
             if (val.children) {
+                val.children = val.children.map((/**
+                 * @param {?} child
+                 * @return {?}
+                 */
+                function (child) { return (__assign({}, child, { parentName: val.name })); }));
                 value = __spread([val], flat(val.children));
             }
             return __spread(acc, value);
@@ -4372,5 +4487,5 @@ var CoreModule = /** @class */ (function () {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AbstractNgModelComponent, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, LazyLoadService, LocalizationPipe, LocalizationService, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, uuid, ProfileState as ɵa, ProfileService as ɵb, InputEventDebounceDirective as ɵba, StopPropagationDirective as ɵbb, AbstractNgModelComponent as ɵbc, LocaleId as ɵbd, LocaleProvider as ɵbe, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbf, ConfigPlugin as ɵbg, ApiInterceptor as ɵbh, getInitialData as ɵbi, localeInitializer as ɵbj, RestService as ɵc, GetProfile as ɵd, UpdateProfile as ɵe, ChangePassword as ɵf, SessionState as ɵh, LocalizationService as ɵi, SetLanguage as ɵj, SetTenant as ɵk, ConfigState as ɵm, ApplicationConfigurationService as ɵn, PatchRouteByName as ɵo, GetAppConfiguration as ɵp, RouterOutletComponent as ɵq, DynamicLayoutComponent as ɵr, AutofocusDirective as ɵs, EllipsisDirective as ɵt, ForDirective as ɵu, FormSubmitDirective as ɵv, LocalizationPipe as ɵw, SortPipe as ɵx, PermissionDirective as ɵy, VisibilityDirective as ɵz };
+export { AbstractNgModelComponent, AddRoute, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, LazyLoadService, LocalizationPipe, LocalizationService, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, uuid, ProfileState as ɵa, ProfileService as ɵb, VisibilityDirective as ɵba, InputEventDebounceDirective as ɵbb, StopPropagationDirective as ɵbc, AbstractNgModelComponent as ɵbd, LocaleId as ɵbe, LocaleProvider as ɵbf, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbg, ConfigPlugin as ɵbh, ApiInterceptor as ɵbi, getInitialData as ɵbj, localeInitializer as ɵbk, RestService as ɵc, GetProfile as ɵd, UpdateProfile as ɵe, ChangePassword as ɵf, SessionState as ɵh, LocalizationService as ɵi, SetLanguage as ɵj, SetTenant as ɵk, ConfigState as ɵm, ApplicationConfigurationService as ɵn, PatchRouteByName as ɵo, GetAppConfiguration as ɵp, AddRoute as ɵq, RouterOutletComponent as ɵr, DynamicLayoutComponent as ɵs, AutofocusDirective as ɵt, EllipsisDirective as ɵu, ForDirective as ɵv, FormSubmitDirective as ɵw, LocalizationPipe as ɵx, SortPipe as ɵy, PermissionDirective as ɵz };
 //# sourceMappingURL=abp-ng.core.js.map

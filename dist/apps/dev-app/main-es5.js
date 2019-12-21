@@ -1306,9 +1306,9 @@ var __spread = (this && this.__spread) || function () {
                      */
                     get: function () {
                         if (!this.selectedSortKey)
-                            return 'fa-sort';
+                            return 'sorting';
                         if (this.selectedSortKey === this.sortKey)
-                            return "fa-sort-" + this.order;
+                            return "sorting_" + this.order;
                         else
                             return '';
                     },
@@ -1343,7 +1343,7 @@ var __spread = (this && this.__spread) || function () {
             SortOrderIconComponent.decorators = [
                 { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"], args: [{
                             selector: 'abp-sort-order-icon',
-                            template: "<span class=\"float-right {{ iconClass }}\">\r\n  <i class=\"fa {{ icon }}\"></i>\r\n</span>\r\n"
+                            template: "<div class=\"float-right {{ iconClass }}\">\r\n  <span class=\"{{ icon }}\"></span>\r\n</div>\r\n"
                         }] }
             ];
             SortOrderIconComponent.propDecorators = {
@@ -1417,7 +1417,7 @@ var __spread = (this && this.__spread) || function () {
              * Generated from: lib/constants/styles.ts
              * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
              */
-            var styles = "\n.is-invalid .form-control {\n  border-color: #dc3545;\n  border-style: solid !important;\n}\n\n.is-invalid .invalid-feedback,\n.is-invalid + * .invalid-feedback {\n  display: block;\n}\n\n.data-tables-filter {\n  text-align: right;\n}\n\n.pointer {\n  cursor: pointer;\n}\n\n.navbar .dropdown-submenu a::after {\n  transform: rotate(-90deg);\n  position: absolute;\n  right: 16px;\n  top: 18px;\n}\n\n.navbar .dropdown-menu {\n  min-width: 215px;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar {\n  height: 5px !important;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.modal.show {\n  display: block !important;\n}\n\n.modal-backdrop {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: calc(100% - 7px);\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.6);\n  z-index: 1040;\n}\n\n.modal::-webkit-scrollbar {\n  width: 7px;\n}\n\n.modal::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.modal::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.modal-dialog {\n  z-index: 1050;\n}\n\n.abp-ellipsis-inline {\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-ellipsis {\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-toast .ui-toast-message {\n  box-sizing: border-box;\n  border: 2px solid transparent;\n  border-radius: 4px;\n  color: #1b1d29;\n}\n\n.abp-toast .ui-toast-message-content {\n  padding: 10px;\n}\n\n.abp-toast .ui-toast-message-content .ui-toast-icon {\n  top: 0;\n  left: 0;\n  padding: 10px;\n}\n\n.abp-toast .ui-toast-summary {\n  margin: 0;\n  font-weight: 700;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-error {\n  border: 2px solid #ba1659;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-error .ui-toast-message-content .ui-toast-icon {\n  color: #ba1659;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-warn {\n  border: 2px solid #ed5d98;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-warn .ui-toast-message-content .ui-toast-icon {\n  color: #ed5d98;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-success {\n  border: 2px solid #1c9174;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-success .ui-toast-message-content .ui-toast-icon {\n  color: #1c9174;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-info {\n  border: 2px solid #fccb31;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-info .ui-toast-message-content .ui-toast-icon {\n  color: #fccb31;\n}\n\n.abp-confirm .ui-toast-message {\n  box-sizing: border-box;\n  padding: 0px;\n  border:0 none;\n  border-radius: 4px;\n  background-color: transparent !important;\n  font-family: \"Poppins\", sans-serif;\n  text-align: center;\n}\n\n.abp-confirm .ui-toast-message-content {\n  padding: 0px;\n}\n\n.abp-confirm .abp-confirm-icon {\n  margin: 32px 50px 5px !important;\n  color: #f8bb86 !important;\n  font-size: 52px !important;\n}\n\n.abp-confirm .ui-toast-close-icon {\n  display: none !important;\n}\n\n.abp-confirm .abp-confirm-summary {\n  display: block !important;\n  margin-bottom: 13px !important;\n  padding: 13px 16px 0px !important;\n  font-weight: 600 !important;\n  font-size: 18px !important;\n}\n\n.abp-confirm .abp-confirm-body {\n  display: inline-block !important;\n  padding: 0px 10px !important;\n}\n\n.abp-confirm .abp-confirm-footer {\n  display: block;\n  margin-top: 30px;\n  padding: 16px;\n  text-align: right;\n}\n\n.abp-confirm .abp-confirm-footer .btn {\n  margin-left: 10px !important;\n}\n\n.ui-widget-overlay {\n  z-index: 1000;\n}\n\n.color-white {\n  color: #FFF !important;\n}\n\n.custom-checkbox > label {\n  cursor: pointer;\n}\n\n/* <animations */\n\n.fade-in-top {\n  animation: fadeInTop 0.2s ease-in-out;\n}\n\n.fade-out-top {\n  animation: fadeOutTop 0.2s ease-in-out;\n}\n\n.abp-collapsed-height {\n  -moz-transition: max-height linear 0.35s;\n  -ms-transition: max-height linear 0.35s;\n  -o-transition: max-height linear 0.35s;\n  -webkit-transition: max-height linear 0.35s;\n  overflow:hidden;\n  transition:max-height 0.35s linear;\n  height:auto;\n  max-height: 0;\n}\n\n.abp-mh-25 {\n  max-height: 25vh;\n}\n\n.abp-mh-50 {\n  transition:max-height 0.65s linear;\n  max-height: 50vh;\n}\n\n.abp-mh-75 {\n  transition:max-height 0.85s linear;\n  max-height: 75vh;\n}\n\n.abp-mh-100 {\n  transition:max-height 1s linear;\n  max-height: 100vh;\n}\n\n@keyframes fadeInTop {\n  from {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n\n  to {\n    transform: translateY(0px);\n    opacity: 1;\n  }\n}\n\n@keyframes fadeOutTop {\n  to {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n}\n\n/* </animations */\n\n";
+            var styles = "\n.is-invalid .form-control {\n  border-color: #dc3545;\n  border-style: solid !important;\n}\n\n.is-invalid .invalid-feedback,\n.is-invalid + * .invalid-feedback {\n  display: block;\n}\n\n.data-tables-filter {\n  text-align: right;\n}\n\n.pointer {\n  cursor: pointer;\n}\n\n.navbar .dropdown-submenu a::after {\n  transform: rotate(-90deg);\n  position: absolute;\n  right: 16px;\n  top: 18px;\n}\n\n.navbar .dropdown-menu {\n  min-width: 215px;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar {\n  height: 5px !important;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.modal.show {\n  display: block !important;\n}\n\n.modal-backdrop {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: calc(100% - 7px);\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.6);\n  z-index: 1040;\n}\n\n.modal::-webkit-scrollbar {\n  width: 7px;\n}\n\n.modal::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.modal::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.modal-dialog {\n  z-index: 1050;\n}\n\n.abp-ellipsis-inline {\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-ellipsis {\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-toast .ui-toast-message {\n  box-sizing: border-box;\n  border: 2px solid transparent;\n  border-radius: 4px;\n  color: #1b1d29;\n}\n\n.abp-toast .ui-toast-message-content {\n  padding: 10px;\n}\n\n.abp-toast .ui-toast-message-content .ui-toast-icon {\n  top: 0;\n  left: 0;\n  padding: 10px;\n}\n\n.abp-toast .ui-toast-summary {\n  margin: 0;\n  font-weight: 700;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-error {\n  border: 2px solid #ba1659;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-error .ui-toast-message-content .ui-toast-icon {\n  color: #ba1659;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-warn {\n  border: 2px solid #ed5d98;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-warn .ui-toast-message-content .ui-toast-icon {\n  color: #ed5d98;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-success {\n  border: 2px solid #1c9174;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-success .ui-toast-message-content .ui-toast-icon {\n  color: #1c9174;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-info {\n  border: 2px solid #fccb31;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-info .ui-toast-message-content .ui-toast-icon {\n  color: #fccb31;\n}\n\n.abp-confirm .ui-toast-message {\n  box-sizing: border-box;\n  padding: 0px;\n  border:0 none;\n  border-radius: 4px;\n  background-color: transparent !important;\n  font-family: \"Poppins\", sans-serif;\n  text-align: center;\n}\n\n.abp-confirm .ui-toast-message-content {\n  padding: 0px;\n}\n\n.abp-confirm .abp-confirm-icon {\n  margin: 32px 50px 5px !important;\n  color: #f8bb86 !important;\n  font-size: 52px !important;\n}\n\n.abp-confirm .ui-toast-close-icon {\n  display: none !important;\n}\n\n.abp-confirm .abp-confirm-summary {\n  display: block !important;\n  margin-bottom: 13px !important;\n  padding: 13px 16px 0px !important;\n  font-weight: 600 !important;\n  font-size: 18px !important;\n}\n\n.abp-confirm .abp-confirm-body {\n  display: inline-block !important;\n  padding: 0px 10px !important;\n}\n\n.abp-confirm .abp-confirm-footer {\n  display: block;\n  margin-top: 30px;\n  padding: 16px;\n  text-align: right;\n}\n\n.abp-confirm .abp-confirm-footer .btn {\n  margin-left: 10px !important;\n}\n\n.ui-widget-overlay {\n  z-index: 1000;\n}\n\n.color-white {\n  color: #FFF !important;\n}\n\n.custom-checkbox > label {\n  cursor: pointer;\n}\n\n/* <animations */\n\n.fade-in-top {\n  animation: fadeInTop 0.2s ease-in-out;\n}\n\n.fade-out-top {\n  animation: fadeOutTop 0.2s ease-in-out;\n}\n\n.abp-collapsed-height {\n  -moz-transition: max-height linear 0.35s;\n  -ms-transition: max-height linear 0.35s;\n  -o-transition: max-height linear 0.35s;\n  -webkit-transition: max-height linear 0.35s;\n  overflow:hidden;\n  transition:max-height 0.35s linear;\n  height:auto;\n  max-height: 0;\n}\n\n.abp-mh-25 {\n  max-height: 25vh;\n}\n\n.abp-mh-50 {\n  transition:max-height 0.65s linear;\n  max-height: 50vh;\n}\n\n.abp-mh-75 {\n  transition:max-height 0.85s linear;\n  max-height: 75vh;\n}\n\n.abp-mh-100 {\n  transition:max-height 1s linear;\n  max-height: 100vh;\n}\n\n[class^=\"sorting\"] {\n  opacity: .3;\n  cursor: pointer;\n}\n[class^=\"sorting\"]:before {\n  right: 0.5rem;\n  content: \"\u2191\";\n}\n[class^=\"sorting\"]:after {\n  right: 0.5rem;\n  content: \"\u2193\";\n}\n\n.sorting_desc {\n  opacity: 1;\n}\n.sorting_desc:before {\n  opacity: .3;\n}\n\n.sorting_asc {\n  opacity: 1;\n}\n.sorting_asc:after {\n  opacity: .3;\n}\n\n@keyframes fadeInTop {\n  from {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n\n  to {\n    transform: translateY(0px);\n    opacity: 1;\n  }\n}\n\n@keyframes fadeOutTop {\n  to {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n}\n\n/* </animations */\n\n";
             /**
              * @fileoverview added by tsickle
              * Generated from: lib/directives/table-sort.directive.ts
@@ -3646,12 +3646,13 @@ var __spread = (this && this.__spread) || function () {
         /*!*******************************************************************************************************!*\
           !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/core/src/lib/actions/config.actions.ts ***!
           \*******************************************************************************************************/
-        /*! exports provided: PatchRouteByName, GetAppConfiguration */
+        /*! exports provided: PatchRouteByName, GetAppConfiguration, AddRoute */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PatchRouteByName", function () { return PatchRouteByName; });
             /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetAppConfiguration", function () { return GetAppConfiguration; });
+            /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddRoute", function () { return AddRoute; });
             /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
             var PatchRouteByName = /** @class */ (function () {
                 function PatchRouteByName(name, newValue) {
@@ -3667,13 +3668,23 @@ var __spread = (this && this.__spread) || function () {
                 return GetAppConfiguration;
             }());
             GetAppConfiguration.type = '[Config] Get App Configuration';
+            /**
+             * @see usage: https://github.com/abpframework/abp/pull/2425#issue-355018812
+             */
+            var AddRoute = /** @class */ (function () {
+                function AddRoute(payload) {
+                    this.payload = payload;
+                }
+                return AddRoute;
+            }());
+            AddRoute.type = '[Config] Add Route';
             /***/ 
         }),
         /***/ "../../packages/core/src/lib/actions/index.ts": 
         /*!**********************************************************************************************!*\
           !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/core/src/lib/actions/index.ts ***!
           \**********************************************************************************************/
-        /*! exports provided: PatchRouteByName, GetAppConfiguration, StartLoader, StopLoader, GetProfile, UpdateProfile, ChangePassword, RestOccurError, SetLanguage, SetTenant */
+        /*! exports provided: PatchRouteByName, GetAppConfiguration, AddRoute, StartLoader, StopLoader, GetProfile, UpdateProfile, ChangePassword, RestOccurError, SetLanguage, SetTenant */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
@@ -3681,6 +3692,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony import */ var _config_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config.actions */ "../../packages/core/src/lib/actions/config.actions.ts");
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PatchRouteByName", function () { return _config_actions__WEBPACK_IMPORTED_MODULE_1__["PatchRouteByName"]; });
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetAppConfiguration", function () { return _config_actions__WEBPACK_IMPORTED_MODULE_1__["GetAppConfiguration"]; });
+            /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AddRoute", function () { return _config_actions__WEBPACK_IMPORTED_MODULE_1__["AddRoute"]; });
             /* harmony import */ var _loader_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./loader.actions */ "../../packages/core/src/lib/actions/loader.actions.ts");
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StartLoader", function () { return _loader_actions__WEBPACK_IMPORTED_MODULE_2__["StartLoader"]; });
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StopLoader", function () { return _loader_actions__WEBPACK_IMPORTED_MODULE_2__["StopLoader"]; });
@@ -5152,14 +5164,7 @@ var __spread = (this && this.__spread) || function () {
             function transformRoutes(routes, wrappers) {
                 if (routes === void 0) { routes = []; }
                 if (wrappers === void 0) { wrappers = []; }
-                // TODO: remove in v1
-                var oldAbpRoutes = routes
-                    .filter(function (route) {
-                    return Object(snq__WEBPACK_IMPORTED_MODULE_4__["default"])(function () { return route.data.routes.routes.find(function (r) { return r.path === route.path; }); }, false);
-                })
-                    .reduce(function (acc, val) { return __spread(acc, val.data.routes.routes); }, []);
-                // tslint:disable-next-line: deprecation
-                var abpRoutes = __spread(Object(_utils_route_utils__WEBPACK_IMPORTED_MODULE_5__["getAbpRoutes"])(), oldAbpRoutes);
+                var abpRoutes = __spread(Object(_utils_route_utils__WEBPACK_IMPORTED_MODULE_5__["getAbpRoutes"])());
                 wrappers = abpRoutes.filter(function (ar) { return ar.wrapper; });
                 var transformed = [];
                 routes
@@ -5178,7 +5183,7 @@ var __spread = (this && this.__spread) || function () {
             }
             function setUrls(routes, parentUrl) {
                 if (parentUrl) {
-                    // this if block using for only recursive call
+                    // recursive block
                     return routes.map(function (route) { return (Object.assign({}, route, { url: parentUrl + "/" + route.path }, (route.children &&
                         route.children.length && {
                         children: setUrls(route.children, parentUrl + "/" + route.path),
@@ -5194,6 +5199,7 @@ var __spread = (this && this.__spread) || function () {
                     return r.reduce(function (acc, val) {
                         var value = [val];
                         if (val.children) {
+                            val.children = val.children.map(function (child) { return (Object.assign({}, child, { parentName: val.name })); });
                             value = __spread([val], flat(val.children));
                         }
                         return __spread(acc, value);
@@ -5949,10 +5955,62 @@ var __spread = (this && this.__spread) || function () {
                     var patchState = _a.patchState, getState = _a.getState;
                     var name = _b.name, newValue = _b.newValue;
                     var routes = getState().routes;
-                    var index = routes.findIndex(function (route) { return route.name === name; });
                     routes = patchRouteDeep(routes, name, newValue);
+                    var flattedRoutes = getState().flattedRoutes;
+                    var index = flattedRoutes.findIndex(function (route) { return route.name === name; });
+                    if (index > -1) {
+                        flattedRoutes[index] = newValue;
+                    }
                     return patchState({
                         routes: routes,
+                        flattedRoutes: flattedRoutes,
+                    });
+                };
+                ConfigState.prototype.addRoute = function (_a, _b) {
+                    var patchState = _a.patchState, getState = _a.getState;
+                    var payload = _b.payload;
+                    var routes = getState().routes;
+                    var flattedRoutes = getState().flattedRoutes;
+                    var route = Object.assign({}, payload);
+                    if (route.parentName) {
+                        var index = flattedRoutes.findIndex(function (r) { return r.name === route.parentName; });
+                        if (index < 0)
+                            return;
+                        var parent = flattedRoutes[index];
+                        if (parent.url.replace('/', '')) {
+                            route.url = parent.url + "/" + route.path;
+                        }
+                        else {
+                            route.url = "/" + route.path;
+                        }
+                        route.order = route.order || route.order === 0 ? route.order : parent.children.length;
+                        parent.children = __spread((parent.children || []), [route]).sort(function (a, b) { return a.order - b.order; });
+                        flattedRoutes[index] = parent;
+                        flattedRoutes.push(route);
+                        var parentName_1 = parent.name;
+                        var parentNameArr = [parentName_1];
+                        while (parentName_1) {
+                            parentName_1 = Object(snq__WEBPACK_IMPORTED_MODULE_4__["default"])(function () { return flattedRoutes.find(function (r) { return r.name === parentName_1; }).parentName; });
+                            if (parentName_1) {
+                                parentNameArr.unshift(parentName_1);
+                            }
+                        }
+                        routes = updateRouteDeep(routes, parentNameArr, parent);
+                    }
+                    else {
+                        route.url = "/" + route.path;
+                        if (route.order || route.order === 0) {
+                            routes = __spread(routes, [route]).sort(function (a, b) { return a.order - b.order; });
+                        }
+                        else {
+                            route.order = routes.length;
+                            routes = __spread(routes, [route]);
+                        }
+                        flattedRoutes.push(route);
+                    }
+                    return patchState({
+                        routes: routes,
+                        flattedRoutes: flattedRoutes,
                     });
                 };
                 return ConfigState;
@@ -5973,6 +6031,12 @@ var __spread = (this && this.__spread) || function () {
                 tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _actions_config_actions__WEBPACK_IMPORTED_MODULE_5__["PatchRouteByName"]]),
                 tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
             ], ConfigState.prototype, "patchRoute", null);
+            tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+                Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["Action"])(_actions_config_actions__WEBPACK_IMPORTED_MODULE_5__["AddRoute"]),
+                tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+                tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _actions_config_actions__WEBPACK_IMPORTED_MODULE_5__["AddRoute"]]),
+                tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+            ], ConfigState.prototype, "addRoute", null);
             tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["Selector"])(),
                 tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
@@ -6015,6 +6079,17 @@ var __spread = (this && this.__spread) || function () {
                     return routes;
                 }
                 return Object(_utils_route_utils__WEBPACK_IMPORTED_MODULE_8__["organizeRoutes"])(routes);
+            }
+            function updateRouteDeep(routes, parentNameArr, newValue, parentIndex) {
+                if (parentIndex === void 0) { parentIndex = 0; }
+                var index = routes.findIndex(function (route) { return route.name === parentNameArr[parentIndex]; });
+                if (parentIndex === parentNameArr.length - 1) {
+                    routes[index] = newValue;
+                }
+                else {
+                    routes[index].children = updateRouteDeep(routes[index].children, parentNameArr, newValue, parentIndex + 1);
+                }
+                return routes;
             }
             /***/ 
         }),
@@ -6469,7 +6544,7 @@ var __spread = (this && this.__spread) || function () {
         /*!***************************************************************************************!*\
           !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/core/src/public-api.ts ***!
           \***************************************************************************************/
-        /*! exports provided: AbstractNgModelComponent, PatchRouteByName, GetAppConfiguration, StartLoader, StopLoader, GetProfile, UpdateProfile, ChangePassword, RestOccurError, SetLanguage, SetTenant, DynamicLayoutComponent, RouterOutletComponent, AutofocusDirective, EllipsisDirective, ForDirective, FormSubmitDirective, PermissionDirective, VisibilityDirective, ApiInterceptor, CoreModule, AuthGuard, PermissionGuard, LocalizationPipe, SortPipe, NGXS_CONFIG_PLUGIN_OPTIONS, ConfigPlugin, ApplicationConfigurationService, ConfigStateService, LazyLoadService, LocalizationService, ProfileService, RestService, ProfileStateService, SessionStateService, ProfileState, ConfigState, SessionState, environmentFactory, configFactory, ENVIRONMENT, CONFIG, noop, uuid, getInitialData, localeInitializer, registerLocale, organizeRoutes, setChildRoute, sortRoutes, addAbpRoutes, getAbpRoutes, takeUntilDestroy */
+        /*! exports provided: AbstractNgModelComponent, PatchRouteByName, GetAppConfiguration, AddRoute, StartLoader, StopLoader, GetProfile, UpdateProfile, ChangePassword, RestOccurError, SetLanguage, SetTenant, DynamicLayoutComponent, RouterOutletComponent, AutofocusDirective, EllipsisDirective, ForDirective, FormSubmitDirective, PermissionDirective, VisibilityDirective, ApiInterceptor, CoreModule, AuthGuard, PermissionGuard, LocalizationPipe, SortPipe, NGXS_CONFIG_PLUGIN_OPTIONS, ConfigPlugin, ApplicationConfigurationService, ConfigStateService, LazyLoadService, LocalizationService, ProfileService, RestService, ProfileStateService, SessionStateService, ProfileState, ConfigState, SessionState, environmentFactory, configFactory, ENVIRONMENT, CONFIG, noop, uuid, getInitialData, localeInitializer, registerLocale, organizeRoutes, setChildRoute, sortRoutes, addAbpRoutes, getAbpRoutes, takeUntilDestroy */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
@@ -6479,6 +6554,7 @@ var __spread = (this && this.__spread) || function () {
             /* harmony import */ var _lib_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/actions */ "../../packages/core/src/lib/actions/index.ts");
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PatchRouteByName", function () { return _lib_actions__WEBPACK_IMPORTED_MODULE_2__["PatchRouteByName"]; });
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetAppConfiguration", function () { return _lib_actions__WEBPACK_IMPORTED_MODULE_2__["GetAppConfiguration"]; });
+            /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AddRoute", function () { return _lib_actions__WEBPACK_IMPORTED_MODULE_2__["AddRoute"]; });
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StartLoader", function () { return _lib_actions__WEBPACK_IMPORTED_MODULE_2__["StartLoader"]; });
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StopLoader", function () { return _lib_actions__WEBPACK_IMPORTED_MODULE_2__["StopLoader"]; });
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetProfile", function () { return _lib_actions__WEBPACK_IMPORTED_MODULE_2__["GetProfile"]; });

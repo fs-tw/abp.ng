@@ -658,6 +658,55 @@ function IdentityProviders() {
 
 /***/ }),
 
+/***/ "../../packages/identity/src/lib/services/identity-state.service.ts":
+/*!********************************************************************************************************************!*\
+  !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/identity/src/lib/services/identity-state.service.ts ***!
+  \********************************************************************************************************************/
+/*! exports provided: IdentityStateService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IdentityStateService", function() { return IdentityStateService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "../../node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _ngxs_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngxs/store */ "../../node_modules/@ngxs/store/fesm2015/ngxs-store.js");
+/* harmony import */ var _states_identity_state__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../states/identity.state */ "../../packages/identity/src/lib/states/identity.state.ts");
+
+
+
+
+let IdentityStateService = class IdentityStateService {
+    constructor(store) {
+        this.store = store;
+    }
+    getRoles() {
+        return this.store.selectSnapshot(_states_identity_state__WEBPACK_IMPORTED_MODULE_3__["IdentityState"].getRoles);
+    }
+    getRolesTotalCount() {
+        return this.store.selectSnapshot(_states_identity_state__WEBPACK_IMPORTED_MODULE_3__["IdentityState"].getRolesTotalCount);
+    }
+    getUsers() {
+        return this.store.selectSnapshot(_states_identity_state__WEBPACK_IMPORTED_MODULE_3__["IdentityState"].getUsers);
+    }
+    getUsersTotalCount() {
+        return this.store.selectSnapshot(_states_identity_state__WEBPACK_IMPORTED_MODULE_3__["IdentityState"].getUsersTotalCount);
+    }
+};
+IdentityStateService.ctorParameters = () => [
+    { type: _ngxs_store__WEBPACK_IMPORTED_MODULE_2__["Store"] }
+];
+IdentityStateService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root',
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ngxs_store__WEBPACK_IMPORTED_MODULE_2__["Store"]])
+], IdentityStateService);
+
+
+
+/***/ }),
+
 /***/ "../../packages/identity/src/lib/services/identity.service.ts":
 /*!**************************************************************************************************************!*\
   !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/identity/src/lib/services/identity.service.ts ***!
@@ -775,6 +824,29 @@ IdentityService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_abp_ng_core__WEBPACK_IMPORTED_MODULE_2__["RestService"]])
 ], IdentityService);
+
+
+
+/***/ }),
+
+/***/ "../../packages/identity/src/lib/services/index.ts":
+/*!***************************************************************************************************!*\
+  !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/identity/src/lib/services/index.ts ***!
+  \***************************************************************************************************/
+/*! exports provided: IdentityService, IdentityStateService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _identity_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./identity.service */ "../../packages/identity/src/lib/services/identity.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IdentityService", function() { return _identity_service__WEBPACK_IMPORTED_MODULE_1__["IdentityService"]; });
+
+/* harmony import */ var _identity_state_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./identity-state.service */ "../../packages/identity/src/lib/services/identity-state.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IdentityStateService", function() { return _identity_state_service__WEBPACK_IMPORTED_MODULE_2__["IdentityStateService"]; });
+
+
+
 
 
 
@@ -969,7 +1041,7 @@ IdentityState = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!*******************************************************************************************!*\
   !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/identity/src/public-api.ts ***!
   \*******************************************************************************************/
-/*! exports provided: IdentityModule, IdentityProviders, GetRoles, GetRoleById, DeleteRole, CreateRole, UpdateRole, GetUsers, GetUserById, DeleteUser, CreateUser, UpdateUser, GetUserRoles, IDENTITY_ROUTES, IdentityService, IdentityState, RolesComponent, UsersComponent */
+/*! exports provided: IdentityModule, IdentityProviders, GetRoles, GetRoleById, DeleteRole, CreateRole, UpdateRole, GetUsers, GetUserById, DeleteUser, CreateUser, UpdateUser, GetUserRoles, RolesComponent, UsersComponent, IDENTITY_ROUTES, IdentityService, IdentityState, IdentityStateService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1003,16 +1075,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetUserRoles", function() { return _lib_actions_identity_actions__WEBPACK_IMPORTED_MODULE_2__["GetUserRoles"]; });
 
-/* harmony import */ var _lib_components_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/components/index */ "../../packages/identity/src/lib/components/index.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RolesComponent", function() { return _lib_components_index__WEBPACK_IMPORTED_MODULE_3__["RolesComponent"]; });
+/* harmony import */ var _lib_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/components */ "../../packages/identity/src/lib/components/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RolesComponent", function() { return _lib_components__WEBPACK_IMPORTED_MODULE_3__["RolesComponent"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UsersComponent", function() { return _lib_components_index__WEBPACK_IMPORTED_MODULE_3__["UsersComponent"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UsersComponent", function() { return _lib_components__WEBPACK_IMPORTED_MODULE_3__["UsersComponent"]; });
 
 /* harmony import */ var _lib_constants_routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/constants/routes */ "../../packages/identity/src/lib/constants/routes.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IDENTITY_ROUTES", function() { return _lib_constants_routes__WEBPACK_IMPORTED_MODULE_4__["IDENTITY_ROUTES"]; });
 
-/* harmony import */ var _lib_services_identity_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lib/services/identity.service */ "../../packages/identity/src/lib/services/identity.service.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IdentityService", function() { return _lib_services_identity_service__WEBPACK_IMPORTED_MODULE_5__["IdentityService"]; });
+/* harmony import */ var _lib_services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lib/services */ "../../packages/identity/src/lib/services/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IdentityService", function() { return _lib_services__WEBPACK_IMPORTED_MODULE_5__["IdentityService"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IdentityStateService", function() { return _lib_services__WEBPACK_IMPORTED_MODULE_5__["IdentityStateService"]; });
 
 /* harmony import */ var _lib_states_identity_state__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./lib/states/identity.state */ "../../packages/identity/src/lib/states/identity.state.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IdentityState", function() { return _lib_states_identity_state__WEBPACK_IMPORTED_MODULE_6__["IdentityState"]; });
