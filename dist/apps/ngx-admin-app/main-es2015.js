@@ -4826,9 +4826,9 @@ class SortOrderIconComponent {
      */
     get icon() {
         if (!this.selectedSortKey)
-            return 'fa-sort';
+            return 'sorting';
         if (this.selectedSortKey === this.sortKey)
-            return `fa-sort-${this.order}`;
+            return `sorting_${this.order}`;
         else
             return '';
     }
@@ -4859,7 +4859,7 @@ class SortOrderIconComponent {
 SortOrderIconComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"], args: [{
                 selector: 'abp-sort-order-icon',
-                template: "<span class=\"float-right {{ iconClass }}\">\r\n  <i class=\"fa {{ icon }}\"></i>\r\n</span>\r\n"
+                template: "<div class=\"float-right {{ iconClass }}\">\r\n  <span class=\"{{ icon }}\"></span>\r\n</div>\r\n"
             }] }
 ];
 SortOrderIconComponent.propDecorators = {
@@ -5191,6 +5191,33 @@ body abp-toast .ui-toast .ui-toast-message.ui-toast-message-info .ui-toast-messa
 .abp-mh-100 {
   transition:max-height 1s linear;
   max-height: 100vh;
+}
+
+[class^="sorting"] {
+  opacity: .3;
+  cursor: pointer;
+}
+[class^="sorting"]:before {
+  right: 0.5rem;
+  content: "↑";
+}
+[class^="sorting"]:after {
+  right: 0.5rem;
+  content: "↓";
+}
+
+.sorting_desc {
+  opacity: 1;
+}
+.sorting_desc:before {
+  opacity: .3;
+}
+
+.sorting_asc {
+  opacity: 1;
+}
+.sorting_asc:after {
+  opacity: .3;
 }
 
 @keyframes fadeInTop {
@@ -9399,7 +9426,7 @@ NgxAdminSharedModule = NgxAdminSharedModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0
 /*!*************************************************************************************!*\
   !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/themes/ngx-admin/src/index.ts ***!
   \*************************************************************************************/
-/*! exports provided: NbSimpleRoleProvider, NB_CORE_PROVIDERS, CoreModule, LayoutService, AnalyticsService, PlayerService, StateService, Track, HeaderComponent, FooterComponent, SearchInputComponent, TinyMCEComponent, OneColumnLayoutComponent, TwoColumnsLayoutComponent, ThreeColumnsLayoutComponent, CapitalizePipe, PluralPipe, RoundPipe, TimingPipe, NumberWithCommasPipe, ThemeModule, CountryOrderData, EarningData, ElectricityData, OrdersChartData, OrdersProfitChartData, ProfitBarAnimationChartData, ProfitChartData, SecurityCamerasData, SmartTableData, SolarData, StatsBarData, StatsProgressBarData, TemperatureHumidityData, TrafficBarData, TrafficChartData, TrafficListData, UserActivityData, UserData, VisitorsAnalyticsData */
+/*! exports provided: NbSimpleRoleProvider, NB_CORE_PROVIDERS, CoreModule, LayoutService, AnalyticsService, PlayerService, StateService, Track, ThemeModule, CountryOrderData, EarningData, ElectricityData, OrdersChartData, OrdersProfitChartData, ProfitBarAnimationChartData, ProfitChartData, SecurityCamerasData, SmartTableData, SolarData, StatsBarData, StatsProgressBarData, TemperatureHumidityData, TrafficBarData, TrafficChartData, TrafficListData, UserActivityData, UserData, VisitorsAnalyticsData, HeaderComponent, FooterComponent, SearchInputComponent, TinyMCEComponent, OneColumnLayoutComponent, TwoColumnsLayoutComponent, ThreeColumnsLayoutComponent, CapitalizePipe, PluralPipe, RoundPipe, TimingPipe, NumberWithCommasPipe */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9421,30 +9448,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StateService", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["StateService"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Track", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["Track"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HeaderComponent", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["HeaderComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FooterComponent", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["FooterComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SearchInputComponent", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["SearchInputComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TinyMCEComponent", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["TinyMCEComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OneColumnLayoutComponent", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["OneColumnLayoutComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TwoColumnsLayoutComponent", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["TwoColumnsLayoutComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ThreeColumnsLayoutComponent", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["ThreeColumnsLayoutComponent"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CapitalizePipe", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["CapitalizePipe"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PluralPipe", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["PluralPipe"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RoundPipe", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["RoundPipe"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimingPipe", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["TimingPipe"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumberWithCommasPipe", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["NumberWithCommasPipe"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ThemeModule", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["ThemeModule"]; });
 
@@ -9485,6 +9488,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UserData", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["UserData"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VisitorsAnalyticsData", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["VisitorsAnalyticsData"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HeaderComponent", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["HeaderComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FooterComponent", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["FooterComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SearchInputComponent", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["SearchInputComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TinyMCEComponent", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["TinyMCEComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OneColumnLayoutComponent", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["OneColumnLayoutComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TwoColumnsLayoutComponent", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["TwoColumnsLayoutComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ThreeColumnsLayoutComponent", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["ThreeColumnsLayoutComponent"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CapitalizePipe", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["CapitalizePipe"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PluralPipe", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["PluralPipe"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RoundPipe", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["RoundPipe"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimingPipe", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["TimingPipe"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumberWithCommasPipe", function() { return _lib_index__WEBPACK_IMPORTED_MODULE_1__["NumberWithCommasPipe"]; });
 
 
 
@@ -12817,7 +12844,7 @@ TinyMCEComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!************************************************************************************************!*\
   !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/themes/ngx-admin/src/lib/@theme/index.ts ***!
   \************************************************************************************************/
-/*! exports provided: HeaderComponent, FooterComponent, SearchInputComponent, TinyMCEComponent, OneColumnLayoutComponent, TwoColumnsLayoutComponent, ThreeColumnsLayoutComponent, CapitalizePipe, PluralPipe, RoundPipe, TimingPipe, NumberWithCommasPipe, ThemeModule */
+/*! exports provided: ThemeModule, HeaderComponent, FooterComponent, SearchInputComponent, TinyMCEComponent, OneColumnLayoutComponent, TwoColumnsLayoutComponent, ThreeColumnsLayoutComponent, CapitalizePipe, PluralPipe, RoundPipe, TimingPipe, NumberWithCommasPipe */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14466,7 +14493,7 @@ ThemeModule = ThemeModule_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!*****************************************************************************************!*\
   !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/themes/ngx-admin/src/lib/index.ts ***!
   \*****************************************************************************************/
-/*! exports provided: NbSimpleRoleProvider, NB_CORE_PROVIDERS, CoreModule, LayoutService, AnalyticsService, PlayerService, StateService, Track, HeaderComponent, FooterComponent, SearchInputComponent, TinyMCEComponent, OneColumnLayoutComponent, TwoColumnsLayoutComponent, ThreeColumnsLayoutComponent, CapitalizePipe, PluralPipe, RoundPipe, TimingPipe, NumberWithCommasPipe, ThemeModule, CountryOrderData, EarningData, ElectricityData, OrdersChartData, OrdersProfitChartData, ProfitBarAnimationChartData, ProfitChartData, SecurityCamerasData, SmartTableData, SolarData, StatsBarData, StatsProgressBarData, TemperatureHumidityData, TrafficBarData, TrafficChartData, TrafficListData, UserActivityData, UserData, VisitorsAnalyticsData */
+/*! exports provided: NbSimpleRoleProvider, NB_CORE_PROVIDERS, CoreModule, LayoutService, AnalyticsService, PlayerService, StateService, Track, ThemeModule, CountryOrderData, EarningData, ElectricityData, OrdersChartData, OrdersProfitChartData, ProfitBarAnimationChartData, ProfitChartData, SecurityCamerasData, SmartTableData, SolarData, StatsBarData, StatsProgressBarData, TemperatureHumidityData, TrafficBarData, TrafficChartData, TrafficListData, UserActivityData, UserData, VisitorsAnalyticsData, HeaderComponent, FooterComponent, SearchInputComponent, TinyMCEComponent, OneColumnLayoutComponent, TwoColumnsLayoutComponent, ThreeColumnsLayoutComponent, CapitalizePipe, PluralPipe, RoundPipe, TimingPipe, NumberWithCommasPipe */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14528,6 +14555,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VisitorsAnalyticsData", function() { return _core_index__WEBPACK_IMPORTED_MODULE_1__["VisitorsAnalyticsData"]; });
 
 /* harmony import */ var _theme_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./@theme/index */ "../../themes/ngx-admin/src/lib/@theme/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ThemeModule", function() { return _theme_index__WEBPACK_IMPORTED_MODULE_2__["ThemeModule"]; });
+
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HeaderComponent", function() { return _theme_index__WEBPACK_IMPORTED_MODULE_2__["HeaderComponent"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FooterComponent", function() { return _theme_index__WEBPACK_IMPORTED_MODULE_2__["FooterComponent"]; });
@@ -14551,8 +14580,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimingPipe", function() { return _theme_index__WEBPACK_IMPORTED_MODULE_2__["TimingPipe"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumberWithCommasPipe", function() { return _theme_index__WEBPACK_IMPORTED_MODULE_2__["NumberWithCommasPipe"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ThemeModule", function() { return _theme_index__WEBPACK_IMPORTED_MODULE_2__["ThemeModule"]; });
 
 
 

@@ -1577,6 +1577,77 @@ var Identity;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/identity-state.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var IdentityStateService = /** @class */ (function () {
+    function IdentityStateService(store) {
+        this.store = store;
+    }
+    /**
+     * @return {?}
+     */
+    IdentityStateService.prototype.getRoles = /**
+     * @return {?}
+     */
+    function () {
+        return this.store.selectSnapshot(IdentityState.getRoles);
+    };
+    /**
+     * @return {?}
+     */
+    IdentityStateService.prototype.getRolesTotalCount = /**
+     * @return {?}
+     */
+    function () {
+        return this.store.selectSnapshot(IdentityState.getRolesTotalCount);
+    };
+    /**
+     * @return {?}
+     */
+    IdentityStateService.prototype.getUsers = /**
+     * @return {?}
+     */
+    function () {
+        return this.store.selectSnapshot(IdentityState.getUsers);
+    };
+    /**
+     * @return {?}
+     */
+    IdentityStateService.prototype.getUsersTotalCount = /**
+     * @return {?}
+     */
+    function () {
+        return this.store.selectSnapshot(IdentityState.getUsersTotalCount);
+    };
+    IdentityStateService.decorators = [
+        { type: Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    /** @nocollapse */
+    IdentityStateService.ctorParameters = function () { return [
+        { type: Store }
+    ]; };
+    /** @nocollapse */ IdentityStateService.ngInjectableDef = ɵɵdefineInjectable({ factory: function IdentityStateService_Factory() { return new IdentityStateService(ɵɵinject(Store)); }, token: IdentityStateService, providedIn: "root" });
+    return IdentityStateService;
+}());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    IdentityStateService.prototype.store;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/services/index.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -1587,5 +1658,5 @@ var Identity;
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { CreateRole, CreateUser, DeleteRole, DeleteUser, GetRoleById, GetRoles, GetUserById, GetUserRoles, GetUsers, IDENTITY_ROUTES, IdentityModule, IdentityProviders, IdentityService, IdentityState, RolesComponent, UpdateRole, UpdateUser, UsersComponent, IdentityRoutingModule as ɵb };
+export { CreateRole, CreateUser, DeleteRole, DeleteUser, GetRoleById, GetRoles, GetUserById, GetUserRoles, GetUsers, IDENTITY_ROUTES, IdentityModule, IdentityProviders, IdentityService, IdentityState, IdentityStateService, RolesComponent, UpdateRole, UpdateUser, UsersComponent, RolesComponent as ɵa, IdentityService as ɵb, UsersComponent as ɵd, IdentityRoutingModule as ɵe };
 //# sourceMappingURL=abp-ng.identity.js.map

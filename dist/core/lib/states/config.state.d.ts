@@ -1,5 +1,5 @@
 import { StateContext, Store } from '@ngxs/store';
-import { PatchRouteByName } from '../actions/config.actions';
+import { PatchRouteByName, AddRoute } from '../actions/config.actions';
 import { ABP } from '../models/common';
 import { Config } from '../models/config';
 import { ApplicationConfigurationService } from '../services/application-configuration.service';
@@ -19,4 +19,5 @@ export declare class ConfigState {
     constructor(appConfigurationService: ApplicationConfigurationService, store: Store);
     addData({ patchState, dispatch }: StateContext<Config.State>): import("rxjs").Observable<any>;
     patchRoute({ patchState, getState }: StateContext<Config.State>, { name, newValue }: PatchRouteByName): Config.State;
+    addRoute({ patchState, getState }: StateContext<Config.State>, { payload }: AddRoute): Config.State;
 }

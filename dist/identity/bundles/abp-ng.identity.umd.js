@@ -1765,6 +1765,71 @@
         }
     })(Identity || (Identity = {}));
 
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/services/identity-state.service.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var IdentityStateService = /** @class */ (function () {
+        function IdentityStateService(store) {
+            this.store = store;
+        }
+        /**
+         * @return {?}
+         */
+        IdentityStateService.prototype.getRoles = /**
+         * @return {?}
+         */
+        function () {
+            return this.store.selectSnapshot(IdentityState.getRoles);
+        };
+        /**
+         * @return {?}
+         */
+        IdentityStateService.prototype.getRolesTotalCount = /**
+         * @return {?}
+         */
+        function () {
+            return this.store.selectSnapshot(IdentityState.getRolesTotalCount);
+        };
+        /**
+         * @return {?}
+         */
+        IdentityStateService.prototype.getUsers = /**
+         * @return {?}
+         */
+        function () {
+            return this.store.selectSnapshot(IdentityState.getUsers);
+        };
+        /**
+         * @return {?}
+         */
+        IdentityStateService.prototype.getUsersTotalCount = /**
+         * @return {?}
+         */
+        function () {
+            return this.store.selectSnapshot(IdentityState.getUsersTotalCount);
+        };
+        IdentityStateService.decorators = [
+            { type: core.Injectable, args: [{
+                        providedIn: 'root',
+                    },] }
+        ];
+        /** @nocollapse */
+        IdentityStateService.ctorParameters = function () { return [
+            { type: store.Store }
+        ]; };
+        /** @nocollapse */ IdentityStateService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function IdentityStateService_Factory() { return new IdentityStateService(core.ɵɵinject(store.Store)); }, token: IdentityStateService, providedIn: "root" });
+        return IdentityStateService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        IdentityStateService.prototype.store;
+    }
+
     exports.CreateRole = CreateRole;
     exports.CreateUser = CreateUser;
     exports.DeleteRole = DeleteRole;
@@ -1779,11 +1844,15 @@
     exports.IdentityProviders = IdentityProviders;
     exports.IdentityService = IdentityService;
     exports.IdentityState = IdentityState;
+    exports.IdentityStateService = IdentityStateService;
     exports.RolesComponent = RolesComponent;
     exports.UpdateRole = UpdateRole;
     exports.UpdateUser = UpdateUser;
     exports.UsersComponent = UsersComponent;
-    exports.ɵb = IdentityRoutingModule;
+    exports.ɵa = RolesComponent;
+    exports.ɵb = IdentityService;
+    exports.ɵd = UsersComponent;
+    exports.ɵe = IdentityRoutingModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

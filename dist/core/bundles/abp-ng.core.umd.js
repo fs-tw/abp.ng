@@ -367,6 +367,22 @@
         /** @type {?} */
         GetAppConfiguration.type;
     }
+    /**
+     * @see usage: https://github.com/abpframework/abp/pull/2425#issue-355018812
+     */
+    var AddRoute = /** @class */ (function () {
+        function AddRoute(payload) {
+            this.payload = payload;
+        }
+        AddRoute.type = '[Config] Add Route';
+        return AddRoute;
+    }());
+    if (false) {
+        /** @type {?} */
+        AddRoute.type;
+        /** @type {?} */
+        AddRoute.prototype.payload;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -1304,13 +1320,11 @@
                     var keys = snq((/**
                      * @return {?}
                      */
-                    function () {
-                        return Object.keys(state.setting.values).filter((/**
-                         * @param {?} key
-                         * @return {?}
-                         */
-                        function (key) { return key.indexOf(keyword) > -1; }));
-                    }), []);
+                    function () { return Object.keys(state.setting.values).filter((/**
+                     * @param {?} key
+                     * @return {?}
+                     */
+                    function (key) { return key.indexOf(keyword) > -1; })); }), []);
                     if (keys.length) {
                         return keys.reduce((/**
                          * @param {?} acc
@@ -1508,15 +1522,106 @@
             var name = _b.name, newValue = _b.newValue;
             /** @type {?} */
             var routes = getState().routes;
+            routes = patchRouteDeep(routes, name, newValue);
             /** @type {?} */
-            var index = routes.findIndex((/**
+            var flattedRoutes = getState().flattedRoutes;
+            /** @type {?} */
+            var index = flattedRoutes.findIndex((/**
              * @param {?} route
              * @return {?}
              */
             function (route) { return route.name === name; }));
-            routes = patchRouteDeep(routes, name, newValue);
+            if (index > -1) {
+                flattedRoutes[index] = (/** @type {?} */ (newValue));
+            }
             return patchState({
                 routes: routes,
+                flattedRoutes: flattedRoutes,
+            });
+        };
+        /**
+         * @param {?} __0
+         * @param {?} __1
+         * @return {?}
+         */
+        ConfigState.prototype.addRoute = /**
+         * @param {?} __0
+         * @param {?} __1
+         * @return {?}
+         */
+        function (_a, _b) {
+            var patchState = _a.patchState, getState = _a.getState;
+            var payload = _b.payload;
+            /** @type {?} */
+            var routes = getState().routes;
+            /** @type {?} */
+            var flattedRoutes = getState().flattedRoutes;
+            /** @type {?} */
+            var route = __assign({}, payload);
+            if (route.parentName) {
+                /** @type {?} */
+                var index = flattedRoutes.findIndex((/**
+                 * @param {?} r
+                 * @return {?}
+                 */
+                function (r) { return r.name === route.parentName; }));
+                if (index < 0)
+                    return;
+                /** @type {?} */
+                var parent_1 = flattedRoutes[index];
+                if (parent_1.url.replace('/', '')) {
+                    route.url = parent_1.url + "/" + route.path;
+                }
+                else {
+                    route.url = "/" + route.path;
+                }
+                route.order = route.order || route.order === 0 ? route.order : parent_1.children.length;
+                parent_1.children = __spread((parent_1.children || []), [route]).sort((/**
+                 * @param {?} a
+                 * @param {?} b
+                 * @return {?}
+                 */
+                function (a, b) { return a.order - b.order; }));
+                flattedRoutes[index] = parent_1;
+                flattedRoutes.push(route);
+                /** @type {?} */
+                var parentName_1 = parent_1.name;
+                /** @type {?} */
+                var parentNameArr = [parentName_1];
+                while (parentName_1) {
+                    parentName_1 = snq((/**
+                     * @return {?}
+                     */
+                    function () { return flattedRoutes.find((/**
+                     * @param {?} r
+                     * @return {?}
+                     */
+                    function (r) { return r.name === parentName_1; })).parentName; }));
+                    if (parentName_1) {
+                        parentNameArr.unshift(parentName_1);
+                    }
+                }
+                routes = updateRouteDeep(routes, parentNameArr, parent_1);
+            }
+            else {
+                route.url = "/" + route.path;
+                if (route.order || route.order === 0) {
+                    routes = __spread(routes, [route]).sort((/**
+                     * @param {?} a
+                     * @param {?} b
+                     * @return {?}
+                     */
+                    function (a, b) { return a.order - b.order; }));
+                }
+                else {
+                    route.order = routes.length;
+                    routes = __spread(routes, [route]);
+                }
+                flattedRoutes.push(route);
+            }
+            return patchState({
+                routes: routes,
+                flattedRoutes: flattedRoutes,
             });
         };
         var ConfigState_1;
@@ -1536,6 +1641,12 @@
             __metadata("design:paramtypes", [Object, PatchRouteByName]),
             __metadata("design:returntype", void 0)
         ], ConfigState.prototype, "patchRoute", null);
+        __decorate([
+            store.Action(AddRoute),
+            __metadata("design:type", Function),
+            __metadata("design:paramtypes", [Object, AddRoute]),
+            __metadata("design:returntype", void 0)
+        ], ConfigState.prototype, "addRoute", null);
         __decorate([
             store.Selector(),
             __metadata("design:type", Function),
@@ -1607,6 +1718,29 @@
             return routes;
         }
         return organizeRoutes(routes);
+    }
+    /**
+     * @param {?} routes
+     * @param {?} parentNameArr
+     * @param {?} newValue
+     * @param {?=} parentIndex
+     * @return {?}
+     */
+    function updateRouteDeep(routes, parentNameArr, newValue, parentIndex) {
+        if (parentIndex === void 0) { parentIndex = 0; }
+        /** @type {?} */
+        var index = routes.findIndex((/**
+         * @param {?} route
+         * @return {?}
+         */
+        function (route) { return route.name === parentNameArr[parentIndex]; }));
+        if (parentIndex === parentNameArr.length - 1) {
+            routes[index] = newValue;
+        }
+        else {
+            routes[index].children = updateRouteDeep(routes[index].children, parentNameArr, newValue, parentIndex + 1);
+        }
+        return routes;
     }
 
     /**
@@ -3737,32 +3871,8 @@
     function transformRoutes(routes, wrappers) {
         if (routes === void 0) { routes = []; }
         if (wrappers === void 0) { wrappers = []; }
-        // TODO: remove in v1
         /** @type {?} */
-        var oldAbpRoutes = routes
-            .filter((/**
-         * @param {?} route
-         * @return {?}
-         */
-        function (route) {
-            return snq((/**
-             * @return {?}
-             */
-            function () { return route.data.routes.routes.find((/**
-             * @param {?} r
-             * @return {?}
-             */
-            function (r) { return r.path === route.path; })); }), false);
-        }))
-            .reduce((/**
-         * @param {?} acc
-         * @param {?} val
-         * @return {?}
-         */
-        function (acc, val) { return __spread(acc, val.data.routes.routes); }), []);
-        // tslint:disable-next-line: deprecation
-        /** @type {?} */
-        var abpRoutes = __spread(getAbpRoutes(), oldAbpRoutes);
+        var abpRoutes = __spread(getAbpRoutes());
         wrappers = abpRoutes.filter((/**
          * @param {?} ar
          * @return {?}
@@ -3807,7 +3917,7 @@
      */
     function setUrls(routes, parentUrl) {
         if (parentUrl) {
-            // this if block using for only recursive call
+            // recursive block
             return routes.map((/**
              * @param {?} route
              * @return {?}
@@ -3846,6 +3956,11 @@
                 /** @type {?} */
                 var value = [val];
                 if (val.children) {
+                    val.children = val.children.map((/**
+                     * @param {?} child
+                     * @return {?}
+                     */
+                    function (child) { return (__assign({}, child, { parentName: val.name })); }));
                     value = __spread([val], flat(val.children));
                 }
                 return __spread(acc, value);
@@ -4551,6 +4666,7 @@
     }());
 
     exports.AbstractNgModelComponent = AbstractNgModelComponent;
+    exports.AddRoute = AddRoute;
     exports.ApiInterceptor = ApiInterceptor;
     exports.ApplicationConfigurationService = ApplicationConfigurationService;
     exports.AuthGuard = AuthGuard;
@@ -4605,16 +4721,17 @@
     exports.uuid = uuid;
     exports.ɵa = ProfileState;
     exports.ɵb = ProfileService;
-    exports.ɵba = InputEventDebounceDirective;
-    exports.ɵbb = StopPropagationDirective;
-    exports.ɵbc = AbstractNgModelComponent;
-    exports.ɵbd = LocaleId;
-    exports.ɵbe = LocaleProvider;
-    exports.ɵbf = NGXS_CONFIG_PLUGIN_OPTIONS;
-    exports.ɵbg = ConfigPlugin;
-    exports.ɵbh = ApiInterceptor;
-    exports.ɵbi = getInitialData;
-    exports.ɵbj = localeInitializer;
+    exports.ɵba = VisibilityDirective;
+    exports.ɵbb = InputEventDebounceDirective;
+    exports.ɵbc = StopPropagationDirective;
+    exports.ɵbd = AbstractNgModelComponent;
+    exports.ɵbe = LocaleId;
+    exports.ɵbf = LocaleProvider;
+    exports.ɵbg = NGXS_CONFIG_PLUGIN_OPTIONS;
+    exports.ɵbh = ConfigPlugin;
+    exports.ɵbi = ApiInterceptor;
+    exports.ɵbj = getInitialData;
+    exports.ɵbk = localeInitializer;
     exports.ɵc = RestService;
     exports.ɵd = GetProfile;
     exports.ɵe = UpdateProfile;
@@ -4627,16 +4744,16 @@
     exports.ɵn = ApplicationConfigurationService;
     exports.ɵo = PatchRouteByName;
     exports.ɵp = GetAppConfiguration;
-    exports.ɵq = RouterOutletComponent;
-    exports.ɵr = DynamicLayoutComponent;
-    exports.ɵs = AutofocusDirective;
-    exports.ɵt = EllipsisDirective;
-    exports.ɵu = ForDirective;
-    exports.ɵv = FormSubmitDirective;
-    exports.ɵw = LocalizationPipe;
-    exports.ɵx = SortPipe;
-    exports.ɵy = PermissionDirective;
-    exports.ɵz = VisibilityDirective;
+    exports.ɵq = AddRoute;
+    exports.ɵr = RouterOutletComponent;
+    exports.ɵs = DynamicLayoutComponent;
+    exports.ɵt = AutofocusDirective;
+    exports.ɵu = EllipsisDirective;
+    exports.ɵv = ForDirective;
+    exports.ɵw = FormSubmitDirective;
+    exports.ɵx = LocalizationPipe;
+    exports.ɵy = SortPipe;
+    exports.ɵz = PermissionDirective;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -155,6 +155,24 @@ if (false) {
     /** @type {?} */
     GetAppConfiguration.type;
 }
+/**
+ * @see usage: https://github.com/abpframework/abp/pull/2425#issue-355018812
+ */
+class AddRoute {
+    /**
+     * @param {?} payload
+     */
+    constructor(payload) {
+        this.payload = payload;
+    }
+}
+AddRoute.type = '[Config] Add Route';
+if (false) {
+    /** @type {?} */
+    AddRoute.type;
+    /** @type {?} */
+    AddRoute.prototype.payload;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1172,15 +1190,99 @@ let ConfigState = ConfigState_1 = class ConfigState {
     patchRoute({ patchState, getState }, { name, newValue }) {
         /** @type {?} */
         let routes = getState().routes;
+        routes = patchRouteDeep(routes, name, newValue);
         /** @type {?} */
-        const index = routes.findIndex((/**
+        const flattedRoutes = getState().flattedRoutes;
+        /** @type {?} */
+        const index = flattedRoutes.findIndex((/**
          * @param {?} route
          * @return {?}
          */
         route => route.name === name));
-        routes = patchRouteDeep(routes, name, newValue);
+        if (index > -1) {
+            flattedRoutes[index] = (/** @type {?} */ (newValue));
+        }
         return patchState({
             routes,
+            flattedRoutes,
+        });
+    }
+    /**
+     * @param {?} __0
+     * @param {?} __1
+     * @return {?}
+     */
+    addRoute({ patchState, getState }, { payload }) {
+        /** @type {?} */
+        let routes = getState().routes;
+        /** @type {?} */
+        const flattedRoutes = getState().flattedRoutes;
+        /** @type {?} */
+        const route = Object.assign({}, payload);
+        if (route.parentName) {
+            /** @type {?} */
+            const index = flattedRoutes.findIndex((/**
+             * @param {?} r
+             * @return {?}
+             */
+            r => r.name === route.parentName));
+            if (index < 0)
+                return;
+            /** @type {?} */
+            const parent = flattedRoutes[index];
+            if (parent.url.replace('/', '')) {
+                route.url = `${parent.url}/${route.path}`;
+            }
+            else {
+                route.url = `/${route.path}`;
+            }
+            route.order = route.order || route.order === 0 ? route.order : parent.children.length;
+            parent.children = [...(parent.children || []), route].sort((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            (a, b) => a.order - b.order));
+            flattedRoutes[index] = parent;
+            flattedRoutes.push(route);
+            /** @type {?} */
+            let parentName = parent.name;
+            /** @type {?} */
+            const parentNameArr = [parentName];
+            while (parentName) {
+                parentName = snq((/**
+                 * @return {?}
+                 */
+                () => flattedRoutes.find((/**
+                 * @param {?} r
+                 * @return {?}
+                 */
+                r => r.name === parentName)).parentName));
+                if (parentName) {
+                    parentNameArr.unshift(parentName);
+                }
+            }
+            routes = updateRouteDeep(routes, parentNameArr, parent);
+        }
+        else {
+            route.url = `/${route.path}`;
+            if (route.order || route.order === 0) {
+                routes = [...routes, route].sort((/**
+                 * @param {?} a
+                 * @param {?} b
+                 * @return {?}
+                 */
+                (a, b) => a.order - b.order));
+            }
+            else {
+                route.order = routes.length;
+                routes = [...routes, route];
+            }
+            flattedRoutes.push(route);
+        }
+        return patchState({
+            routes,
+            flattedRoutes,
         });
     }
 };
@@ -1200,6 +1302,12 @@ __decorate([
     __metadata("design:paramtypes", [Object, PatchRouteByName]),
     __metadata("design:returntype", void 0)
 ], ConfigState.prototype, "patchRoute", null);
+__decorate([
+    Action(AddRoute),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, AddRoute]),
+    __metadata("design:returntype", void 0)
+], ConfigState.prototype, "addRoute", null);
 __decorate([
     Selector(),
     __metadata("design:type", Function),
@@ -1268,6 +1376,28 @@ function patchRouteDeep(routes, name, newValue, parentUrl = '') {
         return routes;
     }
     return organizeRoutes(routes);
+}
+/**
+ * @param {?} routes
+ * @param {?} parentNameArr
+ * @param {?} newValue
+ * @param {?=} parentIndex
+ * @return {?}
+ */
+function updateRouteDeep(routes, parentNameArr, newValue, parentIndex = 0) {
+    /** @type {?} */
+    const index = routes.findIndex((/**
+     * @param {?} route
+     * @return {?}
+     */
+    route => route.name === parentNameArr[parentIndex]));
+    if (parentIndex === parentNameArr.length - 1) {
+        routes[index] = newValue;
+    }
+    else {
+        routes[index].children = updateRouteDeep(routes[index].children, parentNameArr, newValue, parentIndex + 1);
+    }
+    return routes;
 }
 
 /**
@@ -3272,32 +3402,8 @@ if (false) {
  * @return {?}
  */
 function transformRoutes(routes = [], wrappers = []) {
-    // TODO: remove in v1
     /** @type {?} */
-    const oldAbpRoutes = routes
-        .filter((/**
-     * @param {?} route
-     * @return {?}
-     */
-    route => {
-        return snq((/**
-         * @return {?}
-         */
-        () => route.data.routes.routes.find((/**
-         * @param {?} r
-         * @return {?}
-         */
-        r => r.path === route.path))), false);
-    }))
-        .reduce((/**
-     * @param {?} acc
-     * @param {?} val
-     * @return {?}
-     */
-    (acc, val) => [...acc, ...val.data.routes.routes]), []);
-    // tslint:disable-next-line: deprecation
-    /** @type {?} */
-    const abpRoutes = [...getAbpRoutes(), ...oldAbpRoutes];
+    const abpRoutes = [...getAbpRoutes()];
     wrappers = abpRoutes.filter((/**
      * @param {?} ar
      * @return {?}
@@ -3342,7 +3448,7 @@ function transformRoutes(routes = [], wrappers = []) {
  */
 function setUrls(routes, parentUrl) {
     if (parentUrl) {
-        // this if block using for only recursive call
+        // recursive block
         return routes.map((/**
          * @param {?} route
          * @return {?}
@@ -3381,6 +3487,11 @@ function flatRoutes(routes) {
             /** @type {?} */
             let value = [val];
             if (val.children) {
+                val.children = val.children.map((/**
+                 * @param {?} child
+                 * @return {?}
+                 */
+                child => (Object.assign({}, child, { parentName: val.name }))));
                 value = [val, ...flat(val.children)];
             }
             return [...acc, ...value];
@@ -3987,5 +4098,5 @@ CoreModule.decorators = [
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AbstractNgModelComponent, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, LazyLoadService, LocalizationPipe, LocalizationService, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, uuid, ProfileState as ɵa, ProfileService as ɵb, InputEventDebounceDirective as ɵba, StopPropagationDirective as ɵbb, AbstractNgModelComponent as ɵbc, LocaleId as ɵbd, LocaleProvider as ɵbe, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbf, ConfigPlugin as ɵbg, ApiInterceptor as ɵbh, getInitialData as ɵbi, localeInitializer as ɵbj, RestService as ɵc, GetProfile as ɵd, UpdateProfile as ɵe, ChangePassword as ɵf, SessionState as ɵh, LocalizationService as ɵi, SetLanguage as ɵj, SetTenant as ɵk, ConfigState as ɵm, ApplicationConfigurationService as ɵn, PatchRouteByName as ɵo, GetAppConfiguration as ɵp, RouterOutletComponent as ɵq, DynamicLayoutComponent as ɵr, AutofocusDirective as ɵs, EllipsisDirective as ɵt, ForDirective as ɵu, FormSubmitDirective as ɵv, LocalizationPipe as ɵw, SortPipe as ɵx, PermissionDirective as ɵy, VisibilityDirective as ɵz };
+export { AbstractNgModelComponent, AddRoute, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, LazyLoadService, LocalizationPipe, LocalizationService, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, uuid, ProfileState as ɵa, ProfileService as ɵb, VisibilityDirective as ɵba, InputEventDebounceDirective as ɵbb, StopPropagationDirective as ɵbc, AbstractNgModelComponent as ɵbd, LocaleId as ɵbe, LocaleProvider as ɵbf, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbg, ConfigPlugin as ɵbh, ApiInterceptor as ɵbi, getInitialData as ɵbj, localeInitializer as ɵbk, RestService as ɵc, GetProfile as ɵd, UpdateProfile as ɵe, ChangePassword as ɵf, SessionState as ɵh, LocalizationService as ɵi, SetLanguage as ɵj, SetTenant as ɵk, ConfigState as ɵm, ApplicationConfigurationService as ɵn, PatchRouteByName as ɵo, GetAppConfiguration as ɵp, AddRoute as ɵq, RouterOutletComponent as ɵr, DynamicLayoutComponent as ɵs, AutofocusDirective as ɵt, EllipsisDirective as ɵu, ForDirective as ɵv, FormSubmitDirective as ɵw, LocalizationPipe as ɵx, SortPipe as ɵy, PermissionDirective as ɵz };
 //# sourceMappingURL=abp-ng.core.js.map

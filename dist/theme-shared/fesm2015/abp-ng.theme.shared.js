@@ -1418,9 +1418,9 @@ class SortOrderIconComponent {
      */
     get icon() {
         if (!this.selectedSortKey)
-            return 'fa-sort';
+            return 'sorting';
         if (this.selectedSortKey === this.sortKey)
-            return `fa-sort-${this.order}`;
+            return `sorting_${this.order}`;
         else
             return '';
     }
@@ -1451,7 +1451,7 @@ class SortOrderIconComponent {
 SortOrderIconComponent.decorators = [
     { type: Component, args: [{
                 selector: 'abp-sort-order-icon',
-                template: "<span class=\"float-right {{ iconClass }}\">\r\n  <i class=\"fa {{ icon }}\"></i>\r\n</span>\r\n"
+                template: "<div class=\"float-right {{ iconClass }}\">\r\n  <span class=\"{{ icon }}\"></span>\r\n</div>\r\n"
             }] }
 ];
 SortOrderIconComponent.propDecorators = {
@@ -1813,6 +1813,33 @@ body abp-toast .ui-toast .ui-toast-message.ui-toast-message-info .ui-toast-messa
 .abp-mh-100 {
   transition:max-height 1s linear;
   max-height: 100vh;
+}
+
+[class^="sorting"] {
+  opacity: .3;
+  cursor: pointer;
+}
+[class^="sorting"]:before {
+  right: 0.5rem;
+  content: "↑";
+}
+[class^="sorting"]:after {
+  right: 0.5rem;
+  content: "↓";
+}
+
+.sorting_desc {
+  opacity: 1;
+}
+.sorting_desc:before {
+  opacity: .3;
+}
+
+.sorting_asc {
+  opacity: 1;
+}
+.sorting_asc:after {
+  opacity: .3;
 }
 
 @keyframes fadeInTop {

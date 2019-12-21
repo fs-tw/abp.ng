@@ -1,10 +1,10 @@
 {
   "name": "@abp/ng.identity",
-  "version": "1.1.2-alpha.8",
+  "version": "1.1.2-alpha.9",
   "dependencies": {
-    "@abp/ng.identity.config": "^1.1.2-alpha.8",
-    "@abp/ng.permission-management": "^1.1.2-alpha.8",
-    "@abp/ng.theme.shared": "^1.1.2-alpha.8",
+    "@abp/ng.identity.config": "^1.1.2-alpha.9",
+    "@abp/ng.permission-management": "^1.1.2-alpha.9",
+    "@abp/ng.theme.shared": "^1.1.2-alpha.9",
     "tslib": "^1.9.0"
   },
   "publishConfig": {

@@ -647,7 +647,7 @@ var __read = (this && this.__read) || function (o, n) {
         /*!****************************************************************************************************!*\
           !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/account/src/lib/components/index.ts ***!
           \****************************************************************************************************/
-        /*! exports provided: ChangePasswordComponent, LoginComponent, ManageProfileComponent, RegisterComponent, PersonalSettingsComponent, TenantBoxComponent */
+        /*! exports provided: RegisterComponent, PersonalSettingsComponent, TenantBoxComponent, ChangePasswordComponent, LoginComponent, ManageProfileComponent */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
@@ -1154,7 +1154,7 @@ var __read = (this && this.__read) || function (o, n) {
         /*!******************************************************************************************!*\
           !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/account/src/public-api.ts ***!
           \******************************************************************************************/
-        /*! exports provided: AccountModule, AccountProviders, ACCOUNT_ROUTES, ChangePasswordComponent, LoginComponent, ManageProfileComponent, RegisterComponent, PersonalSettingsComponent, TenantBoxComponent, optionsFactory, ACCOUNT_OPTIONS, AccountService */
+        /*! exports provided: AccountModule, AccountProviders, RegisterComponent, PersonalSettingsComponent, TenantBoxComponent, ACCOUNT_ROUTES, optionsFactory, ACCOUNT_OPTIONS, ChangePasswordComponent, LoginComponent, ManageProfileComponent, AccountService */
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
@@ -1163,12 +1163,12 @@ var __read = (this && this.__read) || function (o, n) {
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AccountModule", function () { return _lib_account_module__WEBPACK_IMPORTED_MODULE_1__["AccountModule"]; });
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AccountProviders", function () { return _lib_account_module__WEBPACK_IMPORTED_MODULE_1__["AccountProviders"]; });
             /* harmony import */ var _lib_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lib/components */ "../../packages/account/src/lib/components/index.ts");
-            /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChangePasswordComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_2__["ChangePasswordComponent"]; });
-            /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"]; });
-            /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ManageProfileComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_2__["ManageProfileComponent"]; });
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RegisterComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_2__["RegisterComponent"]; });
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PersonalSettingsComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_2__["PersonalSettingsComponent"]; });
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TenantBoxComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_2__["TenantBoxComponent"]; });
+            /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChangePasswordComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_2__["ChangePasswordComponent"]; });
+            /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"]; });
+            /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ManageProfileComponent", function () { return _lib_components__WEBPACK_IMPORTED_MODULE_2__["ManageProfileComponent"]; });
             /* harmony import */ var _lib_constants_routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lib/constants/routes */ "../../packages/account/src/lib/constants/routes.ts");
             /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ACCOUNT_ROUTES", function () { return _lib_constants_routes__WEBPACK_IMPORTED_MODULE_3__["ACCOUNT_ROUTES"]; });
             /* harmony import */ var _lib_tokens__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./lib/tokens */ "../../packages/account/src/lib/tokens/index.ts");
