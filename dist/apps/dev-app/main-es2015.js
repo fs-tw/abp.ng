@@ -1270,9 +1270,9 @@ class SortOrderIconComponent {
      */
     get icon() {
         if (!this.selectedSortKey)
-            return 'fa-sort';
+            return 'sorting';
         if (this.selectedSortKey === this.sortKey)
-            return `fa-sort-${this.order}`;
+            return `sorting_${this.order}`;
         else
             return '';
     }
@@ -1303,7 +1303,7 @@ class SortOrderIconComponent {
 SortOrderIconComponent.decorators = [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"], args: [{
                 selector: 'abp-sort-order-icon',
-                template: "<span class=\"float-right {{ iconClass }}\">\r\n  <i class=\"fa {{ icon }}\"></i>\r\n</span>\r\n"
+                template: "<div class=\"float-right {{ iconClass }}\">\r\n  <span class=\"{{ icon }}\"></span>\r\n</div>\r\n"
             }] }
 ];
 SortOrderIconComponent.propDecorators = {
@@ -1635,6 +1635,33 @@ body abp-toast .ui-toast .ui-toast-message.ui-toast-message-info .ui-toast-messa
 .abp-mh-100 {
   transition:max-height 1s linear;
   max-height: 100vh;
+}
+
+[class^="sorting"] {
+  opacity: .3;
+  cursor: pointer;
+}
+[class^="sorting"]:before {
+  right: 0.5rem;
+  content: "↑";
+}
+[class^="sorting"]:after {
+  right: 0.5rem;
+  content: "↓";
+}
+
+.sorting_desc {
+  opacity: 1;
+}
+.sorting_desc:before {
+  opacity: .3;
+}
+
+.sorting_asc {
+  opacity: 1;
+}
+.sorting_asc:after {
+  opacity: .3;
 }
 
 @keyframes fadeInTop {
@@ -3863,13 +3890,14 @@ AbstractNgModelComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!*******************************************************************************************************!*\
   !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/core/src/lib/actions/config.actions.ts ***!
   \*******************************************************************************************************/
-/*! exports provided: PatchRouteByName, GetAppConfiguration */
+/*! exports provided: PatchRouteByName, GetAppConfiguration, AddRoute */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PatchRouteByName", function() { return PatchRouteByName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetAppConfiguration", function() { return GetAppConfiguration; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddRoute", function() { return AddRoute; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "../../node_modules/tslib/tslib.es6.js");
 
 class PatchRouteByName {
@@ -3882,6 +3910,15 @@ PatchRouteByName.type = '[Config] Patch Route By Name';
 class GetAppConfiguration {
 }
 GetAppConfiguration.type = '[Config] Get App Configuration';
+/**
+ * @see usage: https://github.com/abpframework/abp/pull/2425#issue-355018812
+ */
+class AddRoute {
+    constructor(payload) {
+        this.payload = payload;
+    }
+}
+AddRoute.type = '[Config] Add Route';
 
 
 /***/ }),
@@ -3890,7 +3927,7 @@ GetAppConfiguration.type = '[Config] Get App Configuration';
 /*!**********************************************************************************************!*\
   !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/core/src/lib/actions/index.ts ***!
   \**********************************************************************************************/
-/*! exports provided: PatchRouteByName, GetAppConfiguration, StartLoader, StopLoader, GetProfile, UpdateProfile, ChangePassword, RestOccurError, SetLanguage, SetTenant */
+/*! exports provided: PatchRouteByName, GetAppConfiguration, AddRoute, StartLoader, StopLoader, GetProfile, UpdateProfile, ChangePassword, RestOccurError, SetLanguage, SetTenant */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3900,6 +3937,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PatchRouteByName", function() { return _config_actions__WEBPACK_IMPORTED_MODULE_1__["PatchRouteByName"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetAppConfiguration", function() { return _config_actions__WEBPACK_IMPORTED_MODULE_1__["GetAppConfiguration"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AddRoute", function() { return _config_actions__WEBPACK_IMPORTED_MODULE_1__["AddRoute"]; });
 
 /* harmony import */ var _loader_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./loader.actions */ "../../packages/core/src/lib/actions/loader.actions.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StartLoader", function() { return _loader_actions__WEBPACK_IMPORTED_MODULE_2__["StartLoader"]; });
@@ -5571,14 +5610,7 @@ ConfigPlugin = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 ], ConfigPlugin);
 
 function transformRoutes(routes = [], wrappers = []) {
-    // TODO: remove in v1
-    const oldAbpRoutes = routes
-        .filter(route => {
-        return Object(snq__WEBPACK_IMPORTED_MODULE_4__["default"])(() => route.data.routes.routes.find(r => r.path === route.path), false);
-    })
-        .reduce((acc, val) => [...acc, ...val.data.routes.routes], []);
-    // tslint:disable-next-line: deprecation
-    const abpRoutes = [...Object(_utils_route_utils__WEBPACK_IMPORTED_MODULE_5__["getAbpRoutes"])(), ...oldAbpRoutes];
+    const abpRoutes = [...Object(_utils_route_utils__WEBPACK_IMPORTED_MODULE_5__["getAbpRoutes"])()];
     wrappers = abpRoutes.filter(ar => ar.wrapper);
     const transformed = [];
     routes
@@ -5597,7 +5629,7 @@ function transformRoutes(routes = [], wrappers = []) {
 }
 function setUrls(routes, parentUrl) {
     if (parentUrl) {
-        // this if block using for only recursive call
+        // recursive block
         return routes.map(route => (Object.assign({}, route, { url: `${parentUrl}/${route.path}` }, (route.children &&
             route.children.length && {
             children: setUrls(route.children, `${parentUrl}/${route.path}`),
@@ -5613,6 +5645,7 @@ function flatRoutes(routes) {
         return r.reduce((acc, val) => {
             let value = [val];
             if (val.children) {
+                val.children = val.children.map(child => (Object.assign({}, child, { parentName: val.name })));
                 value = [val, ...flat(val.children)];
             }
             return [...acc, ...value];
@@ -6397,10 +6430,60 @@ let ConfigState = ConfigState_1 = class ConfigState {
     }
     patchRoute({ patchState, getState }, { name, newValue }) {
         let routes = getState().routes;
-        const index = routes.findIndex(route => route.name === name);
         routes = patchRouteDeep(routes, name, newValue);
+        const flattedRoutes = getState().flattedRoutes;
+        const index = flattedRoutes.findIndex(route => route.name === name);
+        if (index > -1) {
+            flattedRoutes[index] = newValue;
+        }
         return patchState({
             routes,
+            flattedRoutes,
+        });
+    }
+    addRoute({ patchState, getState }, { payload }) {
+        let routes = getState().routes;
+        const flattedRoutes = getState().flattedRoutes;
+        const route = Object.assign({}, payload);
+        if (route.parentName) {
+            const index = flattedRoutes.findIndex(r => r.name === route.parentName);
+            if (index < 0)
+                return;
+            const parent = flattedRoutes[index];
+            if (parent.url.replace('/', '')) {
+                route.url = `${parent.url}/${route.path}`;
+            }
+            else {
+                route.url = `/${route.path}`;
+            }
+            route.order = route.order || route.order === 0 ? route.order : parent.children.length;
+            parent.children = [...(parent.children || []), route].sort((a, b) => a.order - b.order);
+            flattedRoutes[index] = parent;
+            flattedRoutes.push(route);
+            let parentName = parent.name;
+            const parentNameArr = [parentName];
+            while (parentName) {
+                parentName = Object(snq__WEBPACK_IMPORTED_MODULE_4__["default"])(() => flattedRoutes.find(r => r.name === parentName).parentName);
+                if (parentName) {
+                    parentNameArr.unshift(parentName);
+                }
+            }
+            routes = updateRouteDeep(routes, parentNameArr, parent);
+        }
+        else {
+            route.url = `/${route.path}`;
+            if (route.order || route.order === 0) {
+                routes = [...routes, route].sort((a, b) => a.order - b.order);
+            }
+            else {
+                route.order = routes.length;
+                routes = [...routes, route];
+            }
+            flattedRoutes.push(route);
+        }
+        return patchState({
+            routes,
+            flattedRoutes,
         });
     }
 };
@@ -6420,6 +6503,12 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _actions_config_actions__WEBPACK_IMPORTED_MODULE_5__["PatchRouteByName"]]),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
 ], ConfigState.prototype, "patchRoute", null);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["Action"])(_actions_config_actions__WEBPACK_IMPORTED_MODULE_5__["AddRoute"]),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [Object, _actions_config_actions__WEBPACK_IMPORTED_MODULE_5__["AddRoute"]]),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:returntype", void 0)
+], ConfigState.prototype, "addRoute", null);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_ngxs_store__WEBPACK_IMPORTED_MODULE_1__["Selector"])(),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Function),
@@ -6462,6 +6551,16 @@ function patchRouteDeep(routes, name, newValue, parentUrl = '') {
         return routes;
     }
     return Object(_utils_route_utils__WEBPACK_IMPORTED_MODULE_8__["organizeRoutes"])(routes);
+}
+function updateRouteDeep(routes, parentNameArr, newValue, parentIndex = 0) {
+    const index = routes.findIndex(route => route.name === parentNameArr[parentIndex]);
+    if (parentIndex === parentNameArr.length - 1) {
+        routes[index] = newValue;
+    }
+    else {
+        routes[index].children = updateRouteDeep(routes[index].children, parentNameArr, newValue, parentIndex + 1);
+    }
+    return routes;
 }
 
 
@@ -6991,7 +7090,7 @@ const takeUntilDestroy = (componentInstance, destroyMethodName = 'ngOnDestroy') 
 /*!***************************************************************************************!*\
   !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/core/src/public-api.ts ***!
   \***************************************************************************************/
-/*! exports provided: AbstractNgModelComponent, PatchRouteByName, GetAppConfiguration, StartLoader, StopLoader, GetProfile, UpdateProfile, ChangePassword, RestOccurError, SetLanguage, SetTenant, DynamicLayoutComponent, RouterOutletComponent, AutofocusDirective, EllipsisDirective, ForDirective, FormSubmitDirective, PermissionDirective, VisibilityDirective, ApiInterceptor, CoreModule, AuthGuard, PermissionGuard, LocalizationPipe, SortPipe, NGXS_CONFIG_PLUGIN_OPTIONS, ConfigPlugin, ApplicationConfigurationService, ConfigStateService, LazyLoadService, LocalizationService, ProfileService, RestService, ProfileStateService, SessionStateService, ProfileState, ConfigState, SessionState, environmentFactory, configFactory, ENVIRONMENT, CONFIG, noop, uuid, getInitialData, localeInitializer, registerLocale, organizeRoutes, setChildRoute, sortRoutes, addAbpRoutes, getAbpRoutes, takeUntilDestroy */
+/*! exports provided: AbstractNgModelComponent, PatchRouteByName, GetAppConfiguration, AddRoute, StartLoader, StopLoader, GetProfile, UpdateProfile, ChangePassword, RestOccurError, SetLanguage, SetTenant, DynamicLayoutComponent, RouterOutletComponent, AutofocusDirective, EllipsisDirective, ForDirective, FormSubmitDirective, PermissionDirective, VisibilityDirective, ApiInterceptor, CoreModule, AuthGuard, PermissionGuard, LocalizationPipe, SortPipe, NGXS_CONFIG_PLUGIN_OPTIONS, ConfigPlugin, ApplicationConfigurationService, ConfigStateService, LazyLoadService, LocalizationService, ProfileService, RestService, ProfileStateService, SessionStateService, ProfileState, ConfigState, SessionState, environmentFactory, configFactory, ENVIRONMENT, CONFIG, noop, uuid, getInitialData, localeInitializer, registerLocale, organizeRoutes, setChildRoute, sortRoutes, addAbpRoutes, getAbpRoutes, takeUntilDestroy */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7004,6 +7103,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PatchRouteByName", function() { return _lib_actions__WEBPACK_IMPORTED_MODULE_2__["PatchRouteByName"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetAppConfiguration", function() { return _lib_actions__WEBPACK_IMPORTED_MODULE_2__["GetAppConfiguration"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AddRoute", function() { return _lib_actions__WEBPACK_IMPORTED_MODULE_2__["AddRoute"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StartLoader", function() { return _lib_actions__WEBPACK_IMPORTED_MODULE_2__["StartLoader"]; });
 

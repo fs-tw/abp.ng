@@ -1221,7 +1221,7 @@ function TenantManagementProviders() {
 /*!****************************************************************************************************!*\
   !*** C:/Users/YinChang/Documents/Works/GitHub/abp.ng/packages/tenant-management/src/public-api.ts ***!
   \****************************************************************************************************/
-/*! exports provided: TenantManagementModule, TenantManagementProviders, GetTenants, GetTenantById, CreateTenant, UpdateTenant, DeleteTenant, TENANT_MANAGEMENT_ROUTES, TenantManagementService, TenantManagementStateService, TenantManagementState, TenantsComponent */
+/*! exports provided: TenantManagementModule, TenantManagementProviders, GetTenants, GetTenantById, CreateTenant, UpdateTenant, DeleteTenant, TenantsComponent, TENANT_MANAGEMENT_ROUTES, TenantManagementService, TenantManagementStateService, TenantManagementState */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
