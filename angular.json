@@ -711,7 +711,7 @@
       },
       "schematics": {}
     },    
-    "fs.dev-app": {
+    "dev-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -884,7 +884,7 @@
       },
       "schematics": {}
     },    
-    "fs.ng-alain-app": {
+    "ng-alain-app": {
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
@@ -1037,7 +1037,7 @@
       },
       "schematics": {}
     },
-    "fs.ngx-admin-app": {
+    "ngx-admin-app": {
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
