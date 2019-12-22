@@ -68,19 +68,19 @@
     "fs.dev": {
       "tags": []
     },
-    "fs.dev-app": {
+    "dev-app": {
       "tags": []
     },
     "fs.ng-alain": {
       "tags": []
     },
-    "fs.ng-alain-app": {
+    "ng-alain-app": {
       "tags": []
     },
     "fs.ngx-admin": {
       "tags": []
     },
-    "fs.ngx-admin-app": {
+    "ngx-admin-app": {
       "tags": []
     }
   }
