@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": "tsconfig",
+    "target": "es6",
+    "declaration": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "types": ["node", "jasmine"],
+    "esModuleInterop":true,
+    "outDir": "../../dist/tools/builder"
+  }
+}

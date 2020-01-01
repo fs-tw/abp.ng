@@ -12,76 +12,96 @@
       "tags":[]
     },
     "abp.theme-shared":{
-      "tags":[]
+      "tags":[],
+      "implicitDependencies": ["abp.core"]
     },
     "abp.theme-basic":{
-      "tags":[]
+      "tags":[],
+      "implicitDependencies": ["abp.theme-shared"]
     },
     "abp.account":{
-      "tags":[]
+      "tags":[],
+      "implicitDependencies": ["abp.account-config","abp.theme-shared"]
     },
     "abp.account-config":{
       "tags":[]
     },
     "abp.feature-management":{
-      "tags":[]
+      "tags":[],
+      "implicitDependencies": ["abp.theme-shared"]
     },    
     "abp.permission-management":{
-      "tags":[]
+      "tags":[],
+      "implicitDependencies": ["abp.theme-shared"]
     },
     "abp.identity":{
-      "tags":[]
+      "tags":[],
+      "implicitDependencies": ["abp.identity-config","abp.permission-management","abp.theme-shared"]
     },
     "abp.identity-config":{
       "tags":[]
     },
     "abp.setting-management":{
-      "tags":[]
+      "tags":[],
+      "implicitDependencies": ["abp.setting-management-config","abp.theme-shared"]
     },
     "abp.setting-management-config":{
       "tags":[]
     },
     "abp.tenant-management":{
-      "tags":[]
+      "tags":[],
+      "implicitDependencies": ["abp.tenant-management-config","abp.feature-management","abp.theme-shared"]
     },
     "abp.tenant-management-config":{
       "tags":[]
     },
     "fs.feature-management": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["abp.feature-management","fs.ng-alain","fs.ngx-admin"]
     },
     "fs.permission-management": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["abp.permission-management","fs.ng-alain","fs.ngx-admin"]
     },
     "fs.account": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["abp.account","fs.ng-alain","fs.ngx-admin"]
     },
     "fs.identity": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["abp.identity","fs.ng-alain","fs.ngx-admin"]
     },
     "fs.setting-management": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["abp.setting-management","fs.ng-alain","fs.ngx-admin"]
     },
     "fs.tenant-management": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["abp.tenant-management","fs.ng-alain","fs.ngx-admin"]
     },
     "fs.dev": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["abp.core","abp.theme-shared","abp.theme-basic","abp.account","abp.feature-management","abp.permission-management","abp.identity","abp.setting-management","abp.tenant-management"]
     },
     "dev-app": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["fs.dev"]
     },
     "fs.ng-alain": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["abp.theme-basic"]
     },
     "ng-alain-app": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["fs.ng-alain"]
     },
     "fs.ngx-admin": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["abp.theme-basic"]
     },
     "ngx-admin-app": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["fs.ngx-admin"]
     }
   }
 }

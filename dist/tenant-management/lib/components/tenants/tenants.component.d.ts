@@ -36,6 +36,7 @@ export declare class TenantsComponent implements OnInit {
     tenantModalTemplate: TemplateRef<any>;
     connectionStringModalTemplate: TemplateRef<any>;
     readonly isDisabledSaveButton: boolean;
+    onVisibleFeaturesChange: (value: boolean) => void;
     constructor(confirmationService: ConfirmationService, tenantService: TenantManagementService, fb: FormBuilder, store: Store);
     ngOnInit(): void;
     onSearch(value: any): void;

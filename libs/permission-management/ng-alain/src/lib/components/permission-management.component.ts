@@ -7,7 +7,10 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./permission-management.component.less'],
   templateUrl: './permission-management.component.html'
 })
-export class PermissionManagementComponent extends AbpPermissionManagementComponent implements OnInit, OnChanges {
+export class PermissionManagementComponent extends AbpPermissionManagementComponent
+  implements
+    PermissionManagement.PermissionManagementComponentInputs,
+    PermissionManagement.PermissionManagementComponentOutputs {
   @Input()
   providerName: string;
 

@@ -1,5 +1,6 @@
 import { TemplateRef } from '@angular/core';
-export declare class AuthWrapperComponent {
-    mainContentRef: TemplateRef<any>;
-    cancelContentRef: TemplateRef<any>;
+import { Account } from '../../models/account';
+export declare class AuthWrapperComponent implements Account.AuthWrapperComponentInputs, Account.AuthWrapperComponentOutputs {
+    readonly mainContentRef: TemplateRef<any>;
+    readonly cancelContentRef: TemplateRef<any>;
 }

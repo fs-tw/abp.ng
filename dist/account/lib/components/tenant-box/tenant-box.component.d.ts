@@ -3,7 +3,8 @@ import { ToasterService } from '@abp/ng.theme.shared';
 import { OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { AccountService } from '../../services/account.service';
-export declare class TenantBoxComponent implements OnInit {
+import { Account } from '../../models/account';
+export declare class TenantBoxComponent implements OnInit, Account.TenantBoxComponentInputs, Account.TenantBoxComponentOutputs {
     private store;
     private toasterService;
     private accountService;

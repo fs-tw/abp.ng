@@ -1,4 +1,4 @@
-import { ConfigState, DynamicLayoutComponent, CoreModule } from '@abp/ng.core';
+import { ConfigState, DynamicLayoutComponent, ReplaceableRouteContainerComponent, CoreModule } from '@abp/ng.core';
 import { getSettingTabs, ThemeSharedModule } from '@abp/ng.theme.shared';
 import { Component, NgModule } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
@@ -180,14 +180,24 @@ if (false) {
  * Generated from: lib/setting-management-routing.module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var ɵ0 = { requiredPolicy: 'AbpAccount.SettingManagement' };
+var ɵ0 = {
+    requiredPolicy: 'AbpAccount.SettingManagement',
+    replaceableComponent: (/** @type {?} */ ({
+        key: 'SettingManagement.SettingManagementComponent',
+        defaultComponent: SettingManagementComponent,
+    })),
+};
 /** @type {?} */
 var routes = [
     {
         path: '',
         component: DynamicLayoutComponent,
         children: [
-            { path: '', component: SettingManagementComponent, data: ɵ0 },
+            {
+                path: '',
+                component: ReplaceableRouteContainerComponent,
+                data: ɵ0,
+            },
         ],
     },
 ];

@@ -1,7 +1,7 @@
 import { PermissionManagementComponent as AbpPermissionManagementComponent, PermissionManagement } from '@abp/ng.permission-management';
-import { OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { Renderer2 } from '@angular/core';
 import { Store } from '@ngxs/store';
-export declare class PermissionManagementComponent extends AbpPermissionManagementComponent implements OnInit, OnChanges {
+export declare class PermissionManagementComponent extends AbpPermissionManagementComponent implements PermissionManagement.PermissionManagementComponentInputs, PermissionManagement.PermissionManagementComponentOutputs {
     private _store;
     private _renderer;
     providerName: string;

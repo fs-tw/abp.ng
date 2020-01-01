@@ -309,21 +309,6 @@
             this.buttonType = 'button';
             this.loading = false;
             this.disabled = false;
-            // tslint:disable
-            /**
-             * @deprecated use abpClick instead
-             */
-            this.click = new core.EventEmitter();
-            /**
-             * @deprecated use abpFocus instead
-             */
-            // tslint:disable-next-line: no-output-native
-            this.focus = new core.EventEmitter();
-            /**
-             * @deprecated use abpBlur instead
-             */
-            this.blur = new core.EventEmitter();
-            // tslint:enable
             this.abpClick = new core.EventEmitter();
             this.abpFocus = new core.EventEmitter();
             this.abpBlur = new core.EventEmitter();
@@ -359,7 +344,7 @@
         ButtonComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'abp-button',
-                        template: "\n    <button\n      #button\n      [id]=\"buttonId\"\n      [attr.type]=\"buttonType\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click.stop)=\"click.next($event); abpClick.next($event)\"\n      (focus)=\"focus.next($event); abpFocus.next($event)\"\n      (blur)=\"blur.next($event); abpBlur.next($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
+                        template: "\n    <button\n      #button\n      [id]=\"buttonId\"\n      [attr.type]=\"buttonType\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click.stop)=\"abpClick.next($event)\"\n      (focus)=\"abpFocus.next($event)\"\n      (blur)=\"abpBlur.next($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
                     }] }
         ];
         /** @nocollapse */
@@ -374,9 +359,6 @@
             loading: [{ type: core.Input }],
             disabled: [{ type: core.Input }],
             attributes: [{ type: core.Input }],
-            click: [{ type: core.Output }],
-            focus: [{ type: core.Output }],
-            blur: [{ type: core.Output }],
             abpClick: [{ type: core.Output }],
             abpFocus: [{ type: core.Output }],
             abpBlur: [{ type: core.Output }],
@@ -399,21 +381,6 @@
         ButtonComponent.prototype.disabled;
         /** @type {?} */
         ButtonComponent.prototype.attributes;
-        /**
-         * @deprecated use abpClick instead
-         * @type {?}
-         */
-        ButtonComponent.prototype.click;
-        /**
-         * @deprecated use abpFocus instead
-         * @type {?}
-         */
-        ButtonComponent.prototype.focus;
-        /**
-         * @deprecated use abpBlur instead
-         * @type {?}
-         */
-        ButtonComponent.prototype.blur;
         /** @type {?} */
         ButtonComponent.prototype.abpClick;
         /** @type {?} */
@@ -1046,7 +1013,7 @@
             { type: core.Component, args: [{
                         selector: 'abp-http-error-wrapper',
                         template: "<div #container id=\"abp-http-error-container\" class=\"error\" [style.backgroundColor]=\"backgroundColor\">\r\n  <button *ngIf=\"!hideCloseIcon\" id=\"abp-close-button\" type=\"button\" class=\"close mr-2\" (click)=\"destroy()\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n\r\n  <div *ngIf=\"!customComponent\" class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>{{ statusText }} {{ title | abpLocalization }}</h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a (click)=\"destroy()\" routerLink=\"/\" class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
-                        styles: [".error{position:fixed;top:0;width:100vw;height:100vh;z-index:999999}.centered{position:fixed;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}"]
+                        styles: [".error{position:fixed;top:0;width:100vw;height:100vh;z-index:999999}.centered{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%)}"]
                     }] }
         ];
         HttpErrorWrapperComponent.propDecorators = {
@@ -1214,7 +1181,7 @@
             { type: core.Component, args: [{
                         selector: 'abp-loader-bar',
                         template: "\n    <div id=\"abp-loader-bar\" [ngClass]=\"containerClass\" [class.is-loading]=\"isLoading\">\n      <div\n        class=\"abp-progress\"\n        [style.width.vw]=\"progressLevel\"\n        [ngStyle]=\"{\n          'background-color': color,\n          'box-shadow': boxShadow\n        }\"\n      ></div>\n    </div>\n  ",
-                        styles: [".abp-loader-bar{left:0;opacity:0;position:fixed;top:0;-webkit-transition:opacity .4s linear .4s;transition:opacity .4s linear .4s;z-index:99999}.abp-loader-bar.is-loading{opacity:1;-webkit-transition:none;transition:none}.abp-loader-bar .abp-progress{height:3px;left:0;position:fixed;top:0;-webkit-transition:width .4s;transition:width .4s}"]
+                        styles: [".abp-loader-bar{left:0;opacity:0;position:fixed;top:0;transition:opacity .4s linear .4s;z-index:99999}.abp-loader-bar.is-loading{opacity:1;transition:none}.abp-loader-bar .abp-progress{height:3px;left:0;position:fixed;top:0;transition:width .4s}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1610,32 +1577,9 @@
      */
     var SortOrderIconComponent = /** @class */ (function () {
         function SortOrderIconComponent() {
-            this.selectedKeyChange = new core.EventEmitter();
-            this.selectedSortKeyChange = new core.EventEmitter();
             this.orderChange = new core.EventEmitter();
+            this.selectedSortKeyChange = new core.EventEmitter();
         }
-        Object.defineProperty(SortOrderIconComponent.prototype, "selectedKey", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this._selectedSortKey;
-            },
-            /**
-             * @deprecated use selectedSortKey instead.
-             */
-            set: /**
-             * @deprecated use selectedSortKey instead.
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
-                this.selectedSortKey = value;
-                this.selectedKeyChange.emit(value);
-            },
-            enumerable: true,
-            configurable: true
-        });
         Object.defineProperty(SortOrderIconComponent.prototype, "selectedSortKey", {
             get: /**
              * @return {?}
@@ -1650,27 +1594,6 @@
             function (value) {
                 this._selectedSortKey = value;
                 this.selectedSortKeyChange.emit(value);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(SortOrderIconComponent.prototype, "key", {
-            /**
-             * @deprecated use sortKey instead.
-             */
-            get: /**
-             * @deprecated use sortKey instead.
-             * @return {?}
-             */
-            function () {
-                return this.sortKey;
-            },
-            set: /**
-             * @param {?} value
-             * @return {?}
-             */
-            function (value) {
-                this.sortKey = value;
             },
             enumerable: true,
             configurable: true
@@ -1717,7 +1640,6 @@
          * @return {?}
          */
         function (key) {
-            this.selectedKey = key; // TODO: To be removed
             this.selectedSortKey = key;
             switch (this.order) {
                 case '':
@@ -1730,7 +1652,6 @@
                     break;
                 case 'desc':
                     this.order = '';
-                    this.selectedKey = ''; // TODO: To be removed
                     this.orderChange.emit('');
                     break;
             }
@@ -1742,14 +1663,11 @@
                     }] }
         ];
         SortOrderIconComponent.propDecorators = {
-            selectedKey: [{ type: core.Input }],
-            selectedSortKey: [{ type: core.Input }],
-            selectedKeyChange: [{ type: core.Output }],
-            selectedSortKeyChange: [{ type: core.Output }],
-            key: [{ type: core.Input }],
             sortKey: [{ type: core.Input }],
+            selectedSortKey: [{ type: core.Input }],
             order: [{ type: core.Input }],
             orderChange: [{ type: core.Output }],
+            selectedSortKeyChange: [{ type: core.Output }],
             iconClass: [{ type: core.Input }]
         };
         return SortOrderIconComponent;
@@ -1766,13 +1684,11 @@
          */
         SortOrderIconComponent.prototype._selectedSortKey;
         /** @type {?} */
-        SortOrderIconComponent.prototype.selectedKeyChange;
-        /** @type {?} */
-        SortOrderIconComponent.prototype.selectedSortKeyChange;
-        /** @type {?} */
         SortOrderIconComponent.prototype.sortKey;
         /** @type {?} */
         SortOrderIconComponent.prototype.orderChange;
+        /** @type {?} */
+        SortOrderIconComponent.prototype.selectedSortKeyChange;
         /** @type {?} */
         SortOrderIconComponent.prototype.iconClass;
     }
@@ -2631,16 +2547,6 @@
             Options.prototype.cancelText;
             /** @type {?|undefined} */
             Options.prototype.yesText;
-            /**
-             * @deprecated to be deleted in v2
-             * @type {?|undefined}
-             */
-            Options.prototype.cancelCopy;
-            /**
-             * @deprecated to be deleted in v2
-             * @type {?|undefined}
-             */
-            Options.prototype.yesCopy;
         }
     })(Confirmation || (Confirmation = {}));
 

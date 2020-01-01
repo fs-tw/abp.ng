@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 export declare namespace PermissionManagement {
     interface State {
         permissionRes: Response;
@@ -27,5 +28,14 @@ export declare namespace PermissionManagement {
     }
     interface UpdateRequest {
         permissions: MinimumPermission[];
+    }
+    interface PermissionManagementComponentInputs {
+        visible: boolean;
+        readonly providerName: string;
+        readonly providerKey: string;
+        readonly hideBadges: boolean;
+    }
+    interface PermissionManagementComponentOutputs {
+        readonly visibleChange: EventEmitter<boolean>;
     }
 }

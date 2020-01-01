@@ -376,14 +376,24 @@
      * Generated from: lib/setting-management-routing.module.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var ɵ0 = { requiredPolicy: 'AbpAccount.SettingManagement' };
+    var ɵ0 = {
+        requiredPolicy: 'AbpAccount.SettingManagement',
+        replaceableComponent: (/** @type {?} */ ({
+            key: 'SettingManagement.SettingManagementComponent',
+            defaultComponent: SettingManagementComponent,
+        })),
+    };
     /** @type {?} */
     var routes = [
         {
             path: '',
             component: ng_core.DynamicLayoutComponent,
             children: [
-                { path: '', component: SettingManagementComponent, data: ɵ0 },
+                {
+                    path: '',
+                    component: ng_core.ReplaceableRouteContainerComponent,
+                    data: ɵ0,
+                },
             ],
         },
     ];

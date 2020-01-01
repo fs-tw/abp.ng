@@ -1,6 +1,6 @@
 {
   "name": "@fs/ng-alain",
-  "version": "1.1.2-alpha.9",
+  "version": "0.0.0",
   "dependencies": {
     "@angular/animations": "~8.2.14",
     "@angular/common": "~8.2.14",
@@ -23,7 +23,6 @@
     "@delon/mock": "^8.7.2",
     "@delon/theme": "^8.7.2",
     "@delon/util": "^8.7.2",
-    "@fs/dev": "^1.1.2-alpha.6",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "ajv": "^6.10.2",

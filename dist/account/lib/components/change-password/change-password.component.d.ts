@@ -3,7 +3,8 @@ import { OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validation } from '@ngx-validate/core';
 import { Store } from '@ngxs/store';
-export declare class ChangePasswordComponent implements OnInit {
+import { Account } from '../../models/account';
+export declare class ChangePasswordComponent implements OnInit, Account.ChangePasswordComponentInputs, Account.ChangePasswordComponentOutputs {
     private fb;
     private store;
     private toasterService;
