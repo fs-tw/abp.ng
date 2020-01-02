@@ -25,7 +25,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/core/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/core/ng-package.json"
           }
         },
@@ -73,7 +73,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/theme-shared/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/theme-shared/ng-package.json"
           }
         },
@@ -121,7 +121,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/theme-basic/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/theme-basic/ng-package.json"
           }
         },
@@ -137,7 +137,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/theme-basic/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/theme-basic/tsconfig.spec.json"
             ],
             "exclude": [
@@ -171,7 +171,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/account/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/account/ng-package.json"
           }
         },
@@ -187,7 +187,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/account/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/account/tsconfig.spec.json"
             ],
             "exclude": [
@@ -221,7 +221,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/account-config/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/account-config/ng-package.json"
           }
         },
@@ -237,7 +237,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/account-config/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/account-config/tsconfig.spec.json"
             ],
             "exclude": [
@@ -271,7 +271,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/permission-management/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/permission-management/ng-package.json"
           }
         },
@@ -287,7 +287,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/permission-management/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/permission-management/tsconfig.spec.json"
             ],
             "exclude": [
@@ -321,7 +321,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/feature-management/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/feature-management/ng-package.json"
           }
         },
@@ -337,7 +337,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/feature-management/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/feature-management/tsconfig.spec.json"
             ],
             "exclude": [
@@ -371,7 +371,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/identity/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/identity/ng-package.json"
           }
         },
@@ -387,7 +387,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/identity/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/identity/tsconfig.spec.json"
             ],
             "exclude": [
@@ -421,7 +421,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/identity-config/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/identity-config/ng-package.json"
           }
         },
@@ -437,7 +437,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/identity-config/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/identity-config/tsconfig.spec.json"
             ],
             "exclude": [
@@ -471,7 +471,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/setting-management/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/setting-management/ng-package.json"
           }
         },
@@ -487,7 +487,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/setting-management/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/setting-management/tsconfig.spec.json"
             ],
             "exclude": [
@@ -521,7 +521,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/setting-management-config/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/setting-management-config/ng-package.json"
           }
         },
@@ -537,7 +537,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/setting-management-config/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/setting-management-config/tsconfig.spec.json"
             ],
             "exclude": [
@@ -571,7 +571,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/tenant-management/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/tenant-management/ng-package.json"
           }
         },
@@ -587,7 +587,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/tenant-management/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/tenant-management/tsconfig.spec.json"
             ],
             "exclude": [
@@ -621,7 +621,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/tenant-management-config/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/tenant-management-config/ng-package.json"
           }
         },
@@ -637,7 +637,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/tenant-management-config/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/tenant-management-config/tsconfig.spec.json"
             ],
             "exclude": [
