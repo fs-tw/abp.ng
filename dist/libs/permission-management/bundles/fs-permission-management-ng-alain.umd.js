@@ -212,6 +212,9 @@
             var _this = _super.call(this, _store, _renderer) || this;
             _this._store = _store;
             _this._renderer = _renderer;
+            _this.hideBadges = false;
+            _this._visible = false;
+            _this.visibleChange = new core.EventEmitter();
             _this.selectAllIndeterminate = false;
             _this.selectAllThisTabIndeterminate = false;
             return _this;
@@ -228,12 +231,22 @@
              * @return {?}
              */
             function (value) {
-                if (!this.selectedGroup)
+                var _this = this;
+                if (value === this._visible)
                     return;
-                this._visible = value;
-                this.visibleChange.emit(value);
-                if (!value) {
+                if (value) {
+                    this.openModal().subscribe((/**
+                     * @return {?}
+                     */
+                    function () {
+                        _this._visible = true;
+                        _this.visibleChange.emit(true);
+                    }));
+                }
+                else {
                     this.selectedGroup = null;
+                    this._visible = false;
+                    this.visibleChange.emit(false);
                 }
             },
             enumerable: true,
@@ -405,7 +418,7 @@
             { type: core.Component, args: [{
                         selector: 'ng-alain-permission-management',
                         template: "<ng-container *ngIf=\"{ entityName: entityName$ | async } as data\">\r\n  <nz-modal [(nzVisible)]=\"visible\"\r\n            (nzAfterOpen)=\"initModal()\"\r\n            [nzTitle]=\"modalTitle\"\r\n            [nzContent]=\"modalContent\"\r\n            [nzFooter]=\"modalFooter\"\r\n            (nzOnCancel)=\"visible=false\"\r\n            nzWidth=\"1040\"\r\n  >\r\n\r\n    <ng-template #modalTitle>\r\n      {{ 'AbpPermissionManagement::Permissions' | abpLocalization }} - {{ data.entityName }}\r\n    </ng-template>\r\n\r\n    <ng-template #modalContent>\r\n      <nz-checkbox-wrapper >\r\n        <label nz-checkbox [(ngModel)]=\"selectAllTab\" (ngModelChange)=\"onClickSelectAll()\" [nzIndeterminate]=\"selectAllIndeterminate\">\r\n          {{'AbpPermissionManagement::SelectAllInAllTabs' | abpLocalization}}\r\n        </label>\r\n      </nz-checkbox-wrapper>\r\n\r\n\r\n      <div class=\"main\">\r\n        <div class=\"menu\">\r\n          <ul nz-menu nzMode=\"inline\">\r\n            <li *ngFor=\"let group of groups$ | async; trackBy: trackByFn\" nz-menu-item [nzSelected]=\"selectedGroup?.name === group?.name\" (click)=\"onChangeGroup(group)\">{{ group?.displayName }}</li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"content\">\r\n          <div class=\"title\">{{ selectedGroup?.displayName }}</div>\r\n          <nz-checkbox-wrapper>\r\n            <label nz-checkbox [(ngModel)]=\"selectThisTab\" (ngModelChange)=\"onClickSelectThisTab()\" [nzIndeterminate]=\"selectAllThisTabIndeterminate\">\r\n              {{'AbpPermissionManagement::SelectAllInThisTab' | abpLocalization}}\r\n            </label>\r\n          </nz-checkbox-wrapper>\r\n          <div *ngFor=\"let permission of selectedGroupPermissions$ | async; let i = index; trackBy: trackByFn\"\r\n               [style.margin-left]=\"permission.margin + 'px'\">\r\n            <nz-checkbox-wrapper>\r\n              <label nz-checkbox\r\n                     [ngModel]=\"getChecked(permission.name)\"\r\n                     [nzDisabled]=\"isGrantedByOtherProviderName(permission.grantedProviders)\"\r\n                     (ngModelChange)=\"onClickCheckbox(permission)\"\r\n                     >\r\n                {{ permission.displayName }}\r\n                <span *ngFor=\"let provider of permission.grantedProviders\">{{ provider.providerName }}: {{ provider.providerKey }}</span>\r\n              </label>\r\n            </nz-checkbox-wrapper>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n    </ng-template>\r\n\r\n    <ng-template #modalFooter>\r\n      <button nz-button nzType=\"default\" (click)=\"visible=false\">\r\n        {{ 'AbpIdentity::Cancel' | abpLocalization }}\r\n      </button>\r\n      <button nz-button nzType=\"primary\" (click)=\"submit()\">\r\n        {{\r\n      'AbpIdentity::Save' | abpLocalization\r\n        }}\r\n      </button>\r\n    </ng-template>\r\n\r\n\r\n  </nz-modal>\r\n</ng-container>\r\n",
-                        styles: [":host{display:block;padding-top:24px}.main{display:flex;width:100%;overflow:auto;background-color:#fff}.menu{width:224px;border-right:1px solid #e8e8e8}.menu ::ng-deep .ant-menu-inline{border:none}.menu ::ng-deep .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{font-weight:700}.content{flex:1;padding:8px 40px}.content .title{margin-bottom:12px;color:rgba(0,0,0,.85);font-weight:500;font-size:20px;line-height:28px}.content ::ng-deep .ant-list-split .ant-list-item:last-child{border-bottom:1px solid #e8e8e8}.content ::ng-deep .ant-list-item{padding-top:14px;padding-bottom:14px}@media screen and (max-width:767px){.main{flex-direction:column}.main .menu{width:100%;border:none}.main .content{padding:40px}}"]
+                        styles: [":host{display:block;padding-top:24px}.main{display:-webkit-box;display:flex;width:100%;overflow:auto;background-color:#fff}.menu{width:224px;border-right:1px solid #e8e8e8}.menu ::ng-deep .ant-menu-inline{border:none}.menu ::ng-deep .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{font-weight:700}.content{-webkit-box-flex:1;flex:1;padding:8px 40px}.content .title{margin-bottom:12px;color:rgba(0,0,0,.85);font-weight:500;font-size:20px;line-height:28px}.content ::ng-deep .ant-list-split .ant-list-item:last-child{border-bottom:1px solid #e8e8e8}.content ::ng-deep .ant-list-item{padding-top:14px;padding-bottom:14px}@media screen and (max-width:767px){.main{-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column}.main .menu{width:100%;border:none}.main .content{padding:40px}}"]
                     }] }
         ];
         /** @nocollapse */
@@ -416,7 +429,9 @@
         PermissionManagementComponent.propDecorators = {
             providerName: [{ type: core.Input }],
             providerKey: [{ type: core.Input }],
-            visible: [{ type: core.Input }]
+            hideBadges: [{ type: core.Input }],
+            visible: [{ type: core.Input }],
+            visibleChange: [{ type: core.Output }]
         };
         return PermissionManagementComponent;
     }(ng_permissionManagement.PermissionManagementComponent));
@@ -425,6 +440,15 @@
         PermissionManagementComponent.prototype.providerName;
         /** @type {?} */
         PermissionManagementComponent.prototype.providerKey;
+        /** @type {?} */
+        PermissionManagementComponent.prototype.hideBadges;
+        /**
+         * @type {?}
+         * @protected
+         */
+        PermissionManagementComponent.prototype._visible;
+        /** @type {?} */
+        PermissionManagementComponent.prototype.visibleChange;
         /** @type {?} */
         PermissionManagementComponent.prototype.selectAllIndeterminate;
         /** @type {?} */
