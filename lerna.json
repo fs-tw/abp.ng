@@ -3,7 +3,7 @@
     "dist/*",
     "dist/*/*"
   ],
-  "version": "1.1.2-alpha.9",
+  "version": "1.1.2-alpha.10",
   "command": {
     "publish": {
       "registry": "http://192.168.1.6:4873/"
