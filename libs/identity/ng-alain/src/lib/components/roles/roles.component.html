@@ -21,7 +21,7 @@
         <th>{{ 'AbpIdentity::Actions' | abpLocalization }}</th>
         <th pResizableColumn (click)="sortOrderIcon.sort('name')">
           {{ 'AbpIdentity::RoleName' | abpLocalization }}
-          <abp-sort-order-icon #sortOrderIcon key="name" [(selectedKey)]="sortKey" [(order)]="sortOrder">
+          <abp-sort-order-icon #sortOrderIcon key="name" [(selectedSortKey)]="sortKey" [(order)]="sortOrder">
           </abp-sort-order-icon>
         </th>
       </tr>

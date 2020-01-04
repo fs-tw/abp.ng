@@ -1,6 +1,6 @@
 import { PermissionManagementModule } from '@fs/permission-management';
 import { CoreModule } from '@abp/ng.core';
-import { Component, Renderer2, Input, NgModule } from '@angular/core';
+import { EventEmitter, Component, Renderer2, Input, Output, NgModule } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
 import { PermissionManagementComponent as PermissionManagementComponent$1 } from '@abp/ng.permission-management';
 import { Store } from '@ngxs/store';
@@ -20,6 +20,9 @@ class PermissionManagementComponent extends PermissionManagementComponent$1 {
         super(_store, _renderer);
         this._store = _store;
         this._renderer = _renderer;
+        this.hideBadges = false;
+        this._visible = false;
+        this.visibleChange = new EventEmitter();
         this.selectAllIndeterminate = false;
         this.selectAllThisTabIndeterminate = false;
     }
@@ -34,12 +37,21 @@ class PermissionManagementComponent extends PermissionManagementComponent$1 {
      * @return {?}
      */
     set visible(value) {
-        if (!this.selectedGroup)
+        if (value === this._visible)
             return;
-        this._visible = value;
-        this.visibleChange.emit(value);
-        if (!value) {
+        if (value) {
+            this.openModal().subscribe((/**
+             * @return {?}
+             */
+            () => {
+                this._visible = true;
+                this.visibleChange.emit(true);
+            }));
+        }
+        else {
             this.selectedGroup = null;
+            this._visible = false;
+            this.visibleChange.emit(false);
         }
     }
     /**
@@ -197,13 +209,24 @@ PermissionManagementComponent.ctorParameters = () => [
 PermissionManagementComponent.propDecorators = {
     providerName: [{ type: Input }],
     providerKey: [{ type: Input }],
-    visible: [{ type: Input }]
+    hideBadges: [{ type: Input }],
+    visible: [{ type: Input }],
+    visibleChange: [{ type: Output }]
 };
 if (false) {
     /** @type {?} */
     PermissionManagementComponent.prototype.providerName;
     /** @type {?} */
     PermissionManagementComponent.prototype.providerKey;
+    /** @type {?} */
+    PermissionManagementComponent.prototype.hideBadges;
+    /**
+     * @type {?}
+     * @protected
+     */
+    PermissionManagementComponent.prototype._visible;
+    /** @type {?} */
+    PermissionManagementComponent.prototype.visibleChange;
     /** @type {?} */
     PermissionManagementComponent.prototype.selectAllIndeterminate;
     /** @type {?} */

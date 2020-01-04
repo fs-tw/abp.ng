@@ -3,7 +3,7 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { FeatureManagement } from '../../models/feature-management';
 import { FormGroup } from '@angular/forms';
-export declare class FeatureManagementComponent {
+export declare class FeatureManagementComponent implements FeatureManagement.FeatureManagementComponentInputs, FeatureManagement.FeatureManagementComponentOutputs {
     private store;
     providerKey: string;
     providerName: string;

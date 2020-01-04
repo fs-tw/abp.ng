@@ -6,13 +6,5 @@ export declare namespace Confirmation {
         hideYesBtn?: boolean;
         cancelText?: Config.LocalizationParam;
         yesText?: Config.LocalizationParam;
-        /**
-         * @deprecated to be deleted in v2
-         */
-        cancelCopy?: Config.LocalizationParam;
-        /**
-         * @deprecated to be deleted in v2
-         */
-        yesCopy?: Config.LocalizationParam;
     }
 }

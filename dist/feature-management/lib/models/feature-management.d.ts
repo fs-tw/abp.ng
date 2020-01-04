@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 export declare namespace FeatureManagement {
     interface State {
         features: Feature[];
@@ -21,5 +22,13 @@ export declare namespace FeatureManagement {
     interface Provider {
         providerName: string;
         providerKey: string;
+    }
+    interface FeatureManagementComponentInputs {
+        visible: boolean;
+        readonly providerName: string;
+        readonly providerKey: string;
+    }
+    interface FeatureManagementComponentOutputs {
+        readonly visibleChange: EventEmitter<boolean>;
     }
 }

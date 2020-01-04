@@ -7,10 +7,25 @@
       "sourceRoot": "packages/core/src",
       "prefix": "abp",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@abp/ng.core"
+            ]
+          }
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/core/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/core/ng-package.json"
           }
         },
@@ -40,10 +55,25 @@
       "sourceRoot": "packages/theme-shared/src",
       "prefix": "abp",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@abp/ng.theme.shared"
+            ]
+          }
+        },        
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/theme-shared/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/theme-shared/ng-package.json"
           }
         },
@@ -73,10 +103,25 @@
       "sourceRoot": "packages/theme-basic/src",
       "prefix": "abp",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@abp/ng.theme.basic"
+            ]
+          }
+        },  
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/theme-basic/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/theme-basic/ng-package.json"
           }
         },
@@ -92,7 +137,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/theme-basic/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/theme-basic/tsconfig.spec.json"
             ],
             "exclude": [
@@ -108,10 +153,25 @@
       "sourceRoot": "packages/account/src",
       "prefix": "abp",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@abp/ng.account"
+            ]
+          }
+        },        
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/account/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/account/ng-package.json"
           }
         },
@@ -127,7 +187,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/account/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/account/tsconfig.spec.json"
             ],
             "exclude": [
@@ -143,10 +203,25 @@
       "sourceRoot": "packages/account-config/src",
       "prefix": "abp",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@abp/ng.account.config"
+            ]
+          }
+        },          
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/account-config/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/account-config/ng-package.json"
           }
         },
@@ -162,7 +237,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/account-config/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/account-config/tsconfig.spec.json"
             ],
             "exclude": [
@@ -178,10 +253,25 @@
       "sourceRoot": "packages/permission-management/src",
       "prefix": "abp",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@abp/ng.permission-management"
+            ]
+          }
+        },          
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/permission-management/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/permission-management/ng-package.json"
           }
         },
@@ -197,7 +287,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/permission-management/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/permission-management/tsconfig.spec.json"
             ],
             "exclude": [
@@ -213,10 +303,25 @@
       "sourceRoot": "packages/feature-management/src",
       "prefix": "abp",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@abp/ng.feature-management"
+            ]
+          }
+        },           
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/feature-management/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/feature-management/ng-package.json"
           }
         },
@@ -232,7 +337,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/feature-management/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/feature-management/tsconfig.spec.json"
             ],
             "exclude": [
@@ -248,10 +353,25 @@
       "sourceRoot": "packages/identity/src",
       "prefix": "abp",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@abp/ng.identity"
+            ]
+          }
+        },           
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/identity/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/identity/ng-package.json"
           }
         },
@@ -267,7 +387,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/identity/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/identity/tsconfig.spec.json"
             ],
             "exclude": [
@@ -283,10 +403,25 @@
       "sourceRoot": "packages/identity-config/src",
       "prefix": "abp",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@abp/ng.identity.config"
+            ]
+          }
+        },           
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/identity-config/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/identity-config/ng-package.json"
           }
         },
@@ -302,7 +437,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/identity-config/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/identity-config/tsconfig.spec.json"
             ],
             "exclude": [
@@ -318,10 +453,25 @@
       "sourceRoot": "packages/setting-management/src",
       "prefix": "abp",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@abp/ng.setting-management"
+            ]
+          }
+        },           
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/setting-management/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/setting-management/ng-package.json"
           }
         },
@@ -337,7 +487,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/setting-management/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/setting-management/tsconfig.spec.json"
             ],
             "exclude": [
@@ -353,10 +503,25 @@
       "sourceRoot": "packages/setting-management-config/src",
       "prefix": "abp",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@abp/ng.setting-management.config"
+            ]
+          }
+        },        
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/setting-management-config/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/setting-management-config/ng-package.json"
           }
         },
@@ -372,7 +537,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/setting-management-config/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/setting-management-config/tsconfig.spec.json"
             ],
             "exclude": [
@@ -388,10 +553,25 @@
       "sourceRoot": "packages/tenant-management/src",
       "prefix": "abp",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@abp/ng.tenant-management"
+            ]
+          }
+        },            
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/tenant-management/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/tenant-management/ng-package.json"
           }
         },
@@ -407,7 +587,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/tenant-management/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/tenant-management/tsconfig.spec.json"
             ],
             "exclude": [
@@ -423,10 +603,25 @@
       "sourceRoot": "packages/tenant-management-config/src",
       "prefix": "abp",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@abp/ng.tenant-management.config"
+            ]
+          }
+        },   
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "packages/tenant-management-config/tsconfig.lib.json",
+            "tsConfig": "tsconfig.packages.json",
             "project": "packages/tenant-management-config/ng-package.json"
           }
         },
@@ -442,7 +637,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "packages/tenant-management-config/tsconfig.lib.json",
+              "tsconfig.packages.json",
               "packages/tenant-management-config/tsconfig.spec.json"
             ],
             "exclude": [
@@ -458,6 +653,21 @@
       "sourceRoot": "libs/feature-management/src",
       "prefix": "fs",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@fs/feature-management"
+            ]
+          }
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -495,6 +705,21 @@
       "sourceRoot": "libs/permission-management/src",
       "prefix": "fs",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@fs/permission-management"
+            ]
+          }
+        },        
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -532,6 +757,21 @@
       "sourceRoot": "libs/account/src",
       "prefix": "fs",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@fs/account"
+            ]
+          }
+        },        
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -569,6 +809,21 @@
       "sourceRoot": "libs/identity/src",
       "prefix": "fs",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@fs/identity"
+            ]
+          }
+        },           
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -606,6 +861,21 @@
       "sourceRoot": "libs/setting-management/src",
       "prefix": "fs",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@fs/setting-management"
+            ]
+          }
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -643,6 +913,21 @@
       "sourceRoot": "libs/tenant-management/src",
       "prefix": "fs",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@fs/tenant-management"
+            ]
+          }
+        },        
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -680,6 +965,21 @@
       "sourceRoot": "themes/dev/src",
       "prefix": "fs",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@fs/dev"
+            ]
+          }
+        },        
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -853,6 +1153,21 @@
       "sourceRoot": "themes/ng-alain/src",
       "prefix": "fs",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@fs/ng-alain"
+            ]
+          }
+        },        
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -1006,6 +1321,21 @@
       "sourceRoot": "themes/ngx-admin/src",
       "prefix": "fs",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@fs/ngx-admin"
+            ]
+          }
+        },        
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -1169,8 +1499,6 @@
         }
       }
     }
-
- 
   },
   "cli": {
     "defaultCollection": "@nrwl/angular"

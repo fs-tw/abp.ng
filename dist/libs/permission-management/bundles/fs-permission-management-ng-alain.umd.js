@@ -212,6 +212,9 @@
             var _this = _super.call(this, _store, _renderer) || this;
             _this._store = _store;
             _this._renderer = _renderer;
+            _this.hideBadges = false;
+            _this._visible = false;
+            _this.visibleChange = new core.EventEmitter();
             _this.selectAllIndeterminate = false;
             _this.selectAllThisTabIndeterminate = false;
             return _this;
@@ -228,12 +231,22 @@
              * @return {?}
              */
             function (value) {
-                if (!this.selectedGroup)
+                var _this = this;
+                if (value === this._visible)
                     return;
-                this._visible = value;
-                this.visibleChange.emit(value);
-                if (!value) {
+                if (value) {
+                    this.openModal().subscribe((/**
+                     * @return {?}
+                     */
+                    function () {
+                        _this._visible = true;
+                        _this.visibleChange.emit(true);
+                    }));
+                }
+                else {
                     this.selectedGroup = null;
+                    this._visible = false;
+                    this.visibleChange.emit(false);
                 }
             },
             enumerable: true,
@@ -416,7 +429,9 @@
         PermissionManagementComponent.propDecorators = {
             providerName: [{ type: core.Input }],
             providerKey: [{ type: core.Input }],
-            visible: [{ type: core.Input }]
+            hideBadges: [{ type: core.Input }],
+            visible: [{ type: core.Input }],
+            visibleChange: [{ type: core.Output }]
         };
         return PermissionManagementComponent;
     }(ng_permissionManagement.PermissionManagementComponent));
@@ -425,6 +440,15 @@
         PermissionManagementComponent.prototype.providerName;
         /** @type {?} */
         PermissionManagementComponent.prototype.providerKey;
+        /** @type {?} */
+        PermissionManagementComponent.prototype.hideBadges;
+        /**
+         * @type {?}
+         * @protected
+         */
+        PermissionManagementComponent.prototype._visible;
+        /** @type {?} */
+        PermissionManagementComponent.prototype.visibleChange;
         /** @type {?} */
         PermissionManagementComponent.prototype.selectAllIndeterminate;
         /** @type {?} */

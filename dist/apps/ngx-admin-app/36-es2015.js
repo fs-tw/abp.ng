@@ -61,4 +61,3 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ })
 
 }]);
-//# sourceMappingURL=36-es2015.js.map

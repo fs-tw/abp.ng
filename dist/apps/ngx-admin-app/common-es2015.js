@@ -294,4 +294,3 @@ module.exports = function (list, options) {
 /***/ })
 
 }]);
-//# sourceMappingURL=common-es2015.js.map

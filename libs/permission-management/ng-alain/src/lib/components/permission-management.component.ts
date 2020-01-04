@@ -1,5 +1,5 @@
 import { PermissionManagementComponent as AbpPermissionManagementComponent, PermissionManagement } from '@abp/ng.permission-management';
-import { Component, OnChanges, OnInit, Renderer2, Input } from '@angular/core';
+import { Component, Renderer2, Input, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { take } from 'rxjs/operators';
 @Component({
@@ -7,12 +7,20 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./permission-management.component.less'],
   templateUrl: './permission-management.component.html'
 })
-export class PermissionManagementComponent extends AbpPermissionManagementComponent implements OnInit, OnChanges {
+export class PermissionManagementComponent extends AbpPermissionManagementComponent
+  implements
+  PermissionManagement.PermissionManagementComponentInputs,
+  PermissionManagement.PermissionManagementComponentOutputs {
   @Input()
-  providerName: string;
+  readonly providerName: string;
 
   @Input()
-  providerKey: string;
+  readonly providerKey: string;
+
+  @Input()
+  readonly hideBadges = false;
+
+  protected _visible = false;
 
   @Input()
   get visible(): boolean {
@@ -20,16 +28,22 @@ export class PermissionManagementComponent extends AbpPermissionManagementCompon
   }
 
   set visible(value: boolean) {
-    if (!this.selectedGroup) return;
+    if (value === this._visible) return;
 
-    this._visible = value;
-    this.visibleChange.emit(value);
-
-    if (!value) {
+    if (value) {
+      this.openModal().subscribe(() => {
+        this._visible = true;
+        this.visibleChange.emit(true);
+      });
+    } else {
       this.selectedGroup = null;
+      this._visible = false;
+      this.visibleChange.emit(false);
     }
   }
-  
+
+  @Output() readonly visibleChange = new EventEmitter<boolean>();
+
   selectAllIndeterminate = false;
   selectAllThisTabIndeterminate = false;
   constructor(private _store: Store, private _renderer: Renderer2) {

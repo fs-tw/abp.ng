@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ToasterService } from '@abp/ng.theme.shared';
-export declare class PersonalSettingsComponent implements OnInit {
+import { Account } from '../../models/account';
+export declare class PersonalSettingsComponent implements OnInit, Account.PersonalSettingsComponentInputs, Account.PersonalSettingsComponentOutputs {
     private fb;
     private store;
     private toasterService;

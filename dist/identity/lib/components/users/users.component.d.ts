@@ -1,6 +1,6 @@
 import { ABP } from '@abp/ng.core';
 import { ConfirmationService } from '@abp/ng.theme.shared';
-import { TemplateRef, TrackByFunction, OnInit } from '@angular/core';
+import { OnInit, TemplateRef, TrackByFunction } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -27,6 +27,7 @@ export declare class UsersComponent implements OnInit {
     passwordRulesArr: ("number" | "small" | "capital" | "special")[];
     requiredPasswordLength: number;
     trackByFn: TrackByFunction<AbstractControl>;
+    onVisiblePermissionChange: (event: any) => void;
     readonly roleGroups: FormGroup[];
     constructor(confirmationService: ConfirmationService, fb: FormBuilder, store: Store);
     ngOnInit(): void;

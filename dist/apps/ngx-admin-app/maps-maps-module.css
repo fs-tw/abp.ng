@@ -197,8 +197,7 @@
 
 .leaflet-fade-anim .leaflet-popup {
 	opacity: 0;
-	-webkit-transition: opacity 0.2s linear;
-	        transition: opacity 0.2s linear;
+	transition: opacity 0.2s linear;
 	}
 
 .leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
@@ -206,8 +205,7 @@
 	}
 
 .leaflet-zoom-animated {
-	-webkit-transform-origin: 0 0;
-	        transform-origin: 0 0;
+	transform-origin: 0 0;
 	}
 
 .leaflet-zoom-anim .leaflet-zoom-animated {
@@ -215,16 +213,12 @@
 	}
 
 .leaflet-zoom-anim .leaflet-zoom-animated {
-	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
-	        transition:         -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
-	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
-	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1), -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
+	transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
 	}
 
 .leaflet-zoom-anim .leaflet-tile,
 .leaflet-pan-anim .leaflet-tile {
-	-webkit-transition: none;
-	        transition: none;
+	transition: none;
 	}
 
 .leaflet-zoom-anim .leaflet-zoom-hide {
@@ -557,9 +551,7 @@
 	padding: 1px;
 
 	margin: -10px auto 0;
-
-	-webkit-transform: rotate(45deg);
-	        transform: rotate(45deg);
+	transform: rotate(45deg);
 	}
 
 .leaflet-popup-content-wrapper,
@@ -716,5 +708,3 @@
 	border-right-color: #fff;
 	}
 
-
-/*# sourceMappingURL=maps-maps-module.css.map*/

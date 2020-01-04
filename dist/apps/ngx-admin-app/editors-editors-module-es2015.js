@@ -1923,4 +1923,3 @@ TinyMCEComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /***/ })
 
 }]);
-//# sourceMappingURL=editors-editors-module-es2015.js.map

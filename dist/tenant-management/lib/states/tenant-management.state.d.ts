@@ -1,8 +1,8 @@
+import { ABP } from '@abp/ng.core';
 import { StateContext } from '@ngxs/store';
-import { CreateTenant, DeleteTenant, GetTenants, GetTenantById, UpdateTenant } from '../actions/tenant-management.actions';
+import { CreateTenant, DeleteTenant, GetTenantById, GetTenants, UpdateTenant } from '../actions/tenant-management.actions';
 import { TenantManagement } from '../models/tenant-management';
 import { TenantManagementService } from '../services/tenant-management.service';
-import { ABP } from '@abp/ng.core';
 export declare class TenantManagementState {
     private tenantManagementService;
     static get({ result }: TenantManagement.State): ABP.BasicItem[];

@@ -120,21 +120,6 @@ class ButtonComponent {
         this.buttonType = 'button';
         this.loading = false;
         this.disabled = false;
-        // tslint:disable
-        /**
-         * @deprecated use abpClick instead
-         */
-        this.click = new EventEmitter();
-        /**
-         * @deprecated use abpFocus instead
-         */
-        // tslint:disable-next-line: no-output-native
-        this.focus = new EventEmitter();
-        /**
-         * @deprecated use abpBlur instead
-         */
-        this.blur = new EventEmitter();
-        // tslint:enable
         this.abpClick = new EventEmitter();
         this.abpFocus = new EventEmitter();
         this.abpBlur = new EventEmitter();
@@ -170,9 +155,9 @@ ButtonComponent.decorators = [
       [attr.type]="buttonType"
       [ngClass]="buttonClass"
       [disabled]="loading || disabled"
-      (click.stop)="click.next($event); abpClick.next($event)"
-      (focus)="focus.next($event); abpFocus.next($event)"
-      (blur)="blur.next($event); abpBlur.next($event)"
+      (click.stop)="abpClick.next($event)"
+      (focus)="abpFocus.next($event)"
+      (blur)="abpBlur.next($event)"
     >
       <i [ngClass]="icon" class="mr-1"></i><ng-content></ng-content>
     </button>
@@ -191,9 +176,6 @@ ButtonComponent.propDecorators = {
     loading: [{ type: Input }],
     disabled: [{ type: Input }],
     attributes: [{ type: Input }],
-    click: [{ type: Output }],
-    focus: [{ type: Output }],
-    blur: [{ type: Output }],
     abpClick: [{ type: Output }],
     abpFocus: [{ type: Output }],
     abpBlur: [{ type: Output }],
@@ -214,21 +196,6 @@ if (false) {
     ButtonComponent.prototype.disabled;
     /** @type {?} */
     ButtonComponent.prototype.attributes;
-    /**
-     * @deprecated use abpClick instead
-     * @type {?}
-     */
-    ButtonComponent.prototype.click;
-    /**
-     * @deprecated use abpFocus instead
-     * @type {?}
-     */
-    ButtonComponent.prototype.focus;
-    /**
-     * @deprecated use abpBlur instead
-     * @type {?}
-     */
-    ButtonComponent.prototype.blur;
     /** @type {?} */
     ButtonComponent.prototype.abpClick;
     /** @type {?} */
@@ -1352,24 +1319,8 @@ function hasNgDirty(nodes) {
  */
 class SortOrderIconComponent {
     constructor() {
-        this.selectedKeyChange = new EventEmitter();
-        this.selectedSortKeyChange = new EventEmitter();
         this.orderChange = new EventEmitter();
-    }
-    /**
-     * @deprecated use selectedSortKey instead.
-     * @param {?} value
-     * @return {?}
-     */
-    set selectedKey(value) {
-        this.selectedSortKey = value;
-        this.selectedKeyChange.emit(value);
-    }
-    /**
-     * @return {?}
-     */
-    get selectedKey() {
-        return this._selectedSortKey;
+        this.selectedSortKeyChange = new EventEmitter();
     }
     /**
      * @param {?} value
@@ -1384,20 +1335,6 @@ class SortOrderIconComponent {
      */
     get selectedSortKey() {
         return this._selectedSortKey;
-    }
-    /**
-     * @deprecated use sortKey instead.
-     * @return {?}
-     */
-    get key() {
-        return this.sortKey;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set key(value) {
-        this.sortKey = value;
     }
     /**
      * @param {?} value
@@ -1429,7 +1366,6 @@ class SortOrderIconComponent {
      * @return {?}
      */
     sort(key) {
-        this.selectedKey = key; // TODO: To be removed
         this.selectedSortKey = key;
         switch (this.order) {
             case '':
@@ -1442,7 +1378,6 @@ class SortOrderIconComponent {
                 break;
             case 'desc':
                 this.order = '';
-                this.selectedKey = ''; // TODO: To be removed
                 this.orderChange.emit('');
                 break;
         }
@@ -1455,14 +1390,11 @@ SortOrderIconComponent.decorators = [
             }] }
 ];
 SortOrderIconComponent.propDecorators = {
-    selectedKey: [{ type: Input }],
-    selectedSortKey: [{ type: Input }],
-    selectedKeyChange: [{ type: Output }],
-    selectedSortKeyChange: [{ type: Output }],
-    key: [{ type: Input }],
     sortKey: [{ type: Input }],
+    selectedSortKey: [{ type: Input }],
     order: [{ type: Input }],
     orderChange: [{ type: Output }],
+    selectedSortKeyChange: [{ type: Output }],
     iconClass: [{ type: Input }]
 };
 if (false) {
@@ -1477,13 +1409,11 @@ if (false) {
      */
     SortOrderIconComponent.prototype._selectedSortKey;
     /** @type {?} */
-    SortOrderIconComponent.prototype.selectedKeyChange;
-    /** @type {?} */
-    SortOrderIconComponent.prototype.selectedSortKeyChange;
-    /** @type {?} */
     SortOrderIconComponent.prototype.sortKey;
     /** @type {?} */
     SortOrderIconComponent.prototype.orderChange;
+    /** @type {?} */
+    SortOrderIconComponent.prototype.selectedSortKeyChange;
     /** @type {?} */
     SortOrderIconComponent.prototype.iconClass;
 }
@@ -2610,16 +2540,6 @@ var Confirmation;
         Options.prototype.cancelText;
         /** @type {?|undefined} */
         Options.prototype.yesText;
-        /**
-         * @deprecated to be deleted in v2
-         * @type {?|undefined}
-         */
-        Options.prototype.cancelCopy;
-        /**
-         * @deprecated to be deleted in v2
-         * @type {?|undefined}
-         */
-        Options.prototype.yesCopy;
     }
 })(Confirmation || (Confirmation = {}));
 

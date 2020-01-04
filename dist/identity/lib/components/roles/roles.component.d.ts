@@ -1,6 +1,6 @@
 import { ABP } from '@abp/ng.core';
 import { ConfirmationService } from '@abp/ng.theme.shared';
-import { OnInit, ElementRef } from '@angular/core';
+import { ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -22,9 +22,10 @@ export declare class RolesComponent implements OnInit {
     sortOrder: string;
     sortKey: string;
     formRef: ElementRef<HTMLFormElement>;
+    onVisiblePermissionChange: (event: any) => void;
     constructor(confirmationService: ConfirmationService, fb: FormBuilder, store: Store);
     ngOnInit(): void;
-    createForm(): void;
+    buildForm(): void;
     openModal(): void;
     add(): void;
     edit(id: string): void;

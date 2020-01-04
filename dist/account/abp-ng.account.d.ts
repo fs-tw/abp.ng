@@ -12,4 +12,3 @@ export { RegisterComponent as ɵd } from './lib/components/register/register.com
 export { TenantBoxComponent as ɵf } from './lib/components/tenant-box/tenant-box.component';
 export { Options as ɵc } from './lib/models/options';
 export { AccountService as ɵe } from './lib/services/account.service';
-export { ACCOUNT_OPTIONS as ɵl, optionsFactory as ɵk } from './lib/tokens/options.token';

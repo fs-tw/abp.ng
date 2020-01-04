@@ -33800,4 +33800,3 @@ module.exports = function(module) {
 /***/ })
 
 }]);
-//# sourceMappingURL=chart-js-es2015.js.map

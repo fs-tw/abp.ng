@@ -68,7 +68,6 @@ body .ui-inputtext {
     background: #ffffff;
     padding: 0.429em;
     border: 1px solid #a6a6a6;
-    -webkit-transition: border-color 0.2s;
     transition: border-color 0.2s;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -92,7 +91,6 @@ body .ui-chkbox .ui-chkbox-box {
       height: 20px;
       text-align: center;
       border-radius: 3px;
-      -webkit-transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
       transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s; }
 body .ui-chkbox .ui-chkbox-box:not(.ui-state-disabled):hover {
         border-color: #212121; }
@@ -132,7 +130,6 @@ body .ui-radiobutton .ui-radiobutton-box {
       height: 20px;
       text-align: center;
       position: relative;
-      -webkit-transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
       transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
       border-radius: 50%; }
 body .ui-radiobutton .ui-radiobutton-box:not(.ui-state-disabled):not(.ui-state-active):hover {
@@ -166,7 +163,6 @@ body .ui-radiobutton .ui-radiobutton-box .ui-radiobutton-icon {
         top: 50%;
         margin-left: -5px;
         margin-top: -5px;
-        -webkit-transition: background-color 0.2s;
         transition: background-color 0.2s;
         border-radius: 50%; }
 body .ui-radiobutton .ui-radiobutton-box .ui-radiobutton-icon:before {
@@ -177,7 +173,6 @@ body .ui-inputswitch {
     width: 3em;
     height: 1.75em; }
 body .ui-inputswitch .ui-inputswitch-slider {
-      -webkit-transition: background-color 0.2s;
       transition: background-color 0.2s;
       border-radius: 30px;
       background: #cccccc; }
@@ -188,10 +183,8 @@ body .ui-inputswitch .ui-inputswitch-slider:before {
         left: .25em;
         bottom: .25em;
         border-radius: 50%;
-        -webkit-transition: 0.2s;
         transition: 0.2s; }
 body .ui-inputswitch.ui-inputswitch-checked .ui-inputswitch-slider:before {
-      -webkit-transform: translateX(1.25em);
       -ms-transform: translateX(1.25em);
       transform: translateX(1.25em); }
 body .ui-inputswitch.ui-inputswitch-focus .ui-inputswitch-slider {
@@ -288,7 +281,6 @@ body .ui-chips > ul.ui-inputtext .ui-chips-token {
 body .ui-dropdown {
     background: #ffffff;
     border: 1px solid #a6a6a6;
-    -webkit-transition: border-color 0.2s;
     transition: border-color 0.2s; }
 body .ui-dropdown:not(.ui-state-disabled):hover {
       border-color: #212121; }
@@ -346,7 +338,6 @@ body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item:not(.ui-state-highl
 body .ui-multiselect {
     background: #ffffff;
     border: 1px solid #a6a6a6;
-    -webkit-transition: border-color 0.2s;
     transition: border-color 0.2s; }
 body .ui-multiselect:not(.ui-state-disabled):hover {
       border-color: #212121; }
@@ -399,7 +390,6 @@ body .ui-multiselect-panel .ui-multiselect-header .ui-multiselect-close {
         color: #848484;
         top: 50%;
         margin-top: -.5em;
-        -webkit-transition: color 0.2s;
         transition: color 0.2s; }
 body .ui-multiselect-panel .ui-multiselect-header .ui-multiselect-close:hover {
           color: #333333; }
@@ -542,7 +532,6 @@ body .ui-rating a {
     text-align: center;
     display: inline-block;
     color: #333333;
-    -webkit-transition: color 0.2s;
     transition: color 0.2s; }
 body .ui-rating a.ui-rating-cancel {
       color: #e4018d; }
@@ -592,7 +581,6 @@ body .ui-slider .ui-slider-handle {
       background-color: #ffffff;
       border: 2px solid #666666;
       border-radius: 100%;
-      -webkit-transition: border-color 0.2s;
       transition: border-color 0.2s; }
 body .ui-slider .ui-slider-range {
       background-color: #007ad9; }
@@ -629,7 +617,6 @@ body .ui-datepicker .ui-datepicker-header .ui-datepicker-prev,
         cursor: pointer;
         top: 0;
         color: #a6a6a6;
-        -webkit-transition: color 0.2s;
         transition: color 0.2s; }
 body .ui-datepicker .ui-datepicker-header .ui-datepicker-title {
         margin: 0;
@@ -808,7 +795,6 @@ body .ui-button {
   background-color: #007ad9;
   border: 1px solid #007ad9;
   font-size: 14px;
-  -webkit-transition: background-color 0.2s, box-shadow 0.2s;
   transition: background-color 0.2s, box-shadow 0.2s; }
 body .ui-button:enabled:hover {
     background-color: #116fbf;
@@ -842,7 +828,6 @@ body .ui-togglebutton {
   background-color: #dadada;
   border: 1px solid #dadada;
   color: #333333;
-  -webkit-transition: background-color 0.2s, box-shadow 0.2s;
   transition: background-color 0.2s, box-shadow 0.2s; }
 body .ui-togglebutton .ui-button-icon-left {
     color: #666666; }
@@ -881,7 +866,6 @@ body .ui-selectbutton .ui-button {
   background-color: #dadada;
   border: 1px solid #dadada;
   color: #333333;
-  -webkit-transition: background-color 0.2s, box-shadow 0.2s;
   transition: background-color 0.2s, box-shadow 0.2s; }
 body .ui-selectbutton .ui-button .ui-button-icon-left {
     color: #666666; }
@@ -1024,7 +1008,6 @@ body .ui-panel .ui-panel-titlebar .ui-panel-titlebar-icon {
       font-size: 14px;
       color: #848484;
       border: 1px solid transparent;
-      -webkit-transition: color 0.2s;
       transition: color 0.2s; }
 body .ui-panel .ui-panel-titlebar .ui-panel-titlebar-icon:hover {
         color: #333333; }
@@ -1052,7 +1035,6 @@ body .ui-fieldset .ui-fieldset-legend a {
     color: #333333;
     background-color: #f4f4f4;
     border-radius: 3px;
-    -webkit-transition: background-color 0.2s;
     transition: background-color 0.2s; }
 body .ui-fieldset .ui-fieldset-legend a .ui-fieldset-toggler {
       float: none;
@@ -1079,7 +1061,6 @@ body .ui-accordion .ui-accordion-header a {
     background-color: #f4f4f4;
     color: #333333;
     font-weight: 700;
-    -webkit-transition: background-color 0.2s;
     transition: background-color 0.2s; }
 body .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
       color: #848484; }
@@ -1116,7 +1097,6 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav, body .ui-tabview.ui-tabview-bot
 body .ui-tabview.ui-tabview-top .ui-tabview-nav li, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li, body .ui-tabview.ui-tabview-left .ui-tabview-nav li, body .ui-tabview.ui-tabview-right .ui-tabview-nav li {
       border: 1px solid #c8c8c8;
       background-color: #f4f4f4;
-      -webkit-transition: background-color 0.2s;
       transition: background-color 0.2s; }
 body .ui-tabview.ui-tabview-top .ui-tabview-nav li a, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li a, body .ui-tabview.ui-tabview-left .ui-tabview-nav li a, body .ui-tabview.ui-tabview-right .ui-tabview-nav li a {
         float: none;
@@ -1464,7 +1444,6 @@ body .fc .fc-toolbar .fc-button {
   background-color: #007ad9;
   border: 1px solid #007ad9;
   font-size: 14px;
-  -webkit-transition: background-color 0.2s, box-shadow 0.2s;
   transition: background-color 0.2s, box-shadow 0.2s;
   border-radius: 3px; }
 body .fc .fc-toolbar .fc-button:enabled:hover {
@@ -1784,7 +1763,6 @@ body .ui-carousel .ui-carousel-content .ui-carousel-next {
   border-radius: 50%;
   margin: 0.2em;
   color: #333333;
-  -webkit-transition: color 0.2s;
   transition: color 0.2s; }
 body .ui-carousel .ui-carousel-content .ui-carousel-prev:not(.ui-state-disabled):hover,
   body .ui-carousel .ui-carousel-content .ui-carousel-next:not(.ui-state-disabled):hover {
@@ -1959,7 +1937,6 @@ body .ui-overlaypanel .ui-overlaypanel-close {
     position: absolute;
     top: -0.769em;
     right: -0.769em;
-    -webkit-transition: background-color 0.2s;
     transition: background-color 0.2s; }
 body .ui-overlaypanel .ui-overlaypanel-close:hover {
       background-color: #005b9f;
@@ -1994,7 +1971,6 @@ body .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon {
       border: 0 none;
       padding: 0;
       margin-left: 0.5em;
-      -webkit-transition: color 0.2s;
       transition: color 0.2s; }
 body .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon:hover {
         color: #333333; }
@@ -2063,7 +2039,6 @@ body .ui-lightbox .ui-lightbox-caption .ui-lightbox-caption-text {
 body .ui-lightbox .ui-lightbox-caption .ui-lightbox-close {
       padding: 0;
       color: #848484;
-      -webkit-transition: color 0.2s;
       transition: color 0.2s; }
 body .ui-lightbox .ui-lightbox-caption .ui-lightbox-close:hover {
         color: #333333; }
@@ -2075,13 +2050,11 @@ body .ui-lightbox .ui-lightbox-content-wrapper {
     padding: 0;
     border-radius: 0; }
 body .ui-lightbox .ui-lightbox-content-wrapper .ui-lightbox-nav-left, body .ui-lightbox .ui-lightbox-content-wrapper .ui-lightbox-nav-right {
-      -webkit-transition: all 0.2s;
       transition: all 0.2s;
       font-size: 3em;
       color: #ffffff;
       margin-top: -.5em; }
 body .ui-lightbox .ui-lightbox-content-wrapper .ui-lightbox-nav-left:hover, body .ui-lightbox .ui-lightbox-content-wrapper .ui-lightbox-nav-right:hover {
-        -webkit-transform: scale(1.2);
         -ms-transform: scale(1.2);
         transform: scale(1.2); }
 body .ui-lightbox .ui-lightbox-content-wrapper .ui-lightbox-content.ui-lightbox-loading ~ a {
@@ -2325,7 +2298,6 @@ body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem {
       background-color: #f4f4f4;
       margin-right: 2px;
       margin-bottom: -1px;
-      -webkit-transition: background-color 0.2s;
       transition: background-color 0.2s; }
 body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem .ui-menuitem-link {
         color: #333333;
@@ -2390,7 +2362,6 @@ body .ui-panelmenu .ui-panelmenu-header > a {
     font-weight: 700;
     position: static;
     font-size: 14px;
-    -webkit-transition: background-color 0.2s;
     transition: background-color 0.2s; }
 body .ui-panelmenu .ui-panelmenu-header > a .ui-panelmenu-icon {
       color: #848484; }
@@ -2450,13 +2421,11 @@ body .ui-progressbar .ui-progressbar-label {
     line-height: 24px; }
 body .ui-galleria .ui-galleria-nav-prev,
 body .ui-galleria .ui-galleria-nav-next {
-  -webkit-transition: all 0.2s;
   transition: all 0.2s;
   position: absolute;
   color: #848484; }
 body .ui-galleria .ui-galleria-nav-prev:hover,
   body .ui-galleria .ui-galleria-nav-next:hover {
-    -webkit-transform: scale(1.2);
     -ms-transform: scale(1.2);
     transform: scale(1.2); }
 body .ui-galleria .ui-galleria-nav-prev {
@@ -2479,7 +2448,6 @@ body .ui-inplace {
 body .ui-inplace .ui-inplace-display {
     padding: 0.429em;
     border-radius: 3px;
-    -webkit-transition: background-color 0.2s;
     transition: background-color 0.2s; }
 body .ui-inplace .ui-inplace-display:not(.ui-state-disabled):hover {
       background-color: #eaeaea;
@@ -2487,5 +2455,3 @@ body .ui-inplace .ui-inplace-display:not(.ui-state-disabled):hover {
 body .ui-fluid .ui-inplace.ui-inplace-closable .ui-inplace-content > :first-child {
   display: inline-block;
   width: calc(100% - 2.357em); }
-
-/*# sourceMappingURL=primeng-nova-light-theme.css.map*/

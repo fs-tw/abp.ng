@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, Injector, Input, Injectable, ɵɵdefineInjectable, ɵɵinject, NgZone, Optional, SkipSelf, Directive, ElementRef, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, EventEmitter, Self, Output, Renderer2, Pipe, InjectionToken, Inject, LOCALE_ID, APP_INITIALIZER, NgModule } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, Input, Injectable, ɵɵdefineInjectable, ɵɵinject, NgZone, Optional, SkipSelf, Directive, ElementRef, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, EventEmitter, Self, Output, Renderer2, ComponentFactoryResolver, Pipe, InjectionToken, Inject, LOCALE_ID, APP_INITIALIZER, NgModule } from '@angular/core';
 import { __rest, __awaiter, __decorate, __metadata } from 'tslib';
 import { Router, NavigationEnd, ActivatedRoute, RouterModule } from '@angular/router';
 import { Store, Action, Selector, State, createSelector, Select, actionMatcher, InitState, UpdateState, setValue, NGXS_PLUGINS, NgxsModule } from '@ngxs/store';
 import { throwError, noop as noop$1, from, of, Subject, Observable, fromEvent, ReplaySubject } from 'rxjs';
 import snq from 'snq';
-import { take, tap, catchError, switchMap, takeUntil, debounceTime, filter, finalize } from 'rxjs/operators';
+import { take, tap, catchError, switchMap, takeUntil, distinctUntilChanged, debounceTime, filter, finalize } from 'rxjs/operators';
 import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { registerLocaleData, CommonModule } from '@angular/common';
 import compare from 'just-compare';
@@ -251,6 +251,27 @@ if (false) {
     ChangePassword.type;
     /** @type {?} */
     ChangePassword.prototype.payload;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/actions/replaceable-components.actions.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class AddReplaceableComponent {
+    /**
+     * @param {?} payload
+     */
+    constructor(payload) {
+        this.payload = payload;
+    }
+}
+AddReplaceableComponent.type = '[ReplaceableComponents] Add';
+if (false) {
+    /** @type {?} */
+    AddReplaceableComponent.type;
+    /** @type {?} */
+    AddReplaceableComponent.prototype.payload;
 }
 
 /**
@@ -1200,7 +1221,7 @@ let ConfigState = ConfigState_1 = class ConfigState {
          */
         route => route.name === name));
         if (index > -1) {
-            flattedRoutes[index] = (/** @type {?} */ (newValue));
+            flattedRoutes[index] = (/** @type {?} */ (Object.assign({}, flattedRoutes[index], newValue)));
         }
         return patchState({
             routes,
@@ -1586,6 +1607,152 @@ function findLayout(segments, routes) {
         }
     }
     return layout;
+}
+
+var ReplaceableComponentsState_1;
+let ReplaceableComponentsState = ReplaceableComponentsState_1 = class ReplaceableComponentsState {
+    /**
+     * @param {?} __0
+     * @return {?}
+     */
+    static getAll({ replaceableComponents, }) {
+        return replaceableComponents || [];
+    }
+    /**
+     * @param {?} key
+     * @return {?}
+     */
+    static getComponent(key) {
+        /** @type {?} */
+        const selector = createSelector([ReplaceableComponentsState_1], (/**
+         * @param {?} state
+         * @return {?}
+         */
+        (state) => {
+            return snq((/**
+             * @return {?}
+             */
+            () => state.replaceableComponents.find((/**
+             * @param {?} component
+             * @return {?}
+             */
+            component => component.key === key))));
+        }));
+        return selector;
+    }
+    /**
+     * @param {?} __0
+     * @param {?} __1
+     * @return {?}
+     */
+    replaceableComponentsAction({ getState, patchState }, { payload }) {
+        let { replaceableComponents } = getState();
+        /** @type {?} */
+        const index = snq((/**
+         * @return {?}
+         */
+        () => replaceableComponents.findIndex((/**
+         * @param {?} component
+         * @return {?}
+         */
+        component => component.key === payload.key))), -1);
+        if (index > -1) {
+            replaceableComponents[index] = payload;
+        }
+        else {
+            replaceableComponents = [...replaceableComponents, payload];
+        }
+        patchState({
+            replaceableComponents,
+        });
+    }
+};
+__decorate([
+    Action(AddReplaceableComponent),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, AddReplaceableComponent]),
+    __metadata("design:returntype", void 0)
+], ReplaceableComponentsState.prototype, "replaceableComponentsAction", null);
+__decorate([
+    Selector(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Array)
+], ReplaceableComponentsState, "getAll", null);
+ReplaceableComponentsState = ReplaceableComponentsState_1 = __decorate([
+    State({
+        name: 'ReplaceableComponentsState',
+        defaults: (/** @type {?} */ ({ replaceableComponents: [] })),
+    })
+], ReplaceableComponentsState);
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/components/replaceable-route-container.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class ReplaceableRouteContainerComponent {
+    /**
+     * @param {?} route
+     * @param {?} store
+     */
+    constructor(route, store) {
+        this.route = route;
+        this.store = store;
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this.defaultComponent = this.route.snapshot.data.replaceableComponent.defaultComponent;
+        this.componentKey = ((/** @type {?} */ (this.route.snapshot.data
+            .replaceableComponent))).key;
+        this.store
+            .select(ReplaceableComponentsState.getComponent(this.componentKey))
+            .pipe(takeUntilDestroy(this), distinctUntilChanged())
+            .subscribe((/**
+         * @param {?=} res
+         * @return {?}
+         */
+        (res = (/** @type {?} */ ({}))) => {
+            this.externalComponent = res.component;
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() { }
+}
+ReplaceableRouteContainerComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-replaceable-route-container',
+                template: `
+    <ng-container *ngComponentOutlet="externalComponent || defaultComponent"></ng-container>
+  `
+            }] }
+];
+/** @nocollapse */
+ReplaceableRouteContainerComponent.ctorParameters = () => [
+    { type: ActivatedRoute },
+    { type: Store }
+];
+if (false) {
+    /** @type {?} */
+    ReplaceableRouteContainerComponent.prototype.defaultComponent;
+    /** @type {?} */
+    ReplaceableRouteContainerComponent.prototype.componentKey;
+    /** @type {?} */
+    ReplaceableRouteContainerComponent.prototype.externalComponent;
+    /**
+     * @type {?}
+     * @private
+     */
+    ReplaceableRouteContainerComponent.prototype.route;
+    /**
+     * @type {?}
+     * @private
+     */
+    ReplaceableRouteContainerComponent.prototype.store;
 }
 
 /**
@@ -2184,6 +2351,46 @@ function setDirty(controls) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/init.directive.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class InitDirective {
+    /**
+     * @param {?} elRef
+     */
+    constructor(elRef) {
+        this.elRef = elRef;
+        this.init = new EventEmitter();
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        this.init.emit(this.elRef);
+    }
+}
+InitDirective.decorators = [
+    { type: Directive, args: [{ selector: '[abpInit]' },] }
+];
+/** @nocollapse */
+InitDirective.ctorParameters = () => [
+    { type: ElementRef }
+];
+InitDirective.propDecorators = {
+    init: [{ type: Output, args: ['abpInit',] }]
+};
+if (false) {
+    /** @type {?} */
+    InitDirective.prototype.init;
+    /**
+     * @type {?}
+     * @private
+     */
+    InitDirective.prototype.elRef;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/services/profile.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -2474,6 +2681,221 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/replaceable-template.directive.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class ReplaceableTemplateDirective {
+    /**
+     * @param {?} injector
+     * @param {?} templateRef
+     * @param {?} cfRes
+     * @param {?} vcRef
+     * @param {?} store
+     */
+    constructor(injector, templateRef, cfRes, vcRef, store) {
+        this.injector = injector;
+        this.templateRef = templateRef;
+        this.cfRes = cfRes;
+        this.vcRef = vcRef;
+        this.store = store;
+        this.providedData = (/** @type {?} */ ({ inputs: {}, outputs: {} }));
+        this.context = (/** @type {?} */ ({}));
+        this.defaultComponentSubscriptions = (/** @type {?} */ ({}));
+        this.initialized = false;
+        this.context = {
+            initTemplate: (/**
+             * @param {?} ref
+             * @return {?}
+             */
+            ref => {
+                this.resetDefaultComponent();
+                this.defaultComponentRef = ref;
+                this.setDefaultComponentInputs();
+            }),
+        };
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this.store
+            .select(ReplaceableComponentsState.getComponent(this.data.componentKey))
+            .pipe(filter((/**
+         * @param {?=} res
+         * @return {?}
+         */
+        (res = (/** @type {?} */ ({}))) => !this.initialized || !compare(res.component, this.externalComponent))), takeUntilDestroy(this))
+            .subscribe((/**
+         * @param {?=} res
+         * @return {?}
+         */
+        (res = (/** @type {?} */ ({}))) => {
+            this.vcRef.clear();
+            this.externalComponent = res.component;
+            if (this.defaultComponentRef) {
+                this.resetDefaultComponent();
+            }
+            if (res.component) {
+                this.setProvidedData();
+                /** @type {?} */
+                const customInjector = Injector.create({
+                    providers: [{ provide: 'REPLACEABLE_DATA', useValue: this.providedData }],
+                    parent: this.injector,
+                });
+                this.vcRef.createComponent(this.cfRes.resolveComponentFactory(res.component), 0, customInjector);
+            }
+            else {
+                this.vcRef.createEmbeddedView(this.templateRef, this.context);
+            }
+            this.initialized = true;
+        }));
+    }
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ngOnChanges(changes) {
+        if (snq((/**
+         * @return {?}
+         */
+        () => changes.data.currentValue.inputs)) && this.defaultComponentRef) {
+            this.setDefaultComponentInputs();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() { }
+    /**
+     * @return {?}
+     */
+    setDefaultComponentInputs() {
+        if (!this.defaultComponentRef || (!this.data.inputs && !this.data.outputs))
+            return;
+        if (this.data.inputs) {
+            for (const key in this.data.inputs) {
+                if (this.data.inputs.hasOwnProperty(key)) {
+                    if (!compare(this.defaultComponentRef[key], this.data.inputs[key].value)) {
+                        this.defaultComponentRef[key] = this.data.inputs[key].value;
+                    }
+                }
+            }
+        }
+        if (this.data.outputs) {
+            for (const key in this.data.outputs) {
+                if (this.data.outputs.hasOwnProperty(key)) {
+                    if (!this.defaultComponentSubscriptions[key]) {
+                        this.defaultComponentSubscriptions[key] = this.defaultComponentRef[key].subscribe((/**
+                         * @param {?} value
+                         * @return {?}
+                         */
+                        value => {
+                            this.data.outputs[key](value);
+                        }));
+                    }
+                }
+            }
+        }
+    }
+    /**
+     * @return {?}
+     */
+    setProvidedData() {
+        this.providedData = Object.assign({}, this.data, { inputs: {} });
+        if (!this.data.inputs)
+            return;
+        Object.defineProperties(this.providedData.inputs, Object.assign({}, Object.keys(this.data.inputs).reduce((/**
+         * @param {?} acc
+         * @param {?} key
+         * @return {?}
+         */
+        (acc, key) => (Object.assign({}, acc, { [key]: Object.assign({ enumerable: true, configurable: true, get: (/**
+                 * @return {?}
+                 */
+                () => this.data.inputs[key].value) }, (this.data.inputs[key].twoWay && {
+                set: (/**
+                 * @param {?} newValue
+                 * @return {?}
+                 */
+                newValue => {
+                    this.data.inputs[key].value = newValue;
+                    this.data.outputs[`${key}Change`](newValue);
+                }),
+            })) }))), {})));
+    }
+    /**
+     * @return {?}
+     */
+    resetDefaultComponent() {
+        Object.keys(this.defaultComponentSubscriptions).forEach((/**
+         * @param {?} key
+         * @return {?}
+         */
+        key => {
+            this.defaultComponentSubscriptions[key].unsubscribe();
+        }));
+        this.defaultComponentSubscriptions = (/** @type {?} */ ({}));
+        this.defaultComponentRef = null;
+    }
+}
+ReplaceableTemplateDirective.decorators = [
+    { type: Directive, args: [{ selector: '[abpReplaceableTemplate]' },] }
+];
+/** @nocollapse */
+ReplaceableTemplateDirective.ctorParameters = () => [
+    { type: Injector },
+    { type: TemplateRef },
+    { type: ComponentFactoryResolver },
+    { type: ViewContainerRef },
+    { type: Store }
+];
+ReplaceableTemplateDirective.propDecorators = {
+    data: [{ type: Input, args: ['abpReplaceableTemplate',] }]
+};
+if (false) {
+    /** @type {?} */
+    ReplaceableTemplateDirective.prototype.data;
+    /** @type {?} */
+    ReplaceableTemplateDirective.prototype.providedData;
+    /** @type {?} */
+    ReplaceableTemplateDirective.prototype.context;
+    /** @type {?} */
+    ReplaceableTemplateDirective.prototype.externalComponent;
+    /** @type {?} */
+    ReplaceableTemplateDirective.prototype.defaultComponentRef;
+    /** @type {?} */
+    ReplaceableTemplateDirective.prototype.defaultComponentSubscriptions;
+    /** @type {?} */
+    ReplaceableTemplateDirective.prototype.initialized;
+    /**
+     * @type {?}
+     * @private
+     */
+    ReplaceableTemplateDirective.prototype.injector;
+    /**
+     * @type {?}
+     * @private
+     */
+    ReplaceableTemplateDirective.prototype.templateRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    ReplaceableTemplateDirective.prototype.cfRes;
+    /**
+     * @type {?}
+     * @private
+     */
+    ReplaceableTemplateDirective.prototype.vcRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    ReplaceableTemplateDirective.prototype.store;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/directives/visibility.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -2609,10 +3031,6 @@ const eLayoutType = {
     account: "account",
     application: "application",
     empty: "empty",
-    /**
-     * @deprecated since version 0.9.0
-     */
-    setting: "setting",
 };
 
 /**
@@ -2707,7 +3125,11 @@ class PermissionGuard {
              * @param {?} child
              * @return {?}
              */
-            child => state.url.indexOf(child.path) > -1)).data.requiredPolicy));
+            child => state.url.indexOf(child.path) > -1)).data
+                .requiredPolicy));
+            if (!resource) {
+                return of(true);
+            }
         }
         return this.store.select(ConfigState.getGrantedPolicy(resource)).pipe(tap((/**
          * @param {?} access
@@ -3078,6 +3500,121 @@ var Config;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/profile.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var Profile;
+(function (Profile) {
+    /**
+     * @record
+     */
+    function State() { }
+    Profile.State = State;
+    if (false) {
+        /** @type {?} */
+        State.prototype.profile;
+    }
+    /**
+     * @record
+     */
+    function Response() { }
+    Profile.Response = Response;
+    if (false) {
+        /** @type {?} */
+        Response.prototype.userName;
+        /** @type {?} */
+        Response.prototype.email;
+        /** @type {?} */
+        Response.prototype.name;
+        /** @type {?} */
+        Response.prototype.surname;
+        /** @type {?} */
+        Response.prototype.phoneNumber;
+    }
+    /**
+     * @record
+     */
+    function ChangePasswordRequest() { }
+    Profile.ChangePasswordRequest = ChangePasswordRequest;
+    if (false) {
+        /** @type {?} */
+        ChangePasswordRequest.prototype.currentPassword;
+        /** @type {?} */
+        ChangePasswordRequest.prototype.newPassword;
+    }
+})(Profile || (Profile = {}));
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/models/replaceable-components.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var ReplaceableComponents;
+(function (ReplaceableComponents) {
+    /**
+     * @record
+     */
+    function State() { }
+    ReplaceableComponents.State = State;
+    if (false) {
+        /** @type {?} */
+        State.prototype.replaceableComponents;
+    }
+    /**
+     * @record
+     */
+    function ReplaceableComponent() { }
+    ReplaceableComponents.ReplaceableComponent = ReplaceableComponent;
+    if (false) {
+        /** @type {?} */
+        ReplaceableComponent.prototype.component;
+        /** @type {?} */
+        ReplaceableComponent.prototype.key;
+    }
+    /**
+     * @record
+     * @template I, O
+     */
+    function ReplaceableTemplateDirectiveInput() { }
+    ReplaceableComponents.ReplaceableTemplateDirectiveInput = ReplaceableTemplateDirectiveInput;
+    if (false) {
+        /** @type {?} */
+        ReplaceableTemplateDirectiveInput.prototype.inputs;
+        /** @type {?} */
+        ReplaceableTemplateDirectiveInput.prototype.outputs;
+        /** @type {?} */
+        ReplaceableTemplateDirectiveInput.prototype.componentKey;
+    }
+    /**
+     * @record
+     * @template I, O
+     */
+    function ReplaceableTemplateData() { }
+    ReplaceableComponents.ReplaceableTemplateData = ReplaceableTemplateData;
+    if (false) {
+        /** @type {?} */
+        ReplaceableTemplateData.prototype.inputs;
+        /** @type {?} */
+        ReplaceableTemplateData.prototype.outputs;
+        /** @type {?} */
+        ReplaceableTemplateData.prototype.componentKey;
+    }
+    /**
+     * @record
+     * @template T
+     */
+    function RouteData() { }
+    ReplaceableComponents.RouteData = RouteData;
+    if (false) {
+        /** @type {?} */
+        RouteData.prototype.key;
+        /** @type {?} */
+        RouteData.prototype.defaultComponent;
+    }
+})(ReplaceableComponents || (ReplaceableComponents = {}));
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/models/rest.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -3139,52 +3676,6 @@ var Session;
         State.prototype.tenant;
     }
 })(Session || (Session = {}));
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/models/profile.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-var Profile;
-(function (Profile) {
-    /**
-     * @record
-     */
-    function State() { }
-    Profile.State = State;
-    if (false) {
-        /** @type {?} */
-        State.prototype.profile;
-    }
-    /**
-     * @record
-     */
-    function Response() { }
-    Profile.Response = Response;
-    if (false) {
-        /** @type {?} */
-        Response.prototype.userName;
-        /** @type {?} */
-        Response.prototype.email;
-        /** @type {?} */
-        Response.prototype.name;
-        /** @type {?} */
-        Response.prototype.surname;
-        /** @type {?} */
-        Response.prototype.phoneNumber;
-    }
-    /**
-     * @record
-     */
-    function ChangePasswordRequest() { }
-    Profile.ChangePasswordRequest = ChangePasswordRequest;
-    if (false) {
-        /** @type {?} */
-        ChangePasswordRequest.prototype.currentPassword;
-        /** @type {?} */
-        ChangePasswordRequest.prototype.newPassword;
-    }
-})(Profile || (Profile = {}));
 
 /**
  * @fileoverview added by tsickle
@@ -3586,6 +4077,26 @@ class ConfigStateService {
     getLocalization(...args) {
         return this.store.selectSnapshot(ConfigState.getLocalization(...args));
     }
+    /**
+     * @return {?}
+     */
+    dispatchGetAppConfiguration() {
+        return this.store.dispatch(new GetAppConfiguration());
+    }
+    /**
+     * @param {...?} args
+     * @return {?}
+     */
+    dispatchPatchRouteByName(...args) {
+        return this.store.dispatch(new PatchRouteByName(...args));
+    }
+    /**
+     * @param {...?} args
+     * @return {?}
+     */
+    dispatchAddRoute(...args) {
+        return this.store.dispatch(new AddRoute(...args));
+    }
 }
 ConfigStateService.decorators = [
     { type: Injectable, args: [{
@@ -3718,6 +4229,26 @@ class ProfileStateService {
     getProfile() {
         return this.store.selectSnapshot(ProfileState.getProfile);
     }
+    /**
+     * @return {?}
+     */
+    dispatchGetProfile() {
+        return this.store.dispatch(new GetProfile());
+    }
+    /**
+     * @param {...?} args
+     * @return {?}
+     */
+    dispatchUpdateProfile(...args) {
+        return this.store.dispatch(new UpdateProfile(...args));
+    }
+    /**
+     * @param {...?} args
+     * @return {?}
+     */
+    dispatchChangePassword(...args) {
+        return this.store.dispatch(new ChangePassword(...args));
+    }
 }
 ProfileStateService.decorators = [
     { type: Injectable, args: [{
@@ -3760,6 +4291,20 @@ class SessionStateService {
      */
     getTenant() {
         return this.store.selectSnapshot(SessionState.getTenant);
+    }
+    /**
+     * @param {...?} args
+     * @return {?}
+     */
+    dispatchSetLanguage(...args) {
+        return this.store.dispatch(new SetLanguage(...args));
+    }
+    /**
+     * @param {...?} args
+     * @return {?}
+     */
+    dispatchSetTenant(...args) {
+        return this.store.dispatch(new SetTenant(...args));
     }
 }
 SessionStateService.decorators = [
@@ -4035,7 +4580,7 @@ class CoreModule {
 CoreModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
-                    NgxsModule.forFeature([ProfileState, SessionState, ConfigState]),
+                    NgxsModule.forFeature([ReplaceableComponentsState, ProfileState, SessionState, ConfigState]),
                     NgxsRouterPluginModule.forRoot(),
                     NgxsStoragePluginModule.forRoot({ key: ['SessionState'] }),
                     OAuthModule.forRoot(),
@@ -4046,6 +4591,7 @@ CoreModule.decorators = [
                     RouterModule,
                 ],
                 declarations: [
+                    ReplaceableRouteContainerComponent,
                     RouterOutletComponent,
                     DynamicLayoutComponent,
                     AutofocusDirective,
@@ -4054,10 +4600,12 @@ CoreModule.decorators = [
                     FormSubmitDirective,
                     LocalizationPipe,
                     SortPipe,
+                    InitDirective,
                     PermissionDirective,
                     VisibilityDirective,
                     InputEventDebounceDirective,
                     StopPropagationDirective,
+                    ReplaceableTemplateDirective,
                     AbstractNgModelComponent,
                 ],
                 exports: [
@@ -4068,21 +4616,28 @@ CoreModule.decorators = [
                     RouterModule,
                     RouterOutletComponent,
                     DynamicLayoutComponent,
+                    AbstractNgModelComponent,
+                    ReplaceableRouteContainerComponent,
                     AutofocusDirective,
                     EllipsisDirective,
                     ForDirective,
                     FormSubmitDirective,
-                    LocalizationPipe,
-                    SortPipe,
+                    InitDirective,
                     PermissionDirective,
                     VisibilityDirective,
                     InputEventDebounceDirective,
-                    LocalizationPipe,
+                    ReplaceableTemplateDirective,
                     StopPropagationDirective,
-                    AbstractNgModelComponent,
+                    LocalizationPipe,
+                    SortPipe,
+                    LocalizationPipe,
                 ],
                 providers: [LocalizationPipe],
-                entryComponents: [RouterOutletComponent, DynamicLayoutComponent],
+                entryComponents: [
+                    RouterOutletComponent,
+                    DynamicLayoutComponent,
+                    ReplaceableRouteContainerComponent,
+                ],
             },] }
 ];
 
@@ -4098,5 +4653,5 @@ CoreModule.decorators = [
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AbstractNgModelComponent, AddRoute, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, LazyLoadService, LocalizationPipe, LocalizationService, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, uuid, ProfileState as ɵa, ProfileService as ɵb, VisibilityDirective as ɵba, InputEventDebounceDirective as ɵbb, StopPropagationDirective as ɵbc, AbstractNgModelComponent as ɵbd, LocaleId as ɵbe, LocaleProvider as ɵbf, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbg, ConfigPlugin as ɵbh, ApiInterceptor as ɵbi, getInitialData as ɵbj, localeInitializer as ɵbk, RestService as ɵc, GetProfile as ɵd, UpdateProfile as ɵe, ChangePassword as ɵf, SessionState as ɵh, LocalizationService as ɵi, SetLanguage as ɵj, SetTenant as ɵk, ConfigState as ɵm, ApplicationConfigurationService as ɵn, PatchRouteByName as ɵo, GetAppConfiguration as ɵp, AddRoute as ɵq, RouterOutletComponent as ɵr, DynamicLayoutComponent as ɵs, AutofocusDirective as ɵt, EllipsisDirective as ɵu, ForDirective as ɵv, FormSubmitDirective as ɵw, LocalizationPipe as ɵx, SortPipe as ɵy, PermissionDirective as ɵz };
+export { AbstractNgModelComponent, AddReplaceableComponent, AddRoute, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, InitDirective, LazyLoadService, LocalizationPipe, LocalizationService, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, uuid, ReplaceableComponentsState as ɵa, AddReplaceableComponent as ɵb, FormSubmitDirective as ɵba, LocalizationPipe as ɵbb, SortPipe as ɵbc, InitDirective as ɵbd, PermissionDirective as ɵbe, VisibilityDirective as ɵbf, InputEventDebounceDirective as ɵbg, StopPropagationDirective as ɵbh, ReplaceableTemplateDirective as ɵbi, AbstractNgModelComponent as ɵbj, LocaleId as ɵbk, LocaleProvider as ɵbl, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbm, ConfigPlugin as ɵbn, ApiInterceptor as ɵbo, getInitialData as ɵbp, localeInitializer as ɵbq, ProfileState as ɵd, ProfileService as ɵe, RestService as ɵf, GetProfile as ɵg, UpdateProfile as ɵh, ChangePassword as ɵi, SessionState as ɵk, LocalizationService as ɵl, SetLanguage as ɵm, SetTenant as ɵn, ConfigState as ɵp, ApplicationConfigurationService as ɵq, PatchRouteByName as ɵr, GetAppConfiguration as ɵs, AddRoute as ɵt, ReplaceableRouteContainerComponent as ɵu, RouterOutletComponent as ɵv, DynamicLayoutComponent as ɵw, AutofocusDirective as ɵx, EllipsisDirective as ɵy, ForDirective as ɵz };
 //# sourceMappingURL=abp-ng.core.js.map
