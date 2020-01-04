@@ -6,13 +6,15 @@ import { throwError } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 import snq from 'snq';
 import { AccountService } from '@abp/ng.account';
-import { TenantBoxComponent as AbpTenantBoxComponent} from '@abp/ng.account';
+import { TenantBoxComponent as AbpTenantBoxComponent,Account} from '@abp/ng.account';
 
 @Component({
   selector: 'ng-alain-tenant-box',
   templateUrl: './tenant-box.component.html'
 })
-export class TenantBoxComponent extends AbpTenantBoxComponent implements OnInit {
+export class TenantBoxComponent 
+  extends AbpTenantBoxComponent 
+  implements OnInit, Account.TenantBoxComponentInputs, Account.TenantBoxComponentOutputs {
   @Input()
   mainContentRef: TemplateRef<any>;
   constructor(
