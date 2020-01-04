@@ -1,15 +1,15 @@
 {
   "name": "@abp/ng.identity",
-  "version": "1.1.1",
+  "version": "1.1.2-alpha.11",
   "homepage": "https://abp.io",
   "repository": {
     "type": "git",
     "url": "https://github.com/abpframework/abp.git"
   },
   "dependencies": {
-    "@abp/ng.identity.config": "^1.1.1",
-    "@abp/ng.permission-management": "^1.1.1",
-    "@abp/ng.theme.shared": "^1.1.1",
+    "@abp/ng.identity.config": "^1.1.2-alpha.11",
+    "@abp/ng.permission-management": "^1.1.2-alpha.11",
+    "@abp/ng.theme.shared": "^1.1.2-alpha.11",
     "tslib": "^1.9.0"
   },
   "publishConfig": {
