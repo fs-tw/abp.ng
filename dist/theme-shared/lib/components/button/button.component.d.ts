@@ -9,6 +9,9 @@ export declare class ButtonComponent implements OnInit {
     loading: boolean;
     disabled: boolean;
     attributes: ABP.Dictionary<string>;
+    readonly click: EventEmitter<MouseEvent>;
+    readonly focus: EventEmitter<FocusEvent>;
+    readonly blur: EventEmitter<FocusEvent>;
     readonly abpClick: EventEmitter<MouseEvent>;
     readonly abpFocus: EventEmitter<FocusEvent>;
     readonly abpBlur: EventEmitter<FocusEvent>;

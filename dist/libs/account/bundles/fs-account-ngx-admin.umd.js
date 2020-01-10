@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/account'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ngx-admin/basic'), require('@angular/router'), require('@abp/ng.account'), require('@abp/ng.theme.shared'), require('@angular/forms'), require('@ngxs/store'), require('angular-oauth2-oidc')) :
-    typeof define === 'function' && define.amd ? define('@fs/account/ngx-admin', ['exports', '@fs/account', '@abp/ng.core', '@angular/core', '@fs/ngx-admin/basic', '@angular/router', '@abp/ng.account', '@abp/ng.theme.shared', '@angular/forms', '@ngxs/store', 'angular-oauth2-oidc'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs.account = global.fs.account || {}, global.fs.account['ngx-admin'] = {}), global.fs.account, global.ng_core, global.ng.core, global.basic, global.ng.router, global.ng_account, global.ng_theme_shared, global.ng.forms, global.store, global.angularOauth2Oidc));
-}(this, (function (exports, account, ng_core, core, basic, router, ng_account, ng_theme_shared, forms, store, angularOauth2Oidc) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/account'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ngx-admin/basic'), require('@angular/forms'), require('@abp/ng.account'), require('angular-oauth2-oidc'), require('@ngxs/store'), require('@abp/ng.theme.shared')) :
+    typeof define === 'function' && define.amd ? define('@fs/account/ngx-admin', ['exports', '@fs/account', '@abp/ng.core', '@angular/core', '@fs/ngx-admin/basic', '@angular/forms', '@abp/ng.account', 'angular-oauth2-oidc', '@ngxs/store', '@abp/ng.theme.shared'], factory) :
+    (global = global || self, factory((global.fs = global.fs || {}, global.fs.account = global.fs.account || {}, global.fs.account['ngx-admin'] = {}), global.fs.account, global.ng_core, global.ng.core, global.basic, global.ng.forms, global.ng_account, global.angularOauth2Oidc, global.store, global.ng_theme_shared));
+}(this, (function (exports, account, ng_core, core, basic, forms, ng_account, angularOauth2Oidc, store, ng_theme_shared) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -203,33 +203,6 @@
 
     /**
      * @fileoverview added by tsickle
-     * Generated from: lib/components/login/login.component.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var LoginComponent = /** @class */ (function (_super) {
-        __extends(LoginComponent, _super);
-        function LoginComponent(_fb, _oauthService, _store, _toasterService, _options) {
-            return _super.call(this, _fb, _oauthService, _store, _toasterService, _options) || this;
-        }
-        LoginComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'ngx-admin-login',
-                        template: "<ngx-admin-tenant-box></ngx-admin-tenant-box>\r\n\r\n<nb-card class=\"mt-3 shadow-sm rounded bg-light\">\r\n  <nb-card-body class=\"p-5\">\r\n    <h1 id=\"title\" class=\"title\">{{ 'AbpAccount::Login' | abpLocalization }}</h1>\r\n\r\n    <form (ngSubmit)=\"onSubmit()\" [formGroup]=\"form\" novalidate aria-labelledby=\"title\">\r\n\r\n      <div class=\"form-control-group\">\r\n        <label class=\"label\" for=\"login-input-user-name-or-email-address\">\r\n          {{\r\n          'AbpAccount::UserNameOrEmailAddress' | abpLocalization\r\n          }}\r\n        </label>\r\n        <input nbInput\r\n               fullWidth\r\n               id=\"login-input-user-name-or-email-address\"\r\n               fieldSize=\"large\"\r\n               placeholder=\"username\"\r\n               formControlName=\"username\"\r\n               autofocus>\r\n      </div>\r\n\r\n      <div class=\"form-control-group\">\r\n        <span class=\"label-with-link\">\r\n          <label class=\"label\" for=\"login-input-password\">{{ 'AbpAccount::Password' | abpLocalization }}</label>\r\n        </span>\r\n        <input nbInput\r\n               fullWidth\r\n               formControlName=\"password\"\r\n               type=\"password\"\r\n               id=\"login-input-password\"\r\n               placeholder=\"Password\"\r\n               fieldSize=\"large\">\r\n      </div>\r\n\r\n      <div class=\"form-control-group accept-group\">\r\n        <nb-checkbox formControlName=\"remember\">{{ 'AbpAccount::RememberMe' | abpLocalization }}</nb-checkbox>\r\n      </div>\r\n\r\n      <button nbButton\r\n              fullWidth\r\n              status=\"primary\"\r\n              size=\"large\"\r\n              [disabled]=\"!form.valid\">\r\n        {{ 'AbpAccount::Login' | abpLocalization }}\r\n      </button>\r\n    </form>\r\n\r\n    <!-- <section *ngIf=\"socialLinks && socialLinks.length > 0\" class=\"links\" aria-label=\"Social sign in\">\r\n      or enter with:\r\n      <div class=\"socials\">\r\n        <ng-container *ngFor=\"let socialLink of socialLinks\">\r\n          <a *ngIf=\"socialLink.link\"\r\n             [routerLink]=\"socialLink.link\"\r\n             [attr.target]=\"socialLink.target\"\r\n             [attr.class]=\"socialLink.icon\"\r\n             [class.with-icon]=\"socialLink.icon\">\r\n            <nb-icon *ngIf=\"socialLink.icon; else title\" [icon]=\"socialLink.icon\"></nb-icon>\r\n            <ng-template #title>{{ socialLink.title }}</ng-template>\r\n          </a>\r\n          <a *ngIf=\"socialLink.url\"\r\n             [attr.href]=\"socialLink.url\"\r\n             [attr.target]=\"socialLink.target\"\r\n             [attr.class]=\"socialLink.icon\"\r\n             [class.with-icon]=\"socialLink.icon\">\r\n            <nb-icon *ngIf=\"socialLink.icon; else title\" [icon]=\"socialLink.icon\"></nb-icon>\r\n            <ng-template #title>{{ socialLink.title }}</ng-template>\r\n          </a>\r\n        </ng-container>\r\n      </div>\r\n    </section> -->\r\n\r\n    <section class=\"another-action\" aria-label=\"Register\">\r\n      {{ 'AbpAccount::AreYouANewUser' | abpLocalization }} <a class=\"text-link\" routerLink=\"/account/register\">{{ 'AbpAccount::Register' | abpLocalization }}</a>\r\n    </section>\r\n  </nb-card-body>\r\n</nb-card>\r\n"
-                    }] }
-        ];
-        /** @nocollapse */
-        LoginComponent.ctorParameters = function () { return [
-            { type: forms.FormBuilder },
-            { type: angularOauth2Oidc.OAuthService },
-            { type: store.Store },
-            { type: ng_theme_shared.ToasterService },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: ['ACCOUNT_OPTIONS',] }] }
-        ]; };
-        return LoginComponent;
-    }(ng_account.LoginComponent));
-
-    /**
-     * @fileoverview added by tsickle
      * Generated from: lib/components/register/register.component.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
@@ -290,29 +263,30 @@
 
     /**
      * @fileoverview added by tsickle
-     * Generated from: lib/account-ngx-admin-routing.module.ts
+     * Generated from: lib/components/login/login.component.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    /** @type {?} */
-    var routes = [
-        { path: '', pathMatch: 'full', redirectTo: 'login' },
-        {
-            path: '',
-            component: ng_core.DynamicLayoutComponent,
-            children: [{ path: 'login', component: LoginComponent }, { path: 'register', component: RegisterComponent }]
-        },
-    ];
-    var AccountNgxAdminRoutingModule = /** @class */ (function () {
-        function AccountNgxAdminRoutingModule() {
+    var LoginComponent = /** @class */ (function (_super) {
+        __extends(LoginComponent, _super);
+        function LoginComponent(_fb, _oauthService, _store, _toasterService, _options) {
+            return _super.call(this, _fb, _oauthService, _store, _toasterService, _options) || this;
         }
-        AccountNgxAdminRoutingModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [router.RouterModule.forChild(routes)],
-                        exports: [router.RouterModule],
-                    },] }
+        LoginComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'ngx-admin-login',
+                        template: "<ngx-admin-tenant-box></ngx-admin-tenant-box>\r\n\r\n<nb-card class=\"mt-3 shadow-sm rounded bg-light\">\r\n  <nb-card-body class=\"p-5\">\r\n    <h1 id=\"title\" class=\"title\">{{ 'AbpAccount::Login' | abpLocalization }}</h1>\r\n\r\n    <form (ngSubmit)=\"onSubmit()\" [formGroup]=\"form\" novalidate aria-labelledby=\"title\">\r\n\r\n      <div class=\"form-control-group\">\r\n        <label class=\"label\" for=\"login-input-user-name-or-email-address\">\r\n          {{\r\n          'AbpAccount::UserNameOrEmailAddress' | abpLocalization\r\n          }}\r\n        </label>\r\n        <input nbInput\r\n               fullWidth\r\n               id=\"login-input-user-name-or-email-address\"\r\n               fieldSize=\"large\"\r\n               placeholder=\"username\"\r\n               formControlName=\"username\"\r\n               autofocus>\r\n      </div>\r\n\r\n      <div class=\"form-control-group\">\r\n        <span class=\"label-with-link\">\r\n          <label class=\"label\" for=\"login-input-password\">{{ 'AbpAccount::Password' | abpLocalization }}</label>\r\n        </span>\r\n        <input nbInput\r\n               fullWidth\r\n               formControlName=\"password\"\r\n               type=\"password\"\r\n               id=\"login-input-password\"\r\n               placeholder=\"Password\"\r\n               fieldSize=\"large\">\r\n      </div>\r\n\r\n      <div class=\"form-control-group accept-group\">\r\n        <nb-checkbox formControlName=\"remember\">{{ 'AbpAccount::RememberMe' | abpLocalization }}</nb-checkbox>\r\n      </div>\r\n\r\n      <button nbButton\r\n              fullWidth\r\n              status=\"primary\"\r\n              size=\"large\"\r\n              [disabled]=\"!form.valid\">\r\n        {{ 'AbpAccount::Login' | abpLocalization }}\r\n      </button>\r\n    </form>\r\n\r\n    <!-- <section *ngIf=\"socialLinks && socialLinks.length > 0\" class=\"links\" aria-label=\"Social sign in\">\r\n      or enter with:\r\n      <div class=\"socials\">\r\n        <ng-container *ngFor=\"let socialLink of socialLinks\">\r\n          <a *ngIf=\"socialLink.link\"\r\n             [routerLink]=\"socialLink.link\"\r\n             [attr.target]=\"socialLink.target\"\r\n             [attr.class]=\"socialLink.icon\"\r\n             [class.with-icon]=\"socialLink.icon\">\r\n            <nb-icon *ngIf=\"socialLink.icon; else title\" [icon]=\"socialLink.icon\"></nb-icon>\r\n            <ng-template #title>{{ socialLink.title }}</ng-template>\r\n          </a>\r\n          <a *ngIf=\"socialLink.url\"\r\n             [attr.href]=\"socialLink.url\"\r\n             [attr.target]=\"socialLink.target\"\r\n             [attr.class]=\"socialLink.icon\"\r\n             [class.with-icon]=\"socialLink.icon\">\r\n            <nb-icon *ngIf=\"socialLink.icon; else title\" [icon]=\"socialLink.icon\"></nb-icon>\r\n            <ng-template #title>{{ socialLink.title }}</ng-template>\r\n          </a>\r\n        </ng-container>\r\n      </div>\r\n    </section> -->\r\n\r\n    <section class=\"another-action\" aria-label=\"Register\">\r\n      {{ 'AbpAccount::AreYouANewUser' | abpLocalization }} <a class=\"text-link\" routerLink=\"/account/register\">{{ 'AbpAccount::Register' | abpLocalization }}</a>\r\n    </section>\r\n  </nb-card-body>\r\n</nb-card>\r\n"
+                    }] }
         ];
-        return AccountNgxAdminRoutingModule;
-    }());
+        /** @nocollapse */
+        LoginComponent.ctorParameters = function () { return [
+            { type: forms.FormBuilder },
+            { type: angularOauth2Oidc.OAuthService },
+            { type: store.Store },
+            { type: ng_theme_shared.ToasterService },
+            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: ['ACCOUNT_OPTIONS',] }] }
+        ]; };
+        return LoginComponent;
+    }(ng_account.LoginComponent));
 
     /**
      * @fileoverview added by tsickle
@@ -366,27 +340,42 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var AccountNgxAdminModule = /** @class */ (function () {
-        function AccountNgxAdminModule() {
+        function AccountNgxAdminModule(store) {
+            this.store = store;
+            store.dispatch(new ng_core.PatchRouteByName('AbpAccount::Menu:Account', { layout: "account" /* account */ }));
+            store.dispatch(new ng_core.PatchRouteByName('AbpAccount::ManageYourProfile', { layout: "application" /* application */ }));
+            store.dispatch(new ng_core.AddReplaceableComponent({ component: LoginComponent, key: 'Account.LoginComponent' }));
+            store.dispatch(new ng_core.AddReplaceableComponent({ component: RegisterComponent, key: 'Account.RegisterComponent' }));
         }
         AccountNgxAdminModule.decorators = [
             { type: core.NgModule, args: [{
                         declarations: [LoginComponent, RegisterComponent, TenantBoxComponent],
+                        entryComponents: [LoginComponent, RegisterComponent],
                         imports: [
                             ng_core.CoreModule,
                             basic.NgxAdminBasicModule,
-                            AccountNgxAdminRoutingModule,
                             account.AccountModule
                         ]
                     },] }
         ];
+        /** @nocollapse */
+        AccountNgxAdminModule.ctorParameters = function () { return [
+            { type: store.Store }
+        ]; };
         return AccountNgxAdminModule;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        AccountNgxAdminModule.prototype.store;
+    }
 
     exports.AccountNgxAdminModule = AccountNgxAdminModule;
     exports.ɵa = LoginComponent;
     exports.ɵb = RegisterComponent;
     exports.ɵc = TenantBoxComponent;
-    exports.ɵd = AccountNgxAdminRoutingModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

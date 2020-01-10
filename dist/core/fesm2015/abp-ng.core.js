@@ -20,8 +20,10 @@ import { takeUntilDestroy as takeUntilDestroy$1 } from '@ngx-validate/core';
  * Generated from: lib/abstracts/ng-model.component.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// Not an abstract class on purpose. Do not change!
+// tslint:disable-next-line: use-component-selector
 /**
- * @template T
+ * @template T, U
  */
 class AbstractNgModelComponent {
     /**
@@ -29,13 +31,27 @@ class AbstractNgModelComponent {
      */
     constructor(injector) {
         this.injector = injector;
-        this.cdRef = injector.get((/** @type {?} */ (ChangeDetectorRef)));
+        this.valueFn = (/**
+         * @param {?} value
+         * @return {?}
+         */
+        value => (/** @type {?} */ (((/** @type {?} */ (value))))));
+        this.valueLimitFn = (/**
+         * @param {?} value
+         * @return {?}
+         */
+        value => false);
+        // tslint:disable-next-line: deprecation
+        this.cdRef = injector.get(ChangeDetectorRef);
     }
     /**
      * @param {?} value
      * @return {?}
      */
     set value(value) {
+        value = this.valueFn((/** @type {?} */ (((/** @type {?} */ (value))))), this._value);
+        if (this.valueLimitFn(value, this._value) !== false || this.readonly)
+            return;
         this._value = value;
         this.notifyValueChange();
     }
@@ -43,6 +59,12 @@ class AbstractNgModelComponent {
      * @return {?}
      */
     get value() {
+        return this._value || this.defaultValue;
+    }
+    /**
+     * @return {?}
+     */
+    get defaultValue() {
         return this._value;
     }
     /**
@@ -58,11 +80,11 @@ class AbstractNgModelComponent {
      * @return {?}
      */
     writeValue(value) {
-        this._value = value;
+        this._value = this.valueLimitFn(value, this._value) || value;
         setTimeout((/**
          * @return {?}
          */
-        () => this.cdRef.detectChanges()), 0);
+        () => this.cdRef.markForCheck()), 0);
     }
     /**
      * @param {?} fn
@@ -87,7 +109,7 @@ class AbstractNgModelComponent {
     }
 }
 AbstractNgModelComponent.decorators = [
-    { type: Component, args: [{ selector: 'abp-abstract-ng-model', template: '' }] }
+    { type: Component, args: [{ template: '' }] }
 ];
 /** @nocollapse */
 AbstractNgModelComponent.ctorParameters = () => [
@@ -95,15 +117,12 @@ AbstractNgModelComponent.ctorParameters = () => [
 ];
 AbstractNgModelComponent.propDecorators = {
     disabled: [{ type: Input }],
+    readonly: [{ type: Input }],
+    valueFn: [{ type: Input }],
+    valueLimitFn: [{ type: Input }],
     value: [{ type: Input }]
 };
 if (false) {
-    /** @type {?} */
-    AbstractNgModelComponent.prototype.disabled;
-    /** @type {?} */
-    AbstractNgModelComponent.prototype.onChange;
-    /** @type {?} */
-    AbstractNgModelComponent.prototype.onTouched;
     /**
      * @type {?}
      * @protected
@@ -114,6 +133,18 @@ if (false) {
      * @protected
      */
     AbstractNgModelComponent.prototype.cdRef;
+    /** @type {?} */
+    AbstractNgModelComponent.prototype.onChange;
+    /** @type {?} */
+    AbstractNgModelComponent.prototype.onTouched;
+    /** @type {?} */
+    AbstractNgModelComponent.prototype.disabled;
+    /** @type {?} */
+    AbstractNgModelComponent.prototype.readonly;
+    /** @type {?} */
+    AbstractNgModelComponent.prototype.valueFn;
+    /** @type {?} */
+    AbstractNgModelComponent.prototype.valueLimitFn;
     /** @type {?} */
     AbstractNgModelComponent.prototype.injector;
 }

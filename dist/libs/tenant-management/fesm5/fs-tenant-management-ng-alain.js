@@ -1,8 +1,7 @@
 import { TenantManagementModule } from '@fs/tenant-management';
-import { AuthGuard, PermissionGuard, CoreModule } from '@abp/ng.core';
+import { AddReplaceableComponent, CoreModule } from '@abp/ng.core';
 import { Component, NgModule } from '@angular/core';
-import { LayoutDefaultComponent, NgAlainBasicModule } from '@fs/ng-alain/basic';
-import { RouterModule } from '@angular/router';
+import { NgAlainBasicModule } from '@fs/ng-alain/basic';
 import { __extends } from 'tslib';
 import { TenantManagementService, TenantsComponent as TenantsComponent$1 } from '@abp/ng.tenant-management';
 import { ConfirmationService } from '@abp/ng.theme.shared';
@@ -65,55 +64,39 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/tenant-management-ng-alain-routing.module.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-var ɵ0 = { requiredPolicy: 'AbpTenantManagement.Tenants' };
-/** @type {?} */
-var routes = [
-    { path: '', redirectTo: 'tenants', pathMatch: 'full' },
-    {
-        path: 'tenants',
-        component: LayoutDefaultComponent,
-        canActivate: [AuthGuard, PermissionGuard],
-        data: ɵ0,
-        children: [{ path: '', component: TenantsComponent }],
-    },
-];
-var TenantManagementNgAlainRoutingModule = /** @class */ (function () {
-    function TenantManagementNgAlainRoutingModule() {
-    }
-    TenantManagementNgAlainRoutingModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [RouterModule.forChild(routes)],
-                    exports: [RouterModule],
-                },] }
-    ];
-    return TenantManagementNgAlainRoutingModule;
-}());
-
-/**
- * @fileoverview added by tsickle
  * Generated from: lib/tenant-management-ng-alain.module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var TenantManagementNgAlainModule = /** @class */ (function () {
-    function TenantManagementNgAlainModule() {
+    function TenantManagementNgAlainModule(store) {
+        this.store = store;
+        store.dispatch(new AddReplaceableComponent({ component: TenantsComponent, key: 'TenantManagement.TenantsComponent' }));
     }
     TenantManagementNgAlainModule.decorators = [
         { type: NgModule, args: [{
                     declarations: [TenantsComponent],
+                    entryComponents: [TenantsComponent],
                     imports: [
                         CoreModule,
                         NgAlainBasicModule,
-                        TenantManagementNgAlainRoutingModule,
                         TenantManagementModule,
                         FeatureManagementNgAlainModule
                     ]
                 },] }
     ];
+    /** @nocollapse */
+    TenantManagementNgAlainModule.ctorParameters = function () { return [
+        { type: Store }
+    ]; };
     return TenantManagementNgAlainModule;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    TenantManagementNgAlainModule.prototype.store;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -133,5 +116,5 @@ var TenantManagementNgAlainModule = /** @class */ (function () {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { TenantManagementNgAlainModule, TenantsComponent as ɵa, TenantManagementNgAlainRoutingModule as ɵb };
+export { TenantManagementNgAlainModule, TenantsComponent as ɵa };
 //# sourceMappingURL=fs-tenant-management-ng-alain.js.map

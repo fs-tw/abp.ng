@@ -1,5 +1,7 @@
 import { ConfigState, takeUntilDestroy, StartLoader, StopLoader, SortPipe, RestOccurError, LazyLoadService, CoreModule } from '@abp/ng.core';
-import { Component, EventEmitter, Renderer2, Input, Output, ViewChild, ElementRef, ChangeDetectorRef, Injectable, ɵɵdefineInjectable, ɵɵinject, ContentChild, ViewChildren, Directive, Optional, Self, ApplicationRef, ComponentFactoryResolver, RendererFactory2, Injector, Inject, INJECTOR, InjectionToken, APP_INITIALIZER, NgModule } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, EventEmitter, Renderer2, Input, Output, ViewChild, ElementRef, ChangeDetectorRef, Injectable, ɵɵdefineInjectable, ɵɵinject, ContentChild, ViewChildren, ViewEncapsulation, Directive, Host, Optional, Self, ApplicationRef, ComponentFactoryResolver, RendererFactory2, Injector, Inject, INJECTOR, InjectionToken, ViewContainerRef, HostBinding, APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { takeUntilDestroy as takeUntilDestroy$1, NgxValidateCoreModule } from '@ngx-validate/core';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ToastModule } from 'primeng/toast';
@@ -9,12 +11,9 @@ import { ReplaySubject, BehaviorSubject, Subject, fromEvent, interval, timer } f
 import { takeUntil, debounceTime, filter } from 'rxjs/operators';
 import snq from 'snq';
 import { animation, style, animate, trigger, transition, useAnimation, keyframes, state } from '@angular/animations';
-import { Table } from 'primeng/table';
 import clone from 'just-clone';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterError, RouterDataResolved, Navigate, RouterState } from '@ngxs/router-plugin';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { DatePipe } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -120,6 +119,11 @@ class ButtonComponent {
         this.buttonType = 'button';
         this.loading = false;
         this.disabled = false;
+        // tslint:disable
+        this.click = new EventEmitter();
+        this.focus = new EventEmitter();
+        this.blur = new EventEmitter();
+        // tslint:enable
         this.abpClick = new EventEmitter();
         this.abpFocus = new EventEmitter();
         this.abpBlur = new EventEmitter();
@@ -155,9 +159,9 @@ ButtonComponent.decorators = [
       [attr.type]="buttonType"
       [ngClass]="buttonClass"
       [disabled]="loading || disabled"
-      (click.stop)="abpClick.next($event)"
-      (focus)="abpFocus.next($event)"
-      (blur)="abpBlur.next($event)"
+      (click.stop)="click.next($event); abpClick.next($event)"
+      (focus)="focus.next($event); abpFocus.next($event)"
+      (blur)="blur.next($event); abpBlur.next($event)"
     >
       <i [ngClass]="icon" class="mr-1"></i><ng-content></ng-content>
     </button>
@@ -176,6 +180,9 @@ ButtonComponent.propDecorators = {
     loading: [{ type: Input }],
     disabled: [{ type: Input }],
     attributes: [{ type: Input }],
+    click: [{ type: Output }],
+    focus: [{ type: Output }],
+    blur: [{ type: Output }],
     abpClick: [{ type: Output }],
     abpFocus: [{ type: Output }],
     abpBlur: [{ type: Output }],
@@ -196,6 +203,12 @@ if (false) {
     ButtonComponent.prototype.disabled;
     /** @type {?} */
     ButtonComponent.prototype.attributes;
+    /** @type {?} */
+    ButtonComponent.prototype.click;
+    /** @type {?} */
+    ButtonComponent.prototype.focus;
+    /** @type {?} */
+    ButtonComponent.prototype.blur;
     /** @type {?} */
     ButtonComponent.prototype.abpClick;
     /** @type {?} */
@@ -1466,6 +1479,136 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/components/table/table.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class TableComponent {
+    constructor() {
+        this.bodyScrollLeft = 0;
+        this.page = 1;
+        this.trackingProp = 'id';
+        this.emptyMessage = 'AbpAccount::NoDataAvailableInDatatable';
+        this.pageChange = new EventEmitter();
+        this.trackByFn = (/**
+         * @param {?} _
+         * @param {?} value
+         * @return {?}
+         */
+        (_, value) => {
+            return typeof value === 'object' ? value[this.trackingProp] || value : value;
+        });
+    }
+    /**
+     * @return {?}
+     */
+    get totalRecords() {
+        return this._totalRecords || this.value.length;
+    }
+    /**
+     * @param {?} newValue
+     * @return {?}
+     */
+    set totalRecords(newValue) {
+        if (newValue < 0)
+            this._totalRecords = 0;
+        this._totalRecords = newValue;
+    }
+    /**
+     * @return {?}
+     */
+    get totalPages() {
+        if (!this.rows) {
+            return;
+        }
+        return Math.ceil(this.totalRecords / this.rows);
+    }
+    /**
+     * @return {?}
+     */
+    get slicedValue() {
+        if (!this.rows || this.rows >= this.value.length) {
+            return this.value;
+        }
+        /** @type {?} */
+        const start = (this.page - 1) * this.rows;
+        return this.value.slice(start, start + this.rows);
+    }
+}
+TableComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-table',
+                template: "<div #wrapper class=\"ui-table ui-widget\">\r\n  <div class=\"ui-table-wrapper\">\r\n    <ng-container\r\n      *ngTemplateOutlet=\"scrollable ? scrollableTemplate : defaultTemplate\"\r\n    ></ng-container>\r\n    <abp-pagination\r\n      *ngIf=\"rows\"\r\n      [totalPages]=\"totalPages\"\r\n      [(value)]=\"page\"\r\n      (valueChange)=\"pageChange.emit($event)\"\r\n    ></abp-pagination>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #scrollableTemplate>\r\n  <div class=\"ui-table-scrollable-wrapper\">\r\n    <div class=\"ui-table-scrollable-view\"></div>\r\n    <div class=\"ui-table-scrollable-header ui-widget-header\">\r\n      <div [style.margin-left.px]=\"-bodyScrollLeft\" class=\"ui-table-scrollable-header-box\">\r\n        <table class=\"ui-table-scrollable-header-table\">\r\n          <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n          <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n          <tbody></tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <div\r\n      #scrollableBody\r\n      (scroll)=\"bodyScrollLeft = scrollableBody.scrollLeft\"\r\n      class=\"ui-table-scrollable-body\"\r\n      [style.max-height]=\"scrollHeight\"\r\n    >\r\n      <table class=\"ui-table-scrollable-body-table\">\r\n        <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n        <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n      </table>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-template #defaultTemplate>\r\n  <table>\r\n    <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n  </table>\r\n</ng-template>\r\n\r\n<ng-template #colGroup>\r\n  <ng-container *ngTemplateOutlet=\"colgroupTemplate\"></ng-container>\r\n</ng-template>\r\n\r\n<ng-template #head>\r\n  <thead class=\"ui-table-thead\">\r\n    <ng-container *ngTemplateOutlet=\"headerTemplate\"></ng-container>\r\n  </thead>\r\n</ng-template>\r\n\r\n<ng-template #body>\r\n  <tbody class=\"ui-table-tbody\">\r\n    <ng-container *ngIf=\"value && value.length; else emptyTemplate\">\r\n      <ng-template\r\n        #bodyTemplateWrapper\r\n        *ngFor=\"let val of slicedValue; let index = index; trackBy: trackByFn\"\r\n        [ngTemplateOutlet]=\"bodyTemplate\"\r\n        [ngTemplateOutletContext]=\"{ $implicit: val, rowIndex: index }\"\r\n      ></ng-template>\r\n    </ng-container>\r\n  </tbody>\r\n</ng-template>\r\n\r\n<ng-template #emptyTemplate>\r\n  <tr class=\"empty-row\" #emptyRow>\r\n    <div [style.width.px]=\"emptyRow.offsetWidth\">\r\n      {{ emptyMessage | abpLocalization }}\r\n    </div>\r\n  </tr>\r\n</ng-template>\r\n",
+                encapsulation: ViewEncapsulation.None,
+                styles: [`
+      .ui-table .ui-table-tbody > tr:nth-child(even):hover,
+      .ui-table .ui-table-tbody > tr:hover {
+        filter: brightness(90%);
+      }
+
+      .ui-table .ui-table-tbody > tr.empty-row:hover {
+        filter: none;
+      }
+
+      .ui-table .ui-table-tbody > tr.empty-row > div {
+        margin: 10px;
+        text-align: center;
+      }
+    `]
+            }] }
+];
+TableComponent.propDecorators = {
+    value: [{ type: Input }],
+    headerTemplate: [{ type: Input }],
+    bodyTemplate: [{ type: Input }],
+    colgroupTemplate: [{ type: Input }],
+    scrollHeight: [{ type: Input }],
+    scrollable: [{ type: Input }],
+    rows: [{ type: Input }],
+    page: [{ type: Input }],
+    trackingProp: [{ type: Input }],
+    emptyMessage: [{ type: Input }],
+    pageChange: [{ type: Output }],
+    wrapperRef: [{ type: ViewChild, args: ['wrapper', { read: ElementRef, static: false },] }],
+    totalRecords: [{ type: Input }]
+};
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    TableComponent.prototype._totalRecords;
+    /** @type {?} */
+    TableComponent.prototype.bodyScrollLeft;
+    /** @type {?} */
+    TableComponent.prototype.value;
+    /** @type {?} */
+    TableComponent.prototype.headerTemplate;
+    /** @type {?} */
+    TableComponent.prototype.bodyTemplate;
+    /** @type {?} */
+    TableComponent.prototype.colgroupTemplate;
+    /** @type {?} */
+    TableComponent.prototype.scrollHeight;
+    /** @type {?} */
+    TableComponent.prototype.scrollable;
+    /** @type {?} */
+    TableComponent.prototype.rows;
+    /** @type {?} */
+    TableComponent.prototype.page;
+    /** @type {?} */
+    TableComponent.prototype.trackingProp;
+    /** @type {?} */
+    TableComponent.prototype.emptyMessage;
+    /** @type {?} */
+    TableComponent.prototype.pageChange;
+    /** @type {?} */
+    TableComponent.prototype.wrapperRef;
+    /** @type {?} */
+    TableComponent.prototype.trackByFn;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/components/toast/toast.component.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -1534,6 +1677,7 @@ var styles = `
 
 .ui-table-scrollable-body::-webkit-scrollbar {
   height: 5px !important;
+  width: 5px !important;
 }
 
 .ui-table-scrollable-body::-webkit-scrollbar-track {
@@ -1549,13 +1693,7 @@ var styles = `
 }
 
 .modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: calc(100% - 7px);
-  height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 1040;
 }
 
 .modal::-webkit-scrollbar {
@@ -1812,20 +1950,35 @@ if (false) {
 }
 class TableSortDirective {
     /**
-     * @param {?} table
+     * @param {?} abpTable
      * @param {?} sortPipe
+     * @param {?} cdRef
      */
-    constructor(table, sortPipe) {
-        this.table = table;
+    constructor(abpTable, sortPipe, cdRef) {
+        this.abpTable = abpTable;
         this.sortPipe = sortPipe;
+        this.cdRef = cdRef;
         this.value = [];
+    }
+    /**
+     * @return {?}
+     */
+    get table() {
+        return (this.abpTable || snq((/**
+         * @return {?}
+         */
+        () => this.cdRef['_view'].component)) || snq((/**
+         * @return {?}
+         */
+        () => this.cdRef['context'])) // 'context' for ivy
+        );
     }
     /**
      * @param {?} __0
      * @return {?}
      */
     ngOnChanges({ value, abpTableSort }) {
-        if (value || abpTableSort) {
+        if (this.table && (value || abpTableSort)) {
             this.abpTableSort = this.abpTableSort || ((/** @type {?} */ ({})));
             this.table.value = this.sortPipe.transform(clone(this.value), this.abpTableSort.order, this.abpTableSort.key);
         }
@@ -1839,8 +1992,9 @@ TableSortDirective.decorators = [
 ];
 /** @nocollapse */
 TableSortDirective.ctorParameters = () => [
-    { type: Table, decorators: [{ type: Optional }, { type: Self }] },
-    { type: SortPipe }
+    { type: TableComponent, decorators: [{ type: Host }, { type: Optional }, { type: Self }] },
+    { type: SortPipe },
+    { type: ChangeDetectorRef }
 ];
 TableSortDirective.propDecorators = {
     abpTableSort: [{ type: Input }],
@@ -1855,12 +2009,17 @@ if (false) {
      * @type {?}
      * @private
      */
-    TableSortDirective.prototype.table;
+    TableSortDirective.prototype.abpTable;
     /**
      * @type {?}
      * @private
      */
     TableSortDirective.prototype.sortPipe;
+    /**
+     * @type {?}
+     * @private
+     */
+    TableSortDirective.prototype.cdRef;
 }
 
 /**
@@ -2287,6 +2446,281 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/components/pagination/pagination.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class PaginationComponent {
+    constructor() {
+        this._value = 1;
+        this.valueChange = new EventEmitter();
+        this.totalPages = 0;
+        this.trackByFn = (/**
+         * @param {?} _
+         * @param {?} page
+         * @return {?}
+         */
+        (_, page) => page);
+    }
+    /**
+     * @return {?}
+     */
+    get value() {
+        return this._value;
+    }
+    /**
+     * @param {?} newValue
+     * @return {?}
+     */
+    set value(newValue) {
+        if (this._value === newValue)
+            return;
+        this._value = newValue;
+        this.valueChange.emit(newValue);
+    }
+    /**
+     * @return {?}
+     */
+    get pageArray() {
+        /** @type {?} */
+        const count = this.totalPages < 5 ? this.totalPages : 5;
+        if (this.value === 1 || this.value === 2) {
+            return Array.from(new Array(count)).map((/**
+             * @param {?} _
+             * @param {?} index
+             * @return {?}
+             */
+            (_, index) => index + 1));
+        }
+        else if (this.value === this.totalPages || this.value === this.totalPages - 1) {
+            return Array.from(new Array(count)).map((/**
+             * @param {?} _
+             * @param {?} index
+             * @return {?}
+             */
+            (_, index) => this.totalPages - count + 1 + index));
+        }
+        else {
+            return [this.value - 2, this.value - 1, this.value, this.value + 1, this.value + 2];
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        if (!this.value || this.value < 1 || this.value > this.totalPages) {
+            this.value = 1;
+        }
+    }
+    /**
+     * @param {?} page
+     * @return {?}
+     */
+    changePage(page) {
+        if (page < 1)
+            return;
+        else if (page > this.totalPages)
+            return;
+        this.value = page;
+    }
+}
+PaginationComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-pagination',
+                template: "<div\r\n  class=\"ui-paginator-bottom ui-paginator ui-widget ui-widget-header ui-unselectable-text ui-helper-clearfix\"\r\n>\r\n  <a\r\n    class=\"ui-paginator-first ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === 1\"\r\n    tabindex=\"-1\"\r\n    (click)=\"changePage(1)\"\r\n    ><span class=\"ui-paginator-icon pi pi-step-backward\"></span></a\r\n  ><a\r\n    class=\"ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === 1\"\r\n    tabindex=\"-1\"\r\n    (click)=\"changePage(value - 1)\"\r\n    ><span class=\"ui-paginator-icon pi pi-caret-left\"></span></a\r\n  ><span class=\"ui-paginator-pages\"\r\n    ><a\r\n      *ngFor=\"let page of pageArray; trackBy: trackByFn\"\r\n      (click)=\"changePage(page)\"\r\n      class=\"ui-paginator-page ui-paginator-element ui-state-default ui-corner-all\"\r\n      [class.ui-state-active]=\"page === value\"\r\n      tabindex=\"0\"\r\n      >{{ page }}</a\r\n    ></span\r\n  ><a\r\n    class=\"ui-paginator-next ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === totalPages\"\r\n    tabindex=\"0\"\r\n    (click)=\"changePage(value + 1)\"\r\n    ><span class=\"ui-paginator-icon pi pi-caret-right\"></span></a\r\n  ><a\r\n    class=\"ui-paginator-last ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === totalPages\"\r\n    tabindex=\"0\"\r\n    (click)=\"changePage(totalPages)\"\r\n    ><span class=\"ui-paginator-icon pi pi-step-forward\"></span\r\n  ></a>\r\n</div>\r\n"
+            }] }
+];
+PaginationComponent.propDecorators = {
+    value: [{ type: Input }],
+    valueChange: [{ type: Output }],
+    totalPages: [{ type: Input }]
+};
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    PaginationComponent.prototype._value;
+    /** @type {?} */
+    PaginationComponent.prototype.valueChange;
+    /** @type {?} */
+    PaginationComponent.prototype.totalPages;
+    /** @type {?} */
+    PaginationComponent.prototype.trackByFn;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/components/loading/loading.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class LoadingComponent {
+    constructor() { }
+    /**
+     * @return {?}
+     */
+    ngOnInit() { }
+}
+LoadingComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-loading',
+                template: `
+    <div class="abp-loading">
+      <i class="fa fa-spinner fa-pulse abp-spinner"></i>
+    </div>
+  `,
+                styles: [`
+      .abp-loading {
+        background: rgba(0, 0, 0, 0.2);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1040;
+      }
+
+      .abp-loading .abp-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -o-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+      }
+    `]
+            }] }
+];
+/** @nocollapse */
+LoadingComponent.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/directives/loading.directive.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class LoadingDirective {
+    /**
+     * @param {?} elRef
+     * @param {?} vcRef
+     * @param {?} cdRes
+     * @param {?} injector
+     * @param {?} renderer
+     */
+    constructor(elRef, vcRef, cdRes, injector, renderer) {
+        this.elRef = elRef;
+        this.vcRef = vcRef;
+        this.cdRes = cdRes;
+        this.injector = injector;
+        this.renderer = renderer;
+        this.position = 'relative';
+    }
+    /**
+     * @return {?}
+     */
+    get loading() {
+        return this._loading;
+    }
+    /**
+     * @param {?} newValue
+     * @return {?}
+     */
+    set loading(newValue) {
+        setTimeout((/**
+         * @return {?}
+         */
+        () => {
+            if (!this.componentRef) {
+                this.componentRef = this.cdRes
+                    .resolveComponentFactory(LoadingComponent)
+                    .create(this.injector);
+            }
+            if (newValue && !this.rootNode) {
+                this.rootNode = ((/** @type {?} */ (this.componentRef.hostView))).rootNodes[0];
+                this.targetElement.appendChild(this.rootNode);
+            }
+            else {
+                this.renderer.removeChild(this.rootNode.parentElement, this.rootNode);
+                this.rootNode = null;
+            }
+            this._loading = newValue;
+        }), 0);
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        if (!this.targetElement) {
+            const { offsetHeight, offsetWidth } = this.elRef.nativeElement;
+            if (!offsetHeight && !offsetWidth && this.elRef.nativeElement.children.length) {
+                this.targetElement = (/** @type {?} */ (this.elRef.nativeElement.children[0]));
+            }
+            else {
+                this.targetElement = this.elRef.nativeElement;
+            }
+        }
+    }
+}
+LoadingDirective.decorators = [
+    { type: Directive, args: [{ selector: '[abpLoading]' },] }
+];
+/** @nocollapse */
+LoadingDirective.ctorParameters = () => [
+    { type: ElementRef },
+    { type: ViewContainerRef },
+    { type: ComponentFactoryResolver },
+    { type: Injector },
+    { type: Renderer2 }
+];
+LoadingDirective.propDecorators = {
+    position: [{ type: HostBinding, args: ['style.position',] }],
+    loading: [{ type: Input, args: ['abpLoading',] }],
+    targetElement: [{ type: Input, args: ['abpLoadingTargetElement',] }]
+};
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingDirective.prototype._loading;
+    /** @type {?} */
+    LoadingDirective.prototype.position;
+    /** @type {?} */
+    LoadingDirective.prototype.targetElement;
+    /** @type {?} */
+    LoadingDirective.prototype.componentRef;
+    /** @type {?} */
+    LoadingDirective.prototype.rootNode;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingDirective.prototype.elRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingDirective.prototype.vcRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingDirective.prototype.cdRes;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingDirective.prototype.injector;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingDirective.prototype.renderer;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/theme-shared.module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -2353,10 +2787,14 @@ ThemeSharedModule.decorators = [
                     ConfirmationComponent,
                     HttpErrorWrapperComponent,
                     LoaderBarComponent,
+                    LoadingComponent,
                     ModalComponent,
+                    PaginationComponent,
+                    TableComponent,
                     TableEmptyMessageComponent,
                     ToastComponent,
                     SortOrderIconComponent,
+                    LoadingDirective,
                     TableSortDirective,
                 ],
                 exports: [
@@ -2365,14 +2803,18 @@ ThemeSharedModule.decorators = [
                     ChartComponent,
                     ConfirmationComponent,
                     LoaderBarComponent,
+                    LoadingComponent,
                     ModalComponent,
+                    PaginationComponent,
+                    TableComponent,
                     TableEmptyMessageComponent,
                     ToastComponent,
                     SortOrderIconComponent,
+                    LoadingDirective,
                     TableSortDirective,
                 ],
                 providers: [DatePipe],
-                entryComponents: [HttpErrorWrapperComponent],
+                entryComponents: [HttpErrorWrapperComponent, LoadingComponent],
             },] }
 ];
 /** @nocollapse */
@@ -2716,5 +3158,5 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { BreadcrumbComponent, ButtonComponent, ChartComponent, ConfirmationComponent, ConfirmationService, DateParserFormatter, LoaderBarComponent, ModalComponent, SortOrderIconComponent, TableEmptyMessageComponent, TableSortDirective, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, ChartComponent as ɵc, ConfirmationComponent as ɵd, ConfirmationService as ɵe, AbstractToaster as ɵf, HttpErrorWrapperComponent as ɵg, LoaderBarComponent as ɵh, ModalComponent as ɵi, fadeAnimation as ɵj, fadeIn as ɵk, fadeOut as ɵl, TableEmptyMessageComponent as ɵm, ToastComponent as ɵn, SortOrderIconComponent as ɵo, TableSortDirective as ɵp, ErrorHandler as ɵq, httpErrorConfigFactory as ɵs, HTTP_ERROR_CONFIG as ɵt, DateParserFormatter as ɵu };
+export { BreadcrumbComponent, ButtonComponent, ChartComponent, ConfirmationComponent, ConfirmationService, DateParserFormatter, LoaderBarComponent, LoadingComponent, LoadingDirective, ModalComponent, PaginationComponent, SortOrderIconComponent, TableComponent, TableEmptyMessageComponent, TableSortDirective, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, ChartComponent as ɵc, ConfirmationComponent as ɵd, ConfirmationService as ɵe, AbstractToaster as ɵf, HttpErrorWrapperComponent as ɵg, LoaderBarComponent as ɵh, LoadingComponent as ɵi, ModalComponent as ɵj, fadeAnimation as ɵk, fadeIn as ɵl, fadeOut as ɵm, PaginationComponent as ɵn, TableComponent as ɵo, TableEmptyMessageComponent as ɵp, ToastComponent as ɵq, SortOrderIconComponent as ɵr, LoadingDirective as ɵs, TableSortDirective as ɵt, ErrorHandler as ɵu, httpErrorConfigFactory as ɵw, HTTP_ERROR_CONFIG as ɵx, DateParserFormatter as ɵy };
 //# sourceMappingURL=abp-ng.theme.shared.js.map

@@ -820,7 +820,7 @@ class AuthWrapperComponent {
 AuthWrapperComponent.decorators = [
     { type: Component, args: [{
                 selector: 'abp-auth-wrapper',
-                template: "<div class=\"row\">\r\n  <div class=\"mx-auto col col-md-5\">\r\n    <abp-tenant-box\r\n      *abpReplaceableTemplate=\"{ componentKey: 'Account.TenantBoxComponent' }\"\r\n    ></abp-tenant-box>\r\n\r\n    <div class=\"abp-account-container\">\r\n      <div class=\"card mt-3 shadow-sm rounded\">\r\n        <div class=\"card-body p-5\">\r\n          <ng-content *ngTemplateOutlet=\"mainContentRef\"></ng-content>\r\n        </div>\r\n        <ng-content *ngTemplateOutlet=\"cancelContentRef\"></ng-content>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                template: "<div class=\"row\">\r\n  <div class=\"mx-auto col col-md-5\">\r\n    <abp-tenant-box\r\n      *abpReplaceableTemplate=\"{ componentKey: 'Account.TenantBoxComponent' }\"\r\n    ></abp-tenant-box>\r\n\r\n    <div class=\"abp-account-container\">\r\n      <div\r\n        *ngIf=\"(enableLocalLogin$ | async) !== 'False'; else disableLocalLoginTemplate\"\r\n        class=\"card mt-3 shadow-sm rounded\"\r\n      >\r\n        <div class=\"card-body p-5\">\r\n          <ng-content *ngTemplateOutlet=\"mainContentRef\"></ng-content>\r\n        </div>\r\n        <ng-content *ngTemplateOutlet=\"cancelContentRef\"></ng-content>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #disableLocalLoginTemplate>\r\n  <div class=\"alert alert-warning\">\r\n    <strong>{{ 'AbpAccount::InvalidLoginRequest' | abpLocalization }}</strong>\r\n    {{ 'AbpAccount::ThereAreNoLoginSchemesConfiguredForThisClient' | abpLocalization }}\r\n  </div>\r\n</ng-template>\r\n",
                 exportAs: 'abpAuthWrapper'
             }] }
 ];
@@ -828,7 +828,13 @@ AuthWrapperComponent.propDecorators = {
     mainContentRef: [{ type: Input }],
     cancelContentRef: [{ type: Input }]
 };
+__decorate([
+    Select(ConfigState.getSetting('Abp.Account.EnableLocalLogin')),
+    __metadata("design:type", Observable)
+], AuthWrapperComponent.prototype, "enableLocalLogin$", void 0);
 if (false) {
+    /** @type {?} */
+    AuthWrapperComponent.prototype.enableLocalLogin$;
     /** @type {?} */
     AuthWrapperComponent.prototype.mainContentRef;
     /** @type {?} */
@@ -945,6 +951,7 @@ var Account;
      */
     function ChangePasswordComponentOutputs() { }
     Account.ChangePasswordComponentOutputs = ChangePasswordComponentOutputs;
+    // tslint:enable
 })(Account || (Account = {}));
 
 /**

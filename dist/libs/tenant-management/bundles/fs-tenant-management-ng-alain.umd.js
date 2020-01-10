@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/tenant-management'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@angular/router'), require('@abp/ng.tenant-management'), require('@abp/ng.theme.shared'), require('@angular/forms'), require('@ngxs/store'), require('@fs/feature-management/ng-alain')) :
-    typeof define === 'function' && define.amd ? define('@fs/tenant-management/ng-alain', ['exports', '@fs/tenant-management', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@angular/router', '@abp/ng.tenant-management', '@abp/ng.theme.shared', '@angular/forms', '@ngxs/store', '@fs/feature-management/ng-alain'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['tenant-management'] = global.fs['tenant-management'] || {}, global.fs['tenant-management']['ng-alain'] = {}), global.fs['tenant-management'], global.ng_core, global.ng.core, global.basic, global.ng.router, global.ng_tenantManagement, global.ng_theme_shared, global.ng.forms, global.store, global.ngAlain));
-}(this, (function (exports, tenantManagement, ng_core, core, basic, router, ng_tenantManagement, ng_theme_shared, forms, store, ngAlain) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/tenant-management'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@abp/ng.tenant-management'), require('@abp/ng.theme.shared'), require('@angular/forms'), require('@ngxs/store'), require('@fs/feature-management/ng-alain')) :
+    typeof define === 'function' && define.amd ? define('@fs/tenant-management/ng-alain', ['exports', '@fs/tenant-management', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@abp/ng.tenant-management', '@abp/ng.theme.shared', '@angular/forms', '@ngxs/store', '@fs/feature-management/ng-alain'], factory) :
+    (global = global || self, factory((global.fs = global.fs || {}, global.fs['tenant-management'] = global.fs['tenant-management'] || {}, global.fs['tenant-management']['ng-alain'] = {}), global.fs['tenant-management'], global.ng_core, global.ng.core, global.basic, global.ng_tenantManagement, global.ng_theme_shared, global.ng.forms, global.store, global.ngAlain));
+}(this, (function (exports, tenantManagement, ng_core, core, basic, ng_tenantManagement, ng_theme_shared, forms, store, ngAlain) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -256,59 +256,42 @@
 
     /**
      * @fileoverview added by tsickle
-     * Generated from: lib/tenant-management-ng-alain-routing.module.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var ɵ0 = { requiredPolicy: 'AbpTenantManagement.Tenants' };
-    /** @type {?} */
-    var routes = [
-        { path: '', redirectTo: 'tenants', pathMatch: 'full' },
-        {
-            path: 'tenants',
-            component: basic.LayoutDefaultComponent,
-            canActivate: [ng_core.AuthGuard, ng_core.PermissionGuard],
-            data: ɵ0,
-            children: [{ path: '', component: TenantsComponent }],
-        },
-    ];
-    var TenantManagementNgAlainRoutingModule = /** @class */ (function () {
-        function TenantManagementNgAlainRoutingModule() {
-        }
-        TenantManagementNgAlainRoutingModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [router.RouterModule.forChild(routes)],
-                        exports: [router.RouterModule],
-                    },] }
-        ];
-        return TenantManagementNgAlainRoutingModule;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
      * Generated from: lib/tenant-management-ng-alain.module.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var TenantManagementNgAlainModule = /** @class */ (function () {
-        function TenantManagementNgAlainModule() {
+        function TenantManagementNgAlainModule(store) {
+            this.store = store;
+            store.dispatch(new ng_core.AddReplaceableComponent({ component: TenantsComponent, key: 'TenantManagement.TenantsComponent' }));
         }
         TenantManagementNgAlainModule.decorators = [
             { type: core.NgModule, args: [{
                         declarations: [TenantsComponent],
+                        entryComponents: [TenantsComponent],
                         imports: [
                             ng_core.CoreModule,
                             basic.NgAlainBasicModule,
-                            TenantManagementNgAlainRoutingModule,
                             tenantManagement.TenantManagementModule,
                             ngAlain.FeatureManagementNgAlainModule
                         ]
                     },] }
         ];
+        /** @nocollapse */
+        TenantManagementNgAlainModule.ctorParameters = function () { return [
+            { type: store.Store }
+        ]; };
         return TenantManagementNgAlainModule;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        TenantManagementNgAlainModule.prototype.store;
+    }
 
     exports.TenantManagementNgAlainModule = TenantManagementNgAlainModule;
     exports.ɵa = TenantsComponent;
-    exports.ɵb = TenantManagementNgAlainRoutingModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

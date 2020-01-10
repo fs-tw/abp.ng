@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@angular/core'), require('@ngx-validate/core'), require('primeng/components/common/messageservice'), require('primeng/toast'), require('@angular/router'), require('@ngxs/store'), require('rxjs'), require('rxjs/operators'), require('snq'), require('@angular/animations'), require('primeng/table'), require('just-clone'), require('@angular/common/http'), require('@ngxs/router-plugin'), require('@ng-bootstrap/ng-bootstrap'), require('@angular/common')) :
-    typeof define === 'function' && define.amd ? define('@abp/ng.theme.shared', ['exports', '@abp/ng.core', '@angular/core', '@ngx-validate/core', 'primeng/components/common/messageservice', 'primeng/toast', '@angular/router', '@ngxs/store', 'rxjs', 'rxjs/operators', 'snq', '@angular/animations', 'primeng/table', 'just-clone', '@angular/common/http', '@ngxs/router-plugin', '@ng-bootstrap/ng-bootstrap', '@angular/common'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.theme = global.abp.ng.theme || {}, global.abp.ng.theme.shared = {}), global.ng_core, global.ng.core, global.core$1, global.messageservice, global.toast, global.ng.router, global.store, global.rxjs, global.rxjs.operators, global.snq, global.ng.animations, global.table, global.clone, global.ng.common.http, global.routerPlugin, global.ngBootstrap, global.ng.common));
-}(this, (function (exports, ng_core, core, core$1, messageservice, toast, router, store, rxjs, operators, snq, animations, table, clone, http, routerPlugin, ngBootstrap, common) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@angular/common'), require('@angular/core'), require('@ng-bootstrap/ng-bootstrap'), require('@ngx-validate/core'), require('primeng/components/common/messageservice'), require('primeng/toast'), require('@angular/router'), require('@ngxs/store'), require('rxjs'), require('rxjs/operators'), require('snq'), require('@angular/animations'), require('just-clone'), require('@angular/common/http'), require('@ngxs/router-plugin')) :
+    typeof define === 'function' && define.amd ? define('@abp/ng.theme.shared', ['exports', '@abp/ng.core', '@angular/common', '@angular/core', '@ng-bootstrap/ng-bootstrap', '@ngx-validate/core', 'primeng/components/common/messageservice', 'primeng/toast', '@angular/router', '@ngxs/store', 'rxjs', 'rxjs/operators', 'snq', '@angular/animations', 'just-clone', '@angular/common/http', '@ngxs/router-plugin'], factory) :
+    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.theme = global.abp.ng.theme || {}, global.abp.ng.theme.shared = {}), global.ng_core, global.ng.common, global.ng.core, global.ngBootstrap, global.core$1, global.messageservice, global.toast, global.ng.router, global.store, global.rxjs, global.rxjs.operators, global.snq, global.ng.animations, global.clone, global.ng.common.http, global.routerPlugin));
+}(this, (function (exports, ng_core, common, core, ngBootstrap, core$1, messageservice, toast, router, store, rxjs, operators, snq, animations, clone, http, routerPlugin) { 'use strict';
 
     snq = snq && snq.hasOwnProperty('default') ? snq['default'] : snq;
     clone = clone && clone.hasOwnProperty('default') ? clone['default'] : clone;
@@ -309,6 +309,11 @@
             this.buttonType = 'button';
             this.loading = false;
             this.disabled = false;
+            // tslint:disable
+            this.click = new core.EventEmitter();
+            this.focus = new core.EventEmitter();
+            this.blur = new core.EventEmitter();
+            // tslint:enable
             this.abpClick = new core.EventEmitter();
             this.abpFocus = new core.EventEmitter();
             this.abpBlur = new core.EventEmitter();
@@ -344,7 +349,7 @@
         ButtonComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'abp-button',
-                        template: "\n    <button\n      #button\n      [id]=\"buttonId\"\n      [attr.type]=\"buttonType\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click.stop)=\"abpClick.next($event)\"\n      (focus)=\"abpFocus.next($event)\"\n      (blur)=\"abpBlur.next($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
+                        template: "\n    <button\n      #button\n      [id]=\"buttonId\"\n      [attr.type]=\"buttonType\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click.stop)=\"click.next($event); abpClick.next($event)\"\n      (focus)=\"focus.next($event); abpFocus.next($event)\"\n      (blur)=\"blur.next($event); abpBlur.next($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
                     }] }
         ];
         /** @nocollapse */
@@ -359,6 +364,9 @@
             loading: [{ type: core.Input }],
             disabled: [{ type: core.Input }],
             attributes: [{ type: core.Input }],
+            click: [{ type: core.Output }],
+            focus: [{ type: core.Output }],
+            blur: [{ type: core.Output }],
             abpClick: [{ type: core.Output }],
             abpFocus: [{ type: core.Output }],
             abpBlur: [{ type: core.Output }],
@@ -381,6 +389,12 @@
         ButtonComponent.prototype.disabled;
         /** @type {?} */
         ButtonComponent.prototype.attributes;
+        /** @type {?} */
+        ButtonComponent.prototype.click;
+        /** @type {?} */
+        ButtonComponent.prototype.focus;
+        /** @type {?} */
+        ButtonComponent.prototype.blur;
         /** @type {?} */
         ButtonComponent.prototype.abpClick;
         /** @type {?} */
@@ -1742,6 +1756,136 @@
 
     /**
      * @fileoverview added by tsickle
+     * Generated from: lib/components/table/table.component.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var TableComponent = /** @class */ (function () {
+        function TableComponent() {
+            var _this = this;
+            this.bodyScrollLeft = 0;
+            this.page = 1;
+            this.trackingProp = 'id';
+            this.emptyMessage = 'AbpAccount::NoDataAvailableInDatatable';
+            this.pageChange = new core.EventEmitter();
+            this.trackByFn = (/**
+             * @param {?} _
+             * @param {?} value
+             * @return {?}
+             */
+            function (_, value) {
+                return typeof value === 'object' ? value[_this.trackingProp] || value : value;
+            });
+        }
+        Object.defineProperty(TableComponent.prototype, "totalRecords", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._totalRecords || this.value.length;
+            },
+            set: /**
+             * @param {?} newValue
+             * @return {?}
+             */
+            function (newValue) {
+                if (newValue < 0)
+                    this._totalRecords = 0;
+                this._totalRecords = newValue;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TableComponent.prototype, "totalPages", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                if (!this.rows) {
+                    return;
+                }
+                return Math.ceil(this.totalRecords / this.rows);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TableComponent.prototype, "slicedValue", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                if (!this.rows || this.rows >= this.value.length) {
+                    return this.value;
+                }
+                /** @type {?} */
+                var start = (this.page - 1) * this.rows;
+                return this.value.slice(start, start + this.rows);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        TableComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'abp-table',
+                        template: "<div #wrapper class=\"ui-table ui-widget\">\r\n  <div class=\"ui-table-wrapper\">\r\n    <ng-container\r\n      *ngTemplateOutlet=\"scrollable ? scrollableTemplate : defaultTemplate\"\r\n    ></ng-container>\r\n    <abp-pagination\r\n      *ngIf=\"rows\"\r\n      [totalPages]=\"totalPages\"\r\n      [(value)]=\"page\"\r\n      (valueChange)=\"pageChange.emit($event)\"\r\n    ></abp-pagination>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #scrollableTemplate>\r\n  <div class=\"ui-table-scrollable-wrapper\">\r\n    <div class=\"ui-table-scrollable-view\"></div>\r\n    <div class=\"ui-table-scrollable-header ui-widget-header\">\r\n      <div [style.margin-left.px]=\"-bodyScrollLeft\" class=\"ui-table-scrollable-header-box\">\r\n        <table class=\"ui-table-scrollable-header-table\">\r\n          <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n          <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n          <tbody></tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <div\r\n      #scrollableBody\r\n      (scroll)=\"bodyScrollLeft = scrollableBody.scrollLeft\"\r\n      class=\"ui-table-scrollable-body\"\r\n      [style.max-height]=\"scrollHeight\"\r\n    >\r\n      <table class=\"ui-table-scrollable-body-table\">\r\n        <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n        <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n      </table>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-template #defaultTemplate>\r\n  <table>\r\n    <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n  </table>\r\n</ng-template>\r\n\r\n<ng-template #colGroup>\r\n  <ng-container *ngTemplateOutlet=\"colgroupTemplate\"></ng-container>\r\n</ng-template>\r\n\r\n<ng-template #head>\r\n  <thead class=\"ui-table-thead\">\r\n    <ng-container *ngTemplateOutlet=\"headerTemplate\"></ng-container>\r\n  </thead>\r\n</ng-template>\r\n\r\n<ng-template #body>\r\n  <tbody class=\"ui-table-tbody\">\r\n    <ng-container *ngIf=\"value && value.length; else emptyTemplate\">\r\n      <ng-template\r\n        #bodyTemplateWrapper\r\n        *ngFor=\"let val of slicedValue; let index = index; trackBy: trackByFn\"\r\n        [ngTemplateOutlet]=\"bodyTemplate\"\r\n        [ngTemplateOutletContext]=\"{ $implicit: val, rowIndex: index }\"\r\n      ></ng-template>\r\n    </ng-container>\r\n  </tbody>\r\n</ng-template>\r\n\r\n<ng-template #emptyTemplate>\r\n  <tr class=\"empty-row\" #emptyRow>\r\n    <div [style.width.px]=\"emptyRow.offsetWidth\">\r\n      {{ emptyMessage | abpLocalization }}\r\n    </div>\r\n  </tr>\r\n</ng-template>\r\n",
+                        encapsulation: core.ViewEncapsulation.None,
+                        styles: ["\n      .ui-table .ui-table-tbody > tr:nth-child(even):hover,\n      .ui-table .ui-table-tbody > tr:hover {\n        filter: brightness(90%);\n      }\n\n      .ui-table .ui-table-tbody > tr.empty-row:hover {\n        filter: none;\n      }\n\n      .ui-table .ui-table-tbody > tr.empty-row > div {\n        margin: 10px;\n        text-align: center;\n      }\n    "]
+                    }] }
+        ];
+        TableComponent.propDecorators = {
+            value: [{ type: core.Input }],
+            headerTemplate: [{ type: core.Input }],
+            bodyTemplate: [{ type: core.Input }],
+            colgroupTemplate: [{ type: core.Input }],
+            scrollHeight: [{ type: core.Input }],
+            scrollable: [{ type: core.Input }],
+            rows: [{ type: core.Input }],
+            page: [{ type: core.Input }],
+            trackingProp: [{ type: core.Input }],
+            emptyMessage: [{ type: core.Input }],
+            pageChange: [{ type: core.Output }],
+            wrapperRef: [{ type: core.ViewChild, args: ['wrapper', { read: core.ElementRef, static: false },] }],
+            totalRecords: [{ type: core.Input }]
+        };
+        return TableComponent;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        TableComponent.prototype._totalRecords;
+        /** @type {?} */
+        TableComponent.prototype.bodyScrollLeft;
+        /** @type {?} */
+        TableComponent.prototype.value;
+        /** @type {?} */
+        TableComponent.prototype.headerTemplate;
+        /** @type {?} */
+        TableComponent.prototype.bodyTemplate;
+        /** @type {?} */
+        TableComponent.prototype.colgroupTemplate;
+        /** @type {?} */
+        TableComponent.prototype.scrollHeight;
+        /** @type {?} */
+        TableComponent.prototype.scrollable;
+        /** @type {?} */
+        TableComponent.prototype.rows;
+        /** @type {?} */
+        TableComponent.prototype.page;
+        /** @type {?} */
+        TableComponent.prototype.trackingProp;
+        /** @type {?} */
+        TableComponent.prototype.emptyMessage;
+        /** @type {?} */
+        TableComponent.prototype.pageChange;
+        /** @type {?} */
+        TableComponent.prototype.wrapperRef;
+        /** @type {?} */
+        TableComponent.prototype.trackByFn;
+    }
+
+    /**
+     * @fileoverview added by tsickle
      * Generated from: lib/components/toast/toast.component.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
@@ -1763,7 +1907,7 @@
      * Generated from: lib/constants/styles.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
-    var styles = "\n.is-invalid .form-control {\n  border-color: #dc3545;\n  border-style: solid !important;\n}\n\n.is-invalid .invalid-feedback,\n.is-invalid + * .invalid-feedback {\n  display: block;\n}\n\n.data-tables-filter {\n  text-align: right;\n}\n\n.pointer {\n  cursor: pointer;\n}\n\n.navbar .dropdown-submenu a::after {\n  transform: rotate(-90deg);\n  position: absolute;\n  right: 16px;\n  top: 18px;\n}\n\n.navbar .dropdown-menu {\n  min-width: 215px;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar {\n  height: 5px !important;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.modal.show {\n  display: block !important;\n}\n\n.modal-backdrop {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: calc(100% - 7px);\n  height: 100%;\n  background-color: rgba(0, 0, 0, 0.6);\n  z-index: 1040;\n}\n\n.modal::-webkit-scrollbar {\n  width: 7px;\n}\n\n.modal::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.modal::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.modal-dialog {\n  z-index: 1050;\n}\n\n.abp-ellipsis-inline {\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-ellipsis {\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-toast .ui-toast-message {\n  box-sizing: border-box;\n  border: 2px solid transparent;\n  border-radius: 4px;\n  color: #1b1d29;\n}\n\n.abp-toast .ui-toast-message-content {\n  padding: 10px;\n}\n\n.abp-toast .ui-toast-message-content .ui-toast-icon {\n  top: 0;\n  left: 0;\n  padding: 10px;\n}\n\n.abp-toast .ui-toast-summary {\n  margin: 0;\n  font-weight: 700;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-error {\n  border: 2px solid #ba1659;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-error .ui-toast-message-content .ui-toast-icon {\n  color: #ba1659;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-warn {\n  border: 2px solid #ed5d98;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-warn .ui-toast-message-content .ui-toast-icon {\n  color: #ed5d98;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-success {\n  border: 2px solid #1c9174;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-success .ui-toast-message-content .ui-toast-icon {\n  color: #1c9174;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-info {\n  border: 2px solid #fccb31;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-info .ui-toast-message-content .ui-toast-icon {\n  color: #fccb31;\n}\n\n.abp-confirm .ui-toast-message {\n  box-sizing: border-box;\n  padding: 0px;\n  border:0 none;\n  border-radius: 4px;\n  background-color: transparent !important;\n  font-family: \"Poppins\", sans-serif;\n  text-align: center;\n}\n\n.abp-confirm .ui-toast-message-content {\n  padding: 0px;\n}\n\n.abp-confirm .abp-confirm-icon {\n  margin: 32px 50px 5px !important;\n  color: #f8bb86 !important;\n  font-size: 52px !important;\n}\n\n.abp-confirm .ui-toast-close-icon {\n  display: none !important;\n}\n\n.abp-confirm .abp-confirm-summary {\n  display: block !important;\n  margin-bottom: 13px !important;\n  padding: 13px 16px 0px !important;\n  font-weight: 600 !important;\n  font-size: 18px !important;\n}\n\n.abp-confirm .abp-confirm-body {\n  display: inline-block !important;\n  padding: 0px 10px !important;\n}\n\n.abp-confirm .abp-confirm-footer {\n  display: block;\n  margin-top: 30px;\n  padding: 16px;\n  text-align: right;\n}\n\n.abp-confirm .abp-confirm-footer .btn {\n  margin-left: 10px !important;\n}\n\n.ui-widget-overlay {\n  z-index: 1000;\n}\n\n.color-white {\n  color: #FFF !important;\n}\n\n.custom-checkbox > label {\n  cursor: pointer;\n}\n\n/* <animations */\n\n.fade-in-top {\n  animation: fadeInTop 0.2s ease-in-out;\n}\n\n.fade-out-top {\n  animation: fadeOutTop 0.2s ease-in-out;\n}\n\n.abp-collapsed-height {\n  -moz-transition: max-height linear 0.35s;\n  -ms-transition: max-height linear 0.35s;\n  -o-transition: max-height linear 0.35s;\n  -webkit-transition: max-height linear 0.35s;\n  overflow:hidden;\n  transition:max-height 0.35s linear;\n  height:auto;\n  max-height: 0;\n}\n\n.abp-mh-25 {\n  max-height: 25vh;\n}\n\n.abp-mh-50 {\n  transition:max-height 0.65s linear;\n  max-height: 50vh;\n}\n\n.abp-mh-75 {\n  transition:max-height 0.85s linear;\n  max-height: 75vh;\n}\n\n.abp-mh-100 {\n  transition:max-height 1s linear;\n  max-height: 100vh;\n}\n\n[class^=\"sorting\"] {\n  opacity: .3;\n  cursor: pointer;\n}\n[class^=\"sorting\"]:before {\n  right: 0.5rem;\n  content: \"\u2191\";\n}\n[class^=\"sorting\"]:after {\n  right: 0.5rem;\n  content: \"\u2193\";\n}\n\n.sorting_desc {\n  opacity: 1;\n}\n.sorting_desc:before {\n  opacity: .3;\n}\n\n.sorting_asc {\n  opacity: 1;\n}\n.sorting_asc:after {\n  opacity: .3;\n}\n\n@keyframes fadeInTop {\n  from {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n\n  to {\n    transform: translateY(0px);\n    opacity: 1;\n  }\n}\n\n@keyframes fadeOutTop {\n  to {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n}\n\n/* </animations */\n\n";
+    var styles = "\n.is-invalid .form-control {\n  border-color: #dc3545;\n  border-style: solid !important;\n}\n\n.is-invalid .invalid-feedback,\n.is-invalid + * .invalid-feedback {\n  display: block;\n}\n\n.data-tables-filter {\n  text-align: right;\n}\n\n.pointer {\n  cursor: pointer;\n}\n\n.navbar .dropdown-submenu a::after {\n  transform: rotate(-90deg);\n  position: absolute;\n  right: 16px;\n  top: 18px;\n}\n\n.navbar .dropdown-menu {\n  min-width: 215px;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar {\n  height: 5px !important;\n  width: 5px !important;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.modal.show {\n  display: block !important;\n}\n\n.modal-backdrop {\n  background-color: rgba(0, 0, 0, 0.6);\n}\n\n.modal::-webkit-scrollbar {\n  width: 7px;\n}\n\n.modal::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.modal::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.modal-dialog {\n  z-index: 1050;\n}\n\n.abp-ellipsis-inline {\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-ellipsis {\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-toast .ui-toast-message {\n  box-sizing: border-box;\n  border: 2px solid transparent;\n  border-radius: 4px;\n  color: #1b1d29;\n}\n\n.abp-toast .ui-toast-message-content {\n  padding: 10px;\n}\n\n.abp-toast .ui-toast-message-content .ui-toast-icon {\n  top: 0;\n  left: 0;\n  padding: 10px;\n}\n\n.abp-toast .ui-toast-summary {\n  margin: 0;\n  font-weight: 700;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-error {\n  border: 2px solid #ba1659;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-error .ui-toast-message-content .ui-toast-icon {\n  color: #ba1659;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-warn {\n  border: 2px solid #ed5d98;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-warn .ui-toast-message-content .ui-toast-icon {\n  color: #ed5d98;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-success {\n  border: 2px solid #1c9174;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-success .ui-toast-message-content .ui-toast-icon {\n  color: #1c9174;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-info {\n  border: 2px solid #fccb31;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-info .ui-toast-message-content .ui-toast-icon {\n  color: #fccb31;\n}\n\n.abp-confirm .ui-toast-message {\n  box-sizing: border-box;\n  padding: 0px;\n  border:0 none;\n  border-radius: 4px;\n  background-color: transparent !important;\n  font-family: \"Poppins\", sans-serif;\n  text-align: center;\n}\n\n.abp-confirm .ui-toast-message-content {\n  padding: 0px;\n}\n\n.abp-confirm .abp-confirm-icon {\n  margin: 32px 50px 5px !important;\n  color: #f8bb86 !important;\n  font-size: 52px !important;\n}\n\n.abp-confirm .ui-toast-close-icon {\n  display: none !important;\n}\n\n.abp-confirm .abp-confirm-summary {\n  display: block !important;\n  margin-bottom: 13px !important;\n  padding: 13px 16px 0px !important;\n  font-weight: 600 !important;\n  font-size: 18px !important;\n}\n\n.abp-confirm .abp-confirm-body {\n  display: inline-block !important;\n  padding: 0px 10px !important;\n}\n\n.abp-confirm .abp-confirm-footer {\n  display: block;\n  margin-top: 30px;\n  padding: 16px;\n  text-align: right;\n}\n\n.abp-confirm .abp-confirm-footer .btn {\n  margin-left: 10px !important;\n}\n\n.ui-widget-overlay {\n  z-index: 1000;\n}\n\n.color-white {\n  color: #FFF !important;\n}\n\n.custom-checkbox > label {\n  cursor: pointer;\n}\n\n/* <animations */\n\n.fade-in-top {\n  animation: fadeInTop 0.2s ease-in-out;\n}\n\n.fade-out-top {\n  animation: fadeOutTop 0.2s ease-in-out;\n}\n\n.abp-collapsed-height {\n  -moz-transition: max-height linear 0.35s;\n  -ms-transition: max-height linear 0.35s;\n  -o-transition: max-height linear 0.35s;\n  -webkit-transition: max-height linear 0.35s;\n  overflow:hidden;\n  transition:max-height 0.35s linear;\n  height:auto;\n  max-height: 0;\n}\n\n.abp-mh-25 {\n  max-height: 25vh;\n}\n\n.abp-mh-50 {\n  transition:max-height 0.65s linear;\n  max-height: 50vh;\n}\n\n.abp-mh-75 {\n  transition:max-height 0.85s linear;\n  max-height: 75vh;\n}\n\n.abp-mh-100 {\n  transition:max-height 1s linear;\n  max-height: 100vh;\n}\n\n[class^=\"sorting\"] {\n  opacity: .3;\n  cursor: pointer;\n}\n[class^=\"sorting\"]:before {\n  right: 0.5rem;\n  content: \"\u2191\";\n}\n[class^=\"sorting\"]:after {\n  right: 0.5rem;\n  content: \"\u2193\";\n}\n\n.sorting_desc {\n  opacity: 1;\n}\n.sorting_desc:before {\n  opacity: .3;\n}\n\n.sorting_asc {\n  opacity: 1;\n}\n.sorting_asc:after {\n  opacity: .3;\n}\n\n@keyframes fadeInTop {\n  from {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n\n  to {\n    transform: translateY(0px);\n    opacity: 1;\n  }\n}\n\n@keyframes fadeOutTop {\n  to {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n}\n\n/* </animations */\n\n";
 
     /**
      * @fileoverview added by tsickle
@@ -1781,11 +1925,30 @@
         TableSortOptions.prototype.order;
     }
     var TableSortDirective = /** @class */ (function () {
-        function TableSortDirective(table, sortPipe) {
-            this.table = table;
+        function TableSortDirective(abpTable, sortPipe, cdRef) {
+            this.abpTable = abpTable;
             this.sortPipe = sortPipe;
+            this.cdRef = cdRef;
             this.value = [];
         }
+        Object.defineProperty(TableSortDirective.prototype, "table", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                var _this = this;
+                return (this.abpTable || snq((/**
+                 * @return {?}
+                 */
+                function () { return _this.cdRef['_view'].component; })) || snq((/**
+                 * @return {?}
+                 */
+                function () { return _this.cdRef['context']; })) // 'context' for ivy
+                );
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * @param {?} __0
          * @return {?}
@@ -1796,7 +1959,7 @@
          */
         function (_a) {
             var value = _a.value, abpTableSort = _a.abpTableSort;
-            if (value || abpTableSort) {
+            if (this.table && (value || abpTableSort)) {
                 this.abpTableSort = this.abpTableSort || ((/** @type {?} */ ({})));
                 this.table.value = this.sortPipe.transform(clone(this.value), this.abpTableSort.order, this.abpTableSort.key);
             }
@@ -1809,8 +1972,9 @@
         ];
         /** @nocollapse */
         TableSortDirective.ctorParameters = function () { return [
-            { type: table.Table, decorators: [{ type: core.Optional }, { type: core.Self }] },
-            { type: ng_core.SortPipe }
+            { type: TableComponent, decorators: [{ type: core.Host }, { type: core.Optional }, { type: core.Self }] },
+            { type: ng_core.SortPipe },
+            { type: core.ChangeDetectorRef }
         ]; };
         TableSortDirective.propDecorators = {
             abpTableSort: [{ type: core.Input }],
@@ -1827,12 +1991,17 @@
          * @type {?}
          * @private
          */
-        TableSortDirective.prototype.table;
+        TableSortDirective.prototype.abpTable;
         /**
          * @type {?}
          * @private
          */
         TableSortDirective.prototype.sortPipe;
+        /**
+         * @type {?}
+         * @private
+         */
+        TableSortDirective.prototype.cdRef;
     }
 
     /**
@@ -2291,6 +2460,280 @@
 
     /**
      * @fileoverview added by tsickle
+     * Generated from: lib/components/pagination/pagination.component.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var PaginationComponent = /** @class */ (function () {
+        function PaginationComponent() {
+            this._value = 1;
+            this.valueChange = new core.EventEmitter();
+            this.totalPages = 0;
+            this.trackByFn = (/**
+             * @param {?} _
+             * @param {?} page
+             * @return {?}
+             */
+            function (_, page) { return page; });
+        }
+        Object.defineProperty(PaginationComponent.prototype, "value", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._value;
+            },
+            set: /**
+             * @param {?} newValue
+             * @return {?}
+             */
+            function (newValue) {
+                if (this._value === newValue)
+                    return;
+                this._value = newValue;
+                this.valueChange.emit(newValue);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PaginationComponent.prototype, "pageArray", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                var _this = this;
+                /** @type {?} */
+                var count = this.totalPages < 5 ? this.totalPages : 5;
+                if (this.value === 1 || this.value === 2) {
+                    return Array.from(new Array(count)).map((/**
+                     * @param {?} _
+                     * @param {?} index
+                     * @return {?}
+                     */
+                    function (_, index) { return index + 1; }));
+                }
+                else if (this.value === this.totalPages || this.value === this.totalPages - 1) {
+                    return Array.from(new Array(count)).map((/**
+                     * @param {?} _
+                     * @param {?} index
+                     * @return {?}
+                     */
+                    function (_, index) { return _this.totalPages - count + 1 + index; }));
+                }
+                else {
+                    return [this.value - 2, this.value - 1, this.value, this.value + 1, this.value + 2];
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        PaginationComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+            if (!this.value || this.value < 1 || this.value > this.totalPages) {
+                this.value = 1;
+            }
+        };
+        /**
+         * @param {?} page
+         * @return {?}
+         */
+        PaginationComponent.prototype.changePage = /**
+         * @param {?} page
+         * @return {?}
+         */
+        function (page) {
+            if (page < 1)
+                return;
+            else if (page > this.totalPages)
+                return;
+            this.value = page;
+        };
+        PaginationComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'abp-pagination',
+                        template: "<div\r\n  class=\"ui-paginator-bottom ui-paginator ui-widget ui-widget-header ui-unselectable-text ui-helper-clearfix\"\r\n>\r\n  <a\r\n    class=\"ui-paginator-first ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === 1\"\r\n    tabindex=\"-1\"\r\n    (click)=\"changePage(1)\"\r\n    ><span class=\"ui-paginator-icon pi pi-step-backward\"></span></a\r\n  ><a\r\n    class=\"ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === 1\"\r\n    tabindex=\"-1\"\r\n    (click)=\"changePage(value - 1)\"\r\n    ><span class=\"ui-paginator-icon pi pi-caret-left\"></span></a\r\n  ><span class=\"ui-paginator-pages\"\r\n    ><a\r\n      *ngFor=\"let page of pageArray; trackBy: trackByFn\"\r\n      (click)=\"changePage(page)\"\r\n      class=\"ui-paginator-page ui-paginator-element ui-state-default ui-corner-all\"\r\n      [class.ui-state-active]=\"page === value\"\r\n      tabindex=\"0\"\r\n      >{{ page }}</a\r\n    ></span\r\n  ><a\r\n    class=\"ui-paginator-next ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === totalPages\"\r\n    tabindex=\"0\"\r\n    (click)=\"changePage(value + 1)\"\r\n    ><span class=\"ui-paginator-icon pi pi-caret-right\"></span></a\r\n  ><a\r\n    class=\"ui-paginator-last ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === totalPages\"\r\n    tabindex=\"0\"\r\n    (click)=\"changePage(totalPages)\"\r\n    ><span class=\"ui-paginator-icon pi pi-step-forward\"></span\r\n  ></a>\r\n</div>\r\n"
+                    }] }
+        ];
+        PaginationComponent.propDecorators = {
+            value: [{ type: core.Input }],
+            valueChange: [{ type: core.Output }],
+            totalPages: [{ type: core.Input }]
+        };
+        return PaginationComponent;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        PaginationComponent.prototype._value;
+        /** @type {?} */
+        PaginationComponent.prototype.valueChange;
+        /** @type {?} */
+        PaginationComponent.prototype.totalPages;
+        /** @type {?} */
+        PaginationComponent.prototype.trackByFn;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/components/loading/loading.component.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var LoadingComponent = /** @class */ (function () {
+        function LoadingComponent() {
+        }
+        /**
+         * @return {?}
+         */
+        LoadingComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () { };
+        LoadingComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'abp-loading',
+                        template: "\n    <div class=\"abp-loading\">\n      <i class=\"fa fa-spinner fa-pulse abp-spinner\"></i>\n    </div>\n  ",
+                        styles: ["\n      .abp-loading {\n        background: rgba(0, 0, 0, 0.2);\n        position: absolute;\n        width: 100%;\n        height: 100%;\n        top: 0;\n        left: 0;\n        z-index: 1040;\n      }\n\n      .abp-loading .abp-spinner {\n        position: absolute;\n        top: 50%;\n        left: 50%;\n        -moz-transform: translateX(-50%) translateY(-50%);\n        -o-transform: translateX(-50%) translateY(-50%);\n        -ms-transform: translateX(-50%) translateY(-50%);\n        -webkit-transform: translateX(-50%) translateY(-50%);\n        transform: translateX(-50%) translateY(-50%);\n      }\n    "]
+                    }] }
+        ];
+        /** @nocollapse */
+        LoadingComponent.ctorParameters = function () { return []; };
+        return LoadingComponent;
+    }());
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/directives/loading.directive.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var LoadingDirective = /** @class */ (function () {
+        function LoadingDirective(elRef, vcRef, cdRes, injector, renderer) {
+            this.elRef = elRef;
+            this.vcRef = vcRef;
+            this.cdRes = cdRes;
+            this.injector = injector;
+            this.renderer = renderer;
+            this.position = 'relative';
+        }
+        Object.defineProperty(LoadingDirective.prototype, "loading", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._loading;
+            },
+            set: /**
+             * @param {?} newValue
+             * @return {?}
+             */
+            function (newValue) {
+                var _this = this;
+                setTimeout((/**
+                 * @return {?}
+                 */
+                function () {
+                    if (!_this.componentRef) {
+                        _this.componentRef = _this.cdRes
+                            .resolveComponentFactory(LoadingComponent)
+                            .create(_this.injector);
+                    }
+                    if (newValue && !_this.rootNode) {
+                        _this.rootNode = ((/** @type {?} */ (_this.componentRef.hostView))).rootNodes[0];
+                        _this.targetElement.appendChild(_this.rootNode);
+                    }
+                    else {
+                        _this.renderer.removeChild(_this.rootNode.parentElement, _this.rootNode);
+                        _this.rootNode = null;
+                    }
+                    _this._loading = newValue;
+                }), 0);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @return {?}
+         */
+        LoadingDirective.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+            if (!this.targetElement) {
+                var _a = this.elRef.nativeElement, offsetHeight = _a.offsetHeight, offsetWidth = _a.offsetWidth;
+                if (!offsetHeight && !offsetWidth && this.elRef.nativeElement.children.length) {
+                    this.targetElement = (/** @type {?} */ (this.elRef.nativeElement.children[0]));
+                }
+                else {
+                    this.targetElement = this.elRef.nativeElement;
+                }
+            }
+        };
+        LoadingDirective.decorators = [
+            { type: core.Directive, args: [{ selector: '[abpLoading]' },] }
+        ];
+        /** @nocollapse */
+        LoadingDirective.ctorParameters = function () { return [
+            { type: core.ElementRef },
+            { type: core.ViewContainerRef },
+            { type: core.ComponentFactoryResolver },
+            { type: core.Injector },
+            { type: core.Renderer2 }
+        ]; };
+        LoadingDirective.propDecorators = {
+            position: [{ type: core.HostBinding, args: ['style.position',] }],
+            loading: [{ type: core.Input, args: ['abpLoading',] }],
+            targetElement: [{ type: core.Input, args: ['abpLoadingTargetElement',] }]
+        };
+        return LoadingDirective;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingDirective.prototype._loading;
+        /** @type {?} */
+        LoadingDirective.prototype.position;
+        /** @type {?} */
+        LoadingDirective.prototype.targetElement;
+        /** @type {?} */
+        LoadingDirective.prototype.componentRef;
+        /** @type {?} */
+        LoadingDirective.prototype.rootNode;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingDirective.prototype.elRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingDirective.prototype.vcRef;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingDirective.prototype.cdRes;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingDirective.prototype.injector;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoadingDirective.prototype.renderer;
+    }
+
+    /**
+     * @fileoverview added by tsickle
      * Generated from: lib/theme-shared.module.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
@@ -2358,10 +2801,14 @@
                             ConfirmationComponent,
                             HttpErrorWrapperComponent,
                             LoaderBarComponent,
+                            LoadingComponent,
                             ModalComponent,
+                            PaginationComponent,
+                            TableComponent,
                             TableEmptyMessageComponent,
                             ToastComponent,
                             SortOrderIconComponent,
+                            LoadingDirective,
                             TableSortDirective,
                         ],
                         exports: [
@@ -2370,14 +2817,18 @@
                             ChartComponent,
                             ConfirmationComponent,
                             LoaderBarComponent,
+                            LoadingComponent,
                             ModalComponent,
+                            PaginationComponent,
+                            TableComponent,
                             TableEmptyMessageComponent,
                             ToastComponent,
                             SortOrderIconComponent,
+                            LoadingDirective,
                             TableSortDirective,
                         ],
                         providers: [common.DatePipe],
-                        entryComponents: [HttpErrorWrapperComponent],
+                        entryComponents: [HttpErrorWrapperComponent, LoadingComponent],
                     },] }
         ];
         /** @nocollapse */
@@ -2711,8 +3162,12 @@
     exports.ConfirmationService = ConfirmationService;
     exports.DateParserFormatter = DateParserFormatter;
     exports.LoaderBarComponent = LoaderBarComponent;
+    exports.LoadingComponent = LoadingComponent;
+    exports.LoadingDirective = LoadingDirective;
     exports.ModalComponent = ModalComponent;
+    exports.PaginationComponent = PaginationComponent;
     exports.SortOrderIconComponent = SortOrderIconComponent;
+    exports.TableComponent = TableComponent;
     exports.TableEmptyMessageComponent = TableEmptyMessageComponent;
     exports.TableSortDirective = TableSortDirective;
     exports.ThemeSharedModule = ThemeSharedModule;
@@ -2754,18 +3209,22 @@
     exports.ɵf = AbstractToaster;
     exports.ɵg = HttpErrorWrapperComponent;
     exports.ɵh = LoaderBarComponent;
-    exports.ɵi = ModalComponent;
-    exports.ɵj = fadeAnimation;
-    exports.ɵk = fadeIn;
-    exports.ɵl = fadeOut;
-    exports.ɵm = TableEmptyMessageComponent;
-    exports.ɵn = ToastComponent;
-    exports.ɵo = SortOrderIconComponent;
-    exports.ɵp = TableSortDirective;
-    exports.ɵq = ErrorHandler;
-    exports.ɵs = httpErrorConfigFactory;
-    exports.ɵt = HTTP_ERROR_CONFIG;
-    exports.ɵu = DateParserFormatter;
+    exports.ɵi = LoadingComponent;
+    exports.ɵj = ModalComponent;
+    exports.ɵk = fadeAnimation;
+    exports.ɵl = fadeIn;
+    exports.ɵm = fadeOut;
+    exports.ɵn = PaginationComponent;
+    exports.ɵo = TableComponent;
+    exports.ɵp = TableEmptyMessageComponent;
+    exports.ɵq = ToastComponent;
+    exports.ɵr = SortOrderIconComponent;
+    exports.ɵs = LoadingDirective;
+    exports.ɵt = TableSortDirective;
+    exports.ɵu = ErrorHandler;
+    exports.ɵw = httpErrorConfigFactory;
+    exports.ɵx = HTTP_ERROR_CONFIG;
+    exports.ɵy = DateParserFormatter;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
