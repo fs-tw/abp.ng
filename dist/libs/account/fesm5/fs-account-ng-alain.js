@@ -1,8 +1,7 @@
 import { AccountModule } from '@fs/account';
-import { AuthGuard, CoreModule } from '@abp/ng.core';
-import { Component, Optional, Inject, NgModule, Input } from '@angular/core';
-import { LayoutDefaultComponent, LayoutPassportComponent, NgAlainBasicModule } from '@fs/ng-alain/basic';
-import { RouterModule } from '@angular/router';
+import { PatchRouteByName, AddReplaceableComponent, CoreModule } from '@abp/ng.core';
+import { Component, Optional, Inject, Input, NgModule } from '@angular/core';
+import { NgAlainBasicModule } from '@fs/ng-alain/basic';
 import { __extends } from 'tslib';
 import { LoginComponent, AccountService, RegisterComponent, PersonalSettingsComponent as PersonalSettingsComponent$1, ChangePasswordComponent as ChangePasswordComponent$1, TenantBoxComponent as TenantBoxComponent$1 } from '@abp/ng.account';
 import { ToasterService, fadeIn } from '@abp/ng.theme.shared';
@@ -126,46 +125,6 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/account-ng-alain-routing.module.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-var routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'login' },
-    {
-        path: '',
-        component: LayoutDefaultComponent,
-        children: [
-            {
-                canActivate: [AuthGuard],
-                path: 'manage-profile',
-                component: ManageProfileComponent,
-            }
-        ],
-    },
-    {
-        path: '',
-        component: LayoutPassportComponent,
-        children: [
-            { path: 'login', component: UserLoginComponent },
-            { path: 'register', component: UserRegisterComponent },
-        ],
-    },
-];
-var AccountNgAlainRoutingModule = /** @class */ (function () {
-    function AccountNgAlainRoutingModule() {
-    }
-    AccountNgAlainRoutingModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [RouterModule.forChild(routes)],
-                    exports: [RouterModule],
-                },] }
-    ];
-    return AccountNgAlainRoutingModule;
-}());
-
-/**
- * @fileoverview added by tsickle
  * Generated from: lib/components/personal-settings/personal-settings.component.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -269,7 +228,7 @@ var AuthWrapperComponent = /** @class */ (function () {
     AuthWrapperComponent.decorators = [
         { type: Component, args: [{
                     selector: 'ng-alain-auth-wrapper',
-                    template: "<ng-alain-tenant-box [mainContentRef]=\"mainContentRef\">\r\n\r\n</ng-alain-tenant-box>\r\n\r\n<ng-content *ngTemplateOutlet=\"cancelContentRef\"></ng-content>\r\n"
+                    template: "<ng-alain-tenant-box [mainContentRef]=\"mainContentRef\">\r\n\r\n</ng-alain-tenant-box>\r\n\r\n<ng-content *ngTemplateOutlet=\"cancelContentRef\"></ng-content>"
                 }] }
     ];
     AuthWrapperComponent.propDecorators = {
@@ -342,7 +301,13 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var AccountNgAlainModule = /** @class */ (function () {
-    function AccountNgAlainModule() {
+    function AccountNgAlainModule(store) {
+        this.store = store;
+        store.dispatch(new PatchRouteByName('AbpAccount::Menu:Account', { layout: "account" /* account */ }));
+        store.dispatch(new PatchRouteByName('AbpAccount::ManageYourProfile', { layout: "application" /* application */ }));
+        store.dispatch(new AddReplaceableComponent({ component: UserLoginComponent, key: 'Account.LoginComponent' }));
+        store.dispatch(new AddReplaceableComponent({ component: UserRegisterComponent, key: 'Account.RegisterComponent' }));
+        store.dispatch(new AddReplaceableComponent({ component: ManageProfileComponent, key: 'Account.ManageProfileComponent' }));
     }
     AccountNgAlainModule.decorators = [
         { type: NgModule, args: [{
@@ -355,16 +320,31 @@ var AccountNgAlainModule = /** @class */ (function () {
                         PersonalSettingsComponent,
                         ChangePasswordComponent
                     ],
+                    entryComponents: [
+                        UserLoginComponent,
+                        UserRegisterComponent,
+                        ManageProfileComponent
+                    ],
                     imports: [
                         CoreModule,
                         NgAlainBasicModule,
-                        AccountNgAlainRoutingModule,
                         AccountModule
                     ]
                 },] }
     ];
+    /** @nocollapse */
+    AccountNgAlainModule.ctorParameters = function () { return [
+        { type: Store }
+    ]; };
     return AccountNgAlainModule;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    AccountNgAlainModule.prototype.store;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -378,5 +358,5 @@ var AccountNgAlainModule = /** @class */ (function () {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AccountNgAlainModule, AuthWrapperComponent as ɵa, TenantBoxComponent as ɵb, UserLoginComponent as ɵc, UserRegisterComponent as ɵd, ManageProfileComponent as ɵe, PersonalSettingsComponent as ɵf, ChangePasswordComponent as ɵg, AccountNgAlainRoutingModule as ɵh };
+export { AccountNgAlainModule, AuthWrapperComponent as ɵa, TenantBoxComponent as ɵb, UserLoginComponent as ɵc, UserRegisterComponent as ɵd, ManageProfileComponent as ɵe, PersonalSettingsComponent as ɵf, ChangePasswordComponent as ɵg };
 //# sourceMappingURL=fs-account-ng-alain.js.map

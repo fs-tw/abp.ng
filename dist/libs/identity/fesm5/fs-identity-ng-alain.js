@@ -1,8 +1,7 @@
 import { IdentityModule } from '@fs/identity';
-import { AuthGuard, PermissionGuard, CoreModule } from '@abp/ng.core';
+import { AddReplaceableComponent, CoreModule } from '@abp/ng.core';
 import { Component, NgModule } from '@angular/core';
-import { LayoutDefaultComponent, NgAlainBasicModule } from '@fs/ng-alain/basic';
-import { RouterModule } from '@angular/router';
+import { NgAlainBasicModule } from '@fs/ng-alain/basic';
 import { __extends } from 'tslib';
 import { UsersComponent as UsersComponent$1, RolesComponent as RolesComponent$1 } from '@abp/ng.identity';
 import { ConfirmationService } from '@abp/ng.theme.shared';
@@ -104,65 +103,40 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/identity-ng-alain-routing.module.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-var ɵ0 = { requiredPolicy: 'AbpIdentity.Roles' }, ɵ1 = { requiredPolicy: 'AbpIdentity.Users' };
-/** @type {?} */
-var routes = [
-    { path: '', redirectTo: 'roles', pathMatch: 'full' },
-    {
-        path: '',
-        component: LayoutDefaultComponent,
-        canActivate: [AuthGuard, PermissionGuard],
-        children: [
-            {
-                path: 'roles',
-                component: RolesComponent,
-                data: ɵ0,
-            },
-            {
-                path: 'users',
-                component: UsersComponent,
-                data: ɵ1,
-            },
-        ],
-    },
-];
-var IdentityNgAlainRoutingModule = /** @class */ (function () {
-    function IdentityNgAlainRoutingModule() {
-    }
-    IdentityNgAlainRoutingModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [RouterModule.forChild(routes)],
-                    exports: [RouterModule],
-                },] }
-    ];
-    return IdentityNgAlainRoutingModule;
-}());
-
-/**
- * @fileoverview added by tsickle
  * Generated from: lib/identity-ng-alain.module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var IdentityNgAlainModule = /** @class */ (function () {
-    function IdentityNgAlainModule() {
+    function IdentityNgAlainModule(store) {
+        this.store = store;
+        store.dispatch(new AddReplaceableComponent({ component: UsersComponent, key: 'Identity.UsersComponent' }));
+        store.dispatch(new AddReplaceableComponent({ component: RolesComponent, key: 'Identity.RolesComponent' }));
     }
     IdentityNgAlainModule.decorators = [
         { type: NgModule, args: [{
                     declarations: [UsersComponent, RolesComponent],
+                    entryComponents: [UsersComponent, RolesComponent],
                     imports: [
                         CoreModule,
                         NgAlainBasicModule,
-                        IdentityNgAlainRoutingModule,
                         PermissionManagementNgAlainModule,
                         IdentityModule
                     ]
                 },] }
     ];
+    /** @nocollapse */
+    IdentityNgAlainModule.ctorParameters = function () { return [
+        { type: Store }
+    ]; };
     return IdentityNgAlainModule;
 }());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    IdentityNgAlainModule.prototype.store;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -182,5 +156,5 @@ var IdentityNgAlainModule = /** @class */ (function () {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { IdentityNgAlainModule, UsersComponent as ɵa, RolesComponent as ɵb, IdentityNgAlainRoutingModule as ɵc };
+export { IdentityNgAlainModule, UsersComponent as ɵa, RolesComponent as ɵb };
 //# sourceMappingURL=fs-identity-ng-alain.js.map
