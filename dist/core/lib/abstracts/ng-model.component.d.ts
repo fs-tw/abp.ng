@@ -1,13 +1,17 @@
 import { ControlValueAccessor } from '@angular/forms';
 import { ChangeDetectorRef, Injector } from '@angular/core';
-export declare class AbstractNgModelComponent<T = any> implements ControlValueAccessor {
+export declare class AbstractNgModelComponent<T = any, U = T> implements ControlValueAccessor {
     injector: Injector;
-    disabled: boolean;
-    value: T;
-    onChange: (value: T) => {};
-    onTouched: () => {};
     protected _value: T;
     protected cdRef: ChangeDetectorRef;
+    onChange: (value: T) => {};
+    onTouched: () => {};
+    disabled: boolean;
+    readonly: boolean;
+    valueFn: (value: U, previousValue?: T) => T;
+    valueLimitFn: (value: T, previousValue?: T) => any;
+    value: T;
+    readonly defaultValue: T;
     constructor(injector: Injector);
     notifyValueChange(): void;
     writeValue(value: T): void;

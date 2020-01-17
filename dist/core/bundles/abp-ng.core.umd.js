@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/router'), require('@ngxs/store'), require('rxjs'), require('snq'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/common'), require('just-compare'), require('just-clone'), require('@angular/forms'), require('angular-oauth2-oidc'), require('@ngxs/router-plugin'), require('@ngxs/storage-plugin'), require('@ngx-validate/core')) :
-    typeof define === 'function' && define.amd ? define('@abp/ng.core', ['exports', '@angular/core', '@angular/router', '@ngxs/store', 'rxjs', 'snq', 'rxjs/operators', '@angular/common/http', '@angular/common', 'just-compare', 'just-clone', '@angular/forms', 'angular-oauth2-oidc', '@ngxs/router-plugin', '@ngxs/storage-plugin', '@ngx-validate/core'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.core = {}), global.ng.core, global.ng.router, global.store, global.rxjs, global.snq, global.rxjs.operators, global.ng.common.http, global.ng.common, global.compare, global.clone, global.ng.forms, global.angularOauth2Oidc, global.routerPlugin, global.storagePlugin, global.core$1));
-}(this, (function (exports, core, router, store, rxjs, snq, operators, http, common, compare, clone, forms, angularOauth2Oidc, routerPlugin, storagePlugin, core$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/router'), require('@ngxs/store'), require('rxjs'), require('snq'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/common'), require('angular-oauth2-oidc'), require('just-compare'), require('just-clone'), require('@angular/forms'), require('@ngxs/router-plugin'), require('@ngxs/storage-plugin'), require('@ngx-validate/core')) :
+    typeof define === 'function' && define.amd ? define('@abp/ng.core', ['exports', '@angular/core', '@angular/router', '@ngxs/store', 'rxjs', 'snq', 'rxjs/operators', '@angular/common/http', '@angular/common', 'angular-oauth2-oidc', 'just-compare', 'just-clone', '@angular/forms', '@ngxs/router-plugin', '@ngxs/storage-plugin', '@ngx-validate/core'], factory) :
+    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.core = {}), global.ng.core, global.ng.router, global.store, global.rxjs, global.snq, global.rxjs.operators, global.ng.common.http, global.ng.common, global.angularOauth2Oidc, global.compare, global.clone, global.ng.forms, global.routerPlugin, global.storagePlugin, global.core$1));
+}(this, (function (exports, core, router, store, rxjs, snq, operators, http, common, angularOauth2Oidc, compare, clone, forms, routerPlugin, storagePlugin, core$1) { 'use strict';
 
     snq = snq && snq.hasOwnProperty('default') ? snq['default'] : snq;
     compare = compare && compare.hasOwnProperty('default') ? compare['default'] : compare;
@@ -210,28 +210,54 @@
      * Generated from: lib/abstracts/ng-model.component.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    // Not an abstract class on purpose. Do not change!
+    // tslint:disable-next-line: use-component-selector
     /**
-     * @template T
+     * @template T, U
      */
     var AbstractNgModelComponent = /** @class */ (function () {
         function AbstractNgModelComponent(injector) {
             this.injector = injector;
-            this.cdRef = injector.get((/** @type {?} */ (core.ChangeDetectorRef)));
+            this.valueFn = (/**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) { return (/** @type {?} */ (((/** @type {?} */ (value))))); });
+            this.valueLimitFn = (/**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) { return false; });
+            // tslint:disable-next-line: deprecation
+            this.cdRef = injector.get(core.ChangeDetectorRef);
         }
         Object.defineProperty(AbstractNgModelComponent.prototype, "value", {
             get: /**
              * @return {?}
              */
             function () {
-                return this._value;
+                return this._value || this.defaultValue;
             },
             set: /**
              * @param {?} value
              * @return {?}
              */
             function (value) {
+                value = this.valueFn((/** @type {?} */ (((/** @type {?} */ (value))))), this._value);
+                if (this.valueLimitFn(value, this._value) !== false || this.readonly)
+                    return;
                 this._value = value;
                 this.notifyValueChange();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(AbstractNgModelComponent.prototype, "defaultValue", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._value;
             },
             enumerable: true,
             configurable: true
@@ -257,11 +283,11 @@
          */
         function (value) {
             var _this = this;
-            this._value = value;
+            this._value = this.valueLimitFn(value, this._value) || value;
             setTimeout((/**
              * @return {?}
              */
-            function () { return _this.cdRef.detectChanges(); }), 0);
+            function () { return _this.cdRef.markForCheck(); }), 0);
         };
         /**
          * @param {?} fn
@@ -297,7 +323,7 @@
             this.disabled = isDisabled;
         };
         AbstractNgModelComponent.decorators = [
-            { type: core.Component, args: [{ selector: 'abp-abstract-ng-model', template: '' }] }
+            { type: core.Component, args: [{ template: '' }] }
         ];
         /** @nocollapse */
         AbstractNgModelComponent.ctorParameters = function () { return [
@@ -305,17 +331,14 @@
         ]; };
         AbstractNgModelComponent.propDecorators = {
             disabled: [{ type: core.Input }],
+            readonly: [{ type: core.Input }],
+            valueFn: [{ type: core.Input }],
+            valueLimitFn: [{ type: core.Input }],
             value: [{ type: core.Input }]
         };
         return AbstractNgModelComponent;
     }());
     if (false) {
-        /** @type {?} */
-        AbstractNgModelComponent.prototype.disabled;
-        /** @type {?} */
-        AbstractNgModelComponent.prototype.onChange;
-        /** @type {?} */
-        AbstractNgModelComponent.prototype.onTouched;
         /**
          * @type {?}
          * @protected
@@ -326,6 +349,18 @@
          * @protected
          */
         AbstractNgModelComponent.prototype.cdRef;
+        /** @type {?} */
+        AbstractNgModelComponent.prototype.onChange;
+        /** @type {?} */
+        AbstractNgModelComponent.prototype.onTouched;
+        /** @type {?} */
+        AbstractNgModelComponent.prototype.disabled;
+        /** @type {?} */
+        AbstractNgModelComponent.prototype.readonly;
+        /** @type {?} */
+        AbstractNgModelComponent.prototype.valueFn;
+        /** @type {?} */
+        AbstractNgModelComponent.prototype.valueLimitFn;
         /** @type {?} */
         AbstractNgModelComponent.prototype.injector;
     }
@@ -463,6 +498,9 @@
      * Generated from: lib/actions/replaceable-components.actions.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /**
+     * @see usage: https://github.com/abpframework/abp/pull/2522#issue-358333183
+     */
     var AddReplaceableComponent = /** @class */ (function () {
         function AddReplaceableComponent(payload) {
             this.payload = payload;
@@ -526,6 +564,32 @@
         SetTenant.type;
         /** @type {?} */
         SetTenant.prototype.payload;
+    }
+    var ModifyOpenedTabCount = /** @class */ (function () {
+        function ModifyOpenedTabCount(operation) {
+            this.operation = operation;
+        }
+        ModifyOpenedTabCount.type = '[Session] Modify Opened Tab Count';
+        return ModifyOpenedTabCount;
+    }());
+    if (false) {
+        /** @type {?} */
+        ModifyOpenedTabCount.type;
+        /** @type {?} */
+        ModifyOpenedTabCount.prototype.operation;
+    }
+    var SetRemember = /** @class */ (function () {
+        function SetRemember(payload) {
+            this.payload = payload;
+        }
+        SetRemember.type = '[Session] Set Remember';
+        return SetRemember;
+    }());
+    if (false) {
+        /** @type {?} */
+        SetRemember.type;
+        /** @type {?} */
+        SetRemember.prototype.payload;
     }
 
     /**
@@ -1043,9 +1107,40 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var SessionState = /** @class */ (function () {
-        function SessionState(localizationService) {
+        function SessionState(localizationService, oAuthService, store$1, actions) {
+            var _this = this;
             this.localizationService = localizationService;
+            this.oAuthService = oAuthService;
+            this.store = store$1;
+            this.actions = actions;
+            actions
+                .pipe(store.ofActionSuccessful(GetAppConfiguration))
+                .pipe(operators.take(1))
+                .subscribe((/**
+             * @return {?}
+             */
+            function () {
+                var sessionDetail = (_this.store.selectSnapshot(SessionState_1) || { sessionDetail: {} }).sessionDetail;
+                /** @type {?} */
+                var fiveMinutesBefore = new Date().valueOf() - 5 * 60 * 1000;
+                if (sessionDetail.lastExitTime &&
+                    sessionDetail.openedTabCount === 0 &&
+                    _this.oAuthService.hasValidAccessToken() &&
+                    sessionDetail.remember === false &&
+                    sessionDetail.lastExitTime < fiveMinutesBefore) {
+                    _this.oAuthService.logOut();
+                }
+                _this.store.dispatch(new ModifyOpenedTabCount('increase'));
+                rxjs.fromEvent(window, 'unload').subscribe((/**
+                 * @param {?} event
+                 * @return {?}
+                 */
+                function (event) {
+                    _this.store.dispatch(new ModifyOpenedTabCount('decrease'));
+                }));
+            }));
         }
+        SessionState_1 = SessionState;
         /**
          * @param {?} __0
          * @return {?}
@@ -1069,6 +1164,18 @@
         function (_a) {
             var tenant = _a.tenant;
             return tenant;
+        };
+        /**
+         * @param {?} __0
+         * @return {?}
+         */
+        SessionState.getSessionDetail = /**
+         * @param {?} __0
+         * @return {?}
+         */
+        function (_a) {
+            var sessionDetail = _a.sessionDetail;
+            return sessionDetail;
         };
         /**
          * @param {?} __0
@@ -1109,8 +1216,60 @@
                 tenant: payload,
             });
         };
+        /**
+         * @param {?} __0
+         * @param {?} __1
+         * @return {?}
+         */
+        SessionState.prototype.setRemember = /**
+         * @param {?} __0
+         * @param {?} __1
+         * @return {?}
+         */
+        function (_a, _b) {
+            var getState = _a.getState, patchState = _a.patchState;
+            var remember = _b.payload;
+            var sessionDetail = getState().sessionDetail;
+            patchState({
+                sessionDetail: __assign({}, sessionDetail, { remember: remember }),
+            });
+        };
+        /**
+         * @param {?} __0
+         * @param {?} __1
+         * @return {?}
+         */
+        SessionState.prototype.modifyOpenedTabCount = /**
+         * @param {?} __0
+         * @param {?} __1
+         * @return {?}
+         */
+        function (_a, _b) {
+            var getState = _a.getState, patchState = _a.patchState;
+            var operation = _b.operation;
+            // tslint:disable-next-line: prefer-const
+            var _c = getState().sessionDetail || ((/** @type {?} */ ({ openedTabCount: 0 }))), openedTabCount = _c.openedTabCount, lastExitTime = _c.lastExitTime, detail = __rest(_c, ["openedTabCount", "lastExitTime"]);
+            if (operation === 'increase') {
+                openedTabCount++;
+            }
+            else if (operation === 'decrease') {
+                openedTabCount--;
+                lastExitTime = new Date().valueOf();
+            }
+            if (!openedTabCount || openedTabCount < 0) {
+                openedTabCount = 0;
+            }
+            patchState({
+                sessionDetail: __assign({ openedTabCount: openedTabCount,
+                    lastExitTime: lastExitTime }, detail),
+            });
+        };
+        var SessionState_1;
         SessionState.ctorParameters = function () { return [
-            { type: LocalizationService }
+            { type: LocalizationService },
+            { type: angularOauth2Oidc.OAuthService },
+            { type: store.Store },
+            { type: store.Actions }
         ]; };
         __decorate([
             store.Action(SetLanguage),
@@ -1125,6 +1284,18 @@
             __metadata("design:returntype", void 0)
         ], SessionState.prototype, "setTenant", null);
         __decorate([
+            store.Action(SetRemember),
+            __metadata("design:type", Function),
+            __metadata("design:paramtypes", [Object, SetRemember]),
+            __metadata("design:returntype", void 0)
+        ], SessionState.prototype, "setRemember", null);
+        __decorate([
+            store.Action(ModifyOpenedTabCount),
+            __metadata("design:type", Function),
+            __metadata("design:paramtypes", [Object, ModifyOpenedTabCount]),
+            __metadata("design:returntype", void 0)
+        ], SessionState.prototype, "modifyOpenedTabCount", null);
+        __decorate([
             store.Selector(),
             __metadata("design:type", Function),
             __metadata("design:paramtypes", [Object]),
@@ -1136,12 +1307,21 @@
             __metadata("design:paramtypes", [Object]),
             __metadata("design:returntype", Object)
         ], SessionState, "getTenant", null);
-        SessionState = __decorate([
+        __decorate([
+            store.Selector(),
+            __metadata("design:type", Function),
+            __metadata("design:paramtypes", [Object]),
+            __metadata("design:returntype", Object)
+        ], SessionState, "getSessionDetail", null);
+        SessionState = SessionState_1 = __decorate([
             store.State({
                 name: 'SessionState',
-                defaults: (/** @type {?} */ ({})),
+                defaults: (/** @type {?} */ ({ sessionDetail: { openedTabCount: 0 } })),
             }),
-            __metadata("design:paramtypes", [LocalizationService])
+            __metadata("design:paramtypes", [LocalizationService,
+                angularOauth2Oidc.OAuthService,
+                store.Store,
+                store.Actions])
         ], SessionState);
         return SessionState;
     }());
@@ -1151,6 +1331,21 @@
          * @private
          */
         SessionState.prototype.localizationService;
+        /**
+         * @type {?}
+         * @private
+         */
+        SessionState.prototype.oAuthService;
+        /**
+         * @type {?}
+         * @private
+         */
+        SessionState.prototype.store;
+        /**
+         * @type {?}
+         * @private
+         */
+        SessionState.prototype.actions;
     }
 
     /**
@@ -1434,14 +1629,14 @@
             for (var _i = 1; _i < arguments.length; _i++) {
                 interpolateParams[_i - 1] = arguments[_i];
             }
+            if (!key)
+                key = '';
             /** @type {?} */
             var defaultValue;
             if (typeof key !== 'string') {
                 defaultValue = key.defaultValue;
                 key = key.key;
             }
-            if (!key)
-                key = '';
             /** @type {?} */
             var keys = (/** @type {?} */ (key.split('::')));
             /** @type {?} */
@@ -4180,6 +4375,21 @@
             State.prototype.language;
             /** @type {?} */
             State.prototype.tenant;
+            /** @type {?} */
+            State.prototype.sessionDetail;
+        }
+        /**
+         * @record
+         */
+        function SessionDetail() { }
+        Session.SessionDetail = SessionDetail;
+        if (false) {
+            /** @type {?} */
+            SessionDetail.prototype.openedTabCount;
+            /** @type {?} */
+            SessionDetail.prototype.lastExitTime;
+            /** @type {?} */
+            SessionDetail.prototype.remember;
         }
     })(Session || (Session = {}));
 
@@ -4523,6 +4733,91 @@
      * Generated from: lib/plugins/index.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/services/auth.service.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var AuthService = /** @class */ (function () {
+        function AuthService(rest, oAuthService, store, options) {
+            this.rest = rest;
+            this.oAuthService = oAuthService;
+            this.store = store;
+            this.options = options;
+        }
+        /**
+         * @param {?} username
+         * @param {?} password
+         * @return {?}
+         */
+        AuthService.prototype.login = /**
+         * @param {?} username
+         * @param {?} password
+         * @return {?}
+         */
+        function (username, password) {
+            var _this = this;
+            /** @type {?} */
+            var tenant = this.store.selectSnapshot(SessionState.getTenant);
+            this.oAuthService.configure(this.store.selectSnapshot(ConfigState.getOne('environment')).oAuthConfig);
+            return rxjs.from(this.oAuthService.loadDiscoveryDocument()).pipe(operators.switchMap((/**
+             * @return {?}
+             */
+            function () {
+                return rxjs.from(_this.oAuthService.fetchTokenUsingPasswordFlow(username, password, new http.HttpHeaders(__assign({}, (tenant && tenant.id && { __tenant: tenant.id })))));
+            })), operators.switchMap((/**
+             * @return {?}
+             */
+            function () { return _this.store.dispatch(new GetAppConfiguration()); })), operators.tap((/**
+             * @return {?}
+             */
+            function () {
+                /** @type {?} */
+                var redirectUrl = snq((/**
+                 * @return {?}
+                 */
+                function () { return window.history.state.redirectUrl; })) || (_this.options || {}).redirectUrl || '/';
+                _this.store.dispatch(new routerPlugin.Navigate([redirectUrl]));
+            })), operators.take(1));
+        };
+        AuthService.decorators = [
+            { type: core.Injectable, args: [{
+                        providedIn: 'root',
+                    },] }
+        ];
+        /** @nocollapse */
+        AuthService.ctorParameters = function () { return [
+            { type: RestService },
+            { type: angularOauth2Oidc.OAuthService },
+            { type: store.Store },
+            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: ['ACCOUNT_OPTIONS',] }] }
+        ]; };
+        /** @nocollapse */ AuthService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function AuthService_Factory() { return new AuthService(core.ɵɵinject(RestService), core.ɵɵinject(angularOauth2Oidc.OAuthService), core.ɵɵinject(store.Store), core.ɵɵinject("ACCOUNT_OPTIONS", 8)); }, token: AuthService, providedIn: "root" });
+        return AuthService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        AuthService.prototype.rest;
+        /**
+         * @type {?}
+         * @private
+         */
+        AuthService.prototype.oAuthService;
+        /**
+         * @type {?}
+         * @private
+         */
+        AuthService.prototype.store;
+        /**
+         * @type {?}
+         * @private
+         */
+        AuthService.prototype.options;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -4943,6 +5238,15 @@
             return this.store.selectSnapshot(SessionState.getTenant);
         };
         /**
+         * @return {?}
+         */
+        SessionStateService.prototype.getSessionDetail = /**
+         * @return {?}
+         */
+        function () {
+            return this.store.selectSnapshot(SessionState.getSessionDetail);
+        };
+        /**
          * @param {...?} args
          * @return {?}
          */
@@ -4971,6 +5275,36 @@
                 args[_i] = arguments[_i];
             }
             return this.store.dispatch(new (SetTenant.bind.apply(SetTenant, __spread([void 0], args)))());
+        };
+        /**
+         * @param {...?} args
+         * @return {?}
+         */
+        SessionStateService.prototype.dispatchSetRemember = /**
+         * @param {...?} args
+         * @return {?}
+         */
+        function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            return this.store.dispatch(new (SetRemember.bind.apply(SetRemember, __spread([void 0], args)))());
+        };
+        /**
+         * @param {...?} args
+         * @return {?}
+         */
+        SessionStateService.prototype.dispatchModifyOpenedTabCount = /**
+         * @param {...?} args
+         * @return {?}
+         */
+        function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            return this.store.dispatch(new (ModifyOpenedTabCount.bind.apply(ModifyOpenedTabCount, __spread([void 0], args)))());
         };
         SessionStateService.decorators = [
             { type: core.Injectable, args: [{
@@ -5220,6 +5554,12 @@
      * Generated from: lib/core.module.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+    /**
+     * @return {?}
+     */
+    function storageFactory() {
+        return localStorage;
+    }
     var CoreModule = /** @class */ (function () {
         function CoreModule() {
         }
@@ -5235,7 +5575,7 @@
             if (options === void 0) { options = (/** @type {?} */ ({})); }
             return {
                 ngModule: CoreModule,
-                providers: [
+                providers: __spread([
                     LocaleProvider,
                     {
                         provide: store.NGXS_PLUGINS,
@@ -5262,8 +5602,10 @@
                         multi: true,
                         deps: [core.Injector],
                         useFactory: localeInitializer,
-                    },
-                ],
+                    }
+                ], angularOauth2Oidc.OAuthModule.forRoot().providers, [
+                    { provide: angularOauth2Oidc.OAuthStorage, useFactory: storageFactory },
+                ]),
             };
         };
         CoreModule.decorators = [
@@ -5272,7 +5614,7 @@
                             store.NgxsModule.forFeature([ReplaceableComponentsState, ProfileState, SessionState, ConfigState]),
                             routerPlugin.NgxsRouterPluginModule.forRoot(),
                             storagePlugin.NgxsStoragePluginModule.forRoot({ key: ['SessionState'] }),
-                            angularOauth2Oidc.OAuthModule.forRoot(),
+                            angularOauth2Oidc.OAuthModule,
                             common.CommonModule,
                             http.HttpClientModule,
                             forms.FormsModule,
@@ -5338,6 +5680,7 @@
     exports.ApiInterceptor = ApiInterceptor;
     exports.ApplicationConfigurationService = ApplicationConfigurationService;
     exports.AuthGuard = AuthGuard;
+    exports.AuthService = AuthService;
     exports.AutofocusDirective = AutofocusDirective;
     exports.CONFIG = CONFIG;
     exports.ChangePassword = ChangePassword;
@@ -5356,6 +5699,7 @@
     exports.LazyLoadService = LazyLoadService;
     exports.LocalizationPipe = LocalizationPipe;
     exports.LocalizationService = LocalizationService;
+    exports.ModifyOpenedTabCount = ModifyOpenedTabCount;
     exports.NGXS_CONFIG_PLUGIN_OPTIONS = NGXS_CONFIG_PLUGIN_OPTIONS;
     exports.PatchRouteByName = PatchRouteByName;
     exports.PermissionDirective = PermissionDirective;
@@ -5372,6 +5716,7 @@
     exports.SessionState = SessionState;
     exports.SessionStateService = SessionStateService;
     exports.SetLanguage = SetLanguage;
+    exports.SetRemember = SetRemember;
     exports.SetTenant = SetTenant;
     exports.SortPipe = SortPipe;
     exports.StartLoader = StartLoader;
@@ -5389,27 +5734,30 @@
     exports.registerLocale = registerLocale;
     exports.setChildRoute = setChildRoute;
     exports.sortRoutes = sortRoutes;
+    exports.storageFactory = storageFactory;
     exports.takeUntilDestroy = takeUntilDestroy;
     exports.uuid = uuid;
     exports.ɵa = ReplaceableComponentsState;
     exports.ɵb = AddReplaceableComponent;
-    exports.ɵba = FormSubmitDirective;
-    exports.ɵbb = LocalizationPipe;
-    exports.ɵbc = SortPipe;
-    exports.ɵbd = InitDirective;
-    exports.ɵbe = PermissionDirective;
-    exports.ɵbf = VisibilityDirective;
-    exports.ɵbg = InputEventDebounceDirective;
-    exports.ɵbh = StopPropagationDirective;
-    exports.ɵbi = ReplaceableTemplateDirective;
-    exports.ɵbj = AbstractNgModelComponent;
-    exports.ɵbk = LocaleId;
-    exports.ɵbl = LocaleProvider;
-    exports.ɵbm = NGXS_CONFIG_PLUGIN_OPTIONS;
-    exports.ɵbn = ConfigPlugin;
-    exports.ɵbo = ApiInterceptor;
-    exports.ɵbp = getInitialData;
-    exports.ɵbq = localeInitializer;
+    exports.ɵba = EllipsisDirective;
+    exports.ɵbb = ForDirective;
+    exports.ɵbc = FormSubmitDirective;
+    exports.ɵbd = LocalizationPipe;
+    exports.ɵbe = SortPipe;
+    exports.ɵbf = InitDirective;
+    exports.ɵbg = PermissionDirective;
+    exports.ɵbh = VisibilityDirective;
+    exports.ɵbi = InputEventDebounceDirective;
+    exports.ɵbj = StopPropagationDirective;
+    exports.ɵbk = ReplaceableTemplateDirective;
+    exports.ɵbl = AbstractNgModelComponent;
+    exports.ɵbm = LocaleId;
+    exports.ɵbn = LocaleProvider;
+    exports.ɵbo = NGXS_CONFIG_PLUGIN_OPTIONS;
+    exports.ɵbp = ConfigPlugin;
+    exports.ɵbq = ApiInterceptor;
+    exports.ɵbr = getInitialData;
+    exports.ɵbs = localeInitializer;
     exports.ɵd = ProfileState;
     exports.ɵe = ProfileService;
     exports.ɵf = RestService;
@@ -5420,17 +5768,17 @@
     exports.ɵl = LocalizationService;
     exports.ɵm = SetLanguage;
     exports.ɵn = SetTenant;
-    exports.ɵp = ConfigState;
-    exports.ɵq = ApplicationConfigurationService;
-    exports.ɵr = PatchRouteByName;
-    exports.ɵs = GetAppConfiguration;
-    exports.ɵt = AddRoute;
-    exports.ɵu = ReplaceableRouteContainerComponent;
-    exports.ɵv = RouterOutletComponent;
-    exports.ɵw = DynamicLayoutComponent;
-    exports.ɵx = AutofocusDirective;
-    exports.ɵy = EllipsisDirective;
-    exports.ɵz = ForDirective;
+    exports.ɵo = ModifyOpenedTabCount;
+    exports.ɵp = SetRemember;
+    exports.ɵr = ConfigState;
+    exports.ɵs = ApplicationConfigurationService;
+    exports.ɵt = PatchRouteByName;
+    exports.ɵu = GetAppConfiguration;
+    exports.ɵv = AddRoute;
+    exports.ɵw = ReplaceableRouteContainerComponent;
+    exports.ɵx = RouterOutletComponent;
+    exports.ɵy = DynamicLayoutComponent;
+    exports.ɵz = AutofocusDirective;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

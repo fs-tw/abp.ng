@@ -1,20 +1,18 @@
-import { ConfigState, SessionState, GetAppConfiguration, RestService, DynamicLayoutComponent, ReplaceableRouteContainerComponent, AuthGuard, ChangePassword, GetProfile, UpdateProfile, ProfileState, SetTenant, CoreModule } from '@abp/ng.core';
+import { ConfigState, SetRemember, AuthService, RestService, DynamicLayoutComponent, ReplaceableRouteContainerComponent, AuthGuard, ChangePassword, GetProfile, UpdateProfile, ProfileState, SessionState, SetTenant, takeUntilDestroy, CoreModule } from '@abp/ng.core';
 import { ToasterService, fadeIn, ThemeSharedModule } from '@abp/ng.theme.shared';
-import { Component, Optional, Inject, Injectable, ɵɵdefineInjectable, ɵɵinject, NgModule, Input, InjectionToken } from '@angular/core';
+import { Component, Injectable, ɵɵdefineInjectable, ɵɵinject, NgModule, Input, InjectionToken } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { validatePassword, comparePasswords, NgxValidateCoreModule } from '@ngx-validate/core';
 import { TableModule } from 'primeng/table';
 import { RouterModule } from '@angular/router';
-import { __assign, __read, __decorate, __metadata } from 'tslib';
 import { Validators, FormBuilder } from '@angular/forms';
-import { Navigate } from '@ngxs/router-plugin';
 import { Store, Select } from '@ngxs/store';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { from, throwError, Observable } from 'rxjs';
-import { switchMap, tap, catchError, finalize, take, withLatestFrom } from 'rxjs/operators';
+import { throwError, Observable } from 'rxjs';
+import { catchError, finalize, switchMap, withLatestFrom, take } from 'rxjs/operators';
 import snq from 'snq';
-import { HttpHeaders } from '@angular/common/http';
 import { trigger, transition, useAnimation } from '@angular/animations';
+import { __read, __decorate, __metadata, __assign } from 'tslib';
 
 /**
  * @fileoverview added by tsickle
@@ -23,20 +21,29 @@ import { trigger, transition, useAnimation } from '@angular/animations';
  */
 var maxLength = Validators.maxLength, minLength = Validators.minLength, required = Validators.required;
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(fb, oauthService, store, toasterService, options) {
+    function LoginComponent(fb, oauthService, store, toasterService, authService) {
         this.fb = fb;
         this.oauthService = oauthService;
         this.store = store;
         this.toasterService = toasterService;
-        this.options = options;
-        this.oauthService.configure(this.store.selectSnapshot(ConfigState.getOne('environment')).oAuthConfig);
-        this.oauthService.loadDiscoveryDocument();
+        this.authService = authService;
+        this.isSelfRegistrationEnabled = true;
+    }
+    /**
+     * @return {?}
+     */
+    LoginComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        this.isSelfRegistrationEnabled =
+            (((/** @type {?} */ (this.store.selectSnapshot(ConfigState.getSetting('Abp.Account.IsSelfRegistrationEnabled'))))) || '').toLowerCase() !== 'false';
         this.form = this.fb.group({
             username: ['', [required, maxLength(255)]],
-            password: ['', [required, maxLength(32)]],
+            password: ['', [required, maxLength(128)]],
             remember: [false],
         });
-    }
+    };
     /**
      * @return {?}
      */
@@ -47,25 +54,10 @@ var LoginComponent = /** @class */ (function () {
         var _this = this;
         if (this.form.invalid)
             return;
-        // this.oauthService.setStorage(this.form.value.remember ? localStorage : sessionStorage);
         this.inProgress = true;
-        /** @type {?} */
-        var tenant = this.store.selectSnapshot(SessionState.getTenant);
-        from(this.oauthService.fetchTokenUsingPasswordFlow(this.form.get('username').value, this.form.get('password').value, new HttpHeaders(__assign({}, (tenant && tenant.id && { __tenant: tenant.id })))))
-            .pipe(switchMap((/**
-         * @return {?}
-         */
-        function () { return _this.store.dispatch(new GetAppConfiguration()); })), tap((/**
-         * @return {?}
-         */
-        function () {
-            /** @type {?} */
-            var redirectUrl = snq((/**
-             * @return {?}
-             */
-            function () { return window.history.state; })).redirectUrl || (_this.options || {}).redirectUrl || '/';
-            _this.store.dispatch(new Navigate([redirectUrl]));
-        })), catchError((/**
+        this.authService
+            .login(this.form.get('username').value, this.form.get('password').value)
+            .pipe(catchError((/**
          * @param {?} err
          * @return {?}
          */
@@ -83,12 +75,17 @@ var LoginComponent = /** @class */ (function () {
          * @return {?}
          */
         function () { return (_this.inProgress = false); })))
-            .subscribe();
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
+            _this.store.dispatch(new SetRemember(_this.form.get('remember').value));
+        }));
     };
     LoginComponent.decorators = [
         { type: Component, args: [{
                     selector: 'abp-login',
-                    template: "<abp-auth-wrapper\r\n  *abpReplaceableTemplate=\"{\r\n    componentKey: 'Account.AuthWrapperComponent',\r\n    inputs: {\r\n      mainContentRef: { value: mainContentRef },\r\n      cancelContentRef: { value: cancelContentRef }\r\n    }\r\n  }\"\r\n  [mainContentRef]=\"mainContentRef\"\r\n  [cancelContentRef]=\"cancelContentRef\"\r\n>\r\n</abp-auth-wrapper>\r\n<ng-template #mainContentRef>\r\n  <h4>{{ 'AbpAccount::Login' | abpLocalization }}</h4>\r\n  <strong>\r\n    {{ 'AbpAccount::AreYouANewUser' | abpLocalization }}\r\n    <a class=\"text-decoration-none\" routerLink=\"/account/register\">{{\r\n      'AbpAccount::Register' | abpLocalization\r\n    }}</a>\r\n  </strong>\r\n  <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\" validateOnSubmit class=\"mt-4\">\r\n    <div class=\"form-group\">\r\n      <label for=\"login-input-user-name-or-email-address\">{{\r\n        'AbpAccount::UserNameOrEmailAddress' | abpLocalization\r\n      }}</label>\r\n      <input\r\n        class=\"form-control\"\r\n        type=\"text\"\r\n        id=\"login-input-user-name-or-email-address\"\r\n        formControlName=\"username\"\r\n        autocomplete=\"username\"\r\n        autofocus\r\n      />\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label for=\"login-input-password\">{{ 'AbpAccount::Password' | abpLocalization }}</label>\r\n      <input\r\n        class=\"form-control\"\r\n        type=\"password\"\r\n        id=\"login-input-password\"\r\n        formControlName=\"password\"\r\n        autocomplete=\"current-password\"\r\n      />\r\n    </div>\r\n    <div class=\"form-check\" validationTarget validationStyle>\r\n      <label class=\"form-check-label\" for=\"login-input-remember-me\">\r\n        <input\r\n          class=\"form-check-input\"\r\n          type=\"checkbox\"\r\n          id=\"login-input-remember-me\"\r\n          formControlName=\"remember\"\r\n        />\r\n        {{ 'AbpAccount::RememberMe' | abpLocalization }}\r\n      </label>\r\n    </div>\r\n    <abp-button\r\n      [loading]=\"inProgress\"\r\n      buttonType=\"submit\"\r\n      name=\"Action\"\r\n      buttonClass=\"btn-block btn-lg mt-3 btn btn-primary\"\r\n    >\r\n      {{ 'AbpAccount::Login' | abpLocalization }}\r\n    </abp-button>\r\n  </form>\r\n</ng-template>\r\n<ng-template #cancelContentRef>\r\n  <div class=\"card-footer text-center border-0\">\r\n    <a routerLink=\"/\">\r\n      <button type=\"button\" name=\"Action\" value=\"Cancel\" class=\"px-2 py-0 btn btn-link\">\r\n        {{ 'AbpAccount::Cancel' | abpLocalization }}\r\n      </button>\r\n    </a>\r\n  </div>\r\n</ng-template>\r\n"
+                    template: "<abp-auth-wrapper\r\n  *abpReplaceableTemplate=\"{\r\n    componentKey: 'Account.AuthWrapperComponent',\r\n    inputs: {\r\n      mainContentRef: { value: mainContentRef },\r\n      cancelContentRef: { value: cancelContentRef }\r\n    }\r\n  }\"\r\n  [mainContentRef]=\"mainContentRef\"\r\n  [cancelContentRef]=\"cancelContentRef\"\r\n>\r\n</abp-auth-wrapper>\r\n<ng-template #mainContentRef>\r\n  <h4>{{ 'AbpAccount::Login' | abpLocalization }}</h4>\r\n  <strong *ngIf=\"isSelfRegistrationEnabled\">\r\n    {{ 'AbpAccount::AreYouANewUser' | abpLocalization }}\r\n    <a class=\"text-decoration-none\" routerLink=\"/account/register\">{{\r\n      'AbpAccount::Register' | abpLocalization\r\n    }}</a>\r\n  </strong>\r\n  <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\" validateOnSubmit class=\"mt-4\">\r\n    <div class=\"form-group\">\r\n      <label for=\"login-input-user-name-or-email-address\">{{\r\n        'AbpAccount::UserNameOrEmailAddress' | abpLocalization\r\n      }}</label>\r\n      <input\r\n        class=\"form-control\"\r\n        type=\"text\"\r\n        id=\"login-input-user-name-or-email-address\"\r\n        formControlName=\"username\"\r\n        autocomplete=\"username\"\r\n        autofocus\r\n      />\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label for=\"login-input-password\">{{ 'AbpAccount::Password' | abpLocalization }}</label>\r\n      <input\r\n        class=\"form-control\"\r\n        type=\"password\"\r\n        id=\"login-input-password\"\r\n        formControlName=\"password\"\r\n        autocomplete=\"current-password\"\r\n      />\r\n    </div>\r\n    <div class=\"form-check\" validationTarget validationStyle>\r\n      <label class=\"form-check-label\" for=\"login-input-remember-me\">\r\n        <input\r\n          class=\"form-check-input\"\r\n          type=\"checkbox\"\r\n          id=\"login-input-remember-me\"\r\n          formControlName=\"remember\"\r\n        />\r\n        {{ 'AbpAccount::RememberMe' | abpLocalization }}\r\n      </label>\r\n    </div>\r\n    <abp-button\r\n      [loading]=\"inProgress\"\r\n      buttonType=\"submit\"\r\n      name=\"Action\"\r\n      buttonClass=\"btn-block btn-lg mt-3 btn btn-primary\"\r\n    >\r\n      {{ 'AbpAccount::Login' | abpLocalization }}\r\n    </abp-button>\r\n  </form>\r\n</ng-template>\r\n<ng-template #cancelContentRef>\r\n  <div class=\"card-footer text-center border-0\">\r\n    <a routerLink=\"/\">\r\n      <button type=\"button\" name=\"Action\" value=\"Cancel\" class=\"px-2 py-0 btn btn-link\">\r\n        {{ 'AbpAccount::Cancel' | abpLocalization }}\r\n      </button>\r\n    </a>\r\n  </div>\r\n</ng-template>\r\n"
                 }] }
     ];
     /** @nocollapse */
@@ -97,7 +94,7 @@ var LoginComponent = /** @class */ (function () {
         { type: OAuthService },
         { type: Store },
         { type: ToasterService },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: ['ACCOUNT_OPTIONS',] }] }
+        { type: AuthService }
     ]; };
     return LoginComponent;
 }());
@@ -106,6 +103,8 @@ if (false) {
     LoginComponent.prototype.form;
     /** @type {?} */
     LoginComponent.prototype.inProgress;
+    /** @type {?} */
+    LoginComponent.prototype.isSelfRegistrationEnabled;
     /**
      * @type {?}
      * @private
@@ -130,7 +129,7 @@ if (false) {
      * @type {?}
      * @private
      */
-    LoginComponent.prototype.options;
+    LoginComponent.prototype.authService;
 }
 
 /**
@@ -225,14 +224,14 @@ if (false) {
  */
 var maxLength$1 = Validators.maxLength, minLength$1 = Validators.minLength, required$1 = Validators.required, email = Validators.email;
 var RegisterComponent = /** @class */ (function () {
-    function RegisterComponent(fb, accountService, oauthService, store, toasterService) {
+    function RegisterComponent(fb, accountService, oauthService, store, toasterService, authService) {
         this.fb = fb;
         this.accountService = accountService;
         this.oauthService = oauthService;
         this.store = store;
         this.toasterService = toasterService;
-        this.oauthService.configure(this.store.selectSnapshot(ConfigState.getOne('environment')).oAuthConfig);
-        this.oauthService.loadDiscoveryDocument();
+        this.authService = authService;
+        this.isSelfRegistrationEnabled = true;
     }
     /**
      * @return {?}
@@ -241,6 +240,15 @@ var RegisterComponent = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        this.isSelfRegistrationEnabled =
+            (this.store.selectSnapshot(ConfigState.getSetting('Abp.Account.IsSelfRegistrationEnabled')) || '').toLowerCase() !== 'false';
+        if (!this.isSelfRegistrationEnabled) {
+            this.toasterService.warn({
+                key: 'AbpAccount::SelfRegistrationDisabledMessage',
+                defaultValue: 'Self registration is disabled.',
+            }, null, { life: 10000 });
+            return;
+        }
         /** @type {?} */
         var passwordRules = this.store.selectSnapshot(ConfigState.getSettings('Identity.Password'));
         /** @type {?} */
@@ -266,7 +274,7 @@ var RegisterComponent = /** @class */ (function () {
             username: ['', [required$1, maxLength$1(255)]],
             password: [
                 '',
-                [required$1, validatePassword(passwordRulesArr), minLength$1(requiredLength), maxLength$1(32)],
+                [required$1, validatePassword(passwordRulesArr), minLength$1(requiredLength), maxLength$1(128)],
             ],
             email: ['', [required$1, email]],
         });
@@ -289,22 +297,12 @@ var RegisterComponent = /** @class */ (function () {
             emailAddress: this.form.get('email').value,
             appName: 'Angular',
         }));
-        /** @type {?} */
-        var tenant = this.store.selectSnapshot(SessionState.getTenant);
         this.accountService
             .register(newUser)
             .pipe(switchMap((/**
          * @return {?}
          */
-        function () {
-            return from(_this.oauthService.fetchTokenUsingPasswordFlow(newUser.userName, newUser.password, new HttpHeaders(__assign({}, (tenant && tenant.id && { __tenant: tenant.id })))));
-        })), switchMap((/**
-         * @return {?}
-         */
-        function () { return _this.store.dispatch(new GetAppConfiguration()); })), tap((/**
-         * @return {?}
-         */
-        function () { return _this.store.dispatch(new Navigate(['/'])); })), take(1), catchError((/**
+        function () { return _this.authService.login(newUser.userName, newUser.password); })), catchError((/**
          * @param {?} err
          * @return {?}
          */
@@ -327,7 +325,7 @@ var RegisterComponent = /** @class */ (function () {
     RegisterComponent.decorators = [
         { type: Component, args: [{
                     selector: 'abp-register',
-                    template: "<abp-auth-wrapper\r\n  *abpReplaceableTemplate=\"{\r\n    componentKey: 'Account.AuthWrapperComponent',\r\n    inputs: {\r\n      mainContentRef: { value: mainContentRef }\r\n    }\r\n  }\"\r\n  [mainContentRef]=\"mainContentRef\"\r\n>\r\n</abp-auth-wrapper>\r\n<ng-template #mainContentRef>\r\n  <h4>{{ 'AbpAccount::Register' | abpLocalization }}</h4>\r\n  <strong>\r\n    {{ 'AbpAccount::AlreadyRegistered' | abpLocalization }}\r\n    <a class=\"text-decoration-none\" routerLink=\"/account/login\">{{\r\n      'AbpAccount::Login' | abpLocalization\r\n    }}</a>\r\n  </strong>\r\n  <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\" validateOnSubmit class=\"mt-4\">\r\n    <div class=\"form-group\">\r\n      <label for=\"input-user-name\">{{ 'AbpAccount::UserName' | abpLocalization }}</label\r\n      ><span> * </span\r\n      ><input\r\n        autofocus\r\n        type=\"text\"\r\n        id=\"input-user-name\"\r\n        class=\"form-control\"\r\n        formControlName=\"username\"\r\n        autocomplete=\"username\"\r\n      />\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label for=\"input-email-address\">{{ 'AbpAccount::EmailAddress' | abpLocalization }}</label\r\n      ><span> * </span\r\n      ><input type=\"email\" id=\"input-email-address\" class=\"form-control\" formControlName=\"email\" />\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label for=\"input-password\">{{ 'AbpAccount::Password' | abpLocalization }}</label\r\n      ><span> * </span\r\n      ><input\r\n        type=\"password\"\r\n        id=\"input-password\"\r\n        class=\"form-control\"\r\n        formControlName=\"password\"\r\n        autocomplete=\"current-password\"\r\n      />\r\n    </div>\r\n    <abp-button\r\n      [loading]=\"inProgress\"\r\n      buttonType=\"submit\"\r\n      name=\"Action\"\r\n      buttonClass=\"btn-block btn-lg mt-3 btn btn-primary\"\r\n    >\r\n      {{ 'AbpAccount::Register' | abpLocalization }}\r\n    </abp-button>\r\n  </form>\r\n</ng-template>\r\n"
+                    template: "<abp-auth-wrapper\r\n  *abpReplaceableTemplate=\"{\r\n    componentKey: 'Account.AuthWrapperComponent',\r\n    inputs: {\r\n      mainContentRef: { value: mainContentRef }\r\n    }\r\n  }\"\r\n  [mainContentRef]=\"mainContentRef\"\r\n>\r\n</abp-auth-wrapper>\r\n<ng-template #mainContentRef>\r\n  <h4>{{ 'AbpAccount::Register' | abpLocalization }}</h4>\r\n  <strong>\r\n    {{ 'AbpAccount::AlreadyRegistered' | abpLocalization }}\r\n    <a class=\"text-decoration-none\" routerLink=\"/account/login\">{{\r\n      'AbpAccount::Login' | abpLocalization\r\n    }}</a>\r\n  </strong>\r\n  <form\r\n    *ngIf=\"isSelfRegistrationEnabled\"\r\n    [formGroup]=\"form\"\r\n    (ngSubmit)=\"onSubmit()\"\r\n    validateOnSubmit\r\n    class=\"mt-4\"\r\n  >\r\n    <div class=\"form-group\">\r\n      <label for=\"input-user-name\">{{ 'AbpAccount::UserName' | abpLocalization }}</label\r\n      ><span> * </span\r\n      ><input\r\n        autofocus\r\n        type=\"text\"\r\n        id=\"input-user-name\"\r\n        class=\"form-control\"\r\n        formControlName=\"username\"\r\n        autocomplete=\"username\"\r\n      />\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label for=\"input-email-address\">{{ 'AbpAccount::EmailAddress' | abpLocalization }}</label\r\n      ><span> * </span\r\n      ><input type=\"email\" id=\"input-email-address\" class=\"form-control\" formControlName=\"email\" />\r\n    </div>\r\n    <div class=\"form-group\">\r\n      <label for=\"input-password\">{{ 'AbpAccount::Password' | abpLocalization }}</label\r\n      ><span> * </span\r\n      ><input\r\n        type=\"password\"\r\n        id=\"input-password\"\r\n        class=\"form-control\"\r\n        formControlName=\"password\"\r\n        autocomplete=\"current-password\"\r\n      />\r\n    </div>\r\n    <abp-button\r\n      [loading]=\"inProgress\"\r\n      buttonType=\"submit\"\r\n      name=\"Action\"\r\n      buttonClass=\"btn-block btn-lg mt-3 btn btn-primary\"\r\n    >\r\n      {{ 'AbpAccount::Register' | abpLocalization }}\r\n    </abp-button>\r\n  </form>\r\n</ng-template>\r\n"
                 }] }
     ];
     /** @nocollapse */
@@ -336,7 +334,8 @@ var RegisterComponent = /** @class */ (function () {
         { type: AccountService },
         { type: OAuthService },
         { type: Store },
-        { type: ToasterService }
+        { type: ToasterService },
+        { type: AuthService }
     ]; };
     return RegisterComponent;
 }());
@@ -345,6 +344,8 @@ if (false) {
     RegisterComponent.prototype.form;
     /** @type {?} */
     RegisterComponent.prototype.inProgress;
+    /** @type {?} */
+    RegisterComponent.prototype.isSelfRegistrationEnabled;
     /**
      * @type {?}
      * @private
@@ -370,6 +371,11 @@ if (false) {
      * @private
      */
     RegisterComponent.prototype.toasterService;
+    /**
+     * @type {?}
+     * @private
+     */
+    RegisterComponent.prototype.authService;
 }
 
 /**
@@ -500,7 +506,7 @@ var ChangePasswordComponent = /** @class */ (function () {
                         required$2,
                         validatePassword(passwordRulesArr),
                         minLength$2(requiredLength),
-                        maxLength$2(32),
+                        maxLength$2(128),
                     ],
                 },
             ],
@@ -511,7 +517,7 @@ var ChangePasswordComponent = /** @class */ (function () {
                         required$2,
                         validatePassword(passwordRulesArr),
                         minLength$2(requiredLength),
-                        maxLength$2(32),
+                        maxLength$2(128),
                     ],
                 },
             ],
@@ -848,15 +854,49 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var AuthWrapperComponent = /** @class */ (function () {
-    function AuthWrapperComponent() {
+    function AuthWrapperComponent(store) {
+        this.store = store;
+        this.enableLocalLogin = true;
     }
+    /**
+     * @return {?}
+     */
+    AuthWrapperComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this.store
+            .select(ConfigState.getSetting('Abp.Account.EnableLocalLogin'))
+            .pipe(takeUntilDestroy(this))
+            .subscribe((/**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            if (value) {
+                _this.enableLocalLogin = value.toLowerCase() !== 'false';
+            }
+        }));
+    };
+    /**
+     * @return {?}
+     */
+    AuthWrapperComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () { };
     AuthWrapperComponent.decorators = [
         { type: Component, args: [{
                     selector: 'abp-auth-wrapper',
-                    template: "<div class=\"row\">\r\n  <div class=\"mx-auto col col-md-5\">\r\n    <abp-tenant-box\r\n      *abpReplaceableTemplate=\"{ componentKey: 'Account.TenantBoxComponent' }\"\r\n    ></abp-tenant-box>\r\n\r\n    <div class=\"abp-account-container\">\r\n      <div class=\"card mt-3 shadow-sm rounded\">\r\n        <div class=\"card-body p-5\">\r\n          <ng-content *ngTemplateOutlet=\"mainContentRef\"></ng-content>\r\n        </div>\r\n        <ng-content *ngTemplateOutlet=\"cancelContentRef\"></ng-content>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                    template: "<div class=\"row\">\r\n  <div class=\"mx-auto col col-md-5\">\r\n    <abp-tenant-box\r\n      *abpReplaceableTemplate=\"{ componentKey: 'Account.TenantBoxComponent' }\"\r\n    ></abp-tenant-box>\r\n\r\n    <div class=\"abp-account-container\">\r\n      <div\r\n        *ngIf=\"enableLocalLogin; else disableLocalLoginTemplate\"\r\n        class=\"card mt-3 shadow-sm rounded\"\r\n      >\r\n        <div class=\"card-body p-5\">\r\n          <ng-content *ngTemplateOutlet=\"mainContentRef\"></ng-content>\r\n        </div>\r\n        <ng-content *ngTemplateOutlet=\"cancelContentRef\"></ng-content>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #disableLocalLoginTemplate>\r\n  <div class=\"alert alert-warning\">\r\n    <strong>{{ 'AbpAccount::InvalidLoginRequest' | abpLocalization }}</strong>\r\n    {{ 'AbpAccount::ThereAreNoLoginSchemesConfiguredForThisClient' | abpLocalization }}\r\n  </div>\r\n</ng-template>\r\n",
                     exportAs: 'abpAuthWrapper'
                 }] }
     ];
+    /** @nocollapse */
+    AuthWrapperComponent.ctorParameters = function () { return [
+        { type: Store }
+    ]; };
     AuthWrapperComponent.propDecorators = {
         mainContentRef: [{ type: Input }],
         cancelContentRef: [{ type: Input }]
@@ -868,6 +908,13 @@ if (false) {
     AuthWrapperComponent.prototype.mainContentRef;
     /** @type {?} */
     AuthWrapperComponent.prototype.cancelContentRef;
+    /** @type {?} */
+    AuthWrapperComponent.prototype.enableLocalLogin;
+    /**
+     * @type {?}
+     * @private
+     */
+    AuthWrapperComponent.prototype.store;
 }
 
 /**
@@ -983,6 +1030,7 @@ var Account;
      */
     function ChangePasswordComponentOutputs() { }
     Account.ChangePasswordComponentOutputs = ChangePasswordComponentOutputs;
+    // tslint:enable
 })(Account || (Account = {}));
 
 /**
@@ -1105,5 +1153,5 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { ACCOUNT_OPTIONS, AccountModule, AccountService, ChangePasswordComponent, LoginComponent, ManageProfileComponent, PersonalSettingsComponent, RegisterComponent, TenantBoxComponent, optionsFactory, AuthWrapperComponent as ɵa, LoginComponent as ɵb, RegisterComponent as ɵd, AccountService as ɵe, TenantBoxComponent as ɵf, ChangePasswordComponent as ɵg, ManageProfileComponent as ɵh, PersonalSettingsComponent as ɵi, AccountRoutingModule as ɵj };
+export { ACCOUNT_OPTIONS, AccountModule, AccountService, ChangePasswordComponent, LoginComponent, ManageProfileComponent, PersonalSettingsComponent, RegisterComponent, TenantBoxComponent, optionsFactory, AuthWrapperComponent as ɵa, LoginComponent as ɵb, RegisterComponent as ɵc, AccountService as ɵd, TenantBoxComponent as ɵe, ChangePasswordComponent as ɵf, ManageProfileComponent as ɵg, PersonalSettingsComponent as ɵh, AccountRoutingModule as ɵi };
 //# sourceMappingURL=abp-ng.account.js.map

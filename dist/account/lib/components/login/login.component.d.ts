@@ -1,16 +1,19 @@
+import { AuthService } from '@abp/ng.core';
+import { ToasterService } from '@abp/ng.theme.shared';
+import { OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { Options } from '../../models/options';
-import { ToasterService } from '@abp/ng.theme.shared';
-export declare class LoginComponent {
+export declare class LoginComponent implements OnInit {
     private fb;
     private oauthService;
     private store;
     private toasterService;
-    private options;
+    private authService;
     form: FormGroup;
     inProgress: boolean;
-    constructor(fb: FormBuilder, oauthService: OAuthService, store: Store, toasterService: ToasterService, options: Options);
+    isSelfRegistrationEnabled: boolean;
+    constructor(fb: FormBuilder, oauthService: OAuthService, store: Store, toasterService: ToasterService, authService: AuthService);
+    ngOnInit(): void;
     onSubmit(): void;
 }

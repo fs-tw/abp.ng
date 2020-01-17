@@ -1,6 +1,6 @@
 import { AccountModule } from '@fs/account';
-import { PatchRouteByName, AddReplaceableComponent, CoreModule } from '@abp/ng.core';
-import { Component, Optional, Inject, Input, NgModule } from '@angular/core';
+import { AuthService, PatchRouteByName, AddReplaceableComponent, CoreModule } from '@abp/ng.core';
+import { Component, Input, NgModule } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
 import { __extends } from 'tslib';
 import { LoginComponent, AccountService, RegisterComponent, PersonalSettingsComponent as PersonalSettingsComponent$1, ChangePasswordComponent as ChangePasswordComponent$1, TenantBoxComponent as TenantBoxComponent$1 } from '@abp/ng.account';
@@ -17,8 +17,8 @@ import { trigger, transition, useAnimation } from '@angular/animations';
  */
 var UserLoginComponent = /** @class */ (function (_super) {
     __extends(UserLoginComponent, _super);
-    function UserLoginComponent(_fb, _oauthService, _store, _toasterService, _options) {
-        return _super.call(this, _fb, _oauthService, _store, _toasterService, _options) || this;
+    function UserLoginComponent(_fb, _oauthService, _store, _toasterService, _authService) {
+        return _super.call(this, _fb, _oauthService, _store, _toasterService, _authService) || this;
     }
     UserLoginComponent.decorators = [
         { type: Component, args: [{
@@ -33,7 +33,7 @@ var UserLoginComponent = /** @class */ (function (_super) {
         { type: OAuthService },
         { type: Store },
         { type: ToasterService },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: ['ACCOUNT_OPTIONS',] }] }
+        { type: AuthService }
     ]; };
     return UserLoginComponent;
 }(LoginComponent));
@@ -45,13 +45,14 @@ var UserLoginComponent = /** @class */ (function (_super) {
  */
 var UserRegisterComponent = /** @class */ (function (_super) {
     __extends(UserRegisterComponent, _super);
-    function UserRegisterComponent(_fb, _accountService, _oauthService, _store, _toasterService) {
-        var _this = _super.call(this, _fb, _accountService, _oauthService, _store, _toasterService) || this;
+    function UserRegisterComponent(_fb, _accountService, _oauthService, _store, _toasterService, _authService) {
+        var _this = _super.call(this, _fb, _accountService, _oauthService, _store, _toasterService, _authService) || this;
         _this._fb = _fb;
         _this._accountService = _accountService;
         _this._oauthService = _oauthService;
         _this._store = _store;
         _this._toasterService = _toasterService;
+        _this._authService = _authService;
         return _this;
     }
     UserRegisterComponent.decorators = [
@@ -67,7 +68,8 @@ var UserRegisterComponent = /** @class */ (function (_super) {
         { type: AccountService },
         { type: OAuthService },
         { type: Store },
-        { type: ToasterService }
+        { type: ToasterService },
+        { type: AuthService }
     ]; };
     return UserRegisterComponent;
 }(RegisterComponent));
@@ -97,6 +99,11 @@ if (false) {
      * @private
      */
     UserRegisterComponent.prototype._toasterService;
+    /**
+     * @type {?}
+     * @private
+     */
+    UserRegisterComponent.prototype._authService;
 }
 
 /**

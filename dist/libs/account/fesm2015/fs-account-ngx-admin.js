@@ -1,6 +1,6 @@
 import { AccountModule } from '@fs/account';
-import { PatchRouteByName, AddReplaceableComponent, CoreModule } from '@abp/ng.core';
-import { Component, Optional, Inject, NgModule } from '@angular/core';
+import { AuthService, PatchRouteByName, AddReplaceableComponent, CoreModule } from '@abp/ng.core';
+import { Component, NgModule } from '@angular/core';
 import { NgxAdminBasicModule } from '@fs/ngx-admin/basic';
 import { FormBuilder } from '@angular/forms';
 import { RegisterComponent as RegisterComponent$1, AccountService, LoginComponent as LoginComponent$1, TenantBoxComponent as TenantBoxComponent$1 } from '@abp/ng.account';
@@ -20,14 +20,16 @@ class RegisterComponent extends RegisterComponent$1 {
      * @param {?} _oauthService
      * @param {?} _store
      * @param {?} _toasterService
+     * @param {?} _authService
      */
-    constructor(_fb, _accountService, _oauthService, _store, _toasterService) {
-        super(_fb, _accountService, _oauthService, _store, _toasterService);
+    constructor(_fb, _accountService, _oauthService, _store, _toasterService, _authService) {
+        super(_fb, _accountService, _oauthService, _store, _toasterService, _authService);
         this._fb = _fb;
         this._accountService = _accountService;
         this._oauthService = _oauthService;
         this._store = _store;
         this._toasterService = _toasterService;
+        this._authService = _authService;
     }
 }
 RegisterComponent.decorators = [
@@ -42,7 +44,8 @@ RegisterComponent.ctorParameters = () => [
     { type: AccountService },
     { type: OAuthService },
     { type: Store },
-    { type: ToasterService }
+    { type: ToasterService },
+    { type: AuthService }
 ];
 if (false) {
     /**
@@ -70,6 +73,11 @@ if (false) {
      * @private
      */
     RegisterComponent.prototype._toasterService;
+    /**
+     * @type {?}
+     * @private
+     */
+    RegisterComponent.prototype._authService;
 }
 
 /**
@@ -83,10 +91,10 @@ class LoginComponent extends LoginComponent$1 {
      * @param {?} _oauthService
      * @param {?} _store
      * @param {?} _toasterService
-     * @param {?} _options
+     * @param {?} _authService
      */
-    constructor(_fb, _oauthService, _store, _toasterService, _options) {
-        super(_fb, _oauthService, _store, _toasterService, _options);
+    constructor(_fb, _oauthService, _store, _toasterService, _authService) {
+        super(_fb, _oauthService, _store, _toasterService, _authService);
     }
 }
 LoginComponent.decorators = [
@@ -101,7 +109,7 @@ LoginComponent.ctorParameters = () => [
     { type: OAuthService },
     { type: Store },
     { type: ToasterService },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: ['ACCOUNT_OPTIONS',] }] }
+    { type: AuthService }
 ];
 
 /**

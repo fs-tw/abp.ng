@@ -208,13 +208,14 @@
      */
     var RegisterComponent = /** @class */ (function (_super) {
         __extends(RegisterComponent, _super);
-        function RegisterComponent(_fb, _accountService, _oauthService, _store, _toasterService) {
-            var _this = _super.call(this, _fb, _accountService, _oauthService, _store, _toasterService) || this;
+        function RegisterComponent(_fb, _accountService, _oauthService, _store, _toasterService, _authService) {
+            var _this = _super.call(this, _fb, _accountService, _oauthService, _store, _toasterService, _authService) || this;
             _this._fb = _fb;
             _this._accountService = _accountService;
             _this._oauthService = _oauthService;
             _this._store = _store;
             _this._toasterService = _toasterService;
+            _this._authService = _authService;
             return _this;
         }
         RegisterComponent.decorators = [
@@ -229,7 +230,8 @@
             { type: ng_account.AccountService },
             { type: angularOauth2Oidc.OAuthService },
             { type: store.Store },
-            { type: ng_theme_shared.ToasterService }
+            { type: ng_theme_shared.ToasterService },
+            { type: ng_core.AuthService }
         ]; };
         return RegisterComponent;
     }(ng_account.RegisterComponent));
@@ -259,6 +261,11 @@
          * @private
          */
         RegisterComponent.prototype._toasterService;
+        /**
+         * @type {?}
+         * @private
+         */
+        RegisterComponent.prototype._authService;
     }
 
     /**
@@ -268,8 +275,8 @@
      */
     var LoginComponent = /** @class */ (function (_super) {
         __extends(LoginComponent, _super);
-        function LoginComponent(_fb, _oauthService, _store, _toasterService, _options) {
-            return _super.call(this, _fb, _oauthService, _store, _toasterService, _options) || this;
+        function LoginComponent(_fb, _oauthService, _store, _toasterService, _authService) {
+            return _super.call(this, _fb, _oauthService, _store, _toasterService, _authService) || this;
         }
         LoginComponent.decorators = [
             { type: core.Component, args: [{
@@ -283,7 +290,7 @@
             { type: angularOauth2Oidc.OAuthService },
             { type: store.Store },
             { type: ng_theme_shared.ToasterService },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: ['ACCOUNT_OPTIONS',] }] }
+            { type: ng_core.AuthService }
         ]; };
         return LoginComponent;
     }(ng_account.LoginComponent));

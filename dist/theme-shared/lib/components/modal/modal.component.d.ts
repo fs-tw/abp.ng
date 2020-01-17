@@ -27,6 +27,7 @@ export declare class ModalComponent implements OnDestroy {
     isModalOpen: boolean;
     isConfirmationOpen: boolean;
     destroy$: Subject<void>;
+    readonly isFormDirty: boolean;
     constructor(renderer: Renderer2, confirmationService: ConfirmationService);
     ngOnDestroy(): void;
     close(): void;

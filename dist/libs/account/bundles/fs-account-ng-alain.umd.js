@@ -208,8 +208,8 @@
      */
     var UserLoginComponent = /** @class */ (function (_super) {
         __extends(UserLoginComponent, _super);
-        function UserLoginComponent(_fb, _oauthService, _store, _toasterService, _options) {
-            return _super.call(this, _fb, _oauthService, _store, _toasterService, _options) || this;
+        function UserLoginComponent(_fb, _oauthService, _store, _toasterService, _authService) {
+            return _super.call(this, _fb, _oauthService, _store, _toasterService, _authService) || this;
         }
         UserLoginComponent.decorators = [
             { type: core.Component, args: [{
@@ -224,7 +224,7 @@
             { type: angularOauth2Oidc.OAuthService },
             { type: store.Store },
             { type: ng_theme_shared.ToasterService },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: ['ACCOUNT_OPTIONS',] }] }
+            { type: ng_core.AuthService }
         ]; };
         return UserLoginComponent;
     }(ng_account.LoginComponent));
@@ -236,13 +236,14 @@
      */
     var UserRegisterComponent = /** @class */ (function (_super) {
         __extends(UserRegisterComponent, _super);
-        function UserRegisterComponent(_fb, _accountService, _oauthService, _store, _toasterService) {
-            var _this = _super.call(this, _fb, _accountService, _oauthService, _store, _toasterService) || this;
+        function UserRegisterComponent(_fb, _accountService, _oauthService, _store, _toasterService, _authService) {
+            var _this = _super.call(this, _fb, _accountService, _oauthService, _store, _toasterService, _authService) || this;
             _this._fb = _fb;
             _this._accountService = _accountService;
             _this._oauthService = _oauthService;
             _this._store = _store;
             _this._toasterService = _toasterService;
+            _this._authService = _authService;
             return _this;
         }
         UserRegisterComponent.decorators = [
@@ -258,7 +259,8 @@
             { type: ng_account.AccountService },
             { type: angularOauth2Oidc.OAuthService },
             { type: store.Store },
-            { type: ng_theme_shared.ToasterService }
+            { type: ng_theme_shared.ToasterService },
+            { type: ng_core.AuthService }
         ]; };
         return UserRegisterComponent;
     }(ng_account.RegisterComponent));
@@ -288,6 +290,11 @@
          * @private
          */
         UserRegisterComponent.prototype._toasterService;
+        /**
+         * @type {?}
+         * @private
+         */
+        UserRegisterComponent.prototype._authService;
     }
 
     /**

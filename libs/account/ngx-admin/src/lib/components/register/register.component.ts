@@ -8,6 +8,7 @@ import { AccountService } from '@abp/ng.account';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Store } from '@ngxs/store';
 import { ToasterService } from '@abp/ng.theme.shared';
+import { AuthService } from '@abp/ng.core';
 
 @Component({
   selector: 'ngx-admin-register',
@@ -21,7 +22,8 @@ export class RegisterComponent extends AbpRegisterComponent {
     private _oauthService: OAuthService,
     private _store: Store,
     private _toasterService: ToasterService,
+    private _authService: AuthService,
   ) {
-    super(_fb, _accountService, _oauthService, _store, _toasterService)
+    super(_fb, _accountService, _oauthService, _store, _toasterService,_authService)
   }
 }

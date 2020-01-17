@@ -1,3 +1,4 @@
+import { AuthService } from '@abp/ng.core';
 import { ToasterService } from '@abp/ng.theme.shared';
 import { OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -10,9 +11,11 @@ export declare class RegisterComponent implements OnInit {
     private oauthService;
     private store;
     private toasterService;
+    private authService;
     form: FormGroup;
     inProgress: boolean;
-    constructor(fb: FormBuilder, accountService: AccountService, oauthService: OAuthService, store: Store, toasterService: ToasterService);
+    isSelfRegistrationEnabled: boolean;
+    constructor(fb: FormBuilder, accountService: AccountService, oauthService: OAuthService, store: Store, toasterService: ToasterService, authService: AuthService);
     ngOnInit(): void;
     onSubmit(): void;
 }
