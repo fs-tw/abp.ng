@@ -5,6 +5,7 @@ import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { NbLoginComponent } from '@nebular/auth';
+import { AuthService } from '@abp/ng.core';
 
 @Component({
     selector: 'ngx-admin-login',
@@ -17,9 +18,9 @@ export class LoginComponent extends AbpLoginComponent  {
         _oauthService: OAuthService,
         _store: Store,
         _toasterService: ToasterService,
-        @Optional() @Inject('ACCOUNT_OPTIONS') _options: Options,
+        _authService: AuthService,
     ) {
-        super(_fb, _oauthService, _store, _toasterService, _options);
+        super(_fb, _oauthService, _store, _toasterService, _authService);
     }
 
 }

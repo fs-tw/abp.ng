@@ -22,7 +22,7 @@ import { Component } from '@angular/core';
       </nb-layout-footer>
     </nb-layout>
     <abp-confirmation></abp-confirmation>
-    <abp-toast></abp-toast>
+    <abp-toast-container right="30px" bottom="30px"></abp-toast-container>
   `,
 })
 export class OneColumnLayoutComponent {}

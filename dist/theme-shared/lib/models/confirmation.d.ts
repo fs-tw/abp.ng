@@ -1,10 +1,20 @@
-import { Toaster } from './toaster';
 import { Config } from '@abp/ng.core';
 export declare namespace Confirmation {
-    interface Options extends Toaster.Options {
+    interface Options {
+        id?: any;
+        closable?: boolean;
+        messageLocalizationParams?: string[];
+        titleLocalizationParams?: string[];
         hideCancelBtn?: boolean;
         hideYesBtn?: boolean;
         cancelText?: Config.LocalizationParam;
         yesText?: Config.LocalizationParam;
     }
+    interface DialogData {
+        message: Config.LocalizationParam;
+        title?: Config.LocalizationParam;
+        severity?: Severity;
+        options?: Partial<Options>;
+    }
+    type Severity = 'neutral' | 'success' | 'info' | 'warning' | 'error';
 }

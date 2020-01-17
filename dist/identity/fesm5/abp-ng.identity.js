@@ -2,7 +2,7 @@ import { RestService, ConfigState, DynamicLayoutComponent, AuthGuard, Permission
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ViewChild, ElementRef, NgModule } from '@angular/core';
 import { Action, Selector, State, Store, Select, NgxsModule } from '@ngxs/store';
 import { __assign, __decorate, __metadata, __spread } from 'tslib';
-import { ConfirmationService, ThemeSharedModule } from '@abp/ng.theme.shared';
+import { Toaster, ConfirmationService, ThemeSharedModule } from '@abp/ng.theme.shared';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { tap, pluck, finalize, switchMap, take } from 'rxjs/operators';
@@ -889,7 +889,7 @@ var RolesComponent = /** @class */ (function () {
          * @return {?}
          */
         function (status) {
-            if (status === "confirm" /* confirm */) {
+            if (status === Toaster.Status.confirm) {
                 _this.store.dispatch(new DeleteRole(id)).subscribe((/**
                  * @return {?}
                  */
@@ -1139,7 +1139,7 @@ var UsersComponent = /** @class */ (function () {
             var passwordValidators = [
                 validatePassword(_this.passwordRulesArr),
                 Validators.minLength(_this.requiredPasswordLength),
-                Validators.maxLength(32),
+                Validators.maxLength(128),
             ];
             _this.form.addControl('password', new FormControl('', __spread(passwordValidators)));
             if (!_this.selected.userName) {
@@ -1259,7 +1259,7 @@ var UsersComponent = /** @class */ (function () {
          * @return {?}
          */
         function (status) {
-            if (status === "confirm" /* confirm */) {
+            if (status === Toaster.Status.confirm) {
                 _this.store.dispatch(new DeleteUser(id)).subscribe((/**
                  * @return {?}
                  */

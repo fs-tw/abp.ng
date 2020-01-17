@@ -1,15 +1,15 @@
-import { AbstractToaster } from '../abstracts/toaster';
 import { Confirmation } from '../models/confirmation';
-import { MessageService } from 'primeng/components/common/messageservice';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { Toaster } from '../models/toaster';
-export declare class ConfirmationService extends AbstractToaster<Confirmation.Options> {
-    protected messageService: MessageService;
-    key: string;
-    sticky: boolean;
-    destroy$: Subject<unknown>;
-    constructor(messageService: MessageService);
-    show(message: string, title: string, severity: Toaster.Severity, options?: Confirmation.Options): Observable<Toaster.Status>;
+import { Config } from '@abp/ng.core';
+export declare class ConfirmationService {
+    status$: Subject<Toaster.Status>;
+    confirmation$: ReplaySubject<Confirmation.DialogData>;
+    info(message: Config.LocalizationParam, title: Config.LocalizationParam, options?: Partial<Confirmation.Options>): Observable<Toaster.Status>;
+    success(message: Config.LocalizationParam, title: Config.LocalizationParam, options?: Partial<Confirmation.Options>): Observable<Toaster.Status>;
+    warn(message: Config.LocalizationParam, title: Config.LocalizationParam, options?: Partial<Confirmation.Options>): Observable<Toaster.Status>;
+    error(message: Config.LocalizationParam, title: Config.LocalizationParam, options?: Partial<Confirmation.Options>): Observable<Toaster.Status>;
+    show(message: Config.LocalizationParam, title: Config.LocalizationParam, severity?: Toaster.Severity, options?: Partial<Confirmation.Options>): Observable<Toaster.Status>;
     clear(status?: Toaster.Status): void;
     listenToEscape(): void;
 }

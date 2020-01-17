@@ -1,5 +1,5 @@
 import { RestService, DynamicLayoutComponent, AuthGuard, PermissionGuard, ReplaceableRouteContainerComponent, CoreModule } from '@abp/ng.core';
-import { ConfirmationService, ThemeSharedModule } from '@abp/ng.theme.shared';
+import { Toaster, ConfirmationService, ThemeSharedModule } from '@abp/ng.theme.shared';
 import { Injectable, ɵɵdefineInjectable, ɵɵinject, Component, ViewChild, NgModule } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { Action, Selector, State, Store, Select, NgxsModule } from '@ngxs/store';
@@ -761,7 +761,7 @@ var TenantsComponent = /** @class */ (function () {
          * @return {?}
          */
         function (status) {
-            if (status === "confirm" /* confirm */) {
+            if (status === Toaster.Status.confirm) {
                 _this.store.dispatch(new DeleteTenant(id)).subscribe((/**
                  * @return {?}
                  */

@@ -950,7 +950,7 @@
              * @return {?}
              */
             function (status) {
-                if (status === "confirm" /* confirm */) {
+                if (status === ng_theme_shared.Toaster.Status.confirm) {
                     _this.store.dispatch(new DeleteTenant(id)).subscribe((/**
                      * @return {?}
                      */

@@ -1,17 +1,17 @@
-import { ConfigState, takeUntilDestroy, StartLoader, StopLoader, SortPipe, RestOccurError, LazyLoadService, CoreModule } from '@abp/ng.core';
+import { ConfigState, LocalizationService, takeUntilDestroy, StartLoader, StopLoader, SortPipe, RestOccurError, LazyLoadService, CoreModule } from '@abp/ng.core';
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Renderer2, Input, Output, ViewChild, ElementRef, ChangeDetectorRef, Injectable, ɵɵdefineInjectable, ɵɵinject, ContentChild, ViewChildren, ViewEncapsulation, Directive, Host, Optional, Self, ApplicationRef, ComponentFactoryResolver, RendererFactory2, Injector, Inject, INJECTOR, InjectionToken, ViewContainerRef, HostBinding, APP_INITIALIZER, NgModule } from '@angular/core';
+import { Component, EventEmitter, Renderer2, Input, Output, ViewChild, ElementRef, ChangeDetectorRef, Injectable, ɵɵdefineInjectable, ContentChild, ViewChildren, ViewEncapsulation, Directive, Host, Optional, Self, ApplicationRef, ComponentFactoryResolver, RendererFactory2, Injector, Inject, ɵɵinject, INJECTOR, InjectionToken, ViewContainerRef, HostBinding, APP_INITIALIZER, NgModule } from '@angular/core';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { takeUntilDestroy as takeUntilDestroy$1, NgxValidateCoreModule } from '@ngx-validate/core';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ToastModule } from 'primeng/toast';
-import { __read, __assign, __extends, __spread } from 'tslib';
+import { __read, __spread, __assign, __extends } from 'tslib';
 import { Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 import { Store, ofActionSuccessful, Actions } from '@ngxs/store';
 import { ReplaySubject, BehaviorSubject, Subject, fromEvent, interval, timer } from 'rxjs';
 import { takeUntil, debounceTime, filter } from 'rxjs/operators';
 import snq from 'snq';
-import { animation, style, animate, trigger, transition, useAnimation, keyframes, state } from '@angular/animations';
+import { animation, style, animate, trigger, transition, useAnimation, query, keyframes, state } from '@angular/animations';
 import clone from 'just-clone';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterError, RouterDataResolved, Navigate, RouterState } from '@ngxs/router-plugin';
@@ -483,22 +483,65 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/abstracts/toaster.ts
+ * Generated from: lib/models/toaster.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+var Toaster;
+(function (Toaster) {
+    /**
+     * @record
+     */
+    function ToastOptions() { }
+    Toaster.ToastOptions = ToastOptions;
+    if (false) {
+        /** @type {?|undefined} */
+        ToastOptions.prototype.life;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.sticky;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.closable;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.tapToDismiss;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.messageLocalizationParams;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.titleLocalizationParams;
+        /** @type {?} */
+        ToastOptions.prototype.id;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.containerKey;
+    }
+    /**
+     * @record
+     */
+    function Toast() { }
+    Toaster.Toast = Toast;
+    if (false) {
+        /** @type {?} */
+        Toast.prototype.message;
+        /** @type {?|undefined} */
+        Toast.prototype.title;
+        /** @type {?|undefined} */
+        Toast.prototype.severity;
+        /** @type {?|undefined} */
+        Toast.prototype.options;
+    }
+    var Status;
+    (function (Status) {
+        Status["confirm"] = "confirm";
+        Status["reject"] = "reject";
+        Status["dismiss"] = "dismiss";
+    })(Status = Toaster.Status || (Toaster.Status = {}));
+})(Toaster || (Toaster = {}));
+
 /**
- * @abstract
- * @template T
+ * @fileoverview added by tsickle
+ * Generated from: lib/services/confirmation.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var  /**
- * @abstract
- * @template T
- */
-AbstractToaster = /** @class */ (function () {
-    function AbstractToaster(messageService) {
-        this.messageService = messageService;
-        this.key = 'abpToast';
-        this.sticky = false;
+var ConfirmationService = /** @class */ (function () {
+    function ConfirmationService() {
+        this.confirmation$ = new ReplaySubject(1);
     }
     /**
      * @param {?} message
@@ -506,7 +549,7 @@ AbstractToaster = /** @class */ (function () {
      * @param {?=} options
      * @return {?}
      */
-    AbstractToaster.prototype.info = /**
+    ConfirmationService.prototype.info = /**
      * @param {?} message
      * @param {?} title
      * @param {?=} options
@@ -521,7 +564,7 @@ AbstractToaster = /** @class */ (function () {
      * @param {?=} options
      * @return {?}
      */
-    AbstractToaster.prototype.success = /**
+    ConfirmationService.prototype.success = /**
      * @param {?} message
      * @param {?} title
      * @param {?=} options
@@ -536,14 +579,14 @@ AbstractToaster = /** @class */ (function () {
      * @param {?=} options
      * @return {?}
      */
-    AbstractToaster.prototype.warn = /**
+    ConfirmationService.prototype.warn = /**
      * @param {?} message
      * @param {?} title
      * @param {?=} options
      * @return {?}
      */
     function (message, title, options) {
-        return this.show(message, title, 'warn', options);
+        return this.show(message, title, 'warning', options);
     };
     /**
      * @param {?} message
@@ -551,7 +594,7 @@ AbstractToaster = /** @class */ (function () {
      * @param {?=} options
      * @return {?}
      */
-    AbstractToaster.prototype.error = /**
+    ConfirmationService.prototype.error = /**
      * @param {?} message
      * @param {?} title
      * @param {?=} options
@@ -561,88 +604,29 @@ AbstractToaster = /** @class */ (function () {
         return this.show(message, title, 'error', options);
     };
     /**
-     * @protected
      * @param {?} message
      * @param {?} title
-     * @param {?} severity
-     * @param {?=} options
-     * @return {?}
-     */
-    AbstractToaster.prototype.show = /**
-     * @protected
-     * @param {?} message
-     * @param {?} title
-     * @param {?} severity
-     * @param {?=} options
-     * @return {?}
-     */
-    function (message, title, severity, options) {
-        this.messageService.clear(this.key);
-        this.messageService.add(__assign({ severity: severity, detail: message || '', summary: title || '' }, options, { key: this.key }, (typeof (options || ((/** @type {?} */ ({})))).sticky === 'undefined' && { sticky: this.sticky })));
-        this.status$ = new Subject();
-        return this.status$;
-    };
-    /**
-     * @param {?=} status
-     * @return {?}
-     */
-    AbstractToaster.prototype.clear = /**
-     * @param {?=} status
-     * @return {?}
-     */
-    function (status) {
-        this.messageService.clear(this.key);
-        this.status$.next(status || "dismiss" /* dismiss */);
-        this.status$.complete();
-    };
-    return AbstractToaster;
-}());
-if (false) {
-    /** @type {?} */
-    AbstractToaster.prototype.status$;
-    /** @type {?} */
-    AbstractToaster.prototype.key;
-    /** @type {?} */
-    AbstractToaster.prototype.sticky;
-    /**
-     * @type {?}
-     * @protected
-     */
-    AbstractToaster.prototype.messageService;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/services/confirmation.service.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-var ConfirmationService = /** @class */ (function (_super) {
-    __extends(ConfirmationService, _super);
-    function ConfirmationService(messageService) {
-        var _this = _super.call(this, messageService) || this;
-        _this.messageService = messageService;
-        _this.key = 'abpConfirmation';
-        _this.sticky = true;
-        _this.destroy$ = new Subject();
-        return _this;
-    }
-    /**
-     * @param {?} message
-     * @param {?} title
-     * @param {?} severity
+     * @param {?=} severity
      * @param {?=} options
      * @return {?}
      */
     ConfirmationService.prototype.show = /**
      * @param {?} message
      * @param {?} title
-     * @param {?} severity
+     * @param {?=} severity
      * @param {?=} options
      * @return {?}
      */
     function (message, title, severity, options) {
+        this.confirmation$.next({
+            message: message,
+            title: title || 'AbpUi:AreYouSure',
+            severity: severity || 'neutral',
+            options: options,
+        });
+        this.status$ = new Subject();
         this.listenToEscape();
-        return _super.prototype.show.call(this, message, title, severity, options);
+        return this.status$;
     };
     /**
      * @param {?=} status
@@ -653,8 +637,8 @@ var ConfirmationService = /** @class */ (function (_super) {
      * @return {?}
      */
     function (status) {
-        _super.prototype.clear.call(this, status);
-        this.destroy$.next();
+        this.confirmation$.next();
+        this.status$.next(status || Toaster.Status.dismiss);
     };
     /**
      * @return {?}
@@ -665,7 +649,7 @@ var ConfirmationService = /** @class */ (function (_super) {
     function () {
         var _this = this;
         fromEvent(document, 'keyup')
-            .pipe(takeUntil(this.destroy$), debounceTime(150), filter((/**
+            .pipe(takeUntil(this.status$), debounceTime(150), filter((/**
          * @param {?} key
          * @return {?}
          */
@@ -681,25 +665,14 @@ var ConfirmationService = /** @class */ (function (_super) {
     ConfirmationService.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] }
     ];
-    /** @nocollapse */
-    ConfirmationService.ctorParameters = function () { return [
-        { type: MessageService }
-    ]; };
-    /** @nocollapse */ ConfirmationService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ConfirmationService_Factory() { return new ConfirmationService(ɵɵinject(MessageService)); }, token: ConfirmationService, providedIn: "root" });
+    /** @nocollapse */ ConfirmationService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ConfirmationService_Factory() { return new ConfirmationService(); }, token: ConfirmationService, providedIn: "root" });
     return ConfirmationService;
-}(AbstractToaster));
+}());
 if (false) {
     /** @type {?} */
-    ConfirmationService.prototype.key;
+    ConfirmationService.prototype.status$;
     /** @type {?} */
-    ConfirmationService.prototype.sticky;
-    /** @type {?} */
-    ConfirmationService.prototype.destroy$;
-    /**
-     * @type {?}
-     * @protected
-     */
-    ConfirmationService.prototype.messageService;
+    ConfirmationService.prototype.confirmation$;
 }
 
 /**
@@ -708,12 +681,44 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ConfirmationComponent = /** @class */ (function () {
-    function ConfirmationComponent(confirmationService) {
+    function ConfirmationComponent(confirmationService, localizationService) {
+        var _this = this;
         this.confirmationService = confirmationService;
-        this.confirm = "confirm" /* confirm */;
-        this.reject = "reject" /* reject */;
-        this.dismiss = "dismiss" /* dismiss */;
+        this.localizationService = localizationService;
+        this.confirm = Toaster.Status.confirm;
+        this.reject = Toaster.Status.reject;
+        this.dismiss = Toaster.Status.dismiss;
+        this.visible = false;
+        this.confirmationService.confirmation$.subscribe((/**
+         * @param {?} confirmation
+         * @return {?}
+         */
+        function (confirmation) {
+            _this.data = confirmation;
+            _this.visible = !!confirmation;
+        }));
     }
+    Object.defineProperty(ConfirmationComponent.prototype, "iconClass", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            switch (this.data.severity) {
+                case 'info':
+                    return 'fa-info-circle';
+                case 'success':
+                    return 'fa-check-circle';
+                case 'warning':
+                    return 'fa-exclamation-triangle';
+                case 'error':
+                    return 'fa-times-circle';
+                default:
+                    return 'fa-question-circle';
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @param {?} status
      * @return {?}
@@ -728,13 +733,14 @@ var ConfirmationComponent = /** @class */ (function () {
     ConfirmationComponent.decorators = [
         { type: Component, args: [{
                     selector: 'abp-confirmation',
-                    // tslint:disable-next-line: component-max-inline-declarations
-                    template: "\n    <p-toast\n      position=\"center\"\n      key=\"abpConfirmation\"\n      (onClose)=\"close(dismiss)\"\n      [modal]=\"true\"\n      [baseZIndex]=\"1000\"\n      styleClass=\"abp-confirm\"\n    >\n      <ng-template let-message pTemplate=\"message\">\n        <i class=\"fa fa-exclamation-circle abp-confirm-icon\"></i>\n        <div *ngIf=\"message.summary\" class=\"abp-confirm-summary\">\n          {{ message.summary | abpLocalization: message.titleLocalizationParams }}\n        </div>\n        <div class=\"abp-confirm-body\">\n          {{ message.detail | abpLocalization: message.messageLocalizationParams }}\n        </div>\n\n        <div class=\"abp-confirm-footer justify-content-center\">\n          <button\n            *ngIf=\"!message.hideCancelBtn\"\n            id=\"cancel\"\n            type=\"button\"\n            class=\"btn btn-sm btn-primary\"\n            (click)=\"close(reject)\"\n          >\n            {{ message.cancelText || message.cancelCopy || 'AbpIdentity::Cancel' | abpLocalization }}\n          </button>\n          <button\n            *ngIf=\"!message.hideYesBtn\"\n            id=\"confirm\"\n            type=\"button\"\n            class=\"btn btn-sm btn-primary\"\n            (click)=\"close(confirm)\"\n            autofocus\n          >\n            <span>{{ message.yesText || message.yesCopy || 'AbpIdentity::Yes' | abpLocalization }}</span>\n          </button>\n        </div>\n      </ng-template>\n    </p-toast>\n  "
+                    template: "<div class=\"confirmation show\" *ngIf=\"visible\">\r\n  <div class=\"confirmation-backdrop\"></div>\r\n  <div class=\"confirmation-dialog\">\r\n    <div class=\"icon-container\" [ngClass]=\"data.severity\" *ngIf=\"data.severity\">\r\n      <i class=\"fa icon\" [ngClass]=\"iconClass\"></i>\r\n    </div>\r\n    <div class=\"content\">\r\n      <h1 class=\"title\" *ngIf=\"data.title\">\r\n        {{ data.title | abpLocalization: data.options?.titleLocalizationParams }}\r\n      </h1>\r\n      <p class=\"message\" *ngIf=\"data.message\">\r\n        {{ data.message | abpLocalization: data.options?.messageLocalizationParams }}\r\n      </p>\r\n    </div>\r\n    <div class=\"footer\">\r\n      <button\r\n        id=\"cancel\"\r\n        class=\"confirmation-button confirmation-button-reject\"\r\n        *ngIf=\"!data?.options?.hideCancelBtn\"\r\n        (click)=\"close(reject)\"\r\n      >\r\n        {{ data.options?.cancelText || 'AbpUi::Cancel' | abpLocalization }}\r\n      </button>\r\n      <button\r\n        id=\"confirm\"\r\n        class=\"confirmation-button confirmation-button-approve\"\r\n        *ngIf=\"!data?.options?.hideYesBtn\"\r\n        (click)=\"close(confirm)\"\r\n      >\r\n        {{ data.options?.yesText || 'AbpUi::Yes' | abpLocalization }}\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".confirmation{position:fixed;top:0;right:0;bottom:0;left:0;display:none;place-items:center;z-index:1060}.confirmation.show{display:-ms-grid;display:grid}.confirmation .confirmation-backdrop{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:rgba(0,0,0,.7);z-index:1061!important}.confirmation .confirmation-dialog{display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;margin:20px auto;padding:0;border:none;border-radius:10px;width:450px;min-height:300px;background-color:#fff;box-shadow:0 0 10px -5px rgba(0,0,0,.5);z-index:1062!important}.confirmation .confirmation-dialog .icon-container{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;margin:0 0 10px;padding:20px}.confirmation .confirmation-dialog .icon-container .icon{width:100px;height:100px;stroke-width:1;fill:#fff;font-size:80px;text-align:center}.confirmation .confirmation-dialog .icon-container.info .icon{stroke:#2f96b4;color:#2f96b4}.confirmation .confirmation-dialog .icon-container.success .icon{stroke:#51a351;color:#51a351}.confirmation .confirmation-dialog .icon-container.warning .icon{stroke:#f89406;color:#f89406}.confirmation .confirmation-dialog .icon-container.error .icon{stroke:#bd362f;color:#bd362f}.confirmation .confirmation-dialog .content{-webkit-box-flex:1;flex-grow:1;display:block}.confirmation .confirmation-dialog .content .title{display:block;margin:0;padding:0;font-size:27px;font-weight:600;text-align:center}.confirmation .confirmation-dialog .content .message{display:block;margin:10px auto;padding:20px;color:#777;font-size:16px;font-weight:400;text-align:center}.confirmation .confirmation-dialog .footer{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:end;justify-content:flex-end;margin:10px 0 0;padding:20px;width:100%}.confirmation .confirmation-dialog .footer .confirmation-button{display:inline-block;margin:0 5px;padding:10px 20px;border:none;border-radius:6px;color:#777;font-size:14px;font-weight:600;background-color:#eee}.confirmation .confirmation-dialog .footer .confirmation-button:hover{background-color:#e1e1e1}.confirmation .confirmation-dialog .footer .confirmation-button-approve{background-color:#2f96b4;color:#fff}.confirmation .confirmation-dialog .footer .confirmation-button-approve:hover{background-color:#2a85a0}"]
                 }] }
     ];
     /** @nocollapse */
     ConfirmationComponent.ctorParameters = function () { return [
-        { type: ConfirmationService }
+        { type: ConfirmationService },
+        { type: LocalizationService }
     ]; };
     return ConfirmationComponent;
 }());
@@ -745,11 +751,20 @@ if (false) {
     ConfirmationComponent.prototype.reject;
     /** @type {?} */
     ConfirmationComponent.prototype.dismiss;
+    /** @type {?} */
+    ConfirmationComponent.prototype.visible;
+    /** @type {?} */
+    ConfirmationComponent.prototype.data;
     /**
      * @type {?}
      * @private
      */
     ConfirmationComponent.prototype.confirmationService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ConfirmationComponent.prototype.localizationService;
 }
 
 /**
@@ -1205,6 +1220,24 @@ var ModalComponent = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ModalComponent.prototype, "isFormDirty", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var node;
+            if (!this.modalContent) {
+                node = (/** @type {?} */ (document.getElementById('modal-container')));
+            }
+            /** @type {?} */
+            var nodes = getFlatNodes(((/** @type {?} */ ((node || this.modalContent.nativeElement).querySelector('#abp-modal-body'))))
+                .childNodes);
+            return hasNgDirty(nodes);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
@@ -1224,14 +1257,7 @@ var ModalComponent = /** @class */ (function () {
         var _this = this;
         if (this.busy)
             return;
-        /** @type {?} */
-        var node;
-        if (!this.modalContent) {
-            node = (/** @type {?} */ (document.getElementById('modal-container')));
-        }
-        /** @type {?} */
-        var nodes = getFlatNodes(((/** @type {?} */ ((node || this.modalContent.nativeElement).querySelector('#abp-modal-body')))).childNodes);
-        if (hasNgDirty(nodes)) {
+        if (this.isFormDirty) {
             if (this.isConfirmationOpen)
                 return;
             this.isConfirmationOpen = true;
@@ -1243,7 +1269,7 @@ var ModalComponent = /** @class */ (function () {
              */
             function (status) {
                 _this.isConfirmationOpen = false;
-                if (status === "confirm" /* confirm */) {
+                if (status === Toaster.Status.confirm) {
                     _this.visible = false;
                 }
             }));
@@ -1272,6 +1298,20 @@ var ModalComponent = /** @class */ (function () {
         function () {
             _this.close();
         }));
+        fromEvent(window, 'beforeunload')
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        function (event) {
+            if (_this.isFormDirty) {
+                event.returnValue = true;
+            }
+            else {
+                delete event.returnValue;
+            }
+        }));
         setTimeout((/**
          * @return {?}
          */
@@ -1294,7 +1334,8 @@ var ModalComponent = /** @class */ (function () {
         { type: Component, args: [{
                     selector: 'abp-modal',
                     template: "<div\r\n  *ngIf=\"visible\"\r\n  [@fade]=\"isModalOpen\"\r\n  id=\"modal-container\"\r\n  class=\"modal show {{ modalClass }}\"\r\n  tabindex=\"-1\"\r\n  role=\"dialog\"\r\n>\r\n  <div class=\"modal-backdrop\" (click)=\"close()\"></div>\r\n  <div\r\n    id=\"abp-modal-dialog\"\r\n    class=\"modal-dialog modal-{{ size }}\"\r\n    role=\"document\"\r\n    [class.modal-dialog-centered]=\"centered\"\r\n    #abpModalContent\r\n  >\r\n    <div id=\"abp-modal-content\" class=\"modal-content\">\r\n      <div id=\"abp-modal-header\" class=\"modal-header\">\r\n        <ng-container *ngTemplateOutlet=\"abpHeader\"></ng-container>\r\n        \u200B\r\n        <button id=\"abp-modal-close-button\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"close()\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div id=\"abp-modal-body\" class=\"modal-body\">\r\n        <ng-container *ngTemplateOutlet=\"abpBody\"></ng-container>\r\n      </div>\r\n      <div id=\"abp-modal-footer\" class=\"modal-footer\">\r\n        <ng-container *ngTemplateOutlet=\"abpFooter\"></ng-container>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
-                    animations: [fadeAnimation]
+                    animations: [fadeAnimation],
+                    styles: [".modal.show{display:block!important}.modal-backdrop{background-color:rgba(0,0,0,.6)}.modal::-webkit-scrollbar{width:7px}.modal::-webkit-scrollbar-track{background:#ddd}.modal::-webkit-scrollbar-thumb{background:#8a8686}.modal-dialog{z-index:1050}"]
                 }] }
     ];
     /** @nocollapse */
@@ -1568,6 +1609,331 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/animations/toast.animations.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+var toastInOut = trigger('toastInOut', [
+    transition('* <=> *', [
+        query(':enter', [
+            style({ opacity: 0, transform: 'translateY(20px)' }),
+            animate('350ms ease', style({ opacity: 1, transform: 'translateY(0)' })),
+        ], { optional: true }),
+        query(':leave', animate('450ms ease', style({ opacity: 0 })), {
+            optional: true,
+        }),
+    ]),
+]);
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/services/toaster.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var ToasterService = /** @class */ (function () {
+    function ToasterService() {
+        this.toasts$ = new ReplaySubject(1);
+        this.lastId = -1;
+        this.toasts = (/** @type {?} */ ([]));
+    }
+    /**
+     * Creates an info toast with given parameters.
+     * @param message Content of the toast
+     * @param title Title of the toast
+     * @param options Spesific style or structural options for individual toast
+     */
+    /**
+     * Creates an info toast with given parameters.
+     * @param {?} message Content of the toast
+     * @param {?=} title Title of the toast
+     * @param {?=} options Spesific style or structural options for individual toast
+     * @return {?}
+     */
+    ToasterService.prototype.info = /**
+     * Creates an info toast with given parameters.
+     * @param {?} message Content of the toast
+     * @param {?=} title Title of the toast
+     * @param {?=} options Spesific style or structural options for individual toast
+     * @return {?}
+     */
+    function (message, title, options) {
+        return this.show(message, title, 'info', options);
+    };
+    /**
+     * Creates a success toast with given parameters.
+     * @param message Content of the toast
+     * @param title Title of the toast
+     * @param options Spesific style or structural options for individual toast
+     */
+    /**
+     * Creates a success toast with given parameters.
+     * @param {?} message Content of the toast
+     * @param {?=} title Title of the toast
+     * @param {?=} options Spesific style or structural options for individual toast
+     * @return {?}
+     */
+    ToasterService.prototype.success = /**
+     * Creates a success toast with given parameters.
+     * @param {?} message Content of the toast
+     * @param {?=} title Title of the toast
+     * @param {?=} options Spesific style or structural options for individual toast
+     * @return {?}
+     */
+    function (message, title, options) {
+        return this.show(message, title, 'success', options);
+    };
+    /**
+     * Creates a warning toast with given parameters.
+     * @param message Content of the toast
+     * @param title Title of the toast
+     * @param options Spesific style or structural options for individual toast
+     */
+    /**
+     * Creates a warning toast with given parameters.
+     * @param {?} message Content of the toast
+     * @param {?=} title Title of the toast
+     * @param {?=} options Spesific style or structural options for individual toast
+     * @return {?}
+     */
+    ToasterService.prototype.warn = /**
+     * Creates a warning toast with given parameters.
+     * @param {?} message Content of the toast
+     * @param {?=} title Title of the toast
+     * @param {?=} options Spesific style or structural options for individual toast
+     * @return {?}
+     */
+    function (message, title, options) {
+        return this.show(message, title, 'warning', options);
+    };
+    /**
+     * Creates an error toast with given parameters.
+     * @param message Content of the toast
+     * @param title Title of the toast
+     * @param options Spesific style or structural options for individual toast
+     */
+    /**
+     * Creates an error toast with given parameters.
+     * @param {?} message Content of the toast
+     * @param {?=} title Title of the toast
+     * @param {?=} options Spesific style or structural options for individual toast
+     * @return {?}
+     */
+    ToasterService.prototype.error = /**
+     * Creates an error toast with given parameters.
+     * @param {?} message Content of the toast
+     * @param {?=} title Title of the toast
+     * @param {?=} options Spesific style or structural options for individual toast
+     * @return {?}
+     */
+    function (message, title, options) {
+        return this.show(message, title, 'error', options);
+    };
+    /**
+     * Creates a toast with given parameters.
+     * @param message Content of the toast
+     * @param title Title of the toast
+     * @param severity Sets color of the toast. "success", "warning" etc.
+     * @param options Spesific style or structural options for individual toast
+     */
+    /**
+     * Creates a toast with given parameters.
+     * @param {?} message Content of the toast
+     * @param {?=} title Title of the toast
+     * @param {?=} severity Sets color of the toast. "success", "warning" etc.
+     * @param {?=} options Spesific style or structural options for individual toast
+     * @return {?}
+     */
+    ToasterService.prototype.show = /**
+     * Creates a toast with given parameters.
+     * @param {?} message Content of the toast
+     * @param {?=} title Title of the toast
+     * @param {?=} severity Sets color of the toast. "success", "warning" etc.
+     * @param {?=} options Spesific style or structural options for individual toast
+     * @return {?}
+     */
+    function (message, title, severity, options) {
+        if (title === void 0) { title = null; }
+        if (severity === void 0) { severity = 'neutral'; }
+        if (options === void 0) { options = (/** @type {?} */ ({})); }
+        /** @type {?} */
+        var id = ++this.lastId;
+        this.toasts.push({
+            message: message,
+            title: title,
+            severity: severity,
+            options: __assign({ closable: true, id: id }, options),
+        });
+        this.toasts$.next(this.toasts);
+        return id;
+    };
+    /**
+     * Removes the toast with given id.
+     * @param id ID of the toast to be removed.
+     */
+    /**
+     * Removes the toast with given id.
+     * @param {?} id ID of the toast to be removed.
+     * @return {?}
+     */
+    ToasterService.prototype.remove = /**
+     * Removes the toast with given id.
+     * @param {?} id ID of the toast to be removed.
+     * @return {?}
+     */
+    function (id) {
+        this.toasts = this.toasts.filter((/**
+         * @param {?} toast
+         * @return {?}
+         */
+        function (toast) { return snq((/**
+         * @return {?}
+         */
+        function () { return toast.options.id; })) !== id; }));
+        this.toasts$.next(this.toasts);
+    };
+    /**
+     * Removes all open toasts at once.
+     */
+    /**
+     * Removes all open toasts at once.
+     * @param {?=} key
+     * @return {?}
+     */
+    ToasterService.prototype.clear = /**
+     * Removes all open toasts at once.
+     * @param {?=} key
+     * @return {?}
+     */
+    function (key) {
+        this.toasts = !key
+            ? []
+            : this.toasts.filter((/**
+             * @param {?} toast
+             * @return {?}
+             */
+            function (toast) { return snq((/**
+             * @return {?}
+             */
+            function () { return toast.options.containerKey; })) !== key; }));
+        this.toasts$.next(this.toasts);
+    };
+    ToasterService.decorators = [
+        { type: Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    /** @nocollapse */ ToasterService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ToasterService_Factory() { return new ToasterService(); }, token: ToasterService, providedIn: "root" });
+    return ToasterService;
+}());
+if (false) {
+    /** @type {?} */
+    ToasterService.prototype.toasts$;
+    /**
+     * @type {?}
+     * @private
+     */
+    ToasterService.prototype.lastId;
+    /**
+     * @type {?}
+     * @private
+     */
+    ToasterService.prototype.toasts;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/components/toast-container/toast-container.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var ToastContainerComponent = /** @class */ (function () {
+    function ToastContainerComponent(toastService) {
+        this.toastService = toastService;
+        this.toasts = (/** @type {?} */ ([]));
+        this.right = '30px';
+        this.bottom = '30px';
+    }
+    /**
+     * @return {?}
+     */
+    ToastContainerComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this.toastService.toasts$.subscribe((/**
+         * @param {?} toasts
+         * @return {?}
+         */
+        function (toasts) {
+            _this.toasts = _this.toastKey
+                ? toasts.filter((/**
+                 * @param {?} t
+                 * @return {?}
+                 */
+                function (t) {
+                    return t.options && t.options.containerKey !== _this.toastKey;
+                }))
+                : toasts;
+        }));
+    };
+    /**
+     * @param {?} index
+     * @param {?} toast
+     * @return {?}
+     */
+    ToastContainerComponent.prototype.trackByFunc = /**
+     * @param {?} index
+     * @param {?} toast
+     * @return {?}
+     */
+    function (index, toast) {
+        if (!toast)
+            return null;
+        return toast.options.id;
+    };
+    ToastContainerComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'abp-toast-container',
+                    template: "<div\r\n  class=\"toast-container\"\r\n  [style.top]=\"top || 'auto'\"\r\n  [style.right]=\"right || 'auto'\"\r\n  [style.bottom]=\"bottom || 'auto'\"\r\n  [style.left]=\"left || 'auto'\"\r\n  [style.display]=\"toasts.length ? 'flex' : 'none'\"\r\n  [@toastInOut]=\"toasts.length\"\r\n>\r\n  <abp-toast [toast]=\"toast\" *ngFor=\"let toast of toasts; trackBy: trackByFunc\"></abp-toast>\r\n</div>\r\n",
+                    animations: [toastInOut],
+                    styles: [".toast-container{position:fixed;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-pack:end;justify-content:flex-end;min-width:350px;min-height:80px;z-index:1900}.toast-container.new-on-top{-webkit-box-orient:vertical;-webkit-box-direction:reverse;flex-direction:column-reverse}"]
+                }] }
+    ];
+    /** @nocollapse */
+    ToastContainerComponent.ctorParameters = function () { return [
+        { type: ToasterService }
+    ]; };
+    ToastContainerComponent.propDecorators = {
+        top: [{ type: Input }],
+        right: [{ type: Input }],
+        bottom: [{ type: Input }],
+        left: [{ type: Input }],
+        toastKey: [{ type: Input }]
+    };
+    return ToastContainerComponent;
+}());
+if (false) {
+    /** @type {?} */
+    ToastContainerComponent.prototype.toasts;
+    /** @type {?} */
+    ToastContainerComponent.prototype.top;
+    /** @type {?} */
+    ToastContainerComponent.prototype.right;
+    /** @type {?} */
+    ToastContainerComponent.prototype.bottom;
+    /** @type {?} */
+    ToastContainerComponent.prototype.left;
+    /** @type {?} */
+    ToastContainerComponent.prototype.toastKey;
+    /**
+     * @type {?}
+     * @private
+     */
+    ToastContainerComponent.prototype.toastService;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/components/table/table.component.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -1702,24 +2068,125 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var ToastComponent = /** @class */ (function () {
-    function ToastComponent() {
+    function ToastComponent(toastService, localizationService) {
+        this.toastService = toastService;
+        this.localizationService = localizationService;
     }
+    Object.defineProperty(ToastComponent.prototype, "severityClass", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            if (!this.toast || !this.toast.severity)
+                return '';
+            return "toast-" + this.toast.severity;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ToastComponent.prototype, "iconClass", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            switch (this.toast.severity) {
+                case 'success':
+                    return 'fa-check-circle';
+                case 'info':
+                    return 'fa-info-circle';
+                case 'warning':
+                    return 'fa-exclamation-triangle';
+                case 'error':
+                    return 'fa-times-circle';
+                default:
+                    return 'fa-exclamation-circle';
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    ToastComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (snq((/**
+         * @return {?}
+         */
+        function () { return _this.toast.options.sticky; })))
+            return;
+        /** @type {?} */
+        var timeout = snq((/**
+         * @return {?}
+         */
+        function () { return _this.toast.options.life; })) || 5000;
+        setTimeout((/**
+         * @return {?}
+         */
+        function () {
+            _this.close();
+        }), timeout);
+    };
+    /**
+     * @return {?}
+     */
+    ToastComponent.prototype.close = /**
+     * @return {?}
+     */
+    function () {
+        this.toastService.remove(this.toast.options.id);
+    };
+    /**
+     * @return {?}
+     */
+    ToastComponent.prototype.tap = /**
+     * @return {?}
+     */
+    function () {
+        if (this.toast.options && this.toast.options.tapToDismiss)
+            this.close();
+    };
     ToastComponent.decorators = [
         { type: Component, args: [{
                     selector: 'abp-toast',
-                    // tslint:disable-next-line: component-max-inline-declarations
-                    template: "\n    <p-toast position=\"bottom-right\" key=\"abpToast\" styleClass=\"abp-toast\" [baseZIndex]=\"1000\">\n      <ng-template let-message pTemplate=\"message\">\n        <span\n          class=\"ui-toast-icon pi\"\n          [ngClass]=\"{\n            'pi-info-circle': message.severity === 'info',\n            'pi-exclamation-triangle': message.severity === 'warn',\n            'pi-times': message.severity === 'error',\n            'pi-check': message.severity === 'success'\n          }\"\n        ></span>\n        <div class=\"ui-toast-message-text-content\">\n          <div class=\"ui-toast-summary\">{{ message.summary | abpLocalization: message.titleLocalizationParams }}</div>\n          <div class=\"ui-toast-detail\">{{ message.detail | abpLocalization: message.messageLocalizationParams }}</div>\n        </div>\n      </ng-template>\n    </p-toast>\n  "
+                    template: "<div class=\"toast\" [ngClass]=\"severityClass\" (click)=\"tap()\">\r\n  <div class=\"toast-icon\">\r\n    <i class=\"fa icon\" [ngClass]=\"iconClass\"></i>\r\n  </div>\r\n  <div class=\"toast-content\">\r\n    <button class=\"close-button\" (click)=\"close()\" *ngIf=\"toast.options.closable\">\r\n      <i class=\"fa fa-times\"></i>\r\n    </button>\r\n    <div class=\"toast-title\">\r\n      {{ toast.title | abpLocalization: toast.options?.titleLocalizationParams }}\r\n    </div>\r\n    <div class=\"toast-message\">\r\n      {{ toast.message | abpLocalization: toast.options?.messageLocalizationParams }}\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".toast{display:-ms-grid;display:grid;-ms-grid-columns:50px 1fr;grid-template-columns:50px 1fr;gap:10px;margin:5px 0;padding:10px;border-radius:0;width:350px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;box-shadow:0 0 10px -5px rgba(0,0,0,.4);z-index:9999;border:2px solid #f0f0f0;background-color:#f0f0f0;color:#000;box-shadow:0 0 10px -5px rgba(0,0,0,.4);opacity:1}.toast:hover{border:2px solid #e3e3e3;background-color:#e3e3e3;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast.toast-success{border:2px solid #51a351;background-color:#51a351;color:#fff;box-shadow:0 0 10px -5px rgba(0,0,0,.4)}.toast.toast-success:hover{border:2px solid #499249;background-color:#499249;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast.toast-info{border:2px solid #2f96b4;background-color:#2f96b4;color:#fff;box-shadow:0 0 10px -5px rgba(0,0,0,.4)}.toast.toast-info:hover{border:2px solid #2a85a0;background-color:#2a85a0;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast.toast-warning{border:2px solid #f89406;background-color:#f89406;color:#fff;box-shadow:0 0 10px -5px rgba(0,0,0,.4)}.toast.toast-warning:hover{border:2px solid #df8505;background-color:#df8505;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast.toast-error{border:2px solid #bd362f;background-color:#bd362f;color:#fff;box-shadow:0 0 10px -5px rgba(0,0,0,.4)}.toast.toast-error:hover{border:2px solid #a9302a;background-color:#a9302a;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast .toast-icon{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center}.toast .toast-icon .icon{font-size:36px}.toast .toast-content{position:relative}.toast .toast-content .close-button{position:absolute;top:0;right:0;display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;-webkit-box-pack:center;justify-content:center;margin:0;padding:5px 10px 5px 5px;width:25px;height:25px;border:none;border-radius:50%;background:0 0}.toast .toast-content .close-button:focus{outline:0}.toast .toast-content .close-button .close-icon{width:16px;height:16px;stroke:#000}.toast .toast-content .toast-title{margin:0;padding:0;font-size:1rem;font-weight:600}"]
                 }] }
     ];
+    /** @nocollapse */
+    ToastComponent.ctorParameters = function () { return [
+        { type: ToasterService },
+        { type: LocalizationService }
+    ]; };
+    ToastComponent.propDecorators = {
+        toast: [{ type: Input }]
+    };
     return ToastComponent;
 }());
+if (false) {
+    /** @type {?} */
+    ToastComponent.prototype.toast;
+    /**
+     * @type {?}
+     * @private
+     */
+    ToastComponent.prototype.toastService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ToastComponent.prototype.localizationService;
+}
 
 /**
  * @fileoverview added by tsickle
  * Generated from: lib/constants/styles.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var styles = "\n.is-invalid .form-control {\n  border-color: #dc3545;\n  border-style: solid !important;\n}\n\n.is-invalid .invalid-feedback,\n.is-invalid + * .invalid-feedback {\n  display: block;\n}\n\n.data-tables-filter {\n  text-align: right;\n}\n\n.pointer {\n  cursor: pointer;\n}\n\n.navbar .dropdown-submenu a::after {\n  transform: rotate(-90deg);\n  position: absolute;\n  right: 16px;\n  top: 18px;\n}\n\n.navbar .dropdown-menu {\n  min-width: 215px;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar {\n  height: 5px !important;\n  width: 5px !important;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.modal.show {\n  display: block !important;\n}\n\n.modal-backdrop {\n  background-color: rgba(0, 0, 0, 0.6);\n}\n\n.modal::-webkit-scrollbar {\n  width: 7px;\n}\n\n.modal::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.modal::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.modal-dialog {\n  z-index: 1050;\n}\n\n.abp-ellipsis-inline {\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-ellipsis {\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-toast .ui-toast-message {\n  box-sizing: border-box;\n  border: 2px solid transparent;\n  border-radius: 4px;\n  color: #1b1d29;\n}\n\n.abp-toast .ui-toast-message-content {\n  padding: 10px;\n}\n\n.abp-toast .ui-toast-message-content .ui-toast-icon {\n  top: 0;\n  left: 0;\n  padding: 10px;\n}\n\n.abp-toast .ui-toast-summary {\n  margin: 0;\n  font-weight: 700;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-error {\n  border: 2px solid #ba1659;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-error .ui-toast-message-content .ui-toast-icon {\n  color: #ba1659;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-warn {\n  border: 2px solid #ed5d98;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-warn .ui-toast-message-content .ui-toast-icon {\n  color: #ed5d98;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-success {\n  border: 2px solid #1c9174;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-success .ui-toast-message-content .ui-toast-icon {\n  color: #1c9174;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-info {\n  border: 2px solid #fccb31;\n  background-color: #f4f4f7;\n}\n\nbody abp-toast .ui-toast .ui-toast-message.ui-toast-message-info .ui-toast-message-content .ui-toast-icon {\n  color: #fccb31;\n}\n\n.abp-confirm .ui-toast-message {\n  box-sizing: border-box;\n  padding: 0px;\n  border:0 none;\n  border-radius: 4px;\n  background-color: transparent !important;\n  font-family: \"Poppins\", sans-serif;\n  text-align: center;\n}\n\n.abp-confirm .ui-toast-message-content {\n  padding: 0px;\n}\n\n.abp-confirm .abp-confirm-icon {\n  margin: 32px 50px 5px !important;\n  color: #f8bb86 !important;\n  font-size: 52px !important;\n}\n\n.abp-confirm .ui-toast-close-icon {\n  display: none !important;\n}\n\n.abp-confirm .abp-confirm-summary {\n  display: block !important;\n  margin-bottom: 13px !important;\n  padding: 13px 16px 0px !important;\n  font-weight: 600 !important;\n  font-size: 18px !important;\n}\n\n.abp-confirm .abp-confirm-body {\n  display: inline-block !important;\n  padding: 0px 10px !important;\n}\n\n.abp-confirm .abp-confirm-footer {\n  display: block;\n  margin-top: 30px;\n  padding: 16px;\n  text-align: right;\n}\n\n.abp-confirm .abp-confirm-footer .btn {\n  margin-left: 10px !important;\n}\n\n.ui-widget-overlay {\n  z-index: 1000;\n}\n\n.color-white {\n  color: #FFF !important;\n}\n\n.custom-checkbox > label {\n  cursor: pointer;\n}\n\n/* <animations */\n\n.fade-in-top {\n  animation: fadeInTop 0.2s ease-in-out;\n}\n\n.fade-out-top {\n  animation: fadeOutTop 0.2s ease-in-out;\n}\n\n.abp-collapsed-height {\n  -moz-transition: max-height linear 0.35s;\n  -ms-transition: max-height linear 0.35s;\n  -o-transition: max-height linear 0.35s;\n  -webkit-transition: max-height linear 0.35s;\n  overflow:hidden;\n  transition:max-height 0.35s linear;\n  height:auto;\n  max-height: 0;\n}\n\n.abp-mh-25 {\n  max-height: 25vh;\n}\n\n.abp-mh-50 {\n  transition:max-height 0.65s linear;\n  max-height: 50vh;\n}\n\n.abp-mh-75 {\n  transition:max-height 0.85s linear;\n  max-height: 75vh;\n}\n\n.abp-mh-100 {\n  transition:max-height 1s linear;\n  max-height: 100vh;\n}\n\n[class^=\"sorting\"] {\n  opacity: .3;\n  cursor: pointer;\n}\n[class^=\"sorting\"]:before {\n  right: 0.5rem;\n  content: \"\u2191\";\n}\n[class^=\"sorting\"]:after {\n  right: 0.5rem;\n  content: \"\u2193\";\n}\n\n.sorting_desc {\n  opacity: 1;\n}\n.sorting_desc:before {\n  opacity: .3;\n}\n\n.sorting_asc {\n  opacity: 1;\n}\n.sorting_asc:after {\n  opacity: .3;\n}\n\n@keyframes fadeInTop {\n  from {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n\n  to {\n    transform: translateY(0px);\n    opacity: 1;\n  }\n}\n\n@keyframes fadeOutTop {\n  to {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n}\n\n/* </animations */\n\n";
+var styles = "\n.is-invalid .form-control {\n  border-color: #dc3545;\n  border-style: solid !important;\n}\n\n.is-invalid .invalid-feedback,\n.is-invalid + * .invalid-feedback {\n  display: block;\n}\n\n.data-tables-filter {\n  text-align: right;\n}\n\n.pointer {\n  cursor: pointer;\n}\n\n.navbar .dropdown-submenu a::after {\n  transform: rotate(-90deg);\n  position: absolute;\n  right: 16px;\n  top: 18px;\n}\n\n.navbar .dropdown-menu {\n  min-width: 215px;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar {\n  height: 5px !important;\n  width: 5px !important;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.abp-ellipsis-inline {\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-ellipsis {\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.ui-widget-overlay {\n  z-index: 1000;\n}\n\n.color-white {\n  color: #FFF !important;\n}\n\n.custom-checkbox > label {\n  cursor: pointer;\n}\n\n/* <animations */\n\n.fade-in-top {\n  animation: fadeInTop 0.2s ease-in-out;\n}\n\n.fade-out-top {\n  animation: fadeOutTop 0.2s ease-in-out;\n}\n\n.abp-collapsed-height {\n  -moz-transition: max-height linear 0.35s;\n  -ms-transition: max-height linear 0.35s;\n  -o-transition: max-height linear 0.35s;\n  -webkit-transition: max-height linear 0.35s;\n  overflow:hidden;\n  transition:max-height 0.35s linear;\n  height:auto;\n  max-height: 0;\n}\n\n.abp-mh-25 {\n  max-height: 25vh;\n}\n\n.abp-mh-50 {\n  transition:max-height 0.65s linear;\n  max-height: 50vh;\n}\n\n.abp-mh-75 {\n  transition:max-height 0.85s linear;\n  max-height: 75vh;\n}\n\n.abp-mh-100 {\n  transition:max-height 1s linear;\n  max-height: 100vh;\n}\n\n[class^=\"sorting\"] {\n  opacity: .3;\n  cursor: pointer;\n}\n[class^=\"sorting\"]:before {\n  right: 0.5rem;\n  content: \"\u2191\";\n}\n[class^=\"sorting\"]:after {\n  right: 0.5rem;\n  content: \"\u2193\";\n}\n\n.sorting_desc {\n  opacity: 1;\n}\n.sorting_desc:before {\n  opacity: .3;\n}\n\n.sorting_asc {\n  opacity: 1;\n}\n.sorting_asc:after {\n  opacity: .3;\n}\n\n@keyframes fadeInTop {\n  from {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n\n  to {\n    transform: translateY(0px);\n    opacity: 1;\n  }\n}\n\n@keyframes fadeOutTop {\n  to {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n}\n\n/* </animations */\n\n";
 
 /**
  * @fileoverview added by tsickle
@@ -2619,6 +3086,7 @@ var ThemeSharedModule = /** @class */ (function () {
                         TableComponent,
                         TableEmptyMessageComponent,
                         ToastComponent,
+                        ToastContainerComponent,
                         SortOrderIconComponent,
                         LoadingDirective,
                         TableSortDirective,
@@ -2635,6 +3103,7 @@ var ThemeSharedModule = /** @class */ (function () {
                         TableComponent,
                         TableEmptyMessageComponent,
                         ToastComponent,
+                        ToastContainerComponent,
                         SortOrderIconComponent,
                         LoadingDirective,
                         TableSortDirective,
@@ -2803,6 +3272,14 @@ var Confirmation;
     Confirmation.Options = Options;
     if (false) {
         /** @type {?|undefined} */
+        Options.prototype.id;
+        /** @type {?|undefined} */
+        Options.prototype.closable;
+        /** @type {?|undefined} */
+        Options.prototype.messageLocalizationParams;
+        /** @type {?|undefined} */
+        Options.prototype.titleLocalizationParams;
+        /** @type {?|undefined} */
         Options.prototype.hideCancelBtn;
         /** @type {?|undefined} */
         Options.prototype.hideYesBtn;
@@ -2810,6 +3287,21 @@ var Confirmation;
         Options.prototype.cancelText;
         /** @type {?|undefined} */
         Options.prototype.yesText;
+    }
+    /**
+     * @record
+     */
+    function DialogData() { }
+    Confirmation.DialogData = DialogData;
+    if (false) {
+        /** @type {?} */
+        DialogData.prototype.message;
+        /** @type {?|undefined} */
+        DialogData.prototype.title;
+        /** @type {?|undefined} */
+        DialogData.prototype.severity;
+        /** @type {?|undefined} */
+        DialogData.prototype.options;
     }
 })(Confirmation || (Confirmation = {}));
 
@@ -2887,85 +3379,9 @@ var Statistics;
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/models/toaster.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-var Toaster;
-(function (Toaster) {
-    /**
-     * @record
-     */
-    function Options() { }
-    Toaster.Options = Options;
-    if (false) {
-        /** @type {?|undefined} */
-        Options.prototype.id;
-        /** @type {?|undefined} */
-        Options.prototype.closable;
-        /** @type {?|undefined} */
-        Options.prototype.life;
-        /** @type {?|undefined} */
-        Options.prototype.sticky;
-        /** @type {?|undefined} */
-        Options.prototype.data;
-        /** @type {?|undefined} */
-        Options.prototype.messageLocalizationParams;
-        /** @type {?|undefined} */
-        Options.prototype.titleLocalizationParams;
-    }
-})(Toaster || (Toaster = {}));
-
-/**
- * @fileoverview added by tsickle
  * Generated from: lib/models/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/services/toaster.service.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-var ToasterService = /** @class */ (function (_super) {
-    __extends(ToasterService, _super);
-    function ToasterService(messageService) {
-        var _this = _super.call(this, messageService) || this;
-        _this.messageService = messageService;
-        return _this;
-    }
-    /**
-     * @param {?} messages
-     * @return {?}
-     */
-    ToasterService.prototype.addAll = /**
-     * @param {?} messages
-     * @return {?}
-     */
-    function (messages) {
-        var _this = this;
-        this.messageService.addAll(messages.map((/**
-         * @param {?} message
-         * @return {?}
-         */
-        function (message) { return (__assign({ key: _this.key }, message)); })));
-    };
-    ToasterService.decorators = [
-        { type: Injectable, args: [{ providedIn: 'root' },] }
-    ];
-    /** @nocollapse */
-    ToasterService.ctorParameters = function () { return [
-        { type: MessageService }
-    ]; };
-    /** @nocollapse */ ToasterService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ToasterService_Factory() { return new ToasterService(ɵɵinject(MessageService)); }, token: ToasterService, providedIn: "root" });
-    return ToasterService;
-}(AbstractToaster));
-if (false) {
-    /**
-     * @type {?}
-     * @protected
-     */
-    ToasterService.prototype.messageService;
-}
 
 /**
  * @fileoverview added by tsickle
@@ -2991,5 +3407,5 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { BreadcrumbComponent, ButtonComponent, ChartComponent, ConfirmationComponent, ConfirmationService, DateParserFormatter, LoaderBarComponent, LoadingComponent, LoadingDirective, ModalComponent, PaginationComponent, SortOrderIconComponent, TableComponent, TableEmptyMessageComponent, TableSortDirective, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, ChartComponent as ɵc, ConfirmationComponent as ɵd, ConfirmationService as ɵe, AbstractToaster as ɵf, HttpErrorWrapperComponent as ɵg, LoaderBarComponent as ɵh, LoadingComponent as ɵi, ModalComponent as ɵj, fadeAnimation as ɵk, fadeIn as ɵl, fadeOut as ɵm, PaginationComponent as ɵn, TableComponent as ɵo, TableEmptyMessageComponent as ɵp, ToastComponent as ɵq, SortOrderIconComponent as ɵr, LoadingDirective as ɵs, TableSortDirective as ɵt, ErrorHandler as ɵu, httpErrorConfigFactory as ɵw, HTTP_ERROR_CONFIG as ɵx, DateParserFormatter as ɵy };
+export { BreadcrumbComponent, ButtonComponent, ChartComponent, ConfirmationComponent, ConfirmationService, DateParserFormatter, LoaderBarComponent, LoadingComponent, LoadingDirective, ModalComponent, PaginationComponent, SortOrderIconComponent, TableComponent, TableEmptyMessageComponent, TableSortDirective, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, toastInOut, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, DateParserFormatter as ɵba, ChartComponent as ɵc, ConfirmationComponent as ɵd, ConfirmationService as ɵe, HttpErrorWrapperComponent as ɵf, LoaderBarComponent as ɵg, LoadingComponent as ɵh, ModalComponent as ɵi, fadeAnimation as ɵj, fadeIn as ɵk, fadeOut as ɵl, PaginationComponent as ɵm, TableComponent as ɵn, TableEmptyMessageComponent as ɵo, ToastComponent as ɵp, ToasterService as ɵq, ToastContainerComponent as ɵr, toastInOut as ɵs, SortOrderIconComponent as ɵt, LoadingDirective as ɵu, TableSortDirective as ɵv, ErrorHandler as ɵw, httpErrorConfigFactory as ɵy, HTTP_ERROR_CONFIG as ɵz };
 //# sourceMappingURL=abp-ng.theme.shared.js.map

@@ -1,17 +1,17 @@
 import { ChangeDetectorRef, Component, Injector, Input, Injectable, ɵɵdefineInjectable, ɵɵinject, NgZone, Optional, SkipSelf, Directive, ElementRef, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, EventEmitter, Self, Output, Renderer2, ComponentFactoryResolver, Pipe, InjectionToken, Inject, LOCALE_ID, APP_INITIALIZER, NgModule } from '@angular/core';
 import { __rest, __assign, __spread, __awaiter, __generator, __decorate, __metadata, __extends } from 'tslib';
 import { Router, NavigationEnd, ActivatedRoute, RouterModule } from '@angular/router';
-import { Store, Action, Selector, State, createSelector, Select, actionMatcher, InitState, UpdateState, setValue, NGXS_PLUGINS, NgxsModule } from '@ngxs/store';
-import { throwError, noop as noop$1, from, of, Subject, Observable, fromEvent, ReplaySubject } from 'rxjs';
+import { Store, ofActionSuccessful, Actions, Action, Selector, State, createSelector, Select, actionMatcher, InitState, UpdateState, setValue, NGXS_PLUGINS, NgxsModule } from '@ngxs/store';
+import { throwError, noop as noop$1, fromEvent, from, of, Subject, Observable, ReplaySubject } from 'rxjs';
 import snq from 'snq';
 import { take, tap, catchError, switchMap, takeUntil, distinctUntilChanged, debounceTime, filter, finalize } from 'rxjs/operators';
-import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { registerLocaleData, CommonModule } from '@angular/common';
+import { OAuthService, OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import compare from 'just-compare';
 import clone from 'just-clone';
 import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OAuthService, OAuthModule } from 'angular-oauth2-oidc';
-import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+import { Navigate, NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { takeUntilDestroy as takeUntilDestroy$1 } from '@ngx-validate/core';
 
@@ -308,6 +308,9 @@ if (false) {
  * Generated from: lib/actions/replaceable-components.actions.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @see usage: https://github.com/abpframework/abp/pull/2522#issue-358333183
+ */
 var AddReplaceableComponent = /** @class */ (function () {
     function AddReplaceableComponent(payload) {
         this.payload = payload;
@@ -371,6 +374,32 @@ if (false) {
     SetTenant.type;
     /** @type {?} */
     SetTenant.prototype.payload;
+}
+var ModifyOpenedTabCount = /** @class */ (function () {
+    function ModifyOpenedTabCount(operation) {
+        this.operation = operation;
+    }
+    ModifyOpenedTabCount.type = '[Session] Modify Opened Tab Count';
+    return ModifyOpenedTabCount;
+}());
+if (false) {
+    /** @type {?} */
+    ModifyOpenedTabCount.type;
+    /** @type {?} */
+    ModifyOpenedTabCount.prototype.operation;
+}
+var SetRemember = /** @class */ (function () {
+    function SetRemember(payload) {
+        this.payload = payload;
+    }
+    SetRemember.type = '[Session] Set Remember';
+    return SetRemember;
+}());
+if (false) {
+    /** @type {?} */
+    SetRemember.type;
+    /** @type {?} */
+    SetRemember.prototype.payload;
 }
 
 /**
@@ -888,9 +917,40 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var SessionState = /** @class */ (function () {
-    function SessionState(localizationService) {
+    function SessionState(localizationService, oAuthService, store, actions) {
+        var _this = this;
         this.localizationService = localizationService;
+        this.oAuthService = oAuthService;
+        this.store = store;
+        this.actions = actions;
+        actions
+            .pipe(ofActionSuccessful(GetAppConfiguration))
+            .pipe(take(1))
+            .subscribe((/**
+         * @return {?}
+         */
+        function () {
+            var sessionDetail = (_this.store.selectSnapshot(SessionState_1) || { sessionDetail: {} }).sessionDetail;
+            /** @type {?} */
+            var fiveMinutesBefore = new Date().valueOf() - 5 * 60 * 1000;
+            if (sessionDetail.lastExitTime &&
+                sessionDetail.openedTabCount === 0 &&
+                _this.oAuthService.hasValidAccessToken() &&
+                sessionDetail.remember === false &&
+                sessionDetail.lastExitTime < fiveMinutesBefore) {
+                _this.oAuthService.logOut();
+            }
+            _this.store.dispatch(new ModifyOpenedTabCount('increase'));
+            fromEvent(window, 'unload').subscribe((/**
+             * @param {?} event
+             * @return {?}
+             */
+            function (event) {
+                _this.store.dispatch(new ModifyOpenedTabCount('decrease'));
+            }));
+        }));
     }
+    SessionState_1 = SessionState;
     /**
      * @param {?} __0
      * @return {?}
@@ -914,6 +974,18 @@ var SessionState = /** @class */ (function () {
     function (_a) {
         var tenant = _a.tenant;
         return tenant;
+    };
+    /**
+     * @param {?} __0
+     * @return {?}
+     */
+    SessionState.getSessionDetail = /**
+     * @param {?} __0
+     * @return {?}
+     */
+    function (_a) {
+        var sessionDetail = _a.sessionDetail;
+        return sessionDetail;
     };
     /**
      * @param {?} __0
@@ -954,8 +1026,60 @@ var SessionState = /** @class */ (function () {
             tenant: payload,
         });
     };
+    /**
+     * @param {?} __0
+     * @param {?} __1
+     * @return {?}
+     */
+    SessionState.prototype.setRemember = /**
+     * @param {?} __0
+     * @param {?} __1
+     * @return {?}
+     */
+    function (_a, _b) {
+        var getState = _a.getState, patchState = _a.patchState;
+        var remember = _b.payload;
+        var sessionDetail = getState().sessionDetail;
+        patchState({
+            sessionDetail: __assign({}, sessionDetail, { remember: remember }),
+        });
+    };
+    /**
+     * @param {?} __0
+     * @param {?} __1
+     * @return {?}
+     */
+    SessionState.prototype.modifyOpenedTabCount = /**
+     * @param {?} __0
+     * @param {?} __1
+     * @return {?}
+     */
+    function (_a, _b) {
+        var getState = _a.getState, patchState = _a.patchState;
+        var operation = _b.operation;
+        // tslint:disable-next-line: prefer-const
+        var _c = getState().sessionDetail || ((/** @type {?} */ ({ openedTabCount: 0 }))), openedTabCount = _c.openedTabCount, lastExitTime = _c.lastExitTime, detail = __rest(_c, ["openedTabCount", "lastExitTime"]);
+        if (operation === 'increase') {
+            openedTabCount++;
+        }
+        else if (operation === 'decrease') {
+            openedTabCount--;
+            lastExitTime = new Date().valueOf();
+        }
+        if (!openedTabCount || openedTabCount < 0) {
+            openedTabCount = 0;
+        }
+        patchState({
+            sessionDetail: __assign({ openedTabCount: openedTabCount,
+                lastExitTime: lastExitTime }, detail),
+        });
+    };
+    var SessionState_1;
     SessionState.ctorParameters = function () { return [
-        { type: LocalizationService }
+        { type: LocalizationService },
+        { type: OAuthService },
+        { type: Store },
+        { type: Actions }
     ]; };
     __decorate([
         Action(SetLanguage),
@@ -970,6 +1094,18 @@ var SessionState = /** @class */ (function () {
         __metadata("design:returntype", void 0)
     ], SessionState.prototype, "setTenant", null);
     __decorate([
+        Action(SetRemember),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, SetRemember]),
+        __metadata("design:returntype", void 0)
+    ], SessionState.prototype, "setRemember", null);
+    __decorate([
+        Action(ModifyOpenedTabCount),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, ModifyOpenedTabCount]),
+        __metadata("design:returntype", void 0)
+    ], SessionState.prototype, "modifyOpenedTabCount", null);
+    __decorate([
         Selector(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
@@ -981,12 +1117,21 @@ var SessionState = /** @class */ (function () {
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", Object)
     ], SessionState, "getTenant", null);
-    SessionState = __decorate([
+    __decorate([
+        Selector(),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object]),
+        __metadata("design:returntype", Object)
+    ], SessionState, "getSessionDetail", null);
+    SessionState = SessionState_1 = __decorate([
         State({
             name: 'SessionState',
-            defaults: (/** @type {?} */ ({})),
+            defaults: (/** @type {?} */ ({ sessionDetail: { openedTabCount: 0 } })),
         }),
-        __metadata("design:paramtypes", [LocalizationService])
+        __metadata("design:paramtypes", [LocalizationService,
+            OAuthService,
+            Store,
+            Actions])
     ], SessionState);
     return SessionState;
 }());
@@ -996,6 +1141,21 @@ if (false) {
      * @private
      */
     SessionState.prototype.localizationService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SessionState.prototype.oAuthService;
+    /**
+     * @type {?}
+     * @private
+     */
+    SessionState.prototype.store;
+    /**
+     * @type {?}
+     * @private
+     */
+    SessionState.prototype.actions;
 }
 
 /**
@@ -1279,14 +1439,14 @@ var ConfigState = /** @class */ (function () {
         for (var _i = 1; _i < arguments.length; _i++) {
             interpolateParams[_i - 1] = arguments[_i];
         }
+        if (!key)
+            key = '';
         /** @type {?} */
         var defaultValue;
         if (typeof key !== 'string') {
             defaultValue = key.defaultValue;
             key = key.key;
         }
-        if (!key)
-            key = '';
         /** @type {?} */
         var keys = (/** @type {?} */ (key.split('::')));
         /** @type {?} */
@@ -4025,6 +4185,21 @@ var Session;
         State.prototype.language;
         /** @type {?} */
         State.prototype.tenant;
+        /** @type {?} */
+        State.prototype.sessionDetail;
+    }
+    /**
+     * @record
+     */
+    function SessionDetail() { }
+    Session.SessionDetail = SessionDetail;
+    if (false) {
+        /** @type {?} */
+        SessionDetail.prototype.openedTabCount;
+        /** @type {?} */
+        SessionDetail.prototype.lastExitTime;
+        /** @type {?} */
+        SessionDetail.prototype.remember;
     }
 })(Session || (Session = {}));
 
@@ -4368,6 +4543,91 @@ function flatRoutes(routes) {
  * Generated from: lib/plugins/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/services/auth.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var AuthService = /** @class */ (function () {
+    function AuthService(rest, oAuthService, store, options) {
+        this.rest = rest;
+        this.oAuthService = oAuthService;
+        this.store = store;
+        this.options = options;
+    }
+    /**
+     * @param {?} username
+     * @param {?} password
+     * @return {?}
+     */
+    AuthService.prototype.login = /**
+     * @param {?} username
+     * @param {?} password
+     * @return {?}
+     */
+    function (username, password) {
+        var _this = this;
+        /** @type {?} */
+        var tenant = this.store.selectSnapshot(SessionState.getTenant);
+        this.oAuthService.configure(this.store.selectSnapshot(ConfigState.getOne('environment')).oAuthConfig);
+        return from(this.oAuthService.loadDiscoveryDocument()).pipe(switchMap((/**
+         * @return {?}
+         */
+        function () {
+            return from(_this.oAuthService.fetchTokenUsingPasswordFlow(username, password, new HttpHeaders(__assign({}, (tenant && tenant.id && { __tenant: tenant.id })))));
+        })), switchMap((/**
+         * @return {?}
+         */
+        function () { return _this.store.dispatch(new GetAppConfiguration()); })), tap((/**
+         * @return {?}
+         */
+        function () {
+            /** @type {?} */
+            var redirectUrl = snq((/**
+             * @return {?}
+             */
+            function () { return window.history.state.redirectUrl; })) || (_this.options || {}).redirectUrl || '/';
+            _this.store.dispatch(new Navigate([redirectUrl]));
+        })), take(1));
+    };
+    AuthService.decorators = [
+        { type: Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    /** @nocollapse */
+    AuthService.ctorParameters = function () { return [
+        { type: RestService },
+        { type: OAuthService },
+        { type: Store },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: ['ACCOUNT_OPTIONS',] }] }
+    ]; };
+    /** @nocollapse */ AuthService.ngInjectableDef = ɵɵdefineInjectable({ factory: function AuthService_Factory() { return new AuthService(ɵɵinject(RestService), ɵɵinject(OAuthService), ɵɵinject(Store), ɵɵinject("ACCOUNT_OPTIONS", 8)); }, token: AuthService, providedIn: "root" });
+    return AuthService;
+}());
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    AuthService.prototype.rest;
+    /**
+     * @type {?}
+     * @private
+     */
+    AuthService.prototype.oAuthService;
+    /**
+     * @type {?}
+     * @private
+     */
+    AuthService.prototype.store;
+    /**
+     * @type {?}
+     * @private
+     */
+    AuthService.prototype.options;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -4788,6 +5048,15 @@ var SessionStateService = /** @class */ (function () {
         return this.store.selectSnapshot(SessionState.getTenant);
     };
     /**
+     * @return {?}
+     */
+    SessionStateService.prototype.getSessionDetail = /**
+     * @return {?}
+     */
+    function () {
+        return this.store.selectSnapshot(SessionState.getSessionDetail);
+    };
+    /**
      * @param {...?} args
      * @return {?}
      */
@@ -4816,6 +5085,36 @@ var SessionStateService = /** @class */ (function () {
             args[_i] = arguments[_i];
         }
         return this.store.dispatch(new (SetTenant.bind.apply(SetTenant, __spread([void 0], args)))());
+    };
+    /**
+     * @param {...?} args
+     * @return {?}
+     */
+    SessionStateService.prototype.dispatchSetRemember = /**
+     * @param {...?} args
+     * @return {?}
+     */
+    function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return this.store.dispatch(new (SetRemember.bind.apply(SetRemember, __spread([void 0], args)))());
+    };
+    /**
+     * @param {...?} args
+     * @return {?}
+     */
+    SessionStateService.prototype.dispatchModifyOpenedTabCount = /**
+     * @param {...?} args
+     * @return {?}
+     */
+    function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return this.store.dispatch(new (ModifyOpenedTabCount.bind.apply(ModifyOpenedTabCount, __spread([void 0], args)))());
     };
     SessionStateService.decorators = [
         { type: Injectable, args: [{
@@ -5065,6 +5364,12 @@ function () {
  * Generated from: lib/core.module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+/**
+ * @return {?}
+ */
+function storageFactory() {
+    return localStorage;
+}
 var CoreModule = /** @class */ (function () {
     function CoreModule() {
     }
@@ -5080,7 +5385,7 @@ var CoreModule = /** @class */ (function () {
         if (options === void 0) { options = (/** @type {?} */ ({})); }
         return {
             ngModule: CoreModule,
-            providers: [
+            providers: __spread([
                 LocaleProvider,
                 {
                     provide: NGXS_PLUGINS,
@@ -5107,8 +5412,10 @@ var CoreModule = /** @class */ (function () {
                     multi: true,
                     deps: [Injector],
                     useFactory: localeInitializer,
-                },
-            ],
+                }
+            ], OAuthModule.forRoot().providers, [
+                { provide: OAuthStorage, useFactory: storageFactory },
+            ]),
         };
     };
     CoreModule.decorators = [
@@ -5117,7 +5424,7 @@ var CoreModule = /** @class */ (function () {
                         NgxsModule.forFeature([ReplaceableComponentsState, ProfileState, SessionState, ConfigState]),
                         NgxsRouterPluginModule.forRoot(),
                         NgxsStoragePluginModule.forRoot({ key: ['SessionState'] }),
-                        OAuthModule.forRoot(),
+                        OAuthModule,
                         CommonModule,
                         HttpClientModule,
                         FormsModule,
@@ -5189,5 +5496,5 @@ var CoreModule = /** @class */ (function () {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AbstractNgModelComponent, AddReplaceableComponent, AddRoute, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, InitDirective, LazyLoadService, LocalizationPipe, LocalizationService, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, uuid, ReplaceableComponentsState as ɵa, AddReplaceableComponent as ɵb, FormSubmitDirective as ɵba, LocalizationPipe as ɵbb, SortPipe as ɵbc, InitDirective as ɵbd, PermissionDirective as ɵbe, VisibilityDirective as ɵbf, InputEventDebounceDirective as ɵbg, StopPropagationDirective as ɵbh, ReplaceableTemplateDirective as ɵbi, AbstractNgModelComponent as ɵbj, LocaleId as ɵbk, LocaleProvider as ɵbl, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbm, ConfigPlugin as ɵbn, ApiInterceptor as ɵbo, getInitialData as ɵbp, localeInitializer as ɵbq, ProfileState as ɵd, ProfileService as ɵe, RestService as ɵf, GetProfile as ɵg, UpdateProfile as ɵh, ChangePassword as ɵi, SessionState as ɵk, LocalizationService as ɵl, SetLanguage as ɵm, SetTenant as ɵn, ConfigState as ɵp, ApplicationConfigurationService as ɵq, PatchRouteByName as ɵr, GetAppConfiguration as ɵs, AddRoute as ɵt, ReplaceableRouteContainerComponent as ɵu, RouterOutletComponent as ɵv, DynamicLayoutComponent as ɵw, AutofocusDirective as ɵx, EllipsisDirective as ɵy, ForDirective as ɵz };
+export { AbstractNgModelComponent, AddReplaceableComponent, AddRoute, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AuthService, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, InitDirective, LazyLoadService, LocalizationPipe, LocalizationService, ModifyOpenedTabCount, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetRemember, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, storageFactory, takeUntilDestroy, uuid, ReplaceableComponentsState as ɵa, AddReplaceableComponent as ɵb, EllipsisDirective as ɵba, ForDirective as ɵbb, FormSubmitDirective as ɵbc, LocalizationPipe as ɵbd, SortPipe as ɵbe, InitDirective as ɵbf, PermissionDirective as ɵbg, VisibilityDirective as ɵbh, InputEventDebounceDirective as ɵbi, StopPropagationDirective as ɵbj, ReplaceableTemplateDirective as ɵbk, AbstractNgModelComponent as ɵbl, LocaleId as ɵbm, LocaleProvider as ɵbn, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbo, ConfigPlugin as ɵbp, ApiInterceptor as ɵbq, getInitialData as ɵbr, localeInitializer as ɵbs, ProfileState as ɵd, ProfileService as ɵe, RestService as ɵf, GetProfile as ɵg, UpdateProfile as ɵh, ChangePassword as ɵi, SessionState as ɵk, LocalizationService as ɵl, SetLanguage as ɵm, SetTenant as ɵn, ModifyOpenedTabCount as ɵo, SetRemember as ɵp, ConfigState as ɵr, ApplicationConfigurationService as ɵs, PatchRouteByName as ɵt, GetAppConfiguration as ɵu, AddRoute as ɵv, ReplaceableRouteContainerComponent as ɵw, RouterOutletComponent as ɵx, DynamicLayoutComponent as ɵy, AutofocusDirective as ɵz };
 //# sourceMappingURL=abp-ng.core.js.map

@@ -1079,7 +1079,7 @@
              * @return {?}
              */
             function (status) {
-                if (status === "confirm" /* confirm */) {
+                if (status === ng_theme_shared.Toaster.Status.confirm) {
                     _this.store.dispatch(new DeleteRole(id)).subscribe((/**
                      * @return {?}
                      */
@@ -1329,7 +1329,7 @@
                 var passwordValidators = [
                     core$1.validatePassword(_this.passwordRulesArr),
                     forms.Validators.minLength(_this.requiredPasswordLength),
-                    forms.Validators.maxLength(32),
+                    forms.Validators.maxLength(128),
                 ];
                 _this.form.addControl('password', new forms.FormControl('', __spread(passwordValidators)));
                 if (!_this.selected.userName) {
@@ -1449,7 +1449,7 @@
              * @return {?}
              */
             function (status) {
-                if (status === "confirm" /* confirm */) {
+                if (status === ng_theme_shared.Toaster.Status.confirm) {
                     _this.store.dispatch(new DeleteUser(id)).subscribe((/**
                      * @return {?}
                      */
