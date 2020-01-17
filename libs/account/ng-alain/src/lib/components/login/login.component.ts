@@ -4,6 +4,7 @@ import { Component, Inject, Optional } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { AuthService } from '@abp/ng.core';
 
 @Component({
     selector: 'ng-alain-login',
@@ -17,9 +18,9 @@ export class UserLoginComponent extends LoginComponent {
         _oauthService: OAuthService,
         _store: Store,
         _toasterService: ToasterService,
-        @Optional() @Inject('ACCOUNT_OPTIONS') _options: Options,
+        _authService: AuthService
     ) {
-        super(_fb, _oauthService, _store, _toasterService, _options);
+        super(_fb, _oauthService, _store, _toasterService, _authService);
     }
 
 }

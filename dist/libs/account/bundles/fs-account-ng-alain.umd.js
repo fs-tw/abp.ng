@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/account'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@angular/router'), require('@abp/ng.account'), require('@abp/ng.theme.shared'), require('@angular/forms'), require('@ngxs/store'), require('angular-oauth2-oidc'), require('@angular/animations')) :
-    typeof define === 'function' && define.amd ? define('@fs/account/ng-alain', ['exports', '@fs/account', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@angular/router', '@abp/ng.account', '@abp/ng.theme.shared', '@angular/forms', '@ngxs/store', 'angular-oauth2-oidc', '@angular/animations'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs.account = global.fs.account || {}, global.fs.account['ng-alain'] = {}), global.fs.account, global.ng_core, global.ng.core, global.basic, global.ng.router, global.ng_account, global.ng_theme_shared, global.ng.forms, global.store, global.angularOauth2Oidc, global.ng.animations));
-}(this, (function (exports, account, ng_core, core, basic, router, ng_account, ng_theme_shared, forms, store, angularOauth2Oidc, animations) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/account'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@abp/ng.account'), require('@abp/ng.theme.shared'), require('@angular/forms'), require('@ngxs/store'), require('angular-oauth2-oidc'), require('@angular/animations')) :
+    typeof define === 'function' && define.amd ? define('@fs/account/ng-alain', ['exports', '@fs/account', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@abp/ng.account', '@abp/ng.theme.shared', '@angular/forms', '@ngxs/store', 'angular-oauth2-oidc', '@angular/animations'], factory) :
+    (global = global || self, factory((global.fs = global.fs || {}, global.fs.account = global.fs.account || {}, global.fs.account['ng-alain'] = {}), global.fs.account, global.ng_core, global.ng.core, global.basic, global.ng_account, global.ng_theme_shared, global.ng.forms, global.store, global.angularOauth2Oidc, global.ng.animations));
+}(this, (function (exports, account, ng_core, core, basic, ng_account, ng_theme_shared, forms, store, angularOauth2Oidc, animations) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -208,8 +208,8 @@
      */
     var UserLoginComponent = /** @class */ (function (_super) {
         __extends(UserLoginComponent, _super);
-        function UserLoginComponent(_fb, _oauthService, _store, _toasterService, _options) {
-            return _super.call(this, _fb, _oauthService, _store, _toasterService, _options) || this;
+        function UserLoginComponent(_fb, _oauthService, _store, _toasterService, _authService) {
+            return _super.call(this, _fb, _oauthService, _store, _toasterService, _authService) || this;
         }
         UserLoginComponent.decorators = [
             { type: core.Component, args: [{
@@ -224,7 +224,7 @@
             { type: angularOauth2Oidc.OAuthService },
             { type: store.Store },
             { type: ng_theme_shared.ToasterService },
-            { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: ['ACCOUNT_OPTIONS',] }] }
+            { type: ng_core.AuthService }
         ]; };
         return UserLoginComponent;
     }(ng_account.LoginComponent));
@@ -236,13 +236,14 @@
      */
     var UserRegisterComponent = /** @class */ (function (_super) {
         __extends(UserRegisterComponent, _super);
-        function UserRegisterComponent(_fb, _accountService, _oauthService, _store, _toasterService) {
-            var _this = _super.call(this, _fb, _accountService, _oauthService, _store, _toasterService) || this;
+        function UserRegisterComponent(_fb, _accountService, _oauthService, _store, _toasterService, _authService) {
+            var _this = _super.call(this, _fb, _accountService, _oauthService, _store, _toasterService, _authService) || this;
             _this._fb = _fb;
             _this._accountService = _accountService;
             _this._oauthService = _oauthService;
             _this._store = _store;
             _this._toasterService = _toasterService;
+            _this._authService = _authService;
             return _this;
         }
         UserRegisterComponent.decorators = [
@@ -258,7 +259,8 @@
             { type: ng_account.AccountService },
             { type: angularOauth2Oidc.OAuthService },
             { type: store.Store },
-            { type: ng_theme_shared.ToasterService }
+            { type: ng_theme_shared.ToasterService },
+            { type: ng_core.AuthService }
         ]; };
         return UserRegisterComponent;
     }(ng_account.RegisterComponent));
@@ -288,6 +290,11 @@
          * @private
          */
         UserRegisterComponent.prototype._toasterService;
+        /**
+         * @type {?}
+         * @private
+         */
+        UserRegisterComponent.prototype._authService;
     }
 
     /**
@@ -313,46 +320,6 @@
         /** @type {?} */
         ManageProfileComponent.prototype.selectedTab;
     }
-
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: lib/account-ng-alain-routing.module.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    /** @type {?} */
-    var routes = [
-        { path: '', pathMatch: 'full', redirectTo: 'login' },
-        {
-            path: '',
-            component: basic.LayoutDefaultComponent,
-            children: [
-                {
-                    canActivate: [ng_core.AuthGuard],
-                    path: 'manage-profile',
-                    component: ManageProfileComponent,
-                }
-            ],
-        },
-        {
-            path: '',
-            component: basic.LayoutPassportComponent,
-            children: [
-                { path: 'login', component: UserLoginComponent },
-                { path: 'register', component: UserRegisterComponent },
-            ],
-        },
-    ];
-    var AccountNgAlainRoutingModule = /** @class */ (function () {
-        function AccountNgAlainRoutingModule() {
-        }
-        AccountNgAlainRoutingModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [router.RouterModule.forChild(routes)],
-                        exports: [router.RouterModule],
-                    },] }
-        ];
-        return AccountNgAlainRoutingModule;
-    }());
 
     /**
      * @fileoverview added by tsickle
@@ -459,7 +426,7 @@
         AuthWrapperComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'ng-alain-auth-wrapper',
-                        template: "<ng-alain-tenant-box [mainContentRef]=\"mainContentRef\">\r\n\r\n</ng-alain-tenant-box>\r\n\r\n<ng-content *ngTemplateOutlet=\"cancelContentRef\"></ng-content>\r\n"
+                        template: "<ng-alain-tenant-box [mainContentRef]=\"mainContentRef\">\r\n\r\n</ng-alain-tenant-box>\r\n\r\n<ng-content *ngTemplateOutlet=\"cancelContentRef\"></ng-content>"
                     }] }
         ];
         AuthWrapperComponent.propDecorators = {
@@ -532,7 +499,13 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var AccountNgAlainModule = /** @class */ (function () {
-        function AccountNgAlainModule() {
+        function AccountNgAlainModule(store) {
+            this.store = store;
+            store.dispatch(new ng_core.PatchRouteByName('AbpAccount::Menu:Account', { layout: "account" /* account */ }));
+            store.dispatch(new ng_core.PatchRouteByName('AbpAccount::ManageYourProfile', { layout: "application" /* application */ }));
+            store.dispatch(new ng_core.AddReplaceableComponent({ component: UserLoginComponent, key: 'Account.LoginComponent' }));
+            store.dispatch(new ng_core.AddReplaceableComponent({ component: UserRegisterComponent, key: 'Account.RegisterComponent' }));
+            store.dispatch(new ng_core.AddReplaceableComponent({ component: ManageProfileComponent, key: 'Account.ManageProfileComponent' }));
         }
         AccountNgAlainModule.decorators = [
             { type: core.NgModule, args: [{
@@ -545,16 +518,31 @@
                             PersonalSettingsComponent,
                             ChangePasswordComponent
                         ],
+                        entryComponents: [
+                            UserLoginComponent,
+                            UserRegisterComponent,
+                            ManageProfileComponent
+                        ],
                         imports: [
                             ng_core.CoreModule,
                             basic.NgAlainBasicModule,
-                            AccountNgAlainRoutingModule,
                             account.AccountModule
                         ]
                     },] }
         ];
+        /** @nocollapse */
+        AccountNgAlainModule.ctorParameters = function () { return [
+            { type: store.Store }
+        ]; };
         return AccountNgAlainModule;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        AccountNgAlainModule.prototype.store;
+    }
 
     exports.AccountNgAlainModule = AccountNgAlainModule;
     exports.ɵa = AuthWrapperComponent;
@@ -564,7 +552,6 @@
     exports.ɵe = ManageProfileComponent;
     exports.ɵf = PersonalSettingsComponent;
     exports.ɵg = ChangePasswordComponent;
-    exports.ɵh = AccountNgAlainRoutingModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

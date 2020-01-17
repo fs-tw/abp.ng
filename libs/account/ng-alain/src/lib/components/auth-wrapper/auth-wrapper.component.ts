@@ -1,13 +1,16 @@
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, Input, TemplateRef, OnInit, Inject } from '@angular/core';
+import { Account } from '@abp/ng.account';
+import { ReplaceableComponents } from '@abp/ng.core';
 
 @Component({
   selector: 'ng-alain-auth-wrapper',
   templateUrl: './auth-wrapper.component.html',
 })
-export class AuthWrapperComponent {
+export class AuthWrapperComponent
+  implements Account.AuthWrapperComponentInputs, Account.AuthWrapperComponentOutputs {
   @Input()
-  mainContentRef: TemplateRef<any>;
+  readonly mainContentRef: TemplateRef<any>;
 
   @Input()
-  cancelContentRef: TemplateRef<any>;
+  readonly cancelContentRef: TemplateRef<any>;
 }

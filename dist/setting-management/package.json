@@ -1,14 +1,14 @@
 {
   "name": "@abp/ng.setting-management",
-  "version": "1.1.2-alpha.11",
+  "version": "2.0.0",
   "homepage": "https://abp.io",
   "repository": {
     "type": "git",
     "url": "https://github.com/abpframework/abp.git"
   },
   "dependencies": {
-    "@abp/ng.setting-management.config": "^1.1.2-alpha.11",
-    "@abp/ng.theme.shared": "^1.1.2-alpha.11",
+    "@abp/ng.setting-management.config": "^2.0.0",
+    "@abp/ng.theme.shared": "^2.0.0",
     "tslib": "^1.9.0"
   },
   "publishConfig": {

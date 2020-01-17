@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/identity'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@angular/router'), require('@abp/ng.identity'), require('@abp/ng.theme.shared'), require('@angular/forms'), require('@ngxs/store'), require('@fs/permission-management/ng-alain')) :
-    typeof define === 'function' && define.amd ? define('@fs/identity/ng-alain', ['exports', '@fs/identity', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@angular/router', '@abp/ng.identity', '@abp/ng.theme.shared', '@angular/forms', '@ngxs/store', '@fs/permission-management/ng-alain'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs.identity = global.fs.identity || {}, global.fs.identity['ng-alain'] = {}), global.fs.identity, global.ng_core, global.ng.core, global.basic, global.ng.router, global.ng_identity, global.ng_theme_shared, global.ng.forms, global.store, global.ngAlain));
-}(this, (function (exports, identity, ng_core, core, basic, router, ng_identity, ng_theme_shared, forms, store, ngAlain) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/identity'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@abp/ng.identity'), require('@abp/ng.theme.shared'), require('@angular/forms'), require('@ngxs/store'), require('@fs/permission-management/ng-alain')) :
+    typeof define === 'function' && define.amd ? define('@fs/identity/ng-alain', ['exports', '@fs/identity', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@abp/ng.identity', '@abp/ng.theme.shared', '@angular/forms', '@ngxs/store', '@fs/permission-management/ng-alain'], factory) :
+    (global = global || self, factory((global.fs = global.fs || {}, global.fs.identity = global.fs.identity || {}, global.fs.identity['ng-alain'] = {}), global.fs.identity, global.ng_core, global.ng.core, global.basic, global.ng_identity, global.ng_theme_shared, global.ng.forms, global.store, global.ngAlain));
+}(this, (function (exports, identity, ng_core, core, basic, ng_identity, ng_theme_shared, forms, store, ngAlain) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -295,70 +295,44 @@
 
     /**
      * @fileoverview added by tsickle
-     * Generated from: lib/identity-ng-alain-routing.module.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var ɵ0 = { requiredPolicy: 'AbpIdentity.Roles' }, ɵ1 = { requiredPolicy: 'AbpIdentity.Users' };
-    /** @type {?} */
-    var routes = [
-        { path: '', redirectTo: 'roles', pathMatch: 'full' },
-        {
-            path: '',
-            component: basic.LayoutDefaultComponent,
-            canActivate: [ng_core.AuthGuard, ng_core.PermissionGuard],
-            children: [
-                {
-                    path: 'roles',
-                    component: RolesComponent,
-                    data: ɵ0,
-                },
-                {
-                    path: 'users',
-                    component: UsersComponent,
-                    data: ɵ1,
-                },
-            ],
-        },
-    ];
-    var IdentityNgAlainRoutingModule = /** @class */ (function () {
-        function IdentityNgAlainRoutingModule() {
-        }
-        IdentityNgAlainRoutingModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [router.RouterModule.forChild(routes)],
-                        exports: [router.RouterModule],
-                    },] }
-        ];
-        return IdentityNgAlainRoutingModule;
-    }());
-
-    /**
-     * @fileoverview added by tsickle
      * Generated from: lib/identity-ng-alain.module.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var IdentityNgAlainModule = /** @class */ (function () {
-        function IdentityNgAlainModule() {
+        function IdentityNgAlainModule(store) {
+            this.store = store;
+            store.dispatch(new ng_core.AddReplaceableComponent({ component: UsersComponent, key: 'Identity.UsersComponent' }));
+            store.dispatch(new ng_core.AddReplaceableComponent({ component: RolesComponent, key: 'Identity.RolesComponent' }));
         }
         IdentityNgAlainModule.decorators = [
             { type: core.NgModule, args: [{
                         declarations: [UsersComponent, RolesComponent],
+                        entryComponents: [UsersComponent, RolesComponent],
                         imports: [
                             ng_core.CoreModule,
                             basic.NgAlainBasicModule,
-                            IdentityNgAlainRoutingModule,
                             ngAlain.PermissionManagementNgAlainModule,
                             identity.IdentityModule
                         ]
                     },] }
         ];
+        /** @nocollapse */
+        IdentityNgAlainModule.ctorParameters = function () { return [
+            { type: store.Store }
+        ]; };
         return IdentityNgAlainModule;
     }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        IdentityNgAlainModule.prototype.store;
+    }
 
     exports.IdentityNgAlainModule = IdentityNgAlainModule;
     exports.ɵa = UsersComponent;
     exports.ɵb = RolesComponent;
-    exports.ɵc = IdentityNgAlainRoutingModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -39,7 +39,7 @@ export declare class TenantsComponent implements OnInit {
     onVisibleFeaturesChange: (value: boolean) => void;
     constructor(confirmationService: ConfirmationService, tenantService: TenantManagementService, fb: FormBuilder, store: Store);
     ngOnInit(): void;
-    onSearch(value: any): void;
+    onSearch(value: string): void;
     private createTenantForm;
     private createDefaultConnectionStringForm;
     openModal(title: string, template: TemplateRef<any>, type: 'saveConnStr' | 'saveTenant'): void;
@@ -50,7 +50,7 @@ export declare class TenantsComponent implements OnInit {
     saveConnectionString(): void;
     saveTenant(): void;
     delete(id: string, name: string): void;
-    onPageChange(data: any): void;
+    onPageChange(page: number): void;
     get(): void;
     onSharedDatabaseChange(value: boolean): void;
 }

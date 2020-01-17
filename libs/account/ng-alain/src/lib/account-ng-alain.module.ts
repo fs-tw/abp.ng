@@ -1,8 +1,7 @@
 import { AccountModule } from '@fs/account';
-import { CoreModule } from '@abp/ng.core';
+import { CoreModule, AddReplaceableComponent, PatchRouteByName, eLayoutType } from '@abp/ng.core';
 import { NgModule } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
-import { AccountNgAlainRoutingModule } from './account-ng-alain-routing.module';
 import { UserLoginComponent } from './components/login/login.component';
 import { UserRegisterComponent } from './components/register/register.component';
 import { ManageProfileComponent } from './components/manage-profile/manage-profile.component';
@@ -10,6 +9,7 @@ import { PersonalSettingsComponent } from './components/personal-settings/person
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.component';
 import { TenantBoxComponent } from './components/tenant-box/tenant-box.component';
+import { Store } from '@ngxs/store';
 
 @NgModule({
   declarations: [
@@ -21,11 +21,27 @@ import { TenantBoxComponent } from './components/tenant-box/tenant-box.component
     PersonalSettingsComponent,
     ChangePasswordComponent
   ],
+  entryComponents:[
+    UserLoginComponent,
+    UserRegisterComponent,
+    ManageProfileComponent
+  ],
   imports: [
     CoreModule,
     NgAlainBasicModule,
-    AccountNgAlainRoutingModule,
     AccountModule
   ]
 })
-export class AccountNgAlainModule { }
+export class AccountNgAlainModule {
+  constructor(private store: Store) {
+
+    store.dispatch(new PatchRouteByName('AbpAccount::Menu:Account', { layout: eLayoutType.account}));
+    store.dispatch(new PatchRouteByName('AbpAccount::ManageYourProfile', { layout: eLayoutType.application}));
+    store.dispatch(new AddReplaceableComponent({ component: UserLoginComponent, key: 'Account.LoginComponent' }));
+    store.dispatch(new AddReplaceableComponent({ component: UserRegisterComponent, key: 'Account.RegisterComponent' }));
+    store.dispatch(new AddReplaceableComponent({ component: ManageProfileComponent, key: 'Account.ManageProfileComponent' }));
+    
+    
+  }
+
+ }

@@ -17,8 +17,9 @@
     "baseUrl": ".",
     "paths": {
       //abp
-      "@abp/ng.core": [ "dist/core" ],
-      "@abp/ng.theme.shared": [ "dist/theme-shared" ],
+      "@abp/ng.core": [ "packages/core/src/public-api.ts" ],
+      "@abp/ng.theme.shared": [ "packages/theme-shared/src/public-api.ts" ],
+      "@abp/ng.theme.shared/*": [ "packages/theme-shared/src/lib/*" ],
       "@abp/ng.theme.basic": [ "packages/theme-basic/src/public-api.ts" ],
       "@abp/ng.theme.basic/*": [ "packages/theme-basic/src/lib/*" ],
       //abp module

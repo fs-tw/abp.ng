@@ -31,13 +31,13 @@ export declare class UsersComponent implements OnInit {
     readonly roleGroups: FormGroup[];
     constructor(confirmationService: ConfirmationService, fb: FormBuilder, store: Store);
     ngOnInit(): void;
-    onSearch(value: any): void;
+    onSearch(value: string): void;
     buildForm(): void;
     openModal(): void;
     add(): void;
     edit(id: string): void;
     save(): void;
     delete(id: string, userName: string): void;
-    onPageChange(data: any): void;
+    onPageChange(page: number): void;
     get(): void;
 }

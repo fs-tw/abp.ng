@@ -2,7 +2,6 @@
  * Generated bundle index. Do not edit.
  */
 export * from './index';
-export { AccountNgAlainRoutingModule as ɵh } from './lib/account-ng-alain-routing.module';
 export { AuthWrapperComponent as ɵa } from './lib/components/auth-wrapper/auth-wrapper.component';
 export { ChangePasswordComponent as ɵg } from './lib/components/change-password/change-password.component';
 export { UserLoginComponent as ɵc } from './lib/components/login/login.component';

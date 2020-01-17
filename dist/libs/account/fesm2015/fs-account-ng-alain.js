@@ -1,8 +1,7 @@
 import { AccountModule } from '@fs/account';
-import { AuthGuard, CoreModule } from '@abp/ng.core';
-import { Component, Optional, Inject, NgModule, Input } from '@angular/core';
-import { LayoutDefaultComponent, LayoutPassportComponent, NgAlainBasicModule } from '@fs/ng-alain/basic';
-import { RouterModule } from '@angular/router';
+import { AuthService, PatchRouteByName, AddReplaceableComponent, CoreModule } from '@abp/ng.core';
+import { Component, Input, NgModule } from '@angular/core';
+import { NgAlainBasicModule } from '@fs/ng-alain/basic';
 import { LoginComponent, RegisterComponent, AccountService, PersonalSettingsComponent as PersonalSettingsComponent$1, ChangePasswordComponent as ChangePasswordComponent$1, TenantBoxComponent as TenantBoxComponent$1 } from '@abp/ng.account';
 import { ToasterService, fadeIn } from '@abp/ng.theme.shared';
 import { FormBuilder } from '@angular/forms';
@@ -21,10 +20,10 @@ class UserLoginComponent extends LoginComponent {
      * @param {?} _oauthService
      * @param {?} _store
      * @param {?} _toasterService
-     * @param {?} _options
+     * @param {?} _authService
      */
-    constructor(_fb, _oauthService, _store, _toasterService, _options) {
-        super(_fb, _oauthService, _store, _toasterService, _options);
+    constructor(_fb, _oauthService, _store, _toasterService, _authService) {
+        super(_fb, _oauthService, _store, _toasterService, _authService);
     }
 }
 UserLoginComponent.decorators = [
@@ -40,7 +39,7 @@ UserLoginComponent.ctorParameters = () => [
     { type: OAuthService },
     { type: Store },
     { type: ToasterService },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: ['ACCOUNT_OPTIONS',] }] }
+    { type: AuthService }
 ];
 
 /**
@@ -55,14 +54,16 @@ class UserRegisterComponent extends RegisterComponent {
      * @param {?} _oauthService
      * @param {?} _store
      * @param {?} _toasterService
+     * @param {?} _authService
      */
-    constructor(_fb, _accountService, _oauthService, _store, _toasterService) {
-        super(_fb, _accountService, _oauthService, _store, _toasterService);
+    constructor(_fb, _accountService, _oauthService, _store, _toasterService, _authService) {
+        super(_fb, _accountService, _oauthService, _store, _toasterService, _authService);
         this._fb = _fb;
         this._accountService = _accountService;
         this._oauthService = _oauthService;
         this._store = _store;
         this._toasterService = _toasterService;
+        this._authService = _authService;
     }
 }
 UserRegisterComponent.decorators = [
@@ -78,7 +79,8 @@ UserRegisterComponent.ctorParameters = () => [
     { type: AccountService },
     { type: OAuthService },
     { type: Store },
-    { type: ToasterService }
+    { type: ToasterService },
+    { type: AuthService }
 ];
 if (false) {
     /**
@@ -106,6 +108,11 @@ if (false) {
      * @private
      */
     UserRegisterComponent.prototype._toasterService;
+    /**
+     * @type {?}
+     * @private
+     */
+    UserRegisterComponent.prototype._authService;
 }
 
 /**
@@ -130,43 +137,6 @@ if (false) {
     /** @type {?} */
     ManageProfileComponent.prototype.selectedTab;
 }
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/account-ng-alain-routing.module.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-const routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'login' },
-    {
-        path: '',
-        component: LayoutDefaultComponent,
-        children: [
-            {
-                canActivate: [AuthGuard],
-                path: 'manage-profile',
-                component: ManageProfileComponent,
-            }
-        ],
-    },
-    {
-        path: '',
-        component: LayoutPassportComponent,
-        children: [
-            { path: 'login', component: UserLoginComponent },
-            { path: 'register', component: UserRegisterComponent },
-        ],
-    },
-];
-class AccountNgAlainRoutingModule {
-}
-AccountNgAlainRoutingModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [RouterModule.forChild(routes)],
-                exports: [RouterModule],
-            },] }
-];
 
 /**
  * @fileoverview added by tsickle
@@ -276,7 +246,7 @@ class AuthWrapperComponent {
 AuthWrapperComponent.decorators = [
     { type: Component, args: [{
                 selector: 'ng-alain-auth-wrapper',
-                template: "<ng-alain-tenant-box [mainContentRef]=\"mainContentRef\">\r\n\r\n</ng-alain-tenant-box>\r\n\r\n<ng-content *ngTemplateOutlet=\"cancelContentRef\"></ng-content>\r\n"
+                template: "<ng-alain-tenant-box [mainContentRef]=\"mainContentRef\">\r\n\r\n</ng-alain-tenant-box>\r\n\r\n<ng-content *ngTemplateOutlet=\"cancelContentRef\"></ng-content>"
             }] }
 ];
 AuthWrapperComponent.propDecorators = {
@@ -349,6 +319,17 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class AccountNgAlainModule {
+    /**
+     * @param {?} store
+     */
+    constructor(store) {
+        this.store = store;
+        store.dispatch(new PatchRouteByName('AbpAccount::Menu:Account', { layout: "account" /* account */ }));
+        store.dispatch(new PatchRouteByName('AbpAccount::ManageYourProfile', { layout: "application" /* application */ }));
+        store.dispatch(new AddReplaceableComponent({ component: UserLoginComponent, key: 'Account.LoginComponent' }));
+        store.dispatch(new AddReplaceableComponent({ component: UserRegisterComponent, key: 'Account.RegisterComponent' }));
+        store.dispatch(new AddReplaceableComponent({ component: ManageProfileComponent, key: 'Account.ManageProfileComponent' }));
+    }
 }
 AccountNgAlainModule.decorators = [
     { type: NgModule, args: [{
@@ -361,14 +342,29 @@ AccountNgAlainModule.decorators = [
                     PersonalSettingsComponent,
                     ChangePasswordComponent
                 ],
+                entryComponents: [
+                    UserLoginComponent,
+                    UserRegisterComponent,
+                    ManageProfileComponent
+                ],
                 imports: [
                     CoreModule,
                     NgAlainBasicModule,
-                    AccountNgAlainRoutingModule,
                     AccountModule
                 ]
             },] }
 ];
+/** @nocollapse */
+AccountNgAlainModule.ctorParameters = () => [
+    { type: Store }
+];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    AccountNgAlainModule.prototype.store;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -382,5 +378,5 @@ AccountNgAlainModule.decorators = [
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AccountNgAlainModule, AuthWrapperComponent as ɵa, TenantBoxComponent as ɵb, UserLoginComponent as ɵc, UserRegisterComponent as ɵd, ManageProfileComponent as ɵe, PersonalSettingsComponent as ɵf, ChangePasswordComponent as ɵg, AccountNgAlainRoutingModule as ɵh };
+export { AccountNgAlainModule, AuthWrapperComponent as ɵa, TenantBoxComponent as ɵb, UserLoginComponent as ɵc, UserRegisterComponent as ɵd, ManageProfileComponent as ɵe, PersonalSettingsComponent as ɵf, ChangePasswordComponent as ɵg };
 //# sourceMappingURL=fs-account-ng-alain.js.map

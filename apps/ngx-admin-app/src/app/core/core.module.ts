@@ -9,7 +9,7 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsModule } from '@ngxs/store';
-import { AccountConfigModule } from '@fs/account/ngx-admin/config';
+import { AccountConfigModule } from '@abp/ng.account.config';
 import { IdentityConfigModule } from '@abp/ng.identity.config';
 import { TenantManagementConfigModule } from '@abp/ng.tenant-management.config';
 import { SettingManagementConfigModule } from '@abp/ng.setting-management.config';
