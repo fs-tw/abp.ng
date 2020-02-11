@@ -57,7 +57,7 @@ var ToastContainerComponent = /** @class */ (function () {
                     selector: 'abp-toast-container',
                     template: "<div\r\n  class=\"toast-container\"\r\n  [style.top]=\"top || 'auto'\"\r\n  [style.right]=\"right || 'auto'\"\r\n  [style.bottom]=\"bottom || 'auto'\"\r\n  [style.left]=\"left || 'auto'\"\r\n  [style.display]=\"toasts.length ? 'flex' : 'none'\"\r\n  [@toastInOut]=\"toasts.length\"\r\n>\r\n  <abp-toast [toast]=\"toast\" *ngFor=\"let toast of toasts; trackBy: trackByFunc\"></abp-toast>\r\n</div>\r\n",
                     animations: [toastInOut],
-                    styles: [".toast-container{position:fixed;display:-webkit-box;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;flex-direction:column;-webkit-box-align:center;align-items:center;-webkit-box-pack:end;justify-content:flex-end;min-width:350px;min-height:80px;z-index:1900}.toast-container.new-on-top{-webkit-box-orient:vertical;-webkit-box-direction:reverse;flex-direction:column-reverse}"]
+                    styles: [".toast-container{position:fixed;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:350px;min-height:80px;z-index:1900}.toast-container.new-on-top{flex-direction:column-reverse}"]
                 }] }
     ];
     /** @nocollapse */
