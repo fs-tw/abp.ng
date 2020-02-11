@@ -8,80 +8,120 @@
     "nx.json": "*"
   },
   "projects": {
-    "abp.core":{
-      "tags":[]
+    "abp.core": {
+      "tags": []
     },
-    "abp.theme-shared":{
-      "tags":[],
+    "abp.theme-shared": {
+      "tags": [],
       "implicitDependencies": ["abp.core"]
     },
-    "abp.theme-basic":{
-      "tags":[],
+    "abp.theme-basic": {
+      "tags": [],
       "implicitDependencies": ["abp.theme-shared"]
     },
-    "abp.account":{
-      "tags":[],
-      "implicitDependencies": ["abp.account-config","abp.theme-shared"]
+    "abp.account": {
+      "tags": [],
+      "implicitDependencies": ["abp.account-config", "abp.theme-shared"]
     },
-    "abp.account-config":{
-      "tags":[]
+    "abp.account-config": {
+      "tags": []
     },
-    "abp.feature-management":{
-      "tags":[],
-      "implicitDependencies": ["abp.theme-shared"]
-    },    
-    "abp.permission-management":{
-      "tags":[],
+    "abp.feature-management": {
+      "tags": [],
       "implicitDependencies": ["abp.theme-shared"]
     },
-    "abp.identity":{
-      "tags":[],
-      "implicitDependencies": ["abp.identity-config","abp.permission-management","abp.theme-shared"]
+    "abp.permission-management": {
+      "tags": [],
+      "implicitDependencies": ["abp.theme-shared"]
     },
-    "abp.identity-config":{
-      "tags":[]
+    "abp.identity": {
+      "tags": [],
+      "implicitDependencies": [
+        "abp.identity-config",
+        "abp.permission-management",
+        "abp.theme-shared"
+      ]
     },
-    "abp.setting-management":{
-      "tags":[],
-      "implicitDependencies": ["abp.setting-management-config","abp.theme-shared"]
+    "abp.identity-config": {
+      "tags": []
     },
-    "abp.setting-management-config":{
-      "tags":[]
+    "abp.setting-management": {
+      "tags": [],
+      "implicitDependencies": [
+        "abp.setting-management-config",
+        "abp.theme-shared"
+      ]
     },
-    "abp.tenant-management":{
-      "tags":[],
-      "implicitDependencies": ["abp.tenant-management-config","abp.feature-management","abp.theme-shared"]
+    "abp.setting-management-config": {
+      "tags": []
     },
-    "abp.tenant-management-config":{
-      "tags":[]
+    "abp.tenant-management": {
+      "tags": [],
+      "implicitDependencies": [
+        "abp.tenant-management-config",
+        "abp.feature-management",
+        "abp.theme-shared"
+      ]
+    },
+    "abp.tenant-management-config": {
+      "tags": []
     },
     "fs.feature-management": {
       "tags": [],
-      "implicitDependencies": ["abp.feature-management","fs.ng-alain","fs.ngx-admin"]
+      "implicitDependencies": [
+        "abp.feature-management",
+        "fs.ng-alain",
+        "fs.ngx-admin"
+      ]
     },
     "fs.permission-management": {
       "tags": [],
-      "implicitDependencies": ["abp.permission-management","fs.ng-alain","fs.ngx-admin"]
+      "implicitDependencies": [
+        "abp.permission-management",
+        "fs.ng-alain",
+        "fs.ngx-admin"
+      ]
     },
     "fs.account": {
       "tags": [],
-      "implicitDependencies": ["abp.account","fs.ng-alain","fs.ngx-admin"]
+      "implicitDependencies": ["abp.account", "fs.ng-alain", "fs.ngx-admin"]
     },
     "fs.identity": {
       "tags": [],
-      "implicitDependencies": ["abp.identity","fs.ng-alain","fs.ngx-admin"]
+      "implicitDependencies": ["abp.identity", "fs.ng-alain", "fs.ngx-admin"]
     },
     "fs.setting-management": {
       "tags": [],
-      "implicitDependencies": ["abp.setting-management","fs.ng-alain","fs.ngx-admin"]
+      "implicitDependencies": [
+        "abp.setting-management",
+        "fs.ng-alain",
+        "fs.ngx-admin"
+      ]
     },
     "fs.tenant-management": {
       "tags": [],
-      "implicitDependencies": ["abp.tenant-management","fs.ng-alain","fs.ngx-admin"]
+      "implicitDependencies": [
+        "abp.tenant-management",
+        "fs.ng-alain",
+        "fs.ngx-admin"
+      ]
     },
+    "fs.packages": {
+      "tags": []
+    },    
     "fs.dev": {
       "tags": [],
-      "implicitDependencies": ["abp.core","abp.theme-shared","abp.theme-basic","abp.account","abp.feature-management","abp.permission-management","abp.identity","abp.setting-management","abp.tenant-management"]
+      "implicitDependencies": [
+        "abp.core",
+        "abp.theme-shared",
+        "abp.theme-basic",
+        "abp.account",
+        "abp.feature-management",
+        "abp.permission-management",
+        "abp.identity",
+        "abp.setting-management",
+        "abp.tenant-management"
+      ]
     },
     "dev-app": {
       "tags": [],

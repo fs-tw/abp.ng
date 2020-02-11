@@ -42,9 +42,7 @@
               "packages/core/tsconfig.lib.json",
               "packages/core/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -69,7 +67,7 @@
               "@abp/ng.theme.shared"
             ]
           }
-        },        
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -90,9 +88,7 @@
               "packages/theme-shared/tsconfig.lib.json",
               "packages/theme-shared/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -117,7 +113,7 @@
               "@abp/ng.theme.basic"
             ]
           }
-        },  
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -140,9 +136,7 @@
               "tsconfig.packages.json",
               "packages/theme-basic/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -167,7 +161,7 @@
               "@abp/ng.account"
             ]
           }
-        },        
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -190,9 +184,7 @@
               "tsconfig.packages.json",
               "packages/account/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -217,7 +209,7 @@
               "@abp/ng.account.config"
             ]
           }
-        },          
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -240,13 +232,11 @@
               "tsconfig.packages.json",
               "packages/account-config/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
-    },    
+    },
     "abp.permission-management": {
       "projectType": "library",
       "root": "packages/permission-management",
@@ -267,7 +257,7 @@
               "@abp/ng.permission-management"
             ]
           }
-        },          
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -290,9 +280,7 @@
               "tsconfig.packages.json",
               "packages/permission-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -317,7 +305,7 @@
               "@abp/ng.feature-management"
             ]
           }
-        },           
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -340,13 +328,11 @@
               "tsconfig.packages.json",
               "packages/feature-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
-    },    
+    },
     "abp.identity": {
       "projectType": "library",
       "root": "packages/identity",
@@ -367,7 +353,7 @@
               "@abp/ng.identity"
             ]
           }
-        },           
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -390,9 +376,7 @@
               "tsconfig.packages.json",
               "packages/identity/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -417,7 +401,7 @@
               "@abp/ng.identity.config"
             ]
           }
-        },           
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -440,13 +424,11 @@
               "tsconfig.packages.json",
               "packages/identity-config/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
-    },    
+    },
     "abp.setting-management": {
       "projectType": "library",
       "root": "packages/setting-management",
@@ -467,7 +449,7 @@
               "@abp/ng.setting-management"
             ]
           }
-        },           
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -490,9 +472,7 @@
               "tsconfig.packages.json",
               "packages/setting-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -517,7 +497,7 @@
               "@abp/ng.setting-management.config"
             ]
           }
-        },        
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -540,9 +520,7 @@
               "tsconfig.packages.json",
               "packages/setting-management-config/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -567,7 +545,7 @@
               "@abp/ng.tenant-management"
             ]
           }
-        },            
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -590,13 +568,11 @@
               "tsconfig.packages.json",
               "packages/tenant-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
-    },    
+    },
     "abp.tenant-management-config": {
       "projectType": "library",
       "root": "packages/tenant-management-config",
@@ -617,7 +593,7 @@
               "@abp/ng.tenant-management.config"
             ]
           }
-        },   
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -640,9 +616,7 @@
               "tsconfig.packages.json",
               "packages/tenant-management-config/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -682,10 +656,7 @@
               "libs/feature-management/tsconfig.lib.json",
               "libs/feature-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/feature-management/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/feature-management/**"]
           }
         },
         "test": {
@@ -719,7 +690,7 @@
               "@fs/permission-management"
             ]
           }
-        },        
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -734,10 +705,7 @@
               "libs/permission-management/tsconfig.lib.json",
               "libs/permission-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/permission-management/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/permission-management/**"]
           }
         },
         "test": {
@@ -750,7 +718,7 @@
         }
       },
       "schematics": {}
-    },    
+    },
     "fs.account": {
       "projectType": "library",
       "root": "libs/account",
@@ -771,7 +739,7 @@
               "@fs/account"
             ]
           }
-        },        
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -786,10 +754,7 @@
               "libs/account/tsconfig.lib.json",
               "libs/account/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/account/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/account/**"]
           }
         },
         "test": {
@@ -823,7 +788,7 @@
               "@fs/identity"
             ]
           }
-        },           
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -838,10 +803,7 @@
               "libs/identity/tsconfig.lib.json",
               "libs/identity/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/identity/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/identity/**"]
           }
         },
         "test": {
@@ -890,10 +852,7 @@
               "libs/setting-management/tsconfig.lib.json",
               "libs/setting-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/setting-management/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/setting-management/**"]
           }
         },
         "test": {
@@ -927,7 +886,7 @@
               "@fs/tenant-management"
             ]
           }
-        },        
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -942,10 +901,7 @@
               "libs/tenant-management/tsconfig.lib.json",
               "libs/tenant-management/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/tenant-management/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/tenant-management/**"]
           }
         },
         "test": {
@@ -979,7 +935,7 @@
               "@fs/dev"
             ]
           }
-        },        
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -994,10 +950,7 @@
               "themes/dev/tsconfig.lib.json",
               "themes/dev/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!themes/dev/**"
-            ]
+            "exclude": ["**/node_modules/**", "!themes/dev/**"]
           }
         },
         "test": {
@@ -1010,7 +963,7 @@
         }
       },
       "schematics": {}
-    },    
+    },
     "dev-app": {
       "projectType": "application",
       "schematics": {
@@ -1140,9 +1093,7 @@
               "apps/dev-app/tsconfig.app.json",
               "apps/dev-app/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -1167,7 +1118,7 @@
               "@fs/ng-alain"
             ]
           }
-        },        
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -1182,10 +1133,7 @@
               "themes/ng-alain/tsconfig.lib.json",
               "themes/ng-alain/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!themes/ng-alain/**"
-            ]
+            "exclude": ["**/node_modules/**", "!themes/ng-alain/**"]
           }
         },
         "test": {
@@ -1198,7 +1146,7 @@
         }
       },
       "schematics": {}
-    },    
+    },
     "ng-alain-app": {
       "projectType": "application",
       "schematics": {
@@ -1299,10 +1247,7 @@
               "apps/ng-alain-app/tsconfig.app.json",
               "apps/ng-alain-app/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ng-alain-app/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/ng-alain-app/**"]
           }
         },
         "test": {
@@ -1335,7 +1280,7 @@
               "@fs/ngx-admin"
             ]
           }
-        },        
+        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -1350,10 +1295,7 @@
               "themes/ngx-admin/tsconfig.lib.json",
               "themes/ngx-admin/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!themes/ngx-admin/**"
-            ]
+            "exclude": ["**/node_modules/**", "!themes/ngx-admin/**"]
           }
         },
         "test": {
@@ -1483,10 +1425,7 @@
               "apps/ngx-admin-app/tsconfig.app.json",
               "apps/ngx-admin-app/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/ngx-admin-app/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/ngx-admin-app/**"]
           }
         },
         "test": {
@@ -1498,6 +1437,55 @@
           }
         }
       }
+    },
+    "fs.packages": {
+      "projectType": "library",
+      "root": "libs/packages",
+      "sourceRoot": "libs/packages/src",
+      "prefix": "fs",
+      "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:command",
+          "options": {
+            "command": "yarn",
+            "args": [
+              "symlink",
+              "copy",
+              "--angular",
+              "--no-watch",
+              "--sync",
+              "--packages",
+              "@fs/packages"
+            ]
+          }
+        },        
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/packages/tsconfig.lib.json",
+            "project": "libs/packages/ng-package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/packages/tsconfig.lib.json",
+              "libs/packages/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/packages/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/packages/jest.config.js",
+            "tsConfig": "libs/packages/tsconfig.spec.json",
+            "setupFile": "libs/packages/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {

@@ -976,7 +976,11 @@
                 throw new Error('LocalizationService should have only one instance.');
         }
         Object.defineProperty(LocalizationService.prototype, "currentLang", {
+            /**
+             * Returns currently selected language
+             */
             get: /**
+             * Returns currently selected language
              * @return {?}
              */
             function () {
@@ -1037,13 +1041,20 @@
             }));
         };
         /**
-         * @param {?} key
-         * @param {...?} interpolateParams
+         * Returns an observable localized text with the given interpolation parameters in current language.
+         * @param key Localizaton key to replace with localized text
+         * @param interpolateParams Values to interpolate
+         */
+        /**
+         * Returns an observable localized text with the given interpolation parameters in current language.
+         * @param {?} key Localizaton key to replace with localized text
+         * @param {...?} interpolateParams Values to interpolate
          * @return {?}
          */
         LocalizationService.prototype.get = /**
-         * @param {?} key
-         * @param {...?} interpolateParams
+         * Returns an observable localized text with the given interpolation parameters in current language.
+         * @param {?} key Localizaton key to replace with localized text
+         * @param {...?} interpolateParams Values to interpolate
          * @return {?}
          */
         function (key) {
@@ -1054,13 +1065,20 @@
             return this.store.select(ConfigState.getLocalization.apply(ConfigState, __spread([key], interpolateParams)));
         };
         /**
-         * @param {?} key
-         * @param {...?} interpolateParams
+         * Returns localized text with the given interpolation parameters in current language.
+         * @param key Localization key to replace with localized text
+         * @param interpolateParams Values to intepolate.
+         */
+        /**
+         * Returns localized text with the given interpolation parameters in current language.
+         * @param {?} key Localization key to replace with localized text
+         * @param {...?} interpolateParams Values to intepolate.
          * @return {?}
          */
         LocalizationService.prototype.instant = /**
-         * @param {?} key
-         * @param {...?} interpolateParams
+         * Returns localized text with the given interpolation parameters in current language.
+         * @param {?} key Localization key to replace with localized text
+         * @param {...?} interpolateParams Values to intepolate.
          * @return {?}
          */
         function (key) {

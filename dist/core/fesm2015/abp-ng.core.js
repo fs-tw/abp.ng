@@ -768,6 +768,7 @@ class LocalizationService {
             throw new Error('LocalizationService should have only one instance.');
     }
     /**
+     * Returns currently selected language
      * @return {?}
      */
     get currentLang() {
@@ -809,16 +810,18 @@ class LocalizationService {
         }));
     }
     /**
-     * @param {?} key
-     * @param {...?} interpolateParams
+     * Returns an observable localized text with the given interpolation parameters in current language.
+     * @param {?} key Localizaton key to replace with localized text
+     * @param {...?} interpolateParams Values to interpolate
      * @return {?}
      */
     get(key, ...interpolateParams) {
         return this.store.select(ConfigState.getLocalization(key, ...interpolateParams));
     }
     /**
-     * @param {?} key
-     * @param {...?} interpolateParams
+     * Returns localized text with the given interpolation parameters in current language.
+     * @param {?} key Localization key to replace with localized text
+     * @param {...?} interpolateParams Values to intepolate.
      * @return {?}
      */
     instant(key, ...interpolateParams) {
