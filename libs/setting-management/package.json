@@ -2,8 +2,10 @@
   "name": "@fs/setting-management",
   "version": "",
   "dependencies": {
-    "@abp/ng.setting-management": "",
+    "@abp/ng.setting-management": ""
+  },
+  "peerDependencies": {
     "@fs/ng-alain": "",
     "@fs/ngx-admin": ""
-  }
+  }   
 }

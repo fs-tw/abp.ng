@@ -2,9 +2,11 @@
   "name": "@fs/identity",
   "version": "",
   "dependencies": {
-    "@abp/ng.identity": "",
+    "@abp/ng.identity": ""
+  },
+  "peerDependencies": {
     "@fs/ng-alain": "",
     "@fs/ngx-admin": "",
     "@fs/permission-management": ""
-  }
+  }  
 }

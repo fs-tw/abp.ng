@@ -2,9 +2,11 @@
   "name": "@fs/tenant-management",
   "version": "",
   "dependencies": {
-    "@abp/ng.tenant-management": "",
+    "@abp/ng.tenant-management": ""
+  },
+  "peerDependencies": {
     "@fs/feature-management": "",
     "@fs/ng-alain": "",
     "@fs/ngx-admin": ""
-  }
+  }     
 }
