@@ -1,9 +1,9 @@
 {
   "name": "@fs/setting-management",
-  "version": "0.0.0",
+  "version": "",
   "dependencies": {
-    "@abp/ng.setting-management": "^1.1.1",
-    "@fs/ng-alain": "^1.1.2-alpha.6",
-    "@fs/ngx-admin": "^1.1.2-alpha.6"
+    "@abp/ng.setting-management": "",
+    "@fs/ng-alain": "",
+    "@fs/ngx-admin": ""
   }
 }

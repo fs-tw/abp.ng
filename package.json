@@ -49,8 +49,6 @@
   "devDependencies": {
     "@fs/builder": "file:dist/tools/builder",
     "@fs/dev": "file:themes/dev",
-    "@fs/ng-alain": "file:themes/ng-alain",
-    "@fs/ngx-admin": "file:themes/ngx-admin",
     "@angular-devkit/build-angular": "~0.803.3",
     "@angular-devkit/build-ng-packagr": "~0.803.3",
     "@angular/cli": "8.3.3",
