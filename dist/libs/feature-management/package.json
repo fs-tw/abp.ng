@@ -3,9 +3,11 @@
   "version": "",
   "dependencies": {
     "@abp/ng.feature-management": "",
-    "@fs/ng-alain": "",
-    "@fs/ngx-admin": "",
     "tslib": "^1.9.0"
+  },
+  "peerDependencies": {
+    "@fs/ng-alain": "",
+    "@fs/ngx-admin": ""
   },
   "main": "bundles/fs-feature-management.umd.js",
   "module": "fesm5/fs-feature-management.js",

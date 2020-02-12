@@ -7,21 +7,6 @@
       "sourceRoot": "packages/core/src",
       "prefix": "abp",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@abp/ng.core"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -53,21 +38,6 @@
       "sourceRoot": "packages/theme-shared/src",
       "prefix": "abp",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@abp/ng.theme.shared"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -99,21 +69,6 @@
       "sourceRoot": "packages/theme-basic/src",
       "prefix": "abp",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@abp/ng.theme.basic"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -147,21 +102,6 @@
       "sourceRoot": "packages/account/src",
       "prefix": "abp",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@abp/ng.account"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -195,21 +135,6 @@
       "sourceRoot": "packages/account-config/src",
       "prefix": "abp",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@abp/ng.account.config"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -243,21 +168,6 @@
       "sourceRoot": "packages/permission-management/src",
       "prefix": "abp",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@abp/ng.permission-management"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -291,21 +201,6 @@
       "sourceRoot": "packages/feature-management/src",
       "prefix": "abp",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@abp/ng.feature-management"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -339,21 +234,6 @@
       "sourceRoot": "packages/identity/src",
       "prefix": "abp",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@abp/ng.identity"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -387,21 +267,6 @@
       "sourceRoot": "packages/identity-config/src",
       "prefix": "abp",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@abp/ng.identity.config"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -435,21 +300,6 @@
       "sourceRoot": "packages/setting-management/src",
       "prefix": "abp",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@abp/ng.setting-management"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -483,21 +333,6 @@
       "sourceRoot": "packages/setting-management-config/src",
       "prefix": "abp",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@abp/ng.setting-management.config"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -531,21 +366,6 @@
       "sourceRoot": "packages/tenant-management/src",
       "prefix": "abp",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@abp/ng.tenant-management"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -579,21 +399,6 @@
       "sourceRoot": "packages/tenant-management-config/src",
       "prefix": "abp",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@abp/ng.tenant-management.config"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -627,21 +432,6 @@
       "sourceRoot": "libs/feature-management/src",
       "prefix": "fs",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@fs/feature-management"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -676,21 +466,6 @@
       "sourceRoot": "libs/permission-management/src",
       "prefix": "fs",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@fs/permission-management"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -725,21 +500,6 @@
       "sourceRoot": "libs/account/src",
       "prefix": "fs",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@fs/account"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -774,21 +534,6 @@
       "sourceRoot": "libs/identity/src",
       "prefix": "fs",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@fs/identity"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -823,21 +568,6 @@
       "sourceRoot": "libs/setting-management/src",
       "prefix": "fs",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@fs/setting-management"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -872,21 +602,6 @@
       "sourceRoot": "libs/tenant-management/src",
       "prefix": "fs",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@fs/tenant-management"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -921,21 +636,6 @@
       "sourceRoot": "themes/dev/src",
       "prefix": "fs",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@fs/dev"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -1104,21 +804,6 @@
       "sourceRoot": "themes/ng-alain/src",
       "prefix": "fs",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@fs/ng-alain"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -1266,21 +951,6 @@
       "sourceRoot": "themes/ngx-admin/src",
       "prefix": "fs",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:command",
-          "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@fs/ngx-admin"
-            ]
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
@@ -1445,18 +1115,10 @@
       "prefix": "fs",
       "architect": {
         "symlink": {
-          "builder": "./dist/tools/builder:command",
+          "builder": "./dist/tools/builder:symlink",
           "options": {
-            "command": "yarn",
-            "args": [
-              "symlink",
-              "copy",
-              "--angular",
-              "--no-watch",
-              "--sync",
-              "--packages",
-              "@fs/packages"
-            ]
+            "symlinkConfig": "libs/packages/symlink.json",
+            "args": []
           }
         },        
         "build": {

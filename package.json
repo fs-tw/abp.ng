@@ -6,7 +6,7 @@
     "ng": "ng",
     "nx": "nx",
     "start": "ng serve",
-    "build": "nx affected --target=symlink --all",
+    "build": "ng run fs.packages:symlink",
     "publish": "lerna publish",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",

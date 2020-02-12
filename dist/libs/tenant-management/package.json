@@ -3,10 +3,12 @@
   "version": "",
   "dependencies": {
     "@abp/ng.tenant-management": "",
+    "tslib": "^1.9.0"
+  },
+  "peerDependencies": {
     "@fs/feature-management": "",
     "@fs/ng-alain": "",
-    "@fs/ngx-admin": "",
-    "tslib": "^1.9.0"
+    "@fs/ngx-admin": ""
   },
   "main": "bundles/fs-tenant-management.umd.js",
   "module": "fesm5/fs-tenant-management.js",

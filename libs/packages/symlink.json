@@ -1,0 +1,60 @@
+[
+    {
+        "name": "abpCore",
+        "sync": true,
+        "packages": [
+            "@abp/ng.core",
+            "@abp/ng.theme.shared"
+        ]
+    },
+    {
+        "name": "abpBaseLibs",
+        "sync": false,
+        "packages": [
+            "@abp/ng.feature-management",
+            "@abp/ng.permission-management",
+            "@abp/ng.account.config",
+            "@abp/ng.identity.config",
+            "@abp/ng.setting-management.config",
+            "@abp/ng.tenant-management.config"
+        ]
+    },
+    {
+        "name": "abpLibs",
+        "sync": false,
+        "packages": [
+            "@abp/ng.theme.basic",
+            "@abp/ng.account",
+            "@abp/ng.identity",
+            "@abp/ng.setting-management",
+            "@abp/ng.tenant-management"
+        ]
+    },
+    {
+        "name": "fsCore",
+        "sync": false,
+        "packages": [
+            "@fs/dev",
+            "@fs/ng-alain",
+            "@fs/ngx-admin"
+        ]
+    },
+    {
+        "name": "fsBaseLibs",
+        "sync": false,
+        "packages": [
+            "@fs/feature-management",
+            "@fs/permission-management"
+        ]
+    },
+    {
+        "name": "fsLibs",
+        "sync": false,
+        "packages": [
+            "@fs/account",
+            "@fs/identity",
+            "@fs/setting-management",
+            "@fs/tenant-management"
+        ]
+    }
+]

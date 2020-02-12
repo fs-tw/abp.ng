@@ -3,9 +3,11 @@
   "version": "",
   "dependencies": {
     "@abp/ng.permission-management": "",
-    "@fs/ng-alain": "",
-    "@fs/ngx-admin": "",
     "tslib": "^1.9.0"
+  },
+  "peerDependencies": {
+    "@fs/ng-alain": "",
+    "@fs/ngx-admin": ""
   },
   "main": "bundles/fs-permission-management.umd.js",
   "module": "fesm5/fs-permission-management.js",

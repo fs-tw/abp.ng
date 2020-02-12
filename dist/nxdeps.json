@@ -54,7 +54,58 @@
             }
           },
           "tags": [],
-          "files": []
+          "files": [
+            {
+              "file": "packages/setting-management-config/jest.config.js",
+              "ext": ".js",
+              "mtime": 1580460651266.7368
+            },
+            {
+              "file": "packages/setting-management-config/ng-package.json",
+              "ext": ".json",
+              "mtime": 1580460651266.7368
+            },
+            {
+              "file": "packages/setting-management-config/package.json",
+              "ext": ".json",
+              "mtime": 1580460651266.7368
+            },
+            {
+              "file": "packages/setting-management-config/README.md",
+              "ext": ".md",
+              "mtime": 1580460651265.7395
+            },
+            {
+              "file": "packages/setting-management-config/src/lib/services/setting-management-config.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651267.7344
+            },
+            {
+              "file": "packages/setting-management-config/src/lib/setting-management-config.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651267.7344
+            },
+            {
+              "file": "packages/setting-management-config/src/public-api.ts",
+              "ext": ".ts",
+              "mtime": 1580460651267.7344
+            },
+            {
+              "file": "packages/setting-management-config/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1580460651268.7317
+            },
+            {
+              "file": "packages/setting-management-config/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1580460651268.7317
+            },
+            {
+              "file": "packages/setting-management-config/tslint.json",
+              "ext": ".json",
+              "mtime": 1581419358695.5278
+            }
+          ]
         }
       },
       "abp.tenant-management-config": {
@@ -110,7 +161,58 @@
             }
           },
           "tags": [],
-          "files": []
+          "files": [
+            {
+              "file": "packages/tenant-management-config/jest.config.js",
+              "ext": ".js",
+              "mtime": 1580460651274.7156
+            },
+            {
+              "file": "packages/tenant-management-config/ng-package.json",
+              "ext": ".json",
+              "mtime": 1580460651275.7131
+            },
+            {
+              "file": "packages/tenant-management-config/package.json",
+              "ext": ".json",
+              "mtime": 1580460651275.7131
+            },
+            {
+              "file": "packages/tenant-management-config/README.md",
+              "ext": ".md",
+              "mtime": 1580460651274.7156
+            },
+            {
+              "file": "packages/tenant-management-config/src/lib/services/tenant-management-config.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651275.7131
+            },
+            {
+              "file": "packages/tenant-management-config/src/lib/tenant-management-config.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651276.7102
+            },
+            {
+              "file": "packages/tenant-management-config/src/public-api.ts",
+              "ext": ".ts",
+              "mtime": 1580460651276.7102
+            },
+            {
+              "file": "packages/tenant-management-config/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1580460651276.7102
+            },
+            {
+              "file": "packages/tenant-management-config/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1580460651276.7102
+            },
+            {
+              "file": "packages/tenant-management-config/tslint.json",
+              "ext": ".json",
+              "mtime": 1581419358697.5212
+            }
+          ]
         }
       },
       "abp.permission-management": {
@@ -166,7 +268,118 @@
             }
           },
           "tags": [],
-          "files": []
+          "files": [
+            {
+              "file": "packages/permission-management/jest.config.js",
+              "ext": ".js",
+              "mtime": 1580460651258.7583
+            },
+            {
+              "file": "packages/permission-management/ng-package.json",
+              "ext": ".json",
+              "mtime": 1580460651259.7556
+            },
+            {
+              "file": "packages/permission-management/package.json",
+              "ext": ".json",
+              "mtime": 1580460651259.7556
+            },
+            {
+              "file": "packages/permission-management/README.md",
+              "ext": ".md",
+              "mtime": 1580460651258.7583
+            },
+            {
+              "file": "packages/permission-management/src/lib/actions/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651260.753
+            },
+            {
+              "file": "packages/permission-management/src/lib/actions/permission-management.actions.ts",
+              "ext": ".ts",
+              "mtime": 1580460651260.753
+            },
+            {
+              "file": "packages/permission-management/src/lib/components/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651260.753
+            },
+            {
+              "file": "packages/permission-management/src/lib/components/permission-management.component.html",
+              "ext": ".html",
+              "mtime": 1580460651261.7502
+            },
+            {
+              "file": "packages/permission-management/src/lib/components/permission-management.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651261.7502
+            },
+            {
+              "file": "packages/permission-management/src/lib/models/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651261.7502
+            },
+            {
+              "file": "packages/permission-management/src/lib/models/permission-management.ts",
+              "ext": ".ts",
+              "mtime": 1580460651262.7476
+            },
+            {
+              "file": "packages/permission-management/src/lib/permission-management.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651262.7476
+            },
+            {
+              "file": "packages/permission-management/src/lib/services/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651262.7476
+            },
+            {
+              "file": "packages/permission-management/src/lib/services/permission-management-state.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651263.745
+            },
+            {
+              "file": "packages/permission-management/src/lib/services/permission-management.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651263.745
+            },
+            {
+              "file": "packages/permission-management/src/lib/states/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651263.745
+            },
+            {
+              "file": "packages/permission-management/src/lib/states/permission-management.state.ts",
+              "ext": ".ts",
+              "mtime": 1580460651264.7422
+            },
+            {
+              "file": "packages/permission-management/src/lib/tests/permission-management-state.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651264.7422
+            },
+            {
+              "file": "packages/permission-management/src/public-api.ts",
+              "ext": ".ts",
+              "mtime": 1580460651264.7422
+            },
+            {
+              "file": "packages/permission-management/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1580460651264.7422
+            },
+            {
+              "file": "packages/permission-management/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1580460651265.7395
+            },
+            {
+              "file": "packages/permission-management/tslint.json",
+              "ext": ".json",
+              "mtime": 1581419358694.53
+            }
+          ]
         }
       },
       "abp.feature-management": {
@@ -222,7 +435,118 @@
             }
           },
           "tags": [],
-          "files": []
+          "files": [
+            {
+              "file": "packages/feature-management/jest.config.js",
+              "ext": ".js",
+              "mtime": 1580460651238.8118
+            },
+            {
+              "file": "packages/feature-management/ng-package.json",
+              "ext": ".json",
+              "mtime": 1580460651239.809
+            },
+            {
+              "file": "packages/feature-management/package.json",
+              "ext": ".json",
+              "mtime": 1580460651239.809
+            },
+            {
+              "file": "packages/feature-management/README.md",
+              "ext": ".md",
+              "mtime": 1580460651238.8118
+            },
+            {
+              "file": "packages/feature-management/src/lib/actions/feature-management.actions.ts",
+              "ext": ".ts",
+              "mtime": 1580460651240.8064
+            },
+            {
+              "file": "packages/feature-management/src/lib/actions/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651240.8064
+            },
+            {
+              "file": "packages/feature-management/src/lib/components/feature-management/feature-management.component.html",
+              "ext": ".html",
+              "mtime": 1580460651240.8064
+            },
+            {
+              "file": "packages/feature-management/src/lib/components/feature-management/feature-management.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651241.8037
+            },
+            {
+              "file": "packages/feature-management/src/lib/components/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651241.8037
+            },
+            {
+              "file": "packages/feature-management/src/lib/feature-management.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651241.8037
+            },
+            {
+              "file": "packages/feature-management/src/lib/models/feature-management.ts",
+              "ext": ".ts",
+              "mtime": 1580460651242.8008
+            },
+            {
+              "file": "packages/feature-management/src/lib/models/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651242.8008
+            },
+            {
+              "file": "packages/feature-management/src/lib/services/feature-management-state.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651242.8008
+            },
+            {
+              "file": "packages/feature-management/src/lib/services/feature-management.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651243.7983
+            },
+            {
+              "file": "packages/feature-management/src/lib/services/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651243.7983
+            },
+            {
+              "file": "packages/feature-management/src/lib/states/feature-management.state.ts",
+              "ext": ".ts",
+              "mtime": 1580460651243.7983
+            },
+            {
+              "file": "packages/feature-management/src/lib/states/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651244.7957
+            },
+            {
+              "file": "packages/feature-management/src/lib/tests/feature-management-state.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651244.7957
+            },
+            {
+              "file": "packages/feature-management/src/public-api.ts",
+              "ext": ".ts",
+              "mtime": 1580460651244.7957
+            },
+            {
+              "file": "packages/feature-management/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1580460651245.793
+            },
+            {
+              "file": "packages/feature-management/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1580460651245.793
+            },
+            {
+              "file": "packages/feature-management/tslint.json",
+              "ext": ".json",
+              "mtime": 1581419358691.538
+            }
+          ]
         }
       },
       "abp.setting-management": {
@@ -278,7 +602,98 @@
             }
           },
           "tags": [],
-          "files": []
+          "files": [
+            {
+              "file": "packages/setting-management/jest.config.js",
+              "ext": ".js",
+              "mtime": 1580460651269.7292
+            },
+            {
+              "file": "packages/setting-management/ng-package.json",
+              "ext": ".json",
+              "mtime": 1580460651269.7292
+            },
+            {
+              "file": "packages/setting-management/package.json",
+              "ext": ".json",
+              "mtime": 1580460651269.7292
+            },
+            {
+              "file": "packages/setting-management/README.md",
+              "ext": ".md",
+              "mtime": 1580460651268.7317
+            },
+            {
+              "file": "packages/setting-management/src/lib/actions/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651270.7266
+            },
+            {
+              "file": "packages/setting-management/src/lib/actions/setting-management.actions.ts",
+              "ext": ".ts",
+              "mtime": 1580460651270.7266
+            },
+            {
+              "file": "packages/setting-management/src/lib/components/setting-management.component.html",
+              "ext": ".html",
+              "mtime": 1580460651270.7266
+            },
+            {
+              "file": "packages/setting-management/src/lib/components/setting-management.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651271.7236
+            },
+            {
+              "file": "packages/setting-management/src/lib/models/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651271.7236
+            },
+            {
+              "file": "packages/setting-management/src/lib/models/setting-management.ts",
+              "ext": ".ts",
+              "mtime": 1580460651271.7236
+            },
+            {
+              "file": "packages/setting-management/src/lib/setting-management-routing.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651272.721
+            },
+            {
+              "file": "packages/setting-management/src/lib/setting-management.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651272.721
+            },
+            {
+              "file": "packages/setting-management/src/lib/states/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651272.721
+            },
+            {
+              "file": "packages/setting-management/src/lib/states/setting-management.state.ts",
+              "ext": ".ts",
+              "mtime": 1580460651273.7183
+            },
+            {
+              "file": "packages/setting-management/src/public-api.ts",
+              "ext": ".ts",
+              "mtime": 1580460651273.7183
+            },
+            {
+              "file": "packages/setting-management/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1580460651273.7183
+            },
+            {
+              "file": "packages/setting-management/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1580460651273.7183
+            },
+            {
+              "file": "packages/setting-management/tslint.json",
+              "ext": ".json",
+              "mtime": 1581419358696.524
+            }
+          ]
         }
       },
       "abp.tenant-management": {
@@ -334,7 +749,123 @@
             }
           },
           "tags": [],
-          "files": []
+          "files": [
+            {
+              "file": "packages/tenant-management/jest.config.js",
+              "ext": ".js",
+              "mtime": 1580460651277.7075
+            },
+            {
+              "file": "packages/tenant-management/ng-package.json",
+              "ext": ".json",
+              "mtime": 1580460651278.7048
+            },
+            {
+              "file": "packages/tenant-management/package.json",
+              "ext": ".json",
+              "mtime": 1580460651278.7048
+            },
+            {
+              "file": "packages/tenant-management/README.md",
+              "ext": ".md",
+              "mtime": 1580460651277.7075
+            },
+            {
+              "file": "packages/tenant-management/src/lib/actions/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651278.7048
+            },
+            {
+              "file": "packages/tenant-management/src/lib/actions/tenant-management.actions.ts",
+              "ext": ".ts",
+              "mtime": 1580460651279.7024
+            },
+            {
+              "file": "packages/tenant-management/src/lib/components/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651279.7024
+            },
+            {
+              "file": "packages/tenant-management/src/lib/components/tenants/tenants.component.html",
+              "ext": ".html",
+              "mtime": 1580460651280.6997
+            },
+            {
+              "file": "packages/tenant-management/src/lib/components/tenants/tenants.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651280.6997
+            },
+            {
+              "file": "packages/tenant-management/src/lib/models/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651280.6997
+            },
+            {
+              "file": "packages/tenant-management/src/lib/models/tenant-management.ts",
+              "ext": ".ts",
+              "mtime": 1580460651281.697
+            },
+            {
+              "file": "packages/tenant-management/src/lib/services/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651281.697
+            },
+            {
+              "file": "packages/tenant-management/src/lib/services/tenant-management-state.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651281.697
+            },
+            {
+              "file": "packages/tenant-management/src/lib/services/tenant-management.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651282.694
+            },
+            {
+              "file": "packages/tenant-management/src/lib/states/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651282.694
+            },
+            {
+              "file": "packages/tenant-management/src/lib/states/tenant-management.state.ts",
+              "ext": ".ts",
+              "mtime": 1580460651282.694
+            },
+            {
+              "file": "packages/tenant-management/src/lib/tenant-management-routing.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651283.6917
+            },
+            {
+              "file": "packages/tenant-management/src/lib/tenant-management.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651283.6917
+            },
+            {
+              "file": "packages/tenant-management/src/lib/tests/tenant-management-state.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651283.6917
+            },
+            {
+              "file": "packages/tenant-management/src/public-api.ts",
+              "ext": ".ts",
+              "mtime": 1580460651283.6917
+            },
+            {
+              "file": "packages/tenant-management/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1580460651284.689
+            },
+            {
+              "file": "packages/tenant-management/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1580460651284.689
+            },
+            {
+              "file": "packages/tenant-management/tslint.json",
+              "ext": ".json",
+              "mtime": 1581419358698.5193
+            }
+          ]
         }
       },
       "fs.permission-management": {
@@ -446,7 +977,7 @@
             {
               "file": "libs/permission-management/package.json",
               "ext": ".json",
-              "mtime": 1581399184530.8792
+              "mtime": 1581421951049.0347
             },
             {
               "file": "libs/permission-management/README.md",
@@ -549,7 +1080,58 @@
             }
           },
           "tags": [],
-          "files": []
+          "files": [
+            {
+              "file": "packages/identity-config/jest.config.js",
+              "ext": ".js",
+              "mtime": 1580460651246.7903
+            },
+            {
+              "file": "packages/identity-config/ng-package.json",
+              "ext": ".json",
+              "mtime": 1580460651246.7903
+            },
+            {
+              "file": "packages/identity-config/package.json",
+              "ext": ".json",
+              "mtime": 1580460651246.7903
+            },
+            {
+              "file": "packages/identity-config/README.md",
+              "ext": ".md",
+              "mtime": 1580460651245.793
+            },
+            {
+              "file": "packages/identity-config/src/lib/identity-config.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651247.7886
+            },
+            {
+              "file": "packages/identity-config/src/lib/services/identity-config.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651248.7854
+            },
+            {
+              "file": "packages/identity-config/src/public-api.ts",
+              "ext": ".ts",
+              "mtime": 1580460651248.7854
+            },
+            {
+              "file": "packages/identity-config/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1580460651249.7822
+            },
+            {
+              "file": "packages/identity-config/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1580460651249.7822
+            },
+            {
+              "file": "packages/identity-config/tslint.json",
+              "ext": ".json",
+              "mtime": 1581419358693.532
+            }
+          ]
         }
       },
       "abp.account-config": {
@@ -605,7 +1187,58 @@
             }
           },
           "tags": [],
-          "files": []
+          "files": [
+            {
+              "file": "packages/account-config/jest.config.js",
+              "ext": ".js",
+              "mtime": 1580460651186.9504
+            },
+            {
+              "file": "packages/account-config/ng-package.json",
+              "ext": ".json",
+              "mtime": 1580460651186.9504
+            },
+            {
+              "file": "packages/account-config/package.json",
+              "ext": ".json",
+              "mtime": 1580460651187.9478
+            },
+            {
+              "file": "packages/account-config/README.md",
+              "ext": ".md",
+              "mtime": 1580460651186.9504
+            },
+            {
+              "file": "packages/account-config/src/lib/account-config.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651187.9478
+            },
+            {
+              "file": "packages/account-config/src/lib/services/account-config.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651188.945
+            },
+            {
+              "file": "packages/account-config/src/public-api.ts",
+              "ext": ".ts",
+              "mtime": 1580460651188.945
+            },
+            {
+              "file": "packages/account-config/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1580460651188.945
+            },
+            {
+              "file": "packages/account-config/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1580460651189.9424
+            },
+            {
+              "file": "packages/account-config/tslint.json",
+              "ext": ".json",
+              "mtime": 1581419358688.5454
+            }
+          ]
         }
       },
       "fs.feature-management": {
@@ -712,7 +1345,7 @@
             {
               "file": "libs/feature-management/package.json",
               "ext": ".json",
-              "mtime": 1581399134242.7102
+              "mtime": 1581421888515.5447
             },
             {
               "file": "libs/feature-management/README.md",
@@ -921,7 +1554,7 @@
             {
               "file": "libs/setting-management/package.json",
               "ext": ".json",
-              "mtime": 1581399203730.1086
+              "mtime": 1581421966085.2524
             },
             {
               "file": "libs/setting-management/README.md",
@@ -1100,7 +1733,7 @@
             {
               "file": "libs/tenant-management/package.json",
               "ext": ".json",
-              "mtime": 1581399238473.2468
+              "mtime": 1581421982963.2827
             },
             {
               "file": "libs/tenant-management/README.md",
@@ -1201,7 +1834,413 @@
             }
           },
           "tags": [],
-          "files": []
+          "files": [
+            {
+              "file": "packages/theme-shared/jest.config.js",
+              "ext": ".js",
+              "mtime": 1580460651294.662
+            },
+            {
+              "file": "packages/theme-shared/ng-package.json",
+              "ext": ".json",
+              "mtime": 1580460651294.662
+            },
+            {
+              "file": "packages/theme-shared/package.json",
+              "ext": ".json",
+              "mtime": 1580460651294.662
+            },
+            {
+              "file": "packages/theme-shared/README.md",
+              "ext": ".md",
+              "mtime": 1580460651293.6648
+            },
+            {
+              "file": "packages/theme-shared/src/lib/animations/bounce.animations.ts",
+              "ext": ".ts",
+              "mtime": 1580460651295.6597
+            },
+            {
+              "file": "packages/theme-shared/src/lib/animations/collapse.animations.ts",
+              "ext": ".ts",
+              "mtime": 1580460651295.6597
+            },
+            {
+              "file": "packages/theme-shared/src/lib/animations/fade.animations.ts",
+              "ext": ".ts",
+              "mtime": 1580460651295.6597
+            },
+            {
+              "file": "packages/theme-shared/src/lib/animations/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651296.657
+            },
+            {
+              "file": "packages/theme-shared/src/lib/animations/modal.animations.ts",
+              "ext": ".ts",
+              "mtime": 1580460651296.657
+            },
+            {
+              "file": "packages/theme-shared/src/lib/animations/slide.animations.ts",
+              "ext": ".ts",
+              "mtime": 1580460651296.657
+            },
+            {
+              "file": "packages/theme-shared/src/lib/animations/toast.animations.ts",
+              "ext": ".ts",
+              "mtime": 1580460651296.657
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/breadcrumb/breadcrumb.component.html",
+              "ext": ".html",
+              "mtime": 1580460651297.6543
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/breadcrumb/breadcrumb.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651297.6543
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/button/button.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651298.6519
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/chart/chart.component.html",
+              "ext": ".html",
+              "mtime": 1580460651298.6519
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/chart/chart.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651298.6519
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/confirmation/confirmation.component.html",
+              "ext": ".html",
+              "mtime": 1580460651299.6487
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/confirmation/confirmation.component.scss",
+              "ext": ".scss",
+              "mtime": 1580460651299.6487
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/confirmation/confirmation.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651299.6487
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/http-error-wrapper/http-error-wrapper.component.html",
+              "ext": ".html",
+              "mtime": 1580460651300.6462
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/http-error-wrapper/http-error-wrapper.component.scss",
+              "ext": ".scss",
+              "mtime": 1580460651300.6462
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/http-error-wrapper/http-error-wrapper.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651301.6436
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651301.6436
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/loader-bar/loader-bar.component.scss",
+              "ext": ".scss",
+              "mtime": 1580460651301.6436
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/loader-bar/loader-bar.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651302.6409
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/loading/loading.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651302.6409
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/modal/modal.component.html",
+              "ext": ".html",
+              "mtime": 1580460651302.6409
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/modal/modal.component.scss",
+              "ext": ".scss",
+              "mtime": 1580460651303.6382
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/modal/modal.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651303.6382
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/pagination/pagination.component.html",
+              "ext": ".html",
+              "mtime": 1580460651304.6357
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/pagination/pagination.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651304.6357
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/sort-order-icon/sort-order-icon.component.html",
+              "ext": ".html",
+              "mtime": 1580460651304.6357
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/sort-order-icon/sort-order-icon.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651305.6328
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/table/table.component.html",
+              "ext": ".html",
+              "mtime": 1580460651305.6328
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/table/table.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651306.6301
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/table-empty-message/table-empty-message.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651305.6328
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/toast/toast.component.html",
+              "ext": ".html",
+              "mtime": 1580460651307.6277
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/toast/toast.component.scss",
+              "ext": ".scss",
+              "mtime": 1580460651307.6277
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/toast/toast.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651308.6252
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/toast-container/toast-container.component.html",
+              "ext": ".html",
+              "mtime": 1580460651306.6301
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/toast-container/toast-container.component.scss",
+              "ext": ".scss",
+              "mtime": 1580460651306.6301
+            },
+            {
+              "file": "packages/theme-shared/src/lib/components/toast-container/toast-container.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651307.6277
+            },
+            {
+              "file": "packages/theme-shared/src/lib/constants/scripts.ts",
+              "ext": ".ts",
+              "mtime": 1580460651308.6252
+            },
+            {
+              "file": "packages/theme-shared/src/lib/constants/styles.ts",
+              "ext": ".ts",
+              "mtime": 1580460651308.6252
+            },
+            {
+              "file": "packages/theme-shared/src/lib/directives/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651309.6223
+            },
+            {
+              "file": "packages/theme-shared/src/lib/directives/loading.directive.ts",
+              "ext": ".ts",
+              "mtime": 1580460651309.6223
+            },
+            {
+              "file": "packages/theme-shared/src/lib/directives/table-sort.directive.ts",
+              "ext": ".ts",
+              "mtime": 1580460651310.6194
+            },
+            {
+              "file": "packages/theme-shared/src/lib/handlers/error.handler.ts",
+              "ext": ".ts",
+              "mtime": 1580460651310.6194
+            },
+            {
+              "file": "packages/theme-shared/src/lib/handlers/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651310.6194
+            },
+            {
+              "file": "packages/theme-shared/src/lib/models/common.ts",
+              "ext": ".ts",
+              "mtime": 1580460651311.6172
+            },
+            {
+              "file": "packages/theme-shared/src/lib/models/confirmation.ts",
+              "ext": ".ts",
+              "mtime": 1580460651311.6172
+            },
+            {
+              "file": "packages/theme-shared/src/lib/models/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651311.6172
+            },
+            {
+              "file": "packages/theme-shared/src/lib/models/setting-management.ts",
+              "ext": ".ts",
+              "mtime": 1580460651312.6143
+            },
+            {
+              "file": "packages/theme-shared/src/lib/models/statistics.ts",
+              "ext": ".ts",
+              "mtime": 1580460651312.6143
+            },
+            {
+              "file": "packages/theme-shared/src/lib/models/toaster.ts",
+              "ext": ".ts",
+              "mtime": 1580460651312.6143
+            },
+            {
+              "file": "packages/theme-shared/src/lib/services/confirmation.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651313.6116
+            },
+            {
+              "file": "packages/theme-shared/src/lib/services/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651313.6116
+            },
+            {
+              "file": "packages/theme-shared/src/lib/services/toaster.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651313.6116
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tests/breadcrumb.component.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651314.609
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tests/button.component.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651314.609
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tests/chart.component.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651314.609
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tests/confirmation.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651315.6064
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tests/error.component.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651315.6064
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tests/error.handler.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651316.6035
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tests/loader-bar.component.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651316.6035
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tests/loading.directive.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651316.6035
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tests/modal.component.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651317.6008
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tests/pagination.component.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651317.6008
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tests/sort-order-icon.component.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651317.6008
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tests/table-sort.directive.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651317.6008
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tests/table.component.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651318.5981
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tests/toaster.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651318.5981
+            },
+            {
+              "file": "packages/theme-shared/src/lib/theme-shared.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651318.5981
+            },
+            {
+              "file": "packages/theme-shared/src/lib/tokens/http-error.token.ts",
+              "ext": ".ts",
+              "mtime": 1580460651319.5957
+            },
+            {
+              "file": "packages/theme-shared/src/lib/utils/date-parser-formatter.ts",
+              "ext": ".ts",
+              "mtime": 1580460651319.5957
+            },
+            {
+              "file": "packages/theme-shared/src/lib/utils/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651319.5957
+            },
+            {
+              "file": "packages/theme-shared/src/lib/utils/widget-utils.ts",
+              "ext": ".ts",
+              "mtime": 1580460651320.593
+            },
+            {
+              "file": "packages/theme-shared/src/public-api.ts",
+              "ext": ".ts",
+              "mtime": 1580460651320.593
+            },
+            {
+              "file": "packages/theme-shared/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1580460651320.593
+            },
+            {
+              "file": "packages/theme-shared/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1580460651320.593
+            },
+            {
+              "file": "packages/theme-shared/tslint.json",
+              "ext": ".json",
+              "mtime": 1581419358700.5132
+            }
+          ]
         }
       },
       "abp.theme-basic": {
@@ -1257,7 +2296,138 @@
             }
           },
           "tags": [],
-          "files": []
+          "files": [
+            {
+              "file": "packages/theme-basic/jest.config.js",
+              "ext": ".js",
+              "mtime": 1580460651285.6863
+            },
+            {
+              "file": "packages/theme-basic/ng-package.json",
+              "ext": ".json",
+              "mtime": 1580460651285.6863
+            },
+            {
+              "file": "packages/theme-basic/package.json",
+              "ext": ".json",
+              "mtime": 1580460651285.6863
+            },
+            {
+              "file": "packages/theme-basic/README.md",
+              "ext": ".md",
+              "mtime": 1580460651285.6863
+            },
+            {
+              "file": "packages/theme-basic/src/lib/actions/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651286.6838
+            },
+            {
+              "file": "packages/theme-basic/src/lib/actions/layout.actions.ts",
+              "ext": ".ts",
+              "mtime": 1580460651286.6838
+            },
+            {
+              "file": "packages/theme-basic/src/lib/components/account-layout/account-layout.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651287.6812
+            },
+            {
+              "file": "packages/theme-basic/src/lib/components/application-layout/application-layout.component.html",
+              "ext": ".html",
+              "mtime": 1580460651287.6812
+            },
+            {
+              "file": "packages/theme-basic/src/lib/components/application-layout/application-layout.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651288.6782
+            },
+            {
+              "file": "packages/theme-basic/src/lib/components/empty-layout/empty-layout.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651288.6782
+            },
+            {
+              "file": "packages/theme-basic/src/lib/components/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651288.6782
+            },
+            {
+              "file": "packages/theme-basic/src/lib/components/validation-error/validation-error.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651289.6755
+            },
+            {
+              "file": "packages/theme-basic/src/lib/constants/styles.ts",
+              "ext": ".ts",
+              "mtime": 1580460651289.6755
+            },
+            {
+              "file": "packages/theme-basic/src/lib/models/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651289.6755
+            },
+            {
+              "file": "packages/theme-basic/src/lib/models/layout.ts",
+              "ext": ".ts",
+              "mtime": 1580460651290.6729
+            },
+            {
+              "file": "packages/theme-basic/src/lib/services/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651290.6729
+            },
+            {
+              "file": "packages/theme-basic/src/lib/services/initial.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651290.6729
+            },
+            {
+              "file": "packages/theme-basic/src/lib/services/layout-state.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651291.6707
+            },
+            {
+              "file": "packages/theme-basic/src/lib/states/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651291.6707
+            },
+            {
+              "file": "packages/theme-basic/src/lib/states/layout.state.ts",
+              "ext": ".ts",
+              "mtime": 1580460651291.6707
+            },
+            {
+              "file": "packages/theme-basic/src/lib/tests/layout-state.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651292.6677
+            },
+            {
+              "file": "packages/theme-basic/src/lib/theme-basic.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651292.6677
+            },
+            {
+              "file": "packages/theme-basic/src/public-api.ts",
+              "ext": ".ts",
+              "mtime": 1580460651292.6677
+            },
+            {
+              "file": "packages/theme-basic/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1580460651293.6648
+            },
+            {
+              "file": "packages/theme-basic/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1580460651293.6648
+            },
+            {
+              "file": "packages/theme-basic/tslint.json",
+              "ext": ".json",
+              "mtime": 1581419358700.5132
+            }
+          ]
         }
       },
       "ngx-admin-app": {
@@ -3467,7 +4637,118 @@
             }
           },
           "tags": [],
-          "files": []
+          "files": [
+            {
+              "file": "packages/identity/jest.config.js",
+              "ext": ".js",
+              "mtime": 1580460651251.7769
+            },
+            {
+              "file": "packages/identity/ng-package.json",
+              "ext": ".json",
+              "mtime": 1580460651251.7769
+            },
+            {
+              "file": "packages/identity/package.json",
+              "ext": ".json",
+              "mtime": 1580460651251.7769
+            },
+            {
+              "file": "packages/identity/README.md",
+              "ext": ".md",
+              "mtime": 1580460651250.7795
+            },
+            {
+              "file": "packages/identity/src/lib/actions/identity.actions.ts",
+              "ext": ".ts",
+              "mtime": 1580460651252.7744
+            },
+            {
+              "file": "packages/identity/src/lib/components/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651253.7715
+            },
+            {
+              "file": "packages/identity/src/lib/components/roles/roles.component.html",
+              "ext": ".html",
+              "mtime": 1580460651253.7715
+            },
+            {
+              "file": "packages/identity/src/lib/components/roles/roles.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651253.7715
+            },
+            {
+              "file": "packages/identity/src/lib/components/users/users.component.html",
+              "ext": ".html",
+              "mtime": 1580460651254.7688
+            },
+            {
+              "file": "packages/identity/src/lib/components/users/users.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651254.7688
+            },
+            {
+              "file": "packages/identity/src/lib/identity-routing.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651254.7688
+            },
+            {
+              "file": "packages/identity/src/lib/identity.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651255.7664
+            },
+            {
+              "file": "packages/identity/src/lib/models/identity.ts",
+              "ext": ".ts",
+              "mtime": 1580460651255.7664
+            },
+            {
+              "file": "packages/identity/src/lib/services/identity-state.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651255.7664
+            },
+            {
+              "file": "packages/identity/src/lib/services/identity.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651256.7637
+            },
+            {
+              "file": "packages/identity/src/lib/services/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651256.7637
+            },
+            {
+              "file": "packages/identity/src/lib/states/identity.state.ts",
+              "ext": ".ts",
+              "mtime": 1580460651256.7637
+            },
+            {
+              "file": "packages/identity/src/lib/tests/identity-state.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651257.7612
+            },
+            {
+              "file": "packages/identity/src/public-api.ts",
+              "ext": ".ts",
+              "mtime": 1580460651257.7612
+            },
+            {
+              "file": "packages/identity/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1580460651257.7612
+            },
+            {
+              "file": "packages/identity/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1580460651258.7583
+            },
+            {
+              "file": "packages/identity/tslint.json",
+              "ext": ".json",
+              "mtime": 1581419358694.53
+            }
+          ]
         }
       },
       "ng-alain-app": {
@@ -4801,7 +6082,183 @@
             }
           },
           "tags": [],
-          "files": []
+          "files": [
+            {
+              "file": "packages/account/jest.config.js",
+              "ext": ".js",
+              "mtime": 1580460651189.9424
+            },
+            {
+              "file": "packages/account/ng-package.json",
+              "ext": ".json",
+              "mtime": 1580460651190.9397
+            },
+            {
+              "file": "packages/account/package.json",
+              "ext": ".json",
+              "mtime": 1580460651190.9397
+            },
+            {
+              "file": "packages/account/README.md",
+              "ext": ".md",
+              "mtime": 1580460651189.9424
+            },
+            {
+              "file": "packages/account/src/lib/account-routing.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651190.9397
+            },
+            {
+              "file": "packages/account/src/lib/account.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651191.937
+            },
+            {
+              "file": "packages/account/src/lib/components/auth-wrapper/auth-wrapper.component.html",
+              "ext": ".html",
+              "mtime": 1580460651191.937
+            },
+            {
+              "file": "packages/account/src/lib/components/auth-wrapper/auth-wrapper.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651191.937
+            },
+            {
+              "file": "packages/account/src/lib/components/change-password/change-password.component.html",
+              "ext": ".html",
+              "mtime": 1580460651192.9343
+            },
+            {
+              "file": "packages/account/src/lib/components/change-password/change-password.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651192.9343
+            },
+            {
+              "file": "packages/account/src/lib/components/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651193.9316
+            },
+            {
+              "file": "packages/account/src/lib/components/login/login.component.html",
+              "ext": ".html",
+              "mtime": 1580460651193.9316
+            },
+            {
+              "file": "packages/account/src/lib/components/login/login.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651193.9316
+            },
+            {
+              "file": "packages/account/src/lib/components/manage-profile/manage-profile.component.html",
+              "ext": ".html",
+              "mtime": 1580460651194.9292
+            },
+            {
+              "file": "packages/account/src/lib/components/manage-profile/manage-profile.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651194.9292
+            },
+            {
+              "file": "packages/account/src/lib/components/personal-settings/personal-settings.component.html",
+              "ext": ".html",
+              "mtime": 1580460651194.9292
+            },
+            {
+              "file": "packages/account/src/lib/components/personal-settings/personal-settings.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651195.9265
+            },
+            {
+              "file": "packages/account/src/lib/components/register/register.component.html",
+              "ext": ".html",
+              "mtime": 1580460651195.9265
+            },
+            {
+              "file": "packages/account/src/lib/components/register/register.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651195.9265
+            },
+            {
+              "file": "packages/account/src/lib/components/tenant-box/tenant-box.component.html",
+              "ext": ".html",
+              "mtime": 1580460651196.9236
+            },
+            {
+              "file": "packages/account/src/lib/components/tenant-box/tenant-box.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651196.9236
+            },
+            {
+              "file": "packages/account/src/lib/models/account.ts",
+              "ext": ".ts",
+              "mtime": 1580460651197.9214
+            },
+            {
+              "file": "packages/account/src/lib/models/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651197.9214
+            },
+            {
+              "file": "packages/account/src/lib/models/options.ts",
+              "ext": ".ts",
+              "mtime": 1580460651197.9214
+            },
+            {
+              "file": "packages/account/src/lib/models/tenant.ts",
+              "ext": ".ts",
+              "mtime": 1580460651198.9187
+            },
+            {
+              "file": "packages/account/src/lib/models/user.ts",
+              "ext": ".ts",
+              "mtime": 1580460651198.9187
+            },
+            {
+              "file": "packages/account/src/lib/services/account.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651198.9187
+            },
+            {
+              "file": "packages/account/src/lib/services/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651199.9155
+            },
+            {
+              "file": "packages/account/src/lib/tests/account.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651199.9155
+            },
+            {
+              "file": "packages/account/src/lib/tokens/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651199.9155
+            },
+            {
+              "file": "packages/account/src/lib/tokens/options.token.ts",
+              "ext": ".ts",
+              "mtime": 1580460651200.913
+            },
+            {
+              "file": "packages/account/src/public-api.ts",
+              "ext": ".ts",
+              "mtime": 1580460651200.913
+            },
+            {
+              "file": "packages/account/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1580460651200.913
+            },
+            {
+              "file": "packages/account/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1580460651200.913
+            },
+            {
+              "file": "packages/account/tslint.json",
+              "ext": ".json",
+              "mtime": 1581419358689.543
+            }
+          ]
         }
       },
       "fs.ngx-admin": {
@@ -5772,7 +7229,7 @@
             {
               "file": "themes/ng-alain/package.json",
               "ext": ".json",
-              "mtime": 1581417995898.842
+              "mtime": 1581419835435.4287
             },
             {
               "file": "themes/ng-alain/README.md",
@@ -6068,7 +7525,593 @@
             }
           },
           "tags": [],
-          "files": []
+          "files": [
+            {
+              "file": "packages/core/jest.config.js",
+              "ext": ".js",
+              "mtime": 1580460651201.9104
+            },
+            {
+              "file": "packages/core/ng-package.json",
+              "ext": ".json",
+              "mtime": 1580460651201.9104
+            },
+            {
+              "file": "packages/core/package.json",
+              "ext": ".json",
+              "mtime": 1580460651202.9077
+            },
+            {
+              "file": "packages/core/README.md",
+              "ext": ".md",
+              "mtime": 1580460651201.9104
+            },
+            {
+              "file": "packages/core/src/lib/abstracts/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651202.9077
+            },
+            {
+              "file": "packages/core/src/lib/abstracts/ng-model.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651203.905
+            },
+            {
+              "file": "packages/core/src/lib/actions/config.actions.ts",
+              "ext": ".ts",
+              "mtime": 1580460651203.905
+            },
+            {
+              "file": "packages/core/src/lib/actions/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651203.905
+            },
+            {
+              "file": "packages/core/src/lib/actions/loader.actions.ts",
+              "ext": ".ts",
+              "mtime": 1580460651204.9023
+            },
+            {
+              "file": "packages/core/src/lib/actions/profile.actions.ts",
+              "ext": ".ts",
+              "mtime": 1580460651204.9023
+            },
+            {
+              "file": "packages/core/src/lib/actions/replaceable-components.actions.ts",
+              "ext": ".ts",
+              "mtime": 1580460651204.9023
+            },
+            {
+              "file": "packages/core/src/lib/actions/rest.actions.ts",
+              "ext": ".ts",
+              "mtime": 1580460651205.8997
+            },
+            {
+              "file": "packages/core/src/lib/actions/session.actions.ts",
+              "ext": ".ts",
+              "mtime": 1580460651205.8997
+            },
+            {
+              "file": "packages/core/src/lib/components/dynamic-layout.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651205.8997
+            },
+            {
+              "file": "packages/core/src/lib/components/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651205.8997
+            },
+            {
+              "file": "packages/core/src/lib/components/replaceable-route-container.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651206.897
+            },
+            {
+              "file": "packages/core/src/lib/components/router-outlet.component.ts",
+              "ext": ".ts",
+              "mtime": 1580460651206.897
+            },
+            {
+              "file": "packages/core/src/lib/constants/different-locales.ts",
+              "ext": ".ts",
+              "mtime": 1580460651207.8943
+            },
+            {
+              "file": "packages/core/src/lib/constants/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651207.8943
+            },
+            {
+              "file": "packages/core/src/lib/core.module.ts",
+              "ext": ".ts",
+              "mtime": 1580460651207.8943
+            },
+            {
+              "file": "packages/core/src/lib/directives/autofocus.directive.ts",
+              "ext": ".ts",
+              "mtime": 1580460651207.8943
+            },
+            {
+              "file": "packages/core/src/lib/directives/debounce.directive.ts",
+              "ext": ".ts",
+              "mtime": 1580460651208.8916
+            },
+            {
+              "file": "packages/core/src/lib/directives/ellipsis.directive.ts",
+              "ext": ".ts",
+              "mtime": 1580460651208.8916
+            },
+            {
+              "file": "packages/core/src/lib/directives/for.directive.ts",
+              "ext": ".ts",
+              "mtime": 1580460651209.889
+            },
+            {
+              "file": "packages/core/src/lib/directives/form-submit.directive.ts",
+              "ext": ".ts",
+              "mtime": 1580460651209.889
+            },
+            {
+              "file": "packages/core/src/lib/directives/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651209.889
+            },
+            {
+              "file": "packages/core/src/lib/directives/init.directive.ts",
+              "ext": ".ts",
+              "mtime": 1580460651209.889
+            },
+            {
+              "file": "packages/core/src/lib/directives/permission.directive.ts",
+              "ext": ".ts",
+              "mtime": 1580460651210.8865
+            },
+            {
+              "file": "packages/core/src/lib/directives/replaceable-template.directive.ts",
+              "ext": ".ts",
+              "mtime": 1580460651210.8865
+            },
+            {
+              "file": "packages/core/src/lib/directives/stop-propagation.directive.ts",
+              "ext": ".ts",
+              "mtime": 1580460651210.8865
+            },
+            {
+              "file": "packages/core/src/lib/directives/visibility.directive.ts",
+              "ext": ".ts",
+              "mtime": 1580460651211.8838
+            },
+            {
+              "file": "packages/core/src/lib/enums/common.ts",
+              "ext": ".ts",
+              "mtime": 1580460651211.8838
+            },
+            {
+              "file": "packages/core/src/lib/enums/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651211.8838
+            },
+            {
+              "file": "packages/core/src/lib/guards/auth.guard.ts",
+              "ext": ".ts",
+              "mtime": 1580460651212.881
+            },
+            {
+              "file": "packages/core/src/lib/guards/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651212.881
+            },
+            {
+              "file": "packages/core/src/lib/guards/permission.guard.ts",
+              "ext": ".ts",
+              "mtime": 1580460651212.881
+            },
+            {
+              "file": "packages/core/src/lib/handlers/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651213.8784
+            },
+            {
+              "file": "packages/core/src/lib/interceptors/api.interceptor.ts",
+              "ext": ".ts",
+              "mtime": 1580460651213.8784
+            },
+            {
+              "file": "packages/core/src/lib/interceptors/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651213.8784
+            },
+            {
+              "file": "packages/core/src/lib/models/application-configuration.ts",
+              "ext": ".ts",
+              "mtime": 1580460651214.8757
+            },
+            {
+              "file": "packages/core/src/lib/models/common.ts",
+              "ext": ".ts",
+              "mtime": 1580460651214.8757
+            },
+            {
+              "file": "packages/core/src/lib/models/config.ts",
+              "ext": ".ts",
+              "mtime": 1580460651214.8757
+            },
+            {
+              "file": "packages/core/src/lib/models/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651215.8728
+            },
+            {
+              "file": "packages/core/src/lib/models/profile.ts",
+              "ext": ".ts",
+              "mtime": 1580460651215.8728
+            },
+            {
+              "file": "packages/core/src/lib/models/replaceable-components.ts",
+              "ext": ".ts",
+              "mtime": 1580460651215.8728
+            },
+            {
+              "file": "packages/core/src/lib/models/rest.ts",
+              "ext": ".ts",
+              "mtime": 1580460651216.8704
+            },
+            {
+              "file": "packages/core/src/lib/models/session.ts",
+              "ext": ".ts",
+              "mtime": 1580460651216.8704
+            },
+            {
+              "file": "packages/core/src/lib/pipes/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651216.8704
+            },
+            {
+              "file": "packages/core/src/lib/pipes/localization.pipe.ts",
+              "ext": ".ts",
+              "mtime": 1580460651217.8677
+            },
+            {
+              "file": "packages/core/src/lib/pipes/sort.pipe.ts",
+              "ext": ".ts",
+              "mtime": 1580460651217.8677
+            },
+            {
+              "file": "packages/core/src/lib/plugins/config.plugin.ts",
+              "ext": ".ts",
+              "mtime": 1580460651217.8677
+            },
+            {
+              "file": "packages/core/src/lib/plugins/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651218.865
+            },
+            {
+              "file": "packages/core/src/lib/providers/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651218.865
+            },
+            {
+              "file": "packages/core/src/lib/providers/locale.provider.ts",
+              "ext": ".ts",
+              "mtime": 1580460651218.865
+            },
+            {
+              "file": "packages/core/src/lib/services/application-configuration.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651219.8623
+            },
+            {
+              "file": "packages/core/src/lib/services/auth.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651219.8623
+            },
+            {
+              "file": "packages/core/src/lib/services/config-state.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651219.8623
+            },
+            {
+              "file": "packages/core/src/lib/services/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651220.8596
+            },
+            {
+              "file": "packages/core/src/lib/services/lazy-load.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651220.8596
+            },
+            {
+              "file": "packages/core/src/lib/services/localization.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651220.8596
+            },
+            {
+              "file": "packages/core/src/lib/services/profile-state.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651220.8596
+            },
+            {
+              "file": "packages/core/src/lib/services/profile.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651221.857
+            },
+            {
+              "file": "packages/core/src/lib/services/rest.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651221.857
+            },
+            {
+              "file": "packages/core/src/lib/services/session-state.service.ts",
+              "ext": ".ts",
+              "mtime": 1580460651221.857
+            },
+            {
+              "file": "packages/core/src/lib/states/config.state.ts",
+              "ext": ".ts",
+              "mtime": 1580460651222.8542
+            },
+            {
+              "file": "packages/core/src/lib/states/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651222.8542
+            },
+            {
+              "file": "packages/core/src/lib/states/profile.state.ts",
+              "ext": ".ts",
+              "mtime": 1580460651222.8542
+            },
+            {
+              "file": "packages/core/src/lib/states/replaceable-components.state.ts",
+              "ext": ".ts",
+              "mtime": 1580460651223.8518
+            },
+            {
+              "file": "packages/core/src/lib/states/session.state.ts",
+              "ext": ".ts",
+              "mtime": 1580460651223.8518
+            },
+            {
+              "file": "packages/core/src/lib/tests/api.interceptor.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651223.8518
+            },
+            {
+              "file": "packages/core/src/lib/tests/application-configuration.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651224.849
+            },
+            {
+              "file": "packages/core/src/lib/tests/auth.guard.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651224.849
+            },
+            {
+              "file": "packages/core/src/lib/tests/autofocus.directive.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651224.849
+            },
+            {
+              "file": "packages/core/src/lib/tests/common-utils.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651225.8462
+            },
+            {
+              "file": "packages/core/src/lib/tests/config-state.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651225.8462
+            },
+            {
+              "file": "packages/core/src/lib/tests/config.plugin.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651225.8462
+            },
+            {
+              "file": "packages/core/src/lib/tests/config.state.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651226.8435
+            },
+            {
+              "file": "packages/core/src/lib/tests/date-extensions.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651226.8435
+            },
+            {
+              "file": "packages/core/src/lib/tests/debounce.directive.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651226.8435
+            },
+            {
+              "file": "packages/core/src/lib/tests/dynamic-layout.component.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651227.841
+            },
+            {
+              "file": "packages/core/src/lib/tests/ellipsis.directive.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651227.841
+            },
+            {
+              "file": "packages/core/src/lib/tests/for.directive.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651227.841
+            },
+            {
+              "file": "packages/core/src/lib/tests/form-submit.directive.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651227.841
+            },
+            {
+              "file": "packages/core/src/lib/tests/initial-utils.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651228.8384
+            },
+            {
+              "file": "packages/core/src/lib/tests/lazy-load.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651228.8384
+            },
+            {
+              "file": "packages/core/src/lib/tests/locale.provider.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651228.8384
+            },
+            {
+              "file": "packages/core/src/lib/tests/localization.pipe.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651229.8357
+            },
+            {
+              "file": "packages/core/src/lib/tests/localization.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651229.8357
+            },
+            {
+              "file": "packages/core/src/lib/tests/ng-model.component.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651229.8357
+            },
+            {
+              "file": "packages/core/src/lib/tests/permission.directive.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651230.833
+            },
+            {
+              "file": "packages/core/src/lib/tests/permission.guard.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651230.833
+            },
+            {
+              "file": "packages/core/src/lib/tests/profile-state.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651230.833
+            },
+            {
+              "file": "packages/core/src/lib/tests/profile.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651231.8303
+            },
+            {
+              "file": "packages/core/src/lib/tests/profile.state.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651231.8303
+            },
+            {
+              "file": "packages/core/src/lib/tests/replaceable-components.state.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651231.8303
+            },
+            {
+              "file": "packages/core/src/lib/tests/replaceable-route-container.component.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651232.8276
+            },
+            {
+              "file": "packages/core/src/lib/tests/replaceable-template.directive.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651232.8276
+            },
+            {
+              "file": "packages/core/src/lib/tests/rest.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651232.8276
+            },
+            {
+              "file": "packages/core/src/lib/tests/router-outlet.component.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651233.825
+            },
+            {
+              "file": "packages/core/src/lib/tests/session-state.service.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651233.825
+            },
+            {
+              "file": "packages/core/src/lib/tests/session.state.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651233.825
+            },
+            {
+              "file": "packages/core/src/lib/tests/sort.pipe.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651233.825
+            },
+            {
+              "file": "packages/core/src/lib/tests/stop-propagation.directive.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651234.8223
+            },
+            {
+              "file": "packages/core/src/lib/tests/visibility.directive.spec.ts",
+              "ext": ".ts",
+              "mtime": 1580460651234.8223
+            },
+            {
+              "file": "packages/core/src/lib/tokens/common.token.ts",
+              "ext": ".ts",
+              "mtime": 1580460651235.8196
+            },
+            {
+              "file": "packages/core/src/lib/tokens/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651235.8196
+            },
+            {
+              "file": "packages/core/src/lib/utils/common-utils.ts",
+              "ext": ".ts",
+              "mtime": 1580460651235.8196
+            },
+            {
+              "file": "packages/core/src/lib/utils/date-extensions.ts",
+              "ext": ".ts",
+              "mtime": 1580460651235.8196
+            },
+            {
+              "file": "packages/core/src/lib/utils/generator-utils.ts",
+              "ext": ".ts",
+              "mtime": 1580460651236.817
+            },
+            {
+              "file": "packages/core/src/lib/utils/index.ts",
+              "ext": ".ts",
+              "mtime": 1580460651236.817
+            },
+            {
+              "file": "packages/core/src/lib/utils/initial-utils.ts",
+              "ext": ".ts",
+              "mtime": 1580460651236.817
+            },
+            {
+              "file": "packages/core/src/lib/utils/route-utils.ts",
+              "ext": ".ts",
+              "mtime": 1580460651237.8142
+            },
+            {
+              "file": "packages/core/src/lib/utils/rxjs-utils.ts",
+              "ext": ".ts",
+              "mtime": 1580460651237.8142
+            },
+            {
+              "file": "packages/core/src/public-api.ts",
+              "ext": ".ts",
+              "mtime": 1580460651237.8142
+            },
+            {
+              "file": "packages/core/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1580460651237.8142
+            },
+            {
+              "file": "packages/core/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1580460651238.8118
+            },
+            {
+              "file": "packages/core/tslint.json",
+              "ext": ".json",
+              "mtime": 1581419358690.5417
+            }
+          ]
         }
       },
       "fs.identity": {
@@ -6180,7 +8223,7 @@
             {
               "file": "libs/identity/package.json",
               "ext": ".json",
-              "mtime": 1581399169508.2588
+              "mtime": 1581421905874.5642
             },
             {
               "file": "libs/identity/README.md",
@@ -6240,18 +8283,10 @@
           "prefix": "fs",
           "architect": {
             "symlink": {
-              "builder": "./dist/tools/builder:command",
+              "builder": "./dist/tools/builder:symlink",
               "options": {
-                "command": "yarn",
-                "args": [
-                  "symlink",
-                  "copy",
-                  "--angular",
-                  "--no-watch",
-                  "--sync",
-                  "--packages",
-                  "@fs/packages"
-                ]
+                "symlinkConfig": "libs/packages/symlink.json",
+                "args": []
               }
             },
             "build": {
@@ -6285,7 +8320,73 @@
           },
           "schematics": {},
           "tags": [],
-          "files": []
+          "files": [
+            {
+              "file": "libs/packages/jest.config.js",
+              "ext": ".js",
+              "mtime": 1581417200220.6587
+            },
+            {
+              "file": "libs/packages/ng-package.json",
+              "ext": ".json",
+              "mtime": 1581476787649.189
+            },
+            {
+              "file": "libs/packages/package.json",
+              "ext": ".json",
+              "mtime": 1581421917550.7795
+            },
+            {
+              "file": "libs/packages/README.md",
+              "ext": ".md",
+              "mtime": 1581418633609.8955
+            },
+            {
+              "file": "libs/packages/src/index.ts",
+              "ext": ".ts",
+              "mtime": 1581413203065.7666
+            },
+            {
+              "file": "libs/packages/src/lib/further.module.spec.ts",
+              "ext": ".ts",
+              "mtime": 1581413203066.7673
+            },
+            {
+              "file": "libs/packages/src/lib/further.module.ts",
+              "ext": ".ts",
+              "mtime": 1581413203066.7673
+            },
+            {
+              "file": "libs/packages/src/test-setup.ts",
+              "ext": ".ts",
+              "mtime": 1581413203068.7324
+            },
+            {
+              "file": "libs/packages/symlink.json",
+              "ext": ".json",
+              "mtime": 1581481877778.4749
+            },
+            {
+              "file": "libs/packages/tsconfig.json",
+              "ext": ".json",
+              "mtime": 1581413203067.7615
+            },
+            {
+              "file": "libs/packages/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1581413203064.77
+            },
+            {
+              "file": "libs/packages/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1581413203067.7615
+            },
+            {
+              "file": "libs/packages/tslint.json",
+              "ext": ".json",
+              "mtime": 1581413203065.7666
+            }
+          ]
         }
       },
       "fs.account": {
@@ -6532,7 +8633,7 @@
             {
               "file": "libs/account/package.json",
               "ext": ".json",
-              "mtime": 1581399146116.994
+              "mtime": 1581421863030.037
             },
             {
               "file": "libs/account/README.md",
@@ -6830,7 +8931,7 @@
             {
               "file": "apps/dev-app/tsconfig.app.json",
               "ext": ".json",
-              "mtime": 1581398493121.9697
+              "mtime": 1581419835275.1143
             },
             {
               "file": "apps/dev-app/tsconfig.spec.json",
@@ -6914,7 +9015,7 @@
             {
               "file": "themes/dev/package.json",
               "ext": ".json",
-              "mtime": 1581405199781.9878
+              "mtime": 1581419835434.432
             },
             {
               "file": "themes/dev/README.md",
@@ -7318,174 +9419,6 @@
       }
     },
     "dependencies": {
-      "fs.permission-management": [
-        {
-          "type": "implicit",
-          "source": "fs.permission-management",
-          "target": "abp.permission-management"
-        },
-        {
-          "type": "implicit",
-          "source": "fs.permission-management",
-          "target": "fs.ng-alain"
-        },
-        {
-          "type": "implicit",
-          "source": "fs.permission-management",
-          "target": "fs.ngx-admin"
-        },
-        {
-          "type": "static",
-          "source": "fs.permission-management",
-          "target": "@angular/core"
-        },
-        {
-          "type": "static",
-          "source": "fs.permission-management",
-          "target": "rxjs"
-        },
-        {
-          "type": "static",
-          "source": "fs.permission-management",
-          "target": "@fs/ng-alain"
-        },
-        {
-          "type": "static",
-          "source": "fs.permission-management",
-          "target": "@angular/common"
-        },
-        {
-          "type": "static",
-          "source": "fs.permission-management",
-          "target": "jest-preset-angular"
-        }
-      ],
-      "fs.feature-management": [
-        {
-          "type": "implicit",
-          "source": "fs.feature-management",
-          "target": "abp.feature-management"
-        },
-        {
-          "type": "implicit",
-          "source": "fs.feature-management",
-          "target": "fs.ng-alain"
-        },
-        {
-          "type": "implicit",
-          "source": "fs.feature-management",
-          "target": "fs.ngx-admin"
-        },
-        {
-          "type": "static",
-          "source": "fs.feature-management",
-          "target": "@angular/core"
-        },
-        {
-          "type": "static",
-          "source": "fs.feature-management",
-          "target": "@fs/ng-alain"
-        },
-        {
-          "type": "static",
-          "source": "fs.feature-management",
-          "target": "@angular/common"
-        },
-        {
-          "type": "static",
-          "source": "fs.feature-management",
-          "target": "jest-preset-angular"
-        }
-      ],
-      "fs.setting-management": [
-        {
-          "type": "implicit",
-          "source": "fs.setting-management",
-          "target": "fs.ng-alain"
-        },
-        {
-          "type": "implicit",
-          "source": "fs.setting-management",
-          "target": "abp.setting-management"
-        },
-        {
-          "type": "implicit",
-          "source": "fs.setting-management",
-          "target": "fs.ngx-admin"
-        },
-        {
-          "type": "static",
-          "source": "fs.setting-management",
-          "target": "@angular/core"
-        },
-        {
-          "type": "static",
-          "source": "fs.setting-management",
-          "target": "@angular/router"
-        },
-        {
-          "type": "static",
-          "source": "fs.setting-management",
-          "target": "@fs/ng-alain"
-        },
-        {
-          "type": "static",
-          "source": "fs.setting-management",
-          "target": "@angular/common"
-        },
-        {
-          "type": "static",
-          "source": "fs.setting-management",
-          "target": "jest-preset-angular"
-        }
-      ],
-      "fs.tenant-management": [
-        {
-          "type": "implicit",
-          "source": "fs.tenant-management",
-          "target": "abp.tenant-management"
-        },
-        {
-          "type": "implicit",
-          "source": "fs.tenant-management",
-          "target": "fs.ng-alain"
-        },
-        {
-          "type": "static",
-          "source": "fs.tenant-management",
-          "target": "abp.feature-management"
-        },
-        {
-          "type": "implicit",
-          "source": "fs.tenant-management",
-          "target": "fs.ngx-admin"
-        },
-        {
-          "type": "static",
-          "source": "fs.tenant-management",
-          "target": "@angular/core"
-        },
-        {
-          "type": "static",
-          "source": "fs.tenant-management",
-          "target": "@angular/forms"
-        },
-        {
-          "type": "static",
-          "source": "fs.tenant-management",
-          "target": "@fs/ng-alain"
-        },
-        {
-          "type": "static",
-          "source": "fs.tenant-management",
-          "target": "@angular/common"
-        },
-        {
-          "type": "static",
-          "source": "fs.tenant-management",
-          "target": "jest-preset-angular"
-        }
-      ],
       "ngx-admin-app": [
         {
           "type": "implicit",
@@ -7630,46 +9563,41 @@
           "target": "jest-preset-angular"
         }
       ],
-      "fs.identity": [
+      "fs.ngx-admin": [
         {
           "type": "implicit",
-          "source": "fs.identity",
-          "target": "abp.identity"
-        },
-        {
-          "type": "implicit",
-          "source": "fs.identity",
-          "target": "fs.ng-alain"
+          "source": "fs.ngx-admin",
+          "target": "abp.theme-basic"
         },
         {
           "type": "static",
-          "source": "fs.identity",
-          "target": "abp.permission-management"
-        },
-        {
-          "type": "implicit",
-          "source": "fs.identity",
-          "target": "fs.ngx-admin"
-        },
-        {
-          "type": "static",
-          "source": "fs.identity",
+          "source": "fs.ngx-admin",
           "target": "@angular/core"
         },
         {
           "type": "static",
-          "source": "fs.identity",
-          "target": "@angular/forms"
+          "source": "fs.ngx-admin",
+          "target": "rxjs"
         },
         {
           "type": "static",
-          "source": "fs.identity",
-          "target": "@fs/ng-alain"
+          "source": "fs.ngx-admin",
+          "target": "@fs/ngx-admin"
         },
         {
           "type": "static",
-          "source": "fs.identity",
+          "source": "fs.ngx-admin",
           "target": "jest-preset-angular"
+        },
+        {
+          "type": "static",
+          "source": "fs.ngx-admin",
+          "target": "@angular/common"
+        },
+        {
+          "type": "static",
+          "source": "fs.ngx-admin",
+          "target": "@angular/router"
         }
       ],
       "fs.account": [
@@ -7729,11 +9657,246 @@
           "target": "@fs/ngx-admin"
         }
       ],
+      "fs.feature-management": [
+        {
+          "type": "implicit",
+          "source": "fs.feature-management",
+          "target": "abp.feature-management"
+        },
+        {
+          "type": "implicit",
+          "source": "fs.feature-management",
+          "target": "fs.ng-alain"
+        },
+        {
+          "type": "implicit",
+          "source": "fs.feature-management",
+          "target": "fs.ngx-admin"
+        },
+        {
+          "type": "static",
+          "source": "fs.feature-management",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "fs.feature-management",
+          "target": "@fs/ng-alain"
+        },
+        {
+          "type": "static",
+          "source": "fs.feature-management",
+          "target": "@angular/common"
+        },
+        {
+          "type": "static",
+          "source": "fs.feature-management",
+          "target": "jest-preset-angular"
+        }
+      ],
+      "fs.identity": [
+        {
+          "type": "implicit",
+          "source": "fs.identity",
+          "target": "abp.identity"
+        },
+        {
+          "type": "implicit",
+          "source": "fs.identity",
+          "target": "fs.ng-alain"
+        },
+        {
+          "type": "static",
+          "source": "fs.identity",
+          "target": "abp.permission-management"
+        },
+        {
+          "type": "implicit",
+          "source": "fs.identity",
+          "target": "fs.ngx-admin"
+        },
+        {
+          "type": "static",
+          "source": "fs.identity",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "fs.identity",
+          "target": "@angular/forms"
+        },
+        {
+          "type": "static",
+          "source": "fs.identity",
+          "target": "@fs/ng-alain"
+        },
+        {
+          "type": "static",
+          "source": "fs.identity",
+          "target": "jest-preset-angular"
+        }
+      ],
+      "fs.permission-management": [
+        {
+          "type": "implicit",
+          "source": "fs.permission-management",
+          "target": "abp.permission-management"
+        },
+        {
+          "type": "implicit",
+          "source": "fs.permission-management",
+          "target": "fs.ng-alain"
+        },
+        {
+          "type": "implicit",
+          "source": "fs.permission-management",
+          "target": "fs.ngx-admin"
+        },
+        {
+          "type": "static",
+          "source": "fs.permission-management",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "fs.permission-management",
+          "target": "rxjs"
+        },
+        {
+          "type": "static",
+          "source": "fs.permission-management",
+          "target": "@fs/ng-alain"
+        },
+        {
+          "type": "static",
+          "source": "fs.permission-management",
+          "target": "@angular/common"
+        },
+        {
+          "type": "static",
+          "source": "fs.permission-management",
+          "target": "jest-preset-angular"
+        }
+      ],
+      "fs.setting-management": [
+        {
+          "type": "implicit",
+          "source": "fs.setting-management",
+          "target": "fs.ng-alain"
+        },
+        {
+          "type": "implicit",
+          "source": "fs.setting-management",
+          "target": "abp.setting-management"
+        },
+        {
+          "type": "implicit",
+          "source": "fs.setting-management",
+          "target": "fs.ngx-admin"
+        },
+        {
+          "type": "static",
+          "source": "fs.setting-management",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "fs.setting-management",
+          "target": "@angular/router"
+        },
+        {
+          "type": "static",
+          "source": "fs.setting-management",
+          "target": "@fs/ng-alain"
+        },
+        {
+          "type": "static",
+          "source": "fs.setting-management",
+          "target": "@angular/common"
+        },
+        {
+          "type": "static",
+          "source": "fs.setting-management",
+          "target": "jest-preset-angular"
+        }
+      ],
+      "fs.tenant-management": [
+        {
+          "type": "implicit",
+          "source": "fs.tenant-management",
+          "target": "abp.tenant-management"
+        },
+        {
+          "type": "implicit",
+          "source": "fs.tenant-management",
+          "target": "fs.ng-alain"
+        },
+        {
+          "type": "static",
+          "source": "fs.tenant-management",
+          "target": "abp.feature-management"
+        },
+        {
+          "type": "implicit",
+          "source": "fs.tenant-management",
+          "target": "fs.ngx-admin"
+        },
+        {
+          "type": "static",
+          "source": "fs.tenant-management",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "fs.tenant-management",
+          "target": "@angular/forms"
+        },
+        {
+          "type": "static",
+          "source": "fs.tenant-management",
+          "target": "@fs/ng-alain"
+        },
+        {
+          "type": "static",
+          "source": "fs.tenant-management",
+          "target": "@angular/common"
+        },
+        {
+          "type": "static",
+          "source": "fs.tenant-management",
+          "target": "jest-preset-angular"
+        }
+      ],
       "abp.theme-shared": [
         {
           "type": "implicit",
           "source": "abp.theme-shared",
           "target": "abp.core"
+        },
+        {
+          "type": "static",
+          "source": "abp.theme-shared",
+          "target": "@angular/animations"
+        },
+        {
+          "type": "static",
+          "source": "abp.theme-shared",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "abp.theme-shared",
+          "target": "@angular/router"
+        },
+        {
+          "type": "static",
+          "source": "abp.theme-shared",
+          "target": "rxjs"
+        },
+        {
+          "type": "static",
+          "source": "abp.theme-shared",
+          "target": "@angular/common"
         }
       ],
       "abp.theme-basic": [
@@ -7741,6 +9904,21 @@
           "type": "implicit",
           "source": "abp.theme-basic",
           "target": "abp.theme-shared"
+        },
+        {
+          "type": "static",
+          "source": "abp.theme-basic",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "abp.theme-basic",
+          "target": "rxjs"
+        },
+        {
+          "type": "static",
+          "source": "abp.theme-basic",
+          "target": "@angular/router"
         }
       ],
       "abp.account": [
@@ -7753,6 +9931,36 @@
           "type": "implicit",
           "source": "abp.account",
           "target": "abp.theme-shared"
+        },
+        {
+          "type": "static",
+          "source": "abp.account",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "abp.account",
+          "target": "@angular/router"
+        },
+        {
+          "type": "static",
+          "source": "abp.account",
+          "target": "@angular/forms"
+        },
+        {
+          "type": "static",
+          "source": "abp.account",
+          "target": "rxjs"
+        },
+        {
+          "type": "static",
+          "source": "abp.account",
+          "target": "@angular/animations"
+        },
+        {
+          "type": "static",
+          "source": "abp.account",
+          "target": "@angular/common"
         }
       ],
       "abp.feature-management": [
@@ -7760,6 +9968,21 @@
           "type": "implicit",
           "source": "abp.feature-management",
           "target": "abp.theme-shared"
+        },
+        {
+          "type": "static",
+          "source": "abp.feature-management",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "abp.feature-management",
+          "target": "rxjs"
+        },
+        {
+          "type": "static",
+          "source": "abp.feature-management",
+          "target": "@angular/forms"
         }
       ],
       "abp.permission-management": [
@@ -7767,6 +9990,16 @@
           "type": "implicit",
           "source": "abp.permission-management",
           "target": "abp.theme-shared"
+        },
+        {
+          "type": "static",
+          "source": "abp.permission-management",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "abp.permission-management",
+          "target": "rxjs"
         }
       ],
       "abp.identity": [
@@ -7784,6 +10017,26 @@
           "type": "implicit",
           "source": "abp.identity",
           "target": "abp.theme-shared"
+        },
+        {
+          "type": "static",
+          "source": "abp.identity",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "abp.identity",
+          "target": "@angular/forms"
+        },
+        {
+          "type": "static",
+          "source": "abp.identity",
+          "target": "rxjs"
+        },
+        {
+          "type": "static",
+          "source": "abp.identity",
+          "target": "@angular/router"
         }
       ],
       "abp.setting-management": [
@@ -7796,6 +10049,16 @@
           "type": "implicit",
           "source": "abp.setting-management",
           "target": "abp.theme-shared"
+        },
+        {
+          "type": "static",
+          "source": "abp.setting-management",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "abp.setting-management",
+          "target": "@angular/router"
         }
       ],
       "abp.tenant-management": [
@@ -7813,6 +10076,26 @@
           "type": "implicit",
           "source": "abp.tenant-management",
           "target": "abp.theme-shared"
+        },
+        {
+          "type": "static",
+          "source": "abp.tenant-management",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "abp.tenant-management",
+          "target": "@angular/forms"
+        },
+        {
+          "type": "static",
+          "source": "abp.tenant-management",
+          "target": "rxjs"
+        },
+        {
+          "type": "static",
+          "source": "abp.tenant-management",
+          "target": "@angular/router"
         }
       ],
       "fs.dev": [
@@ -7951,52 +10234,633 @@
           "target": "@angular/forms"
         }
       ],
-      "fs.ngx-admin": [
-        {
-          "type": "implicit",
-          "source": "fs.ngx-admin",
-          "target": "abp.theme-basic"
-        },
+      "abp.account-config": [
         {
           "type": "static",
-          "source": "fs.ngx-admin",
+          "source": "abp.account-config",
           "target": "@angular/core"
         },
         {
           "type": "static",
-          "source": "fs.ngx-admin",
-          "target": "rxjs"
+          "source": "abp.account-config",
+          "target": "@angular/router"
+        }
+      ],
+      "abp.core": [
+        {
+          "type": "static",
+          "source": "abp.core",
+          "target": "@angular/forms"
         },
         {
           "type": "static",
-          "source": "fs.ngx-admin",
-          "target": "@fs/ngx-admin"
+          "source": "abp.core",
+          "target": "@angular/core"
         },
         {
           "type": "static",
-          "source": "fs.ngx-admin",
-          "target": "jest-preset-angular"
-        },
-        {
-          "type": "static",
-          "source": "fs.ngx-admin",
+          "source": "abp.core",
           "target": "@angular/common"
         },
         {
           "type": "static",
-          "source": "fs.ngx-admin",
+          "source": "abp.core",
           "target": "@angular/router"
+        },
+        {
+          "type": "static",
+          "source": "abp.core",
+          "target": "rxjs"
+        }
+      ],
+      "abp.identity-config": [
+        {
+          "type": "static",
+          "source": "abp.identity-config",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "abp.identity-config",
+          "target": "@angular/router"
+        },
+        {
+          "type": "static",
+          "source": "abp.identity-config",
+          "target": "rxjs"
+        }
+      ],
+      "abp.setting-management-config": [
+        {
+          "type": "static",
+          "source": "abp.setting-management-config",
+          "target": "@angular/core"
+        }
+      ],
+      "abp.tenant-management-config": [
+        {
+          "type": "static",
+          "source": "abp.tenant-management-config",
+          "target": "@angular/core"
+        }
+      ],
+      "fs.packages": [
+        {
+          "type": "static",
+          "source": "fs.packages",
+          "target": "@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "fs.packages",
+          "target": "@angular/common"
+        },
+        {
+          "type": "static",
+          "source": "fs.packages",
+          "target": "jest-preset-angular"
         }
       ]
     }
   },
   "fileMap": {
-    "abp.setting-management-config": [],
-    "abp.tenant-management-config": [],
-    "abp.permission-management": [],
-    "abp.feature-management": [],
-    "abp.setting-management": [],
-    "abp.tenant-management": [],
+    "abp.setting-management-config": [
+      {
+        "file": "packages/setting-management-config/jest.config.js",
+        "ext": ".js",
+        "mtime": 1580460651266.7368
+      },
+      {
+        "file": "packages/setting-management-config/ng-package.json",
+        "ext": ".json",
+        "mtime": 1580460651266.7368
+      },
+      {
+        "file": "packages/setting-management-config/package.json",
+        "ext": ".json",
+        "mtime": 1580460651266.7368
+      },
+      {
+        "file": "packages/setting-management-config/README.md",
+        "ext": ".md",
+        "mtime": 1580460651265.7395
+      },
+      {
+        "file": "packages/setting-management-config/src/lib/services/setting-management-config.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651267.7344
+      },
+      {
+        "file": "packages/setting-management-config/src/lib/setting-management-config.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651267.7344
+      },
+      {
+        "file": "packages/setting-management-config/src/public-api.ts",
+        "ext": ".ts",
+        "mtime": 1580460651267.7344
+      },
+      {
+        "file": "packages/setting-management-config/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1580460651268.7317
+      },
+      {
+        "file": "packages/setting-management-config/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1580460651268.7317
+      },
+      {
+        "file": "packages/setting-management-config/tslint.json",
+        "ext": ".json",
+        "mtime": 1581419358695.5278
+      }
+    ],
+    "abp.tenant-management-config": [
+      {
+        "file": "packages/tenant-management-config/jest.config.js",
+        "ext": ".js",
+        "mtime": 1580460651274.7156
+      },
+      {
+        "file": "packages/tenant-management-config/ng-package.json",
+        "ext": ".json",
+        "mtime": 1580460651275.7131
+      },
+      {
+        "file": "packages/tenant-management-config/package.json",
+        "ext": ".json",
+        "mtime": 1580460651275.7131
+      },
+      {
+        "file": "packages/tenant-management-config/README.md",
+        "ext": ".md",
+        "mtime": 1580460651274.7156
+      },
+      {
+        "file": "packages/tenant-management-config/src/lib/services/tenant-management-config.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651275.7131
+      },
+      {
+        "file": "packages/tenant-management-config/src/lib/tenant-management-config.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651276.7102
+      },
+      {
+        "file": "packages/tenant-management-config/src/public-api.ts",
+        "ext": ".ts",
+        "mtime": 1580460651276.7102
+      },
+      {
+        "file": "packages/tenant-management-config/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1580460651276.7102
+      },
+      {
+        "file": "packages/tenant-management-config/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1580460651276.7102
+      },
+      {
+        "file": "packages/tenant-management-config/tslint.json",
+        "ext": ".json",
+        "mtime": 1581419358697.5212
+      }
+    ],
+    "abp.permission-management": [
+      {
+        "file": "packages/permission-management/jest.config.js",
+        "ext": ".js",
+        "mtime": 1580460651258.7583
+      },
+      {
+        "file": "packages/permission-management/ng-package.json",
+        "ext": ".json",
+        "mtime": 1580460651259.7556
+      },
+      {
+        "file": "packages/permission-management/package.json",
+        "ext": ".json",
+        "mtime": 1580460651259.7556
+      },
+      {
+        "file": "packages/permission-management/README.md",
+        "ext": ".md",
+        "mtime": 1580460651258.7583
+      },
+      {
+        "file": "packages/permission-management/src/lib/actions/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651260.753
+      },
+      {
+        "file": "packages/permission-management/src/lib/actions/permission-management.actions.ts",
+        "ext": ".ts",
+        "mtime": 1580460651260.753
+      },
+      {
+        "file": "packages/permission-management/src/lib/components/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651260.753
+      },
+      {
+        "file": "packages/permission-management/src/lib/components/permission-management.component.html",
+        "ext": ".html",
+        "mtime": 1580460651261.7502
+      },
+      {
+        "file": "packages/permission-management/src/lib/components/permission-management.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651261.7502
+      },
+      {
+        "file": "packages/permission-management/src/lib/models/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651261.7502
+      },
+      {
+        "file": "packages/permission-management/src/lib/models/permission-management.ts",
+        "ext": ".ts",
+        "mtime": 1580460651262.7476
+      },
+      {
+        "file": "packages/permission-management/src/lib/permission-management.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651262.7476
+      },
+      {
+        "file": "packages/permission-management/src/lib/services/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651262.7476
+      },
+      {
+        "file": "packages/permission-management/src/lib/services/permission-management-state.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651263.745
+      },
+      {
+        "file": "packages/permission-management/src/lib/services/permission-management.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651263.745
+      },
+      {
+        "file": "packages/permission-management/src/lib/states/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651263.745
+      },
+      {
+        "file": "packages/permission-management/src/lib/states/permission-management.state.ts",
+        "ext": ".ts",
+        "mtime": 1580460651264.7422
+      },
+      {
+        "file": "packages/permission-management/src/lib/tests/permission-management-state.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651264.7422
+      },
+      {
+        "file": "packages/permission-management/src/public-api.ts",
+        "ext": ".ts",
+        "mtime": 1580460651264.7422
+      },
+      {
+        "file": "packages/permission-management/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1580460651264.7422
+      },
+      {
+        "file": "packages/permission-management/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1580460651265.7395
+      },
+      {
+        "file": "packages/permission-management/tslint.json",
+        "ext": ".json",
+        "mtime": 1581419358694.53
+      }
+    ],
+    "abp.feature-management": [
+      {
+        "file": "packages/feature-management/jest.config.js",
+        "ext": ".js",
+        "mtime": 1580460651238.8118
+      },
+      {
+        "file": "packages/feature-management/ng-package.json",
+        "ext": ".json",
+        "mtime": 1580460651239.809
+      },
+      {
+        "file": "packages/feature-management/package.json",
+        "ext": ".json",
+        "mtime": 1580460651239.809
+      },
+      {
+        "file": "packages/feature-management/README.md",
+        "ext": ".md",
+        "mtime": 1580460651238.8118
+      },
+      {
+        "file": "packages/feature-management/src/lib/actions/feature-management.actions.ts",
+        "ext": ".ts",
+        "mtime": 1580460651240.8064
+      },
+      {
+        "file": "packages/feature-management/src/lib/actions/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651240.8064
+      },
+      {
+        "file": "packages/feature-management/src/lib/components/feature-management/feature-management.component.html",
+        "ext": ".html",
+        "mtime": 1580460651240.8064
+      },
+      {
+        "file": "packages/feature-management/src/lib/components/feature-management/feature-management.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651241.8037
+      },
+      {
+        "file": "packages/feature-management/src/lib/components/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651241.8037
+      },
+      {
+        "file": "packages/feature-management/src/lib/feature-management.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651241.8037
+      },
+      {
+        "file": "packages/feature-management/src/lib/models/feature-management.ts",
+        "ext": ".ts",
+        "mtime": 1580460651242.8008
+      },
+      {
+        "file": "packages/feature-management/src/lib/models/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651242.8008
+      },
+      {
+        "file": "packages/feature-management/src/lib/services/feature-management-state.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651242.8008
+      },
+      {
+        "file": "packages/feature-management/src/lib/services/feature-management.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651243.7983
+      },
+      {
+        "file": "packages/feature-management/src/lib/services/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651243.7983
+      },
+      {
+        "file": "packages/feature-management/src/lib/states/feature-management.state.ts",
+        "ext": ".ts",
+        "mtime": 1580460651243.7983
+      },
+      {
+        "file": "packages/feature-management/src/lib/states/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651244.7957
+      },
+      {
+        "file": "packages/feature-management/src/lib/tests/feature-management-state.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651244.7957
+      },
+      {
+        "file": "packages/feature-management/src/public-api.ts",
+        "ext": ".ts",
+        "mtime": 1580460651244.7957
+      },
+      {
+        "file": "packages/feature-management/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1580460651245.793
+      },
+      {
+        "file": "packages/feature-management/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1580460651245.793
+      },
+      {
+        "file": "packages/feature-management/tslint.json",
+        "ext": ".json",
+        "mtime": 1581419358691.538
+      }
+    ],
+    "abp.setting-management": [
+      {
+        "file": "packages/setting-management/jest.config.js",
+        "ext": ".js",
+        "mtime": 1580460651269.7292
+      },
+      {
+        "file": "packages/setting-management/ng-package.json",
+        "ext": ".json",
+        "mtime": 1580460651269.7292
+      },
+      {
+        "file": "packages/setting-management/package.json",
+        "ext": ".json",
+        "mtime": 1580460651269.7292
+      },
+      {
+        "file": "packages/setting-management/README.md",
+        "ext": ".md",
+        "mtime": 1580460651268.7317
+      },
+      {
+        "file": "packages/setting-management/src/lib/actions/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651270.7266
+      },
+      {
+        "file": "packages/setting-management/src/lib/actions/setting-management.actions.ts",
+        "ext": ".ts",
+        "mtime": 1580460651270.7266
+      },
+      {
+        "file": "packages/setting-management/src/lib/components/setting-management.component.html",
+        "ext": ".html",
+        "mtime": 1580460651270.7266
+      },
+      {
+        "file": "packages/setting-management/src/lib/components/setting-management.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651271.7236
+      },
+      {
+        "file": "packages/setting-management/src/lib/models/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651271.7236
+      },
+      {
+        "file": "packages/setting-management/src/lib/models/setting-management.ts",
+        "ext": ".ts",
+        "mtime": 1580460651271.7236
+      },
+      {
+        "file": "packages/setting-management/src/lib/setting-management-routing.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651272.721
+      },
+      {
+        "file": "packages/setting-management/src/lib/setting-management.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651272.721
+      },
+      {
+        "file": "packages/setting-management/src/lib/states/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651272.721
+      },
+      {
+        "file": "packages/setting-management/src/lib/states/setting-management.state.ts",
+        "ext": ".ts",
+        "mtime": 1580460651273.7183
+      },
+      {
+        "file": "packages/setting-management/src/public-api.ts",
+        "ext": ".ts",
+        "mtime": 1580460651273.7183
+      },
+      {
+        "file": "packages/setting-management/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1580460651273.7183
+      },
+      {
+        "file": "packages/setting-management/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1580460651273.7183
+      },
+      {
+        "file": "packages/setting-management/tslint.json",
+        "ext": ".json",
+        "mtime": 1581419358696.524
+      }
+    ],
+    "abp.tenant-management": [
+      {
+        "file": "packages/tenant-management/jest.config.js",
+        "ext": ".js",
+        "mtime": 1580460651277.7075
+      },
+      {
+        "file": "packages/tenant-management/ng-package.json",
+        "ext": ".json",
+        "mtime": 1580460651278.7048
+      },
+      {
+        "file": "packages/tenant-management/package.json",
+        "ext": ".json",
+        "mtime": 1580460651278.7048
+      },
+      {
+        "file": "packages/tenant-management/README.md",
+        "ext": ".md",
+        "mtime": 1580460651277.7075
+      },
+      {
+        "file": "packages/tenant-management/src/lib/actions/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651278.7048
+      },
+      {
+        "file": "packages/tenant-management/src/lib/actions/tenant-management.actions.ts",
+        "ext": ".ts",
+        "mtime": 1580460651279.7024
+      },
+      {
+        "file": "packages/tenant-management/src/lib/components/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651279.7024
+      },
+      {
+        "file": "packages/tenant-management/src/lib/components/tenants/tenants.component.html",
+        "ext": ".html",
+        "mtime": 1580460651280.6997
+      },
+      {
+        "file": "packages/tenant-management/src/lib/components/tenants/tenants.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651280.6997
+      },
+      {
+        "file": "packages/tenant-management/src/lib/models/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651280.6997
+      },
+      {
+        "file": "packages/tenant-management/src/lib/models/tenant-management.ts",
+        "ext": ".ts",
+        "mtime": 1580460651281.697
+      },
+      {
+        "file": "packages/tenant-management/src/lib/services/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651281.697
+      },
+      {
+        "file": "packages/tenant-management/src/lib/services/tenant-management-state.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651281.697
+      },
+      {
+        "file": "packages/tenant-management/src/lib/services/tenant-management.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651282.694
+      },
+      {
+        "file": "packages/tenant-management/src/lib/states/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651282.694
+      },
+      {
+        "file": "packages/tenant-management/src/lib/states/tenant-management.state.ts",
+        "ext": ".ts",
+        "mtime": 1580460651282.694
+      },
+      {
+        "file": "packages/tenant-management/src/lib/tenant-management-routing.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651283.6917
+      },
+      {
+        "file": "packages/tenant-management/src/lib/tenant-management.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651283.6917
+      },
+      {
+        "file": "packages/tenant-management/src/lib/tests/tenant-management-state.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651283.6917
+      },
+      {
+        "file": "packages/tenant-management/src/public-api.ts",
+        "ext": ".ts",
+        "mtime": 1580460651283.6917
+      },
+      {
+        "file": "packages/tenant-management/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1580460651284.689
+      },
+      {
+        "file": "packages/tenant-management/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1580460651284.689
+      },
+      {
+        "file": "packages/tenant-management/tslint.json",
+        "ext": ".json",
+        "mtime": 1581419358698.5193
+      }
+    ],
     "fs.permission-management": [
       {
         "file": "libs/permission-management/jest.config.js",
@@ -8051,7 +10915,7 @@
       {
         "file": "libs/permission-management/package.json",
         "ext": ".json",
-        "mtime": 1581399184530.8792
+        "mtime": 1581421951049.0347
       },
       {
         "file": "libs/permission-management/README.md",
@@ -8099,8 +10963,110 @@
         "mtime": 1581409672306.7573
       }
     ],
-    "abp.identity-config": [],
-    "abp.account-config": [],
+    "abp.identity-config": [
+      {
+        "file": "packages/identity-config/jest.config.js",
+        "ext": ".js",
+        "mtime": 1580460651246.7903
+      },
+      {
+        "file": "packages/identity-config/ng-package.json",
+        "ext": ".json",
+        "mtime": 1580460651246.7903
+      },
+      {
+        "file": "packages/identity-config/package.json",
+        "ext": ".json",
+        "mtime": 1580460651246.7903
+      },
+      {
+        "file": "packages/identity-config/README.md",
+        "ext": ".md",
+        "mtime": 1580460651245.793
+      },
+      {
+        "file": "packages/identity-config/src/lib/identity-config.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651247.7886
+      },
+      {
+        "file": "packages/identity-config/src/lib/services/identity-config.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651248.7854
+      },
+      {
+        "file": "packages/identity-config/src/public-api.ts",
+        "ext": ".ts",
+        "mtime": 1580460651248.7854
+      },
+      {
+        "file": "packages/identity-config/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1580460651249.7822
+      },
+      {
+        "file": "packages/identity-config/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1580460651249.7822
+      },
+      {
+        "file": "packages/identity-config/tslint.json",
+        "ext": ".json",
+        "mtime": 1581419358693.532
+      }
+    ],
+    "abp.account-config": [
+      {
+        "file": "packages/account-config/jest.config.js",
+        "ext": ".js",
+        "mtime": 1580460651186.9504
+      },
+      {
+        "file": "packages/account-config/ng-package.json",
+        "ext": ".json",
+        "mtime": 1580460651186.9504
+      },
+      {
+        "file": "packages/account-config/package.json",
+        "ext": ".json",
+        "mtime": 1580460651187.9478
+      },
+      {
+        "file": "packages/account-config/README.md",
+        "ext": ".md",
+        "mtime": 1580460651186.9504
+      },
+      {
+        "file": "packages/account-config/src/lib/account-config.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651187.9478
+      },
+      {
+        "file": "packages/account-config/src/lib/services/account-config.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651188.945
+      },
+      {
+        "file": "packages/account-config/src/public-api.ts",
+        "ext": ".ts",
+        "mtime": 1580460651188.945
+      },
+      {
+        "file": "packages/account-config/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1580460651188.945
+      },
+      {
+        "file": "packages/account-config/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1580460651189.9424
+      },
+      {
+        "file": "packages/account-config/tslint.json",
+        "ext": ".json",
+        "mtime": 1581419358688.5454
+      }
+    ],
     "fs.feature-management": [
       {
         "file": "libs/feature-management/jest.config.js",
@@ -8150,7 +11116,7 @@
       {
         "file": "libs/feature-management/package.json",
         "ext": ".json",
-        "mtime": 1581399134242.7102
+        "mtime": 1581421888515.5447
       },
       {
         "file": "libs/feature-management/README.md",
@@ -8302,7 +11268,7 @@
       {
         "file": "libs/setting-management/package.json",
         "ext": ".json",
-        "mtime": 1581399203730.1086
+        "mtime": 1581421966085.2524
       },
       {
         "file": "libs/setting-management/README.md",
@@ -8424,7 +11390,7 @@
       {
         "file": "libs/tenant-management/package.json",
         "ext": ".json",
-        "mtime": 1581399238473.2468
+        "mtime": 1581421982963.2827
       },
       {
         "file": "libs/tenant-management/README.md",
@@ -8472,8 +11438,545 @@
         "mtime": 1581409672308.7786
       }
     ],
-    "abp.theme-shared": [],
-    "abp.theme-basic": [],
+    "abp.theme-shared": [
+      {
+        "file": "packages/theme-shared/jest.config.js",
+        "ext": ".js",
+        "mtime": 1580460651294.662
+      },
+      {
+        "file": "packages/theme-shared/ng-package.json",
+        "ext": ".json",
+        "mtime": 1580460651294.662
+      },
+      {
+        "file": "packages/theme-shared/package.json",
+        "ext": ".json",
+        "mtime": 1580460651294.662
+      },
+      {
+        "file": "packages/theme-shared/README.md",
+        "ext": ".md",
+        "mtime": 1580460651293.6648
+      },
+      {
+        "file": "packages/theme-shared/src/lib/animations/bounce.animations.ts",
+        "ext": ".ts",
+        "mtime": 1580460651295.6597
+      },
+      {
+        "file": "packages/theme-shared/src/lib/animations/collapse.animations.ts",
+        "ext": ".ts",
+        "mtime": 1580460651295.6597
+      },
+      {
+        "file": "packages/theme-shared/src/lib/animations/fade.animations.ts",
+        "ext": ".ts",
+        "mtime": 1580460651295.6597
+      },
+      {
+        "file": "packages/theme-shared/src/lib/animations/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651296.657
+      },
+      {
+        "file": "packages/theme-shared/src/lib/animations/modal.animations.ts",
+        "ext": ".ts",
+        "mtime": 1580460651296.657
+      },
+      {
+        "file": "packages/theme-shared/src/lib/animations/slide.animations.ts",
+        "ext": ".ts",
+        "mtime": 1580460651296.657
+      },
+      {
+        "file": "packages/theme-shared/src/lib/animations/toast.animations.ts",
+        "ext": ".ts",
+        "mtime": 1580460651296.657
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/breadcrumb/breadcrumb.component.html",
+        "ext": ".html",
+        "mtime": 1580460651297.6543
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/breadcrumb/breadcrumb.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651297.6543
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/button/button.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651298.6519
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/chart/chart.component.html",
+        "ext": ".html",
+        "mtime": 1580460651298.6519
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/chart/chart.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651298.6519
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/confirmation/confirmation.component.html",
+        "ext": ".html",
+        "mtime": 1580460651299.6487
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/confirmation/confirmation.component.scss",
+        "ext": ".scss",
+        "mtime": 1580460651299.6487
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/confirmation/confirmation.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651299.6487
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/http-error-wrapper/http-error-wrapper.component.html",
+        "ext": ".html",
+        "mtime": 1580460651300.6462
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/http-error-wrapper/http-error-wrapper.component.scss",
+        "ext": ".scss",
+        "mtime": 1580460651300.6462
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/http-error-wrapper/http-error-wrapper.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651301.6436
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651301.6436
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/loader-bar/loader-bar.component.scss",
+        "ext": ".scss",
+        "mtime": 1580460651301.6436
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/loader-bar/loader-bar.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651302.6409
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/loading/loading.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651302.6409
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/modal/modal.component.html",
+        "ext": ".html",
+        "mtime": 1580460651302.6409
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/modal/modal.component.scss",
+        "ext": ".scss",
+        "mtime": 1580460651303.6382
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/modal/modal.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651303.6382
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/pagination/pagination.component.html",
+        "ext": ".html",
+        "mtime": 1580460651304.6357
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/pagination/pagination.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651304.6357
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/sort-order-icon/sort-order-icon.component.html",
+        "ext": ".html",
+        "mtime": 1580460651304.6357
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/sort-order-icon/sort-order-icon.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651305.6328
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/table/table.component.html",
+        "ext": ".html",
+        "mtime": 1580460651305.6328
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/table/table.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651306.6301
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/table-empty-message/table-empty-message.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651305.6328
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/toast/toast.component.html",
+        "ext": ".html",
+        "mtime": 1580460651307.6277
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/toast/toast.component.scss",
+        "ext": ".scss",
+        "mtime": 1580460651307.6277
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/toast/toast.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651308.6252
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/toast-container/toast-container.component.html",
+        "ext": ".html",
+        "mtime": 1580460651306.6301
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/toast-container/toast-container.component.scss",
+        "ext": ".scss",
+        "mtime": 1580460651306.6301
+      },
+      {
+        "file": "packages/theme-shared/src/lib/components/toast-container/toast-container.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651307.6277
+      },
+      {
+        "file": "packages/theme-shared/src/lib/constants/scripts.ts",
+        "ext": ".ts",
+        "mtime": 1580460651308.6252
+      },
+      {
+        "file": "packages/theme-shared/src/lib/constants/styles.ts",
+        "ext": ".ts",
+        "mtime": 1580460651308.6252
+      },
+      {
+        "file": "packages/theme-shared/src/lib/directives/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651309.6223
+      },
+      {
+        "file": "packages/theme-shared/src/lib/directives/loading.directive.ts",
+        "ext": ".ts",
+        "mtime": 1580460651309.6223
+      },
+      {
+        "file": "packages/theme-shared/src/lib/directives/table-sort.directive.ts",
+        "ext": ".ts",
+        "mtime": 1580460651310.6194
+      },
+      {
+        "file": "packages/theme-shared/src/lib/handlers/error.handler.ts",
+        "ext": ".ts",
+        "mtime": 1580460651310.6194
+      },
+      {
+        "file": "packages/theme-shared/src/lib/handlers/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651310.6194
+      },
+      {
+        "file": "packages/theme-shared/src/lib/models/common.ts",
+        "ext": ".ts",
+        "mtime": 1580460651311.6172
+      },
+      {
+        "file": "packages/theme-shared/src/lib/models/confirmation.ts",
+        "ext": ".ts",
+        "mtime": 1580460651311.6172
+      },
+      {
+        "file": "packages/theme-shared/src/lib/models/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651311.6172
+      },
+      {
+        "file": "packages/theme-shared/src/lib/models/setting-management.ts",
+        "ext": ".ts",
+        "mtime": 1580460651312.6143
+      },
+      {
+        "file": "packages/theme-shared/src/lib/models/statistics.ts",
+        "ext": ".ts",
+        "mtime": 1580460651312.6143
+      },
+      {
+        "file": "packages/theme-shared/src/lib/models/toaster.ts",
+        "ext": ".ts",
+        "mtime": 1580460651312.6143
+      },
+      {
+        "file": "packages/theme-shared/src/lib/services/confirmation.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651313.6116
+      },
+      {
+        "file": "packages/theme-shared/src/lib/services/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651313.6116
+      },
+      {
+        "file": "packages/theme-shared/src/lib/services/toaster.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651313.6116
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tests/breadcrumb.component.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651314.609
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tests/button.component.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651314.609
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tests/chart.component.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651314.609
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tests/confirmation.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651315.6064
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tests/error.component.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651315.6064
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tests/error.handler.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651316.6035
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tests/loader-bar.component.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651316.6035
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tests/loading.directive.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651316.6035
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tests/modal.component.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651317.6008
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tests/pagination.component.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651317.6008
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tests/sort-order-icon.component.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651317.6008
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tests/table-sort.directive.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651317.6008
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tests/table.component.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651318.5981
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tests/toaster.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651318.5981
+      },
+      {
+        "file": "packages/theme-shared/src/lib/theme-shared.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651318.5981
+      },
+      {
+        "file": "packages/theme-shared/src/lib/tokens/http-error.token.ts",
+        "ext": ".ts",
+        "mtime": 1580460651319.5957
+      },
+      {
+        "file": "packages/theme-shared/src/lib/utils/date-parser-formatter.ts",
+        "ext": ".ts",
+        "mtime": 1580460651319.5957
+      },
+      {
+        "file": "packages/theme-shared/src/lib/utils/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651319.5957
+      },
+      {
+        "file": "packages/theme-shared/src/lib/utils/widget-utils.ts",
+        "ext": ".ts",
+        "mtime": 1580460651320.593
+      },
+      {
+        "file": "packages/theme-shared/src/public-api.ts",
+        "ext": ".ts",
+        "mtime": 1580460651320.593
+      },
+      {
+        "file": "packages/theme-shared/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1580460651320.593
+      },
+      {
+        "file": "packages/theme-shared/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1580460651320.593
+      },
+      {
+        "file": "packages/theme-shared/tslint.json",
+        "ext": ".json",
+        "mtime": 1581419358700.5132
+      }
+    ],
+    "abp.theme-basic": [
+      {
+        "file": "packages/theme-basic/jest.config.js",
+        "ext": ".js",
+        "mtime": 1580460651285.6863
+      },
+      {
+        "file": "packages/theme-basic/ng-package.json",
+        "ext": ".json",
+        "mtime": 1580460651285.6863
+      },
+      {
+        "file": "packages/theme-basic/package.json",
+        "ext": ".json",
+        "mtime": 1580460651285.6863
+      },
+      {
+        "file": "packages/theme-basic/README.md",
+        "ext": ".md",
+        "mtime": 1580460651285.6863
+      },
+      {
+        "file": "packages/theme-basic/src/lib/actions/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651286.6838
+      },
+      {
+        "file": "packages/theme-basic/src/lib/actions/layout.actions.ts",
+        "ext": ".ts",
+        "mtime": 1580460651286.6838
+      },
+      {
+        "file": "packages/theme-basic/src/lib/components/account-layout/account-layout.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651287.6812
+      },
+      {
+        "file": "packages/theme-basic/src/lib/components/application-layout/application-layout.component.html",
+        "ext": ".html",
+        "mtime": 1580460651287.6812
+      },
+      {
+        "file": "packages/theme-basic/src/lib/components/application-layout/application-layout.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651288.6782
+      },
+      {
+        "file": "packages/theme-basic/src/lib/components/empty-layout/empty-layout.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651288.6782
+      },
+      {
+        "file": "packages/theme-basic/src/lib/components/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651288.6782
+      },
+      {
+        "file": "packages/theme-basic/src/lib/components/validation-error/validation-error.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651289.6755
+      },
+      {
+        "file": "packages/theme-basic/src/lib/constants/styles.ts",
+        "ext": ".ts",
+        "mtime": 1580460651289.6755
+      },
+      {
+        "file": "packages/theme-basic/src/lib/models/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651289.6755
+      },
+      {
+        "file": "packages/theme-basic/src/lib/models/layout.ts",
+        "ext": ".ts",
+        "mtime": 1580460651290.6729
+      },
+      {
+        "file": "packages/theme-basic/src/lib/services/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651290.6729
+      },
+      {
+        "file": "packages/theme-basic/src/lib/services/initial.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651290.6729
+      },
+      {
+        "file": "packages/theme-basic/src/lib/services/layout-state.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651291.6707
+      },
+      {
+        "file": "packages/theme-basic/src/lib/states/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651291.6707
+      },
+      {
+        "file": "packages/theme-basic/src/lib/states/layout.state.ts",
+        "ext": ".ts",
+        "mtime": 1580460651291.6707
+      },
+      {
+        "file": "packages/theme-basic/src/lib/tests/layout-state.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651292.6677
+      },
+      {
+        "file": "packages/theme-basic/src/lib/theme-basic.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651292.6677
+      },
+      {
+        "file": "packages/theme-basic/src/public-api.ts",
+        "ext": ".ts",
+        "mtime": 1580460651292.6677
+      },
+      {
+        "file": "packages/theme-basic/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1580460651293.6648
+      },
+      {
+        "file": "packages/theme-basic/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1580460651293.6648
+      },
+      {
+        "file": "packages/theme-basic/tslint.json",
+        "ext": ".json",
+        "mtime": 1581419358700.5132
+      }
+    ],
     "ngx-admin-app": [
       {
         "file": "apps/ngx-admin-app/browserslist",
@@ -10491,7 +13994,118 @@
         "mtime": 1581409672310.7463
       }
     ],
-    "abp.identity": [],
+    "abp.identity": [
+      {
+        "file": "packages/identity/jest.config.js",
+        "ext": ".js",
+        "mtime": 1580460651251.7769
+      },
+      {
+        "file": "packages/identity/ng-package.json",
+        "ext": ".json",
+        "mtime": 1580460651251.7769
+      },
+      {
+        "file": "packages/identity/package.json",
+        "ext": ".json",
+        "mtime": 1580460651251.7769
+      },
+      {
+        "file": "packages/identity/README.md",
+        "ext": ".md",
+        "mtime": 1580460651250.7795
+      },
+      {
+        "file": "packages/identity/src/lib/actions/identity.actions.ts",
+        "ext": ".ts",
+        "mtime": 1580460651252.7744
+      },
+      {
+        "file": "packages/identity/src/lib/components/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651253.7715
+      },
+      {
+        "file": "packages/identity/src/lib/components/roles/roles.component.html",
+        "ext": ".html",
+        "mtime": 1580460651253.7715
+      },
+      {
+        "file": "packages/identity/src/lib/components/roles/roles.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651253.7715
+      },
+      {
+        "file": "packages/identity/src/lib/components/users/users.component.html",
+        "ext": ".html",
+        "mtime": 1580460651254.7688
+      },
+      {
+        "file": "packages/identity/src/lib/components/users/users.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651254.7688
+      },
+      {
+        "file": "packages/identity/src/lib/identity-routing.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651254.7688
+      },
+      {
+        "file": "packages/identity/src/lib/identity.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651255.7664
+      },
+      {
+        "file": "packages/identity/src/lib/models/identity.ts",
+        "ext": ".ts",
+        "mtime": 1580460651255.7664
+      },
+      {
+        "file": "packages/identity/src/lib/services/identity-state.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651255.7664
+      },
+      {
+        "file": "packages/identity/src/lib/services/identity.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651256.7637
+      },
+      {
+        "file": "packages/identity/src/lib/services/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651256.7637
+      },
+      {
+        "file": "packages/identity/src/lib/states/identity.state.ts",
+        "ext": ".ts",
+        "mtime": 1580460651256.7637
+      },
+      {
+        "file": "packages/identity/src/lib/tests/identity-state.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651257.7612
+      },
+      {
+        "file": "packages/identity/src/public-api.ts",
+        "ext": ".ts",
+        "mtime": 1580460651257.7612
+      },
+      {
+        "file": "packages/identity/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1580460651257.7612
+      },
+      {
+        "file": "packages/identity/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1580460651258.7583
+      },
+      {
+        "file": "packages/identity/tslint.json",
+        "ext": ".json",
+        "mtime": 1581419358694.53
+      }
+    ],
     "ng-alain-app": [
       {
         "file": "apps/ng-alain-app/browserslist",
@@ -11649,7 +15263,183 @@
         "mtime": 1581409672309.7888
       }
     ],
-    "abp.account": [],
+    "abp.account": [
+      {
+        "file": "packages/account/jest.config.js",
+        "ext": ".js",
+        "mtime": 1580460651189.9424
+      },
+      {
+        "file": "packages/account/ng-package.json",
+        "ext": ".json",
+        "mtime": 1580460651190.9397
+      },
+      {
+        "file": "packages/account/package.json",
+        "ext": ".json",
+        "mtime": 1580460651190.9397
+      },
+      {
+        "file": "packages/account/README.md",
+        "ext": ".md",
+        "mtime": 1580460651189.9424
+      },
+      {
+        "file": "packages/account/src/lib/account-routing.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651190.9397
+      },
+      {
+        "file": "packages/account/src/lib/account.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651191.937
+      },
+      {
+        "file": "packages/account/src/lib/components/auth-wrapper/auth-wrapper.component.html",
+        "ext": ".html",
+        "mtime": 1580460651191.937
+      },
+      {
+        "file": "packages/account/src/lib/components/auth-wrapper/auth-wrapper.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651191.937
+      },
+      {
+        "file": "packages/account/src/lib/components/change-password/change-password.component.html",
+        "ext": ".html",
+        "mtime": 1580460651192.9343
+      },
+      {
+        "file": "packages/account/src/lib/components/change-password/change-password.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651192.9343
+      },
+      {
+        "file": "packages/account/src/lib/components/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651193.9316
+      },
+      {
+        "file": "packages/account/src/lib/components/login/login.component.html",
+        "ext": ".html",
+        "mtime": 1580460651193.9316
+      },
+      {
+        "file": "packages/account/src/lib/components/login/login.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651193.9316
+      },
+      {
+        "file": "packages/account/src/lib/components/manage-profile/manage-profile.component.html",
+        "ext": ".html",
+        "mtime": 1580460651194.9292
+      },
+      {
+        "file": "packages/account/src/lib/components/manage-profile/manage-profile.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651194.9292
+      },
+      {
+        "file": "packages/account/src/lib/components/personal-settings/personal-settings.component.html",
+        "ext": ".html",
+        "mtime": 1580460651194.9292
+      },
+      {
+        "file": "packages/account/src/lib/components/personal-settings/personal-settings.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651195.9265
+      },
+      {
+        "file": "packages/account/src/lib/components/register/register.component.html",
+        "ext": ".html",
+        "mtime": 1580460651195.9265
+      },
+      {
+        "file": "packages/account/src/lib/components/register/register.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651195.9265
+      },
+      {
+        "file": "packages/account/src/lib/components/tenant-box/tenant-box.component.html",
+        "ext": ".html",
+        "mtime": 1580460651196.9236
+      },
+      {
+        "file": "packages/account/src/lib/components/tenant-box/tenant-box.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651196.9236
+      },
+      {
+        "file": "packages/account/src/lib/models/account.ts",
+        "ext": ".ts",
+        "mtime": 1580460651197.9214
+      },
+      {
+        "file": "packages/account/src/lib/models/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651197.9214
+      },
+      {
+        "file": "packages/account/src/lib/models/options.ts",
+        "ext": ".ts",
+        "mtime": 1580460651197.9214
+      },
+      {
+        "file": "packages/account/src/lib/models/tenant.ts",
+        "ext": ".ts",
+        "mtime": 1580460651198.9187
+      },
+      {
+        "file": "packages/account/src/lib/models/user.ts",
+        "ext": ".ts",
+        "mtime": 1580460651198.9187
+      },
+      {
+        "file": "packages/account/src/lib/services/account.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651198.9187
+      },
+      {
+        "file": "packages/account/src/lib/services/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651199.9155
+      },
+      {
+        "file": "packages/account/src/lib/tests/account.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651199.9155
+      },
+      {
+        "file": "packages/account/src/lib/tokens/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651199.9155
+      },
+      {
+        "file": "packages/account/src/lib/tokens/options.token.ts",
+        "ext": ".ts",
+        "mtime": 1580460651200.913
+      },
+      {
+        "file": "packages/account/src/public-api.ts",
+        "ext": ".ts",
+        "mtime": 1580460651200.913
+      },
+      {
+        "file": "packages/account/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1580460651200.913
+      },
+      {
+        "file": "packages/account/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1580460651200.913
+      },
+      {
+        "file": "packages/account/tslint.json",
+        "ext": ".json",
+        "mtime": 1581419358689.543
+      }
+    ],
     "fs.ngx-admin": [
       {
         "file": "themes/ngx-admin/basic/package.json",
@@ -12506,7 +16296,7 @@
       {
         "file": "themes/ng-alain/package.json",
         "ext": ".json",
-        "mtime": 1581417995898.842
+        "mtime": 1581419835435.4287
       },
       {
         "file": "themes/ng-alain/README.md",
@@ -12749,7 +16539,593 @@
         "mtime": 1581409672309.7888
       }
     ],
-    "abp.core": [],
+    "abp.core": [
+      {
+        "file": "packages/core/jest.config.js",
+        "ext": ".js",
+        "mtime": 1580460651201.9104
+      },
+      {
+        "file": "packages/core/ng-package.json",
+        "ext": ".json",
+        "mtime": 1580460651201.9104
+      },
+      {
+        "file": "packages/core/package.json",
+        "ext": ".json",
+        "mtime": 1580460651202.9077
+      },
+      {
+        "file": "packages/core/README.md",
+        "ext": ".md",
+        "mtime": 1580460651201.9104
+      },
+      {
+        "file": "packages/core/src/lib/abstracts/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651202.9077
+      },
+      {
+        "file": "packages/core/src/lib/abstracts/ng-model.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651203.905
+      },
+      {
+        "file": "packages/core/src/lib/actions/config.actions.ts",
+        "ext": ".ts",
+        "mtime": 1580460651203.905
+      },
+      {
+        "file": "packages/core/src/lib/actions/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651203.905
+      },
+      {
+        "file": "packages/core/src/lib/actions/loader.actions.ts",
+        "ext": ".ts",
+        "mtime": 1580460651204.9023
+      },
+      {
+        "file": "packages/core/src/lib/actions/profile.actions.ts",
+        "ext": ".ts",
+        "mtime": 1580460651204.9023
+      },
+      {
+        "file": "packages/core/src/lib/actions/replaceable-components.actions.ts",
+        "ext": ".ts",
+        "mtime": 1580460651204.9023
+      },
+      {
+        "file": "packages/core/src/lib/actions/rest.actions.ts",
+        "ext": ".ts",
+        "mtime": 1580460651205.8997
+      },
+      {
+        "file": "packages/core/src/lib/actions/session.actions.ts",
+        "ext": ".ts",
+        "mtime": 1580460651205.8997
+      },
+      {
+        "file": "packages/core/src/lib/components/dynamic-layout.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651205.8997
+      },
+      {
+        "file": "packages/core/src/lib/components/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651205.8997
+      },
+      {
+        "file": "packages/core/src/lib/components/replaceable-route-container.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651206.897
+      },
+      {
+        "file": "packages/core/src/lib/components/router-outlet.component.ts",
+        "ext": ".ts",
+        "mtime": 1580460651206.897
+      },
+      {
+        "file": "packages/core/src/lib/constants/different-locales.ts",
+        "ext": ".ts",
+        "mtime": 1580460651207.8943
+      },
+      {
+        "file": "packages/core/src/lib/constants/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651207.8943
+      },
+      {
+        "file": "packages/core/src/lib/core.module.ts",
+        "ext": ".ts",
+        "mtime": 1580460651207.8943
+      },
+      {
+        "file": "packages/core/src/lib/directives/autofocus.directive.ts",
+        "ext": ".ts",
+        "mtime": 1580460651207.8943
+      },
+      {
+        "file": "packages/core/src/lib/directives/debounce.directive.ts",
+        "ext": ".ts",
+        "mtime": 1580460651208.8916
+      },
+      {
+        "file": "packages/core/src/lib/directives/ellipsis.directive.ts",
+        "ext": ".ts",
+        "mtime": 1580460651208.8916
+      },
+      {
+        "file": "packages/core/src/lib/directives/for.directive.ts",
+        "ext": ".ts",
+        "mtime": 1580460651209.889
+      },
+      {
+        "file": "packages/core/src/lib/directives/form-submit.directive.ts",
+        "ext": ".ts",
+        "mtime": 1580460651209.889
+      },
+      {
+        "file": "packages/core/src/lib/directives/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651209.889
+      },
+      {
+        "file": "packages/core/src/lib/directives/init.directive.ts",
+        "ext": ".ts",
+        "mtime": 1580460651209.889
+      },
+      {
+        "file": "packages/core/src/lib/directives/permission.directive.ts",
+        "ext": ".ts",
+        "mtime": 1580460651210.8865
+      },
+      {
+        "file": "packages/core/src/lib/directives/replaceable-template.directive.ts",
+        "ext": ".ts",
+        "mtime": 1580460651210.8865
+      },
+      {
+        "file": "packages/core/src/lib/directives/stop-propagation.directive.ts",
+        "ext": ".ts",
+        "mtime": 1580460651210.8865
+      },
+      {
+        "file": "packages/core/src/lib/directives/visibility.directive.ts",
+        "ext": ".ts",
+        "mtime": 1580460651211.8838
+      },
+      {
+        "file": "packages/core/src/lib/enums/common.ts",
+        "ext": ".ts",
+        "mtime": 1580460651211.8838
+      },
+      {
+        "file": "packages/core/src/lib/enums/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651211.8838
+      },
+      {
+        "file": "packages/core/src/lib/guards/auth.guard.ts",
+        "ext": ".ts",
+        "mtime": 1580460651212.881
+      },
+      {
+        "file": "packages/core/src/lib/guards/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651212.881
+      },
+      {
+        "file": "packages/core/src/lib/guards/permission.guard.ts",
+        "ext": ".ts",
+        "mtime": 1580460651212.881
+      },
+      {
+        "file": "packages/core/src/lib/handlers/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651213.8784
+      },
+      {
+        "file": "packages/core/src/lib/interceptors/api.interceptor.ts",
+        "ext": ".ts",
+        "mtime": 1580460651213.8784
+      },
+      {
+        "file": "packages/core/src/lib/interceptors/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651213.8784
+      },
+      {
+        "file": "packages/core/src/lib/models/application-configuration.ts",
+        "ext": ".ts",
+        "mtime": 1580460651214.8757
+      },
+      {
+        "file": "packages/core/src/lib/models/common.ts",
+        "ext": ".ts",
+        "mtime": 1580460651214.8757
+      },
+      {
+        "file": "packages/core/src/lib/models/config.ts",
+        "ext": ".ts",
+        "mtime": 1580460651214.8757
+      },
+      {
+        "file": "packages/core/src/lib/models/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651215.8728
+      },
+      {
+        "file": "packages/core/src/lib/models/profile.ts",
+        "ext": ".ts",
+        "mtime": 1580460651215.8728
+      },
+      {
+        "file": "packages/core/src/lib/models/replaceable-components.ts",
+        "ext": ".ts",
+        "mtime": 1580460651215.8728
+      },
+      {
+        "file": "packages/core/src/lib/models/rest.ts",
+        "ext": ".ts",
+        "mtime": 1580460651216.8704
+      },
+      {
+        "file": "packages/core/src/lib/models/session.ts",
+        "ext": ".ts",
+        "mtime": 1580460651216.8704
+      },
+      {
+        "file": "packages/core/src/lib/pipes/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651216.8704
+      },
+      {
+        "file": "packages/core/src/lib/pipes/localization.pipe.ts",
+        "ext": ".ts",
+        "mtime": 1580460651217.8677
+      },
+      {
+        "file": "packages/core/src/lib/pipes/sort.pipe.ts",
+        "ext": ".ts",
+        "mtime": 1580460651217.8677
+      },
+      {
+        "file": "packages/core/src/lib/plugins/config.plugin.ts",
+        "ext": ".ts",
+        "mtime": 1580460651217.8677
+      },
+      {
+        "file": "packages/core/src/lib/plugins/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651218.865
+      },
+      {
+        "file": "packages/core/src/lib/providers/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651218.865
+      },
+      {
+        "file": "packages/core/src/lib/providers/locale.provider.ts",
+        "ext": ".ts",
+        "mtime": 1580460651218.865
+      },
+      {
+        "file": "packages/core/src/lib/services/application-configuration.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651219.8623
+      },
+      {
+        "file": "packages/core/src/lib/services/auth.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651219.8623
+      },
+      {
+        "file": "packages/core/src/lib/services/config-state.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651219.8623
+      },
+      {
+        "file": "packages/core/src/lib/services/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651220.8596
+      },
+      {
+        "file": "packages/core/src/lib/services/lazy-load.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651220.8596
+      },
+      {
+        "file": "packages/core/src/lib/services/localization.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651220.8596
+      },
+      {
+        "file": "packages/core/src/lib/services/profile-state.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651220.8596
+      },
+      {
+        "file": "packages/core/src/lib/services/profile.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651221.857
+      },
+      {
+        "file": "packages/core/src/lib/services/rest.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651221.857
+      },
+      {
+        "file": "packages/core/src/lib/services/session-state.service.ts",
+        "ext": ".ts",
+        "mtime": 1580460651221.857
+      },
+      {
+        "file": "packages/core/src/lib/states/config.state.ts",
+        "ext": ".ts",
+        "mtime": 1580460651222.8542
+      },
+      {
+        "file": "packages/core/src/lib/states/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651222.8542
+      },
+      {
+        "file": "packages/core/src/lib/states/profile.state.ts",
+        "ext": ".ts",
+        "mtime": 1580460651222.8542
+      },
+      {
+        "file": "packages/core/src/lib/states/replaceable-components.state.ts",
+        "ext": ".ts",
+        "mtime": 1580460651223.8518
+      },
+      {
+        "file": "packages/core/src/lib/states/session.state.ts",
+        "ext": ".ts",
+        "mtime": 1580460651223.8518
+      },
+      {
+        "file": "packages/core/src/lib/tests/api.interceptor.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651223.8518
+      },
+      {
+        "file": "packages/core/src/lib/tests/application-configuration.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651224.849
+      },
+      {
+        "file": "packages/core/src/lib/tests/auth.guard.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651224.849
+      },
+      {
+        "file": "packages/core/src/lib/tests/autofocus.directive.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651224.849
+      },
+      {
+        "file": "packages/core/src/lib/tests/common-utils.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651225.8462
+      },
+      {
+        "file": "packages/core/src/lib/tests/config-state.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651225.8462
+      },
+      {
+        "file": "packages/core/src/lib/tests/config.plugin.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651225.8462
+      },
+      {
+        "file": "packages/core/src/lib/tests/config.state.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651226.8435
+      },
+      {
+        "file": "packages/core/src/lib/tests/date-extensions.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651226.8435
+      },
+      {
+        "file": "packages/core/src/lib/tests/debounce.directive.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651226.8435
+      },
+      {
+        "file": "packages/core/src/lib/tests/dynamic-layout.component.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651227.841
+      },
+      {
+        "file": "packages/core/src/lib/tests/ellipsis.directive.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651227.841
+      },
+      {
+        "file": "packages/core/src/lib/tests/for.directive.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651227.841
+      },
+      {
+        "file": "packages/core/src/lib/tests/form-submit.directive.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651227.841
+      },
+      {
+        "file": "packages/core/src/lib/tests/initial-utils.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651228.8384
+      },
+      {
+        "file": "packages/core/src/lib/tests/lazy-load.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651228.8384
+      },
+      {
+        "file": "packages/core/src/lib/tests/locale.provider.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651228.8384
+      },
+      {
+        "file": "packages/core/src/lib/tests/localization.pipe.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651229.8357
+      },
+      {
+        "file": "packages/core/src/lib/tests/localization.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651229.8357
+      },
+      {
+        "file": "packages/core/src/lib/tests/ng-model.component.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651229.8357
+      },
+      {
+        "file": "packages/core/src/lib/tests/permission.directive.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651230.833
+      },
+      {
+        "file": "packages/core/src/lib/tests/permission.guard.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651230.833
+      },
+      {
+        "file": "packages/core/src/lib/tests/profile-state.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651230.833
+      },
+      {
+        "file": "packages/core/src/lib/tests/profile.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651231.8303
+      },
+      {
+        "file": "packages/core/src/lib/tests/profile.state.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651231.8303
+      },
+      {
+        "file": "packages/core/src/lib/tests/replaceable-components.state.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651231.8303
+      },
+      {
+        "file": "packages/core/src/lib/tests/replaceable-route-container.component.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651232.8276
+      },
+      {
+        "file": "packages/core/src/lib/tests/replaceable-template.directive.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651232.8276
+      },
+      {
+        "file": "packages/core/src/lib/tests/rest.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651232.8276
+      },
+      {
+        "file": "packages/core/src/lib/tests/router-outlet.component.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651233.825
+      },
+      {
+        "file": "packages/core/src/lib/tests/session-state.service.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651233.825
+      },
+      {
+        "file": "packages/core/src/lib/tests/session.state.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651233.825
+      },
+      {
+        "file": "packages/core/src/lib/tests/sort.pipe.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651233.825
+      },
+      {
+        "file": "packages/core/src/lib/tests/stop-propagation.directive.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651234.8223
+      },
+      {
+        "file": "packages/core/src/lib/tests/visibility.directive.spec.ts",
+        "ext": ".ts",
+        "mtime": 1580460651234.8223
+      },
+      {
+        "file": "packages/core/src/lib/tokens/common.token.ts",
+        "ext": ".ts",
+        "mtime": 1580460651235.8196
+      },
+      {
+        "file": "packages/core/src/lib/tokens/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651235.8196
+      },
+      {
+        "file": "packages/core/src/lib/utils/common-utils.ts",
+        "ext": ".ts",
+        "mtime": 1580460651235.8196
+      },
+      {
+        "file": "packages/core/src/lib/utils/date-extensions.ts",
+        "ext": ".ts",
+        "mtime": 1580460651235.8196
+      },
+      {
+        "file": "packages/core/src/lib/utils/generator-utils.ts",
+        "ext": ".ts",
+        "mtime": 1580460651236.817
+      },
+      {
+        "file": "packages/core/src/lib/utils/index.ts",
+        "ext": ".ts",
+        "mtime": 1580460651236.817
+      },
+      {
+        "file": "packages/core/src/lib/utils/initial-utils.ts",
+        "ext": ".ts",
+        "mtime": 1580460651236.817
+      },
+      {
+        "file": "packages/core/src/lib/utils/route-utils.ts",
+        "ext": ".ts",
+        "mtime": 1580460651237.8142
+      },
+      {
+        "file": "packages/core/src/lib/utils/rxjs-utils.ts",
+        "ext": ".ts",
+        "mtime": 1580460651237.8142
+      },
+      {
+        "file": "packages/core/src/public-api.ts",
+        "ext": ".ts",
+        "mtime": 1580460651237.8142
+      },
+      {
+        "file": "packages/core/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1580460651237.8142
+      },
+      {
+        "file": "packages/core/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1580460651238.8118
+      },
+      {
+        "file": "packages/core/tslint.json",
+        "ext": ".json",
+        "mtime": 1581419358690.5417
+      }
+    ],
     "fs.identity": [
       {
         "file": "libs/identity/jest.config.js",
@@ -12804,7 +17180,7 @@
       {
         "file": "libs/identity/package.json",
         "ext": ".json",
-        "mtime": 1581399169508.2588
+        "mtime": 1581421905874.5642
       },
       {
         "file": "libs/identity/README.md",
@@ -12852,7 +17228,73 @@
         "mtime": 1581409672307.8013
       }
     ],
-    "fs.packages": [],
+    "fs.packages": [
+      {
+        "file": "libs/packages/jest.config.js",
+        "ext": ".js",
+        "mtime": 1581417200220.6587
+      },
+      {
+        "file": "libs/packages/ng-package.json",
+        "ext": ".json",
+        "mtime": 1581476787649.189
+      },
+      {
+        "file": "libs/packages/package.json",
+        "ext": ".json",
+        "mtime": 1581421917550.7795
+      },
+      {
+        "file": "libs/packages/README.md",
+        "ext": ".md",
+        "mtime": 1581418633609.8955
+      },
+      {
+        "file": "libs/packages/src/index.ts",
+        "ext": ".ts",
+        "mtime": 1581413203065.7666
+      },
+      {
+        "file": "libs/packages/src/lib/further.module.spec.ts",
+        "ext": ".ts",
+        "mtime": 1581413203066.7673
+      },
+      {
+        "file": "libs/packages/src/lib/further.module.ts",
+        "ext": ".ts",
+        "mtime": 1581413203066.7673
+      },
+      {
+        "file": "libs/packages/src/test-setup.ts",
+        "ext": ".ts",
+        "mtime": 1581413203068.7324
+      },
+      {
+        "file": "libs/packages/symlink.json",
+        "ext": ".json",
+        "mtime": 1581481877778.4749
+      },
+      {
+        "file": "libs/packages/tsconfig.json",
+        "ext": ".json",
+        "mtime": 1581413203067.7615
+      },
+      {
+        "file": "libs/packages/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1581413203064.77
+      },
+      {
+        "file": "libs/packages/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1581413203067.7615
+      },
+      {
+        "file": "libs/packages/tslint.json",
+        "ext": ".json",
+        "mtime": 1581413203065.7666
+      }
+    ],
     "fs.account": [
       {
         "file": "libs/account/jest.config.js",
@@ -13042,7 +17484,7 @@
       {
         "file": "libs/account/package.json",
         "ext": ".json",
-        "mtime": 1581399146116.994
+        "mtime": 1581421863030.037
       },
       {
         "file": "libs/account/README.md",
@@ -13199,7 +17641,7 @@
       {
         "file": "apps/dev-app/tsconfig.app.json",
         "ext": ".json",
-        "mtime": 1581398493121.9697
+        "mtime": 1581419835275.1143
       },
       {
         "file": "apps/dev-app/tsconfig.spec.json",
@@ -13226,7 +17668,7 @@
       {
         "file": "themes/dev/package.json",
         "ext": ".json",
-        "mtime": 1581405199781.9878
+        "mtime": 1581419835434.432
       },
       {
         "file": "themes/dev/README.md",
