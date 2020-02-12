@@ -1,6 +1,6 @@
 {
   "name": "@fs/dev",
-  "version": "",
+  "version": "0.0.0",
   "dependencies": {
     "@abp/ng.account": "",
     "@abp/ng.identity": "",
