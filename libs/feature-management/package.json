@@ -1,9 +1,11 @@
 {
   "name": "@fs/feature-management",
-  "version": "",
+  "version": "0.0.0",
   "dependencies": {
-    "@abp/ng.feature-management": "",
+    "@abp/ng.feature-management": ""
+  },
+  "peerDependencies": {
     "@fs/ng-alain": "",
     "@fs/ngx-admin": ""
-  }
+  }  
 }

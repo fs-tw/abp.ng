@@ -3,10 +3,12 @@
   "version": "",
   "dependencies": {
     "@abp/ng.identity": "",
+    "tslib": "^1.9.0"
+  },
+  "peerDependencies": {
     "@fs/ng-alain": "",
     "@fs/ngx-admin": "",
-    "@fs/permission-management": "",
-    "tslib": "^1.9.0"
+    "@fs/permission-management": ""
   },
   "main": "bundles/fs-identity.umd.js",
   "module": "fesm5/fs-identity.js",

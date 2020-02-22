@@ -17,6 +17,13 @@ import { SettingManagementConfigModule } from '@fs/setting-management/config';
 import { LayoutDefaultComponent, LayoutPassportComponent, LayoutFullScreenComponent } from '@fs/ng-alain/basic';
 import { Router } from '@angular/router';
 
+const AbpConfigModules=[
+  AccountConfigModule.forRoot({ redirectUrl: '/' }),
+  IdentityConfigModule,
+  TenantManagementConfigModule,
+  SettingManagementConfigModule  
+]
+
 
 // 加载i18n语言文件
 export function I18nHttpLoaderFactory(http: HttpClient) {
@@ -50,14 +57,10 @@ const AlainLayouts = [LayoutDefaultComponent, LayoutPassportComponent, LayoutFul
       },
     }),
     ThemeSharedModule.forRoot(),
-    AccountConfigModule.forRoot({ redirectUrl: '/' }),
-    IdentityConfigModule,
-    TenantManagementConfigModule,
-    SettingManagementConfigModule,
     NgxsModule.forRoot([]),
 
     ...(environment.production ? [] : LOGGERS),
-
+    ...AbpConfigModules,
     //ng-alain
     AlainCoreModule,
     DelonModule.forRoot(),

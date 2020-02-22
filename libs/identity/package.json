@@ -1,10 +1,12 @@
 {
   "name": "@fs/identity",
-  "version": "",
+  "version": "0.0.0",
   "dependencies": {
-    "@abp/ng.identity": "",
+    "@abp/ng.identity": ""
+  },
+  "peerDependencies": {
     "@fs/ng-alain": "",
     "@fs/ngx-admin": "",
     "@fs/permission-management": ""
-  }
+  }  
 }

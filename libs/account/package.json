@@ -1,8 +1,10 @@
 {
   "name": "@fs/account",
-  "version": "",
+  "version": "0.0.0",
   "dependencies": {
-    "@abp/ng.account": "",
+    "@abp/ng.account": ""
+  },
+  "peerDependencies": {
     "@fs/ng-alain": "",
     "@fs/ngx-admin": ""
   }

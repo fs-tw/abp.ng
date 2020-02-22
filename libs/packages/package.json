@@ -1,0 +1,13 @@
+{
+  "name": "@fs/packages",
+  "version": "0.0.0",
+  "dependencies": {
+    "@fs/schematics":"",
+    "@fs/account":"",
+    "@fs/identity":"",
+    "@fs/setting-management":"",
+    "@fs/tenant-management":"",
+    "@angular/common": "^8.2.14",
+    "@angular/core": "^8.2.14"
+  }
+}

@@ -3,9 +3,11 @@
   "version": "",
   "dependencies": {
     "@abp/ng.account": "",
-    "@fs/ng-alain": "",
-    "@fs/ngx-admin": "",
     "tslib": "^1.9.0"
+  },
+  "peerDependencies": {
+    "@fs/ng-alain": "",
+    "@fs/ngx-admin": ""
   },
   "main": "bundles/fs-account.umd.js",
   "module": "fesm5/fs-account.js",

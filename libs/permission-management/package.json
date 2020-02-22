@@ -1,9 +1,11 @@
 {
   "name": "@fs/permission-management",
-  "version": "",
+  "version": "0.0.0",
   "dependencies": {
-    "@abp/ng.permission-management": "",
+    "@abp/ng.permission-management": ""
+  },
+  "peerDependencies": {
     "@fs/ng-alain": "",
     "@fs/ngx-admin": ""
-  }
+  }    
 }
