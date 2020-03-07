@@ -9,46 +9,6 @@ import { AlainThemeModule } from '@delon/theme';
 import { DelonACLModule } from '@delon/acl';
 import { DelonFormModule } from '@delon/form';
 
-// #region mock
-import { DelonMockModule } from '@delon/mock';
-import * as MOCKDATA from '../../_mock';
-//import { environment } from '../../environments/environment';
-const MOCK_MODULES = true ? [DelonMockModule.forRoot({
-  data: {
-    "PROFILES": MOCKDATA.PROFILES,
-    "RULES": MOCKDATA.RULES,
-    "APIS": MOCKDATA.APIS,
-    "CHARTS": MOCKDATA.CHARTS,
-    "POIS": MOCKDATA.POIS,
-    "USERS": MOCKDATA.USERS,
-    "GEOS": MOCKDATA.GEOS
-  }
-})] : [];
-// #endregion
-
-// #region reuse-tab
-/**
- * 若需要[路由复用](https://ng-alain.com/components/reuse-tab)需要：
- * 1、增加 `REUSETAB_PROVIDES`
- * 2、在 `src/app/layout/default/default.component.html` 修改：
- *  ```html
- *  <section class="alain-default__content">
- *    <reuse-tab></reuse-tab>
- *    <router-outlet></router-outlet>
- *  </section>
- *  ```
- */
-import { RouteReuseStrategy } from '@angular/router';
-import { ReuseTabService, ReuseTabStrategy } from '@delon/abc/reuse-tab';
-const REUSETAB_PROVIDES = [
-  // {
-  //   provide: RouteReuseStrategy,
-  //   useClass: ReuseTabStrategy,
-  //   deps: [ReuseTabService],
-  // },
-];
-// #endregion
-
 // #region global config functions
 
 import { PageHeaderConfig } from '@delon/abc';
@@ -89,8 +49,8 @@ const GLOBAL_CONFIG_PROVIDES = [
   imports: [
     AlainThemeModule.forRoot(),
     DelonACLModule.forRoot(),
-    DelonFormModule.forRoot(),
-    ...MOCK_MODULES],
+    DelonFormModule.forRoot()
+  ]
 })
 export class DelonModule {
   constructor(@Optional() @SkipSelf() parentModule: DelonModule) {
@@ -100,7 +60,7 @@ export class DelonModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: DelonModule,
-      providers: [...REUSETAB_PROVIDES, ...GLOBAL_CONFIG_PROVIDES],
+      providers: [...GLOBAL_CONFIG_PROVIDES],
     };
   }
 }

@@ -3,7 +3,6 @@ import { DOCUMENT } from '@angular/common';
 import { SettingsService, ALAIN_I18N_TOKEN } from '@delon/theme';
 import { InputBoolean } from '@delon/util';
 
-import { I18NService } from '@fs/ng-alain';
 import { Select, Store } from '@ngxs/store';
 import { ConfigState, ApplicationConfiguration, SessionState, SetLanguage } from '@abp/ng.core';
 import { Observable } from 'rxjs';

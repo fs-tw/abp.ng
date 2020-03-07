@@ -15,7 +15,6 @@ import { Router, NavigationEnd, RouteConfigLoadStart, RouteConfigLoadEnd, Naviga
 import { NzMessageService } from 'ng-zorro-antd';
 import { updateHostClass } from '@delon/util';
 import { SettingsService } from '@delon/theme';
-import { environment } from '../../../environments/environment';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
