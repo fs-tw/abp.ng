@@ -1,0 +1,26 @@
+<nz-input-group [nzSuffix]="suffixIcon" *ngIf="nzDefaultSearch">
+    <input type="text" nz-input placeholder="Search" [(ngModel)]="searchValue" />
+</nz-input-group>
+<ng-template #suffixIcon>
+    <i nz-icon nzType="search"></i>
+</ng-template>
+<nz-tree
+    [nzBlockNode]="blockNode"
+    [nzData]="treeOptions"
+    [nzExpandAll]="nzDefaultExpandAll"
+    [nzExpandedKeys]="defaultExpandedKeys"
+    [nzShowLine]="nzShowLine"
+    [nzSelectedKeys]="defaultSelectedKeys"
+    [nzCheckable]="nzCheckable"
+    [nzCheckedKeys]="defaultCheckedKeys"
+    [nzDraggable]="nzDraggable"
+    (nzOnDrop)="dropAction($event)"
+    (nzClick)="nodeClick($event)"
+    (nzDblClick)="nodeDblClick($event)"
+    (nzCheckBoxChange)="nodeCheckBoxChange($event)"
+    [nzTreeTemplate]="nzTreeTemplate"
+    [nzSearchValue]="searchValue"
+    (nzSearchValueChange)="nzOnSearch($event)"
+    [nzAsyncData]="nzAsyncData"
+    (nzExpandChange)="expandChange($event)">
+</nz-tree>
