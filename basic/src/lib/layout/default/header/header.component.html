@@ -1,6 +1,6 @@
 <div class="alain-default__header-logo">
-  <a [routerLink]="['/']" class="alain-default__header-logo-link">
-    <img
+  <!--<a [routerLink]="['/']" class="alain-default__header-logo-link">
+     <img
       class="alain-default__header-logo-expanded"
       src="./assets/logo-full.svg"
       alt="{{ settings.app.name }}"
@@ -12,7 +12,8 @@
       alt="{{ settings.app.name }}"
       style="max-height:30px;"
     />
-  </a>
+  </a> -->
+  <a [routerLink]="['/']" class="alain-default__header-logo-link" *ngIf="websiteTitle" style="color: #fff">{{websiteTitle}}</a>
 </div>
 <div class="alain-default__nav-wrap">
   <ul class="alain-default__nav">
