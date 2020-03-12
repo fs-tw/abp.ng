@@ -2,17 +2,21 @@
 # abp's ng-packs sourcecode import
 - git submodule update --init --recursive
 # Backend prepare
-- abp new MyCompanyName.MyProjectName -t app --no-ui
-- Execute DbMigrator to generate Database
-- Execute HttpApi.Host to host web
+Make sure abp cli  already updated.
+``` cmd
+abp new MyCompanyName.MyProjectName -t app --ui none
+Execute DbMigrator to generate Database (Set as statup porject at visual studio)
+Execute HttpApi.Host to host web (Set as statup porject at visual studio)
+```
 # Frontend build
-- npm i
-- ng build ng build abp.core
-- ng build ng build abp.theme-shared
-- modify every app's environment to match backend
-- ng serve dev-app (for [abp](https://github.com/abpframework/abp) theme)
-- ng serve ng-alain-app (for [ng-alain](https://ng-alain.github.io/ng-alain/#/dashboard/v1) theme)
-- ng serve ngx-admin-app (for [ngx-admin](https://github.com/akveo/ngx-admin) theme)
+``` javascript
+npm i
+ng build abp.core
+ng build abp.theme-shared
+ng serve dev-app (for [abp](https://github.com/abpframework/abp) theme)
+ng serve ng-alain-app (for [ng-alain](https://ng-alain.github.io/ng-alain/#/dashboard/v1) theme)
+ng serve ngx-admin-app (for [ngx-admin](https://github.com/akveo/ngx-admin) theme)
+```
 
 
 # How to work with abp'sourcecode
