@@ -29,6 +29,6 @@ export class HeaderComponent  implements OnInit{
   // }
 
   loadAbpSetting(){
-    this.websiteTitle = this.store.selectSnapshot(ConfigState.getSetting("Themes.Website.Title"));
+    this.websiteTitle = this.store.selectSnapshot(ConfigState.getSetting("FS.Abp.Themes.Core.WebsiteOptions.Title"));
   }
 }

@@ -23,8 +23,8 @@ export class LayoutPassportComponent implements OnInit {
     }
 
     loadAndGetSetting() {
-        this.htmlDisplay.title = this.store.selectSnapshot(ConfigState.getSetting("Themes.LoginPage.Title"));
-        this.htmlDisplay.description = this.store.selectSnapshot(ConfigState.getSetting("Themes.LoginPage.Description"));
-        this.htmlDisplay.footer = this.store.selectSnapshot(ConfigState.getSetting("Themes.LoginPage.Footer"));
+        this.htmlDisplay.title = this.store.selectSnapshot(ConfigState.getSetting("FS.Abp.Themes.Core.LoginPageOptions.Title"));
+        this.htmlDisplay.description = this.store.selectSnapshot(ConfigState.getSetting("FS.Abp.Themes.Core.LoginPageOptions.Description"));
+        this.htmlDisplay.footer = this.store.selectSnapshot(ConfigState.getSetting("FS.Abp.Themes.Core.LoginPageOptions.Footer"));
     }
 }
