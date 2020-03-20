@@ -160,6 +160,13 @@ let FeatureManagementState = class FeatureManagementState {
 FeatureManagementState.ctorParameters = () => [
     { type: FeatureManagementService }
 ];
+FeatureManagementState.decorators = [
+    { type: Injectable }
+];
+/** @nocollapse */
+FeatureManagementState.ctorParameters = () => [
+    { type: FeatureManagementService }
+];
 __decorate([
     Action(GetFeatures),
     __metadata("design:type", Function),

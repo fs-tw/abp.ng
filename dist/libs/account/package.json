@@ -1,6 +1,6 @@
 {
   "name": "@fs/account",
-  "version": "",
+  "version": "0.0.0",
   "dependencies": {
     "@abp/ng.account": "",
     "tslib": "^1.9.0"

@@ -1,4 +1,4 @@
-import { LocalizationPipe, ConfigState, SessionState, SetLanguage, GetAppConfiguration, CoreModule } from '@abp/ng.core';
+import { ConfigStateService, LocalizationPipe, ConfigState, SessionState, SetLanguage, GetAppConfiguration, CoreModule } from '@abp/ng.core';
 import { ThemeBasicModule } from '@abp/ng.theme.basic';
 import { NgAlainSharedModule } from '@fs/ng-alain/shared';
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, NgZone, Inject, ComponentFactoryResolver, ElementRef, Renderer2, ViewChild, ViewContainerRef, HostBinding, Input, HostListener, NgModule } from '@angular/core';
@@ -8,7 +8,7 @@ import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { deepCopy, copy, LazyService, updateHostClass } from '@delon/util';
 import { SettingsService, MenuService } from '@delon/theme';
 import { Subject, Observable } from 'rxjs';
-import { takeUntil, map } from 'rxjs/operators';
+import { takeUntil, tap, map } from 'rxjs/operators';
 import { __decorate, __metadata } from 'tslib';
 import { Select, Store } from '@ngxs/store';
 import * as screenfull from 'screenfull';
@@ -758,79 +758,103 @@ if (false) {
  */
 class SidebarComponent {
     /**
+     * @param {?} configStateService
      * @param {?} settings
      * @param {?} menuService
      * @param {?} localizationPipe
      */
-    constructor(settings, menuService, localizationPipe) {
+    constructor(configStateService, settings, menuService, localizationPipe) {
+        this.configStateService = configStateService;
         this.settings = settings;
         this.menuService = menuService;
         this.localizationPipe = localizationPipe;
-        this.routes$.pipe(map((/**
-         * @param {?} routes
+        this.auth$.pipe(tap((/**
+         * @param {?} x
          * @return {?}
          */
-        routes => getVisibleRoutes(routes)))).subscribe((/**
-         * @param {?} routes
-         * @return {?}
-         */
-        routes => {
+        x => {
             /** @type {?} */
-            let result = [];
-            routes.forEach((/**
-             * @param {?} first
+            var routes = this.configStateService.getOne('routes');
+            this.setMenu(routes);
+        }))).subscribe();
+    }
+    /**
+     * @param {?} routes
+     * @return {?}
+     */
+    setMenu(routes) {
+        /** @type {?} */
+        let result = [];
+        /** @type {?} */
+        let condition = (/**
+         * @param {?} x
+         * @return {?}
+         */
+        (x) => !!!x.invisible && this.isGrantedPolicy(x.requiredPolicy));
+        routes.filter(condition).forEach((/**
+         * @param {?} first
+         * @return {?}
+         */
+        first => {
+            /** @type {?} */
+            let group = {
+                text: this.localizationPipe.transform(first.name),
+                group: true,
+                hideInBreadcrumb: true,
+                children: []
+            };
+            result.push(group);
+            first.children.filter(condition).forEach((/**
+             * @param {?} second
              * @return {?}
              */
-            first => {
-                /** @type {?} */
-                let group = {
-                    text: this.localizationPipe.transform(first.name),
-                    group: true,
-                    hideInBreadcrumb: true,
-                    children: []
-                };
-                result.push(group);
-                first.children.forEach((/**
-                 * @param {?} second
-                 * @return {?}
-                 */
-                second => {
-                    if (second.children.length === 0) {
+            second => {
+                if (second.children.length === 0) {
+                    /** @type {?} */
+                    let left = {
+                        text: this.localizationPipe.transform(second.name),
+                        link: second.url,
+                        icon: second.iconClass
+                    };
+                    if (left.link.split('/').length > 2)
+                        group.children.push(left);
+                }
+                if (second.children.length != 0) {
+                    /** @type {?} */
+                    let node = {
+                        text: this.localizationPipe.transform(second.name),
+                        icon: second.iconClass,
+                        children: []
+                    };
+                    group.children.push(node);
+                    second.children.filter(condition).forEach((/**
+                     * @param {?} third
+                     * @return {?}
+                     */
+                    third => {
                         /** @type {?} */
                         let left = {
-                            text: this.localizationPipe.transform(second.name),
-                            link: second.url,
-                            icon: second.iconClass
+                            text: this.localizationPipe.transform(third.name),
+                            link: third.url,
+                            icon: third.iconClass
                         };
-                        group.children.push(left);
-                    }
-                    if (second.children.length != 0) {
-                        /** @type {?} */
-                        let node = {
-                            text: this.localizationPipe.transform(second.name),
-                            icon: second.iconClass,
-                            children: []
-                        };
-                        group.children.push(node);
-                        second.children.forEach((/**
-                         * @param {?} third
-                         * @return {?}
-                         */
-                        third => {
-                            /** @type {?} */
-                            let left = {
-                                text: this.localizationPipe.transform(third.name),
-                                link: third.url,
-                                icon: third.iconClass
-                            };
-                            node.children.push(left);
-                        }));
-                    }
-                }));
+                        node.children.push(left);
+                    }));
+                }
             }));
-            this.menuService.clear();
-            this.menuService.add(result);
         }));
+        this.menuService.clear();
+        this.menuService.add(result);
+    }
+    /**
+     * @param {?} requiredPolicy
+     * @return {?}
+     */
+    isGrantedPolicy(requiredPolicy) {
+        if (!!requiredPolicy) {
+            return this.configStateService.getGrantedPolicy(requiredPolicy);
+        }
+        return true;
     }
 }
 SidebarComponent.decorators = [
@@ -842,17 +866,20 @@ SidebarComponent.decorators = [
 ];
 /** @nocollapse */
 SidebarComponent.ctorParameters = () => [
+    { type: ConfigStateService },
     { type: SettingsService },
     { type: MenuService },
     { type: LocalizationPipe }
 ];
 __decorate([
-    Select(ConfigState.getOne('routes')),
+    Select(ConfigState.getOne('auth')),
     __metadata("design:type", Observable)
-], SidebarComponent.prototype, "routes$", void 0);
+], SidebarComponent.prototype, "auth$", void 0);
 if (false) {
     /** @type {?} */
-    SidebarComponent.prototype.routes$;
+    SidebarComponent.prototype.auth$;
+    /** @type {?} */
+    SidebarComponent.prototype.configStateService;
     /** @type {?} */
     SidebarComponent.prototype.settings;
     /**
@@ -865,25 +892,6 @@ if (false) {
      * @private
      */
     SidebarComponent.prototype.localizationPipe;
-}
-/**
- * @param {?} routes
- * @return {?}
- */
-function getVisibleRoutes(routes) {
-    return routes.reduce((/**
-     * @param {?} acc
-     * @param {?} val
-     * @return {?}
-     */
-    (acc, val) => {
-        if (val.invisible)
-            return acc;
-        if (val.children && val.children.length) {
-            val.children = getVisibleRoutes(val.children);
-        }
-        return [...acc, val];
-    }), []);
 }
 
 /**

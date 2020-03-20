@@ -17,4 +17,9 @@ export declare namespace Confirmation {
         options?: Partial<Options>;
     }
     type Severity = 'neutral' | 'success' | 'info' | 'warning' | 'error';
+    enum Status {
+        confirm = "confirm",
+        reject = "reject",
+        dismiss = "dismiss"
+    }
 }

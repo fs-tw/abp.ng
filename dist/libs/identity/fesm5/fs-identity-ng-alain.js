@@ -3,7 +3,7 @@ import { AddReplaceableComponent, CoreModule } from '@abp/ng.core';
 import { Component, NgModule } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
 import { __extends } from 'tslib';
-import { UsersComponent as UsersComponent$1, RolesComponent as RolesComponent$1 } from '@abp/ng.identity';
+import { IdentityService, UsersComponent as UsersComponent$1, RolesComponent as RolesComponent$1 } from '@abp/ng.identity';
 import { ConfirmationService } from '@abp/ng.theme.shared';
 import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngxs/store';
@@ -16,11 +16,12 @@ import { PermissionManagementNgAlainModule } from '@fs/permission-management/ng-
  */
 var UsersComponent = /** @class */ (function (_super) {
     __extends(UsersComponent, _super);
-    function UsersComponent(_confirmationService, _fb, _store) {
-        var _this = _super.call(this, _confirmationService, _fb, _store) || this;
+    function UsersComponent(_confirmationService, _fb, _store, _identityService) {
+        var _this = _super.call(this, _confirmationService, _fb, _store, _identityService) || this;
         _this._confirmationService = _confirmationService;
         _this._fb = _fb;
         _this._store = _store;
+        _this._identityService = _identityService;
         return _this;
     }
     UsersComponent.decorators = [
@@ -33,7 +34,8 @@ var UsersComponent = /** @class */ (function (_super) {
     UsersComponent.ctorParameters = function () { return [
         { type: ConfirmationService },
         { type: FormBuilder },
-        { type: Store }
+        { type: Store },
+        { type: IdentityService }
     ]; };
     return UsersComponent;
 }(UsersComponent$1));
@@ -53,6 +55,11 @@ if (false) {
      * @private
      */
     UsersComponent.prototype._store;
+    /**
+     * @type {?}
+     * @private
+     */
+    UsersComponent.prototype._identityService;
 }
 
 /**

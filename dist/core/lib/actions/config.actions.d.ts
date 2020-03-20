@@ -1,4 +1,5 @@
-import { ABP } from '../models';
+import { ABP } from '../models/common';
+import { Config } from '../models/config';
 export declare class PatchRouteByName {
     name: string;
     newValue: Partial<ABP.Route>;
@@ -15,4 +16,9 @@ export declare class AddRoute {
     payload: Omit<ABP.Route, 'children'>;
     static readonly type = "[Config] Add Route";
     constructor(payload: Omit<ABP.Route, 'children'>);
+}
+export declare class SetEnvironment {
+    environment: Config.Environment;
+    static readonly type = "[Config] Set Environment";
+    constructor(environment: Config.Environment);
 }

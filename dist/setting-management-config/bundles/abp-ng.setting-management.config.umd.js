@@ -207,9 +207,9 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var SettingManagementConfigService = /** @class */ (function () {
-        function SettingManagementConfigService(store) {
+        function SettingManagementConfigService(injector) {
             var _this = this;
-            this.store = store;
+            this.injector = injector;
             /** @type {?} */
             var route = (/** @type {?} */ ({
                 name: 'AbpSettingManagement::Settings',
@@ -232,6 +232,16 @@
                 }
             }));
         }
+        Object.defineProperty(SettingManagementConfigService.prototype, "store", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this.injector.get(store.Store);
+            },
+            enumerable: true,
+            configurable: true
+        });
         SettingManagementConfigService.decorators = [
             { type: core.Injectable, args: [{
                         providedIn: 'root',
@@ -239,9 +249,9 @@
         ];
         /** @nocollapse */
         SettingManagementConfigService.ctorParameters = function () { return [
-            { type: store.Store }
+            { type: core.Injector }
         ]; };
-        /** @nocollapse */ SettingManagementConfigService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function SettingManagementConfigService_Factory() { return new SettingManagementConfigService(core.ɵɵinject(store.Store)); }, token: SettingManagementConfigService, providedIn: "root" });
+        /** @nocollapse */ SettingManagementConfigService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function SettingManagementConfigService_Factory() { return new SettingManagementConfigService(core.ɵɵinject(core.INJECTOR)); }, token: SettingManagementConfigService, providedIn: "root" });
         return SettingManagementConfigService;
     }());
     if (false) {
@@ -249,7 +259,7 @@
          * @type {?}
          * @private
          */
-        SettingManagementConfigService.prototype.store;
+        SettingManagementConfigService.prototype.injector;
     }
 
     /**

@@ -1,10 +1,8 @@
 import { ConfigState, LocalizationService, takeUntilDestroy, StartLoader, StopLoader, SortPipe, RestOccurError, LazyLoadService, CoreModule } from '@abp/ng.core';
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Renderer2, Input, Output, ViewChild, ElementRef, ChangeDetectorRef, Injectable, ɵɵdefineInjectable, ContentChild, ViewChildren, ViewEncapsulation, Directive, Host, Optional, Self, ApplicationRef, ComponentFactoryResolver, RendererFactory2, Injector, Inject, ɵɵinject, INJECTOR, InjectionToken, ViewContainerRef, HostBinding, APP_INITIALIZER, NgModule } from '@angular/core';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { takeUntilDestroy as takeUntilDestroy$1, NgxValidateCoreModule } from '@ngx-validate/core';
-import { MessageService } from 'primeng/components/common/messageservice';
-import { ToastModule } from 'primeng/toast';
 import { Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 import { Store, ofActionSuccessful, Actions } from '@ngxs/store';
 import { ReplaySubject, BehaviorSubject, Subject, fromEvent, interval, timer } from 'rxjs';
@@ -467,56 +465,56 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/models/toaster.ts
+ * Generated from: lib/models/confirmation.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var Toaster;
-(function (Toaster) {
+var Confirmation;
+(function (Confirmation) {
     /**
      * @record
      */
-    function ToastOptions() { }
-    Toaster.ToastOptions = ToastOptions;
+    function Options() { }
+    Confirmation.Options = Options;
     if (false) {
         /** @type {?|undefined} */
-        ToastOptions.prototype.life;
+        Options.prototype.id;
         /** @type {?|undefined} */
-        ToastOptions.prototype.sticky;
+        Options.prototype.closable;
         /** @type {?|undefined} */
-        ToastOptions.prototype.closable;
+        Options.prototype.messageLocalizationParams;
         /** @type {?|undefined} */
-        ToastOptions.prototype.tapToDismiss;
+        Options.prototype.titleLocalizationParams;
         /** @type {?|undefined} */
-        ToastOptions.prototype.messageLocalizationParams;
+        Options.prototype.hideCancelBtn;
         /** @type {?|undefined} */
-        ToastOptions.prototype.titleLocalizationParams;
-        /** @type {?} */
-        ToastOptions.prototype.id;
+        Options.prototype.hideYesBtn;
         /** @type {?|undefined} */
-        ToastOptions.prototype.containerKey;
+        Options.prototype.cancelText;
+        /** @type {?|undefined} */
+        Options.prototype.yesText;
     }
     /**
      * @record
      */
-    function Toast() { }
-    Toaster.Toast = Toast;
+    function DialogData() { }
+    Confirmation.DialogData = DialogData;
     if (false) {
         /** @type {?} */
-        Toast.prototype.message;
+        DialogData.prototype.message;
         /** @type {?|undefined} */
-        Toast.prototype.title;
+        DialogData.prototype.title;
         /** @type {?|undefined} */
-        Toast.prototype.severity;
+        DialogData.prototype.severity;
         /** @type {?|undefined} */
-        Toast.prototype.options;
+        DialogData.prototype.options;
     }
     let Status;
     (function (Status) {
         Status["confirm"] = "confirm";
         Status["reject"] = "reject";
         Status["dismiss"] = "dismiss";
-    })(Status = Toaster.Status || (Toaster.Status = {}));
-})(Toaster || (Toaster = {}));
+    })(Status = Confirmation.Status || (Confirmation.Status = {}));
+})(Confirmation || (Confirmation = {}));
 
 /**
  * @fileoverview added by tsickle
@@ -587,7 +585,7 @@ class ConfirmationService {
      */
     clear(status) {
         this.confirmation$.next();
-        this.status$.next(status || Toaster.Status.dismiss);
+        this.status$.next(status || Confirmation.Status.dismiss);
     }
     /**
      * @return {?}
@@ -632,9 +630,9 @@ class ConfirmationComponent {
     constructor(confirmationService, localizationService) {
         this.confirmationService = confirmationService;
         this.localizationService = localizationService;
-        this.confirm = Toaster.Status.confirm;
-        this.reject = Toaster.Status.reject;
-        this.dismiss = Toaster.Status.dismiss;
+        this.confirm = Confirmation.Status.confirm;
+        this.reject = Confirmation.Status.reject;
+        this.dismiss = Confirmation.Status.dismiss;
         this.visible = false;
         this.confirmationService.confirmation$.subscribe((/**
          * @param {?} confirmation
@@ -1056,6 +1054,62 @@ const dialogAnimation = trigger('dialog', [
     transition(':enter', useAnimation(fadeInDown)),
     transition(':leave', useAnimation(fadeOut)),
 ]);
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/models/toaster.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+var Toaster;
+(function (Toaster) {
+    /**
+     * @record
+     */
+    function ToastOptions() { }
+    Toaster.ToastOptions = ToastOptions;
+    if (false) {
+        /** @type {?|undefined} */
+        ToastOptions.prototype.life;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.sticky;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.closable;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.tapToDismiss;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.messageLocalizationParams;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.titleLocalizationParams;
+        /** @type {?} */
+        ToastOptions.prototype.id;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.containerKey;
+    }
+    /**
+     * @record
+     */
+    function Toast() { }
+    Toaster.Toast = Toast;
+    if (false) {
+        /** @type {?} */
+        Toast.prototype.message;
+        /** @type {?|undefined} */
+        Toast.prototype.title;
+        /** @type {?|undefined} */
+        Toast.prototype.severity;
+        /** @type {?|undefined} */
+        Toast.prototype.options;
+    }
+    /**
+     * @deprecated Status will be removed from toaster model in v3.0
+     */
+    let Status;
+    (function (Status) {
+        Status["confirm"] = "confirm";
+        Status["reject"] = "reject";
+        Status["dismiss"] = "dismiss";
+    })(Status = Toaster.Status || (Toaster.Status = {}));
+})(Toaster || (Toaster = {}));
 
 /**
  * @fileoverview added by tsickle
@@ -1773,23 +1827,9 @@ class TableComponent {
 TableComponent.decorators = [
     { type: Component, args: [{
                 selector: 'abp-table',
-                template: "<div #wrapper class=\"ui-table ui-widget\">\r\n  <div class=\"ui-table-wrapper\">\r\n    <ng-container\r\n      *ngTemplateOutlet=\"scrollable ? scrollableTemplate : defaultTemplate\"\r\n    ></ng-container>\r\n    <abp-pagination\r\n      *ngIf=\"rows\"\r\n      [totalPages]=\"totalPages\"\r\n      [(value)]=\"page\"\r\n      (valueChange)=\"pageChange.emit($event)\"\r\n    ></abp-pagination>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #scrollableTemplate>\r\n  <div class=\"ui-table-scrollable-wrapper\">\r\n    <div class=\"ui-table-scrollable-view\"></div>\r\n    <div class=\"ui-table-scrollable-header ui-widget-header\">\r\n      <div [style.margin-left.px]=\"-bodyScrollLeft\" class=\"ui-table-scrollable-header-box\">\r\n        <table class=\"ui-table-scrollable-header-table\">\r\n          <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n          <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n          <tbody></tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <div\r\n      #scrollableBody\r\n      (scroll)=\"bodyScrollLeft = scrollableBody.scrollLeft\"\r\n      class=\"ui-table-scrollable-body\"\r\n      [style.max-height]=\"scrollHeight\"\r\n    >\r\n      <table class=\"ui-table-scrollable-body-table\">\r\n        <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n        <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n      </table>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-template #defaultTemplate>\r\n  <table>\r\n    <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n  </table>\r\n</ng-template>\r\n\r\n<ng-template #colGroup>\r\n  <ng-container *ngTemplateOutlet=\"colgroupTemplate\"></ng-container>\r\n</ng-template>\r\n\r\n<ng-template #head>\r\n  <thead class=\"ui-table-thead\">\r\n    <ng-container *ngTemplateOutlet=\"headerTemplate\"></ng-container>\r\n  </thead>\r\n</ng-template>\r\n\r\n<ng-template #body>\r\n  <tbody class=\"ui-table-tbody\">\r\n    <ng-container *ngIf=\"value && value.length; else emptyTemplate\">\r\n      <ng-template\r\n        #bodyTemplateWrapper\r\n        *ngFor=\"let val of slicedValue; let index = index; trackBy: trackByFn\"\r\n        [ngTemplateOutlet]=\"bodyTemplate\"\r\n        [ngTemplateOutletContext]=\"{ $implicit: val, rowIndex: index }\"\r\n      ></ng-template>\r\n    </ng-container>\r\n  </tbody>\r\n</ng-template>\r\n\r\n<ng-template #emptyTemplate>\r\n  <tr class=\"empty-row\" #emptyRow>\r\n    <div class=\"empty-row-content\" [style.width.px]=\"emptyRow.offsetWidth\">\r\n      {{ emptyMessage | abpLocalization }}\r\n    </div>\r\n  </tr>\r\n</ng-template>\r\n",
+                template: "<div #wrapper class=\"ui-table ui-widget\">\r\n  <div class=\"ui-table-wrapper\">\r\n    <ng-container\r\n      *ngTemplateOutlet=\"scrollable ? scrollableTemplate : defaultTemplate\"\r\n    ></ng-container>\r\n    <div class=\"pagination-wrapper\">\r\n      <ngb-pagination\r\n        [class.op-0]=\"!totalPages\"\r\n        [collectionSize]=\"totalPages\"\r\n        [pageSize]=\"1\"\r\n        [page]=\"page\"\r\n        (pageChange)=\"pageChange.emit($event)\"\r\n        [maxSize]=\"3\"\r\n        [rotate]=\"true\"\r\n      ></ngb-pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #scrollableTemplate>\r\n  <div class=\"ui-table-scrollable-wrapper\">\r\n    <div class=\"ui-table-scrollable-view\"></div>\r\n    <div class=\"ui-table-scrollable-header ui-widget-header\">\r\n      <div [style.margin-left.px]=\"-bodyScrollLeft\" class=\"ui-table-scrollable-header-box\">\r\n        <table class=\"ui-table-scrollable-header-table\">\r\n          <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n          <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n          <tbody></tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <div\r\n      #scrollableBody\r\n      (scroll)=\"bodyScrollLeft = scrollableBody.scrollLeft\"\r\n      class=\"ui-table-scrollable-body\"\r\n      [style.max-height]=\"scrollHeight\"\r\n    >\r\n      <table class=\"ui-table-scrollable-body-table\">\r\n        <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n        <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n      </table>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-template #defaultTemplate>\r\n  <table>\r\n    <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n  </table>\r\n</ng-template>\r\n\r\n<ng-template #colGroup>\r\n  <ng-container *ngTemplateOutlet=\"colgroupTemplate\"></ng-container>\r\n</ng-template>\r\n\r\n<ng-template #head>\r\n  <thead class=\"ui-table-thead\">\r\n    <ng-container *ngTemplateOutlet=\"headerTemplate\"></ng-container>\r\n  </thead>\r\n</ng-template>\r\n\r\n<ng-template #body>\r\n  <tbody class=\"ui-table-tbody\">\r\n    <ng-container *ngIf=\"value && value.length; else emptyTemplate\">\r\n      <ng-template\r\n        #bodyTemplateWrapper\r\n        *ngFor=\"let val of slicedValue; let index = index; trackBy: trackByFn\"\r\n        [ngTemplateOutlet]=\"bodyTemplate\"\r\n        [ngTemplateOutletContext]=\"{ $implicit: val, rowIndex: index }\"\r\n      ></ng-template>\r\n    </ng-container>\r\n  </tbody>\r\n</ng-template>\r\n\r\n<ng-template #emptyTemplate>\r\n  <tr class=\"empty-row\" #emptyRow>\r\n    <div class=\"empty-row-content\" [style.width.px]=\"emptyRow.offsetWidth\">\r\n      {{ emptyMessage | abpLocalization }}\r\n    </div>\r\n  </tr>\r\n</ng-template>\r\n",
                 encapsulation: ViewEncapsulation.None,
-                styles: [`
-      .ui-table .ui-table-tbody > tr:nth-child(even):hover,
-      .ui-table .ui-table-tbody > tr:hover {
-        filter: brightness(90%);
-      }
-
-      .ui-table .ui-table-tbody > tr.empty-row:hover {
-        filter: none;
-      }
-
-      .ui-table .ui-table-tbody > tr.empty-row > div.empty-row-content {
-        padding: 10px;
-        text-align: center;
-      }
-    `]
+                styles: [".ui-table{position:relative}.ui-table .ui-table-tbody>tr:hover,.ui-table .ui-table-tbody>tr:nth-child(even):hover{-webkit-filter:brightness(90%);filter:brightness(90%)}.ui-table .ui-table-tbody>tr.empty-row:hover{-webkit-filter:none;filter:none}.ui-table .ui-table-tbody>tr.empty-row>div.empty-row-content{padding:10px;text-align:center}.ui-table .ui-table-caption,.ui-table .ui-table-summary{background-color:#f4f4f4;color:#333;border:1px solid #c8c8c8;padding:.25em .5em;text-align:center;font-weight:700}.ui-table .ui-table-thead>tr>th{border:1px solid #c8c8c8;font-weight:700;color:#333;background-color:#f4f4f4}.ui-table .ui-table-tfoot>tr>td{border:1px solid #c8c8c8;font-weight:700;color:#333;background-color:#fff}.ui-table .ui-sortable-column{transition:box-shadow .2s;cursor:pointer}.ui-table .ui-sortable-column:focus{outline:0;outline-offset:0;box-shadow:inset 0 0 0 .2em #8dcdff}.ui-table .ui-sortable-column .ui-sortable-column-icon{color:#848484}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover{background-color:#e0e0e0;color:#333}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover .ui-sortable-column-icon{color:#333}.ui-table .ui-sortable-column.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon{color:#fff}.ui-table .ui-editable-column input{font-size:14px;font-family:'Open Sans','Helvetica Neue',sans-serif}.ui-table .ui-editable-column input:focus{outline:#007ad9 solid 1px;outline-offset:2px}.ui-table .ui-table-tbody>tr{background-color:#fff;color:#333}.ui-table .ui-table-tbody>tr>td{background-color:inherit;border:1px solid #c8c8c8}.ui-table .ui-table-tbody>tr.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr.ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-top>td{box-shadow:inset 0 2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-bottom>td{box-shadow:inset 0 -2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr:nth-child(even){background-color:#f9f9f9}.ui-table .ui-table-tbody>tr:nth-child(even).ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr:nth-child(even).ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr:nth-child(even).ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table.ui-table-hoverable-rows .ui-table-tbody>tr.ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover{cursor:pointer;background-color:#eaeaea;color:#333}.ui-table table{border-collapse:collapse;width:100%;table-layout:fixed}.ui-table .ui-table-tbody>tr>td,.ui-table .ui-table-tfoot>tr>td,.ui-table .ui-table-thead>tr>th{padding:.571em .857em}.ui-table p-sorticon{vertical-align:middle}.ui-table .ui-table-auto-layout>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-auto-layout>.ui-table-wrapper>table{table-layout:auto}.ui-table .ui-table-caption{border-bottom:0}.ui-table .ui-table-summary{border-top:0}.ui-table .ui-table-scrollable-wrapper{position:relative}.ui-table .ui-table-scrollable-footer,.ui-table .ui-table-scrollable-header{overflow:hidden;border:0}.ui-table .ui-table-scrollable-body{overflow:auto;position:relative}.ui-table .ui-table-virtual-table{position:absolute}.ui-table .ui-table-loading-virtual-table{display:none}.ui-table .ui-table-frozen-view .ui-table-scrollable-body{overflow:hidden}.ui-table .ui-table-frozen-view>.ui-table-scrollable-body>table>.ui-table-tbody>tr>td:last-child{border-right:0}.ui-table .ui-table-unfrozen-view{position:absolute;top:0}.ui-table .ui-table-resizable>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-resizable .ui-table-tbody>tr>td,.ui-table .ui-table-resizable .ui-table-tfoot>tr>td,.ui-table .ui-table-resizable .ui-table-thead>tr>th{overflow:hidden}.ui-table .ui-table-resizable .ui-resizable-column{background-clip:padding-box;position:relative}.ui-table .ui-table-resizable-fit .ui-resizable-column:last-child .ui-column-resizer{display:none}.ui-table .ui-column-resizer{display:block;position:absolute!important;top:0;right:0;margin:0;width:.5em;height:100%;padding:0;cursor:col-resize;border:1px solid transparent}.ui-table .ui-column-resizer-helper{background-color:#007ad9;width:1px;position:absolute;z-index:10;display:none}.ui-table .ui-table-tbody>tr>td.ui-editing-cell{padding:0}.ui-table .ui-table-tbody>tr>td.ui-editing-cell p-celleditor>*{width:100%}.ui-table .ui-table-reorder-indicator-down,.ui-table .ui-table-reorder-indicator-up{position:absolute;display:none}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:none}@media screen and (max-width:40em){.ui-table.ui-table-responsive .ui-table-tbody>tr>td{border:0}.ui-table .ui-table-responsive .ui-table-tfoot>tr>td,.ui-table .ui-table-responsive .ui-table-thead>tr>th,.ui-table .ui-table-responsive colgroup{display:none!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td{text-align:left;display:block;border:0;width:100%!important;box-sizing:border-box;float:left;clear:left}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{padding:.4em;min-width:30%;display:inline-block;margin:-.4em 1em -.4em -.4em;font-weight:700}}.ui-table .ui-widget{font-family:'Open Sans','Helvetica Neue',sans-serif;font-size:14px;text-decoration:none}.ui-table .page-item.disabled .page-link,.ui-table .page-link{background-color:transparent;border:none}.ui-table .page-item.disabled .page-link{box-shadow:none}.ui-table .pagination{margin-bottom:0}.ui-table .pagination-wrapper{display:flex;justify-content:center;border-top:0;padding:0}.ui-table .op-0{opacity:0}"]
             }] }
 ];
 TableComponent.propDecorators = {
@@ -2247,7 +2287,9 @@ class ErrorHandler {
         this.rendererFactory = rendererFactory;
         this.injector = injector;
         this.httpErrorConfig = httpErrorConfig;
-        this.actions.pipe(ofActionSuccessful(RestOccurError, RouterError, RouterDataResolved)).subscribe((/**
+        this.actions
+            .pipe(ofActionSuccessful(RestOccurError, RouterError, RouterDataResolved))
+            .subscribe((/**
          * @param {?} res
          * @return {?}
          */
@@ -2340,10 +2382,11 @@ class ErrorHandler {
                     }
                 }
             }
-            else if (res instanceof RouterError && snq((/**
-             * @return {?}
-             */
-            () => res.event.error.indexOf('Cannot match') > -1), false)) {
+            else if (res instanceof RouterError &&
+                snq((/**
+                 * @return {?}
+                 */
+                () => res.event.error.indexOf('Cannot match') > -1), false)) {
                 this.show404Page();
             }
             else if (res instanceof RouterDataResolved && this.componentRef) {
@@ -2391,6 +2434,10 @@ class ErrorHandler {
                 message = body.details;
                 title = body.message;
             }
+            else if (body.message) {
+                title = DEFAULT_ERROR_MESSAGES.defaultError.title;
+                message = body.message;
+            }
             else {
                 message = body.message || DEFAULT_ERROR_MESSAGES.defaultError.title;
             }
@@ -2405,7 +2452,9 @@ class ErrorHandler {
      * @return {?}
      */
     navigateToLogin() {
-        this.store.dispatch(new Navigate(['/account/login'], null, { state: { redirectUrl: this.store.selectSnapshot(RouterState.url) } }));
+        this.store.dispatch(new Navigate(['/account/login'], null, {
+            state: { redirectUrl: this.store.selectSnapshot(RouterState.url) },
+        }));
     }
     /**
      * @param {?} instance
@@ -2416,8 +2465,10 @@ class ErrorHandler {
         const renderer = this.rendererFactory.createRenderer(null, null);
         /** @type {?} */
         const host = renderer.selectRootElement(document.body, true);
-        this.componentRef = this.cfRes.resolveComponentFactory(HttpErrorWrapperComponent).create(this.injector);
-        for (const key in this.componentRef.instance) {
+        this.componentRef = this.cfRes
+            .resolveComponentFactory(HttpErrorWrapperComponent)
+            .create(this.injector);
+        for (const key in instance) {
             if (this.componentRef.instance.hasOwnProperty(key)) {
                 this.componentRef.instance[key] = instance[key];
             }
@@ -2632,6 +2683,9 @@ if (false) {
  * @fileoverview added by tsickle
  * Generated from: lib/components/pagination/pagination.component.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @deprecated
  */
 class PaginationComponent {
     constructor() {
@@ -2982,7 +3036,6 @@ class ThemeSharedModule {
                     deps: [Injector],
                     useFactory: appendScript,
                 },
-                { provide: MessageService, useClass: MessageService },
                 { provide: HTTP_ERROR_CONFIG, useValue: options.httpErrorConfig },
                 {
                     provide: 'HTTP_ERROR_CONFIG',
@@ -2996,7 +3049,7 @@ class ThemeSharedModule {
 }
 ThemeSharedModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CoreModule, ToastModule, NgxValidateCoreModule],
+                imports: [CoreModule, NgxValidateCoreModule, NgbPaginationModule],
                 declarations: [
                     BreadcrumbComponent,
                     ButtonComponent,
@@ -3182,53 +3235,6 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/models/confirmation.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-var Confirmation;
-(function (Confirmation) {
-    /**
-     * @record
-     */
-    function Options() { }
-    Confirmation.Options = Options;
-    if (false) {
-        /** @type {?|undefined} */
-        Options.prototype.id;
-        /** @type {?|undefined} */
-        Options.prototype.closable;
-        /** @type {?|undefined} */
-        Options.prototype.messageLocalizationParams;
-        /** @type {?|undefined} */
-        Options.prototype.titleLocalizationParams;
-        /** @type {?|undefined} */
-        Options.prototype.hideCancelBtn;
-        /** @type {?|undefined} */
-        Options.prototype.hideYesBtn;
-        /** @type {?|undefined} */
-        Options.prototype.cancelText;
-        /** @type {?|undefined} */
-        Options.prototype.yesText;
-    }
-    /**
-     * @record
-     */
-    function DialogData() { }
-    Confirmation.DialogData = DialogData;
-    if (false) {
-        /** @type {?} */
-        DialogData.prototype.message;
-        /** @type {?|undefined} */
-        DialogData.prototype.title;
-        /** @type {?|undefined} */
-        DialogData.prototype.severity;
-        /** @type {?|undefined} */
-        DialogData.prototype.options;
-    }
-})(Confirmation || (Confirmation = {}));
-
-/**
- * @fileoverview added by tsickle
  * Generated from: lib/models/setting-management.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -3329,5 +3335,5 @@ var Statistics;
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { BreadcrumbComponent, ButtonComponent, ChartComponent, ConfirmationComponent, ConfirmationService, DateParserFormatter, LoaderBarComponent, LoadingComponent, LoadingDirective, ModalComponent, PaginationComponent, SortOrderIconComponent, TableComponent, TableEmptyMessageComponent, TableSortDirective, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, toastInOut, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, DateParserFormatter as ɵba, ChartComponent as ɵc, ConfirmationComponent as ɵd, ConfirmationService as ɵe, HttpErrorWrapperComponent as ɵf, LoaderBarComponent as ɵg, LoadingComponent as ɵh, ModalComponent as ɵi, fadeAnimation as ɵj, fadeIn as ɵk, fadeOut as ɵl, PaginationComponent as ɵm, TableComponent as ɵn, TableEmptyMessageComponent as ɵo, ToastComponent as ɵp, ToasterService as ɵq, ToastContainerComponent as ɵr, toastInOut as ɵs, SortOrderIconComponent as ɵt, LoadingDirective as ɵu, TableSortDirective as ɵv, ErrorHandler as ɵw, httpErrorConfigFactory as ɵy, HTTP_ERROR_CONFIG as ɵz };
+export { BreadcrumbComponent, ButtonComponent, ChartComponent, Confirmation, ConfirmationComponent, ConfirmationService, DateParserFormatter, LoaderBarComponent, LoadingComponent, LoadingDirective, ModalComponent, PaginationComponent, SortOrderIconComponent, TableComponent, TableEmptyMessageComponent, TableSortDirective, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, toastInOut, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, DateParserFormatter as ɵba, ChartComponent as ɵc, ConfirmationComponent as ɵd, ConfirmationService as ɵe, HttpErrorWrapperComponent as ɵf, LoaderBarComponent as ɵg, LoadingComponent as ɵh, ModalComponent as ɵi, fadeAnimation as ɵj, fadeIn as ɵk, fadeOut as ɵl, PaginationComponent as ɵm, TableComponent as ɵn, TableEmptyMessageComponent as ɵo, ToastComponent as ɵp, ToasterService as ɵq, ToastContainerComponent as ɵr, toastInOut as ɵs, SortOrderIconComponent as ɵt, LoadingDirective as ɵu, TableSortDirective as ɵv, ErrorHandler as ɵw, httpErrorConfigFactory as ɵy, HTTP_ERROR_CONFIG as ɵz };
 //# sourceMappingURL=abp-ng.theme.shared.js.map

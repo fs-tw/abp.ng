@@ -1,9 +1,8 @@
-import { ConfigState, SetRemember, AuthService, RestService, DynamicLayoutComponent, ReplaceableRouteContainerComponent, AuthGuard, ChangePassword, GetProfile, UpdateProfile, ProfileState, SessionState, SetTenant, takeUntilDestroy, CoreModule } from '@abp/ng.core';
+import { ConfigState, SetRemember, AuthService, RestService, DynamicLayoutComponent, ReplaceableRouteContainerComponent, AuthGuard, ChangePassword, GetProfile, UpdateProfile, ProfileState, SessionState, SetTenant, GetAppConfiguration, takeUntilDestroy, CoreModule } from '@abp/ng.core';
 import { ToasterService, fadeIn, ThemeSharedModule } from '@abp/ng.theme.shared';
 import { Component, Injectable, ɵɵdefineInjectable, ɵɵinject, NgModule, Input, InjectionToken } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { validatePassword, comparePasswords, NgxValidateCoreModule } from '@ngx-validate/core';
-import { TableModule } from 'primeng/table';
 import { RouterModule } from '@angular/router';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Store, Select } from '@ngxs/store';
@@ -451,7 +450,7 @@ class ChangePasswordComponent {
          * @return {?}
          */
         (errors, groupErrors, control) => {
-            if (PASSWORD_FIELDS.indexOf(control.name) < 0)
+            if (PASSWORD_FIELDS.indexOf(String(control.name)) < 0)
                 return errors;
             return errors.concat(groupErrors.filter((/**
              * @param {?} __0
@@ -659,7 +658,7 @@ class PersonalSettingsComponent {
 PersonalSettingsComponent.decorators = [
     { type: Component, args: [{
                 selector: 'abp-personal-settings-form',
-                template: "<form validateOnSubmit *ngIf=\"form\" [formGroup]=\"form\" (ngSubmit)=\"submit()\">\r\n  <div class=\"form-group\">\r\n    <label for=\"username\">{{ 'AbpIdentity::DisplayName:UserName' | abpLocalization }}</label\r\n    ><span> * </span\r\n    ><input\r\n      type=\"text\"\r\n      id=\"username\"\r\n      class=\"form-control\"\r\n      formControlName=\"userName\"\r\n      autofocus\r\n      (keydown.space)=\"$event.preventDefault()\"\r\n    />\r\n  </div>\r\n  <div class=\"row\">\r\n    <div class=\"col col-md-6\">\r\n      <div class=\"form-group\">\r\n        <label for=\"name\">{{ 'AbpIdentity::DisplayName:Name' | abpLocalization }}</label\r\n        ><input type=\"text\" id=\"name\" class=\"form-control\" formControlName=\"name\" />\r\n      </div>\r\n    </div>\r\n    <div class=\"col col-md-6\">\r\n      <div class=\"form-group\">\r\n        <label for=\"surname\">{{ 'AbpIdentity::DisplayName:Surname' | abpLocalization }}</label\r\n        ><input type=\"text\" id=\"surname\" class=\"form-control\" formControlName=\"surname\" />\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label for=\"email-address\">{{ 'AbpIdentity::DisplayName:Email' | abpLocalization }}</label\r\n    ><span> * </span><input type=\"text\" id=\"email-address\" class=\"form-control\" formControlName=\"email\" />\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label for=\"phone-number\">{{ 'AbpIdentity::DisplayName:PhoneNumber' | abpLocalization }}</label\r\n    ><input type=\"text\" id=\"phone-number\" class=\"form-control\" formControlName=\"phoneNumber\" />\r\n  </div>\r\n  <abp-button\r\n    buttonType=\"submit\"\r\n    iconClass=\"fa fa-check\"\r\n    buttonClass=\"btn btn-primary color-white\"\r\n    [loading]=\"inProgress\"\r\n    [disabled]=\"form?.invalid || form?.pristine\"\r\n  >\r\n    {{ 'AbpIdentity::Save' | abpLocalization }}</abp-button\r\n  >\r\n</form>\r\n",
+                template: "<form validateOnSubmit *ngIf=\"form\" [formGroup]=\"form\" (ngSubmit)=\"submit()\">\r\n  <div class=\"form-group\">\r\n    <label for=\"username\">{{ 'AbpIdentity::DisplayName:UserName' | abpLocalization }}</label\r\n    ><span> * </span\r\n    ><input\r\n      type=\"text\"\r\n      id=\"username\"\r\n      class=\"form-control\"\r\n      formControlName=\"userName\"\r\n      autofocus\r\n      (keydown.space)=\"$event.preventDefault()\"\r\n    />\r\n  </div>\r\n  <div class=\"row\">\r\n    <div class=\"col col-md-6\">\r\n      <div class=\"form-group\">\r\n        <label for=\"name\">{{ 'AbpIdentity::DisplayName:Name' | abpLocalization }}</label\r\n        ><input type=\"text\" id=\"name\" class=\"form-control\" formControlName=\"name\" />\r\n      </div>\r\n    </div>\r\n    <div class=\"col col-md-6\">\r\n      <div class=\"form-group\">\r\n        <label for=\"surname\">{{ 'AbpIdentity::DisplayName:Surname' | abpLocalization }}</label\r\n        ><input type=\"text\" id=\"surname\" class=\"form-control\" formControlName=\"surname\" />\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label for=\"email-address\">{{ 'AbpIdentity::DisplayName:Email' | abpLocalization }}</label\r\n    ><span> * </span\r\n    ><input type=\"text\" id=\"email-address\" class=\"form-control\" formControlName=\"email\" />\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label for=\"phone-number\">{{ 'AbpIdentity::DisplayName:PhoneNumber' | abpLocalization }}</label\r\n    ><input type=\"text\" id=\"phone-number\" class=\"form-control\" formControlName=\"phoneNumber\" />\r\n  </div>\r\n  <abp-button\r\n    buttonType=\"submit\"\r\n    iconClass=\"fa fa-check\"\r\n    buttonClass=\"btn btn-primary color-white\"\r\n    [loading]=\"inProgress\"\r\n    [disabled]=\"form?.invalid\"\r\n  >\r\n    {{ 'AbpIdentity::Save' | abpLocalization }}</abp-button\r\n  >\r\n</form>\r\n",
                 exportAs: 'abpPersonalSettingsForm'
             }] }
 ];
@@ -748,8 +747,7 @@ class TenantBoxComponent {
                  */
                 () => err.error.error_description), 'AbpUi::DefaultErrorMessage'), 'AbpUi::Error');
                 return throwError(err);
-            })))
-                .subscribe((/**
+            })), switchMap((/**
              * @param {?} __0
              * @return {?}
              */
@@ -767,12 +765,15 @@ class TenantBoxComponent {
                         messageLocalizationParams: [this.tenant.name],
                     });
                     this.tenant = (/** @type {?} */ ({}));
+                    this.tenantName = '';
                 }
                 this.store.dispatch(new SetTenant(success ? this.tenant : null));
-            }));
+                return this.store.dispatch(new GetAppConfiguration());
+            })))
+                .subscribe();
         }
         else {
-            this.store.dispatch(new SetTenant(null));
+            this.store.dispatch([new SetTenant(null), new GetAppConfiguration()]);
             this.tenantName = null;
             this.isModalVisible = false;
         }
@@ -854,7 +855,7 @@ class AuthWrapperComponent {
 AuthWrapperComponent.decorators = [
     { type: Component, args: [{
                 selector: 'abp-auth-wrapper',
-                template: "<div class=\"row\">\r\n  <div class=\"mx-auto col col-md-5\">\r\n    <abp-tenant-box\r\n      *abpReplaceableTemplate=\"{ componentKey: 'Account.TenantBoxComponent' }\"\r\n    ></abp-tenant-box>\r\n\r\n    <div class=\"abp-account-container\">\r\n      <div\r\n        *ngIf=\"enableLocalLogin; else disableLocalLoginTemplate\"\r\n        class=\"card mt-3 shadow-sm rounded\"\r\n      >\r\n        <div class=\"card-body p-5\">\r\n          <ng-content *ngTemplateOutlet=\"mainContentRef\"></ng-content>\r\n        </div>\r\n        <ng-content *ngTemplateOutlet=\"cancelContentRef\"></ng-content>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #disableLocalLoginTemplate>\r\n  <div class=\"alert alert-warning\">\r\n    <strong>{{ 'AbpAccount::InvalidLoginRequest' | abpLocalization }}</strong>\r\n    {{ 'AbpAccount::ThereAreNoLoginSchemesConfiguredForThisClient' | abpLocalization }}\r\n  </div>\r\n</ng-template>\r\n",
+                template: "<div class=\"row\">\r\n  <div class=\"mx-auto col col-md-5\">\r\n    <ng-container *ngIf=\"isMultiTenancyEnabled$ | async\">\r\n      <abp-tenant-box\r\n        *abpReplaceableTemplate=\"{ componentKey: 'Account.TenantBoxComponent' }\"\r\n      ></abp-tenant-box>\r\n    </ng-container>\r\n\r\n    <div class=\"abp-account-container\">\r\n      <div\r\n        *ngIf=\"enableLocalLogin; else disableLocalLoginTemplate\"\r\n        class=\"card mt-3 shadow-sm rounded\"\r\n      >\r\n        <div class=\"card-body p-5\">\r\n          <ng-content *ngTemplateOutlet=\"mainContentRef\"></ng-content>\r\n        </div>\r\n        <ng-content *ngTemplateOutlet=\"cancelContentRef\"></ng-content>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #disableLocalLoginTemplate>\r\n  <div class=\"alert alert-warning\">\r\n    <strong>{{ 'AbpAccount::InvalidLoginRequest' | abpLocalization }}</strong>\r\n    {{ 'AbpAccount::ThereAreNoLoginSchemesConfiguredForThisClient' | abpLocalization }}\r\n  </div>\r\n</ng-template>\r\n",
                 exportAs: 'abpAuthWrapper'
             }] }
 ];
@@ -866,11 +867,17 @@ AuthWrapperComponent.propDecorators = {
     mainContentRef: [{ type: Input }],
     cancelContentRef: [{ type: Input }]
 };
+__decorate([
+    Select(ConfigState.getDeep('multiTenancy.isEnabled')),
+    __metadata("design:type", Observable)
+], AuthWrapperComponent.prototype, "isMultiTenancyEnabled$", void 0);
 if (false) {
     /** @type {?} */
     AuthWrapperComponent.prototype.mainContentRef;
     /** @type {?} */
     AuthWrapperComponent.prototype.cancelContentRef;
+    /** @type {?} */
+    AuthWrapperComponent.prototype.isMultiTenancyEnabled$;
     /** @type {?} */
     AuthWrapperComponent.prototype.enableLocalLogin;
     /**
@@ -902,7 +909,6 @@ AccountModule.decorators = [
                     CoreModule,
                     AccountRoutingModule,
                     ThemeSharedModule,
-                    TableModule,
                     NgbDropdownModule,
                     NgxValidateCoreModule,
                 ],

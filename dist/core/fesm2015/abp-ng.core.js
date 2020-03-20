@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Injector, Input, Injectable, ɵɵdefineInjectable, ɵɵinject, NgZone, Optional, SkipSelf, Directive, ElementRef, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, EventEmitter, Self, Output, Renderer2, ComponentFactoryResolver, Pipe, InjectionToken, Inject, LOCALE_ID, APP_INITIALIZER, NgModule } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, Input, Injectable, ɵɵdefineInjectable, ɵɵinject, NgZone, Optional, SkipSelf, Directive, ElementRef, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, EventEmitter, Self, Output, Renderer2, ComponentFactoryResolver, INJECTOR, Pipe, InjectionToken, Inject, LOCALE_ID, APP_INITIALIZER, NgModule } from '@angular/core';
 import { __rest, __awaiter, __decorate, __metadata } from 'tslib';
 import { Router, NavigationEnd, ActivatedRoute, RouterModule } from '@angular/router';
 import { Store, ofActionSuccessful, Actions, Action, Selector, State, createSelector, Select, actionMatcher, InitState, UpdateState, setValue, NGXS_PLUGINS, NgxsModule } from '@ngxs/store';
@@ -13,7 +13,6 @@ import clone from 'just-clone';
 import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Navigate, NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
-import { takeUntilDestroy as takeUntilDestroy$1 } from '@ngx-validate/core';
 
 /**
  * @fileoverview added by tsickle
@@ -203,6 +202,21 @@ if (false) {
     AddRoute.type;
     /** @type {?} */
     AddRoute.prototype.payload;
+}
+class SetEnvironment {
+    /**
+     * @param {?} environment
+     */
+    constructor(environment) {
+        this.environment = environment;
+    }
+}
+SetEnvironment.type = '[Config] Set Environment';
+if (false) {
+    /** @type {?} */
+    SetEnvironment.type;
+    /** @type {?} */
+    SetEnvironment.prototype.environment;
 }
 
 /**
@@ -983,6 +997,16 @@ SessionState.ctorParameters = () => [
     { type: Store },
     { type: Actions }
 ];
+SessionState.decorators = [
+    { type: Injectable }
+];
+/** @nocollapse */
+SessionState.ctorParameters = () => [
+    { type: LocalizationService },
+    { type: OAuthService },
+    { type: Store },
+    { type: Actions }
+];
 __decorate([
     Action(SetLanguage),
     __metadata("design:type", Function),
@@ -1204,29 +1228,28 @@ let ConfigState = ConfigState_1 = class ConfigState {
          * @return {?}
          */
         (state) => {
-            if (keyword) {
-                /** @type {?} */
-                const keys = snq((/**
-                 * @return {?}
-                 */
-                () => Object.keys(state.setting.values).filter((/**
-                 * @param {?} key
-                 * @return {?}
-                 */
-                key => key.indexOf(keyword) > -1))), []);
-                if (keys.length) {
-                    return keys.reduce((/**
-                     * @param {?} acc
-                     * @param {?} key
-                     * @return {?}
-                     */
-                    (acc, key) => (Object.assign({}, acc, { [key]: state.setting.values[key] }))), {});
-                }
-            }
-            return snq((/**
+            /** @type {?} */
+            const settings = snq((/**
              * @return {?}
              */
             () => state.setting.values), {});
+            if (!keyword)
+                return settings;
+            /** @type {?} */
+            const keysFound = Object.keys(settings).filter((/**
+             * @param {?} key
+             * @return {?}
+             */
+            key => key.indexOf(keyword) > -1));
+            return keysFound.reduce((/**
+             * @param {?} acc
+             * @param {?} key
+             * @return {?}
+             */
+            (acc, key) => {
+                acc[key] = settings[key];
+                return acc;
+            }), {});
         }));
         return selector;
     }
@@ -1306,7 +1329,11 @@ let ConfigState = ConfigState_1 = class ConfigState {
         (state) => {
             if (!state.localization)
                 return defaultValue || key;
-            const { defaultResourceName } = state.environment.localization;
+            /** @type {?} */
+            const defaultResourceName = snq((/**
+             * @return {?}
+             */
+            () => state.environment.localization.defaultResourceName));
             if (keys[0] === '') {
                 if (!defaultResourceName) {
                     throw new Error(`Please check your environment. May you forget set defaultResourceName?
@@ -1317,10 +1344,7 @@ let ConfigState = ConfigState_1 = class ConfigState {
                   }
                }`);
                 }
-                keys[0] = snq((/**
-                 * @return {?}
-                 */
-                () => defaultResourceName));
+                keys[0] = defaultResourceName;
             }
             /** @type {?} */
             let localization = ((/** @type {?} */ (keys))).reduce((/**
@@ -1426,7 +1450,7 @@ let ConfigState = ConfigState_1 = class ConfigState {
                 return;
             /** @type {?} */
             const parent = flattedRoutes[index];
-            if (parent.url.replace('/', '')) {
+            if ((parent.url || '').replace('/', '')) {
                 route.url = `${parent.url}/${route.path}`;
             }
             else {
@@ -1481,7 +1505,25 @@ let ConfigState = ConfigState_1 = class ConfigState {
             flattedRoutes,
         });
     }
+    /**
+     * @param {?} __0
+     * @param {?} environment
+     * @return {?}
+     */
+    setEnvironment({ patchState }, environment) {
+        return patchState({
+            environment,
+        });
+    }
 };
+ConfigState.ctorParameters = () => [
+    { type: ApplicationConfigurationService },
+    { type: Store }
+];
+ConfigState.decorators = [
+    { type: Injectable }
+];
+/** @nocollapse */
 ConfigState.ctorParameters = () => [
     { type: ApplicationConfigurationService },
     { type: Store }
@@ -1504,6 +1546,12 @@ __decorate([
     __metadata("design:paramtypes", [Object, AddRoute]),
     __metadata("design:returntype", void 0)
 ], ConfigState.prototype, "addRoute", null);
+__decorate([
+    Action(SetEnvironment),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", void 0)
+], ConfigState.prototype, "setEnvironment", null);
 __decorate([
     Selector(),
     __metadata("design:type", Function),
@@ -1655,7 +1703,7 @@ class DynamicLayoutComponent {
         this.router = router;
         this.route = route;
         this.store = store;
-        const { requirements: { layouts }, routes } = this.store.selectSnapshot(ConfigState.getAll);
+        const { requirements: { layouts }, routes, } = this.store.selectSnapshot(ConfigState.getAll);
         if ((this.route.snapshot.data || {}).layout) {
             this.layout = layouts
                 .filter((/**
@@ -1672,13 +1720,19 @@ class DynamicLayoutComponent {
              */
             () => l.type.toLowerCase().indexOf(this.route.snapshot.data.layout)), -1) > -1));
         }
-        this.router.events.pipe(takeUntilDestroy(this)).subscribe((/**
+        router.events.pipe(takeUntilDestroy(this)).subscribe((/**
          * @param {?} event
          * @return {?}
          */
         event => {
             if (event instanceof NavigationEnd) {
-                const { segments } = this.router.parseUrl(event.url).root.children.primary;
+                /** @type {?} */
+                const segments = snq((/**
+                 * @return {?}
+                 */
+                () => router.parseUrl(event.url).root.children.primary.segments), (/** @type {?} */ ([
+                    { path: router.url.replace('/', '') },
+                ])));
                 /** @type {?} */
                 const layout = (this.route.snapshot.data || {}).layout || findLayout(segments, routes);
                 this.layout = layouts
@@ -1709,7 +1763,9 @@ DynamicLayoutComponent.decorators = [
                 template: `
     <ng-container *ngTemplateOutlet="layout ? componentOutlet : routerOutlet"></ng-container>
     <ng-template #routerOutlet><router-outlet></router-outlet></ng-template>
-    <ng-template #componentOutlet><ng-container *ngComponentOutlet="layout"></ng-container></ng-template>
+    <ng-template #componentOutlet
+      ><ng-container *ngComponentOutlet="layout"></ng-container
+    ></ng-template>
   `
             }] }
 ];
@@ -1842,6 +1898,9 @@ let ReplaceableComponentsState = ReplaceableComponentsState_1 = class Replaceabl
         });
     }
 };
+ReplaceableComponentsState.decorators = [
+    { type: Injectable }
+];
 __decorate([
     Action(AddReplaceableComponent),
     __metadata("design:type", Function),
@@ -2691,6 +2750,13 @@ let ProfileState = class ProfileState {
 ProfileState.ctorParameters = () => [
     { type: ProfileService }
 ];
+ProfileState.decorators = [
+    { type: Injectable }
+];
+/** @nocollapse */
+ProfileState.ctorParameters = () => [
+    { type: ProfileService }
+];
 __decorate([
     Action(GetProfile),
     __metadata("design:type", Function),
@@ -3222,11 +3288,11 @@ const eLayoutType = {
 class AuthGuard {
     /**
      * @param {?} oauthService
-     * @param {?} router
+     * @param {?} injector
      */
-    constructor(oauthService, router) {
+    constructor(oauthService, injector) {
         this.oauthService = oauthService;
-        this.router = router;
+        this.injector = injector;
     }
     /**
      * @param {?} _
@@ -3235,11 +3301,13 @@ class AuthGuard {
      */
     canActivate(_, state) {
         /** @type {?} */
+        const router = this.injector.get(Router);
+        /** @type {?} */
         const hasValidAccessToken = this.oauthService.hasValidAccessToken();
         if (hasValidAccessToken) {
             return hasValidAccessToken;
         }
-        return this.router.createUrlTree(['/account/login'], { state: { redirectUrl: state.url } });
+        return router.createUrlTree(['/account/login'], { state: { redirectUrl: state.url } });
     }
 }
 AuthGuard.decorators = [
@@ -3250,9 +3318,9 @@ AuthGuard.decorators = [
 /** @nocollapse */
 AuthGuard.ctorParameters = () => [
     { type: OAuthService },
-    { type: Router }
+    { type: Injector }
 ];
-/** @nocollapse */ AuthGuard.ngInjectableDef = ɵɵdefineInjectable({ factory: function AuthGuard_Factory() { return new AuthGuard(ɵɵinject(OAuthService), ɵɵinject(Router)); }, token: AuthGuard, providedIn: "root" });
+/** @nocollapse */ AuthGuard.ngInjectableDef = ɵɵdefineInjectable({ factory: function AuthGuard_Factory() { return new AuthGuard(ɵɵinject(OAuthService), ɵɵinject(INJECTOR)); }, token: AuthGuard, providedIn: "root" });
 if (false) {
     /**
      * @type {?}
@@ -3263,7 +3331,7 @@ if (false) {
      * @type {?}
      * @private
      */
-    AuthGuard.prototype.router;
+    AuthGuard.prototype.injector;
 }
 
 /**
@@ -3675,6 +3743,210 @@ var Config;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/dtos.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @template T
+ */
+class ListResultDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        for (const key in initialValues) {
+            if (initialValues.hasOwnProperty(key)) {
+                this[key] = initialValues[key];
+            }
+        }
+    }
+}
+if (false) {
+    /** @type {?} */
+    ListResultDto.prototype.items;
+}
+/**
+ * @template T
+ */
+class PagedResultDto extends ListResultDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    PagedResultDto.prototype.totalCount;
+}
+class LimitedResultRequestDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        this.maxResultCount = 10;
+        for (const key in initialValues) {
+            if (initialValues.hasOwnProperty(key)) {
+                this[key] = initialValues[key];
+            }
+        }
+    }
+}
+if (false) {
+    /** @type {?} */
+    LimitedResultRequestDto.prototype.maxResultCount;
+}
+class PagedResultRequestDto extends LimitedResultRequestDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    PagedResultRequestDto.prototype.skipCount;
+}
+class PagedAndSortedResultRequestDto extends PagedResultRequestDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    PagedAndSortedResultRequestDto.prototype.sorting;
+}
+/**
+ * @template TKey
+ */
+class EntityDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        for (const key in initialValues) {
+            if (initialValues.hasOwnProperty(key)) {
+                this[key] = initialValues[key];
+            }
+        }
+    }
+}
+if (false) {
+    /** @type {?} */
+    EntityDto.prototype.id;
+}
+/**
+ * @template TPrimaryKey
+ */
+class CreationAuditedEntityDto extends EntityDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    CreationAuditedEntityDto.prototype.creationTime;
+    /** @type {?} */
+    CreationAuditedEntityDto.prototype.creatorId;
+}
+/**
+ * @template TUserDto, TPrimaryKey
+ */
+class CreationAuditedEntityWithUserDto extends CreationAuditedEntityDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    CreationAuditedEntityWithUserDto.prototype.creator;
+}
+/**
+ * @template TPrimaryKey
+ */
+class AuditedEntityDto extends CreationAuditedEntityDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    AuditedEntityDto.prototype.lastModificationTime;
+    /** @type {?} */
+    AuditedEntityDto.prototype.lastModifierId;
+}
+/**
+ * @template TUserDto, TPrimaryKey
+ */
+class AuditedEntityWithUserDto extends AuditedEntityDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    AuditedEntityWithUserDto.prototype.creator;
+    /** @type {?} */
+    AuditedEntityWithUserDto.prototype.lastModifier;
+}
+/**
+ * @template TPrimaryKey
+ */
+class FullAuditedEntityDto extends AuditedEntityDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    FullAuditedEntityDto.prototype.isDeleted;
+    /** @type {?} */
+    FullAuditedEntityDto.prototype.deleterId;
+    /** @type {?} */
+    FullAuditedEntityDto.prototype.deletionTime;
+}
+/**
+ * @template TUserDto, TPrimaryKey
+ */
+class FullAuditedEntityWithUserDto extends FullAuditedEntityDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    FullAuditedEntityWithUserDto.prototype.creator;
+    /** @type {?} */
+    FullAuditedEntityWithUserDto.prototype.lastModifier;
+    /** @type {?} */
+    FullAuditedEntityWithUserDto.prototype.deleter;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/models/profile.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -4037,7 +4309,7 @@ class ConfigPlugin {
         const matches = actionMatcher(event);
         /** @type {?} */
         const isInitAction = matches(InitState) || matches(UpdateState);
-        if (isInitAction && !this.initialized) {
+        if (isInitAction && !this.initialized && getAbpRoutes().length) {
             /** @type {?} */
             const transformedRoutes = transformRoutes(this.router.config);
             let { routes } = transformedRoutes;
@@ -4232,6 +4504,25 @@ class AuthService {
             this.store.dispatch(new Navigate([redirectUrl]));
         })), take(1));
     }
+    /**
+     * @return {?}
+     */
+    logout() {
+        /** @type {?} */
+        const issuer = this.store.selectSnapshot(ConfigState.getDeep('environment.oAuthConfig.issuer'));
+        return this.rest
+            .request({
+            method: 'GET',
+            url: '/api/account/logout',
+        }, null, issuer)
+            .pipe(switchMap((/**
+         * @return {?}
+         */
+        () => {
+            this.oAuthService.logOut();
+            return this.store.dispatch(new GetAppConfiguration());
+        })));
+    }
 }
 AuthService.decorators = [
     { type: Injectable, args: [{
@@ -4368,6 +4659,13 @@ class ConfigStateService {
      */
     dispatchAddRoute(...args) {
         return this.store.dispatch(new AddRoute(...args));
+    }
+    /**
+     * @param {...?} args
+     * @return {?}
+     */
+    dispatchSetEnvironment(...args) {
+        return this.store.dispatch(new SetEnvironment(...args));
     }
 }
 ConfigStateService.decorators = [
@@ -4672,7 +4970,7 @@ class InputEventDebounceDirective {
      */
     ngOnInit() {
         fromEvent(this.el.nativeElement, 'input')
-            .pipe(debounceTime(this.debounce), takeUntilDestroy$1(this))
+            .pipe(debounceTime(this.debounce), takeUntilDestroy(this))
             .subscribe((/**
          * @param {?} event
          * @return {?}
@@ -4953,5 +5251,5 @@ CoreModule.decorators = [
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AbstractNgModelComponent, AddReplaceableComponent, AddRoute, ApiInterceptor, ApplicationConfigurationService, AuthGuard, AuthService, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, ForDirective, FormSubmitDirective, GetAppConfiguration, GetProfile, InitDirective, LazyLoadService, LocalizationPipe, LocalizationService, ModifyOpenedTabCount, NGXS_CONFIG_PLUGIN_OPTIONS, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetLanguage, SetRemember, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, storageFactory, takeUntilDestroy, uuid, ReplaceableComponentsState as ɵa, AddReplaceableComponent as ɵb, EllipsisDirective as ɵba, ForDirective as ɵbb, FormSubmitDirective as ɵbc, LocalizationPipe as ɵbd, SortPipe as ɵbe, InitDirective as ɵbf, PermissionDirective as ɵbg, VisibilityDirective as ɵbh, InputEventDebounceDirective as ɵbi, StopPropagationDirective as ɵbj, ReplaceableTemplateDirective as ɵbk, AbstractNgModelComponent as ɵbl, LocaleId as ɵbm, LocaleProvider as ɵbn, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbo, ConfigPlugin as ɵbp, ApiInterceptor as ɵbq, getInitialData as ɵbr, localeInitializer as ɵbs, ProfileState as ɵd, ProfileService as ɵe, RestService as ɵf, GetProfile as ɵg, UpdateProfile as ɵh, ChangePassword as ɵi, SessionState as ɵk, LocalizationService as ɵl, SetLanguage as ɵm, SetTenant as ɵn, ModifyOpenedTabCount as ɵo, SetRemember as ɵp, ConfigState as ɵr, ApplicationConfigurationService as ɵs, PatchRouteByName as ɵt, GetAppConfiguration as ɵu, AddRoute as ɵv, ReplaceableRouteContainerComponent as ɵw, RouterOutletComponent as ɵx, DynamicLayoutComponent as ɵy, AutofocusDirective as ɵz };
+export { AbstractNgModelComponent, AddReplaceableComponent, AddRoute, ApiInterceptor, ApplicationConfigurationService, AuditedEntityDto, AuditedEntityWithUserDto, AuthGuard, AuthService, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, CreationAuditedEntityDto, CreationAuditedEntityWithUserDto, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, EntityDto, ForDirective, FormSubmitDirective, FullAuditedEntityDto, FullAuditedEntityWithUserDto, GetAppConfiguration, GetProfile, InitDirective, LazyLoadService, LimitedResultRequestDto, ListResultDto, LocalizationPipe, LocalizationService, ModifyOpenedTabCount, NGXS_CONFIG_PLUGIN_OPTIONS, PagedAndSortedResultRequestDto, PagedResultDto, PagedResultRequestDto, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetEnvironment, SetLanguage, SetRemember, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, storageFactory, takeUntilDestroy, uuid, ReplaceableComponentsState as ɵa, AddReplaceableComponent as ɵb, DynamicLayoutComponent as ɵba, AutofocusDirective as ɵbb, EllipsisDirective as ɵbc, ForDirective as ɵbd, FormSubmitDirective as ɵbe, LocalizationPipe as ɵbf, SortPipe as ɵbg, InitDirective as ɵbh, PermissionDirective as ɵbi, VisibilityDirective as ɵbj, InputEventDebounceDirective as ɵbk, StopPropagationDirective as ɵbl, ReplaceableTemplateDirective as ɵbm, AbstractNgModelComponent as ɵbn, LocaleId as ɵbo, LocaleProvider as ɵbp, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbq, ConfigPlugin as ɵbr, ApiInterceptor as ɵbs, getInitialData as ɵbt, localeInitializer as ɵbu, ProfileState as ɵd, ProfileService as ɵe, RestService as ɵf, GetProfile as ɵg, UpdateProfile as ɵh, ChangePassword as ɵi, SessionState as ɵk, LocalizationService as ɵl, SetLanguage as ɵm, SetTenant as ɵn, ModifyOpenedTabCount as ɵo, SetRemember as ɵp, ConfigState as ɵr, ApplicationConfigurationService as ɵs, PatchRouteByName as ɵt, GetAppConfiguration as ɵu, AddRoute as ɵv, SetEnvironment as ɵw, ReplaceableRouteContainerComponent as ɵy, RouterOutletComponent as ɵz };
 //# sourceMappingURL=abp-ng.core.js.map

@@ -1,6 +1,6 @@
 {
   "name": "@fs/feature-management",
-  "version": "",
+  "version": "0.0.0",
   "dependencies": {
     "@abp/ng.feature-management": "",
     "tslib": "^1.9.0"

@@ -1,6 +1,5 @@
-import { addAbpRoutes, RestService, noop, CoreModule } from '@abp/ng.core';
-import { Injectable, ɵɵdefineInjectable, ɵɵinject, InjectionToken, NgModule, APP_INITIALIZER } from '@angular/core';
-import { Router } from '@angular/router';
+import { addAbpRoutes, noop, CoreModule } from '@abp/ng.core';
+import { Injectable, ɵɵdefineInjectable, InjectionToken, NgModule, APP_INITIALIZER } from '@angular/core';
 import { __assign } from 'tslib';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 
@@ -10,9 +9,7 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var AccountConfigService = /** @class */ (function () {
-    function AccountConfigService(router, restService) {
-        this.router = router;
-        this.restService = restService;
+    function AccountConfigService() {
         addAbpRoutes({
             name: 'AbpAccount::Menu:Account',
             path: 'account',
@@ -31,25 +28,10 @@ var AccountConfigService = /** @class */ (function () {
                 },] }
     ];
     /** @nocollapse */
-    AccountConfigService.ctorParameters = function () { return [
-        { type: Router },
-        { type: RestService }
-    ]; };
-    /** @nocollapse */ AccountConfigService.ngInjectableDef = ɵɵdefineInjectable({ factory: function AccountConfigService_Factory() { return new AccountConfigService(ɵɵinject(Router), ɵɵinject(RestService)); }, token: AccountConfigService, providedIn: "root" });
+    AccountConfigService.ctorParameters = function () { return []; };
+    /** @nocollapse */ AccountConfigService.ngInjectableDef = ɵɵdefineInjectable({ factory: function AccountConfigService_Factory() { return new AccountConfigService(); }, token: AccountConfigService, providedIn: "root" });
     return AccountConfigService;
 }());
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    AccountConfigService.prototype.router;
-    /**
-     * @type {?}
-     * @private
-     */
-    AccountConfigService.prototype.restService;
-}
 
 /**
  * @fileoverview added by tsickle

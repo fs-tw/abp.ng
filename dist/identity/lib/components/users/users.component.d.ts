@@ -5,10 +5,12 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Identity } from '../../models/identity';
+import { IdentityService } from '../../services/identity.service';
 export declare class UsersComponent implements OnInit {
     private confirmationService;
     private fb;
     private store;
+    private identityService;
     data$: Observable<Identity.UserItem[]>;
     totalCount$: Observable<number>;
     modalContent: TemplateRef<any>;
@@ -29,7 +31,7 @@ export declare class UsersComponent implements OnInit {
     trackByFn: TrackByFunction<AbstractControl>;
     onVisiblePermissionChange: (event: any) => void;
     readonly roleGroups: FormGroup[];
-    constructor(confirmationService: ConfirmationService, fb: FormBuilder, store: Store);
+    constructor(confirmationService: ConfirmationService, fb: FormBuilder, store: Store, identityService: IdentityService);
     ngOnInit(): void;
     onSearch(value: string): void;
     buildForm(): void;
@@ -40,4 +42,5 @@ export declare class UsersComponent implements OnInit {
     delete(id: string, userName: string): void;
     onPageChange(page: number): void;
     get(): void;
+    openPermissionsModal(providerKey: string): void;
 }

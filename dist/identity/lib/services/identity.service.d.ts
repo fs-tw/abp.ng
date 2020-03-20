@@ -5,6 +5,7 @@ export declare class IdentityService {
     private rest;
     constructor(rest: RestService);
     getRoles(params?: ABP.PageQueryParams): Observable<Identity.RoleResponse>;
+    getAllRoles(): Observable<Identity.RoleResponse>;
     getRoleById(id: string): Observable<Identity.RoleItem>;
     deleteRole(id: string): Observable<Identity.RoleItem>;
     createRole(body: Identity.RoleSaveRequest): Observable<Identity.RoleItem>;

@@ -1,5 +1,7 @@
+import { Injector } from '@angular/core';
 import { Store } from '@ngxs/store';
 export declare class SettingManagementConfigService {
-    private store;
-    constructor(store: Store);
+    private injector;
+    readonly store: Store;
+    constructor(injector: Injector);
 }

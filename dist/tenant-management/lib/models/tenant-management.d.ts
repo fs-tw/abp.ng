@@ -10,10 +10,13 @@ export declare namespace TenantManagement {
         name: string;
     }
     interface AddRequest {
+        adminEmailAddress: string;
+        adminPassword: string;
         name: string;
     }
-    interface UpdateRequest extends AddRequest {
+    interface UpdateRequest {
         id: string;
+        name: string;
     }
     interface DefaultConnectionStringRequest {
         id: string;

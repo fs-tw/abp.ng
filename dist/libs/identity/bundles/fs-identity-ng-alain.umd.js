@@ -208,11 +208,12 @@
      */
     var UsersComponent = /** @class */ (function (_super) {
         __extends(UsersComponent, _super);
-        function UsersComponent(_confirmationService, _fb, _store) {
-            var _this = _super.call(this, _confirmationService, _fb, _store) || this;
+        function UsersComponent(_confirmationService, _fb, _store, _identityService) {
+            var _this = _super.call(this, _confirmationService, _fb, _store, _identityService) || this;
             _this._confirmationService = _confirmationService;
             _this._fb = _fb;
             _this._store = _store;
+            _this._identityService = _identityService;
             return _this;
         }
         UsersComponent.decorators = [
@@ -225,7 +226,8 @@
         UsersComponent.ctorParameters = function () { return [
             { type: ng_theme_shared.ConfirmationService },
             { type: forms.FormBuilder },
-            { type: store.Store }
+            { type: store.Store },
+            { type: ng_identity.IdentityService }
         ]; };
         return UsersComponent;
     }(ng_identity.UsersComponent));
@@ -245,6 +247,11 @@
          * @private
          */
         UsersComponent.prototype._store;
+        /**
+         * @type {?}
+         * @private
+         */
+        UsersComponent.prototype._identityService;
     }
 
     /**

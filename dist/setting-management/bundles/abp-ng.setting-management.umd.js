@@ -257,6 +257,9 @@
                 selectedTab: payload,
             });
         };
+        SettingManagementState.decorators = [
+            { type: core.Injectable }
+        ];
         __decorate([
             store.Action(SetSelectedSettingTab),
             __metadata("design:type", Function),
@@ -284,8 +287,7 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var SettingManagementComponent = /** @class */ (function () {
-        function SettingManagementComponent(router, store) {
-            this.router = router;
+        function SettingManagementComponent(store) {
             this.store = store;
             this.settings = [];
             this.trackByFn = (/**
@@ -330,7 +332,9 @@
              * @param {?} setting
              * @return {?}
              */
-            function (setting) { return _this.store.selectSnapshot(ng_core.ConfigState.getGrantedPolicy(setting.requiredPolicy)); }))
+            function (setting) {
+                return _this.store.selectSnapshot(ng_core.ConfigState.getGrantedPolicy(setting.requiredPolicy));
+            }))
                 .sort((/**
              * @param {?} a
              * @param {?} b
@@ -349,7 +353,6 @@
         ];
         /** @nocollapse */
         SettingManagementComponent.ctorParameters = function () { return [
-            { type: router.Router },
             { type: store.Store }
         ]; };
         return SettingManagementComponent;
@@ -359,11 +362,6 @@
         SettingManagementComponent.prototype.settings;
         /** @type {?} */
         SettingManagementComponent.prototype.trackByFn;
-        /**
-         * @type {?}
-         * @private
-         */
-        SettingManagementComponent.prototype.router;
         /**
          * @type {?}
          * @private

@@ -1,7 +1,7 @@
 import { ConfigState, DynamicLayoutComponent, ReplaceableRouteContainerComponent, CoreModule } from '@abp/ng.core';
 import { getSettingTabs, ThemeSharedModule } from '@abp/ng.theme.shared';
-import { Component, NgModule } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Injectable, Component, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { Action, Selector, State, Store, NgxsModule } from '@ngxs/store';
 import { __decorate, __metadata } from 'tslib';
 
@@ -61,6 +61,9 @@ var SettingManagementState = /** @class */ (function () {
             selectedTab: payload,
         });
     };
+    SettingManagementState.decorators = [
+        { type: Injectable }
+    ];
     __decorate([
         Action(SetSelectedSettingTab),
         __metadata("design:type", Function),
@@ -88,8 +91,7 @@ var SettingManagementState = /** @class */ (function () {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var SettingManagementComponent = /** @class */ (function () {
-    function SettingManagementComponent(router, store) {
-        this.router = router;
+    function SettingManagementComponent(store) {
         this.store = store;
         this.settings = [];
         this.trackByFn = (/**
@@ -134,7 +136,9 @@ var SettingManagementComponent = /** @class */ (function () {
          * @param {?} setting
          * @return {?}
          */
-        function (setting) { return _this.store.selectSnapshot(ConfigState.getGrantedPolicy(setting.requiredPolicy)); }))
+        function (setting) {
+            return _this.store.selectSnapshot(ConfigState.getGrantedPolicy(setting.requiredPolicy));
+        }))
             .sort((/**
          * @param {?} a
          * @param {?} b
@@ -153,7 +157,6 @@ var SettingManagementComponent = /** @class */ (function () {
     ];
     /** @nocollapse */
     SettingManagementComponent.ctorParameters = function () { return [
-        { type: Router },
         { type: Store }
     ]; };
     return SettingManagementComponent;
@@ -163,11 +166,6 @@ if (false) {
     SettingManagementComponent.prototype.settings;
     /** @type {?} */
     SettingManagementComponent.prototype.trackByFn;
-    /**
-     * @type {?}
-     * @private
-     */
-    SettingManagementComponent.prototype.router;
     /**
      * @type {?}
      * @private

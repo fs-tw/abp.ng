@@ -34,4 +34,5 @@ export declare class RolesComponent implements OnInit {
     onPageChange(page: number): void;
     get(): void;
     onClickSaveButton(): void;
+    openPermissionsModal(providerKey: string): void;
 }

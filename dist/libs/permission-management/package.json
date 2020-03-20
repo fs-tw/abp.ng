@@ -1,6 +1,6 @@
 {
   "name": "@fs/permission-management",
-  "version": "",
+  "version": "0.0.0",
   "dependencies": {
     "@abp/ng.permission-management": "",
     "tslib": "^1.9.0"

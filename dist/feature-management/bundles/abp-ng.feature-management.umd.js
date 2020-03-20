@@ -373,6 +373,13 @@
         FeatureManagementState.ctorParameters = function () { return [
             { type: FeatureManagementService }
         ]; };
+        FeatureManagementState.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        FeatureManagementState.ctorParameters = function () { return [
+            { type: FeatureManagementService }
+        ]; };
         __decorate([
             store.Action(GetFeatures),
             __metadata("design:type", Function),
