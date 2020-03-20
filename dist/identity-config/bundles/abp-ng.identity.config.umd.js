@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@angular/core'), require('@angular/router')) :
-    typeof define === 'function' && define.amd ? define('@abp/ng.identity.config', ['exports', '@abp/ng.core', '@angular/core', '@angular/router'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.identity = global.abp.ng.identity || {}, global.abp.ng.identity.config = {}), global.ng_core, global.ng.core, global.ng.router));
-}(this, (function (exports, ng_core, core, router) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@angular/core')) :
+    typeof define === 'function' && define.amd ? define('@abp/ng.identity.config', ['exports', '@abp/ng.core', '@angular/core'], factory) :
+    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.identity = global.abp.ng.identity || {}, global.abp.ng.identity.config = {}), global.ng_core, global.ng.core));
+}(this, (function (exports, ng_core, core) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
@@ -10,9 +10,7 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var IdentityConfigService = /** @class */ (function () {
-        function IdentityConfigService(router, restService) {
-            this.router = router;
-            this.restService = restService;
+        function IdentityConfigService() {
             ng_core.addAbpRoutes([
                 {
                     name: 'AbpUiNavigation::Menu:Administration',
@@ -29,8 +27,18 @@
                     layout: "application" /* application */,
                     iconClass: 'fa fa-id-card-o',
                     children: [
-                        { path: 'roles', name: 'AbpIdentity::Roles', order: 1, requiredPolicy: 'AbpIdentity.Roles' },
-                        { path: 'users', name: 'AbpIdentity::Users', order: 2, requiredPolicy: 'AbpIdentity.Users' },
+                        {
+                            path: 'roles',
+                            name: 'AbpIdentity::Roles',
+                            order: 1,
+                            requiredPolicy: 'AbpIdentity.Roles',
+                        },
+                        {
+                            path: 'users',
+                            name: 'AbpIdentity::Users',
+                            order: 2,
+                            requiredPolicy: 'AbpIdentity.Users',
+                        },
                     ],
                 },
             ]);
@@ -41,25 +49,10 @@
                     },] }
         ];
         /** @nocollapse */
-        IdentityConfigService.ctorParameters = function () { return [
-            { type: router.Router },
-            { type: ng_core.RestService }
-        ]; };
-        /** @nocollapse */ IdentityConfigService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function IdentityConfigService_Factory() { return new IdentityConfigService(core.ɵɵinject(router.Router), core.ɵɵinject(ng_core.RestService)); }, token: IdentityConfigService, providedIn: "root" });
+        IdentityConfigService.ctorParameters = function () { return []; };
+        /** @nocollapse */ IdentityConfigService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function IdentityConfigService_Factory() { return new IdentityConfigService(); }, token: IdentityConfigService, providedIn: "root" });
         return IdentityConfigService;
     }());
-    if (false) {
-        /**
-         * @type {?}
-         * @private
-         */
-        IdentityConfigService.prototype.router;
-        /**
-         * @type {?}
-         * @private
-         */
-        IdentityConfigService.prototype.restService;
-    }
 
     /**
      * @fileoverview added by tsickle

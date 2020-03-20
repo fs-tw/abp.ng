@@ -9,4 +9,5 @@ export declare class AuthService {
     private options;
     constructor(rest: RestService, oAuthService: OAuthService, store: Store, options: any);
     login(username: string, password: string): Observable<any>;
+    logout(): Observable<void>;
 }

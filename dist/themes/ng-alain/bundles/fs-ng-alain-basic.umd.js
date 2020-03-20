@@ -1008,77 +1008,109 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var SidebarComponent = /** @class */ (function () {
-        function SidebarComponent(settings, menuService, localizationPipe) {
+        function SidebarComponent(configStateService, settings, menuService, localizationPipe) {
             var _this = this;
+            this.configStateService = configStateService;
             this.settings = settings;
             this.menuService = menuService;
             this.localizationPipe = localizationPipe;
-            this.routes$.pipe(operators.map((/**
-             * @param {?} routes
+            this.auth$.pipe(operators.tap((/**
+             * @param {?} x
              * @return {?}
              */
-            function (routes) { return getVisibleRoutes(routes); }))).subscribe((/**
-             * @param {?} routes
-             * @return {?}
-             */
-            function (routes) {
+            function (x) {
                 /** @type {?} */
-                var result = [];
-                routes.forEach((/**
-                 * @param {?} first
+                var routes = _this.configStateService.getOne('routes');
+                _this.setMenu(routes);
+            }))).subscribe();
+        }
+        /**
+         * @param {?} routes
+         * @return {?}
+         */
+        SidebarComponent.prototype.setMenu = /**
+         * @param {?} routes
+         * @return {?}
+         */
+        function (routes) {
+            var _this = this;
+            /** @type {?} */
+            var result = [];
+            /** @type {?} */
+            var condition = (/**
+             * @param {?} x
+             * @return {?}
+             */
+            function (x) { return !!!x.invisible && _this.isGrantedPolicy(x.requiredPolicy); });
+            routes.filter(condition).forEach((/**
+             * @param {?} first
+             * @return {?}
+             */
+            function (first) {
+                /** @type {?} */
+                var group = {
+                    text: _this.localizationPipe.transform(first.name),
+                    group: true,
+                    hideInBreadcrumb: true,
+                    children: []
+                };
+                result.push(group);
+                first.children.filter(condition).forEach((/**
+                 * @param {?} second
                  * @return {?}
                  */
-                function (first) {
-                    /** @type {?} */
-                    var group = {
-                        text: _this.localizationPipe.transform(first.name),
-                        group: true,
-                        hideInBreadcrumb: true,
-                        children: []
-                    };
-                    result.push(group);
-                    first.children.forEach((/**
-                     * @param {?} second
-                     * @return {?}
-                     */
-                    function (second) {
-                        if (second.children.length === 0) {
+                function (second) {
+                    if (second.children.length === 0) {
+                        /** @type {?} */
+                        var left = {
+                            text: _this.localizationPipe.transform(second.name),
+                            link: second.url,
+                            icon: second.iconClass
+                        };
+                        if (left.link.split('/').length > 2)
+                            group.children.push(left);
+                    }
+                    if (second.children.length != 0) {
+                        /** @type {?} */
+                        var node_1 = {
+                            text: _this.localizationPipe.transform(second.name),
+                            icon: second.iconClass,
+                            children: []
+                        };
+                        group.children.push(node_1);
+                        second.children.filter(condition).forEach((/**
+                         * @param {?} third
+                         * @return {?}
+                         */
+                        function (third) {
                             /** @type {?} */
                             var left = {
-                                text: _this.localizationPipe.transform(second.name),
-                                link: second.url,
-                                icon: second.iconClass
+                                text: _this.localizationPipe.transform(third.name),
+                                link: third.url,
+                                icon: third.iconClass
                             };
-                            group.children.push(left);
-                        }
-                        if (second.children.length != 0) {
-                            /** @type {?} */
-                            var node_1 = {
-                                text: _this.localizationPipe.transform(second.name),
-                                icon: second.iconClass,
-                                children: []
-                            };
-                            group.children.push(node_1);
-                            second.children.forEach((/**
-                             * @param {?} third
-                             * @return {?}
-                             */
-                            function (third) {
-                                /** @type {?} */
-                                var left = {
-                                    text: _this.localizationPipe.transform(third.name),
-                                    link: third.url,
-                                    icon: third.iconClass
-                                };
-                                node_1.children.push(left);
-                            }));
-                        }
-                    }));
+                            node_1.children.push(left);
+                        }));
+                    }
                 }));
-                _this.menuService.clear();
-                _this.menuService.add(result);
             }));
-        }
+            this.menuService.clear();
+            this.menuService.add(result);
+        };
+        /**
+         * @param {?} requiredPolicy
+         * @return {?}
+         */
+        SidebarComponent.prototype.isGrantedPolicy = /**
+         * @param {?} requiredPolicy
+         * @return {?}
+         */
+        function (requiredPolicy) {
+            if (!!requiredPolicy) {
+                return this.configStateService.getGrantedPolicy(requiredPolicy);
+            }
+            return true;
+        };
         SidebarComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'layout-sidebar',
@@ -1088,19 +1120,22 @@
         ];
         /** @nocollapse */
         SidebarComponent.ctorParameters = function () { return [
+            { type: ng_core.ConfigStateService },
             { type: theme.SettingsService },
             { type: theme.MenuService },
             { type: ng_core.LocalizationPipe }
         ]; };
         __decorate([
-            store.Select(ng_core.ConfigState.getOne('routes')),
+            store.Select(ng_core.ConfigState.getOne('auth')),
             __metadata("design:type", rxjs.Observable)
-        ], SidebarComponent.prototype, "routes$", void 0);
+        ], SidebarComponent.prototype, "auth$", void 0);
         return SidebarComponent;
     }());
     if (false) {
         /** @type {?} */
-        SidebarComponent.prototype.routes$;
+        SidebarComponent.prototype.auth$;
+        /** @type {?} */
+        SidebarComponent.prototype.configStateService;
         /** @type {?} */
         SidebarComponent.prototype.settings;
         /**
@@ -1113,25 +1148,6 @@
          * @private
          */
         SidebarComponent.prototype.localizationPipe;
-    }
-    /**
-     * @param {?} routes
-     * @return {?}
-     */
-    function getVisibleRoutes(routes) {
-        return routes.reduce((/**
-         * @param {?} acc
-         * @param {?} val
-         * @return {?}
-         */
-        function (acc, val) {
-            if (val.invisible)
-                return acc;
-            if (val.children && val.children.length) {
-                val.children = getVisibleRoutes(val.children);
-            }
-            return __spread(acc, [val]);
-        }), []);
     }
 
     /**

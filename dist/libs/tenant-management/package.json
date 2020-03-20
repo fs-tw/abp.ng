@@ -1,6 +1,6 @@
 {
   "name": "@fs/tenant-management",
-  "version": "",
+  "version": "0.0.0",
   "dependencies": {
     "@abp/ng.tenant-management": "",
     "tslib": "^1.9.0"

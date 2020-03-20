@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/router'), require('@ngxs/store'), require('rxjs'), require('snq'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/common'), require('angular-oauth2-oidc'), require('just-compare'), require('just-clone'), require('@angular/forms'), require('@ngxs/router-plugin'), require('@ngxs/storage-plugin'), require('@ngx-validate/core')) :
-    typeof define === 'function' && define.amd ? define('@abp/ng.core', ['exports', '@angular/core', '@angular/router', '@ngxs/store', 'rxjs', 'snq', 'rxjs/operators', '@angular/common/http', '@angular/common', 'angular-oauth2-oidc', 'just-compare', 'just-clone', '@angular/forms', '@ngxs/router-plugin', '@ngxs/storage-plugin', '@ngx-validate/core'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.core = {}), global.ng.core, global.ng.router, global.store, global.rxjs, global.snq, global.rxjs.operators, global.ng.common.http, global.ng.common, global.angularOauth2Oidc, global.compare, global.clone, global.ng.forms, global.routerPlugin, global.storagePlugin, global.core$1));
-}(this, (function (exports, core, router, store, rxjs, snq, operators, http, common, angularOauth2Oidc, compare, clone, forms, routerPlugin, storagePlugin, core$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/router'), require('@ngxs/store'), require('rxjs'), require('snq'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/common'), require('angular-oauth2-oidc'), require('just-compare'), require('just-clone'), require('@angular/forms'), require('@ngxs/router-plugin'), require('@ngxs/storage-plugin')) :
+    typeof define === 'function' && define.amd ? define('@abp/ng.core', ['exports', '@angular/core', '@angular/router', '@ngxs/store', 'rxjs', 'snq', 'rxjs/operators', '@angular/common/http', '@angular/common', 'angular-oauth2-oidc', 'just-compare', 'just-clone', '@angular/forms', '@ngxs/router-plugin', '@ngxs/storage-plugin'], factory) :
+    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.core = {}), global.ng.core, global.ng.router, global.store, global.rxjs, global.snq, global.rxjs.operators, global.ng.common.http, global.ng.common, global.angularOauth2Oidc, global.compare, global.clone, global.ng.forms, global.routerPlugin, global.storagePlugin));
+}(this, (function (exports, core, router, store, rxjs, snq, operators, http, common, angularOauth2Oidc, compare, clone, forms, routerPlugin, storagePlugin) { 'use strict';
 
     snq = snq && snq.hasOwnProperty('default') ? snq['default'] : snq;
     compare = compare && compare.hasOwnProperty('default') ? compare['default'] : compare;
@@ -417,6 +417,19 @@
         AddRoute.type;
         /** @type {?} */
         AddRoute.prototype.payload;
+    }
+    var SetEnvironment = /** @class */ (function () {
+        function SetEnvironment(environment) {
+            this.environment = environment;
+        }
+        SetEnvironment.type = '[Config] Set Environment';
+        return SetEnvironment;
+    }());
+    if (false) {
+        /** @type {?} */
+        SetEnvironment.type;
+        /** @type {?} */
+        SetEnvironment.prototype.environment;
     }
 
     /**
@@ -1289,6 +1302,16 @@
             { type: store.Store },
             { type: store.Actions }
         ]; };
+        SessionState.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        SessionState.ctorParameters = function () { return [
+            { type: LocalizationService },
+            { type: angularOauth2Oidc.OAuthService },
+            { type: store.Store },
+            { type: store.Actions }
+        ]; };
         __decorate([
             store.Action(SetLanguage),
             __metadata("design:type", Function),
@@ -1547,32 +1570,28 @@
              * @return {?}
              */
             function (state) {
-                if (keyword) {
-                    /** @type {?} */
-                    var keys = snq((/**
-                     * @return {?}
-                     */
-                    function () { return Object.keys(state.setting.values).filter((/**
-                     * @param {?} key
-                     * @return {?}
-                     */
-                    function (key) { return key.indexOf(keyword) > -1; })); }), []);
-                    if (keys.length) {
-                        return keys.reduce((/**
-                         * @param {?} acc
-                         * @param {?} key
-                         * @return {?}
-                         */
-                        function (acc, key) {
-                            var _a;
-                            return (__assign({}, acc, (_a = {}, _a[key] = state.setting.values[key], _a)));
-                        }), {});
-                    }
-                }
-                return snq((/**
+                /** @type {?} */
+                var settings = snq((/**
                  * @return {?}
                  */
                 function () { return state.setting.values; }), {});
+                if (!keyword)
+                    return settings;
+                /** @type {?} */
+                var keysFound = Object.keys(settings).filter((/**
+                 * @param {?} key
+                 * @return {?}
+                 */
+                function (key) { return key.indexOf(keyword) > -1; }));
+                return keysFound.reduce((/**
+                 * @param {?} acc
+                 * @param {?} key
+                 * @return {?}
+                 */
+                function (acc, key) {
+                    acc[key] = settings[key];
+                    return acc;
+                }), {});
             }));
             return selector;
         };
@@ -1665,15 +1684,16 @@
             function (state) {
                 if (!state.localization)
                     return defaultValue || key;
-                var defaultResourceName = state.environment.localization.defaultResourceName;
+                /** @type {?} */
+                var defaultResourceName = snq((/**
+                 * @return {?}
+                 */
+                function () { return state.environment.localization.defaultResourceName; }));
                 if (keys[0] === '') {
                     if (!defaultResourceName) {
                         throw new Error("Please check your environment. May you forget set defaultResourceName?\n              Here is the example:\n               { production: false,\n                 localization: {\n                   defaultResourceName: 'MyProjectName'\n                  }\n               }");
                     }
-                    keys[0] = snq((/**
-                     * @return {?}
-                     */
-                    function () { return defaultResourceName; }));
+                    keys[0] = defaultResourceName;
                 }
                 /** @type {?} */
                 var localization = ((/** @type {?} */ (keys))).reduce((/**
@@ -1801,7 +1821,7 @@
                     return;
                 /** @type {?} */
                 var parent_1 = flattedRoutes[index];
-                if (parent_1.url.replace('/', '')) {
+                if ((parent_1.url || '').replace('/', '')) {
                     route.url = parent_1.url + "/" + route.path;
                 }
                 else {
@@ -1856,7 +1876,31 @@
                 flattedRoutes: flattedRoutes,
             });
         };
+        /**
+         * @param {?} __0
+         * @param {?} environment
+         * @return {?}
+         */
+        ConfigState.prototype.setEnvironment = /**
+         * @param {?} __0
+         * @param {?} environment
+         * @return {?}
+         */
+        function (_a, environment) {
+            var patchState = _a.patchState;
+            return patchState({
+                environment: environment,
+            });
+        };
         var ConfigState_1;
+        ConfigState.ctorParameters = function () { return [
+            { type: ApplicationConfigurationService },
+            { type: store.Store }
+        ]; };
+        ConfigState.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
         ConfigState.ctorParameters = function () { return [
             { type: ApplicationConfigurationService },
             { type: store.Store }
@@ -1879,6 +1923,12 @@
             __metadata("design:paramtypes", [Object, AddRoute]),
             __metadata("design:returntype", void 0)
         ], ConfigState.prototype, "addRoute", null);
+        __decorate([
+            store.Action(SetEnvironment),
+            __metadata("design:type", Function),
+            __metadata("design:paramtypes", [Object, Object]),
+            __metadata("design:returntype", void 0)
+        ], ConfigState.prototype, "setEnvironment", null);
         __decorate([
             store.Selector(),
             __metadata("design:type", Function),
@@ -2045,18 +2095,26 @@
                  * @param {?} l
                  * @return {?}
                  */
-                function (l) { return snq((/**
-                 * @return {?}
-                 */
-                function () { return l.type.toLowerCase().indexOf(_this.route.snapshot.data.layout); }), -1) > -1; }));
+                function (l) {
+                    return snq((/**
+                     * @return {?}
+                     */
+                    function () { return l.type.toLowerCase().indexOf(_this.route.snapshot.data.layout); }), -1) > -1;
+                }));
             }
-            this.router.events.pipe(takeUntilDestroy(this)).subscribe((/**
+            router$1.events.pipe(takeUntilDestroy(this)).subscribe((/**
              * @param {?} event
              * @return {?}
              */
             function (event) {
                 if (event instanceof router.NavigationEnd) {
-                    var segments = _this.router.parseUrl(event.url).root.children.primary.segments;
+                    /** @type {?} */
+                    var segments = snq((/**
+                     * @return {?}
+                     */
+                    function () { return router$1.parseUrl(event.url).root.children.primary.segments; }), (/** @type {?} */ ([
+                        { path: router$1.url.replace('/', '') },
+                    ])));
                     /** @type {?} */
                     var layout_1 = (_this.route.snapshot.data || {}).layout || findLayout(segments, routes);
                     _this.layout = layouts
@@ -2086,7 +2144,7 @@
         DynamicLayoutComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'abp-dynamic-layout',
-                        template: "\n    <ng-container *ngTemplateOutlet=\"layout ? componentOutlet : routerOutlet\"></ng-container>\n    <ng-template #routerOutlet><router-outlet></router-outlet></ng-template>\n    <ng-template #componentOutlet><ng-container *ngComponentOutlet=\"layout\"></ng-container></ng-template>\n  "
+                        template: "\n    <ng-container *ngTemplateOutlet=\"layout ? componentOutlet : routerOutlet\"></ng-container>\n    <ng-template #routerOutlet><router-outlet></router-outlet></ng-template>\n    <ng-template #componentOutlet\n      ><ng-container *ngComponentOutlet=\"layout\"></ng-container\n    ></ng-template>\n  "
                     }] }
         ];
         /** @nocollapse */
@@ -2243,6 +2301,9 @@
             });
         };
         var ReplaceableComponentsState_1;
+        ReplaceableComponentsState.decorators = [
+            { type: core.Injectable }
+        ];
         __decorate([
             store.Action(AddReplaceableComponent),
             __metadata("design:type", Function),
@@ -3176,6 +3237,13 @@
         ProfileState.ctorParameters = function () { return [
             { type: ProfileService }
         ]; };
+        ProfileState.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        ProfileState.ctorParameters = function () { return [
+            { type: ProfileService }
+        ]; };
         __decorate([
             store.Action(GetProfile),
             __metadata("design:type", Function),
@@ -3753,9 +3821,9 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var AuthGuard = /** @class */ (function () {
-        function AuthGuard(oauthService, router) {
+        function AuthGuard(oauthService, injector) {
             this.oauthService = oauthService;
-            this.router = router;
+            this.injector = injector;
         }
         /**
          * @param {?} _
@@ -3769,11 +3837,13 @@
          */
         function (_, state) {
             /** @type {?} */
+            var router$1 = this.injector.get(router.Router);
+            /** @type {?} */
             var hasValidAccessToken = this.oauthService.hasValidAccessToken();
             if (hasValidAccessToken) {
                 return hasValidAccessToken;
             }
-            return this.router.createUrlTree(['/account/login'], { state: { redirectUrl: state.url } });
+            return router$1.createUrlTree(['/account/login'], { state: { redirectUrl: state.url } });
         };
         AuthGuard.decorators = [
             { type: core.Injectable, args: [{
@@ -3783,9 +3853,9 @@
         /** @nocollapse */
         AuthGuard.ctorParameters = function () { return [
             { type: angularOauth2Oidc.OAuthService },
-            { type: router.Router }
+            { type: core.Injector }
         ]; };
-        /** @nocollapse */ AuthGuard.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function AuthGuard_Factory() { return new AuthGuard(core.ɵɵinject(angularOauth2Oidc.OAuthService), core.ɵɵinject(router.Router)); }, token: AuthGuard, providedIn: "root" });
+        /** @nocollapse */ AuthGuard.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function AuthGuard_Factory() { return new AuthGuard(core.ɵɵinject(angularOauth2Oidc.OAuthService), core.ɵɵinject(core.INJECTOR)); }, token: AuthGuard, providedIn: "root" });
         return AuthGuard;
     }());
     if (false) {
@@ -3798,7 +3868,7 @@
          * @type {?}
          * @private
          */
-        AuthGuard.prototype.router;
+        AuthGuard.prototype.injector;
     }
 
     /**
@@ -4219,6 +4289,234 @@
 
     /**
      * @fileoverview added by tsickle
+     * Generated from: lib/models/dtos.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @template T
+     */
+    var   /**
+     * @template T
+     */
+    ListResultDto = /** @class */ (function () {
+        function ListResultDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            for (var key in initialValues) {
+                if (initialValues.hasOwnProperty(key)) {
+                    this[key] = initialValues[key];
+                }
+            }
+        }
+        return ListResultDto;
+    }());
+    if (false) {
+        /** @type {?} */
+        ListResultDto.prototype.items;
+    }
+    /**
+     * @template T
+     */
+    var   /**
+     * @template T
+     */
+    PagedResultDto = /** @class */ (function (_super) {
+        __extends(PagedResultDto, _super);
+        function PagedResultDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return PagedResultDto;
+    }(ListResultDto));
+    if (false) {
+        /** @type {?} */
+        PagedResultDto.prototype.totalCount;
+    }
+    var LimitedResultRequestDto = /** @class */ (function () {
+        function LimitedResultRequestDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            this.maxResultCount = 10;
+            for (var key in initialValues) {
+                if (initialValues.hasOwnProperty(key)) {
+                    this[key] = initialValues[key];
+                }
+            }
+        }
+        return LimitedResultRequestDto;
+    }());
+    if (false) {
+        /** @type {?} */
+        LimitedResultRequestDto.prototype.maxResultCount;
+    }
+    var PagedResultRequestDto = /** @class */ (function (_super) {
+        __extends(PagedResultRequestDto, _super);
+        function PagedResultRequestDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return PagedResultRequestDto;
+    }(LimitedResultRequestDto));
+    if (false) {
+        /** @type {?} */
+        PagedResultRequestDto.prototype.skipCount;
+    }
+    var PagedAndSortedResultRequestDto = /** @class */ (function (_super) {
+        __extends(PagedAndSortedResultRequestDto, _super);
+        function PagedAndSortedResultRequestDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return PagedAndSortedResultRequestDto;
+    }(PagedResultRequestDto));
+    if (false) {
+        /** @type {?} */
+        PagedAndSortedResultRequestDto.prototype.sorting;
+    }
+    /**
+     * @template TKey
+     */
+    var   /**
+     * @template TKey
+     */
+    EntityDto = /** @class */ (function () {
+        function EntityDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            for (var key in initialValues) {
+                if (initialValues.hasOwnProperty(key)) {
+                    this[key] = initialValues[key];
+                }
+            }
+        }
+        return EntityDto;
+    }());
+    if (false) {
+        /** @type {?} */
+        EntityDto.prototype.id;
+    }
+    /**
+     * @template TPrimaryKey
+     */
+    var   /**
+     * @template TPrimaryKey
+     */
+    CreationAuditedEntityDto = /** @class */ (function (_super) {
+        __extends(CreationAuditedEntityDto, _super);
+        function CreationAuditedEntityDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return CreationAuditedEntityDto;
+    }(EntityDto));
+    if (false) {
+        /** @type {?} */
+        CreationAuditedEntityDto.prototype.creationTime;
+        /** @type {?} */
+        CreationAuditedEntityDto.prototype.creatorId;
+    }
+    /**
+     * @template TUserDto, TPrimaryKey
+     */
+    var   /**
+     * @template TUserDto, TPrimaryKey
+     */
+    CreationAuditedEntityWithUserDto = /** @class */ (function (_super) {
+        __extends(CreationAuditedEntityWithUserDto, _super);
+        function CreationAuditedEntityWithUserDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return CreationAuditedEntityWithUserDto;
+    }(CreationAuditedEntityDto));
+    if (false) {
+        /** @type {?} */
+        CreationAuditedEntityWithUserDto.prototype.creator;
+    }
+    /**
+     * @template TPrimaryKey
+     */
+    var   /**
+     * @template TPrimaryKey
+     */
+    AuditedEntityDto = /** @class */ (function (_super) {
+        __extends(AuditedEntityDto, _super);
+        function AuditedEntityDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return AuditedEntityDto;
+    }(CreationAuditedEntityDto));
+    if (false) {
+        /** @type {?} */
+        AuditedEntityDto.prototype.lastModificationTime;
+        /** @type {?} */
+        AuditedEntityDto.prototype.lastModifierId;
+    }
+    /**
+     * @template TUserDto, TPrimaryKey
+     */
+    var   /**
+     * @template TUserDto, TPrimaryKey
+     */
+    AuditedEntityWithUserDto = /** @class */ (function (_super) {
+        __extends(AuditedEntityWithUserDto, _super);
+        function AuditedEntityWithUserDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return AuditedEntityWithUserDto;
+    }(AuditedEntityDto));
+    if (false) {
+        /** @type {?} */
+        AuditedEntityWithUserDto.prototype.creator;
+        /** @type {?} */
+        AuditedEntityWithUserDto.prototype.lastModifier;
+    }
+    /**
+     * @template TPrimaryKey
+     */
+    var   /**
+     * @template TPrimaryKey
+     */
+    FullAuditedEntityDto = /** @class */ (function (_super) {
+        __extends(FullAuditedEntityDto, _super);
+        function FullAuditedEntityDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return FullAuditedEntityDto;
+    }(AuditedEntityDto));
+    if (false) {
+        /** @type {?} */
+        FullAuditedEntityDto.prototype.isDeleted;
+        /** @type {?} */
+        FullAuditedEntityDto.prototype.deleterId;
+        /** @type {?} */
+        FullAuditedEntityDto.prototype.deletionTime;
+    }
+    /**
+     * @template TUserDto, TPrimaryKey
+     */
+    var   /**
+     * @template TUserDto, TPrimaryKey
+     */
+    FullAuditedEntityWithUserDto = /** @class */ (function (_super) {
+        __extends(FullAuditedEntityWithUserDto, _super);
+        function FullAuditedEntityWithUserDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return FullAuditedEntityWithUserDto;
+    }(FullAuditedEntityDto));
+    if (false) {
+        /** @type {?} */
+        FullAuditedEntityWithUserDto.prototype.creator;
+        /** @type {?} */
+        FullAuditedEntityWithUserDto.prototype.lastModifier;
+        /** @type {?} */
+        FullAuditedEntityWithUserDto.prototype.deleter;
+    }
+
+    /**
+     * @fileoverview added by tsickle
      * Generated from: lib/models/profile.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
@@ -4599,7 +4897,7 @@
             var matches = store.actionMatcher(event);
             /** @type {?} */
             var isInitAction = matches(store.InitState) || matches(store.UpdateState);
-            if (isInitAction && !this.initialized) {
+            if (isInitAction && !this.initialized && getAbpRoutes().length) {
                 /** @type {?} */
                 var transformedRoutes = transformRoutes(this.router.config);
                 var routes = transformedRoutes.routes;
@@ -4798,6 +5096,29 @@
                 function () { return window.history.state.redirectUrl; })) || (_this.options || {}).redirectUrl || '/';
                 _this.store.dispatch(new routerPlugin.Navigate([redirectUrl]));
             })), operators.take(1));
+        };
+        /**
+         * @return {?}
+         */
+        AuthService.prototype.logout = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            /** @type {?} */
+            var issuer = this.store.selectSnapshot(ConfigState.getDeep('environment.oAuthConfig.issuer'));
+            return this.rest
+                .request({
+                method: 'GET',
+                url: '/api/account/logout',
+            }, null, issuer)
+                .pipe(operators.switchMap((/**
+             * @return {?}
+             */
+            function () {
+                _this.oAuthService.logOut();
+                return _this.store.dispatch(new GetAppConfiguration());
+            })));
         };
         AuthService.decorators = [
             { type: core.Injectable, args: [{
@@ -5022,6 +5343,21 @@
                 args[_i] = arguments[_i];
             }
             return this.store.dispatch(new (AddRoute.bind.apply(AddRoute, __spread([void 0], args)))());
+        };
+        /**
+         * @param {...?} args
+         * @return {?}
+         */
+        ConfigStateService.prototype.dispatchSetEnvironment = /**
+         * @param {...?} args
+         * @return {?}
+         */
+        function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            return this.store.dispatch(new (SetEnvironment.bind.apply(SetEnvironment, __spread([void 0], args)))());
         };
         ConfigStateService.decorators = [
             { type: core.Injectable, args: [{
@@ -5400,7 +5736,7 @@
         function () {
             var _this = this;
             rxjs.fromEvent(this.el.nativeElement, 'input')
-                .pipe(operators.debounceTime(this.debounce), core$1.takeUntilDestroy(this))
+                .pipe(operators.debounceTime(this.debounce), takeUntilDestroy(this))
                 .subscribe((/**
              * @param {?} event
              * @return {?}
@@ -5697,6 +6033,8 @@
     exports.AddRoute = AddRoute;
     exports.ApiInterceptor = ApiInterceptor;
     exports.ApplicationConfigurationService = ApplicationConfigurationService;
+    exports.AuditedEntityDto = AuditedEntityDto;
+    exports.AuditedEntityWithUserDto = AuditedEntityWithUserDto;
     exports.AuthGuard = AuthGuard;
     exports.AuthService = AuthService;
     exports.AutofocusDirective = AutofocusDirective;
@@ -5706,19 +6044,29 @@
     exports.ConfigState = ConfigState;
     exports.ConfigStateService = ConfigStateService;
     exports.CoreModule = CoreModule;
+    exports.CreationAuditedEntityDto = CreationAuditedEntityDto;
+    exports.CreationAuditedEntityWithUserDto = CreationAuditedEntityWithUserDto;
     exports.DynamicLayoutComponent = DynamicLayoutComponent;
     exports.ENVIRONMENT = ENVIRONMENT;
     exports.EllipsisDirective = EllipsisDirective;
+    exports.EntityDto = EntityDto;
     exports.ForDirective = ForDirective;
     exports.FormSubmitDirective = FormSubmitDirective;
+    exports.FullAuditedEntityDto = FullAuditedEntityDto;
+    exports.FullAuditedEntityWithUserDto = FullAuditedEntityWithUserDto;
     exports.GetAppConfiguration = GetAppConfiguration;
     exports.GetProfile = GetProfile;
     exports.InitDirective = InitDirective;
     exports.LazyLoadService = LazyLoadService;
+    exports.LimitedResultRequestDto = LimitedResultRequestDto;
+    exports.ListResultDto = ListResultDto;
     exports.LocalizationPipe = LocalizationPipe;
     exports.LocalizationService = LocalizationService;
     exports.ModifyOpenedTabCount = ModifyOpenedTabCount;
     exports.NGXS_CONFIG_PLUGIN_OPTIONS = NGXS_CONFIG_PLUGIN_OPTIONS;
+    exports.PagedAndSortedResultRequestDto = PagedAndSortedResultRequestDto;
+    exports.PagedResultDto = PagedResultDto;
+    exports.PagedResultRequestDto = PagedResultRequestDto;
     exports.PatchRouteByName = PatchRouteByName;
     exports.PermissionDirective = PermissionDirective;
     exports.PermissionGuard = PermissionGuard;
@@ -5733,6 +6081,7 @@
     exports.RouterOutletComponent = RouterOutletComponent;
     exports.SessionState = SessionState;
     exports.SessionStateService = SessionStateService;
+    exports.SetEnvironment = SetEnvironment;
     exports.SetLanguage = SetLanguage;
     exports.SetRemember = SetRemember;
     exports.SetTenant = SetTenant;
@@ -5757,25 +6106,27 @@
     exports.uuid = uuid;
     exports.ɵa = ReplaceableComponentsState;
     exports.ɵb = AddReplaceableComponent;
-    exports.ɵba = EllipsisDirective;
-    exports.ɵbb = ForDirective;
-    exports.ɵbc = FormSubmitDirective;
-    exports.ɵbd = LocalizationPipe;
-    exports.ɵbe = SortPipe;
-    exports.ɵbf = InitDirective;
-    exports.ɵbg = PermissionDirective;
-    exports.ɵbh = VisibilityDirective;
-    exports.ɵbi = InputEventDebounceDirective;
-    exports.ɵbj = StopPropagationDirective;
-    exports.ɵbk = ReplaceableTemplateDirective;
-    exports.ɵbl = AbstractNgModelComponent;
-    exports.ɵbm = LocaleId;
-    exports.ɵbn = LocaleProvider;
-    exports.ɵbo = NGXS_CONFIG_PLUGIN_OPTIONS;
-    exports.ɵbp = ConfigPlugin;
-    exports.ɵbq = ApiInterceptor;
-    exports.ɵbr = getInitialData;
-    exports.ɵbs = localeInitializer;
+    exports.ɵba = DynamicLayoutComponent;
+    exports.ɵbb = AutofocusDirective;
+    exports.ɵbc = EllipsisDirective;
+    exports.ɵbd = ForDirective;
+    exports.ɵbe = FormSubmitDirective;
+    exports.ɵbf = LocalizationPipe;
+    exports.ɵbg = SortPipe;
+    exports.ɵbh = InitDirective;
+    exports.ɵbi = PermissionDirective;
+    exports.ɵbj = VisibilityDirective;
+    exports.ɵbk = InputEventDebounceDirective;
+    exports.ɵbl = StopPropagationDirective;
+    exports.ɵbm = ReplaceableTemplateDirective;
+    exports.ɵbn = AbstractNgModelComponent;
+    exports.ɵbo = LocaleId;
+    exports.ɵbp = LocaleProvider;
+    exports.ɵbq = NGXS_CONFIG_PLUGIN_OPTIONS;
+    exports.ɵbr = ConfigPlugin;
+    exports.ɵbs = ApiInterceptor;
+    exports.ɵbt = getInitialData;
+    exports.ɵbu = localeInitializer;
     exports.ɵd = ProfileState;
     exports.ɵe = ProfileService;
     exports.ɵf = RestService;
@@ -5793,10 +6144,9 @@
     exports.ɵt = PatchRouteByName;
     exports.ɵu = GetAppConfiguration;
     exports.ɵv = AddRoute;
-    exports.ɵw = ReplaceableRouteContainerComponent;
-    exports.ɵx = RouterOutletComponent;
-    exports.ɵy = DynamicLayoutComponent;
-    exports.ɵz = AutofocusDirective;
+    exports.ɵw = SetEnvironment;
+    exports.ɵy = ReplaceableRouteContainerComponent;
+    exports.ɵz = RouterOutletComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

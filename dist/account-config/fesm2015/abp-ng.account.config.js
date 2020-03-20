@@ -1,6 +1,5 @@
-import { addAbpRoutes, RestService, noop, CoreModule } from '@abp/ng.core';
-import { Injectable, ɵɵdefineInjectable, ɵɵinject, InjectionToken, NgModule, APP_INITIALIZER } from '@angular/core';
-import { Router } from '@angular/router';
+import { addAbpRoutes, noop, CoreModule } from '@abp/ng.core';
+import { Injectable, ɵɵdefineInjectable, InjectionToken, NgModule, APP_INITIALIZER } from '@angular/core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 
 /**
@@ -9,13 +8,7 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class AccountConfigService {
-    /**
-     * @param {?} router
-     * @param {?} restService
-     */
-    constructor(router, restService) {
-        this.router = router;
-        this.restService = restService;
+    constructor() {
         addAbpRoutes({
             name: 'AbpAccount::Menu:Account',
             path: 'account',
@@ -35,23 +28,8 @@ AccountConfigService.decorators = [
             },] }
 ];
 /** @nocollapse */
-AccountConfigService.ctorParameters = () => [
-    { type: Router },
-    { type: RestService }
-];
-/** @nocollapse */ AccountConfigService.ngInjectableDef = ɵɵdefineInjectable({ factory: function AccountConfigService_Factory() { return new AccountConfigService(ɵɵinject(Router), ɵɵinject(RestService)); }, token: AccountConfigService, providedIn: "root" });
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    AccountConfigService.prototype.router;
-    /**
-     * @type {?}
-     * @private
-     */
-    AccountConfigService.prototype.restService;
-}
+AccountConfigService.ctorParameters = () => [];
+/** @nocollapse */ AccountConfigService.ngInjectableDef = ɵɵdefineInjectable({ factory: function AccountConfigService_Factory() { return new AccountConfigService(); }, token: AccountConfigService, providedIn: "root" });
 
 /**
  * @fileoverview added by tsickle

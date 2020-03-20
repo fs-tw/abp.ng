@@ -1,4 +1,4 @@
-import { Injectable, ɵɵdefineInjectable, ɵɵinject, NgModule, APP_INITIALIZER } from '@angular/core';
+import { Injectable, Injector, ɵɵdefineInjectable, ɵɵinject, INJECTOR, NgModule, APP_INITIALIZER } from '@angular/core';
 import { addAbpRoutes, PatchRouteByName, noop } from '@abp/ng.core';
 import { getSettingTabs } from '@abp/ng.theme.shared';
 import { Store } from '@ngxs/store';
@@ -10,10 +10,10 @@ import { Store } from '@ngxs/store';
  */
 class SettingManagementConfigService {
     /**
-     * @param {?} store
+     * @param {?} injector
      */
-    constructor(store) {
-        this.store = store;
+    constructor(injector) {
+        this.injector = injector;
         /** @type {?} */
         const route = (/** @type {?} */ ({
             name: 'AbpSettingManagement::Settings',
@@ -36,6 +36,12 @@ class SettingManagementConfigService {
             }
         }));
     }
+    /**
+     * @return {?}
+     */
+    get store() {
+        return this.injector.get(Store);
+    }
 }
 SettingManagementConfigService.decorators = [
     { type: Injectable, args: [{
@@ -44,15 +50,15 @@ SettingManagementConfigService.decorators = [
 ];
 /** @nocollapse */
 SettingManagementConfigService.ctorParameters = () => [
-    { type: Store }
+    { type: Injector }
 ];
-/** @nocollapse */ SettingManagementConfigService.ngInjectableDef = ɵɵdefineInjectable({ factory: function SettingManagementConfigService_Factory() { return new SettingManagementConfigService(ɵɵinject(Store)); }, token: SettingManagementConfigService, providedIn: "root" });
+/** @nocollapse */ SettingManagementConfigService.ngInjectableDef = ɵɵdefineInjectable({ factory: function SettingManagementConfigService_Factory() { return new SettingManagementConfigService(ɵɵinject(INJECTOR)); }, token: SettingManagementConfigService, providedIn: "root" });
 if (false) {
     /**
      * @type {?}
      * @private
      */
-    SettingManagementConfigService.prototype.store;
+    SettingManagementConfigService.prototype.injector;
 }
 
 /**

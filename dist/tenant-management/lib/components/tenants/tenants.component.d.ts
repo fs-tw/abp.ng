@@ -31,6 +31,7 @@ export declare class TenantsComponent implements OnInit {
     modalBusy: boolean;
     sortOrder: string;
     sortKey: string;
+    readonly hasSelectedTenant: boolean;
     readonly useSharedDatabase: boolean;
     readonly connectionString: string;
     tenantModalTemplate: TemplateRef<any>;
@@ -53,5 +54,6 @@ export declare class TenantsComponent implements OnInit {
     onPageChange(page: number): void;
     get(): void;
     onSharedDatabaseChange(value: boolean): void;
+    openFeaturesModal(providerKey: string): void;
 }
 export {};

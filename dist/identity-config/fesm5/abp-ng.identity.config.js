@@ -1,6 +1,5 @@
-import { addAbpRoutes, RestService, noop } from '@abp/ng.core';
-import { Injectable, ɵɵdefineInjectable, ɵɵinject, NgModule, APP_INITIALIZER } from '@angular/core';
-import { Router } from '@angular/router';
+import { addAbpRoutes, noop } from '@abp/ng.core';
+import { Injectable, ɵɵdefineInjectable, NgModule, APP_INITIALIZER } from '@angular/core';
 
 /**
  * @fileoverview added by tsickle
@@ -8,9 +7,7 @@ import { Router } from '@angular/router';
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 var IdentityConfigService = /** @class */ (function () {
-    function IdentityConfigService(router, restService) {
-        this.router = router;
-        this.restService = restService;
+    function IdentityConfigService() {
         addAbpRoutes([
             {
                 name: 'AbpUiNavigation::Menu:Administration',
@@ -27,8 +24,18 @@ var IdentityConfigService = /** @class */ (function () {
                 layout: "application" /* application */,
                 iconClass: 'fa fa-id-card-o',
                 children: [
-                    { path: 'roles', name: 'AbpIdentity::Roles', order: 1, requiredPolicy: 'AbpIdentity.Roles' },
-                    { path: 'users', name: 'AbpIdentity::Users', order: 2, requiredPolicy: 'AbpIdentity.Users' },
+                    {
+                        path: 'roles',
+                        name: 'AbpIdentity::Roles',
+                        order: 1,
+                        requiredPolicy: 'AbpIdentity.Roles',
+                    },
+                    {
+                        path: 'users',
+                        name: 'AbpIdentity::Users',
+                        order: 2,
+                        requiredPolicy: 'AbpIdentity.Users',
+                    },
                 ],
             },
         ]);
@@ -39,25 +46,10 @@ var IdentityConfigService = /** @class */ (function () {
                 },] }
     ];
     /** @nocollapse */
-    IdentityConfigService.ctorParameters = function () { return [
-        { type: Router },
-        { type: RestService }
-    ]; };
-    /** @nocollapse */ IdentityConfigService.ngInjectableDef = ɵɵdefineInjectable({ factory: function IdentityConfigService_Factory() { return new IdentityConfigService(ɵɵinject(Router), ɵɵinject(RestService)); }, token: IdentityConfigService, providedIn: "root" });
+    IdentityConfigService.ctorParameters = function () { return []; };
+    /** @nocollapse */ IdentityConfigService.ngInjectableDef = ɵɵdefineInjectable({ factory: function IdentityConfigService_Factory() { return new IdentityConfigService(); }, token: IdentityConfigService, providedIn: "root" });
     return IdentityConfigService;
 }());
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    IdentityConfigService.prototype.router;
-    /**
-     * @type {?}
-     * @private
-     */
-    IdentityConfigService.prototype.restService;
-}
 
 /**
  * @fileoverview added by tsickle

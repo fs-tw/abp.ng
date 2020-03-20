@@ -1,13 +1,12 @@
-import { ABP, ApplicationConfiguration, Config, eLayoutType } from '@abp/ng.core';
+import { ABP, ApplicationConfiguration, AuthService, Config, eLayoutType } from '@abp/ng.core';
 import { AfterViewInit, OnDestroy, Renderer2, TemplateRef, TrackByFunction } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { Observable } from 'rxjs';
 import { Layout } from '../../models/layout';
 export declare class ApplicationLayoutComponent implements AfterViewInit, OnDestroy {
     private store;
-    private oauthService;
     private renderer;
+    private authService;
     static type: eLayoutType;
     routes$: Observable<ABP.FullRoute[]>;
     currentUser$: Observable<ApplicationConfiguration.CurrentUser>;
@@ -26,7 +25,7 @@ export declare class ApplicationLayoutComponent implements AfterViewInit, OnDest
     rightPartElements: TemplateRef<any>[];
     trackByFn: TrackByFunction<ABP.FullRoute>;
     trackElementByFn: TrackByFunction<ABP.FullRoute>;
-    constructor(store: Store, oauthService: OAuthService, renderer: Renderer2);
+    constructor(store: Store, renderer: Renderer2, authService: AuthService);
     private checkWindowWidth;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;

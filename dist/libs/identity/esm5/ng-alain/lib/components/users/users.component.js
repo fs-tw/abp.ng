@@ -4,18 +4,19 @@
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 import * as tslib_1 from "tslib";
-import { UsersComponent as AbpUsersComponent } from '@abp/ng.identity';
+import { UsersComponent as AbpUsersComponent, IdentityService } from '@abp/ng.identity';
 import { ConfirmationService } from '@abp/ng.theme.shared';
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngxs/store';
 var UsersComponent = /** @class */ (function (_super) {
     tslib_1.__extends(UsersComponent, _super);
-    function UsersComponent(_confirmationService, _fb, _store) {
-        var _this = _super.call(this, _confirmationService, _fb, _store) || this;
+    function UsersComponent(_confirmationService, _fb, _store, _identityService) {
+        var _this = _super.call(this, _confirmationService, _fb, _store, _identityService) || this;
         _this._confirmationService = _confirmationService;
         _this._fb = _fb;
         _this._store = _store;
+        _this._identityService = _identityService;
         return _this;
     }
     UsersComponent.decorators = [
@@ -28,7 +29,8 @@ var UsersComponent = /** @class */ (function (_super) {
     UsersComponent.ctorParameters = function () { return [
         { type: ConfirmationService },
         { type: FormBuilder },
-        { type: Store }
+        { type: Store },
+        { type: IdentityService }
     ]; };
     return UsersComponent;
 }(AbpUsersComponent));
@@ -49,5 +51,10 @@ if (false) {
      * @private
      */
     UsersComponent.prototype._store;
+    /**
+     * @type {?}
+     * @private
+     */
+    UsersComponent.prototype._identityService;
 }
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXNlcnMuY29tcG9uZW50LmpzIiwic291cmNlUm9vdCI6Im5nOi8vQGZzL2lkZW50aXR5L25nLWFsYWluLyIsInNvdXJjZXMiOlsibGliL2NvbXBvbmVudHMvdXNlcnMvdXNlcnMuY29tcG9uZW50LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLE9BQU8sRUFBRSxjQUFjLElBQUksaUJBQWlCLEVBQUUsTUFBTSxrQkFBa0IsQ0FBQztBQUN2RSxPQUFPLEVBQUUsbUJBQW1CLEVBQUUsTUFBTSxzQkFBc0IsQ0FBQztBQUMzRCxPQUFPLEVBQUUsU0FBUyxFQUFVLE1BQU0sZUFBZSxDQUFDO0FBQ2xELE9BQU8sRUFBRSxXQUFXLEVBQUUsTUFBTSxnQkFBZ0IsQ0FBQztBQUM3QyxPQUFPLEVBQUUsS0FBSyxFQUFFLE1BQU0sYUFBYSxDQUFDO0FBQ3BDO0lBSW9DLDBDQUFpQjtJQUNqRCx3QkFDWSxvQkFBeUMsRUFDekMsR0FBZ0IsRUFDaEIsTUFBYTtRQUh6QixZQUlJLGtCQUFNLG9CQUFvQixFQUFFLEdBQUcsRUFBRSxNQUFNLENBQUMsU0FDM0M7UUFKVywwQkFBb0IsR0FBcEIsb0JBQW9CLENBQXFCO1FBQ3pDLFNBQUcsR0FBSCxHQUFHLENBQWE7UUFDaEIsWUFBTSxHQUFOLE1BQU0sQ0FBTzs7SUFFekIsQ0FBQzs7Z0JBVkosU0FBUyxTQUFDO29CQUNULFFBQVEsRUFBRSxnQkFBZ0I7b0JBQzFCLDg2UUFBcUM7aUJBQ3RDOzs7O2dCQVBRLG1CQUFtQjtnQkFFbkIsV0FBVztnQkFDWCxLQUFLOztJQVlkLHFCQUFDO0NBQUEsQUFYRCxDQUlvQyxpQkFBaUIsR0FPcEQ7U0FQWSxjQUFjOzs7Ozs7SUFFbkIsOENBQWlEOzs7OztJQUNqRCw2QkFBd0I7Ozs7O0lBQ3hCLGdDQUFxQiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IFVzZXJzQ29tcG9uZW50IGFzIEFicFVzZXJzQ29tcG9uZW50IH0gZnJvbSAnQGFicC9uZy5pZGVudGl0eSc7XHJcbmltcG9ydCB7IENvbmZpcm1hdGlvblNlcnZpY2UgfSBmcm9tICdAYWJwL25nLnRoZW1lLnNoYXJlZCc7XHJcbmltcG9ydCB7IENvbXBvbmVudCwgT25Jbml0IH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XHJcbmltcG9ydCB7IEZvcm1CdWlsZGVyIH0gZnJvbSAnQGFuZ3VsYXIvZm9ybXMnO1xyXG5pbXBvcnQgeyBTdG9yZSB9IGZyb20gJ0BuZ3hzL3N0b3JlJztcclxuQENvbXBvbmVudCh7XHJcbiAgc2VsZWN0b3I6ICduZy1hbGFpbi11c2VycycsXHJcbiAgdGVtcGxhdGVVcmw6ICcuL3VzZXJzLmNvbXBvbmVudC5odG1sJyxcclxufSlcclxuZXhwb3J0IGNsYXNzIFVzZXJzQ29tcG9uZW50IGV4dGVuZHMgQWJwVXNlcnNDb21wb25lbnQgaW1wbGVtZW50cyBPbkluaXQge1xyXG4gICAgY29uc3RydWN0b3IoXHJcbiAgICAgICAgcHJpdmF0ZSBfY29uZmlybWF0aW9uU2VydmljZTogQ29uZmlybWF0aW9uU2VydmljZSxcclxuICAgICAgICBwcml2YXRlIF9mYjogRm9ybUJ1aWxkZXIsXHJcbiAgICAgICAgcHJpdmF0ZSBfc3RvcmU6IFN0b3JlKSB7XHJcbiAgICAgICAgc3VwZXIoX2NvbmZpcm1hdGlvblNlcnZpY2UsIF9mYiwgX3N0b3JlKTtcclxuICAgIH1cclxufVxyXG4iXX0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXNlcnMuY29tcG9uZW50LmpzIiwic291cmNlUm9vdCI6Im5nOi8vQGZzL2lkZW50aXR5L25nLWFsYWluLyIsInNvdXJjZXMiOlsibGliL2NvbXBvbmVudHMvdXNlcnMvdXNlcnMuY29tcG9uZW50LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLE9BQU8sRUFBRSxjQUFjLElBQUksaUJBQWlCLEVBQUUsZUFBZSxFQUFFLE1BQU0sa0JBQWtCLENBQUM7QUFDeEYsT0FBTyxFQUFFLG1CQUFtQixFQUFFLE1BQU0sc0JBQXNCLENBQUM7QUFDM0QsT0FBTyxFQUFFLFNBQVMsRUFBVSxNQUFNLGVBQWUsQ0FBQztBQUNsRCxPQUFPLEVBQUUsV0FBVyxFQUFFLE1BQU0sZ0JBQWdCLENBQUM7QUFDN0MsT0FBTyxFQUFFLEtBQUssRUFBRSxNQUFNLGFBQWEsQ0FBQztBQUNwQztJQUlvQywwQ0FBaUI7SUFDakQsd0JBQ1ksb0JBQXlDLEVBQ3pDLEdBQWdCLEVBQ2hCLE1BQWEsRUFDYixnQkFBaUM7UUFKN0MsWUFLSSxrQkFBTSxvQkFBb0IsRUFBRSxHQUFHLEVBQUUsTUFBTSxFQUFDLGdCQUFnQixDQUFDLFNBQzVEO1FBTFcsMEJBQW9CLEdBQXBCLG9CQUFvQixDQUFxQjtRQUN6QyxTQUFHLEdBQUgsR0FBRyxDQUFhO1FBQ2hCLFlBQU0sR0FBTixNQUFNLENBQU87UUFDYixzQkFBZ0IsR0FBaEIsZ0JBQWdCLENBQWlCOztJQUU3QyxDQUFDOztnQkFYSixTQUFTLFNBQUM7b0JBQ1QsUUFBUSxFQUFFLGdCQUFnQjtvQkFDMUIsODZRQUFxQztpQkFDdEM7Ozs7Z0JBUFEsbUJBQW1CO2dCQUVuQixXQUFXO2dCQUNYLEtBQUs7Z0JBSmdDLGVBQWU7O0lBaUI3RCxxQkFBQztDQUFBLEFBWkQsQ0FJb0MsaUJBQWlCLEdBUXBEO1NBUlksY0FBYzs7Ozs7O0lBRW5CLDhDQUFpRDs7Ozs7SUFDakQsNkJBQXdCOzs7OztJQUN4QixnQ0FBcUI7Ozs7O0lBQ3JCLDBDQUF5QyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IFVzZXJzQ29tcG9uZW50IGFzIEFicFVzZXJzQ29tcG9uZW50LCBJZGVudGl0eVNlcnZpY2UgfSBmcm9tICdAYWJwL25nLmlkZW50aXR5JztcclxuaW1wb3J0IHsgQ29uZmlybWF0aW9uU2VydmljZSB9IGZyb20gJ0BhYnAvbmcudGhlbWUuc2hhcmVkJztcclxuaW1wb3J0IHsgQ29tcG9uZW50LCBPbkluaXQgfSBmcm9tICdAYW5ndWxhci9jb3JlJztcclxuaW1wb3J0IHsgRm9ybUJ1aWxkZXIgfSBmcm9tICdAYW5ndWxhci9mb3Jtcyc7XHJcbmltcG9ydCB7IFN0b3JlIH0gZnJvbSAnQG5neHMvc3RvcmUnO1xyXG5AQ29tcG9uZW50KHtcclxuICBzZWxlY3RvcjogJ25nLWFsYWluLXVzZXJzJyxcclxuICB0ZW1wbGF0ZVVybDogJy4vdXNlcnMuY29tcG9uZW50Lmh0bWwnLFxyXG59KVxyXG5leHBvcnQgY2xhc3MgVXNlcnNDb21wb25lbnQgZXh0ZW5kcyBBYnBVc2Vyc0NvbXBvbmVudCBpbXBsZW1lbnRzIE9uSW5pdCB7XHJcbiAgICBjb25zdHJ1Y3RvcihcclxuICAgICAgICBwcml2YXRlIF9jb25maXJtYXRpb25TZXJ2aWNlOiBDb25maXJtYXRpb25TZXJ2aWNlLFxyXG4gICAgICAgIHByaXZhdGUgX2ZiOiBGb3JtQnVpbGRlcixcclxuICAgICAgICBwcml2YXRlIF9zdG9yZTogU3RvcmUsXHJcbiAgICAgICAgcHJpdmF0ZSBfaWRlbnRpdHlTZXJ2aWNlOiBJZGVudGl0eVNlcnZpY2UpIHtcclxuICAgICAgICBzdXBlcihfY29uZmlybWF0aW9uU2VydmljZSwgX2ZiLCBfc3RvcmUsX2lkZW50aXR5U2VydmljZSk7XHJcbiAgICB9XHJcbn1cclxuIl19
