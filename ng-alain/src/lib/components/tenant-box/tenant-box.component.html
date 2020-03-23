@@ -1,11 +1,22 @@
-  <nz-card nzTitle="{{'AbpUiMultiTenancy::Tenant' | abpLocalization}} ({{ tenantName || ('AbpUiMultiTenancy::NotSelected' | abpLocalization) }}) " [nzExtra]="extraTemplate">
+  <nz-card [nzTitle]="cardTitle" [nzExtra]="extraTemplate">
     <ng-content *ngTemplateOutlet="mainContentRef"></ng-content>
   </nz-card>
   <ng-template #extraTemplate>
     <a id="AbpTenantSwitchLink"
        href="javascript:void(0);"
        class="btn btn-sm mt-3 btn-outline-primary"
+       *ngIf="isMultiTenancyEnabled$ | async"
        (click)="onSwitch()">{{ 'AbpUiMultiTenancy::Switch' | abpLocalization }}</a>
+  </ng-template>
+
+  <ng-template #cardTitle>
+    <span *ngIf="isMultiTenancyEnabled$ | async">
+        {{'AbpUiMultiTenancy::Tenant' | abpLocalization}} ({{ tenantName || ('AbpUiMultiTenancy::NotSelected' | abpLocalization) }}) 
+    </span>
+    <span *ngIf="!isMultiTenancyEnabled$ | async">
+        {{'AbpAccount::Login' | abpLocalization}}
+    </span>
+    
   </ng-template>
 
   <nz-modal [nzStyle]="{ top: '20px' }"
@@ -15,7 +26,7 @@
             [nzFooter]="modalFooter"
             (nzOnCancel)="isModalVisible=false">
     <ng-template #modalTitle>
-      Switch Tenan
+      {{'AbpUiMultiTenancy::Tenant' | abpLocalization}}
     </ng-template>
 
     <ng-template #modalContent>

@@ -1,10 +1,9 @@
-import { ABP, SetTenant, SessionState } from '@abp/ng.core';
+import { ABP, SetTenant, SessionState, ConfigState } from '@abp/ng.core';
 import { ToasterService } from '@abp/ng.theme.shared';
 import { Component, OnInit, TemplateRef, Input } from '@angular/core';
-import { Store } from '@ngxs/store';
-import { throwError } from 'rxjs';
-import { catchError, take } from 'rxjs/operators';
-import snq from 'snq';
+import { Store ,Select} from '@ngxs/store';
+import { throwError, Observable } from 'rxjs';
+
 import { AccountService } from '@abp/ng.account';
 import { TenantBoxComponent as AbpTenantBoxComponent,Account} from '@abp/ng.account';
 
@@ -17,6 +16,9 @@ export class TenantBoxComponent
   implements OnInit, Account.TenantBoxComponentInputs, Account.TenantBoxComponentOutputs {
   @Input()
   mainContentRef: TemplateRef<any>;
+
+  @Select(ConfigState.getDeep('multiTenancy.isEnabled'))
+  isMultiTenancyEnabled$: Observable<boolean>;
   constructor(
     private _store: Store,
     private _toasterService: ToasterService,
