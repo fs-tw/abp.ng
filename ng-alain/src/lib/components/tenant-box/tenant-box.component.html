@@ -13,10 +13,6 @@
     <span *ngIf="isMultiTenancyEnabled$ | async">
         {{'AbpUiMultiTenancy::Tenant' | abpLocalization}} ({{ tenantName || ('AbpUiMultiTenancy::NotSelected' | abpLocalization) }}) 
     </span>
-    <span *ngIf="!isMultiTenancyEnabled$ | async">
-        {{'AbpAccount::Login' | abpLocalization}}
-    </span>
-    
   </ng-template>
 
   <nz-modal [nzStyle]="{ top: '20px' }"
