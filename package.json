@@ -84,5 +84,8 @@
     "@delon/testing": "^8.8.0",
     "ng-alain": "^8.8.0",
     "ng-alain-codelyzer": "^0.0.1"
+  },
+  "peerDependencies": {
+    "@fs/core":""
   }
 }

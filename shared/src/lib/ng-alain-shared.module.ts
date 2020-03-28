@@ -1,4 +1,4 @@
-import { CoreModule } from '@abp/ng.core';
+import { CoreModule } from '@fs/core';
 import { NgModule, LOCALE_ID, ModuleWithProviders } from '@angular/core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { SharedModule } from '@fs/ng-alain';
@@ -25,7 +25,7 @@ const LANG_PROVIDES = [
   declarations: [
   ],
   imports: [
-    CoreModule,//abp
+    CoreModule,//fs,abp
     ThemeSharedModule,//abp
     SharedModule,//alain
   ],
