@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace></RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\framework\FS.Abp\src\FS.Abp.AspNetCore.Mvc.JsonSubTypes\FS.Abp.AspNetCore.Mvc.JsonSubTypes.csproj" />
+    <ProjectReference Include="..\..\src\FS.Identity.Application\FS.Identity.Application.csproj" />
+    <ProjectReference Include="..\..\src\FS.Identity.EntityFrameworkCore\FS.Identity.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\src\FS.Identity.HttpApi\FS.Identity.HttpApi.csproj" />
+  </ItemGroup>
+
+</Project>
