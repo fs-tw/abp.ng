@@ -16,27 +16,27 @@ import { NgxAdminBasicModule} from '@fs/ngx-admin/basic'
     imports: [
         //abp
         CoreModule,
-        ThemeSharedModule,
-        ThemeBasicModule,
-        TableModule,
-        NgbDropdownModule,
-        //ngx-admin
+        //ThemeSharedModule,
+        //ThemeBasicModule,
         NgxAdminBasicModule,
-        ThemeModule
+        ThemeModule,
+        TableModule,
+        NgbDropdownModule
+        
+        
         
 
     ],
     exports: [
         //abp
         CoreModule,
-        ThemeSharedModule,
-        ThemeBasicModule,
-        TableModule,
-        NgbDropdownModule,
-        //ngx-admin
+        //ThemeSharedModule,
+        //ThemeBasicModule,
         NgxAdminBasicModule,
-        ThemeModule
-        
+        ThemeModule,
+        TableModule,
+        NgbDropdownModule
+
 
     ],
     providers: [],
