@@ -38,26 +38,4 @@ export const LAYOUTS = [ApplicationLayoutComponent, AccountLayoutComponent, Empt
   ],
   entryComponents: [...LAYOUTS],
 })
-export class NgxAdminBasicModule {
-  constructor(private store: Store) {
-  //   this.store.dispatch(
-  //     new AddReplaceableComponent({
-  //       component: ApplicationLayoutComponent,
-  //       key: 'Theme.ApplicationLayoutComponent',
-  //     })
-  //   );
-  //   this.store.dispatch(
-  //     new AddReplaceableComponent({
-  //       component: AccountLayoutComponent,
-  //       key: 'Theme.AccountLayoutComponent',
-  //     })
-  //   );
-  //   this.store.dispatch(
-  //     new AddReplaceableComponent({
-  //       component: EmptyLayoutComponent,
-  //       key: 'Theme.EmptyLayoutComponent',
-  //     })
-  //   );
-   }
-
-}
+export class NgxAdminBasicModule { }
