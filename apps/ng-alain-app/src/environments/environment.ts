@@ -6,7 +6,7 @@ export const environment = {
     logoUrl: '',
   },
   oAuthConfig: {
-    issuer: 'https://localhost:44334',
+    issuer: 'https://localhost:44305',
     clientId: 'MyProjectName_App',
     dummyClientSecret: '1q2w3e*',
     scope: 'MyProjectName',
@@ -16,7 +16,7 @@ export const environment = {
   },
   apis: {
     default: {
-      url: 'https://localhost:44334',
+      url: 'https://localhost:44305',
     },
   },
   localization: {

@@ -35,7 +35,6 @@ const I18NSERVICE_MODULES = [
 ];
 
 const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
-const AlainLayouts = [LayoutDefaultComponent, LayoutPassportComponent, LayoutFullScreenComponent];
 
 @NgModule({
   declarations: [
@@ -44,10 +43,7 @@ const AlainLayouts = [LayoutDefaultComponent, LayoutPassportComponent, LayoutFul
     ...I18NSERVICE_MODULES,
     //abp
     AbpCoreModule.forRoot({
-      environment,
-      requirements: {
-        layouts: AlainLayouts,
-      },
+      environment
     }),
     ThemeSharedModule.forRoot(),
     AccountConfigModule.forRoot({ redirectUrl: '/' }),

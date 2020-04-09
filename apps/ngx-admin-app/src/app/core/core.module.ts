@@ -31,10 +31,7 @@ const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
   imports: [
     //abp
     AbpCoreModule.forRoot({
-      environment,
-      requirements: {
-        layouts: NgxAdminLayouts,
-      },
+      environment
     }),
     ThemeSharedModule.forRoot(),
     AccountConfigModule.forRoot({ redirectUrl: '/' }),
