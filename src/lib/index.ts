@@ -1,4 +1,3 @@
-export * from './core/index';
-export * from './shared/index';
+export * from './ng-alain.module';
 
 
