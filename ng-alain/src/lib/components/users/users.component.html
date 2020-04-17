@@ -1,44 +1,39 @@
-<nz-page-header class="site-page-header"  [nzTitle]="'AbpIdentity::Users' | abpLocalization">
+<nz-page-header class="site-page-header" [nzTitle]="'AbpIdentity::Users' | abpLocalization">
 </nz-page-header>
 <nz-card [nzBordered]="false">
+  <form nz-form [nzLayout]="'inline'" class="search__form">
+    <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
+      <div nz-col nzMd="8" nzSm="24">
+        <nz-form-item>
+          <nz-form-label nzFor="no">{{'AbpIdentity::PagerSearch' | abpLocalization }}</nz-form-label>
+          <nz-form-control>
+            <input nz-input type="search" [placeholder]="'AbpUi::PagerSearch' | abpLocalization"
+              (input.debounce)="onSearch($event.target.value)" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
   <button nz-button [abpPermission]="'AbpIdentity.Users.Create'" (click)="add()" [nzType]="'primary'">
     <i nz-icon nzType="plus"></i>
     <span>{{ 'AbpIdentity::NewUser' | abpLocalization }}</span>
   </button>
-  <p-table *ngIf="[150, 250, 250, 250] as columnWidths" [value]="data$ | async"
-    [abpTableSort]="{ key: sortKey, order: sortOrder }" [lazy]="true" [lazyLoadOnInit]="false" [paginator]="true"
-    [rows]="10" [totalRecords]="totalCount$ | async" [loading]="loading" [resizableColumns]="true" [scrollable]="true"
-    (onLazyLoad)="onPageChange($event)">
-    <ng-template pTemplate="colgroup">
-      <colgroup>
-        <col *ngFor="let width of columnWidths" [ngStyle]="{ 'width.px': width || undefined }" />
-      </colgroup>
-    </ng-template>
-    <ng-template pTemplate="emptymessage" let-columns>
-      <tr abp-table-empty-message [attr.colspan]="columnWidths.length" localizationResource="AbpIdentity"
-        localizationProp="NoDataAvailableInDatatable"></tr>
-    </ng-template>
-    <ng-template pTemplate="header">
+  <div class="my-md"></div>
+  <nz-table #basicTable [nzData]="data$ | async" [nzPageSize]="pageQuery.maxResultCount" [nzTotal]="totalCount$ | async"
+    [nzLoading]="loading" [nzFrontPagination]="false" (nzPageIndexChange)="onPageChange($event)">
+    <thead>
       <tr>
+        <th>{{ 'AbpIdentity::DisplayName:UserName' | abpLocalization }}</th>
+        <th>{{ 'AbpIdentity::DisplayName:Email' | abpLocalization }}</th>
+        <th>{{ 'AbpIdentity::DisplayName:PhoneNumber' | abpLocalization }}</th>
         <th>{{ 'AbpIdentity::Actions' | abpLocalization }}</th>
-        <th pResizableColumn (click)="sortOrderIcon.sort('userName')">
-          {{ 'AbpIdentity::UserName' | abpLocalization }}
-          <abp-sort-order-icon #sortOrderIcon key="userName" [(selectedSortKey)]="sortKey" [(order)]="sortOrder">
-          </abp-sort-order-icon>
-        </th>
-        <th pResizableColumn (click)="sortOrderIcon.sort('email')">
-          {{ 'AbpIdentity::EmailAddress' | abpLocalization }}
-          <abp-sort-order-icon key="email" [(selectedSortKey)]="sortKey" [(order)]="sortOrder"></abp-sort-order-icon>
-        </th>
-        <th pResizableColumn (click)="sortOrderIcon.sort('phoneNumber')">
-          {{ 'AbpIdentity::PhoneNumber' | abpLocalization }}
-          <abp-sort-order-icon key="phoneNumber" [(selectedSortKey)]="sortKey" [(order)]="sortOrder">
-          </abp-sort-order-icon>
-        </th>
       </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-data>
-      <tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.userName }}</td>
+        <td>{{ data.email }}</td>
+        <td>{{ data.phoneNumber }}</td>
         <td>
           <a class="ant-dropdown-link" nz-dropdown [nzDropdownMenu]="opMenu">
             {{ 'AbpIdentity::Actions' | abpLocalization }}
@@ -53,16 +48,14 @@
                 {{ 'AbpIdentity::Permissions' | abpLocalization }}</li>
               <li nz-menu-item [abpPermission]="'AbpIdentity.Users.Delete'" (click)="delete(data.id, data.userName)">
                 {{ 'AbpIdentity::Delete' | abpLocalization }}</li>
-              <li nz-menu-item (click)="setting(true, data.id)">設定</li>
+              <li nz-menu-item (click)="setting(true, data.id)">{{'AbpSettingManagement::Settings' | abpLocalization}}
+              </li>
             </ul>
           </nz-dropdown-menu>
         </td>
-        <td>{{ data.userName }}</td>
-        <td>{{ data.email }}</td>
-        <td>{{ data.phoneNumber }}</td>
       </tr>
-    </ng-template>
-  </p-table>
+    </tbody>
+  </nz-table>
 </nz-card>
 <nz-modal [nzStyle]="{ top: '20px' }" [(nzVisible)]="isModalVisible" [nzTitle]="modalTitle" [nzContent]="modalContent"
   [nzFooter]="modalFooter" (nzOnCancel)="isModalVisible=false">
