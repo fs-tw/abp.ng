@@ -1,6 +1,6 @@
 
-<nz-page-header class="site-page-header"  [nzTitle]="'AbpIdentity::Roles' | abpLocalization">
-</nz-page-header>
+<page-header [title]="'AbpIdentity::Roles' | abpLocalization" [autoBreadcrumb]="false"></page-header>
+
 <nz-card [nzBordered]="false">
   <button nz-button [abpPermission]="'AbpIdentity.Roles.Create'" (click)="add()" [nzType]="'primary'">
     <i nz-icon nzType="plus"></i>
