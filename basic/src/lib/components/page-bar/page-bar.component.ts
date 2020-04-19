@@ -9,6 +9,9 @@ import { pluck, finalize } from 'rxjs/operators';
 })
 export class PageBarComponent
   implements OnInit {
+
+  title;
+  hideBreadcrumb : boolean = false;
   constructor(private _store: Store) {
   }
   ngOnInit(): void {
