@@ -8,15 +8,13 @@ import { DELON_LOCALE, zh_TW as delonLang } from '@delon/theme';
 import { registerLocaleData } from '@angular/common';
 
 @NgModule({
-  declarations: [
-  ],
   imports: [
     CoreModule,//fs,abp
     ThemeSharedModule,//abp
     SharedModule,//alain
   ],
-  exports: [SharedModule, ThemeSharedModule],
-  entryComponents: [
-  ]
+  exports: [SharedModule, ThemeSharedModule]
 })
-export class NgAlainSharedModule { }
+export class NgAlainSharedModule {
+
+}
