@@ -4,17 +4,10 @@ import { NgAlainSharedModule } from '@fs/ng-alain/shared';
 import { NgModule } from '@angular/core';
 import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
-import { PageBarComponent } from './components/page-bar/page-bar.component';
 import { AddReplaceableComponent } from '@abp/ng.core';
 import { Store } from '@ngxs/store';
 
 @NgModule({
-    declarations: [
-        PageBarComponent
-    ],
-    entryComponents: [
-        PageBarComponent
-    ],
     imports: [
         CoreModule,
         ThemeBasicModule,
@@ -29,9 +22,4 @@ import { Store } from '@ngxs/store';
         SharedModule
     ]
 })
-export class NgAlainBasicModule {
-    constructor(private store: Store) {
-        store.dispatch(new AddReplaceableComponent({ component: PageBarComponent, key: 'Core.PageBarComponent' }));
-    
-      }
- }
+export class NgAlainBasicModule {}
