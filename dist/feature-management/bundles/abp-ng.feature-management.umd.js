@@ -248,6 +248,7 @@
         function FeatureManagementService(rest, store) {
             this.rest = rest;
             this.store = store;
+            this.apiName = 'FeatureManagement';
         }
         /**
          * @param {?} params
@@ -264,7 +265,9 @@
                 url: '/api/abp/features',
                 params: params,
             };
-            return this.rest.request(request);
+            return this.rest.request(request, {
+                apiName: this.apiName,
+            });
         };
         /**
          * @param {?} __0
@@ -283,7 +286,7 @@
                 body: { features: features },
                 params: { providerKey: providerKey, providerName: providerName },
             };
-            return this.rest.request(request);
+            return this.rest.request(request, { apiName: this.apiName });
         };
         FeatureManagementService.decorators = [
             { type: core.Injectable, args: [{
@@ -299,6 +302,8 @@
         return FeatureManagementService;
     }());
     if (false) {
+        /** @type {?} */
+        FeatureManagementService.prototype.apiName;
         /**
          * @type {?}
          * @private
@@ -606,6 +611,22 @@
         ];
         return FeatureManagementModule;
     }());
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/components/index.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/enums/components.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @enum {string} */
+    var eFeatureManagementComponents = {
+        FeatureManagement: "FeatureManagement.FeatureManagementComponent",
+    };
 
     exports.FeatureManagementComponent = FeatureManagementComponent;
     exports.FeatureManagementModule = FeatureManagementModule;

@@ -3,6 +3,7 @@ import { RestService, ABP } from '@abp/ng.core';
 import { Identity } from '../models/identity';
 export declare class IdentityService {
     private rest;
+    apiName: string;
     constructor(rest: RestService);
     getRoles(params?: ABP.PageQueryParams): Observable<Identity.RoleResponse>;
     getAllRoles(): Observable<Identity.RoleResponse>;

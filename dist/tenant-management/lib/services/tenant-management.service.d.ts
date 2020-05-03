@@ -3,6 +3,7 @@ import { RestService, ABP } from '@abp/ng.core';
 import { TenantManagement } from '../models/tenant-management';
 export declare class TenantManagementService {
     private rest;
+    apiName: string;
     constructor(rest: RestService);
     getTenant(params?: ABP.PageQueryParams): Observable<TenantManagement.Response>;
     getTenantById(id: string): Observable<ABP.BasicItem>;

@@ -6,3 +6,6 @@ export declare class LocalizationPipe implements PipeTransform {
     constructor(store: Store);
     transform(value?: string | Config.LocalizationWithDefault, ...interpolateParams: string[]): string;
 }
+export declare class MockLocalizationPipe implements PipeTransform {
+    transform(value?: string | Config.LocalizationWithDefault, ..._: string[]): string;
+}

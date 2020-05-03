@@ -5,6 +5,7 @@ import { FeatureManagement } from '../models';
 export declare class FeatureManagementService {
     private rest;
     private store;
+    apiName: string;
     constructor(rest: RestService, store: Store);
     getFeatures(params: FeatureManagement.Provider): Observable<FeatureManagement.Features>;
     updateFeatures({ features, providerKey, providerName, }: FeatureManagement.Provider & FeatureManagement.Features): Observable<null>;

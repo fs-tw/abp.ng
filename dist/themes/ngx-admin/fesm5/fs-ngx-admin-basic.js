@@ -762,8 +762,6 @@ var NgxAdminBasicModule = /** @class */ (function () {
                         NbUserModule
                     ],
                     exports: __spread([
-                        //abp
-                        CoreModule,
                         ThemeBasicModule,
                         //ngx-admin
                         NgxAdminSharedModule

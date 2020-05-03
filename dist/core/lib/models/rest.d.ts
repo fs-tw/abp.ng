@@ -1,9 +1,10 @@
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 export declare namespace Rest {
-    interface Config {
-        skipHandleError?: boolean;
-        observe?: Observe;
-    }
+    type Config = Partial<{
+        apiName: string;
+        skipHandleError: boolean;
+        observe: Observe;
+    }>;
     const enum Observe {
         Body = "body",
         Events = "events",

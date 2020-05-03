@@ -1,18 +1,18 @@
-import { ChangeDetectorRef, Component, Injector, Input, Injectable, ɵɵdefineInjectable, ɵɵinject, NgZone, Optional, SkipSelf, Directive, ElementRef, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, EventEmitter, Self, Output, Renderer2, ComponentFactoryResolver, INJECTOR, Pipe, InjectionToken, Inject, LOCALE_ID, APP_INITIALIZER, NgModule } from '@angular/core';
-import { __rest, __awaiter, __decorate, __metadata } from 'tslib';
+import { ChangeDetectorRef, Component, Injector, Input, Injectable, ɵɵdefineInjectable, ɵɵinject, InjectionToken, NgZone, Optional, SkipSelf, Directive, ElementRef, EventEmitter, Output, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, Self, Renderer2, ComponentFactoryResolver, Pipe, NgModule, Inject, LOCALE_ID, APP_INITIALIZER, INJECTOR, ApplicationRef } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute, RouterModule } from '@angular/router';
-import { Store, ofActionSuccessful, Actions, Action, Selector, State, createSelector, Select, actionMatcher, InitState, UpdateState, setValue, NGXS_PLUGINS, NgxsModule } from '@ngxs/store';
-import { throwError, noop as noop$1, fromEvent, from, of, Subject, Observable, ReplaySubject } from 'rxjs';
+import { Store, ofActionSuccessful, Actions, Action, Selector, State, createSelector, actionMatcher, InitState, UpdateState, setValue, NgxsModule, NGXS_PLUGINS } from '@ngxs/store';
 import snq from 'snq';
-import { take, tap, catchError, switchMap, takeUntil, distinctUntilChanged, debounceTime, filter, finalize } from 'rxjs/operators';
-import { HttpClient, HttpHeaders, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { registerLocaleData, CommonModule } from '@angular/common';
+import { __rest, __awaiter, __decorate, __metadata } from 'tslib';
+import { throwError, noop as noop$1, fromEvent, from, of, Subject, Observable, concat, ReplaySubject } from 'rxjs';
+import { catchError, tap, take, switchMap, takeUntil, distinctUntilChanged, debounceTime, filter, finalize, retryWhen, delay, shareReplay } from 'rxjs/operators';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS, HttpHeaders } from '@angular/common/http';
+import { registerLocaleData, CommonModule, APP_BASE_HREF } from '@angular/common';
 import { OAuthService, OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
+import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxsRouterPluginModule, Navigate } from '@ngxs/router-plugin';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import compare from 'just-compare';
 import clone from 'just-clone';
-import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Navigate, NgxsRouterPluginModule } from '@ngxs/router-plugin';
-import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
 /**
  * @fileoverview added by tsickle
@@ -417,6 +417,31 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/utils/common-utils.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @return {?}
+ */
+function noop() {
+    // tslint:disable-next-line: only-arrow-functions
+    /** @type {?} */
+    const fn = (/**
+     * @return {?}
+     */
+    function () { });
+    return fn;
+}
+/**
+ * @param {?} value
+ * @return {?}
+ */
+function isUndefinedOrEmptyString(value) {
+    return value === undefined || value === '';
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/services/rest.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -430,14 +455,22 @@ class RestService {
         this.store = store;
     }
     /**
+     * @private
+     * @param {?} apiName
+     * @return {?}
+     */
+    getApiFromStore(apiName) {
+        return this.store.selectSnapshot(ConfigState.getApiUrl(apiName));
+    }
+    /**
      * @param {?} err
      * @return {?}
      */
     handleError(err) {
         this.store.dispatch(new RestOccurError(err));
-        console.error(err);
         return throwError(err);
     }
+    // TODO: Deprecate service or improve interface in v3.0
     /**
      * @template T, R
      * @param {?} request
@@ -447,29 +480,29 @@ class RestService {
      */
     request(request, config, api) {
         config = config || ((/** @type {?} */ ({})));
-        const { observe = "body" /* Body */, skipHandleError } = config;
-        /** @type {?} */
-        const url = (api || this.store.selectSnapshot(ConfigState.getApiUrl())) + request.url;
+        api = api || this.getApiFromStore(config.apiName);
         const { method, params } = request, options = __rest(request, ["method", "params"]);
+        const { observe = "body" /* Body */, skipHandleError } = config;
         return this.http
-            .request(method, url, (/** @type {?} */ (Object.assign({ observe }, (params && {
+            .request(method, api + request.url, (/** @type {?} */ (Object.assign({ observe }, (params && {
             params: Object.keys(params).reduce((/**
              * @param {?} acc
              * @param {?} key
              * @return {?}
              */
-            (acc, key) => (Object.assign({}, acc, (typeof params[key] !== 'undefined' && params[key] !== '' && { [key]: params[key] })))), {}),
+            (acc, key) => {
+                /** @type {?} */
+                const value = params[key];
+                if (!isUndefinedOrEmptyString(value))
+                    acc[key] = value;
+                return acc;
+            }), {}),
         }), options))))
-            .pipe(observe === "body" /* Body */ ? take(1) : tap(), catchError((/**
+            .pipe(catchError((/**
          * @param {?} err
          * @return {?}
          */
-        err => {
-            if (skipHandleError) {
-                return throwError(err);
-            }
-            return this.handleError(err);
-        })));
+        err => (skipHandleError ? throwError(err) : this.handleError(err)))));
     }
 }
 RestService.decorators = [
@@ -504,9 +537,17 @@ if (false) {
 class ApplicationConfigurationService {
     /**
      * @param {?} rest
+     * @param {?} store
      */
-    constructor(rest) {
+    constructor(rest, store) {
         this.rest = rest;
+        this.store = store;
+    }
+    /**
+     * @return {?}
+     */
+    get apiName() {
+        return this.store.selectSnapshot(ConfigState.getDeep('environment.application.name'));
     }
     /**
      * @return {?}
@@ -517,7 +558,9 @@ class ApplicationConfigurationService {
             method: 'GET',
             url: '/api/abp/application-configuration',
         };
-        return this.rest.request(request);
+        return this.rest.request(request, {
+            apiName: this.apiName,
+        });
     }
 }
 ApplicationConfigurationService.decorators = [
@@ -527,15 +570,21 @@ ApplicationConfigurationService.decorators = [
 ];
 /** @nocollapse */
 ApplicationConfigurationService.ctorParameters = () => [
-    { type: RestService }
+    { type: RestService },
+    { type: Store }
 ];
-/** @nocollapse */ ApplicationConfigurationService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ApplicationConfigurationService_Factory() { return new ApplicationConfigurationService(ɵɵinject(RestService)); }, token: ApplicationConfigurationService, providedIn: "root" });
+/** @nocollapse */ ApplicationConfigurationService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ApplicationConfigurationService_Factory() { return new ApplicationConfigurationService(ɵɵinject(RestService), ɵɵinject(Store)); }, token: ApplicationConfigurationService, providedIn: "root" });
 if (false) {
     /**
      * @type {?}
      * @private
      */
     ApplicationConfigurationService.prototype.rest;
+    /**
+     * @type {?}
+     * @private
+     */
+    ApplicationConfigurationService.prototype.store;
 }
 
 /**
@@ -695,6 +744,14 @@ var localesMapping = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/tokens/options.token.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const CORE_OPTIONS = new InjectionToken('CORE_OPTIONS');
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/utils/initial-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -710,9 +767,31 @@ function getInitialData(injector) {
     () => {
         /** @type {?} */
         const store = injector.get(Store);
-        return store.dispatch(new GetAppConfiguration()).toPromise();
+        const { skipGetAppConfiguration } = (/** @type {?} */ (injector.get(CORE_OPTIONS)));
+        if (skipGetAppConfiguration)
+            return;
+        return store
+            .dispatch(new GetAppConfiguration())
+            .pipe(tap((/**
+         * @param {?} res
+         * @return {?}
+         */
+        res => checkAccessToken(store, injector))))
+            .toPromise();
     });
     return fn;
+}
+/**
+ * @param {?} store
+ * @param {?} injector
+ * @return {?}
+ */
+function checkAccessToken(store, injector) {
+    /** @type {?} */
+    const oAuth = injector.get(OAuthService);
+    if (oAuth.hasValidAccessToken() && !store.selectSnapshot(ConfigState.getDeep('currentUser.id'))) {
+        oAuth.logOut();
+    }
 }
 /**
  * @param {?} injector
@@ -1195,7 +1274,7 @@ let ConfigState = ConfigState_1 = class ConfigState {
          * @return {?}
          */
         (state) => {
-            return state.environment.apis[key || 'default'].url;
+            return (state.environment.apis[key || 'default'] || state.environment.apis.default).url;
         }));
         return selector;
     }
@@ -1456,7 +1535,8 @@ let ConfigState = ConfigState_1 = class ConfigState {
             else {
                 route.url = `/${route.path}`;
             }
-            route.order = route.order || route.order === 0 ? route.order : parent.children.length;
+            route.children = route.children || [];
+            route.order = route.order || route.order === 0 ? route.order : (parent.children || []).length;
             parent.children = [...(parent.children || []), route].sort((/**
              * @param {?} a
              * @param {?} b
@@ -1507,10 +1587,10 @@ let ConfigState = ConfigState_1 = class ConfigState {
     }
     /**
      * @param {?} __0
-     * @param {?} environment
+     * @param {?} __1
      * @return {?}
      */
-    setEnvironment({ patchState }, environment) {
+    setEnvironment({ patchState }, { environment }) {
         return patchState({
             environment,
         });
@@ -1549,7 +1629,7 @@ __decorate([
 __decorate([
     Action(SetEnvironment),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [Object, SetEnvironment]),
     __metadata("design:returntype", void 0)
 ], ConfigState.prototype, "setEnvironment", null);
 __decorate([
@@ -1644,202 +1724,6 @@ function updateRouteDeep(routes, parentNameArr, newValue, parentIndex = 0) {
     return routes;
 }
 
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/utils/rxjs-utils.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} value
- * @return {?}
- */
-function isFunction(value) {
-    return typeof value === 'function';
-}
-/** @type {?} */
-const takeUntilDestroy = (/**
- * @param {?} componentInstance
- * @param {?=} destroyMethodName
- * @return {?}
- */
-(componentInstance, destroyMethodName = 'ngOnDestroy') => (/**
- * @template T
- * @param {?} source
- * @return {?}
- */
-(source) => {
-    /** @type {?} */
-    const originalDestroy = componentInstance[destroyMethodName];
-    if (isFunction(originalDestroy) === false) {
-        throw new Error(`${componentInstance.constructor.name} is using untilDestroyed but doesn't implement ${destroyMethodName}`);
-    }
-    if (!componentInstance['__takeUntilDestroy']) {
-        componentInstance['__takeUntilDestroy'] = new Subject();
-        componentInstance[destroyMethodName] = (/**
-         * @return {?}
-         */
-        function () {
-            // tslint:disable-next-line: no-unused-expression
-            isFunction(originalDestroy) && originalDestroy.apply(this, arguments);
-            componentInstance['__takeUntilDestroy'].next(true);
-            componentInstance['__takeUntilDestroy'].complete();
-        });
-    }
-    return source.pipe(takeUntil(componentInstance['__takeUntilDestroy']));
-}));
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/components/dynamic-layout.component.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class DynamicLayoutComponent {
-    /**
-     * @param {?} router
-     * @param {?} route
-     * @param {?} store
-     */
-    constructor(router, route, store) {
-        this.router = router;
-        this.route = route;
-        this.store = store;
-        const { requirements: { layouts }, routes, } = this.store.selectSnapshot(ConfigState.getAll);
-        if ((this.route.snapshot.data || {}).layout) {
-            this.layout = layouts
-                .filter((/**
-             * @param {?} l
-             * @return {?}
-             */
-            l => !!l))
-                .find((/**
-             * @param {?} l
-             * @return {?}
-             */
-            (l) => snq((/**
-             * @return {?}
-             */
-            () => l.type.toLowerCase().indexOf(this.route.snapshot.data.layout)), -1) > -1));
-        }
-        router.events.pipe(takeUntilDestroy(this)).subscribe((/**
-         * @param {?} event
-         * @return {?}
-         */
-        event => {
-            if (event instanceof NavigationEnd) {
-                /** @type {?} */
-                const segments = snq((/**
-                 * @return {?}
-                 */
-                () => router.parseUrl(event.url).root.children.primary.segments), (/** @type {?} */ ([
-                    { path: router.url.replace('/', '') },
-                ])));
-                /** @type {?} */
-                const layout = (this.route.snapshot.data || {}).layout || findLayout(segments, routes);
-                this.layout = layouts
-                    .filter((/**
-                 * @param {?} l
-                 * @return {?}
-                 */
-                l => !!l))
-                    .find((/**
-                 * @param {?} l
-                 * @return {?}
-                 */
-                (l) => snq((/**
-                 * @return {?}
-                 */
-                () => l.type.toLowerCase().indexOf(layout)), -1) > -1));
-            }
-        }));
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() { }
-}
-DynamicLayoutComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'abp-dynamic-layout',
-                template: `
-    <ng-container *ngTemplateOutlet="layout ? componentOutlet : routerOutlet"></ng-container>
-    <ng-template #routerOutlet><router-outlet></router-outlet></ng-template>
-    <ng-template #componentOutlet
-      ><ng-container *ngComponentOutlet="layout"></ng-container
-    ></ng-template>
-  `
-            }] }
-];
-/** @nocollapse */
-DynamicLayoutComponent.ctorParameters = () => [
-    { type: Router },
-    { type: ActivatedRoute },
-    { type: Store }
-];
-__decorate([
-    Select(ConfigState.getOne('requirements')),
-    __metadata("design:type", Observable)
-], DynamicLayoutComponent.prototype, "requirements$", void 0);
-if (false) {
-    /** @type {?} */
-    DynamicLayoutComponent.prototype.requirements$;
-    /** @type {?} */
-    DynamicLayoutComponent.prototype.layout;
-    /**
-     * @type {?}
-     * @private
-     */
-    DynamicLayoutComponent.prototype.router;
-    /**
-     * @type {?}
-     * @private
-     */
-    DynamicLayoutComponent.prototype.route;
-    /**
-     * @type {?}
-     * @private
-     */
-    DynamicLayoutComponent.prototype.store;
-}
-/**
- * @param {?} segments
- * @param {?} routes
- * @return {?}
- */
-function findLayout(segments, routes) {
-    /** @type {?} */
-    let layout = "empty" /* empty */;
-    /** @type {?} */
-    const route = routes
-        .reduce((/**
-     * @param {?} acc
-     * @param {?} val
-     * @return {?}
-     */
-    (acc, val) => (val.wrapper ? [...acc, ...val.children] : [...acc, val])), [])
-        .find((/**
-     * @param {?} r
-     * @return {?}
-     */
-    r => r.path === segments[0].path));
-    if (route) {
-        if (route.layout) {
-            layout = route.layout;
-        }
-        if (route.children && route.children.length && segments.length > 1) {
-            /** @type {?} */
-            const child = route.children.find((/**
-             * @param {?} c
-             * @return {?}
-             */
-            c => c.path === segments[1].path));
-            if (child && child.layout) {
-                layout = child.layout;
-            }
-        }
-    }
-    return layout;
-}
-
 var ReplaceableComponentsState_1;
 let ReplaceableComponentsState = ReplaceableComponentsState_1 = class ReplaceableComponentsState {
     /**
@@ -1919,6 +1803,181 @@ ReplaceableComponentsState = ReplaceableComponentsState_1 = __decorate([
         defaults: (/** @type {?} */ ({ replaceableComponents: [] })),
     })
 ], ReplaceableComponentsState);
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/utils/rxjs-utils.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} value
+ * @return {?}
+ */
+function isFunction(value) {
+    return typeof value === 'function';
+}
+/** @type {?} */
+const takeUntilDestroy = (/**
+ * @param {?} componentInstance
+ * @param {?=} destroyMethodName
+ * @return {?}
+ */
+(componentInstance, destroyMethodName = 'ngOnDestroy') => (/**
+ * @template T
+ * @param {?} source
+ * @return {?}
+ */
+(source) => {
+    /** @type {?} */
+    const originalDestroy = componentInstance[destroyMethodName];
+    if (isFunction(originalDestroy) === false) {
+        throw new Error(`${componentInstance.constructor.name} is using untilDestroyed but doesn't implement ${destroyMethodName}`);
+    }
+    if (!componentInstance['__takeUntilDestroy']) {
+        componentInstance['__takeUntilDestroy'] = new Subject();
+        componentInstance[destroyMethodName] = (/**
+         * @return {?}
+         */
+        function () {
+            // tslint:disable-next-line: no-unused-expression
+            isFunction(originalDestroy) && originalDestroy.apply(this, arguments);
+            componentInstance['__takeUntilDestroy'].next(true);
+            componentInstance['__takeUntilDestroy'].complete();
+        });
+    }
+    return source.pipe(takeUntil(componentInstance['__takeUntilDestroy']));
+}));
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/components/dynamic-layout.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class DynamicLayoutComponent {
+    /**
+     * @param {?} router
+     * @param {?} route
+     * @param {?} store
+     */
+    constructor(router, route, store) {
+        this.router = router;
+        this.route = route;
+        this.store = store;
+        const { routes } = this.store.selectSnapshot(ConfigState.getAll);
+        router.events.pipe(takeUntilDestroy(this)).subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        event => {
+            if (event instanceof NavigationEnd) {
+                /** @type {?} */
+                const segments = snq((/**
+                 * @return {?}
+                 */
+                () => router.parseUrl(event.url).root.children.primary.segments), (/** @type {?} */ ([
+                    { path: router.url.replace('/', '') },
+                ])));
+                /** @type {?} */
+                const layouts = {
+                    application: this.getComponent('Theme.ApplicationLayoutComponent'),
+                    account: this.getComponent('Theme.AccountLayoutComponent'),
+                    empty: this.getComponent('Theme.EmptyLayoutComponent'),
+                };
+                /** @type {?} */
+                const expectedLayout = (this.route.snapshot.data || {}).layout || findLayout(segments, routes);
+                this.layout = layouts[expectedLayout].component;
+            }
+        }));
+    }
+    /**
+     * @private
+     * @param {?} key
+     * @return {?}
+     */
+    getComponent(key) {
+        return this.store.selectSnapshot(ReplaceableComponentsState.getComponent(key));
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() { }
+}
+DynamicLayoutComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-dynamic-layout',
+                template: `
+    <ng-container *ngTemplateOutlet="layout ? componentOutlet : routerOutlet"></ng-container>
+    <ng-template #routerOutlet><router-outlet></router-outlet></ng-template>
+    <ng-template #componentOutlet
+      ><ng-container *ngComponentOutlet="layout"></ng-container
+    ></ng-template>
+  `
+            }] }
+];
+/** @nocollapse */
+DynamicLayoutComponent.ctorParameters = () => [
+    { type: Router },
+    { type: ActivatedRoute },
+    { type: Store }
+];
+if (false) {
+    /** @type {?} */
+    DynamicLayoutComponent.prototype.layout;
+    /**
+     * @type {?}
+     * @private
+     */
+    DynamicLayoutComponent.prototype.router;
+    /**
+     * @type {?}
+     * @private
+     */
+    DynamicLayoutComponent.prototype.route;
+    /**
+     * @type {?}
+     * @private
+     */
+    DynamicLayoutComponent.prototype.store;
+}
+/**
+ * @param {?} segments
+ * @param {?} routes
+ * @return {?}
+ */
+function findLayout(segments, routes) {
+    /** @type {?} */
+    let layout = "empty" /* empty */;
+    /** @type {?} */
+    const route = routes
+        .reduce((/**
+     * @param {?} acc
+     * @param {?} val
+     * @return {?}
+     */
+    (acc, val) => (val.wrapper ? [...acc, ...val.children] : [...acc, val])), [])
+        .find((/**
+     * @param {?} r
+     * @return {?}
+     */
+    r => r.path === segments[0].path));
+    if (route) {
+        if (route.layout) {
+            layout = route.layout;
+        }
+        if (route.children && route.children.length && segments.length > 1) {
+            /** @type {?} */
+            const child = route.children.find((/**
+             * @param {?} c
+             * @return {?}
+             */
+            c => c.path === segments[1].path));
+            if (child && child.layout) {
+                layout = child.layout;
+            }
+        }
+    }
+    return layout;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2061,6 +2120,65 @@ if (false) {
      * @private
      */
     AutofocusDirective.prototype.elRef;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/directives/debounce.directive.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class InputEventDebounceDirective {
+    /**
+     * @param {?} el
+     */
+    constructor(el) {
+        this.el = el;
+        this.debounce = 300;
+        this.debounceEvent = new EventEmitter();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        fromEvent(this.el.nativeElement, 'input')
+            .pipe(debounceTime(this.debounce), takeUntilDestroy(this))
+            .subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event) => {
+            this.debounceEvent.emit(event);
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() { }
+}
+InputEventDebounceDirective.decorators = [
+    { type: Directive, args: [{
+                // tslint:disable-next-line: directive-selector
+                selector: '[input.debounce]',
+            },] }
+];
+/** @nocollapse */
+InputEventDebounceDirective.ctorParameters = () => [
+    { type: ElementRef }
+];
+InputEventDebounceDirective.propDecorators = {
+    debounce: [{ type: Input }],
+    debounceEvent: [{ type: Output, args: ['input.debounce',] }]
+};
+if (false) {
+    /** @type {?} */
+    InputEventDebounceDirective.prototype.debounce;
+    /** @type {?} */
+    InputEventDebounceDirective.prototype.debounceEvent;
+    /**
+     * @type {?}
+     * @private
+     */
+    InputEventDebounceDirective.prototype.el;
 }
 
 /**
@@ -2418,20 +2536,38 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/utils/common-utils.ts
+ * Generated from: lib/utils/number-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
+ * @param {?} value
  * @return {?}
  */
-function noop() {
-    // tslint:disable-next-line: only-arrow-functions
+function isNumber(value) {
+    /* tslint:disable-next-line:triple-equals */
+    return value == Number(value);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/utils/form-utils.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @template T
+ * @param {?} _enum
+ * @return {?}
+ */
+function mapEnumToOptions(_enum) {
     /** @type {?} */
-    const fn = (/**
-     * @return {?}
-     */
-    function () { });
-    return fn;
+    const options = [];
+    for (const member in _enum)
+        if (!isNumber(member))
+            options.push({
+                key: member,
+                value: _enum[member],
+            });
+    return options;
 }
 
 /**
@@ -2439,15 +2575,256 @@ function noop() {
  * Generated from: lib/utils/generator-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+// tslint:disable: no-bitwise
 /**
  * @param {?=} a
  * @return {?}
  */
 function uuid(a) {
     return a
-        ? // tslint:disable-next-line: no-bitwise
-            (a ^ ((Math.random() * 16) >> (a / 4))).toString(16)
+        ? (a ^ ((Math.random() * 16) >> (a / 4))).toString(16)
         : ('' + 1e7 + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, uuid);
+}
+/**
+ * @param {?} value
+ * @return {?}
+ */
+function generateHash(value) {
+    /** @type {?} */
+    let hashed = 0;
+    /** @type {?} */
+    let charCode;
+    for (let i = 0; i < value.length; i++) {
+        charCode = value.charCodeAt(i);
+        hashed = (hashed << 5) - hashed + charCode;
+        hashed |= 0;
+    }
+    return hashed;
+}
+/**
+ * @param {?=} length
+ * @return {?}
+ */
+function generatePassword(length = 8) {
+    length = Math.min(Math.max(4, length), 128);
+    /** @type {?} */
+    const lowers = 'abcdefghijklmnopqrstuvwxyz';
+    /** @type {?} */
+    const uppers = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    /** @type {?} */
+    const numbers = '0123456789';
+    /** @type {?} */
+    const specials = '!@#$%&*()_+{}<>?[]./';
+    /** @type {?} */
+    const all = lowers + uppers + numbers + specials;
+    /** @type {?} */
+    const getRandom = (/**
+     * @param {?} chrSet
+     * @return {?}
+     */
+    (chrSet) => chrSet[Math.floor(Math.random() * chrSet.length)]);
+    /** @type {?} */
+    const password = Array({ length });
+    password[0] = getRandom(lowers);
+    password[1] = getRandom(uppers);
+    password[2] = getRandom(numbers);
+    password[3] = getRandom(specials);
+    for (let i = 4; i < length; i++) {
+        password[i] = getRandom(all);
+    }
+    return password.sort((/**
+     * @return {?}
+     */
+    () => 0.5 - Math.random())).join('');
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/strategies/cross-origin.strategy.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class CrossOriginStrategy {
+    /**
+     * @param {?} crossorigin
+     * @param {?=} integrity
+     */
+    constructor(crossorigin, integrity) {
+        this.crossorigin = crossorigin;
+        this.integrity = integrity;
+    }
+    /**
+     * @template T
+     * @param {?} element
+     * @return {?}
+     */
+    setCrossOrigin(element) {
+        if (this.integrity)
+            element.setAttribute('integrity', this.integrity);
+        element.setAttribute('crossorigin', this.crossorigin);
+    }
+}
+if (false) {
+    /** @type {?} */
+    CrossOriginStrategy.prototype.crossorigin;
+    /** @type {?} */
+    CrossOriginStrategy.prototype.integrity;
+}
+/** @type {?} */
+const CROSS_ORIGIN_STRATEGY = {
+    /**
+     * @param {?=} integrity
+     * @return {?}
+     */
+    Anonymous(integrity) {
+        return new CrossOriginStrategy('anonymous', integrity);
+    },
+    /**
+     * @param {?=} integrity
+     * @return {?}
+     */
+    UseCredentials(integrity) {
+        return new CrossOriginStrategy('use-credentials', integrity);
+    },
+};
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/strategies/dom.strategy.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class DomStrategy {
+    /**
+     * @param {?=} target
+     * @param {?=} position
+     */
+    constructor(target = document.head, position = 'beforeend') {
+        this.target = target;
+        this.position = position;
+    }
+    /**
+     * @template T
+     * @param {?} element
+     * @return {?}
+     */
+    insertElement(element) {
+        this.target.insertAdjacentElement(this.position, element);
+    }
+}
+if (false) {
+    /** @type {?} */
+    DomStrategy.prototype.target;
+    /** @type {?} */
+    DomStrategy.prototype.position;
+}
+/** @type {?} */
+const DOM_STRATEGY = {
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    AfterElement(element) {
+        return new DomStrategy(element, 'afterend');
+    },
+    /**
+     * @return {?}
+     */
+    AppendToBody() {
+        return new DomStrategy(document.body, 'beforeend');
+    },
+    /**
+     * @return {?}
+     */
+    AppendToHead() {
+        return new DomStrategy(document.head, 'beforeend');
+    },
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    BeforeElement(element) {
+        return new DomStrategy(element, 'beforebegin');
+    },
+    /**
+     * @return {?}
+     */
+    PrependToHead() {
+        return new DomStrategy(document.head, 'afterbegin');
+    },
+};
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/utils/lazy-load-utils.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @template T
+ * @param {?} element
+ * @param {?=} domStrategy
+ * @param {?=} crossOriginStrategy
+ * @return {?}
+ */
+function fromLazyLoad(element, domStrategy = DOM_STRATEGY.AppendToHead(), crossOriginStrategy = CROSS_ORIGIN_STRATEGY.Anonymous()) {
+    crossOriginStrategy.setCrossOrigin(element);
+    domStrategy.insertElement(element);
+    return new Observable((/**
+     * @param {?} observer
+     * @return {?}
+     */
+    (observer) => {
+        element.onload = (/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event) => {
+            clearCallbacks(element);
+            observer.next(event);
+            observer.complete();
+        });
+        /** @type {?} */
+        const handleError = createErrorHandler(observer, element);
+        element.onerror = handleError;
+        element.onabort = handleError;
+        element.onemptied = handleError;
+        element.onstalled = handleError;
+        element.onsuspend = handleError;
+        return (/**
+         * @return {?}
+         */
+        () => {
+            clearCallbacks(element);
+            observer.complete();
+        });
+    }));
+}
+/**
+ * @param {?} observer
+ * @param {?} element
+ * @return {?}
+ */
+function createErrorHandler(observer, element) {
+    /* tslint:disable-next-line:only-arrow-functions */
+    return (/**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        clearCallbacks(element);
+        element.parentNode.removeChild(element);
+        observer.error(event);
+    });
+}
+/**
+ * @param {?} element
+ * @return {?}
+ */
+function clearCallbacks(element) {
+    element.onload = null;
+    element.onerror = null;
+    element.onabort = null;
+    element.onemptied = null;
+    element.onstalled = null;
+    element.onsuspend = null;
 }
 
 /**
@@ -2634,6 +3011,7 @@ class ProfileService {
      */
     constructor(rest) {
         this.rest = rest;
+        this.apiName = 'AbpIdentity';
     }
     /**
      * @return {?}
@@ -2644,7 +3022,7 @@ class ProfileService {
             method: 'GET',
             url: '/api/identity/my-profile',
         };
-        return this.rest.request(request);
+        return this.rest.request(request, { apiName: this.apiName });
     }
     /**
      * @param {?} body
@@ -2657,7 +3035,9 @@ class ProfileService {
             url: '/api/identity/my-profile',
             body,
         };
-        return this.rest.request(request);
+        return this.rest.request(request, {
+            apiName: this.apiName,
+        });
     }
     /**
      * @param {?} body
@@ -2671,7 +3051,10 @@ class ProfileService {
             url: '/api/identity/my-profile/change-password',
             body,
         };
-        return this.rest.request(request, { skipHandleError });
+        return this.rest.request(request, {
+            skipHandleError,
+            apiName: this.apiName,
+        });
     }
 }
 ProfileService.decorators = [
@@ -2685,6 +3068,8 @@ ProfileService.ctorParameters = () => [
 ];
 /** @nocollapse */ ProfileService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ProfileService_Factory() { return new ProfileService(ɵɵinject(RestService)); }, token: ProfileService, providedIn: "root" });
 if (false) {
+    /** @type {?} */
+    ProfileService.prototype.apiName;
     /**
      * @type {?}
      * @private
@@ -3137,6 +3522,62 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/stop-propagation.directive.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class StopPropagationDirective {
+    /**
+     * @param {?} el
+     */
+    constructor(el) {
+        this.el = el;
+        this.stopPropEvent = new EventEmitter();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        fromEvent(this.el.nativeElement, 'click')
+            .pipe(takeUntilDestroy(this))
+            .subscribe((/**
+         * @param {?} event
+         * @return {?}
+         */
+        (event) => {
+            event.stopPropagation();
+            this.stopPropEvent.emit(event);
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() { }
+}
+StopPropagationDirective.decorators = [
+    { type: Directive, args: [{
+                // tslint:disable-next-line: directive-selector
+                selector: '[click.stop]',
+            },] }
+];
+/** @nocollapse */
+StopPropagationDirective.ctorParameters = () => [
+    { type: ElementRef }
+];
+StopPropagationDirective.propDecorators = {
+    stopPropEvent: [{ type: Output, args: ['click.stop',] }]
+};
+if (false) {
+    /** @type {?} */
+    StopPropagationDirective.prototype.stopPropEvent;
+    /**
+     * @type {?}
+     * @private
+     */
+    StopPropagationDirective.prototype.el;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/directives/visibility.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -3255,6 +3696,642 @@ if (false) {
      */
     VisibilityDirective.prototype.renderer;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/interceptors/api.interceptor.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class ApiInterceptor {
+    /**
+     * @param {?} oAuthService
+     * @param {?} store
+     */
+    constructor(oAuthService, store) {
+        this.oAuthService = oAuthService;
+        this.store = store;
+    }
+    /**
+     * @param {?} request
+     * @param {?} next
+     * @return {?}
+     */
+    intercept(request, next) {
+        this.store.dispatch(new StartLoader(request));
+        /** @type {?} */
+        const headers = (/** @type {?} */ ({}));
+        /** @type {?} */
+        const token = this.oAuthService.getAccessToken();
+        if (!request.headers.has('Authorization') && token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+        /** @type {?} */
+        const lang = this.store.selectSnapshot(SessionState.getLanguage);
+        if (!request.headers.has('Accept-Language') && lang) {
+            headers['Accept-Language'] = lang;
+        }
+        /** @type {?} */
+        const tenant = this.store.selectSnapshot(SessionState.getTenant);
+        if (!request.headers.has('__tenant') && tenant) {
+            headers['__tenant'] = tenant.id;
+        }
+        return next
+            .handle(request.clone({
+            setHeaders: headers,
+        }))
+            .pipe(finalize((/**
+         * @return {?}
+         */
+        () => this.store.dispatch(new StopLoader(request)))));
+    }
+}
+ApiInterceptor.decorators = [
+    { type: Injectable }
+];
+/** @nocollapse */
+ApiInterceptor.ctorParameters = () => [
+    { type: OAuthService },
+    { type: Store }
+];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ApiInterceptor.prototype.oAuthService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ApiInterceptor.prototype.store;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/pipes/localization.pipe.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class LocalizationPipe {
+    /**
+     * @param {?} store
+     */
+    constructor(store) {
+        this.store = store;
+    }
+    /**
+     * @param {?=} value
+     * @param {...?} interpolateParams
+     * @return {?}
+     */
+    transform(value = '', ...interpolateParams) {
+        return this.store.selectSnapshot(ConfigState.getLocalization(value, ...interpolateParams.reduce((/**
+         * @param {?} acc
+         * @param {?} val
+         * @return {?}
+         */
+        (acc, val) => (Array.isArray(val) ? [...acc, ...val] : [...acc, val])), [])));
+    }
+}
+LocalizationPipe.decorators = [
+    { type: Injectable },
+    { type: Pipe, args: [{
+                name: 'abpLocalization',
+            },] }
+];
+/** @nocollapse */
+LocalizationPipe.ctorParameters = () => [
+    { type: Store }
+];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    LocalizationPipe.prototype.store;
+}
+class MockLocalizationPipe {
+    /**
+     * @param {?=} value
+     * @param {...?} _
+     * @return {?}
+     */
+    transform(value = '', ..._) {
+        return typeof value === 'string' ? value : value.defaultValue;
+    }
+}
+MockLocalizationPipe.decorators = [
+    { type: Injectable },
+    { type: Pipe, args: [{
+                name: 'abpLocalization',
+            },] }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/localization.module.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class LocalizationModule {
+}
+LocalizationModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [LocalizationPipe],
+                declarations: [LocalizationPipe],
+            },] }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/pipes/sort.pipe.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class SortPipe {
+    /**
+     * @param {?} value
+     * @param {?=} sortOrder
+     * @param {?=} sortKey
+     * @return {?}
+     */
+    transform(value, sortOrder = 'asc', sortKey) {
+        sortOrder = sortOrder && ((/** @type {?} */ (sortOrder.toLowerCase())));
+        if (!value || (sortOrder !== 'asc' && sortOrder !== 'desc'))
+            return value;
+        /** @type {?} */
+        let numberArray = [];
+        /** @type {?} */
+        let stringArray = [];
+        if (!sortKey) {
+            numberArray = value.filter((/**
+             * @param {?} item
+             * @return {?}
+             */
+            item => typeof item === 'number')).sort();
+            stringArray = value.filter((/**
+             * @param {?} item
+             * @return {?}
+             */
+            item => typeof item === 'string')).sort();
+        }
+        else {
+            numberArray = value
+                .filter((/**
+             * @param {?} item
+             * @return {?}
+             */
+            item => typeof item[sortKey] === 'number'))
+                .sort((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            (a, b) => a[sortKey] - b[sortKey]));
+            stringArray = value
+                .filter((/**
+             * @param {?} item
+             * @return {?}
+             */
+            item => typeof item[sortKey] === 'string'))
+                .sort((/**
+             * @param {?} a
+             * @param {?} b
+             * @return {?}
+             */
+            (a, b) => {
+                if (a[sortKey] < b[sortKey])
+                    return -1;
+                else if (a[sortKey] > b[sortKey])
+                    return 1;
+                else
+                    return 0;
+            }));
+        }
+        /** @type {?} */
+        const sorted = [
+            ...numberArray,
+            ...stringArray,
+            ...value.filter((/**
+             * @param {?} item
+             * @return {?}
+             */
+            item => typeof (sortKey ? item[sortKey] : item) !== 'number' &&
+                typeof (sortKey ? item[sortKey] : item) !== 'string')),
+        ];
+        return sortOrder === 'asc' ? sorted : sorted.reverse();
+    }
+}
+SortPipe.decorators = [
+    { type: Injectable },
+    { type: Pipe, args: [{
+                name: 'abpSort',
+            },] }
+];
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/plugins/config.plugin.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const NGXS_CONFIG_PLUGIN_OPTIONS = new InjectionToken('NGXS_CONFIG_PLUGIN_OPTIONS');
+class ConfigPlugin {
+    /**
+     * @param {?} options
+     * @param {?} router
+     */
+    constructor(options, router) {
+        this.options = options;
+        this.router = router;
+        this.initialized = false;
+    }
+    /**
+     * @param {?} state
+     * @param {?} event
+     * @param {?} next
+     * @return {?}
+     */
+    handle(state, event, next) {
+        /** @type {?} */
+        const matches = actionMatcher(event);
+        /** @type {?} */
+        const isInitAction = matches(InitState) || matches(UpdateState);
+        if (isInitAction && !this.initialized) {
+            /** @type {?} */
+            const transformedRoutes = transformRoutes(this.router.config);
+            let { routes } = transformedRoutes;
+            const { wrappers } = transformedRoutes;
+            routes = organizeRoutes(routes, wrappers);
+            /** @type {?} */
+            const flattedRoutes = flatRoutes(clone(routes));
+            state = setValue(state, 'ConfigState', Object.assign({}, (state.ConfigState && Object.assign({}, state.ConfigState)), this.options, { routes,
+                flattedRoutes }));
+            this.initialized = true;
+        }
+        return next(state, event);
+    }
+}
+ConfigPlugin.decorators = [
+    { type: Injectable }
+];
+/** @nocollapse */
+ConfigPlugin.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [NGXS_CONFIG_PLUGIN_OPTIONS,] }] },
+    { type: Router }
+];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ConfigPlugin.prototype.initialized;
+    /**
+     * @type {?}
+     * @private
+     */
+    ConfigPlugin.prototype.options;
+    /**
+     * @type {?}
+     * @private
+     */
+    ConfigPlugin.prototype.router;
+}
+/**
+ * @param {?=} routes
+ * @param {?=} wrappers
+ * @return {?}
+ */
+function transformRoutes(routes = [], wrappers = []) {
+    /** @type {?} */
+    const abpRoutes = [...getAbpRoutes()];
+    wrappers = abpRoutes.filter((/**
+     * @param {?} ar
+     * @return {?}
+     */
+    ar => ar.wrapper));
+    /** @type {?} */
+    const transformed = (/** @type {?} */ ([]));
+    routes
+        .filter((/**
+     * @param {?} route
+     * @return {?}
+     */
+    route => route.component || route.loadChildren))
+        .forEach((/**
+     * @param {?} route
+     * @return {?}
+     */
+    route => {
+        /** @type {?} */
+        const abpPackage = abpRoutes.find((/**
+         * @param {?} abp
+         * @return {?}
+         */
+        abp => abp.path.toLowerCase() === route.path.toLowerCase() && !abp.wrapper));
+        const { length } = transformed;
+        if (abpPackage) {
+            transformed.push(abpPackage);
+        }
+        if (transformed.length === length && (route.data || {}).routes) {
+            transformed.push((/** @type {?} */ (Object.assign({}, route.data.routes, { path: route.path, name: snq((/**
+                 * @return {?}
+                 */
+                () => route.data.routes.name), route.path), children: route.data.routes.children || [] }))));
+        }
+    }));
+    return { routes: setUrls(transformed), wrappers };
+}
+/**
+ * @param {?} routes
+ * @param {?=} parentUrl
+ * @return {?}
+ */
+function setUrls(routes, parentUrl) {
+    if (parentUrl) {
+        // recursive block
+        return routes.map((/**
+         * @param {?} route
+         * @return {?}
+         */
+        route => (Object.assign({}, route, { url: `${parentUrl}/${route.path}` }, (route.children &&
+            route.children.length && {
+            children: setUrls(route.children, `${parentUrl}/${route.path}`),
+        })))));
+    }
+    return routes.map((/**
+     * @param {?} route
+     * @return {?}
+     */
+    route => (Object.assign({}, route, { url: `/${route.path}` }, (route.children &&
+        route.children.length && {
+        children: setUrls(route.children, `/${route.path}`),
+    })))));
+}
+/**
+ * @param {?} routes
+ * @return {?}
+ */
+function flatRoutes(routes) {
+    /** @type {?} */
+    const flat = (/**
+     * @param {?} r
+     * @return {?}
+     */
+    (r) => {
+        return r.reduce((/**
+         * @param {?} acc
+         * @param {?} val
+         * @return {?}
+         */
+        (acc, val) => {
+            /** @type {?} */
+            let value = [val];
+            if (val.children) {
+                val.children = val.children.map((/**
+                 * @param {?} child
+                 * @return {?}
+                 */
+                child => (Object.assign({}, child, { parentName: val.name }))));
+                value = [val, ...flat(val.children)];
+            }
+            return [...acc, ...value];
+        }), []);
+    });
+    return flat(routes);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/providers/locale.provider.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class LocaleId extends String {
+    /**
+     * @param {?} localizationService
+     */
+    constructor(localizationService) {
+        super();
+        this.localizationService = localizationService;
+    }
+    /**
+     * @return {?}
+     */
+    toString() {
+        const { currentLang } = this.localizationService;
+        return localesMapping[currentLang] || currentLang;
+    }
+    /**
+     * @return {?}
+     */
+    valueOf() {
+        return this.toString();
+    }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    LocaleId.prototype.localizationService;
+}
+/** @type {?} */
+const LocaleProvider = {
+    provide: LOCALE_ID,
+    useClass: LocaleId,
+    deps: [LocalizationService],
+};
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/utils/date-extensions.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+Date.prototype.toLocalISOString = (/**
+ * @this {?}
+ * @return {?}
+ */
+function () {
+    /** @type {?} */
+    const timezoneOffset = this.getTimezoneOffset();
+    return new Date(this.getTime() - timezoneOffset * 60000).toISOString();
+});
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/core.module.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @return {?}
+ */
+function storageFactory() {
+    return localStorage;
+}
+/**
+ * BaseCoreModule is the module that holds
+ * all imports, declarations, exports, and entryComponents
+ * but not the providers.
+ * This module will be imported and exported by all others.
+ */
+class BaseCoreModule {
+}
+BaseCoreModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [
+                    CommonModule,
+                    HttpClientModule,
+                    FormsModule,
+                    ReactiveFormsModule,
+                    RouterModule,
+                    AbstractNgModelComponent,
+                    AutofocusDirective,
+                    DynamicLayoutComponent,
+                    EllipsisDirective,
+                    ForDirective,
+                    FormSubmitDirective,
+                    InitDirective,
+                    InputEventDebounceDirective,
+                    PermissionDirective,
+                    ReplaceableRouteContainerComponent,
+                    ReplaceableTemplateDirective,
+                    RouterOutletComponent,
+                    SortPipe,
+                    StopPropagationDirective,
+                    VisibilityDirective,
+                ],
+                imports: [
+                    OAuthModule,
+                    CommonModule,
+                    HttpClientModule,
+                    FormsModule,
+                    ReactiveFormsModule,
+                    RouterModule,
+                ],
+                declarations: [
+                    AbstractNgModelComponent,
+                    AutofocusDirective,
+                    DynamicLayoutComponent,
+                    EllipsisDirective,
+                    ForDirective,
+                    FormSubmitDirective,
+                    InitDirective,
+                    InputEventDebounceDirective,
+                    PermissionDirective,
+                    ReplaceableRouteContainerComponent,
+                    ReplaceableTemplateDirective,
+                    RouterOutletComponent,
+                    SortPipe,
+                    StopPropagationDirective,
+                    VisibilityDirective,
+                ],
+                entryComponents: [
+                    RouterOutletComponent,
+                    DynamicLayoutComponent,
+                    ReplaceableRouteContainerComponent,
+                ],
+            },] }
+];
+/**
+ * RootCoreModule is the module that will be used at root level
+ * and it introduces imports useful at root level (e.g. NGXS)
+ */
+class RootCoreModule {
+}
+RootCoreModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [BaseCoreModule, LocalizationModule],
+                imports: [
+                    BaseCoreModule,
+                    LocalizationModule,
+                    NgxsModule.forFeature([ReplaceableComponentsState, ProfileState, SessionState, ConfigState]),
+                    NgxsRouterPluginModule.forRoot(),
+                    NgxsStoragePluginModule.forRoot({ key: ['SessionState'] }),
+                ],
+            },] }
+];
+/**
+ * TestCoreModule is the module that will be used in tests
+ * and it provides mock alternatives
+ */
+class TestCoreModule {
+}
+TestCoreModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [RouterModule, BaseCoreModule, MockLocalizationPipe],
+                imports: [RouterModule.forRoot([]), BaseCoreModule],
+                declarations: [MockLocalizationPipe],
+            },] }
+];
+/**
+ * CoreModule is the module that is publicly available
+ */
+class CoreModule {
+    /**
+     * @param {?=} __0
+     * @return {?}
+     */
+    static forTest({ baseHref = '/' } = (/** @type {?} */ ({}))) {
+        return {
+            ngModule: TestCoreModule,
+            providers: [
+                { provide: APP_BASE_HREF, useValue: baseHref },
+                {
+                    provide: LocalizationPipe,
+                    useClass: MockLocalizationPipe,
+                },
+            ],
+        };
+    }
+    /**
+     * @param {?=} options
+     * @return {?}
+     */
+    static forRoot(options = (/** @type {?} */ ({}))) {
+        return {
+            ngModule: RootCoreModule,
+            providers: [
+                LocaleProvider,
+                {
+                    provide: NGXS_PLUGINS,
+                    useClass: ConfigPlugin,
+                    multi: true,
+                },
+                {
+                    provide: NGXS_CONFIG_PLUGIN_OPTIONS,
+                    useValue: { environment: options.environment },
+                },
+                {
+                    provide: CORE_OPTIONS,
+                    useValue: options,
+                },
+                {
+                    provide: HTTP_INTERCEPTORS,
+                    useClass: ApiInterceptor,
+                    multi: true,
+                },
+                {
+                    provide: APP_INITIALIZER,
+                    multi: true,
+                    deps: [Injector],
+                    useFactory: getInitialData,
+                },
+                {
+                    provide: APP_INITIALIZER,
+                    multi: true,
+                    deps: [Injector],
+                    useFactory: localeInitializer,
+                },
+                ...OAuthModule.forRoot().providers,
+                { provide: OAuthStorage, useFactory: storageFactory },
+            ],
+        };
+    }
+}
+CoreModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [BaseCoreModule, LocalizationModule],
+                imports: [BaseCoreModule, LocalizationModule],
+                providers: [LocalizationPipe],
+            },] }
+];
 
 /**
  * @fileoverview added by tsickle
@@ -3411,75 +4488,6 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/interceptors/api.interceptor.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class ApiInterceptor {
-    /**
-     * @param {?} oAuthService
-     * @param {?} store
-     */
-    constructor(oAuthService, store) {
-        this.oAuthService = oAuthService;
-        this.store = store;
-    }
-    /**
-     * @param {?} request
-     * @param {?} next
-     * @return {?}
-     */
-    intercept(request, next) {
-        this.store.dispatch(new StartLoader(request));
-        /** @type {?} */
-        const headers = (/** @type {?} */ ({}));
-        /** @type {?} */
-        const token = this.oAuthService.getAccessToken();
-        if (!request.headers.has('Authorization') && token) {
-            headers['Authorization'] = `Bearer ${token}`;
-        }
-        /** @type {?} */
-        const lang = this.store.selectSnapshot(SessionState.getLanguage);
-        if (!request.headers.has('Accept-Language') && lang) {
-            headers['Accept-Language'] = lang;
-        }
-        /** @type {?} */
-        const tenant = this.store.selectSnapshot(SessionState.getTenant);
-        if (!request.headers.has('__tenant') && tenant) {
-            headers['__tenant'] = tenant.id;
-        }
-        return next
-            .handle(request.clone({
-            setHeaders: headers,
-        }))
-            .pipe(finalize((/**
-         * @return {?}
-         */
-        () => this.store.dispatch(new StopLoader(request)))));
-    }
-}
-ApiInterceptor.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-ApiInterceptor.ctorParameters = () => [
-    { type: OAuthService },
-    { type: Store }
-];
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    ApiInterceptor.prototype.oAuthService;
-    /**
-     * @type {?}
-     * @private
-     */
-    ApiInterceptor.prototype.store;
-}
-
-/**
- * @fileoverview added by tsickle
  * Generated from: lib/interceptors/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -3596,8 +4604,23 @@ var ABP;
     if (false) {
         /** @type {?} */
         Root.prototype.environment;
-        /** @type {?} */
+        /**
+         *
+         * @deprecated To be deleted in v3.0
+         * @type {?|undefined}
+         */
         Root.prototype.requirements;
+        /** @type {?|undefined} */
+        Root.prototype.skipGetAppConfiguration;
+    }
+    /**
+     * @record
+     */
+    function Test() { }
+    ABP.Test = Test;
+    if (false) {
+        /** @type {?|undefined} */
+        Test.prototype.baseHref;
     }
     /**
      * @record
@@ -3675,6 +4698,18 @@ var ABP;
      * @record
      * @template T
      */
+    function Option() { }
+    ABP.Option = Option;
+    if (false) {
+        /** @type {?} */
+        Option.prototype.key;
+        /** @type {?} */
+        Option.prototype.value;
+    }
+    /**
+     * @record
+     * @template T
+     */
     function Dictionary() { }
     ABP.Dictionary = Dictionary;
 })(ABP || (ABP = {}));
@@ -3696,6 +4731,8 @@ var Config;
         Environment.prototype.application;
         /** @type {?} */
         Environment.prototype.production;
+        /** @type {?|undefined} */
+        Environment.prototype.hmr;
         /** @type {?} */
         Environment.prototype.oAuthConfig;
         /** @type {?} */
@@ -3717,8 +4754,23 @@ var Config;
     /**
      * @record
      */
+    function ApiConfig() { }
+    Config.ApiConfig = ApiConfig;
+    if (false) {
+        /** @type {?} */
+        ApiConfig.prototype.url;
+        /* Skipping unhandled member: [key: string]: string;*/
+    }
+    /**
+     * @record
+     */
     function Apis() { }
     Config.Apis = Apis;
+    if (false) {
+        /** @type {?} */
+        Apis.prototype.default;
+        /* Skipping unhandled member: [key: string]: ApiConfig;*/
+    }
     /**
      * @record
      */
@@ -4069,17 +5121,6 @@ var Rest;
 (function (Rest) {
     /**
      * @record
-     */
-    function Config() { }
-    Rest.Config = Config;
-    if (false) {
-        /** @type {?|undefined} */
-        Config.prototype.skipHandleError;
-        /** @type {?|undefined} */
-        Config.prototype.observe;
-    }
-    /**
-     * @record
      * @template T
      */
     function Request() { }
@@ -4141,317 +5182,21 @@ var Session;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/models/utility.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/models/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/pipes/localization.pipe.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class LocalizationPipe {
-    /**
-     * @param {?} store
-     */
-    constructor(store) {
-        this.store = store;
-    }
-    /**
-     * @param {?=} value
-     * @param {...?} interpolateParams
-     * @return {?}
-     */
-    transform(value = '', ...interpolateParams) {
-        return this.store.selectSnapshot(ConfigState.getLocalization(value, ...interpolateParams.reduce((/**
-         * @param {?} acc
-         * @param {?} val
-         * @return {?}
-         */
-        (acc, val) => (Array.isArray(val) ? [...acc, ...val] : [...acc, val])), [])));
-    }
-}
-LocalizationPipe.decorators = [
-    { type: Injectable },
-    { type: Pipe, args: [{
-                name: 'abpLocalization',
-            },] }
-];
-/** @nocollapse */
-LocalizationPipe.ctorParameters = () => [
-    { type: Store }
-];
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    LocalizationPipe.prototype.store;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/pipes/sort.pipe.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class SortPipe {
-    /**
-     * @param {?} value
-     * @param {?=} sortOrder
-     * @param {?=} sortKey
-     * @return {?}
-     */
-    transform(value, sortOrder = 'asc', sortKey) {
-        sortOrder = sortOrder && ((/** @type {?} */ (sortOrder.toLowerCase())));
-        if (!value || (sortOrder !== 'asc' && sortOrder !== 'desc'))
-            return value;
-        /** @type {?} */
-        let numberArray = [];
-        /** @type {?} */
-        let stringArray = [];
-        if (!sortKey) {
-            numberArray = value.filter((/**
-             * @param {?} item
-             * @return {?}
-             */
-            item => typeof item === 'number')).sort();
-            stringArray = value.filter((/**
-             * @param {?} item
-             * @return {?}
-             */
-            item => typeof item === 'string')).sort();
-        }
-        else {
-            numberArray = value
-                .filter((/**
-             * @param {?} item
-             * @return {?}
-             */
-            item => typeof item[sortKey] === 'number'))
-                .sort((/**
-             * @param {?} a
-             * @param {?} b
-             * @return {?}
-             */
-            (a, b) => a[sortKey] - b[sortKey]));
-            stringArray = value
-                .filter((/**
-             * @param {?} item
-             * @return {?}
-             */
-            item => typeof item[sortKey] === 'string'))
-                .sort((/**
-             * @param {?} a
-             * @param {?} b
-             * @return {?}
-             */
-            (a, b) => {
-                if (a[sortKey] < b[sortKey])
-                    return -1;
-                else if (a[sortKey] > b[sortKey])
-                    return 1;
-                else
-                    return 0;
-            }));
-        }
-        /** @type {?} */
-        const sorted = [
-            ...numberArray,
-            ...stringArray,
-            ...value.filter((/**
-             * @param {?} item
-             * @return {?}
-             */
-            item => typeof (sortKey ? item[sortKey] : item) !== 'number' &&
-                typeof (sortKey ? item[sortKey] : item) !== 'string')),
-        ];
-        return sortOrder === 'asc' ? sorted : sorted.reverse();
-    }
-}
-SortPipe.decorators = [
-    { type: Injectable },
-    { type: Pipe, args: [{
-                name: 'abpSort',
-            },] }
-];
-
-/**
- * @fileoverview added by tsickle
  * Generated from: lib/pipes/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/plugins/config.plugin.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-const NGXS_CONFIG_PLUGIN_OPTIONS = new InjectionToken('NGXS_CONFIG_PLUGIN_OPTIONS');
-class ConfigPlugin {
-    /**
-     * @param {?} options
-     * @param {?} router
-     */
-    constructor(options, router) {
-        this.options = options;
-        this.router = router;
-        this.initialized = false;
-    }
-    /**
-     * @param {?} state
-     * @param {?} event
-     * @param {?} next
-     * @return {?}
-     */
-    handle(state, event, next) {
-        /** @type {?} */
-        const matches = actionMatcher(event);
-        /** @type {?} */
-        const isInitAction = matches(InitState) || matches(UpdateState);
-        if (isInitAction && !this.initialized && getAbpRoutes().length) {
-            /** @type {?} */
-            const transformedRoutes = transformRoutes(this.router.config);
-            let { routes } = transformedRoutes;
-            const { wrappers } = transformedRoutes;
-            routes = organizeRoutes(routes, wrappers);
-            /** @type {?} */
-            const flattedRoutes = flatRoutes(clone(routes));
-            state = setValue(state, 'ConfigState', Object.assign({}, (state.ConfigState && Object.assign({}, state.ConfigState)), this.options, { routes,
-                flattedRoutes }));
-            this.initialized = true;
-        }
-        return next(state, event);
-    }
-}
-ConfigPlugin.decorators = [
-    { type: Injectable }
-];
-/** @nocollapse */
-ConfigPlugin.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [NGXS_CONFIG_PLUGIN_OPTIONS,] }] },
-    { type: Router }
-];
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    ConfigPlugin.prototype.initialized;
-    /**
-     * @type {?}
-     * @private
-     */
-    ConfigPlugin.prototype.options;
-    /**
-     * @type {?}
-     * @private
-     */
-    ConfigPlugin.prototype.router;
-}
-/**
- * @param {?=} routes
- * @param {?=} wrappers
- * @return {?}
- */
-function transformRoutes(routes = [], wrappers = []) {
-    /** @type {?} */
-    const abpRoutes = [...getAbpRoutes()];
-    wrappers = abpRoutes.filter((/**
-     * @param {?} ar
-     * @return {?}
-     */
-    ar => ar.wrapper));
-    /** @type {?} */
-    const transformed = (/** @type {?} */ ([]));
-    routes
-        .filter((/**
-     * @param {?} route
-     * @return {?}
-     */
-    route => route.component || route.loadChildren))
-        .forEach((/**
-     * @param {?} route
-     * @return {?}
-     */
-    route => {
-        /** @type {?} */
-        const abpPackage = abpRoutes.find((/**
-         * @param {?} abp
-         * @return {?}
-         */
-        abp => abp.path.toLowerCase() === route.path.toLowerCase() && !abp.wrapper));
-        const { length } = transformed;
-        if (abpPackage) {
-            transformed.push(abpPackage);
-        }
-        if (transformed.length === length && (route.data || {}).routes) {
-            transformed.push((/** @type {?} */ (Object.assign({}, route.data.routes, { path: route.path, name: snq((/**
-                 * @return {?}
-                 */
-                () => route.data.routes.name), route.path), children: route.data.routes.children || [] }))));
-        }
-    }));
-    return { routes: setUrls(transformed), wrappers };
-}
-/**
- * @param {?} routes
- * @param {?=} parentUrl
- * @return {?}
- */
-function setUrls(routes, parentUrl) {
-    if (parentUrl) {
-        // recursive block
-        return routes.map((/**
-         * @param {?} route
-         * @return {?}
-         */
-        route => (Object.assign({}, route, { url: `${parentUrl}/${route.path}` }, (route.children &&
-            route.children.length && {
-            children: setUrls(route.children, `${parentUrl}/${route.path}`),
-        })))));
-    }
-    return routes.map((/**
-     * @param {?} route
-     * @return {?}
-     */
-    route => (Object.assign({}, route, { url: `/${route.path}` }, (route.children &&
-        route.children.length && {
-        children: setUrls(route.children, `/${route.path}`),
-    })))));
-}
-/**
- * @param {?} routes
- * @return {?}
- */
-function flatRoutes(routes) {
-    /** @type {?} */
-    const flat = (/**
-     * @param {?} r
-     * @return {?}
-     */
-    (r) => {
-        return r.reduce((/**
-         * @param {?} acc
-         * @param {?} val
-         * @return {?}
-         */
-        (acc, val) => {
-            /** @type {?} */
-            let value = [val];
-            if (val.children) {
-                val.children = val.children.map((/**
-                 * @param {?} child
-                 * @return {?}
-                 */
-                child => (Object.assign({}, child, { parentName: val.name }))));
-                value = [val, ...flat(val.children)];
-            }
-            return [...acc, ...value];
-        }), []);
-    });
-    return flat(routes);
-}
 
 /**
  * @fileoverview added by tsickle
@@ -4688,22 +5433,870 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/content-projection.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class ContentProjectionService {
+    /**
+     * @param {?} injector
+     */
+    constructor(injector) {
+        this.injector = injector;
+    }
+    /**
+     * @template T
+     * @param {?} projectionStrategy
+     * @param {?=} injector
+     * @return {?}
+     */
+    projectContent(projectionStrategy, injector = this.injector) {
+        return projectionStrategy.injectContent(injector);
+    }
+}
+ContentProjectionService.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root' },] }
+];
+/** @nocollapse */
+ContentProjectionService.ctorParameters = () => [
+    { type: Injector }
+];
+/** @nocollapse */ ContentProjectionService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ContentProjectionService_Factory() { return new ContentProjectionService(ɵɵinject(INJECTOR)); }, token: ContentProjectionService, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ContentProjectionService.prototype.injector;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/services/dom-insertion.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class DomInsertionService {
+    constructor() {
+        this.inserted = new Set();
+    }
+    /**
+     * @template T
+     * @param {?} contentStrategy
+     * @return {?}
+     */
+    insertContent(contentStrategy) {
+        /** @type {?} */
+        const hash = generateHash(contentStrategy.content);
+        if (this.inserted.has(hash))
+            return;
+        /** @type {?} */
+        const element = contentStrategy.insertElement();
+        this.inserted.add(hash);
+        return element;
+    }
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    removeContent(element) {
+        /** @type {?} */
+        const hash = generateHash(element.textContent);
+        this.inserted.delete(hash);
+        element.parentNode.removeChild(element);
+    }
+    /**
+     * @param {?} content
+     * @return {?}
+     */
+    has(content) {
+        /** @type {?} */
+        const hash = generateHash(content);
+        return this.inserted.has(hash);
+    }
+}
+DomInsertionService.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root' },] }
+];
+/** @nocollapse */ DomInsertionService.ngInjectableDef = ɵɵdefineInjectable({ factory: function DomInsertionService_Factory() { return new DomInsertionService(); }, token: DomInsertionService, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    DomInsertionService.prototype.inserted;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/strategies/container.strategy.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ */
+class ContainerStrategy {
+    /**
+     * @param {?} containerRef
+     */
+    constructor(containerRef) {
+        this.containerRef = containerRef;
+    }
+    /**
+     * @return {?}
+     */
+    prepare() { }
+}
+if (false) {
+    /** @type {?} */
+    ContainerStrategy.prototype.containerRef;
+    /**
+     * @abstract
+     * @return {?}
+     */
+    ContainerStrategy.prototype.getIndex = function () { };
+}
+class ClearContainerStrategy extends ContainerStrategy {
+    /**
+     * @return {?}
+     */
+    getIndex() {
+        return 0;
+    }
+    /**
+     * @return {?}
+     */
+    prepare() {
+        this.containerRef.clear();
+    }
+}
+class InsertIntoContainerStrategy extends ContainerStrategy {
+    /**
+     * @param {?} containerRef
+     * @param {?} index
+     */
+    constructor(containerRef, index) {
+        super(containerRef);
+        this.index = index;
+    }
+    /**
+     * @return {?}
+     */
+    getIndex() {
+        return Math.min(Math.max(0, this.index), this.containerRef.length);
+    }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    InsertIntoContainerStrategy.prototype.index;
+}
+/** @type {?} */
+const CONTAINER_STRATEGY = {
+    /**
+     * @param {?} containerRef
+     * @return {?}
+     */
+    Clear(containerRef) {
+        return new ClearContainerStrategy(containerRef);
+    },
+    /**
+     * @param {?} containerRef
+     * @return {?}
+     */
+    Append(containerRef) {
+        return new InsertIntoContainerStrategy(containerRef, containerRef.length);
+    },
+    /**
+     * @param {?} containerRef
+     * @return {?}
+     */
+    Prepend(containerRef) {
+        return new InsertIntoContainerStrategy(containerRef, 0);
+    },
+    /**
+     * @param {?} containerRef
+     * @param {?} index
+     * @return {?}
+     */
+    Insert(containerRef, index) {
+        return new InsertIntoContainerStrategy(containerRef, index);
+    },
+};
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/strategies/content-security.strategy.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ */
+class ContentSecurityStrategy {
+    /**
+     * @param {?=} nonce
+     */
+    constructor(nonce) {
+        this.nonce = nonce;
+    }
+}
+if (false) {
+    /** @type {?} */
+    ContentSecurityStrategy.prototype.nonce;
+    /**
+     * @abstract
+     * @param {?} element
+     * @return {?}
+     */
+    ContentSecurityStrategy.prototype.applyCSP = function (element) { };
+}
+class LooseContentSecurityStrategy extends ContentSecurityStrategy {
+    /**
+     * @param {?} nonce
+     */
+    constructor(nonce) {
+        super(nonce);
+    }
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    applyCSP(element) {
+        element.setAttribute('nonce', this.nonce);
+    }
+}
+class NoContentSecurityStrategy extends ContentSecurityStrategy {
+    constructor() {
+        super();
+    }
+    /**
+     * @param {?} _
+     * @return {?}
+     */
+    applyCSP(_) { }
+}
+/** @type {?} */
+const CONTENT_SECURITY_STRATEGY = {
+    /**
+     * @param {?} nonce
+     * @return {?}
+     */
+    Loose(nonce) {
+        return new LooseContentSecurityStrategy(nonce);
+    },
+    /**
+     * @return {?}
+     */
+    None() {
+        return new NoContentSecurityStrategy();
+    },
+};
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/strategies/content.strategy.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ * @template T
+ */
+class ContentStrategy {
+    /**
+     * @param {?} content
+     * @param {?=} domStrategy
+     * @param {?=} contentSecurityStrategy
+     */
+    constructor(content, domStrategy = DOM_STRATEGY.AppendToHead(), contentSecurityStrategy = CONTENT_SECURITY_STRATEGY.None()) {
+        this.content = content;
+        this.domStrategy = domStrategy;
+        this.contentSecurityStrategy = contentSecurityStrategy;
+    }
+    /**
+     * @return {?}
+     */
+    insertElement() {
+        /** @type {?} */
+        const element = this.createElement();
+        this.contentSecurityStrategy.applyCSP(element);
+        this.domStrategy.insertElement(element);
+        return element;
+    }
+}
+if (false) {
+    /** @type {?} */
+    ContentStrategy.prototype.content;
+    /**
+     * @type {?}
+     * @protected
+     */
+    ContentStrategy.prototype.domStrategy;
+    /**
+     * @type {?}
+     * @protected
+     */
+    ContentStrategy.prototype.contentSecurityStrategy;
+    /**
+     * @abstract
+     * @return {?}
+     */
+    ContentStrategy.prototype.createElement = function () { };
+}
+class StyleContentStrategy extends ContentStrategy {
+    /**
+     * @return {?}
+     */
+    createElement() {
+        /** @type {?} */
+        const element = document.createElement('style');
+        element.textContent = this.content;
+        return element;
+    }
+}
+class ScriptContentStrategy extends ContentStrategy {
+    /**
+     * @return {?}
+     */
+    createElement() {
+        /** @type {?} */
+        const element = document.createElement('script');
+        element.textContent = this.content;
+        return element;
+    }
+}
+/** @type {?} */
+const CONTENT_STRATEGY = {
+    /**
+     * @param {?} content
+     * @return {?}
+     */
+    AppendScriptToBody(content) {
+        return new ScriptContentStrategy(content, DOM_STRATEGY.AppendToBody());
+    },
+    /**
+     * @param {?} content
+     * @return {?}
+     */
+    AppendScriptToHead(content) {
+        return new ScriptContentStrategy(content, DOM_STRATEGY.AppendToHead());
+    },
+    /**
+     * @param {?} content
+     * @return {?}
+     */
+    AppendStyleToHead(content) {
+        return new StyleContentStrategy(content, DOM_STRATEGY.AppendToHead());
+    },
+    /**
+     * @param {?} content
+     * @return {?}
+     */
+    PrependStyleToHead(content) {
+        return new StyleContentStrategy(content, DOM_STRATEGY.PrependToHead());
+    },
+};
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/strategies/context.strategy.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ * @template T
+ */
+class ContextStrategy {
+    /**
+     * @param {?} context
+     */
+    constructor(context) {
+        this.context = context;
+    }
+    /* tslint:disable-next-line:no-unused-variable */
+    /**
+     * @param {?=} componentRef
+     * @return {?}
+     */
+    setContext(componentRef) {
+        return this.context;
+    }
+}
+if (false) {
+    /** @type {?} */
+    ContextStrategy.prototype.context;
+}
+/**
+ * @template T
+ */
+class NoContextStrategy extends ContextStrategy {
+    constructor() {
+        super(undefined);
+    }
+}
+/**
+ * @template T
+ */
+class ComponentContextStrategy extends ContextStrategy {
+    /**
+     * @param {?} componentRef
+     * @return {?}
+     */
+    setContext(componentRef) {
+        Object.keys(this.context).forEach((/**
+         * @param {?} key
+         * @return {?}
+         */
+        key => (componentRef.instance[key] = this.context[key])));
+        componentRef.changeDetectorRef.detectChanges();
+        return this.context;
+    }
+}
+/**
+ * @template T
+ */
+class TemplateContextStrategy extends ContextStrategy {
+    /**
+     * @return {?}
+     */
+    setContext() {
+        return this.context;
+    }
+}
+/** @type {?} */
+const CONTEXT_STRATEGY = {
+    /**
+     * @template T
+     * @return {?}
+     */
+    None() {
+        return new NoContextStrategy();
+    },
+    /**
+     * @template T
+     * @param {?} context
+     * @return {?}
+     */
+    Component(context) {
+        return new ComponentContextStrategy(context);
+    },
+    /**
+     * @template T
+     * @param {?} context
+     * @return {?}
+     */
+    Template(context) {
+        return new TemplateContextStrategy(context);
+    },
+};
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/strategies/loading.strategy.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ * @template T
+ */
+class LoadingStrategy {
+    /**
+     * @param {?} path
+     * @param {?=} domStrategy
+     * @param {?=} crossOriginStrategy
+     */
+    constructor(path, domStrategy = DOM_STRATEGY.AppendToHead(), crossOriginStrategy = CROSS_ORIGIN_STRATEGY.Anonymous()) {
+        this.path = path;
+        this.domStrategy = domStrategy;
+        this.crossOriginStrategy = crossOriginStrategy;
+    }
+    /**
+     * @template E
+     * @return {?}
+     */
+    createStream() {
+        return of(null).pipe(switchMap((/**
+         * @return {?}
+         */
+        () => fromLazyLoad(this.createElement(), this.domStrategy, this.crossOriginStrategy))));
+    }
+}
+if (false) {
+    /** @type {?} */
+    LoadingStrategy.prototype.path;
+    /**
+     * @type {?}
+     * @protected
+     */
+    LoadingStrategy.prototype.domStrategy;
+    /**
+     * @type {?}
+     * @protected
+     */
+    LoadingStrategy.prototype.crossOriginStrategy;
+    /**
+     * @abstract
+     * @return {?}
+     */
+    LoadingStrategy.prototype.createElement = function () { };
+}
+class ScriptLoadingStrategy extends LoadingStrategy {
+    /**
+     * @param {?} src
+     * @param {?=} domStrategy
+     * @param {?=} crossOriginStrategy
+     */
+    constructor(src, domStrategy, crossOriginStrategy) {
+        super(src, domStrategy, crossOriginStrategy);
+    }
+    /**
+     * @return {?}
+     */
+    createElement() {
+        /** @type {?} */
+        const element = document.createElement('script');
+        element.src = this.path;
+        return element;
+    }
+}
+class StyleLoadingStrategy extends LoadingStrategy {
+    /**
+     * @param {?} href
+     * @param {?=} domStrategy
+     * @param {?=} crossOriginStrategy
+     */
+    constructor(href, domStrategy, crossOriginStrategy) {
+        super(href, domStrategy, crossOriginStrategy);
+    }
+    /**
+     * @return {?}
+     */
+    createElement() {
+        /** @type {?} */
+        const element = document.createElement('link');
+        element.rel = 'stylesheet';
+        element.href = this.path;
+        return element;
+    }
+}
+/** @type {?} */
+const LOADING_STRATEGY = {
+    /**
+     * @param {?} src
+     * @param {?=} integrity
+     * @return {?}
+     */
+    AppendAnonymousScriptToBody(src, integrity) {
+        return new ScriptLoadingStrategy(src, DOM_STRATEGY.AppendToBody(), CROSS_ORIGIN_STRATEGY.Anonymous(integrity));
+    },
+    /**
+     * @param {?} src
+     * @param {?=} integrity
+     * @return {?}
+     */
+    AppendAnonymousScriptToHead(src, integrity) {
+        return new ScriptLoadingStrategy(src, DOM_STRATEGY.AppendToHead(), CROSS_ORIGIN_STRATEGY.Anonymous(integrity));
+    },
+    /**
+     * @param {?} src
+     * @param {?=} integrity
+     * @return {?}
+     */
+    AppendAnonymousStyleToHead(src, integrity) {
+        return new StyleLoadingStrategy(src, DOM_STRATEGY.AppendToHead(), CROSS_ORIGIN_STRATEGY.Anonymous(integrity));
+    },
+    /**
+     * @param {?} src
+     * @param {?=} integrity
+     * @return {?}
+     */
+    PrependAnonymousScriptToHead(src, integrity) {
+        return new ScriptLoadingStrategy(src, DOM_STRATEGY.PrependToHead(), CROSS_ORIGIN_STRATEGY.Anonymous(integrity));
+    },
+    /**
+     * @param {?} src
+     * @param {?=} integrity
+     * @return {?}
+     */
+    PrependAnonymousStyleToHead(src, integrity) {
+        return new StyleLoadingStrategy(src, DOM_STRATEGY.PrependToHead(), CROSS_ORIGIN_STRATEGY.Anonymous(integrity));
+    },
+};
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/strategies/projection.strategy.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @abstract
+ * @template T
+ */
+class ProjectionStrategy {
+    /**
+     * @param {?} content
+     */
+    constructor(content) {
+        this.content = content;
+    }
+}
+if (false) {
+    /** @type {?} */
+    ProjectionStrategy.prototype.content;
+    /**
+     * @abstract
+     * @param {?} injector
+     * @return {?}
+     */
+    ProjectionStrategy.prototype.injectContent = function (injector) { };
+}
+/**
+ * @template T
+ */
+class ComponentProjectionStrategy extends ProjectionStrategy {
+    /**
+     * @param {?} component
+     * @param {?} containerStrategy
+     * @param {?=} contextStrategy
+     */
+    constructor(component, containerStrategy, contextStrategy = CONTEXT_STRATEGY.None()) {
+        super(component);
+        this.containerStrategy = containerStrategy;
+        this.contextStrategy = contextStrategy;
+    }
+    /**
+     * @param {?} injector
+     * @return {?}
+     */
+    injectContent(injector) {
+        this.containerStrategy.prepare();
+        /** @type {?} */
+        const resolver = (/** @type {?} */ (injector.get(ComponentFactoryResolver)));
+        /** @type {?} */
+        const factory = resolver.resolveComponentFactory(this.content);
+        /** @type {?} */
+        const componentRef = this.containerStrategy.containerRef.createComponent(factory, this.containerStrategy.getIndex(), injector);
+        this.contextStrategy.setContext(componentRef);
+        return (/** @type {?} */ (componentRef));
+    }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ComponentProjectionStrategy.prototype.containerStrategy;
+    /**
+     * @type {?}
+     * @private
+     */
+    ComponentProjectionStrategy.prototype.contextStrategy;
+}
+/**
+ * @template T
+ */
+class RootComponentProjectionStrategy extends ProjectionStrategy {
+    /**
+     * @param {?} component
+     * @param {?=} contextStrategy
+     * @param {?=} domStrategy
+     */
+    constructor(component, contextStrategy = CONTEXT_STRATEGY.None(), domStrategy = DOM_STRATEGY.AppendToBody()) {
+        super(component);
+        this.contextStrategy = contextStrategy;
+        this.domStrategy = domStrategy;
+    }
+    /**
+     * @param {?} injector
+     * @return {?}
+     */
+    injectContent(injector) {
+        /** @type {?} */
+        const appRef = injector.get(ApplicationRef);
+        /** @type {?} */
+        const resolver = (/** @type {?} */ (injector.get(ComponentFactoryResolver)));
+        /** @type {?} */
+        const componentRef = resolver
+            .resolveComponentFactory(this.content)
+            .create(injector);
+        this.contextStrategy.setContext(componentRef);
+        appRef.attachView(componentRef.hostView);
+        /** @type {?} */
+        const element = ((/** @type {?} */ (componentRef.hostView))).rootNodes[0];
+        this.domStrategy.insertElement(element);
+        return (/** @type {?} */ (componentRef));
+    }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    RootComponentProjectionStrategy.prototype.contextStrategy;
+    /**
+     * @type {?}
+     * @private
+     */
+    RootComponentProjectionStrategy.prototype.domStrategy;
+}
+/**
+ * @template T
+ */
+class TemplateProjectionStrategy extends ProjectionStrategy {
+    /**
+     * @param {?} templateRef
+     * @param {?} containerStrategy
+     * @param {?=} contextStrategy
+     */
+    constructor(templateRef, containerStrategy, contextStrategy = CONTEXT_STRATEGY.None()) {
+        super(templateRef);
+        this.containerStrategy = containerStrategy;
+        this.contextStrategy = contextStrategy;
+    }
+    /**
+     * @return {?}
+     */
+    injectContent() {
+        this.containerStrategy.prepare();
+        /** @type {?} */
+        const embeddedViewRef = this.containerStrategy.containerRef.createEmbeddedView(this.content, this.contextStrategy.context, this.containerStrategy.getIndex());
+        embeddedViewRef.detectChanges();
+        return (/** @type {?} */ (embeddedViewRef));
+    }
+}
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    TemplateProjectionStrategy.prototype.containerStrategy;
+    /**
+     * @type {?}
+     * @private
+     */
+    TemplateProjectionStrategy.prototype.contextStrategy;
+}
+/** @type {?} */
+const PROJECTION_STRATEGY = {
+    /**
+     * @template T
+     * @param {?} component
+     * @param {?=} context
+     * @return {?}
+     */
+    AppendComponentToBody(component, context) {
+        return new RootComponentProjectionStrategy(component, context && CONTEXT_STRATEGY.Component(context));
+    },
+    /**
+     * @template T
+     * @param {?} component
+     * @param {?} containerRef
+     * @param {?=} context
+     * @return {?}
+     */
+    AppendComponentToContainer(component, containerRef, context) {
+        return new ComponentProjectionStrategy(component, CONTAINER_STRATEGY.Append(containerRef), context && CONTEXT_STRATEGY.Component(context));
+    },
+    /**
+     * @template T
+     * @param {?} templateRef
+     * @param {?} containerRef
+     * @param {?=} context
+     * @return {?}
+     */
+    AppendTemplateToContainer(templateRef, containerRef, context) {
+        return new TemplateProjectionStrategy(templateRef, CONTAINER_STRATEGY.Append(containerRef), context && CONTEXT_STRATEGY.Template(context));
+    },
+    /**
+     * @template T
+     * @param {?} component
+     * @param {?} containerRef
+     * @param {?=} context
+     * @return {?}
+     */
+    PrependComponentToContainer(component, containerRef, context) {
+        return new ComponentProjectionStrategy(component, CONTAINER_STRATEGY.Prepend(containerRef), context && CONTEXT_STRATEGY.Component(context));
+    },
+    /**
+     * @template T
+     * @param {?} templateRef
+     * @param {?} containerRef
+     * @param {?=} context
+     * @return {?}
+     */
+    PrependTemplateToContainer(templateRef, containerRef, context) {
+        return new TemplateProjectionStrategy(templateRef, CONTAINER_STRATEGY.Prepend(containerRef), context && CONTEXT_STRATEGY.Template(context));
+    },
+    /**
+     * @template T
+     * @param {?} component
+     * @param {?} containerRef
+     * @param {?=} context
+     * @return {?}
+     */
+    ProjectComponentToContainer(component, containerRef, context) {
+        return new ComponentProjectionStrategy(component, CONTAINER_STRATEGY.Clear(containerRef), context && CONTEXT_STRATEGY.Component(context));
+    },
+    /**
+     * @template T
+     * @param {?} templateRef
+     * @param {?} containerRef
+     * @param {?=} context
+     * @return {?}
+     */
+    ProjectTemplateToContainer(templateRef, containerRef, context) {
+        return new TemplateProjectionStrategy(templateRef, CONTAINER_STRATEGY.Clear(containerRef), context && CONTEXT_STRATEGY.Template(context));
+    },
+};
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/strategies/index.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/services/lazy-load.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class LazyLoadService {
     constructor() {
+        this.loaded = new Set();
         this.loadedLibraries = {};
     }
     /**
-     * @param {?} urlOrUrls
-     * @param {?} type
-     * @param {?=} content
+     * @param {?} strategyOrUrl
+     * @param {?=} retryTimesOrType
+     * @param {?=} retryDelayOrContent
      * @param {?=} targetQuery
      * @param {?=} position
      * @return {?}
      */
-    load(urlOrUrls, type, content = '', targetQuery = 'body', position = 'beforeend') {
+    load(strategyOrUrl, retryTimesOrType, retryDelayOrContent, targetQuery = 'body', position = 'beforeend') {
+        if (strategyOrUrl instanceof LoadingStrategy) {
+            /** @type {?} */
+            const strategy = strategyOrUrl;
+            /** @type {?} */
+            const retryTimes = typeof retryTimesOrType === 'number' ? retryTimesOrType : 2;
+            /** @type {?} */
+            const retryDelay = typeof retryDelayOrContent === 'number' ? retryDelayOrContent : 1000;
+            if (this.loaded.has(strategy.path))
+                return of(new CustomEvent('load'));
+            return strategy.createStream().pipe(retryWhen((/**
+             * @param {?} error$
+             * @return {?}
+             */
+            error$ => concat(error$.pipe(delay(retryDelay), take(retryTimes)), throwError(new CustomEvent('error'))))), tap((/**
+             * @return {?}
+             */
+            () => this.loaded.add(strategy.path))), delay(100), shareReplay({ bufferSize: 1, refCount: true }));
+        }
+        /** @type {?} */
+        let urlOrUrls = strategyOrUrl;
+        /** @type {?} */
+        const content = ((/** @type {?} */ (retryDelayOrContent))) || '';
+        /** @type {?} */
+        const type = (/** @type {?} */ (retryTimesOrType));
         if (!urlOrUrls && !content) {
             return throwError('Should pass url or content');
         }
@@ -4777,6 +6370,8 @@ LazyLoadService.decorators = [
 ];
 /** @nocollapse */ LazyLoadService.ngInjectableDef = ɵɵdefineInjectable({ factory: function LazyLoadService_Factory() { return new LazyLoadService(); }, token: LazyLoadService, providedIn: "root" });
 if (false) {
+    /** @type {?} */
+    LazyLoadService.prototype.loaded;
     /** @type {?} */
     LazyLoadService.prototype.loadedLibraries;
 }
@@ -4917,327 +6512,71 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/services/track-by.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const trackBy = (/**
+ * @template T
+ * @param {?} key
+ * @return {?}
+ */
+(key) => (/**
+ * @param {?} _
+ * @param {?} item
+ * @return {?}
+ */
+(_, item) => item[key]));
+/** @type {?} */
+const trackByDeep = (/**
+ * @template T
+ * @param {...?} keys
+ * @return {?}
+ */
+(...keys) => (/**
+ * @param {?} _
+ * @param {?} item
+ * @return {?}
+ */
+(_, item) => keys.reduce((/**
+ * @param {?} acc
+ * @param {?} key
+ * @return {?}
+ */
+(acc, key) => acc[key]), item)));
+/**
+ * @template ItemType
+ */
+class TrackByService {
+    constructor() {
+        this.by = trackBy;
+        this.byDeep = trackByDeep;
+    }
+}
+TrackByService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+/** @nocollapse */ TrackByService.ngInjectableDef = ɵɵdefineInjectable({ factory: function TrackByService_Factory() { return new TrackByService(); }, token: TrackByService, providedIn: "root" });
+if (false) {
+    /** @type {?} */
+    TrackByService.prototype.by;
+    /** @type {?} */
+    TrackByService.prototype.byDeep;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/services/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/tokens/common.token.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} environment
- * @return {?}
- */
-function environmentFactory(environment) {
-    return Object.assign({}, environment);
-}
-/**
- * @param {?} config
- * @return {?}
- */
-function configFactory(config) {
-    return Object.assign({}, config);
-}
-/** @type {?} */
-const ENVIRONMENT = new InjectionToken('ENVIRONMENT');
-/** @type {?} */
-const CONFIG = new InjectionToken('CONFIG');
-
-/**
- * @fileoverview added by tsickle
  * Generated from: lib/tokens/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/directives/debounce.directive.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class InputEventDebounceDirective {
-    /**
-     * @param {?} el
-     */
-    constructor(el) {
-        this.el = el;
-        this.debounce = 300;
-        this.debounceEvent = new EventEmitter();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        fromEvent(this.el.nativeElement, 'input')
-            .pipe(debounceTime(this.debounce), takeUntilDestroy(this))
-            .subscribe((/**
-         * @param {?} event
-         * @return {?}
-         */
-        (event) => {
-            this.debounceEvent.emit(event);
-        }));
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() { }
-}
-InputEventDebounceDirective.decorators = [
-    { type: Directive, args: [{
-                // tslint:disable-next-line: directive-selector
-                selector: '[input.debounce]',
-            },] }
-];
-/** @nocollapse */
-InputEventDebounceDirective.ctorParameters = () => [
-    { type: ElementRef }
-];
-InputEventDebounceDirective.propDecorators = {
-    debounce: [{ type: Input }],
-    debounceEvent: [{ type: Output, args: ['input.debounce',] }]
-};
-if (false) {
-    /** @type {?} */
-    InputEventDebounceDirective.prototype.debounce;
-    /** @type {?} */
-    InputEventDebounceDirective.prototype.debounceEvent;
-    /**
-     * @type {?}
-     * @private
-     */
-    InputEventDebounceDirective.prototype.el;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/directives/stop-propagation.directive.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class StopPropagationDirective {
-    /**
-     * @param {?} el
-     */
-    constructor(el) {
-        this.el = el;
-        this.stopPropEvent = new EventEmitter();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        fromEvent(this.el.nativeElement, 'click')
-            .pipe(takeUntilDestroy(this))
-            .subscribe((/**
-         * @param {?} event
-         * @return {?}
-         */
-        (event) => {
-            event.stopPropagation();
-            this.stopPropEvent.emit(event);
-        }));
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() { }
-}
-StopPropagationDirective.decorators = [
-    { type: Directive, args: [{
-                // tslint:disable-next-line: directive-selector
-                selector: '[click.stop]',
-            },] }
-];
-/** @nocollapse */
-StopPropagationDirective.ctorParameters = () => [
-    { type: ElementRef }
-];
-StopPropagationDirective.propDecorators = {
-    stopPropEvent: [{ type: Output, args: ['click.stop',] }]
-};
-if (false) {
-    /** @type {?} */
-    StopPropagationDirective.prototype.stopPropEvent;
-    /**
-     * @type {?}
-     * @private
-     */
-    StopPropagationDirective.prototype.el;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/providers/locale.provider.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class LocaleId extends String {
-    /**
-     * @param {?} localizationService
-     */
-    constructor(localizationService) {
-        super();
-        this.localizationService = localizationService;
-    }
-    /**
-     * @return {?}
-     */
-    toString() {
-        const { currentLang } = this.localizationService;
-        return localesMapping[currentLang] || currentLang;
-    }
-    /**
-     * @return {?}
-     */
-    valueOf() {
-        return this.toString();
-    }
-}
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    LocaleId.prototype.localizationService;
-}
-/** @type {?} */
-const LocaleProvider = {
-    provide: LOCALE_ID,
-    useClass: LocaleId,
-    deps: [LocalizationService],
-};
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/utils/date-extensions.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-Date.prototype.toLocalISOString = (/**
- * @this {?}
- * @return {?}
- */
-function () {
-    /** @type {?} */
-    const timezoneOffset = this.getTimezoneOffset();
-    return new Date(this.getTime() - timezoneOffset * 60000).toISOString();
-});
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/core.module.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @return {?}
- */
-function storageFactory() {
-    return localStorage;
-}
-class CoreModule {
-    /**
-     * @param {?=} options
-     * @return {?}
-     */
-    static forRoot(options = (/** @type {?} */ ({}))) {
-        return {
-            ngModule: CoreModule,
-            providers: [
-                LocaleProvider,
-                {
-                    provide: NGXS_PLUGINS,
-                    useClass: ConfigPlugin,
-                    multi: true,
-                },
-                {
-                    provide: NGXS_CONFIG_PLUGIN_OPTIONS,
-                    useValue: options,
-                },
-                {
-                    provide: HTTP_INTERCEPTORS,
-                    useClass: ApiInterceptor,
-                    multi: true,
-                },
-                {
-                    provide: APP_INITIALIZER,
-                    multi: true,
-                    deps: [Injector],
-                    useFactory: getInitialData,
-                },
-                {
-                    provide: APP_INITIALIZER,
-                    multi: true,
-                    deps: [Injector],
-                    useFactory: localeInitializer,
-                },
-                ...OAuthModule.forRoot().providers,
-                { provide: OAuthStorage, useFactory: storageFactory },
-            ],
-        };
-    }
-}
-CoreModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    NgxsModule.forFeature([ReplaceableComponentsState, ProfileState, SessionState, ConfigState]),
-                    NgxsRouterPluginModule.forRoot(),
-                    NgxsStoragePluginModule.forRoot({ key: ['SessionState'] }),
-                    OAuthModule,
-                    CommonModule,
-                    HttpClientModule,
-                    FormsModule,
-                    ReactiveFormsModule,
-                    RouterModule,
-                ],
-                declarations: [
-                    ReplaceableRouteContainerComponent,
-                    RouterOutletComponent,
-                    DynamicLayoutComponent,
-                    AutofocusDirective,
-                    EllipsisDirective,
-                    ForDirective,
-                    FormSubmitDirective,
-                    LocalizationPipe,
-                    SortPipe,
-                    InitDirective,
-                    PermissionDirective,
-                    VisibilityDirective,
-                    InputEventDebounceDirective,
-                    StopPropagationDirective,
-                    ReplaceableTemplateDirective,
-                    AbstractNgModelComponent,
-                ],
-                exports: [
-                    CommonModule,
-                    HttpClientModule,
-                    FormsModule,
-                    ReactiveFormsModule,
-                    RouterModule,
-                    RouterOutletComponent,
-                    DynamicLayoutComponent,
-                    AbstractNgModelComponent,
-                    ReplaceableRouteContainerComponent,
-                    AutofocusDirective,
-                    EllipsisDirective,
-                    ForDirective,
-                    FormSubmitDirective,
-                    InitDirective,
-                    PermissionDirective,
-                    VisibilityDirective,
-                    InputEventDebounceDirective,
-                    ReplaceableTemplateDirective,
-                    StopPropagationDirective,
-                    LocalizationPipe,
-                    SortPipe,
-                    LocalizationPipe,
-                ],
-                providers: [LocalizationPipe],
-                entryComponents: [
-                    RouterOutletComponent,
-                    DynamicLayoutComponent,
-                    ReplaceableRouteContainerComponent,
-                ],
-            },] }
-];
 
 /**
  * @fileoverview added by tsickle
@@ -5251,5 +6590,5 @@ CoreModule.decorators = [
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AbstractNgModelComponent, AddReplaceableComponent, AddRoute, ApiInterceptor, ApplicationConfigurationService, AuditedEntityDto, AuditedEntityWithUserDto, AuthGuard, AuthService, AutofocusDirective, CONFIG, ChangePassword, ConfigPlugin, ConfigState, ConfigStateService, CoreModule, CreationAuditedEntityDto, CreationAuditedEntityWithUserDto, DynamicLayoutComponent, ENVIRONMENT, EllipsisDirective, EntityDto, ForDirective, FormSubmitDirective, FullAuditedEntityDto, FullAuditedEntityWithUserDto, GetAppConfiguration, GetProfile, InitDirective, LazyLoadService, LimitedResultRequestDto, ListResultDto, LocalizationPipe, LocalizationService, ModifyOpenedTabCount, NGXS_CONFIG_PLUGIN_OPTIONS, PagedAndSortedResultRequestDto, PagedResultDto, PagedResultRequestDto, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, Rest, RestOccurError, RestService, RouterOutletComponent, SessionState, SessionStateService, SetEnvironment, SetLanguage, SetRemember, SetTenant, SortPipe, StartLoader, StopLoader, UpdateProfile, VisibilityDirective, addAbpRoutes, configFactory, environmentFactory, getAbpRoutes, getInitialData, localeInitializer, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, storageFactory, takeUntilDestroy, uuid, ReplaceableComponentsState as ɵa, AddReplaceableComponent as ɵb, DynamicLayoutComponent as ɵba, AutofocusDirective as ɵbb, EllipsisDirective as ɵbc, ForDirective as ɵbd, FormSubmitDirective as ɵbe, LocalizationPipe as ɵbf, SortPipe as ɵbg, InitDirective as ɵbh, PermissionDirective as ɵbi, VisibilityDirective as ɵbj, InputEventDebounceDirective as ɵbk, StopPropagationDirective as ɵbl, ReplaceableTemplateDirective as ɵbm, AbstractNgModelComponent as ɵbn, LocaleId as ɵbo, LocaleProvider as ɵbp, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbq, ConfigPlugin as ɵbr, ApiInterceptor as ɵbs, getInitialData as ɵbt, localeInitializer as ɵbu, ProfileState as ɵd, ProfileService as ɵe, RestService as ɵf, GetProfile as ɵg, UpdateProfile as ɵh, ChangePassword as ɵi, SessionState as ɵk, LocalizationService as ɵl, SetLanguage as ɵm, SetTenant as ɵn, ModifyOpenedTabCount as ɵo, SetRemember as ɵp, ConfigState as ɵr, ApplicationConfigurationService as ɵs, PatchRouteByName as ɵt, GetAppConfiguration as ɵu, AddRoute as ɵv, SetEnvironment as ɵw, ReplaceableRouteContainerComponent as ɵy, RouterOutletComponent as ɵz };
+export { AbstractNgModelComponent, AddReplaceableComponent, AddRoute, ApiInterceptor, ApplicationConfigurationService, AuditedEntityDto, AuditedEntityWithUserDto, AuthGuard, AuthService, AutofocusDirective, CONTAINER_STRATEGY, CONTENT_SECURITY_STRATEGY, CONTENT_STRATEGY, CONTEXT_STRATEGY, CORE_OPTIONS, CROSS_ORIGIN_STRATEGY, ChangePassword, ClearContainerStrategy, ComponentContextStrategy, ComponentProjectionStrategy, ConfigPlugin, ConfigState, ConfigStateService, ContainerStrategy, ContentProjectionService, ContentSecurityStrategy, ContentStrategy, ContextStrategy, CoreModule, CreationAuditedEntityDto, CreationAuditedEntityWithUserDto, CrossOriginStrategy, DOM_STRATEGY, DomInsertionService, DomStrategy, DynamicLayoutComponent, EllipsisDirective, EntityDto, ForDirective, FormSubmitDirective, FullAuditedEntityDto, FullAuditedEntityWithUserDto, GetAppConfiguration, GetProfile, InitDirective, InsertIntoContainerStrategy, LOADING_STRATEGY, LazyLoadService, LimitedResultRequestDto, ListResultDto, LoadingStrategy, LocalizationPipe, LocalizationService, LooseContentSecurityStrategy, MockLocalizationPipe, ModifyOpenedTabCount, NGXS_CONFIG_PLUGIN_OPTIONS, NoContentSecurityStrategy, NoContextStrategy, PROJECTION_STRATEGY, PagedAndSortedResultRequestDto, PagedResultDto, PagedResultRequestDto, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ProjectionStrategy, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, Rest, RestOccurError, RestService, RootComponentProjectionStrategy, RouterOutletComponent, ScriptContentStrategy, ScriptLoadingStrategy, SessionState, SessionStateService, SetEnvironment, SetLanguage, SetRemember, SetTenant, SortPipe, StartLoader, StopLoader, StyleContentStrategy, StyleLoadingStrategy, TemplateContextStrategy, TemplateProjectionStrategy, TrackByService, UpdateProfile, VisibilityDirective, addAbpRoutes, fromLazyLoad, generateHash, generatePassword, getAbpRoutes, getInitialData, isNumber, isUndefinedOrEmptyString, localeInitializer, mapEnumToOptions, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, trackBy, trackByDeep, uuid, storageFactory as ɵa, BaseCoreModule as ɵb, ProfileService as ɵba, RestService as ɵbb, GetProfile as ɵbc, UpdateProfile as ɵbd, ChangePassword as ɵbe, SessionState as ɵbg, LocalizationService as ɵbh, SetLanguage as ɵbi, SetTenant as ɵbj, ModifyOpenedTabCount as ɵbk, SetRemember as ɵbl, ConfigState as ɵbn, ApplicationConfigurationService as ɵbo, PatchRouteByName as ɵbp, GetAppConfiguration as ɵbq, AddRoute as ɵbr, SetEnvironment as ɵbs, LocaleId as ɵbu, LocaleProvider as ɵbv, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbw, ConfigPlugin as ɵbx, CORE_OPTIONS as ɵby, ApiInterceptor as ɵbz, RootCoreModule as ɵc, getInitialData as ɵca, localeInitializer as ɵcb, TestCoreModule as ɵd, AbstractNgModelComponent as ɵe, AutofocusDirective as ɵf, DynamicLayoutComponent as ɵg, EllipsisDirective as ɵh, ForDirective as ɵi, FormSubmitDirective as ɵj, InitDirective as ɵk, InputEventDebounceDirective as ɵl, PermissionDirective as ɵm, ReplaceableRouteContainerComponent as ɵn, ReplaceableTemplateDirective as ɵo, RouterOutletComponent as ɵp, SortPipe as ɵq, StopPropagationDirective as ɵr, VisibilityDirective as ɵs, LocalizationModule as ɵt, LocalizationPipe as ɵu, MockLocalizationPipe as ɵv, ReplaceableComponentsState as ɵw, AddReplaceableComponent as ɵx, ProfileState as ɵz };
 //# sourceMappingURL=abp-ng.core.js.map

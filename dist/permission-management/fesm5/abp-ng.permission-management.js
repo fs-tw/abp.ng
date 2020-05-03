@@ -46,6 +46,7 @@ if (false) {
 var PermissionManagementService = /** @class */ (function () {
     function PermissionManagementService(rest) {
         this.rest = rest;
+        this.apiName = 'AbpPermissionManagement';
     }
     /**
      * @param {?} params
@@ -62,7 +63,7 @@ var PermissionManagementService = /** @class */ (function () {
             url: '/api/abp/permissions',
             params: params,
         };
-        return this.rest.request(request);
+        return this.rest.request(request, { apiName: this.apiName });
     };
     /**
      * @param {?} __0
@@ -81,7 +82,9 @@ var PermissionManagementService = /** @class */ (function () {
             body: { permissions: permissions },
             params: { providerKey: providerKey, providerName: providerName },
         };
-        return this.rest.request(request);
+        return this.rest.request(request, {
+            apiName: this.apiName,
+        });
     };
     PermissionManagementService.decorators = [
         { type: Injectable, args: [{
@@ -96,6 +99,8 @@ var PermissionManagementService = /** @class */ (function () {
     return PermissionManagementService;
 }());
 if (false) {
+    /** @type {?} */
+    PermissionManagementService.prototype.apiName;
     /**
      * @type {?}
      * @private
@@ -737,6 +742,16 @@ var PermissionManagementModule = /** @class */ (function () {
  * Generated from: lib/components/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/enums/components.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @enum {string} */
+var ePermissionManagementComponents = {
+    PermissionManagement: "PermissionManagement.PermissionManagementComponent",
+};
 
 /**
  * @fileoverview added by tsickle

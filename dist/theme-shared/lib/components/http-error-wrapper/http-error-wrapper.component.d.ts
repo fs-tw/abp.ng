@@ -12,6 +12,7 @@ export declare class HttpErrorWrapperComponent implements AfterViewInit, OnDestr
     destroy$: Subject<void>;
     hideCloseIcon: boolean;
     backgroundColor: string;
+    isHomeShow: boolean;
     containerRef: ElementRef<HTMLDivElement>;
     readonly statusText: string;
     ngOnInit(): void;

@@ -1,0 +1,11 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/enums/components.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @enum {string} */
+const ePermissionManagementComponents = {
+    PermissionManagement: "PermissionManagement.PermissionManagementComponent",
+};
+export { ePermissionManagementComponents };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29tcG9uZW50cy5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0BhYnAvbmcucGVybWlzc2lvbi1tYW5hZ2VtZW50LyIsInNvdXJjZXMiOlsibGliL2VudW1zL2NvbXBvbmVudHMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUEsTUFBa0IsK0JBQStCO0lBQy9DLG9CQUFvQixzREFBdUQ7RUFDNUUiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgY29uc3QgZW51bSBlUGVybWlzc2lvbk1hbmFnZW1lbnRDb21wb25lbnRzIHtcclxuICBQZXJtaXNzaW9uTWFuYWdlbWVudCA9ICdQZXJtaXNzaW9uTWFuYWdlbWVudC5QZXJtaXNzaW9uTWFuYWdlbWVudENvbXBvbmVudCcsXHJcbn1cclxuIl19
