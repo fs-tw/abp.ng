@@ -6,6 +6,7 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Identity } from '../../models/identity';
 import { IdentityService } from '../../services/identity.service';
+import { ePermissionManagementComponents } from '@abp/ng.permission-management';
 export declare class UsersComponent implements OnInit {
     private confirmationService;
     private fb;
@@ -26,8 +27,7 @@ export declare class UsersComponent implements OnInit {
     modalBusy: boolean;
     sortOrder: string;
     sortKey: string;
-    passwordRulesArr: ("number" | "small" | "capital" | "special")[];
-    requiredPasswordLength: number;
+    permissionManagementKey: ePermissionManagementComponents;
     trackByFn: TrackByFunction<AbstractControl>;
     onVisiblePermissionChange: (event: any) => void;
     readonly roleGroups: FormGroup[];

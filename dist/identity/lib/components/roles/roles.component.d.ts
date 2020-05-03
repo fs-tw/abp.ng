@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Identity } from '../../models/identity';
+import { ePermissionManagementComponents } from '@abp/ng.permission-management';
 export declare class RolesComponent implements OnInit {
     private confirmationService;
     private fb;
@@ -21,6 +22,7 @@ export declare class RolesComponent implements OnInit {
     modalBusy: boolean;
     sortOrder: string;
     sortKey: string;
+    permissionManagementKey: ePermissionManagementComponents;
     formRef: ElementRef<HTMLFormElement>;
     onVisiblePermissionChange: (event: any) => void;
     constructor(confirmationService: ConfirmationService, fb: FormBuilder, store: Store);

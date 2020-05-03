@@ -1,5 +1,5 @@
 import { StateContext, Store } from '@ngxs/store';
-import { AddRoute, PatchRouteByName } from '../actions/config.actions';
+import { AddRoute, PatchRouteByName, SetEnvironment } from '../actions/config.actions';
 import { ABP } from '../models/common';
 import { Config } from '../models/config';
 import { ApplicationConfigurationService } from '../services/application-configuration.service';
@@ -20,5 +20,5 @@ export declare class ConfigState {
     addData({ patchState, dispatch }: StateContext<Config.State>): import("rxjs").Observable<any>;
     patchRoute({ patchState, getState }: StateContext<Config.State>, { name, newValue }: PatchRouteByName): Config.State;
     addRoute({ patchState, getState }: StateContext<Config.State>, { payload }: AddRoute): Config.State;
-    setEnvironment({ patchState }: StateContext<Config.State>, environment: Config.Environment): Config.State;
+    setEnvironment({ patchState }: StateContext<Config.State>, { environment }: SetEnvironment): Config.State;
 }

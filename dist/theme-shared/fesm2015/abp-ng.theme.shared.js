@@ -1,17 +1,17 @@
-import { ConfigState, LocalizationService, takeUntilDestroy, StartLoader, StopLoader, SortPipe, RestOccurError, LazyLoadService, CoreModule } from '@abp/ng.core';
+import { ConfigState, PROJECTION_STRATEGY, ContentProjectionService, takeUntilDestroy, StartLoader, StopLoader, LocalizationService, SortPipe, RestOccurError, DomInsertionService, CONTENT_STRATEGY, LazyLoadService, noop, CoreModule } from '@abp/ng.core';
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Renderer2, Input, Output, ViewChild, ElementRef, ChangeDetectorRef, Injectable, ɵɵdefineInjectable, ContentChild, ViewChildren, ViewEncapsulation, Directive, Host, Optional, Self, ApplicationRef, ComponentFactoryResolver, RendererFactory2, Injector, Inject, ɵɵinject, INJECTOR, InjectionToken, ViewContainerRef, HostBinding, APP_INITIALIZER, NgModule } from '@angular/core';
+import { Component, EventEmitter, Renderer2, Input, Output, ViewChild, ElementRef, ChangeDetectorRef, Injectable, ɵɵdefineInjectable, ɵɵinject, ViewEncapsulation, ViewContainerRef, ContentChild, ViewChildren, Directive, ComponentFactoryResolver, Injector, HostBinding, Host, Optional, Self, ApplicationRef, RendererFactory2, Inject, INJECTOR, InjectionToken, inject, APP_INITIALIZER, NgModule } from '@angular/core';
 import { NgbDateParserFormatter, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { takeUntilDestroy as takeUntilDestroy$1, NgxValidateCoreModule } from '@ngx-validate/core';
+import { takeUntilDestroy as takeUntilDestroy$1, NgxValidateCoreModule, validatePassword } from '@ngx-validate/core';
 import { Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 import { Store, ofActionSuccessful, Actions } from '@ngxs/store';
 import { ReplaySubject, BehaviorSubject, Subject, fromEvent, interval, timer } from 'rxjs';
-import { takeUntil, debounceTime, filter, take } from 'rxjs/operators';
+import { takeUntil, debounceTime, filter, distinctUntilChanged, take, map } from 'rxjs/operators';
 import snq from 'snq';
 import { animation, style, animate, trigger, transition, useAnimation, query, keyframes, state } from '@angular/animations';
 import clone from 'just-clone';
-import { HttpErrorResponse } from '@angular/common/http';
 import { RouterError, RouterDataResolved, Navigate, RouterState } from '@ngxs/router-plugin';
+import { Validators } from '@angular/forms';
 
 /**
  * @fileoverview added by tsickle
@@ -522,8 +522,25 @@ var Confirmation;
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class ConfirmationService {
-    constructor() {
+    /**
+     * @param {?} contentProjectionService
+     */
+    constructor(contentProjectionService) {
+        this.contentProjectionService = contentProjectionService;
         this.confirmation$ = new ReplaySubject(1);
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    setContainer() {
+        setTimeout((/**
+         * @return {?}
+         */
+        () => {
+            this.containerComponentRef = this.contentProjectionService.projectContent(PROJECTION_STRATEGY.AppendComponentToBody(ConfirmationComponent));
+            this.containerComponentRef.changeDetectorRef.detectChanges();
+        }), 0);
     }
     /**
      * @param {?} message
@@ -569,6 +586,8 @@ class ConfirmationService {
      * @return {?}
      */
     show(message, title, severity, options) {
+        if (!this.containerComponentRef)
+            this.setContainer();
         this.confirmation$.next({
             message,
             title,
@@ -583,11 +602,12 @@ class ConfirmationService {
      * @param {?=} status
      * @return {?}
      */
-    clear(status) {
+    clear(status = Confirmation.Status.dismiss) {
         this.confirmation$.next();
-        this.status$.next(status || Confirmation.Status.dismiss);
+        this.status$.next(status);
     }
     /**
+     * @private
      * @return {?}
      */
     listenToEscape() {
@@ -609,12 +629,26 @@ class ConfirmationService {
 ConfirmationService.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] }
 ];
-/** @nocollapse */ ConfirmationService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ConfirmationService_Factory() { return new ConfirmationService(); }, token: ConfirmationService, providedIn: "root" });
+/** @nocollapse */
+ConfirmationService.ctorParameters = () => [
+    { type: ContentProjectionService }
+];
+/** @nocollapse */ ConfirmationService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ConfirmationService_Factory() { return new ConfirmationService(ɵɵinject(ContentProjectionService)); }, token: ConfirmationService, providedIn: "root" });
 if (false) {
     /** @type {?} */
     ConfirmationService.prototype.status$;
     /** @type {?} */
     ConfirmationService.prototype.confirmation$;
+    /**
+     * @type {?}
+     * @private
+     */
+    ConfirmationService.prototype.containerComponentRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    ConfirmationService.prototype.contentProjectionService;
 }
 
 /**
@@ -625,11 +659,9 @@ if (false) {
 class ConfirmationComponent {
     /**
      * @param {?} confirmationService
-     * @param {?} localizationService
      */
-    constructor(confirmationService, localizationService) {
+    constructor(confirmationService) {
         this.confirmationService = confirmationService;
-        this.localizationService = localizationService;
         this.confirm = Confirmation.Status.confirm;
         this.reject = Confirmation.Status.reject;
         this.dismiss = Confirmation.Status.dismiss;
@@ -677,8 +709,7 @@ ConfirmationComponent.decorators = [
 ];
 /** @nocollapse */
 ConfirmationComponent.ctorParameters = () => [
-    { type: ConfirmationService },
-    { type: LocalizationService }
+    { type: ConfirmationService }
 ];
 if (false) {
     /** @type {?} */
@@ -696,11 +727,6 @@ if (false) {
      * @private
      */
     ConfirmationComponent.prototype.confirmationService;
-    /**
-     * @type {?}
-     * @private
-     */
-    ConfirmationComponent.prototype.localizationService;
 }
 
 /**
@@ -715,6 +741,7 @@ class HttpErrorWrapperComponent {
         this.details = 'Sorry, an error has occured.';
         this.customComponent = null;
         this.hideCloseIcon = false;
+        this.isHomeShow = true;
     }
     /**
      * @return {?}
@@ -730,7 +757,8 @@ class HttpErrorWrapperComponent {
             snq((/**
              * @return {?}
              */
-            () => window.getComputedStyle(document.body).getPropertyValue('background-color'))) || '#fff';
+            () => window.getComputedStyle(document.body).getPropertyValue('background-color'))) ||
+                '#fff';
     }
     /**
      * @return {?}
@@ -738,7 +766,9 @@ class HttpErrorWrapperComponent {
     ngAfterViewInit() {
         if (this.customComponent) {
             /** @type {?} */
-            const customComponentRef = this.cfRes.resolveComponentFactory(this.customComponent).create(this.injector);
+            const customComponentRef = this.cfRes
+                .resolveComponentFactory(this.customComponent)
+                .create(this.injector);
             customComponentRef.instance.errorStatus = this.status;
             customComponentRef.instance.destroy$ = this.destroy$;
             this.appRef.attachView(customComponentRef.hostView);
@@ -773,7 +803,7 @@ class HttpErrorWrapperComponent {
 HttpErrorWrapperComponent.decorators = [
     { type: Component, args: [{
                 selector: 'abp-http-error-wrapper',
-                template: "<div #container id=\"abp-http-error-container\" class=\"error\" [style.backgroundColor]=\"backgroundColor\">\r\n  <button *ngIf=\"!hideCloseIcon\" id=\"abp-close-button\" type=\"button\" class=\"close mr-2\" (click)=\"destroy()\">\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n\r\n  <div *ngIf=\"!customComponent\" class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>{{ statusText }} {{ title | abpLocalization }}</h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a (click)=\"destroy()\" routerLink=\"/\" class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                template: "<div\r\n  #container\r\n  id=\"abp-http-error-container\"\r\n  class=\"error\"\r\n  [style.backgroundColor]=\"backgroundColor\"\r\n>\r\n  <button\r\n    *ngIf=\"!hideCloseIcon\"\r\n    id=\"abp-close-button\"\r\n    type=\"button\"\r\n    class=\"close mr-2\"\r\n    (click)=\"destroy()\"\r\n  >\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n\r\n  <div *ngIf=\"!customComponent\" class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>{{ statusText }} {{ title | abpLocalization }}</h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a\r\n            *ngIf=\"isHomeShow\"\r\n            (click)=\"destroy()\"\r\n            routerLink=\"/\"\r\n            class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
                 styles: [".error{position:fixed;top:0;width:100vw;height:100vh;z-index:999999}.centered{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%)}"]
             }] }
 ];
@@ -801,6 +831,8 @@ if (false) {
     HttpErrorWrapperComponent.prototype.hideCloseIcon;
     /** @type {?} */
     HttpErrorWrapperComponent.prototype.backgroundColor;
+    /** @type {?} */
+    HttpErrorWrapperComponent.prototype.isHomeShow;
     /** @type {?} */
     HttpErrorWrapperComponent.prototype.containerRef;
 }
@@ -859,7 +891,9 @@ class LoaderBarComponent {
          * @param {?} event
          * @return {?}
          */
-        event => event instanceof NavigationStart || event instanceof NavigationEnd || event instanceof NavigationError)), takeUntilDestroy$1(this))
+        event => event instanceof NavigationStart ||
+            event instanceof NavigationEnd ||
+            event instanceof NavigationError)), takeUntilDestroy$1(this))
             .subscribe((/**
          * @param {?} event
          * @return {?}
@@ -875,7 +909,8 @@ class LoaderBarComponent {
      * @return {?}
      */
     ngOnDestroy() {
-        this.interval.unsubscribe();
+        if (this.interval)
+            this.interval.unsubscribe();
     }
     /**
      * @return {?}
@@ -907,7 +942,8 @@ class LoaderBarComponent {
      * @return {?}
      */
     stopLoading() {
-        this.interval.unsubscribe();
+        if (this.interval)
+            this.interval.unsubscribe();
         this.progressLevel = 100;
         this.isLoading = false;
         if (this.timer && !this.timer.closed)
@@ -989,6 +1025,77 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/components/loading/loading.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class LoadingComponent {
+    constructor() { }
+    /**
+     * @return {?}
+     */
+    ngOnInit() { }
+}
+LoadingComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-loading',
+                template: `
+    <div class="abp-loading">
+      <i class="fa fa-spinner fa-pulse abp-spinner"></i>
+    </div>
+  `,
+                encapsulation: ViewEncapsulation.None,
+                styles: [`
+      .abp-loading {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1040;
+      }
+
+      .abp-loading .abp-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 14px;
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -o-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+      }
+    `]
+            }] }
+];
+/** @nocollapse */
+LoadingComponent.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/components/modal/modal-container.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class ModalContainerComponent {
+}
+ModalContainerComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-modal-container',
+                template: `
+    <ng-container #container></ng-container>
+  `
+            }] }
+];
+ModalContainerComponent.propDecorators = {
+    container: [{ type: ViewChild, args: ['container', { static: true, read: ViewContainerRef },] }]
+};
+if (false) {
+    /** @type {?} */
+    ModalContainerComponent.prototype.container;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/animations/fade.animations.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -1057,59 +1164,86 @@ const dialogAnimation = trigger('dialog', [
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/models/toaster.ts
+ * Generated from: lib/services/modal.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-var Toaster;
-(function (Toaster) {
+class ModalService {
     /**
-     * @record
+     * @param {?} contentProjectionService
      */
-    function ToastOptions() { }
-    Toaster.ToastOptions = ToastOptions;
-    if (false) {
-        /** @type {?|undefined} */
-        ToastOptions.prototype.life;
-        /** @type {?|undefined} */
-        ToastOptions.prototype.sticky;
-        /** @type {?|undefined} */
-        ToastOptions.prototype.closable;
-        /** @type {?|undefined} */
-        ToastOptions.prototype.tapToDismiss;
-        /** @type {?|undefined} */
-        ToastOptions.prototype.messageLocalizationParams;
-        /** @type {?|undefined} */
-        ToastOptions.prototype.titleLocalizationParams;
-        /** @type {?} */
-        ToastOptions.prototype.id;
-        /** @type {?|undefined} */
-        ToastOptions.prototype.containerKey;
+    constructor(contentProjectionService) {
+        this.contentProjectionService = contentProjectionService;
+        this.setContainer();
     }
     /**
-     * @record
+     * @private
+     * @return {?}
      */
-    function Toast() { }
-    Toaster.Toast = Toast;
-    if (false) {
-        /** @type {?} */
-        Toast.prototype.message;
-        /** @type {?|undefined} */
-        Toast.prototype.title;
-        /** @type {?|undefined} */
-        Toast.prototype.severity;
-        /** @type {?|undefined} */
-        Toast.prototype.options;
+    setContainer() {
+        this.containerComponentRef = this.contentProjectionService.projectContent(PROJECTION_STRATEGY.AppendComponentToBody(ModalContainerComponent));
+        this.containerComponentRef.changeDetectorRef.detectChanges();
     }
     /**
-     * @deprecated Status will be removed from toaster model in v3.0
+     * @return {?}
      */
-    let Status;
-    (function (Status) {
-        Status["confirm"] = "confirm";
-        Status["reject"] = "reject";
-        Status["dismiss"] = "dismiss";
-    })(Status = Toaster.Status || (Toaster.Status = {}));
-})(Toaster || (Toaster = {}));
+    clearModal() {
+        this.getContainer().clear();
+        this.detectChanges();
+    }
+    /**
+     * @return {?}
+     */
+    detectChanges() {
+        this.containerComponentRef.changeDetectorRef.detectChanges();
+    }
+    /**
+     * @return {?}
+     */
+    getContainer() {
+        return this.containerComponentRef.instance.container;
+    }
+    /**
+     * @template T
+     * @param {?} template
+     * @param {?=} context
+     * @return {?}
+     */
+    renderTemplate(template, context) {
+        /** @type {?} */
+        const containerRef = this.getContainer();
+        /** @type {?} */
+        const strategy = PROJECTION_STRATEGY.ProjectTemplateToContainer(template, containerRef, context);
+        this.contentProjectionService.projectContent(strategy);
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this.containerComponentRef.destroy();
+    }
+}
+ModalService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+/** @nocollapse */
+ModalService.ctorParameters = () => [
+    { type: ContentProjectionService }
+];
+/** @nocollapse */ ModalService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ModalService_Factory() { return new ModalService(ɵɵinject(ContentProjectionService)); }, token: ModalService, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ModalService.prototype.containerComponentRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    ModalService.prototype.contentProjectionService;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -1120,10 +1254,12 @@ class ModalComponent {
     /**
      * @param {?} renderer
      * @param {?} confirmationService
+     * @param {?} modalService
      */
-    constructor(renderer, confirmationService) {
+    constructor(renderer, confirmationService, modalService) {
         this.renderer = renderer;
         this.confirmationService = confirmationService;
+        this.modalService = modalService;
         this.centered = false;
         this.modalClass = '';
         this.size = 'lg';
@@ -1136,6 +1272,8 @@ class ModalComponent {
         this.isModalOpen = false;
         this.isConfirmationOpen = false;
         this.destroy$ = new Subject();
+        this.toggle$ = new Subject();
+        this.initToggleStream();
     }
     /**
      * @return {?}
@@ -1150,22 +1288,7 @@ class ModalComponent {
     set visible(value) {
         if (typeof value !== 'boolean')
             return;
-        this.isModalOpen = value;
-        this._visible = value;
-        this.visibleChange.emit(value);
-        if (value) {
-            setTimeout((/**
-             * @return {?}
-             */
-            () => this.listen()), 0);
-            this.renderer.addClass(document.body, 'modal-open');
-            this.appear.emit();
-        }
-        else {
-            this.renderer.removeClass(document.body, 'modal-open');
-            this.disappear.emit();
-            this.destroy$.next();
-        }
+        this.toggle$.next(value);
     }
     /**
      * @return {?}
@@ -1187,15 +1310,45 @@ class ModalComponent {
      * @return {?}
      */
     get isFormDirty() {
-        /** @type {?} */
-        let node;
-        if (!this.modalContent) {
-            node = (/** @type {?} */ (document.getElementById('modal-container')));
+        return Boolean(document.querySelector('.modal-dialog .ng-dirty'));
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    initToggleStream() {
+        this.toggle$
+            .pipe(takeUntilDestroy(this), debounceTime(0), distinctUntilChanged())
+            .subscribe((/**
+         * @param {?} value
+         * @return {?}
+         */
+        value => this.toggle(value)));
+    }
+    /**
+     * @private
+     * @param {?} value
+     * @return {?}
+     */
+    toggle(value) {
+        this.isModalOpen = value;
+        this._visible = value;
+        this.visibleChange.emit(value);
+        if (value) {
+            this.modalService.renderTemplate(this.template);
+            setTimeout((/**
+             * @return {?}
+             */
+            () => this.listen()), 0);
+            this.renderer.addClass(document.body, 'modal-open');
+            this.appear.emit();
         }
-        /** @type {?} */
-        const nodes = getFlatNodes(((/** @type {?} */ ((node || this.modalContent.nativeElement).querySelector('#abp-modal-body'))))
-            .childNodes);
-        return hasNgDirty(nodes);
+        else {
+            this.modalService.clearModal();
+            this.renderer.removeClass(document.body, 'modal-open');
+            this.disappear.emit();
+            this.destroy$.next();
+        }
     }
     /**
      * @return {?}
@@ -1221,7 +1374,7 @@ class ModalComponent {
              */
             (status) => {
                 this.isConfirmationOpen = false;
-                if (status === Toaster.Status.confirm) {
+                if (status === Confirmation.Status.confirm) {
                     this.visible = false;
                 }
             }));
@@ -1243,9 +1396,7 @@ class ModalComponent {
             .subscribe((/**
          * @return {?}
          */
-        () => {
-            this.close();
-        }));
+        () => this.close()));
         fromEvent(window, 'beforeunload')
             .pipe(takeUntil(this.destroy$))
             .subscribe((/**
@@ -1257,6 +1408,7 @@ class ModalComponent {
                 event.returnValue = true;
             }
             else {
+                event.returnValue = false;
                 delete event.returnValue;
             }
         }));
@@ -1282,15 +1434,17 @@ class ModalComponent {
 ModalComponent.decorators = [
     { type: Component, args: [{
                 selector: 'abp-modal',
-                template: "<div\r\n  *ngIf=\"visible\"\r\n  [@fade]=\"isModalOpen\"\r\n  id=\"modal-container\"\r\n  class=\"modal show {{ modalClass }}\"\r\n  tabindex=\"-1\"\r\n  role=\"dialog\"\r\n>\r\n  <div class=\"modal-backdrop\" (click)=\"close()\"></div>\r\n  <div\r\n    id=\"abp-modal-dialog\"\r\n    class=\"modal-dialog modal-{{ size }}\"\r\n    role=\"document\"\r\n    [class.modal-dialog-centered]=\"centered\"\r\n    #abpModalContent\r\n  >\r\n    <div id=\"abp-modal-content\" class=\"modal-content\">\r\n      <div id=\"abp-modal-header\" class=\"modal-header\">\r\n        <ng-container *ngTemplateOutlet=\"abpHeader\"></ng-container>\r\n        \u200B\r\n        <button id=\"abp-modal-close-button\" type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"close()\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div id=\"abp-modal-body\" class=\"modal-body\">\r\n        <ng-container *ngTemplateOutlet=\"abpBody\"></ng-container>\r\n      </div>\r\n      <div id=\"abp-modal-footer\" class=\"modal-footer\">\r\n        <ng-container *ngTemplateOutlet=\"abpFooter\"></ng-container>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <ng-content></ng-content>\r\n</div>\r\n",
+                template: "<ng-template #template>\r\n  <div\r\n    *ngIf=\"visible\"\r\n    [@fade]=\"isModalOpen\"\r\n    id=\"modal-container\"\r\n    class=\"modal show {{ modalClass }}\"\r\n    tabindex=\"-1\"\r\n    role=\"dialog\"\r\n  >\r\n    <div class=\"modal-backdrop\" (click)=\"close()\"></div>\r\n    <div\r\n      id=\"abp-modal-dialog\"\r\n      class=\"modal-dialog modal-{{ size }}\"\r\n      role=\"document\"\r\n      [class.modal-dialog-centered]=\"centered\"\r\n      #abpModalContent\r\n    >\r\n      <div id=\"abp-modal-content\" class=\"modal-content\">\r\n        <div id=\"abp-modal-header\" class=\"modal-header\">\r\n          <ng-container *ngTemplateOutlet=\"abpHeader\"></ng-container>\r\n          \u200B\r\n          <button\r\n            id=\"abp-modal-close-button\"\r\n            type=\"button\"\r\n            class=\"close\"\r\n            aria-label=\"Close\"\r\n            (click)=\"close()\"\r\n          >\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div id=\"abp-modal-body\" class=\"modal-body\">\r\n          <ng-container *ngTemplateOutlet=\"abpBody\"></ng-container>\r\n        </div>\r\n        <div id=\"abp-modal-footer\" class=\"modal-footer\">\r\n          <ng-container *ngTemplateOutlet=\"abpFooter\"></ng-container>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-content></ng-content>\r\n",
                 animations: [fadeAnimation],
+                providers: [ModalService],
                 styles: [".modal.show{display:block!important}.modal-backdrop{opacity:.8}.modal::-webkit-scrollbar{width:7px}.modal::-webkit-scrollbar-track{background:#ddd}.modal::-webkit-scrollbar-thumb{background:#8a8686}.modal-dialog{z-index:1050}"]
             }] }
 ];
 /** @nocollapse */
 ModalComponent.ctorParameters = () => [
     { type: Renderer2 },
-    { type: ConfirmationService }
+    { type: ConfirmationService },
+    { type: ModalService }
 ];
 ModalComponent.propDecorators = {
     visible: [{ type: Input }],
@@ -1303,6 +1457,7 @@ ModalComponent.propDecorators = {
     abpBody: [{ type: ContentChild, args: ['abpBody', { static: false },] }],
     abpFooter: [{ type: ContentChild, args: ['abpFooter', { static: false },] }],
     abpClose: [{ type: ContentChild, args: ['abpClose', { static: false, read: ElementRef },] }],
+    template: [{ type: ViewChild, args: ['template', { static: false },] }],
     modalContent: [{ type: ViewChild, args: ['abpModalContent', { static: false },] }],
     abpButtons: [{ type: ViewChildren, args: ['abp-button',] }],
     visibleChange: [{ type: Output }],
@@ -1327,6 +1482,8 @@ if (false) {
     ModalComponent.prototype.abpFooter;
     /** @type {?} */
     ModalComponent.prototype.abpClose;
+    /** @type {?} */
+    ModalComponent.prototype.template;
     /** @type {?} */
     ModalComponent.prototype.modalContent;
     /** @type {?} */
@@ -1353,38 +1510,129 @@ if (false) {
      * @type {?}
      * @private
      */
+    ModalComponent.prototype.toggle$;
+    /**
+     * @type {?}
+     * @private
+     */
     ModalComponent.prototype.renderer;
     /**
      * @type {?}
      * @private
      */
     ModalComponent.prototype.confirmationService;
+    /**
+     * @type {?}
+     * @private
+     */
+    ModalComponent.prototype.modalService;
 }
+
 /**
- * @param {?} nodes
- * @return {?}
+ * @fileoverview added by tsickle
+ * Generated from: lib/components/pagination/pagination.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-function getFlatNodes(nodes) {
-    return Array.from(nodes).reduce((/**
-     * @param {?} acc
-     * @param {?} val
+/**
+ * @deprecated
+ */
+class PaginationComponent {
+    constructor() {
+        this._value = 1;
+        this.valueChange = new EventEmitter();
+        this.totalPages = 0;
+        this.trackByFn = (/**
+         * @param {?} _
+         * @param {?} page
+         * @return {?}
+         */
+        (_, page) => page);
+    }
+    /**
      * @return {?}
      */
-    (acc, val) => [
-        ...acc,
-        ...(val.childNodes && val.childNodes.length ? getFlatNodes(val.childNodes) : [val]),
-    ]), []);
-}
-/**
- * @param {?} nodes
- * @return {?}
- */
-function hasNgDirty(nodes) {
-    return nodes.findIndex((/**
-     * @param {?} node
+    get value() {
+        return this._value;
+    }
+    /**
+     * @param {?} newValue
      * @return {?}
      */
-    node => (node.className || '').indexOf('ng-dirty') > -1)) > -1;
+    set value(newValue) {
+        if (this._value === newValue)
+            return;
+        this._value = newValue;
+        this.valueChange.emit(newValue);
+    }
+    /**
+     * @return {?}
+     */
+    get pageArray() {
+        /** @type {?} */
+        const count = this.totalPages < 5 ? this.totalPages : 5;
+        if (this.value === 1 || this.value === 2) {
+            return Array.from(new Array(count)).map((/**
+             * @param {?} _
+             * @param {?} index
+             * @return {?}
+             */
+            (_, index) => index + 1));
+        }
+        else if (this.value === this.totalPages || this.value === this.totalPages - 1) {
+            return Array.from(new Array(count)).map((/**
+             * @param {?} _
+             * @param {?} index
+             * @return {?}
+             */
+            (_, index) => this.totalPages - count + 1 + index));
+        }
+        else {
+            return [this.value - 2, this.value - 1, this.value, this.value + 1, this.value + 2];
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        if (!this.value || this.value < 1 || this.value > this.totalPages) {
+            this.value = 1;
+        }
+    }
+    /**
+     * @param {?} page
+     * @return {?}
+     */
+    changePage(page) {
+        if (page < 1)
+            return;
+        else if (page > this.totalPages)
+            return;
+        this.value = page;
+    }
+}
+PaginationComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-pagination',
+                template: "<div\r\n  class=\"ui-paginator-bottom ui-paginator ui-widget ui-widget-header ui-unselectable-text ui-helper-clearfix\"\r\n>\r\n  <a\r\n    class=\"ui-paginator-first ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === 1\"\r\n    tabindex=\"-1\"\r\n    (click)=\"changePage(1)\"\r\n    ><span class=\"ui-paginator-icon pi pi-step-backward\"></span></a\r\n  ><a\r\n    class=\"ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === 1\"\r\n    tabindex=\"-1\"\r\n    (click)=\"changePage(value - 1)\"\r\n    ><span class=\"ui-paginator-icon pi pi-caret-left\"></span></a\r\n  ><span class=\"ui-paginator-pages\"\r\n    ><a\r\n      *ngFor=\"let page of pageArray; trackBy: trackByFn\"\r\n      (click)=\"changePage(page)\"\r\n      class=\"ui-paginator-page ui-paginator-element ui-state-default ui-corner-all\"\r\n      [class.ui-state-active]=\"page === value\"\r\n      tabindex=\"0\"\r\n      >{{ page }}</a\r\n    ></span\r\n  ><a\r\n    class=\"ui-paginator-next ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === totalPages\"\r\n    tabindex=\"0\"\r\n    (click)=\"changePage(value + 1)\"\r\n    ><span class=\"ui-paginator-icon pi pi-caret-right\"></span></a\r\n  ><a\r\n    class=\"ui-paginator-last ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === totalPages\"\r\n    tabindex=\"0\"\r\n    (click)=\"changePage(totalPages)\"\r\n    ><span class=\"ui-paginator-icon pi pi-step-forward\"></span\r\n  ></a>\r\n</div>\r\n"
+            }] }
+];
+PaginationComponent.propDecorators = {
+    value: [{ type: Input }],
+    valueChange: [{ type: Output }],
+    totalPages: [{ type: Input }]
+};
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    PaginationComponent.prototype._value;
+    /** @type {?} */
+    PaginationComponent.prototype.valueChange;
+    /** @type {?} */
+    PaginationComponent.prototype.totalPages;
+    /** @type {?} */
+    PaginationComponent.prototype.trackByFn;
 }
 
 /**
@@ -1539,6 +1787,122 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/components/table/table.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class TableComponent {
+    constructor() {
+        this.bodyScrollLeft = 0;
+        this.page = 1;
+        this.trackingProp = 'id';
+        this.emptyMessage = 'AbpAccount::NoDataAvailableInDatatable';
+        this.pageChange = new EventEmitter();
+        this.trackByFn = (/**
+         * @param {?} _
+         * @param {?} value
+         * @return {?}
+         */
+        (_, value) => {
+            return typeof value === 'object' ? value[this.trackingProp] || value : value;
+        });
+    }
+    /**
+     * @return {?}
+     */
+    get totalRecords() {
+        return this._totalRecords || this.value.length;
+    }
+    /**
+     * @param {?} newValue
+     * @return {?}
+     */
+    set totalRecords(newValue) {
+        if (newValue < 0)
+            this._totalRecords = 0;
+        this._totalRecords = newValue;
+    }
+    /**
+     * @return {?}
+     */
+    get totalPages() {
+        if (!this.rows) {
+            return;
+        }
+        return Math.ceil(this.totalRecords / this.rows);
+    }
+    /**
+     * @return {?}
+     */
+    get slicedValue() {
+        if (!this.rows || this.rows >= this.value.length) {
+            return this.value;
+        }
+        /** @type {?} */
+        const start = (this.page - 1) * this.rows;
+        return this.value.slice(start, start + this.rows);
+    }
+}
+TableComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-table',
+                template: "<div #wrapper class=\"ui-table ui-widget\">\r\n  <div class=\"ui-table-wrapper\">\r\n    <ng-container\r\n      *ngTemplateOutlet=\"scrollable ? scrollableTemplate : defaultTemplate\"\r\n    ></ng-container>\r\n    <div class=\"pagination-wrapper\">\r\n      <ngb-pagination\r\n        [class.op-0]=\"!totalPages\"\r\n        [collectionSize]=\"totalPages\"\r\n        [pageSize]=\"1\"\r\n        [page]=\"page\"\r\n        (pageChange)=\"pageChange.emit($event)\"\r\n        [maxSize]=\"3\"\r\n        [rotate]=\"true\"\r\n      ></ngb-pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #scrollableTemplate>\r\n  <div class=\"ui-table-scrollable-wrapper\">\r\n    <div class=\"ui-table-scrollable-view\"></div>\r\n    <div class=\"ui-table-scrollable-header ui-widget-header\">\r\n      <div [style.margin-left.px]=\"-bodyScrollLeft\" class=\"ui-table-scrollable-header-box\">\r\n        <table class=\"ui-table-scrollable-header-table\">\r\n          <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n          <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n          <tbody></tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <div\r\n      #scrollableBody\r\n      (scroll)=\"bodyScrollLeft = scrollableBody.scrollLeft\"\r\n      class=\"ui-table-scrollable-body\"\r\n      [style.max-height]=\"scrollHeight\"\r\n    >\r\n      <table class=\"ui-table-scrollable-body-table\">\r\n        <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n        <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n      </table>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-template #defaultTemplate>\r\n  <table>\r\n    <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n  </table>\r\n</ng-template>\r\n\r\n<ng-template #colGroup>\r\n  <ng-container *ngTemplateOutlet=\"colgroupTemplate\"></ng-container>\r\n</ng-template>\r\n\r\n<ng-template #head>\r\n  <thead class=\"ui-table-thead\">\r\n    <ng-container *ngTemplateOutlet=\"headerTemplate\"></ng-container>\r\n  </thead>\r\n</ng-template>\r\n\r\n<ng-template #body>\r\n  <tbody class=\"ui-table-tbody\" *ngIf=\"value && value.length; else emptyTemplate\">\r\n    <ng-template\r\n      #bodyTemplateWrapper\r\n      *ngFor=\"let val of slicedValue; let index = index; trackBy: trackByFn\"\r\n      [ngTemplateOutlet]=\"bodyTemplate\"\r\n      [ngTemplateOutletContext]=\"{ $implicit: val, rowIndex: index }\"\r\n    ></ng-template>\r\n  </tbody>\r\n</ng-template>\r\n\r\n<ng-template #emptyTemplate>\r\n  <caption class=\"ui-table-empty\">\r\n    {{\r\n      emptyMessage | abpLocalization\r\n    }}\r\n  </caption>\r\n</ng-template>\r\n",
+                encapsulation: ViewEncapsulation.None,
+                styles: [".ui-table{position:relative}.ui-table .ui-table-tbody>tr:hover,.ui-table .ui-table-tbody>tr:nth-child(even):hover{-webkit-filter:brightness(90%);filter:brightness(90%)}.ui-table .ui-table-empty{padding:20px 0;text-align:center;border:1px solid #e0e0e0;border-top-width:0}.ui-table .ui-table-caption,.ui-table .ui-table-summary{background-color:#f4f4f4;color:#333;border:1px solid #c8c8c8;padding:.25em .5em;text-align:center;font-weight:700}.ui-table .ui-table-thead>tr>th{border:1px solid #c8c8c8;font-weight:700;color:#333;background-color:#f4f4f4}.ui-table .ui-table-tfoot>tr>td{border:1px solid #c8c8c8;font-weight:700;color:#333;background-color:#fff}.ui-table .ui-sortable-column{transition:box-shadow .2s;cursor:pointer}.ui-table .ui-sortable-column:focus{outline:0;outline-offset:0;box-shadow:inset 0 0 0 .2em #8dcdff}.ui-table .ui-sortable-column .ui-sortable-column-icon{color:#848484}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover{background-color:#e0e0e0;color:#333}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover .ui-sortable-column-icon{color:#333}.ui-table .ui-sortable-column.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon{color:#fff}.ui-table .ui-editable-column input{font-size:14px;font-family:'Open Sans','Helvetica Neue',sans-serif}.ui-table .ui-editable-column input:focus{outline:#007ad9 solid 1px;outline-offset:2px}.ui-table .ui-table-tbody>tr{background-color:#fff;color:#333}.ui-table .ui-table-tbody>tr>td{background-color:inherit;border:1px solid #c8c8c8}.ui-table .ui-table-tbody>tr.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr.ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-top>td{box-shadow:inset 0 2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-bottom>td{box-shadow:inset 0 -2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr:nth-child(even){background-color:#f9f9f9}.ui-table .ui-table-tbody>tr:nth-child(even).ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr:nth-child(even).ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr:nth-child(even).ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table.ui-table-hoverable-rows .ui-table-tbody>tr.ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover{cursor:pointer;background-color:#eaeaea;color:#333}.ui-table table{border-collapse:collapse;width:100%;table-layout:fixed}.ui-table .ui-table-tbody>tr>td,.ui-table .ui-table-tfoot>tr>td,.ui-table .ui-table-thead>tr>th{padding:.571em .857em}.ui-table p-sorticon{vertical-align:middle}.ui-table .ui-table-auto-layout>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-auto-layout>.ui-table-wrapper>table{table-layout:auto}.ui-table .ui-table-caption{border-bottom:0}.ui-table .ui-table-summary{border-top:0}.ui-table .ui-table-scrollable-wrapper{position:relative}.ui-table .ui-table-scrollable-footer,.ui-table .ui-table-scrollable-header{overflow:hidden;border:0}.ui-table .ui-table-scrollable-body{overflow:auto;position:relative}.ui-table .ui-table-virtual-table{position:absolute}.ui-table .ui-table-loading-virtual-table{display:none}.ui-table .ui-table-frozen-view .ui-table-scrollable-body{overflow:hidden}.ui-table .ui-table-frozen-view>.ui-table-scrollable-body>table>.ui-table-tbody>tr>td:last-child{border-right:0}.ui-table .ui-table-unfrozen-view{position:absolute;top:0}.ui-table .ui-table-resizable>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-resizable .ui-table-tbody>tr>td,.ui-table .ui-table-resizable .ui-table-tfoot>tr>td,.ui-table .ui-table-resizable .ui-table-thead>tr>th{overflow:hidden}.ui-table .ui-table-resizable .ui-resizable-column{background-clip:padding-box;position:relative}.ui-table .ui-table-resizable-fit .ui-resizable-column:last-child .ui-column-resizer{display:none}.ui-table .ui-column-resizer{display:block;position:absolute!important;top:0;right:0;margin:0;width:.5em;height:100%;padding:0;cursor:col-resize;border:1px solid transparent}.ui-table .ui-column-resizer-helper{background-color:#007ad9;width:1px;position:absolute;z-index:10;display:none}.ui-table .ui-table-tbody>tr>td.ui-editing-cell{padding:0}.ui-table .ui-table-tbody>tr>td.ui-editing-cell p-celleditor>*{width:100%}.ui-table .ui-table-reorder-indicator-down,.ui-table .ui-table-reorder-indicator-up{position:absolute;display:none}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:none}@media screen and (max-width:40em){.ui-table.ui-table-responsive .ui-table-tbody>tr>td{border:0}.ui-table .ui-table-responsive .ui-table-tfoot>tr>td,.ui-table .ui-table-responsive .ui-table-thead>tr>th,.ui-table .ui-table-responsive colgroup{display:none!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td{text-align:left;display:block;border:0;width:100%!important;box-sizing:border-box;float:left;clear:left}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{padding:.4em;min-width:30%;display:inline-block;margin:-.4em 1em -.4em -.4em;font-weight:700}}.ui-table .ui-widget{font-family:'Open Sans','Helvetica Neue',sans-serif;font-size:14px;text-decoration:none}.ui-table .page-item.disabled .page-link,.ui-table .page-link{background-color:transparent;border:none}.ui-table .page-item.disabled .page-link{box-shadow:none}.ui-table .pagination{margin-bottom:0}.ui-table .pagination-wrapper{display:flex;justify-content:center;border-top:0;padding:0}.ui-table .op-0{opacity:0}"]
+            }] }
+];
+TableComponent.propDecorators = {
+    value: [{ type: Input }],
+    headerTemplate: [{ type: Input }],
+    bodyTemplate: [{ type: Input }],
+    colgroupTemplate: [{ type: Input }],
+    scrollHeight: [{ type: Input }],
+    scrollable: [{ type: Input }],
+    rows: [{ type: Input }],
+    page: [{ type: Input }],
+    trackingProp: [{ type: Input }],
+    emptyMessage: [{ type: Input }],
+    pageChange: [{ type: Output }],
+    wrapperRef: [{ type: ViewChild, args: ['wrapper', { read: ElementRef, static: false },] }],
+    totalRecords: [{ type: Input }]
+};
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    TableComponent.prototype._totalRecords;
+    /** @type {?} */
+    TableComponent.prototype.bodyScrollLeft;
+    /** @type {?} */
+    TableComponent.prototype.value;
+    /** @type {?} */
+    TableComponent.prototype.headerTemplate;
+    /** @type {?} */
+    TableComponent.prototype.bodyTemplate;
+    /** @type {?} */
+    TableComponent.prototype.colgroupTemplate;
+    /** @type {?} */
+    TableComponent.prototype.scrollHeight;
+    /** @type {?} */
+    TableComponent.prototype.scrollable;
+    /** @type {?} */
+    TableComponent.prototype.rows;
+    /** @type {?} */
+    TableComponent.prototype.page;
+    /** @type {?} */
+    TableComponent.prototype.trackingProp;
+    /** @type {?} */
+    TableComponent.prototype.emptyMessage;
+    /** @type {?} */
+    TableComponent.prototype.pageChange;
+    /** @type {?} */
+    TableComponent.prototype.wrapperRef;
+    /** @type {?} */
+    TableComponent.prototype.trackByFn;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/animations/toast.animations.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -1561,10 +1925,22 @@ const toastInOut = trigger('toastInOut', [
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 class ToasterService {
-    constructor() {
+    /**
+     * @param {?} contentProjectionService
+     */
+    constructor(contentProjectionService) {
+        this.contentProjectionService = contentProjectionService;
         this.toasts$ = new ReplaySubject(1);
         this.lastId = -1;
         this.toasts = (/** @type {?} */ ([]));
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    setContainer() {
+        this.containerComponentRef = this.contentProjectionService.projectContent(PROJECTION_STRATEGY.AppendComponentToBody(ToastContainerComponent));
+        this.containerComponentRef.changeDetectorRef.detectChanges();
     }
     /**
      * Creates an info toast with given parameters.
@@ -1615,6 +1991,8 @@ class ToasterService {
      * @return {?}
      */
     show(message, title = null, severity = 'neutral', options = (/** @type {?} */ ({}))) {
+        if (!this.containerComponentRef)
+            this.setContainer();
         /** @type {?} */
         const id = ++this.lastId;
         this.toasts.push({
@@ -1666,7 +2044,11 @@ ToasterService.decorators = [
                 providedIn: 'root',
             },] }
 ];
-/** @nocollapse */ ToasterService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ToasterService_Factory() { return new ToasterService(); }, token: ToasterService, providedIn: "root" });
+/** @nocollapse */
+ToasterService.ctorParameters = () => [
+    { type: ContentProjectionService }
+];
+/** @nocollapse */ ToasterService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ToasterService_Factory() { return new ToasterService(ɵɵinject(ContentProjectionService)); }, token: ToasterService, providedIn: "root" });
 if (false) {
     /** @type {?} */
     ToasterService.prototype.toasts$;
@@ -1680,6 +2062,16 @@ if (false) {
      * @private
      */
     ToasterService.prototype.toasts;
+    /**
+     * @type {?}
+     * @private
+     */
+    ToasterService.prototype.containerComponentRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    ToasterService.prototype.contentProjectionService;
 }
 
 /**
@@ -1769,119 +2161,59 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/components/table/table.component.ts
+ * Generated from: lib/models/toaster.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
-class TableComponent {
-    constructor() {
-        this.bodyScrollLeft = 0;
-        this.page = 1;
-        this.trackingProp = 'id';
-        this.emptyMessage = 'AbpAccount::NoDataAvailableInDatatable';
-        this.pageChange = new EventEmitter();
-        this.trackByFn = (/**
-         * @param {?} _
-         * @param {?} value
-         * @return {?}
-         */
-        (_, value) => {
-            return typeof value === 'object' ? value[this.trackingProp] || value : value;
-        });
-    }
+var Toaster;
+(function (Toaster) {
     /**
-     * @return {?}
+     * @record
      */
-    get totalRecords() {
-        return this._totalRecords || this.value.length;
-    }
-    /**
-     * @param {?} newValue
-     * @return {?}
-     */
-    set totalRecords(newValue) {
-        if (newValue < 0)
-            this._totalRecords = 0;
-        this._totalRecords = newValue;
-    }
-    /**
-     * @return {?}
-     */
-    get totalPages() {
-        if (!this.rows) {
-            return;
-        }
-        return Math.ceil(this.totalRecords / this.rows);
-    }
-    /**
-     * @return {?}
-     */
-    get slicedValue() {
-        if (!this.rows || this.rows >= this.value.length) {
-            return this.value;
-        }
+    function ToastOptions() { }
+    Toaster.ToastOptions = ToastOptions;
+    if (false) {
+        /** @type {?|undefined} */
+        ToastOptions.prototype.life;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.sticky;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.closable;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.tapToDismiss;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.messageLocalizationParams;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.titleLocalizationParams;
         /** @type {?} */
-        const start = (this.page - 1) * this.rows;
-        return this.value.slice(start, start + this.rows);
+        ToastOptions.prototype.id;
+        /** @type {?|undefined} */
+        ToastOptions.prototype.containerKey;
     }
-}
-TableComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'abp-table',
-                template: "<div #wrapper class=\"ui-table ui-widget\">\r\n  <div class=\"ui-table-wrapper\">\r\n    <ng-container\r\n      *ngTemplateOutlet=\"scrollable ? scrollableTemplate : defaultTemplate\"\r\n    ></ng-container>\r\n    <div class=\"pagination-wrapper\">\r\n      <ngb-pagination\r\n        [class.op-0]=\"!totalPages\"\r\n        [collectionSize]=\"totalPages\"\r\n        [pageSize]=\"1\"\r\n        [page]=\"page\"\r\n        (pageChange)=\"pageChange.emit($event)\"\r\n        [maxSize]=\"3\"\r\n        [rotate]=\"true\"\r\n      ></ngb-pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #scrollableTemplate>\r\n  <div class=\"ui-table-scrollable-wrapper\">\r\n    <div class=\"ui-table-scrollable-view\"></div>\r\n    <div class=\"ui-table-scrollable-header ui-widget-header\">\r\n      <div [style.margin-left.px]=\"-bodyScrollLeft\" class=\"ui-table-scrollable-header-box\">\r\n        <table class=\"ui-table-scrollable-header-table\">\r\n          <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n          <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n          <tbody></tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <div\r\n      #scrollableBody\r\n      (scroll)=\"bodyScrollLeft = scrollableBody.scrollLeft\"\r\n      class=\"ui-table-scrollable-body\"\r\n      [style.max-height]=\"scrollHeight\"\r\n    >\r\n      <table class=\"ui-table-scrollable-body-table\">\r\n        <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n        <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n      </table>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-template #defaultTemplate>\r\n  <table>\r\n    <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n  </table>\r\n</ng-template>\r\n\r\n<ng-template #colGroup>\r\n  <ng-container *ngTemplateOutlet=\"colgroupTemplate\"></ng-container>\r\n</ng-template>\r\n\r\n<ng-template #head>\r\n  <thead class=\"ui-table-thead\">\r\n    <ng-container *ngTemplateOutlet=\"headerTemplate\"></ng-container>\r\n  </thead>\r\n</ng-template>\r\n\r\n<ng-template #body>\r\n  <tbody class=\"ui-table-tbody\">\r\n    <ng-container *ngIf=\"value && value.length; else emptyTemplate\">\r\n      <ng-template\r\n        #bodyTemplateWrapper\r\n        *ngFor=\"let val of slicedValue; let index = index; trackBy: trackByFn\"\r\n        [ngTemplateOutlet]=\"bodyTemplate\"\r\n        [ngTemplateOutletContext]=\"{ $implicit: val, rowIndex: index }\"\r\n      ></ng-template>\r\n    </ng-container>\r\n  </tbody>\r\n</ng-template>\r\n\r\n<ng-template #emptyTemplate>\r\n  <tr class=\"empty-row\" #emptyRow>\r\n    <div class=\"empty-row-content\" [style.width.px]=\"emptyRow.offsetWidth\">\r\n      {{ emptyMessage | abpLocalization }}\r\n    </div>\r\n  </tr>\r\n</ng-template>\r\n",
-                encapsulation: ViewEncapsulation.None,
-                styles: [".ui-table{position:relative}.ui-table .ui-table-tbody>tr:hover,.ui-table .ui-table-tbody>tr:nth-child(even):hover{-webkit-filter:brightness(90%);filter:brightness(90%)}.ui-table .ui-table-tbody>tr.empty-row:hover{-webkit-filter:none;filter:none}.ui-table .ui-table-tbody>tr.empty-row>div.empty-row-content{padding:10px;text-align:center}.ui-table .ui-table-caption,.ui-table .ui-table-summary{background-color:#f4f4f4;color:#333;border:1px solid #c8c8c8;padding:.25em .5em;text-align:center;font-weight:700}.ui-table .ui-table-thead>tr>th{border:1px solid #c8c8c8;font-weight:700;color:#333;background-color:#f4f4f4}.ui-table .ui-table-tfoot>tr>td{border:1px solid #c8c8c8;font-weight:700;color:#333;background-color:#fff}.ui-table .ui-sortable-column{transition:box-shadow .2s;cursor:pointer}.ui-table .ui-sortable-column:focus{outline:0;outline-offset:0;box-shadow:inset 0 0 0 .2em #8dcdff}.ui-table .ui-sortable-column .ui-sortable-column-icon{color:#848484}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover{background-color:#e0e0e0;color:#333}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover .ui-sortable-column-icon{color:#333}.ui-table .ui-sortable-column.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon{color:#fff}.ui-table .ui-editable-column input{font-size:14px;font-family:'Open Sans','Helvetica Neue',sans-serif}.ui-table .ui-editable-column input:focus{outline:#007ad9 solid 1px;outline-offset:2px}.ui-table .ui-table-tbody>tr{background-color:#fff;color:#333}.ui-table .ui-table-tbody>tr>td{background-color:inherit;border:1px solid #c8c8c8}.ui-table .ui-table-tbody>tr.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr.ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-top>td{box-shadow:inset 0 2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-bottom>td{box-shadow:inset 0 -2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr:nth-child(even){background-color:#f9f9f9}.ui-table .ui-table-tbody>tr:nth-child(even).ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr:nth-child(even).ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr:nth-child(even).ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table.ui-table-hoverable-rows .ui-table-tbody>tr.ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover{cursor:pointer;background-color:#eaeaea;color:#333}.ui-table table{border-collapse:collapse;width:100%;table-layout:fixed}.ui-table .ui-table-tbody>tr>td,.ui-table .ui-table-tfoot>tr>td,.ui-table .ui-table-thead>tr>th{padding:.571em .857em}.ui-table p-sorticon{vertical-align:middle}.ui-table .ui-table-auto-layout>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-auto-layout>.ui-table-wrapper>table{table-layout:auto}.ui-table .ui-table-caption{border-bottom:0}.ui-table .ui-table-summary{border-top:0}.ui-table .ui-table-scrollable-wrapper{position:relative}.ui-table .ui-table-scrollable-footer,.ui-table .ui-table-scrollable-header{overflow:hidden;border:0}.ui-table .ui-table-scrollable-body{overflow:auto;position:relative}.ui-table .ui-table-virtual-table{position:absolute}.ui-table .ui-table-loading-virtual-table{display:none}.ui-table .ui-table-frozen-view .ui-table-scrollable-body{overflow:hidden}.ui-table .ui-table-frozen-view>.ui-table-scrollable-body>table>.ui-table-tbody>tr>td:last-child{border-right:0}.ui-table .ui-table-unfrozen-view{position:absolute;top:0}.ui-table .ui-table-resizable>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-resizable .ui-table-tbody>tr>td,.ui-table .ui-table-resizable .ui-table-tfoot>tr>td,.ui-table .ui-table-resizable .ui-table-thead>tr>th{overflow:hidden}.ui-table .ui-table-resizable .ui-resizable-column{background-clip:padding-box;position:relative}.ui-table .ui-table-resizable-fit .ui-resizable-column:last-child .ui-column-resizer{display:none}.ui-table .ui-column-resizer{display:block;position:absolute!important;top:0;right:0;margin:0;width:.5em;height:100%;padding:0;cursor:col-resize;border:1px solid transparent}.ui-table .ui-column-resizer-helper{background-color:#007ad9;width:1px;position:absolute;z-index:10;display:none}.ui-table .ui-table-tbody>tr>td.ui-editing-cell{padding:0}.ui-table .ui-table-tbody>tr>td.ui-editing-cell p-celleditor>*{width:100%}.ui-table .ui-table-reorder-indicator-down,.ui-table .ui-table-reorder-indicator-up{position:absolute;display:none}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:none}@media screen and (max-width:40em){.ui-table.ui-table-responsive .ui-table-tbody>tr>td{border:0}.ui-table .ui-table-responsive .ui-table-tfoot>tr>td,.ui-table .ui-table-responsive .ui-table-thead>tr>th,.ui-table .ui-table-responsive colgroup{display:none!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td{text-align:left;display:block;border:0;width:100%!important;box-sizing:border-box;float:left;clear:left}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{padding:.4em;min-width:30%;display:inline-block;margin:-.4em 1em -.4em -.4em;font-weight:700}}.ui-table .ui-widget{font-family:'Open Sans','Helvetica Neue',sans-serif;font-size:14px;text-decoration:none}.ui-table .page-item.disabled .page-link,.ui-table .page-link{background-color:transparent;border:none}.ui-table .page-item.disabled .page-link{box-shadow:none}.ui-table .pagination{margin-bottom:0}.ui-table .pagination-wrapper{display:flex;justify-content:center;border-top:0;padding:0}.ui-table .op-0{opacity:0}"]
-            }] }
-];
-TableComponent.propDecorators = {
-    value: [{ type: Input }],
-    headerTemplate: [{ type: Input }],
-    bodyTemplate: [{ type: Input }],
-    colgroupTemplate: [{ type: Input }],
-    scrollHeight: [{ type: Input }],
-    scrollable: [{ type: Input }],
-    rows: [{ type: Input }],
-    page: [{ type: Input }],
-    trackingProp: [{ type: Input }],
-    emptyMessage: [{ type: Input }],
-    pageChange: [{ type: Output }],
-    wrapperRef: [{ type: ViewChild, args: ['wrapper', { read: ElementRef, static: false },] }],
-    totalRecords: [{ type: Input }]
-};
-if (false) {
     /**
-     * @type {?}
-     * @private
+     * @record
      */
-    TableComponent.prototype._totalRecords;
-    /** @type {?} */
-    TableComponent.prototype.bodyScrollLeft;
-    /** @type {?} */
-    TableComponent.prototype.value;
-    /** @type {?} */
-    TableComponent.prototype.headerTemplate;
-    /** @type {?} */
-    TableComponent.prototype.bodyTemplate;
-    /** @type {?} */
-    TableComponent.prototype.colgroupTemplate;
-    /** @type {?} */
-    TableComponent.prototype.scrollHeight;
-    /** @type {?} */
-    TableComponent.prototype.scrollable;
-    /** @type {?} */
-    TableComponent.prototype.rows;
-    /** @type {?} */
-    TableComponent.prototype.page;
-    /** @type {?} */
-    TableComponent.prototype.trackingProp;
-    /** @type {?} */
-    TableComponent.prototype.emptyMessage;
-    /** @type {?} */
-    TableComponent.prototype.pageChange;
-    /** @type {?} */
-    TableComponent.prototype.wrapperRef;
-    /** @type {?} */
-    TableComponent.prototype.trackByFn;
-}
+    function Toast() { }
+    Toaster.Toast = Toast;
+    if (false) {
+        /** @type {?} */
+        Toast.prototype.message;
+        /** @type {?|undefined} */
+        Toast.prototype.title;
+        /** @type {?|undefined} */
+        Toast.prototype.severity;
+        /** @type {?|undefined} */
+        Toast.prototype.options;
+    }
+    /**
+     * @deprecated Status will be removed from toaster model in v3.0
+     */
+    let Status;
+    (function (Status) {
+        Status["confirm"] = "confirm";
+        Status["reject"] = "reject";
+        Status["dismiss"] = "dismiss";
+    })(Status = Toaster.Status || (Toaster.Status = {}));
+})(Toaster || (Toaster = {}));
 
 /**
  * @fileoverview added by tsickle
@@ -2152,6 +2484,162 @@ var styles = `
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/directives/loading.directive.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class LoadingDirective {
+    /**
+     * @param {?} elRef
+     * @param {?} vcRef
+     * @param {?} cdRes
+     * @param {?} injector
+     * @param {?} renderer
+     */
+    constructor(elRef, vcRef, cdRes, injector, renderer) {
+        this.elRef = elRef;
+        this.vcRef = vcRef;
+        this.cdRes = cdRes;
+        this.injector = injector;
+        this.renderer = renderer;
+        this.position = 'relative';
+        this.delay = 0;
+    }
+    /**
+     * @return {?}
+     */
+    get loading() {
+        return this._loading;
+    }
+    /**
+     * @param {?} newValue
+     * @return {?}
+     */
+    set loading(newValue) {
+        setTimeout((/**
+         * @return {?}
+         */
+        () => {
+            if (!newValue && this.timerSubscription) {
+                this.timerSubscription.unsubscribe();
+                this.timerSubscription = null;
+                this._loading = newValue;
+                if (this.rootNode) {
+                    this.renderer.removeChild(this.rootNode.parentElement, this.rootNode);
+                    this.rootNode = null;
+                }
+                return;
+            }
+            this.timerSubscription = timer(this.delay)
+                .pipe(take(1))
+                .subscribe((/**
+             * @return {?}
+             */
+            () => {
+                if (!this.componentRef) {
+                    this.componentRef = this.cdRes
+                        .resolveComponentFactory(LoadingComponent)
+                        .create(this.injector);
+                }
+                if (newValue && !this.rootNode) {
+                    this.rootNode = ((/** @type {?} */ (this.componentRef.hostView))).rootNodes[0];
+                    this.targetElement.appendChild(this.rootNode);
+                }
+                else if (this.rootNode) {
+                    this.renderer.removeChild(this.rootNode.parentElement, this.rootNode);
+                    this.rootNode = null;
+                }
+                this._loading = newValue;
+                this.timerSubscription = null;
+            }));
+        }), 0);
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        if (!this.targetElement) {
+            const { offsetHeight, offsetWidth } = this.elRef.nativeElement;
+            if (!offsetHeight && !offsetWidth && this.elRef.nativeElement.children.length) {
+                this.targetElement = (/** @type {?} */ (this.elRef.nativeElement.children[0]));
+            }
+            else {
+                this.targetElement = this.elRef.nativeElement;
+            }
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        if (this.timerSubscription) {
+            this.timerSubscription.unsubscribe();
+        }
+    }
+}
+LoadingDirective.decorators = [
+    { type: Directive, args: [{ selector: '[abpLoading]' },] }
+];
+/** @nocollapse */
+LoadingDirective.ctorParameters = () => [
+    { type: ElementRef },
+    { type: ViewContainerRef },
+    { type: ComponentFactoryResolver },
+    { type: Injector },
+    { type: Renderer2 }
+];
+LoadingDirective.propDecorators = {
+    position: [{ type: HostBinding, args: ['style.position',] }],
+    loading: [{ type: Input, args: ['abpLoading',] }],
+    targetElement: [{ type: Input, args: ['abpLoadingTargetElement',] }],
+    delay: [{ type: Input, args: ['abpLoadingDelay',] }]
+};
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingDirective.prototype._loading;
+    /** @type {?} */
+    LoadingDirective.prototype.position;
+    /** @type {?} */
+    LoadingDirective.prototype.targetElement;
+    /** @type {?} */
+    LoadingDirective.prototype.delay;
+    /** @type {?} */
+    LoadingDirective.prototype.componentRef;
+    /** @type {?} */
+    LoadingDirective.prototype.rootNode;
+    /** @type {?} */
+    LoadingDirective.prototype.timerSubscription;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingDirective.prototype.elRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingDirective.prototype.vcRef;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingDirective.prototype.cdRes;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingDirective.prototype.injector;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoadingDirective.prototype.renderer;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/directives/table-sort.directive.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -2287,111 +2775,170 @@ class ErrorHandler {
         this.rendererFactory = rendererFactory;
         this.injector = injector;
         this.httpErrorConfig = httpErrorConfig;
-        this.actions
-            .pipe(ofActionSuccessful(RestOccurError, RouterError, RouterDataResolved))
-            .subscribe((/**
-         * @param {?} res
+        this.filterRestErrors = (/**
+         * @param {?} __0
          * @return {?}
          */
-        res => {
-            if (res instanceof RestOccurError) {
-                const { payload: err = (/** @type {?} */ ({})) } = res;
+        ({ status }) => {
+            if (typeof status !== 'number')
+                return false;
+            return this.httpErrorConfig.skipHandledErrorCodes.findIndex((/**
+             * @param {?} code
+             * @return {?}
+             */
+            code => code === status)) < 0;
+        });
+        this.filterRouteErrors = (/**
+         * @param {?} instance
+         * @return {?}
+         */
+        (instance) => {
+            return (snq((/**
+             * @return {?}
+             */
+            () => instance.event.error.indexOf('Cannot match') > -1)) &&
+                this.httpErrorConfig.skipHandledErrorCodes.findIndex((/**
+                 * @param {?} code
+                 * @return {?}
+                 */
+                code => code === 404)) < 0);
+        });
+        this.listenToRestError();
+        this.listenToRouterError();
+        this.listenToRouterDataResolved();
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    listenToRouterError() {
+        this.actions
+            .pipe(ofActionSuccessful(RouterError), filter(this.filterRouteErrors))
+            .subscribe((/**
+         * @return {?}
+         */
+        () => this.show404Page()));
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    listenToRouterDataResolved() {
+        this.actions
+            .pipe(ofActionSuccessful(RouterDataResolved), filter((/**
+         * @return {?}
+         */
+        () => !!this.componentRef)))
+            .subscribe((/**
+         * @return {?}
+         */
+        () => {
+            this.componentRef.destroy();
+            this.componentRef = null;
+        }));
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    listenToRestError() {
+        this.actions
+            .pipe(ofActionSuccessful(RestOccurError), map((/**
+         * @param {?} action
+         * @return {?}
+         */
+        action => action.payload)), filter(this.filterRestErrors))
+            .subscribe((/**
+         * @param {?} err
+         * @return {?}
+         */
+        err => {
+            /** @type {?} */
+            const body = snq((/**
+             * @return {?}
+             */
+            () => err.error.error), DEFAULT_ERROR_MESSAGES.defaultError.title);
+            if (err.headers.get('_AbpErrorFormat')) {
                 /** @type {?} */
-                const body = snq((/**
-                 * @return {?}
-                 */
-                () => ((/** @type {?} */ (err))).error.error), DEFAULT_ERROR_MESSAGES.defaultError.title);
-                if (err instanceof HttpErrorResponse && err.headers.get('_AbpErrorFormat')) {
-                    /** @type {?} */
-                    const confirmation$ = this.showError(null, null, body);
-                    if (err.status === 401) {
-                        confirmation$.subscribe((/**
-                         * @return {?}
-                         */
-                        () => {
-                            this.navigateToLogin();
-                        }));
-                    }
-                }
-                else {
-                    switch (((/** @type {?} */ (err))).status) {
-                        case 401:
-                            this.canCreateCustomError(401)
-                                ? this.show401Page()
-                                : this.showError({
-                                    key: 'AbpAccount::DefaultErrorMessage401',
-                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError401.title,
-                                }, {
-                                    key: 'AbpAccount::DefaultErrorMessage401Detail',
-                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError401.details,
-                                }).subscribe((/**
-                                 * @return {?}
-                                 */
-                                () => this.navigateToLogin()));
-                            break;
-                        case 403:
-                            this.createErrorComponent({
-                                title: {
-                                    key: 'AbpAccount::DefaultErrorMessage403',
-                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError403.title,
-                                },
-                                details: {
-                                    key: 'AbpAccount::DefaultErrorMessage403Detail',
-                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError403.details,
-                                },
-                                status: 403,
-                            });
-                            break;
-                        case 404:
-                            this.canCreateCustomError(404)
-                                ? this.show404Page()
-                                : this.showError({
-                                    key: 'AbpAccount::DefaultErrorMessage404',
-                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.details,
-                                }, {
-                                    key: 'AbpAccount::DefaultErrorMessage404Detail',
-                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.title,
-                                });
-                            break;
-                        case 500:
-                            this.createErrorComponent({
-                                title: {
-                                    key: 'AbpAccount::500Message',
-                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError500.title,
-                                },
-                                details: {
-                                    key: 'AbpAccount::InternalServerErrorMessage',
-                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError500.details,
-                                },
-                                status: 500,
-                            });
-                            break;
-                        case 0:
-                            if (((/** @type {?} */ (err))).statusText === 'Unknown Error') {
-                                this.createErrorComponent({
-                                    title: {
-                                        key: 'AbpAccount::DefaultErrorMessage',
-                                        defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.title,
-                                    },
-                                });
-                            }
-                            break;
-                        default:
-                            this.showError(DEFAULT_ERROR_MESSAGES.defaultError.details, DEFAULT_ERROR_MESSAGES.defaultError.title);
-                            break;
-                    }
+                const confirmation$ = this.showError(null, null, body);
+                if (err.status === 401) {
+                    confirmation$.subscribe((/**
+                     * @return {?}
+                     */
+                    () => {
+                        this.navigateToLogin();
+                    }));
                 }
             }
-            else if (res instanceof RouterError &&
-                snq((/**
-                 * @return {?}
-                 */
-                () => res.event.error.indexOf('Cannot match') > -1), false)) {
-                this.show404Page();
-            }
-            else if (res instanceof RouterDataResolved && this.componentRef) {
-                this.componentRef.destroy();
-                this.componentRef = null;
+            else {
+                switch (err.status) {
+                    case 401:
+                        this.canCreateCustomError(401)
+                            ? this.show401Page()
+                            : this.showError({
+                                key: 'AbpAccount::DefaultErrorMessage401',
+                                defaultValue: DEFAULT_ERROR_MESSAGES.defaultError401.title,
+                            }, {
+                                key: 'AbpAccount::DefaultErrorMessage401Detail',
+                                defaultValue: DEFAULT_ERROR_MESSAGES.defaultError401.details,
+                            }).subscribe((/**
+                             * @return {?}
+                             */
+                            () => this.navigateToLogin()));
+                        break;
+                    case 403:
+                        this.createErrorComponent({
+                            title: {
+                                key: 'AbpAccount::DefaultErrorMessage403',
+                                defaultValue: DEFAULT_ERROR_MESSAGES.defaultError403.title,
+                            },
+                            details: {
+                                key: 'AbpAccount::DefaultErrorMessage403Detail',
+                                defaultValue: DEFAULT_ERROR_MESSAGES.defaultError403.details,
+                            },
+                            status: 403,
+                        });
+                        break;
+                    case 404:
+                        this.canCreateCustomError(404)
+                            ? this.show404Page()
+                            : this.showError({
+                                key: 'AbpAccount::DefaultErrorMessage404',
+                                defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.details,
+                            }, {
+                                key: 'AbpAccount::DefaultErrorMessage404Detail',
+                                defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.title,
+                            });
+                        break;
+                    case 500:
+                        this.createErrorComponent({
+                            title: {
+                                key: 'AbpAccount::500Message',
+                                defaultValue: DEFAULT_ERROR_MESSAGES.defaultError500.title,
+                            },
+                            details: {
+                                key: 'AbpAccount::InternalServerErrorMessage',
+                                defaultValue: DEFAULT_ERROR_MESSAGES.defaultError500.details,
+                            },
+                            status: 500,
+                        });
+                        break;
+                    case 0:
+                        if (err.statusText === 'Unknown Error') {
+                            this.createErrorComponent({
+                                title: {
+                                    key: 'AbpAccount::DefaultErrorMessage',
+                                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.title,
+                                },
+                                details: err.message,
+                                isHomeShow: false,
+                            });
+                        }
+                        break;
+                    default:
+                        this.showError(DEFAULT_ERROR_MESSAGES.defaultError.details, DEFAULT_ERROR_MESSAGES.defaultError.title);
+                        break;
+                }
             }
         }));
     }
@@ -2469,6 +3016,7 @@ class ErrorHandler {
             .resolveComponentFactory(HttpErrorWrapperComponent)
             .create(this.injector);
         for (const key in instance) {
+            /* istanbul ignore else */
             if (this.componentRef.instance.hasOwnProperty(key)) {
                 this.componentRef.instance[key] = instance[key];
             }
@@ -2527,6 +3075,16 @@ if (false) {
      * @type {?}
      * @private
      */
+    ErrorHandler.prototype.filterRestErrors;
+    /**
+     * @type {?}
+     * @private
+     */
+    ErrorHandler.prototype.filterRouteErrors;
+    /**
+     * @type {?}
+     * @private
+     */
     ErrorHandler.prototype.actions;
     /**
      * @type {?}
@@ -2567,6 +3125,28 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/tokens/append-content.token.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const THEME_SHARED_APPEND_CONTENT = new InjectionToken('THEME_SHARED_APPEND_CONTENT', {
+    providedIn: 'root',
+    factory: (/**
+     * @return {?}
+     */
+    () => {
+        /** @type {?} */
+        const domInsertion = inject(DomInsertionService);
+        domInsertion.insertContent(CONTENT_STRATEGY.AppendStyleToHead(styles));
+        import('chart.js').then((/**
+         * @return {?}
+         */
+        () => chartJsLoaded$.next(true)));
+    }),
+});
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/tokens/http-error.token.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -2578,7 +3158,7 @@ function httpErrorConfigFactory(config = (/** @type {?} */ ({}))) {
     if (config.errorScreen && config.errorScreen.component && !config.errorScreen.forWhichErrors) {
         config.errorScreen.forWhichErrors = [401, 403, 404, 500];
     }
-    return (/** @type {?} */ (Object.assign({ errorScreen: {} }, config)));
+    return (/** @type {?} */ (Object.assign({ skipHandledErrorCodes: [], errorScreen: {} }, config)));
 }
 /** @type {?} */
 const HTTP_ERROR_CONFIG = new InjectionToken('HTTP_ERROR_CONFIG');
@@ -2681,321 +3261,13 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/components/pagination/pagination.component.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @deprecated
- */
-class PaginationComponent {
-    constructor() {
-        this._value = 1;
-        this.valueChange = new EventEmitter();
-        this.totalPages = 0;
-        this.trackByFn = (/**
-         * @param {?} _
-         * @param {?} page
-         * @return {?}
-         */
-        (_, page) => page);
-    }
-    /**
-     * @return {?}
-     */
-    get value() {
-        return this._value;
-    }
-    /**
-     * @param {?} newValue
-     * @return {?}
-     */
-    set value(newValue) {
-        if (this._value === newValue)
-            return;
-        this._value = newValue;
-        this.valueChange.emit(newValue);
-    }
-    /**
-     * @return {?}
-     */
-    get pageArray() {
-        /** @type {?} */
-        const count = this.totalPages < 5 ? this.totalPages : 5;
-        if (this.value === 1 || this.value === 2) {
-            return Array.from(new Array(count)).map((/**
-             * @param {?} _
-             * @param {?} index
-             * @return {?}
-             */
-            (_, index) => index + 1));
-        }
-        else if (this.value === this.totalPages || this.value === this.totalPages - 1) {
-            return Array.from(new Array(count)).map((/**
-             * @param {?} _
-             * @param {?} index
-             * @return {?}
-             */
-            (_, index) => this.totalPages - count + 1 + index));
-        }
-        else {
-            return [this.value - 2, this.value - 1, this.value, this.value + 1, this.value + 2];
-        }
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        if (!this.value || this.value < 1 || this.value > this.totalPages) {
-            this.value = 1;
-        }
-    }
-    /**
-     * @param {?} page
-     * @return {?}
-     */
-    changePage(page) {
-        if (page < 1)
-            return;
-        else if (page > this.totalPages)
-            return;
-        this.value = page;
-    }
-}
-PaginationComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'abp-pagination',
-                template: "<div\r\n  class=\"ui-paginator-bottom ui-paginator ui-widget ui-widget-header ui-unselectable-text ui-helper-clearfix\"\r\n>\r\n  <a\r\n    class=\"ui-paginator-first ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === 1\"\r\n    tabindex=\"-1\"\r\n    (click)=\"changePage(1)\"\r\n    ><span class=\"ui-paginator-icon pi pi-step-backward\"></span></a\r\n  ><a\r\n    class=\"ui-paginator-prev ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === 1\"\r\n    tabindex=\"-1\"\r\n    (click)=\"changePage(value - 1)\"\r\n    ><span class=\"ui-paginator-icon pi pi-caret-left\"></span></a\r\n  ><span class=\"ui-paginator-pages\"\r\n    ><a\r\n      *ngFor=\"let page of pageArray; trackBy: trackByFn\"\r\n      (click)=\"changePage(page)\"\r\n      class=\"ui-paginator-page ui-paginator-element ui-state-default ui-corner-all\"\r\n      [class.ui-state-active]=\"page === value\"\r\n      tabindex=\"0\"\r\n      >{{ page }}</a\r\n    ></span\r\n  ><a\r\n    class=\"ui-paginator-next ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === totalPages\"\r\n    tabindex=\"0\"\r\n    (click)=\"changePage(value + 1)\"\r\n    ><span class=\"ui-paginator-icon pi pi-caret-right\"></span></a\r\n  ><a\r\n    class=\"ui-paginator-last ui-paginator-element ui-state-default ui-corner-all\"\r\n    [class.ui-state-disabled]=\"value === totalPages\"\r\n    tabindex=\"0\"\r\n    (click)=\"changePage(totalPages)\"\r\n    ><span class=\"ui-paginator-icon pi pi-step-forward\"></span\r\n  ></a>\r\n</div>\r\n"
-            }] }
-];
-PaginationComponent.propDecorators = {
-    value: [{ type: Input }],
-    valueChange: [{ type: Output }],
-    totalPages: [{ type: Input }]
-};
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    PaginationComponent.prototype._value;
-    /** @type {?} */
-    PaginationComponent.prototype.valueChange;
-    /** @type {?} */
-    PaginationComponent.prototype.totalPages;
-    /** @type {?} */
-    PaginationComponent.prototype.trackByFn;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/components/loading/loading.component.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class LoadingComponent {
-    constructor() { }
-    /**
-     * @return {?}
-     */
-    ngOnInit() { }
-}
-LoadingComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'abp-loading',
-                template: `
-    <div class="abp-loading">
-      <i class="fa fa-spinner fa-pulse abp-spinner"></i>
-    </div>
-  `,
-                encapsulation: ViewEncapsulation.None,
-                styles: [`
-      .abp-loading {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 1040;
-      }
-
-      .abp-loading .abp-spinner {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        font-size: 14px;
-        -moz-transform: translateX(-50%) translateY(-50%);
-        -o-transform: translateX(-50%) translateY(-50%);
-        -ms-transform: translateX(-50%) translateY(-50%);
-        -webkit-transform: translateX(-50%) translateY(-50%);
-        transform: translateX(-50%) translateY(-50%);
-      }
-    `]
-            }] }
-];
-/** @nocollapse */
-LoadingComponent.ctorParameters = () => [];
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/directives/loading.directive.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class LoadingDirective {
-    /**
-     * @param {?} elRef
-     * @param {?} vcRef
-     * @param {?} cdRes
-     * @param {?} injector
-     * @param {?} renderer
-     */
-    constructor(elRef, vcRef, cdRes, injector, renderer) {
-        this.elRef = elRef;
-        this.vcRef = vcRef;
-        this.cdRes = cdRes;
-        this.injector = injector;
-        this.renderer = renderer;
-        this.position = 'relative';
-        this.delay = 0;
-    }
-    /**
-     * @return {?}
-     */
-    get loading() {
-        return this._loading;
-    }
-    /**
-     * @param {?} newValue
-     * @return {?}
-     */
-    set loading(newValue) {
-        setTimeout((/**
-         * @return {?}
-         */
-        () => {
-            if (!newValue && this.timerSubscription) {
-                this.timerSubscription.unsubscribe();
-                this.timerSubscription = null;
-                this._loading = newValue;
-                if (this.rootNode) {
-                    this.renderer.removeChild(this.rootNode.parentElement, this.rootNode);
-                    this.rootNode = null;
-                }
-                return;
-            }
-            this.timerSubscription = timer(this.delay)
-                .pipe(take(1))
-                .subscribe((/**
-             * @return {?}
-             */
-            () => {
-                if (!this.componentRef) {
-                    this.componentRef = this.cdRes
-                        .resolveComponentFactory(LoadingComponent)
-                        .create(this.injector);
-                }
-                if (newValue && !this.rootNode) {
-                    this.rootNode = ((/** @type {?} */ (this.componentRef.hostView))).rootNodes[0];
-                    this.targetElement.appendChild(this.rootNode);
-                }
-                else {
-                    this.renderer.removeChild(this.rootNode.parentElement, this.rootNode);
-                    this.rootNode = null;
-                }
-                this._loading = newValue;
-                this.timerSubscription = null;
-            }));
-        }), 0);
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        if (!this.targetElement) {
-            const { offsetHeight, offsetWidth } = this.elRef.nativeElement;
-            if (!offsetHeight && !offsetWidth && this.elRef.nativeElement.children.length) {
-                this.targetElement = (/** @type {?} */ (this.elRef.nativeElement.children[0]));
-            }
-            else {
-                this.targetElement = this.elRef.nativeElement;
-            }
-        }
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        if (this.timerSubscription) {
-            this.timerSubscription.unsubscribe();
-        }
-    }
-}
-LoadingDirective.decorators = [
-    { type: Directive, args: [{ selector: '[abpLoading]' },] }
-];
-/** @nocollapse */
-LoadingDirective.ctorParameters = () => [
-    { type: ElementRef },
-    { type: ViewContainerRef },
-    { type: ComponentFactoryResolver },
-    { type: Injector },
-    { type: Renderer2 }
-];
-LoadingDirective.propDecorators = {
-    position: [{ type: HostBinding, args: ['style.position',] }],
-    loading: [{ type: Input, args: ['abpLoading',] }],
-    targetElement: [{ type: Input, args: ['abpLoadingTargetElement',] }],
-    delay: [{ type: Input, args: ['abpLoadingDelay',] }]
-};
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    LoadingDirective.prototype._loading;
-    /** @type {?} */
-    LoadingDirective.prototype.position;
-    /** @type {?} */
-    LoadingDirective.prototype.targetElement;
-    /** @type {?} */
-    LoadingDirective.prototype.delay;
-    /** @type {?} */
-    LoadingDirective.prototype.componentRef;
-    /** @type {?} */
-    LoadingDirective.prototype.rootNode;
-    /** @type {?} */
-    LoadingDirective.prototype.timerSubscription;
-    /**
-     * @type {?}
-     * @private
-     */
-    LoadingDirective.prototype.elRef;
-    /**
-     * @type {?}
-     * @private
-     */
-    LoadingDirective.prototype.vcRef;
-    /**
-     * @type {?}
-     * @private
-     */
-    LoadingDirective.prototype.cdRes;
-    /**
-     * @type {?}
-     * @private
-     */
-    LoadingDirective.prototype.injector;
-    /**
-     * @type {?}
-     * @private
-     */
-    LoadingDirective.prototype.renderer;
-}
-
-/**
- * @fileoverview added by tsickle
  * Generated from: lib/theme-shared.module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
+ *
+ * @deprecated To be deleted in v2.6
+ *
  * @param {?} injector
  * @return {?}
  */
@@ -3033,8 +3305,8 @@ class ThemeSharedModule {
                 {
                     provide: APP_INITIALIZER,
                     multi: true,
-                    deps: [Injector],
-                    useFactory: appendScript,
+                    deps: [THEME_SHARED_APPEND_CONTENT],
+                    useFactory: noop,
                 },
                 { provide: HTTP_ERROR_CONFIG, useValue: options.httpErrorConfig },
                 {
@@ -3059,6 +3331,7 @@ ThemeSharedModule.decorators = [
                     LoaderBarComponent,
                     LoadingComponent,
                     ModalComponent,
+                    ModalContainerComponent,
                     PaginationComponent,
                     TableComponent,
                     TableEmptyMessageComponent,
@@ -3086,7 +3359,13 @@ ThemeSharedModule.decorators = [
                     TableSortDirective,
                 ],
                 providers: [DatePipe],
-                entryComponents: [HttpErrorWrapperComponent, LoadingComponent],
+                entryComponents: [
+                    HttpErrorWrapperComponent,
+                    LoadingComponent,
+                    ModalContainerComponent,
+                    ToastContainerComponent,
+                    ConfirmationComponent,
+                ],
             },] }
 ];
 /** @nocollapse */
@@ -3134,7 +3413,10 @@ const collapseY = animation([
     animate('{{ time }} {{ easing }}', style({ height: '0', padding: '0px' })),
 ], { params: { time: '350ms', easing: 'ease' } });
 /** @type {?} */
-const collapseYWithMargin = animation([style({ 'margin-top': '0' }), animate('{{ time }} {{ easing }}', style({ 'margin-top': '-100%' }))], {
+const collapseYWithMargin = animation([
+    style({ 'margin-top': '0' }),
+    animate('{{ time }} {{ easing }}', style({ 'margin-left': '-100%' })),
+], {
     params: { time: '500ms', easing: 'ease' },
 });
 /** @type {?} */
@@ -3148,7 +3430,10 @@ const expandY = animation([
     animate('{{ time }} {{ easing }}', style({ height: '*', padding: '*' })),
 ], { params: { time: '350ms', easing: 'ease' } });
 /** @type {?} */
-const expandYWithMargin = animation([style({ 'margin-top': '-100%' }), animate('{{ time }} {{ easing }}', style({ 'margin-top': '0' }))], {
+const expandYWithMargin = animation([
+    style({ 'margin-top': '-100%' }),
+    animate('{{ time }} {{ easing }}', style({ 'margin-top': '0' })),
+], {
     params: { time: '500ms', easing: 'ease' },
 });
 /** @type {?} */
@@ -3174,7 +3459,7 @@ const collapseWithMargin = trigger('collapseWithMargin', [
 ]);
 /** @type {?} */
 const collapseLinearWithMargin = trigger('collapseLinearWithMargin', [
-    state('collapsed', style({ 'margin-top': '-100%' })),
+    state('collapsed', style({ 'margin-top': '-100vh' })),
     state('expanded', style({ 'margin-top': '0' })),
     transition('expanded => collapsed', useAnimation(collapseYWithMargin, { params: { time: '200ms', easing: 'linear' } })),
     transition('collapsed => expanded', useAnimation(expandYWithMargin, { params: { time: '250ms', easing: 'linear' } })),
@@ -3229,6 +3514,8 @@ if (false) {
  */
 function HttpErrorConfig() { }
 if (false) {
+    /** @type {?|undefined} */
+    HttpErrorConfig.prototype.skipHandledErrorCodes;
     /** @type {?|undefined} */
     HttpErrorConfig.prototype.errorScreen;
 }
@@ -3319,6 +3606,62 @@ var Statistics;
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/tokens/index.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/utils/validation-utils.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+const { minLength, maxLength } = Validators;
+/**
+ * @param {?} store
+ * @return {?}
+ */
+function getPasswordValidators(store) {
+    /** @type {?} */
+    const getRule = getRuleFn(store);
+    /** @type {?} */
+    const passwordRulesArr = (/** @type {?} */ ([]));
+    /** @type {?} */
+    let requiredLength = 1;
+    if (getRule('RequireDigit') === 'true') {
+        passwordRulesArr.push('number');
+    }
+    if (getRule('RequireLowercase') === 'true') {
+        passwordRulesArr.push('small');
+    }
+    if (getRule('RequireUppercase') === 'true') {
+        passwordRulesArr.push('capital');
+    }
+    if (getRule('RequireNonAlphanumeric') === 'true') {
+        passwordRulesArr.push('special');
+    }
+    if (Number.isInteger(+getRule('RequiredLength'))) {
+        requiredLength = +getRule('RequiredLength');
+    }
+    return [validatePassword(passwordRulesArr), minLength(requiredLength), maxLength(128)];
+}
+/**
+ * @param {?} store
+ * @return {?}
+ */
+function getRuleFn(store) {
+    return (/**
+     * @param {?} key
+     * @return {?}
+     */
+    (key) => {
+        /** @type {?} */
+        const passwordRules = store.selectSnapshot(ConfigState.getSettings('Identity.Password'));
+        return (passwordRules[`Abp.Identity.Password.${key}`] || '').toLowerCase();
+    });
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/utils/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -3335,5 +3678,5 @@ var Statistics;
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { BreadcrumbComponent, ButtonComponent, ChartComponent, Confirmation, ConfirmationComponent, ConfirmationService, DateParserFormatter, LoaderBarComponent, LoadingComponent, LoadingDirective, ModalComponent, PaginationComponent, SortOrderIconComponent, TableComponent, TableEmptyMessageComponent, TableSortDirective, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getRandomBackgroundColor, getSettingTabs, slideFromBottom, toastInOut, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, DateParserFormatter as ɵba, ChartComponent as ɵc, ConfirmationComponent as ɵd, ConfirmationService as ɵe, HttpErrorWrapperComponent as ɵf, LoaderBarComponent as ɵg, LoadingComponent as ɵh, ModalComponent as ɵi, fadeAnimation as ɵj, fadeIn as ɵk, fadeOut as ɵl, PaginationComponent as ɵm, TableComponent as ɵn, TableEmptyMessageComponent as ɵo, ToastComponent as ɵp, ToasterService as ɵq, ToastContainerComponent as ɵr, toastInOut as ɵs, SortOrderIconComponent as ɵt, LoadingDirective as ɵu, TableSortDirective as ɵv, ErrorHandler as ɵw, httpErrorConfigFactory as ɵy, HTTP_ERROR_CONFIG as ɵz };
+export { BreadcrumbComponent, ButtonComponent, ChartComponent, Confirmation, ConfirmationComponent, ConfirmationService, DateParserFormatter, HTTP_ERROR_CONFIG, LoaderBarComponent, LoadingComponent, LoadingDirective, ModalComponent, ModalService, PaginationComponent, SortOrderIconComponent, THEME_SHARED_APPEND_CONTENT, TableComponent, TableEmptyMessageComponent, TableSortDirective, ThemeSharedModule, ToastComponent, Toaster, ToasterService, addSettingTab, appendScript, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getPasswordValidators, getRandomBackgroundColor, getSettingTabs, httpErrorConfigFactory, slideFromBottom, toastInOut, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, THEME_SHARED_APPEND_CONTENT as ɵba, httpErrorConfigFactory as ɵbb, HTTP_ERROR_CONFIG as ɵbc, DateParserFormatter as ɵbd, ChartComponent as ɵc, ConfirmationComponent as ɵd, ConfirmationService as ɵe, HttpErrorWrapperComponent as ɵf, LoaderBarComponent as ɵg, LoadingComponent as ɵh, ModalComponent as ɵi, fadeAnimation as ɵj, fadeIn as ɵk, fadeOut as ɵl, ModalService as ɵm, ModalContainerComponent as ɵn, PaginationComponent as ɵo, TableComponent as ɵp, TableEmptyMessageComponent as ɵq, ToastComponent as ɵr, ToasterService as ɵs, ToastContainerComponent as ɵt, toastInOut as ɵu, SortOrderIconComponent as ɵv, LoadingDirective as ɵw, TableSortDirective as ɵx, ErrorHandler as ɵy };
 //# sourceMappingURL=abp-ng.theme.shared.js.map

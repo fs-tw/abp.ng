@@ -241,6 +241,7 @@
     var PermissionManagementService = /** @class */ (function () {
         function PermissionManagementService(rest) {
             this.rest = rest;
+            this.apiName = 'AbpPermissionManagement';
         }
         /**
          * @param {?} params
@@ -257,7 +258,7 @@
                 url: '/api/abp/permissions',
                 params: params,
             };
-            return this.rest.request(request);
+            return this.rest.request(request, { apiName: this.apiName });
         };
         /**
          * @param {?} __0
@@ -276,7 +277,9 @@
                 body: { permissions: permissions },
                 params: { providerKey: providerKey, providerName: providerName },
             };
-            return this.rest.request(request);
+            return this.rest.request(request, {
+                apiName: this.apiName,
+            });
         };
         PermissionManagementService.decorators = [
             { type: core.Injectable, args: [{
@@ -291,6 +294,8 @@
         return PermissionManagementService;
     }());
     if (false) {
+        /** @type {?} */
+        PermissionManagementService.prototype.apiName;
         /**
          * @type {?}
          * @private
@@ -932,6 +937,16 @@
      * Generated from: lib/components/index.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/enums/components.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @enum {string} */
+    var ePermissionManagementComponents = {
+        PermissionManagement: "PermissionManagement.PermissionManagementComponent",
+    };
 
     /**
      * @fileoverview added by tsickle

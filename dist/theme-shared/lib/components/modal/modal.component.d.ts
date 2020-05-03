@@ -1,11 +1,13 @@
 import { ElementRef, EventEmitter, OnDestroy, Renderer2, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ConfirmationService } from '../../services/confirmation.service';
+import { ModalService } from '../../services/modal.service';
 import { ButtonComponent } from '../button/button.component';
 export declare type ModalSize = 'sm' | 'md' | 'lg' | 'xl';
 export declare class ModalComponent implements OnDestroy {
     private renderer;
     private confirmationService;
+    private modalService;
     visible: boolean;
     busy: boolean;
     centered: boolean;
@@ -16,6 +18,7 @@ export declare class ModalComponent implements OnDestroy {
     abpBody: TemplateRef<any>;
     abpFooter: TemplateRef<any>;
     abpClose: ElementRef<any>;
+    template: TemplateRef<any>;
     modalContent: ElementRef;
     abpButtons: any;
     readonly visibleChange: EventEmitter<boolean>;
@@ -27,8 +30,11 @@ export declare class ModalComponent implements OnDestroy {
     isModalOpen: boolean;
     isConfirmationOpen: boolean;
     destroy$: Subject<void>;
+    private toggle$;
     readonly isFormDirty: boolean;
-    constructor(renderer: Renderer2, confirmationService: ConfirmationService);
+    constructor(renderer: Renderer2, confirmationService: ConfirmationService, modalService: ModalService);
+    private initToggleStream;
+    private toggle;
     ngOnDestroy(): void;
     close(): void;
     listen(): void;

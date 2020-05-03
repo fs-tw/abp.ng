@@ -1,10 +1,14 @@
 import { Toaster } from '../models';
 import { ReplaySubject } from 'rxjs';
-import { Config } from '@abp/ng.core';
+import { Config, ContentProjectionService } from '@abp/ng.core';
 export declare class ToasterService {
+    private contentProjectionService;
     toasts$: ReplaySubject<Toaster.Toast[]>;
     private lastId;
     private toasts;
+    private containerComponentRef;
+    constructor(contentProjectionService: ContentProjectionService);
+    private setContainer;
     /**
      * Creates an info toast with given parameters.
      * @param message Content of the toast

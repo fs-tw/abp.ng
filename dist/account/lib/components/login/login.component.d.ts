@@ -4,6 +4,7 @@ import { OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { eAccountComponents } from '../../enums/components';
 export declare class LoginComponent implements OnInit {
     private fb;
     private oauthService;
@@ -13,6 +14,7 @@ export declare class LoginComponent implements OnInit {
     form: FormGroup;
     inProgress: boolean;
     isSelfRegistrationEnabled: boolean;
+    authWrapperKey: eAccountComponents;
     constructor(fb: FormBuilder, oauthService: OAuthService, store: Store, toasterService: ToasterService, authService: AuthService);
     ngOnInit(): void;
     onSubmit(): void;

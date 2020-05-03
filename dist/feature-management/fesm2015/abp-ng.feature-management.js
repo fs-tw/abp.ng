@@ -62,6 +62,7 @@ class FeatureManagementService {
     constructor(rest, store) {
         this.rest = rest;
         this.store = store;
+        this.apiName = 'FeatureManagement';
     }
     /**
      * @param {?} params
@@ -74,7 +75,9 @@ class FeatureManagementService {
             url: '/api/abp/features',
             params,
         };
-        return this.rest.request(request);
+        return this.rest.request(request, {
+            apiName: this.apiName,
+        });
     }
     /**
      * @param {?} __0
@@ -88,7 +91,7 @@ class FeatureManagementService {
             body: { features },
             params: { providerKey, providerName },
         };
-        return this.rest.request(request);
+        return this.rest.request(request, { apiName: this.apiName });
     }
 }
 FeatureManagementService.decorators = [
@@ -103,6 +106,8 @@ FeatureManagementService.ctorParameters = () => [
 ];
 /** @nocollapse */ FeatureManagementService.ngInjectableDef = ɵɵdefineInjectable({ factory: function FeatureManagementService_Factory() { return new FeatureManagementService(ɵɵinject(RestService), ɵɵinject(Store)); }, token: FeatureManagementService, providedIn: "root" });
 if (false) {
+    /** @type {?} */
+    FeatureManagementService.prototype.apiName;
     /**
      * @type {?}
      * @private
@@ -377,6 +382,16 @@ FeatureManagementModule.decorators = [
  * Generated from: lib/components/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/enums/components.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @enum {string} */
+const eFeatureManagementComponents = {
+    FeatureManagement: "FeatureManagement.FeatureManagementComponent",
+};
 
 /**
  * @fileoverview added by tsickle

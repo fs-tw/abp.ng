@@ -3,6 +3,7 @@ import { RestService } from './rest.service';
 import { Profile } from '../models';
 export declare class ProfileService {
     private rest;
+    apiName: string;
     constructor(rest: RestService);
     get(): Observable<Profile.Response>;
     update(body: Profile.Response): Observable<Profile.Response>;
