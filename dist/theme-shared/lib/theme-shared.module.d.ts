@@ -1,6 +1,11 @@
 import { Injector, ModuleWithProviders } from '@angular/core';
 import { ErrorHandler } from './handlers/error.handler';
 import { RootParams } from './models/common';
+/**
+ *
+ * @deprecated To be deleted in v2.6
+ *
+ */
 export declare function appendScript(injector: Injector): () => Promise<void>;
 export declare class ThemeSharedModule {
     private errorHandler;

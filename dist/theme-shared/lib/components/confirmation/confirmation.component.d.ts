@@ -1,15 +1,13 @@
-import { ConfirmationService } from '../../services/confirmation.service';
 import { Confirmation } from '../../models/confirmation';
-import { LocalizationService } from '@abp/ng.core';
+import { ConfirmationService } from '../../services/confirmation.service';
 export declare class ConfirmationComponent {
     private confirmationService;
-    private localizationService;
     confirm: Confirmation.Status;
     reject: Confirmation.Status;
     dismiss: Confirmation.Status;
     visible: boolean;
     data: Confirmation.DialogData;
     readonly iconClass: string;
-    constructor(confirmationService: ConfirmationService, localizationService: LocalizationService);
+    constructor(confirmationService: ConfirmationService);
     close(status: Confirmation.Status): void;
 }

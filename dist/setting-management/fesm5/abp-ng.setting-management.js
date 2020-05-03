@@ -181,7 +181,7 @@ if (false) {
 var ɵ0 = {
     requiredPolicy: 'AbpAccount.SettingManagement',
     replaceableComponent: (/** @type {?} */ ({
-        key: 'SettingManagement.SettingManagementComponent',
+        key: "SettingManagement.SettingManagementComponent" /* SettingManagement */,
         defaultComponent: SettingManagementComponent,
     })),
 };
@@ -232,6 +232,16 @@ var SettingManagementModule = /** @class */ (function () {
     ];
     return SettingManagementModule;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/enums/components.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @enum {string} */
+var eSettingManagementComponents = {
+    SettingManagement: "SettingManagement.SettingManagementComponent",
+};
 
 /**
  * @fileoverview added by tsickle

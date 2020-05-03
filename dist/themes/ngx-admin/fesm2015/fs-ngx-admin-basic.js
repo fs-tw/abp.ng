@@ -781,8 +781,6 @@ NgxAdminBasicModule.decorators = [
                     NbUserModule
                 ],
                 exports: [
-                    //abp
-                    CoreModule,
                     ThemeBasicModule,
                     //ngx-admin
                     NgxAdminSharedModule,

@@ -1,0 +1,17 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/enums/components.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @enum {string} */
+var eAccountComponents = {
+    Login: "Account.LoginComponent",
+    Register: "Account.RegisterComponent",
+    ManageProfile: "Account.ManageProfileComponent",
+    TenantBox: "Account.TenantBoxComponent",
+    AuthWrapper: "Account.AuthWrapperComponent",
+    ChangePassword: "Account.ChangePasswordComponent",
+    PersonalSettings: "Account.PersonalSettingsComponent",
+};
+export { eAccountComponents };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29tcG9uZW50cy5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0BhYnAvbmcuYWNjb3VudC8iLCJzb3VyY2VzIjpbImxpYi9lbnVtcy9jb21wb25lbnRzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLElBQWtCLGtCQUFrQjtJQUNsQyxLQUFLLDBCQUEyQjtJQUNoQyxRQUFRLDZCQUE4QjtJQUN0QyxhQUFhLGtDQUFtQztJQUNoRCxTQUFTLDhCQUErQjtJQUN4QyxXQUFXLGdDQUFpQztJQUM1QyxjQUFjLG1DQUFvQztJQUNsRCxnQkFBZ0IscUNBQXNDO0VBQ3ZEIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGNvbnN0IGVudW0gZUFjY291bnRDb21wb25lbnRzIHtcclxuICBMb2dpbiA9ICdBY2NvdW50LkxvZ2luQ29tcG9uZW50JyxcclxuICBSZWdpc3RlciA9ICdBY2NvdW50LlJlZ2lzdGVyQ29tcG9uZW50JyxcclxuICBNYW5hZ2VQcm9maWxlID0gJ0FjY291bnQuTWFuYWdlUHJvZmlsZUNvbXBvbmVudCcsXHJcbiAgVGVuYW50Qm94ID0gJ0FjY291bnQuVGVuYW50Qm94Q29tcG9uZW50JyxcclxuICBBdXRoV3JhcHBlciA9ICdBY2NvdW50LkF1dGhXcmFwcGVyQ29tcG9uZW50JyxcclxuICBDaGFuZ2VQYXNzd29yZCA9ICdBY2NvdW50LkNoYW5nZVBhc3N3b3JkQ29tcG9uZW50JyxcclxuICBQZXJzb25hbFNldHRpbmdzID0gJ0FjY291bnQuUGVyc29uYWxTZXR0aW5nc0NvbXBvbmVudCcsXHJcbn1cclxuIl19

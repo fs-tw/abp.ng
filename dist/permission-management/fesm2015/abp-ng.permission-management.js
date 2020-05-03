@@ -53,6 +53,7 @@ class PermissionManagementService {
      */
     constructor(rest) {
         this.rest = rest;
+        this.apiName = 'AbpPermissionManagement';
     }
     /**
      * @param {?} params
@@ -65,7 +66,7 @@ class PermissionManagementService {
             url: '/api/abp/permissions',
             params,
         };
-        return this.rest.request(request);
+        return this.rest.request(request, { apiName: this.apiName });
     }
     /**
      * @param {?} __0
@@ -79,7 +80,9 @@ class PermissionManagementService {
             body: { permissions },
             params: { providerKey, providerName },
         };
-        return this.rest.request(request);
+        return this.rest.request(request, {
+            apiName: this.apiName,
+        });
     }
 }
 PermissionManagementService.decorators = [
@@ -93,6 +96,8 @@ PermissionManagementService.ctorParameters = () => [
 ];
 /** @nocollapse */ PermissionManagementService.ngInjectableDef = ɵɵdefineInjectable({ factory: function PermissionManagementService_Factory() { return new PermissionManagementService(ɵɵinject(RestService)); }, token: PermissionManagementService, providedIn: "root" });
 if (false) {
+    /** @type {?} */
+    PermissionManagementService.prototype.apiName;
     /**
      * @type {?}
      * @private
@@ -647,6 +652,16 @@ PermissionManagementModule.decorators = [
  * Generated from: lib/components/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/enums/components.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @enum {string} */
+const ePermissionManagementComponents = {
+    PermissionManagement: "PermissionManagement.PermissionManagementComponent",
+};
 
 /**
  * @fileoverview added by tsickle

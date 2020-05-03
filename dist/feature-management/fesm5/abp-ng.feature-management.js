@@ -54,6 +54,7 @@ var FeatureManagementService = /** @class */ (function () {
     function FeatureManagementService(rest, store) {
         this.rest = rest;
         this.store = store;
+        this.apiName = 'FeatureManagement';
     }
     /**
      * @param {?} params
@@ -70,7 +71,9 @@ var FeatureManagementService = /** @class */ (function () {
             url: '/api/abp/features',
             params: params,
         };
-        return this.rest.request(request);
+        return this.rest.request(request, {
+            apiName: this.apiName,
+        });
     };
     /**
      * @param {?} __0
@@ -89,7 +92,7 @@ var FeatureManagementService = /** @class */ (function () {
             body: { features: features },
             params: { providerKey: providerKey, providerName: providerName },
         };
-        return this.rest.request(request);
+        return this.rest.request(request, { apiName: this.apiName });
     };
     FeatureManagementService.decorators = [
         { type: Injectable, args: [{
@@ -105,6 +108,8 @@ var FeatureManagementService = /** @class */ (function () {
     return FeatureManagementService;
 }());
 if (false) {
+    /** @type {?} */
+    FeatureManagementService.prototype.apiName;
     /**
      * @type {?}
      * @private
@@ -418,6 +423,16 @@ var FeatureManagementModule = /** @class */ (function () {
  * Generated from: lib/components/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/enums/components.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @enum {string} */
+var eFeatureManagementComponents = {
+    FeatureManagement: "FeatureManagement.FeatureManagementComponent",
+};
 
 /**
  * @fileoverview added by tsickle

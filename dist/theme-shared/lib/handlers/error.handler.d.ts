@@ -1,7 +1,7 @@
-import { ApplicationRef, ComponentFactoryResolver, Injector, RendererFactory2, ComponentRef } from '@angular/core';
+import { ApplicationRef, ComponentFactoryResolver, ComponentRef, Injector, RendererFactory2 } from '@angular/core';
 import { Actions, Store } from '@ngxs/store';
 import { HttpErrorWrapperComponent } from '../components/http-error-wrapper/http-error-wrapper.component';
-import { HttpErrorConfig, ErrorScreenErrorCodes } from '../models/common';
+import { ErrorScreenErrorCodes, HttpErrorConfig } from '../models/common';
 import { ConfirmationService } from '../services/confirmation.service';
 export declare const DEFAULT_ERROR_MESSAGES: {
     defaultError: {
@@ -36,10 +36,15 @@ export declare class ErrorHandler {
     private httpErrorConfig;
     componentRef: ComponentRef<HttpErrorWrapperComponent>;
     constructor(actions: Actions, store: Store, confirmationService: ConfirmationService, appRef: ApplicationRef, cfRes: ComponentFactoryResolver, rendererFactory: RendererFactory2, injector: Injector, httpErrorConfig: HttpErrorConfig);
+    private listenToRouterError;
+    private listenToRouterDataResolved;
+    private listenToRestError;
     private show401Page;
     private show404Page;
     private showError;
     private navigateToLogin;
     createErrorComponent(instance: Partial<HttpErrorWrapperComponent>): void;
     canCreateCustomError(status: ErrorScreenErrorCodes): boolean;
+    private filterRestErrors;
+    private filterRouteErrors;
 }

@@ -952,8 +952,6 @@
                             theme.NbUserModule
                         ],
                         exports: __spread([
-                            //abp
-                            ng_core.CoreModule,
                             ng_theme_basic.ThemeBasicModule,
                             //ngx-admin
                             shared.NgxAdminSharedModule

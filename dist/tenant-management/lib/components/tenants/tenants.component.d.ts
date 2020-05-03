@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { TenantManagementService } from '../../services/tenant-management.service';
+import { eFeatureManagementComponents } from '@abp/ng.feature-management';
 interface SelectedModalContent {
     type: 'saveConnStr' | 'saveTenant';
     title: string;
@@ -31,6 +32,7 @@ export declare class TenantsComponent implements OnInit {
     modalBusy: boolean;
     sortOrder: string;
     sortKey: string;
+    featureManagementKey: eFeatureManagementComponents;
     readonly hasSelectedTenant: boolean;
     readonly useSharedDatabase: boolean;
     readonly connectionString: string;

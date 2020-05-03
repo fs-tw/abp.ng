@@ -4,9 +4,10 @@ export interface RootParams {
 }
 export declare type ErrorScreenErrorCodes = 401 | 403 | 404 | 500;
 export interface HttpErrorConfig {
+    skipHandledErrorCodes?: ErrorScreenErrorCodes[] | number[];
     errorScreen?: {
         component: Type<any>;
-        forWhichErrors?: [ErrorScreenErrorCodes] | [ErrorScreenErrorCodes, ErrorScreenErrorCodes] | [ErrorScreenErrorCodes, ErrorScreenErrorCodes, ErrorScreenErrorCodes] | [ErrorScreenErrorCodes, ErrorScreenErrorCodes, ErrorScreenErrorCodes, ErrorScreenErrorCodes];
+        forWhichErrors?: ErrorScreenErrorCodes[];
         hideCloseIcon?: boolean;
     };
 }
