@@ -8,7 +8,7 @@ import { Store } from '@ngxs/store';
   selector: 'ngx-admin-tenant-box',
   templateUrl: './tenant-box.component.html'
 })
-export class TenantBoxComponent extends AbpTenantBoxComponent implements OnInit {
+export class TenantBoxComponent extends AbpTenantBoxComponent {
   constructor(
     private _store: Store,
     private _toasterService: ToasterService,

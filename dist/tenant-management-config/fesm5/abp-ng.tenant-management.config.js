@@ -8,21 +8,30 @@ import { addAbpRoutes, noop } from '@abp/ng.core';
  */
 var TenantManagementConfigService = /** @class */ (function () {
     function TenantManagementConfigService() {
-        addAbpRoutes({
-            name: 'AbpTenantManagement::Menu:TenantManagement',
-            path: 'tenant-management',
-            parentName: 'AbpUiNavigation::Menu:Administration',
-            layout: "application" /* application */,
-            iconClass: 'fa fa-users',
-            children: [
-                {
-                    path: 'tenants',
-                    name: 'AbpTenantManagement::Tenants',
-                    order: 1,
-                    requiredPolicy: 'AbpTenantManagement.Tenants',
-                },
-            ],
-        });
+        addAbpRoutes([
+            {
+                name: "AbpUiNavigation::Menu:Administration" /* Administration */,
+                path: '',
+                order: 1,
+                wrapper: true,
+                iconClass: 'fa fa-wrench',
+            },
+            {
+                name: "AbpTenantManagement::Menu:TenantManagement" /* TenantManagement */,
+                path: 'tenant-management',
+                parentName: "AbpUiNavigation::Menu:Administration" /* Administration */,
+                layout: "application" /* application */,
+                iconClass: 'fa fa-users',
+                children: [
+                    {
+                        path: 'tenants',
+                        name: "AbpTenantManagement::Tenants" /* Tenants */,
+                        order: 1,
+                        requiredPolicy: 'AbpTenantManagement.Tenants',
+                    },
+                ],
+            },
+        ]);
     }
     TenantManagementConfigService.decorators = [
         { type: Injectable, args: [{

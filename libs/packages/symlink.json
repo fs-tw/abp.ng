@@ -11,23 +11,23 @@
         "name": "abpBaseLibs",
         "sync": false,
         "packages": [
-            "@abp/ng.feature-management",
-            "@abp/ng.permission-management",
-            "@abp/ng.account.config",
-            "@abp/ng.identity.config",
-            "@abp/ng.setting-management.config",
-            "@abp/ng.tenant-management.config"
+            "@abp/ng.theme.basic",
+            "@abp/ng.account",
+            "@abp/ng.identity",
+            "@abp/ng.setting-management",
+            "@abp/ng.tenant-management"
         ]
     },
     {
         "name": "abpLibs",
         "sync": false,
         "packages": [
-            "@abp/ng.theme.basic",
-            "@abp/ng.account",
-            "@abp/ng.identity",
-            "@abp/ng.setting-management",
-            "@abp/ng.tenant-management"
+            "@abp/ng.feature-management",
+            "@abp/ng.permission-management",
+            "@abp/ng.account.config",
+            "@abp/ng.identity.config",
+            "@abp/ng.setting-management.config",
+            "@abp/ng.tenant-management.config"
         ]
     },
     {

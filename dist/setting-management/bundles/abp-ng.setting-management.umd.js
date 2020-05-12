@@ -439,11 +439,21 @@
         SettingManagement: "SettingManagement.SettingManagementComponent",
     };
 
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/enums/route-names.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @enum {string} */
+    var eSettingManagementRouteNames = {
+        Settings: "AbpSettingManagement::Settings",
+    };
+
     exports.SettingManagementComponent = SettingManagementComponent;
     exports.SettingManagementModule = SettingManagementModule;
     exports.ɵa = SettingManagementRoutingModule;
-    exports.ɵb = SettingManagementState;
-    exports.ɵc = SetSelectedSettingTab;
+    exports.ɵc = SettingManagementState;
+    exports.ɵd = SetSelectedSettingTab;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

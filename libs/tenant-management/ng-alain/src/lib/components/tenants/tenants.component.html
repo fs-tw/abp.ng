@@ -1,122 +1,132 @@
 <page-header [title]="'AbpTenantManagement::Tenants' | abpLocalization"></page-header>
 <nz-card [nzBordered]="false">
-  <button nz-button [abpPermission]="'AbpTenantManagement.Tenants.Create'" (click)="addTenant()" [nzType]="'primary'">
-    <i nz-icon nzType="plus"></i>
-    <span>{{ 'AbpTenantManagement::NewTenant' | abpLocalization }}</span>
-  </button>
-  <div id="data-tables-table-filter" class="data-tables-filter">
-    <label>
-      <input type="search" class="form-control form-control-sm" [placeholder]="'AbpUi::PagerSearch' | abpLocalization"
-        (input.debounce)="onSearch($event.target.value)" />
-    </label>
-  </div>
-  <p-table *ngIf="[150, 0] as columnWidths" [value]="data$ | async" [abpTableSort]="{ key: sortKey, order: sortOrder }"
-    [lazy]="true" [lazyLoadOnInit]="false" [paginator]="true" [rows]="10" [totalRecords]="totalCount$ | async"
-    [loading]="loading" [resizableColumns]="true" [scrollable]="true" (onLazyLoad)="onPageChange($event)">
-    <ng-template pTemplate="colgroup">
-      <colgroup>
-        <col *ngFor="let width of columnWidths" [ngStyle]="{ 'width.px': width || undefined }" />
-      </colgroup>
-    </ng-template>
-    <ng-template pTemplate="emptymessage" let-columns>
-      <tr abp-table-empty-message [attr.colspan]="columnWidths.length" localizationResource="AbpTenantManagement"
-        localizationProp="NoDataAvailableInDatatable"></tr>
-    </ng-template>
-    <ng-template pTemplate="header" let-columns>
-      <tr>
-        <th>{{ 'AbpTenantManagement::Actions' | abpLocalization }}</th>
-        <th pResizableColumn (click)="sortOrderIcon.sort('name')">
-          {{ 'AbpTenantManagement::TenantName' | abpLocalization }}
-          <abp-sort-order-icon #sortOrderIcon key="name" [(selectedSortKey)]="sortKey" [(order)]="sortOrder">
-          </abp-sort-order-icon>
-        </th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-data>
-      <tr>
-        <td>
+  <form nz-form [nzLayout]="'inline'" class="search__form">
+      <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
+        <div nz-col nzMd="8" nzSm="24">
+          <nz-form-item>
+            <nz-form-label nzFor="no">{{'AbpIdentity::PagerSearch' | abpLocalization }}</nz-form-label>
+            <nz-form-control>
+              <input nz-input type="search" [placeholder]="'AbpUi::PagerSearch' | abpLocalization"
+                (input.debounce)="onSearch($event.target.value)" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+<button nz-button [abpPermission]="'AbpTenantManagement.Tenants.Create'" (click)="addTenant()" [nzType]="'primary'">
+  <i nz-icon nzType="plus"></i>
+  <span>{{ 'AbpTenantManagement::NewTenant' | abpLocalization }}</span>
+</button>
+<div class="my-md"></div>
+<nz-table #basicTable [nzData]="data$ | async" [nzPageSize]="pageQuery.maxResultCount" [nzTotal]="totalCount$ | async"
+  [nzLoading]="loading" [nzFrontPagination]="false" (nzPageIndexChange)="onPageChange($event)">
+  <thead>
+    <tr>
+      <th>{{ 'AbpTenantManagement::DisplayName:TenantName' | abpLocalization }}</th>
+      <th>{{ 'AbpTenantManagement::Actions' | abpLocalization }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.name }}</td>
+      <td>
           <a nz-dropdown [nzDropdownMenu]="opMenu">
             {{ 'AbpTenantManagement::Actions' | abpLocalization }}
             <i nz-icon nzType="down"></i>
           </a>
           <nz-dropdown-menu #opMenu="nzDropdownMenu">
             <ul nz-menu>
-              <li nz-menu-item [abpPermission]="'AbpTenantManagement.Tenants.Update'" (click)="editTenant(data.id)">
+              <li nz-menu-item *abpPermission="'AbpTenantManagement.Tenants.Update'" (click)="editTenant(data.id)">
                 {{ 'AbpTenantManagement::Edit' | abpLocalization }}</li>
-              <li nz-menu-item [abpPermission]="'AbpTenantManagement.Tenants.ManageConnectionStrings'"
+              <li nz-menu-item *abpPermission="'AbpTenantManagement.Tenants.ManageConnectionStrings'"
                 (click)="onEditConnectionString(data.id)">
                 {{ 'AbpTenantManagement::Permission:ManageConnectionStrings' | abpLocalization }}</li>
-              <li nz-menu-item [abpPermission]="'AbpTenantManagement.Tenants.ManageFeatures'"
+              <li nz-menu-item *abpPermission="'AbpTenantManagement.Tenants.ManageFeatures'"
                 (click)="providerKey = data.id; visibleFeatures = true">
                 {{ 'AbpTenantManagement::Permission:ManageFeatures' | abpLocalization }}</li>
-              <li nz-menu-item [abpPermission]="'AbpTenantManagement.Tenants.Delete'"
+              <li nz-menu-item *abpPermission="'AbpTenantManagement.Tenants.Delete'"
                 (click)="delete(data.id, data.name)">{{ 'AbpTenantManagement::Delete' | abpLocalization }}</li>
             </ul>
           </nz-dropdown-menu>
         </td>
-        <td>{{ data.name }}</td>
-      </tr>
-    </ng-template>
-  </p-table>
+    </tr>
+  </tbody>
+</nz-table>
 </nz-card>
 
 <nz-modal [(nzVisible)]="isModalVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
-  (nzOnCancel)="isModalVisible=false">
-  <ng-template #modalTitle>
-    {{ selectedModalContent.title | abpLocalization }}
-  </ng-template>
+(nzOnCancel)="isModalVisible=false">
+<ng-template #modalTitle>
+  {{ selectedModalContent.title | abpLocalization }}
+</ng-template>
 
-  <ng-template #modalContent>
-    <ng-container *ngTemplateOutlet="selectedModalContent?.template"></ng-container>
-  </ng-template>
+<ng-template #modalContent>
+  <ng-container *ngTemplateOutlet="selectedModalContent?.template"></ng-container>
+</ng-template>
 
-  <ng-template #modalFooter>
-    <button nz-button nzType="default" (click)="isModalVisible=false">
-      {{ 'AbpTenantManagement::Cancel' | abpLocalization }}
-    </button>
-    <button nz-button nzType="primary" (click)="save()">
-      {{
-      'AbpIdentity::Save' | abpLocalization
-      }}
-    </button>
-  </ng-template>
+<ng-template #modalFooter>
+  <button nz-button nzType="default" (click)="isModalVisible=false">
+    {{ 'AbpTenantManagement::Cancel' | abpLocalization }}
+  </button>
+  <button nz-button nzType="primary" (click)="save()"  [nzLoading]="loading">
+    {{
+    'AbpIdentity::Save' | abpLocalization
+    }}
+  </button>
+</ng-template>
 </nz-modal>
 
 
 
 <ng-template #tenantModalTemplate>
-  <form [formGroup]="tenantForm" (ngSubmit)="save()">
-    <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="role-name">
-        {{ 'AbpTenantManagement::TenantName' | abpLocalization }}</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input formControlName="name" />
-      </nz-form-control>
-    </nz-form-item>
-  </form>
+<form nz-form [formGroup]="tenantForm" (ngSubmit)="save()" [nzLayout]="'vertical'">
+  <nz-form-item>
+    <nz-form-label [nzSm]="24" [nzXs]="24" nzRequired nzFor="role-name">
+      {{ 'AbpTenantManagement::TenantName' | abpLocalization }}</nz-form-label>
+    <nz-form-control [nzSm]="24" [nzXs]="24">
+      <input nz-input formControlName="name" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *ngIf="tenantForm.controls.adminEmailAddress">
+    <nz-form-label [nzSm]="24" [nzXs]="24" nzRequired nzFor="role-adminEmailAddress">
+      {{ 'AbpTenantManagement::DisplayName:AdminEmailAddress' | abpLocalization }}</nz-form-label>
+    <nz-form-control [nzSm]="24" [nzXs]="24">
+      <input nz-input formControlName="adminEmailAddress" type="email" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *ngIf="tenantForm.controls.adminPassword">
+    <nz-form-label [nzSm]="24" [nzXs]="24" nzRequired nzFor="role-adminPassword">
+      {{ 'AbpTenantManagement::DisplayName:AdminPassword' | abpLocalization }}</nz-form-label>
+    <nz-form-control [nzSm]="24" [nzXs]="24">
+      <input nz-input formControlName="adminPassword" type="password" />
+    </nz-form-control>
+  </nz-form-item>
+</form>
 </ng-template>
 
 <ng-template #connectionStringModalTemplate>
-  <form [formGroup]="defaultConnectionStringForm" (ngSubmit)="save()">
-    <nz-form-item>
-      <nz-form-control [nzSpan]="14" [nzOffset]="6">
-        <label nz-checkbox formControlName="useSharedDatabase">
-          <span>
-            {{
-                  'AbpTenantManagement::DisplayName:UseSharedDatabase' | abpLocalization
-            }}
-          </span>
-        </label>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item *ngIf="!useSharedDatabase">
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="defaultConnectionString">
-        {{ 'AbpTenantManagement::DisplayName:DefaultConnectionString' | abpLocalization }}</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input formControlName="defaultConnectionString" id="defaultConnectionString" />
-      </nz-form-control>
-    </nz-form-item>
-  </form>
+<form nz-form [nzLayout]="'vertical'" [formGroup]="defaultConnectionStringForm" (ngSubmit)="save()">
+  <nz-form-item>
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <label nz-checkbox formControlName="useSharedDatabase">
+        <span>
+          {{
+                'AbpTenantManagement::DisplayName:UseSharedDatabase' | abpLocalization
+          }}
+        </span>
+      </label>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item *ngIf="!useSharedDatabase">
+    <nz-form-label [nzSm]="24" [nzXs]="24" nzRequired nzFor="defaultConnectionString">
+      {{ 'AbpTenantManagement::DisplayName:DefaultConnectionString' | abpLocalization }}</nz-form-label>
+    <nz-form-control [nzSm]="24" [nzXs]="24">
+      <input nz-input formControlName="defaultConnectionString" id="defaultConnectionString" />
+    </nz-form-control>
+  </nz-form-item>
+</form>
 </ng-template>
 
 <ng-alain-feature-management [(visible)]="visibleFeatures" providerName="T" [providerKey]="providerKey">

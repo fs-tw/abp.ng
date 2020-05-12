@@ -1055,6 +1055,24 @@ var eTenantManagementComponents = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/enums/route-names.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @enum {string} */
+var eTenantManagementRouteNames = {
+    Administration: "AbpUiNavigation::Menu:Administration",
+    TenantManagement: "AbpTenantManagement::Menu:TenantManagement",
+    Tenants: "AbpTenantManagement::Tenants",
+};
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/enums/index.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/models/tenant-management.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */

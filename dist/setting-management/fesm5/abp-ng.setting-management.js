@@ -245,6 +245,22 @@ var eSettingManagementComponents = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/enums/route-names.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @enum {string} */
+var eSettingManagementRouteNames = {
+    Settings: "AbpSettingManagement::Settings",
+};
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/enums/index.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -255,5 +271,5 @@ var eSettingManagementComponents = {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { SettingManagementComponent, SettingManagementModule, SettingManagementRoutingModule as ɵa, SettingManagementState as ɵb, SetSelectedSettingTab as ɵc };
+export { SettingManagementComponent, SettingManagementModule, SettingManagementRoutingModule as ɵa, SettingManagementState as ɵc, SetSelectedSettingTab as ɵd };
 //# sourceMappingURL=abp-ng.setting-management.js.map

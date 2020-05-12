@@ -676,78 +676,67 @@ class TenantBoxComponent {
         this.store = store;
         this.toasterService = toasterService;
         this.accountService = accountService;
-        this.tenant = (/** @type {?} */ ({}));
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this.tenant = this.store.selectSnapshot(SessionState.getTenant) || ((/** @type {?} */ ({})));
-        this.tenantName = this.tenant.name || '';
     }
     /**
      * @return {?}
      */
     onSwitch() {
+        /** @type {?} */
+        const tenant = this.store.selectSnapshot(SessionState.getTenant);
+        this.name = (tenant || ((/** @type {?} */ ({})))).name;
         this.isModalVisible = true;
     }
     /**
      * @return {?}
      */
     save() {
-        if (this.tenant.name && !this.inProgress) {
-            this.inProgress = true;
-            this.accountService
-                .findTenant(this.tenant.name)
-                .pipe(finalize((/**
-             * @return {?}
-             */
-            () => (this.inProgress = false))), take(1), catchError((/**
-             * @param {?} err
-             * @return {?}
-             */
-            err => {
-                this.toasterService.error(snq((/**
-                 * @return {?}
-                 */
-                () => err.error.error_description), 'AbpUi::DefaultErrorMessage'), 'AbpUi::Error');
-                return throwError(err);
-            })), switchMap((/**
-             * @param {?} __0
-             * @return {?}
-             */
-            ({ success, tenantId }) => {
-                if (success) {
-                    this.tenant = {
-                        id: tenantId,
-                        name: this.tenant.name,
-                    };
-                    this.tenantName = this.tenant.name;
-                    this.isModalVisible = false;
-                }
-                else {
-                    this.toasterService.error('AbpUiMultiTenancy::GivenTenantIsNotAvailable', 'AbpUi::Error', {
-                        messageLocalizationParams: [this.tenant.name],
-                    });
-                    this.tenant = (/** @type {?} */ ({}));
-                    this.tenantName = '';
-                }
-                this.store.dispatch(new SetTenant(success ? this.tenant : null));
-                return this.store.dispatch(new GetAppConfiguration());
-            })))
-                .subscribe();
-        }
-        else {
-            this.store.dispatch([new SetTenant(null), new GetAppConfiguration()]);
-            this.tenantName = null;
+        if (!this.name) {
+            this.setTenant(null);
             this.isModalVisible = false;
+            return;
         }
+        this.modalBusy = true;
+        this.accountService
+            .findTenant(this.name)
+            .pipe(finalize((/**
+         * @return {?}
+         */
+        () => (this.modalBusy = false))))
+            .subscribe((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        ({ success, tenantId: id, name }) => {
+            if (!success) {
+                this.showError();
+                return;
+            }
+            this.setTenant({ id, name });
+            this.isModalVisible = false;
+        }));
+    }
+    /**
+     * @private
+     * @param {?} tenant
+     * @return {?}
+     */
+    setTenant(tenant) {
+        return this.store.dispatch([new SetTenant(tenant), new GetAppConfiguration()]);
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    showError() {
+        this.toasterService.error('AbpUiMultiTenancy::GivenTenantIsNotAvailable', 'AbpUi::Error', {
+            messageLocalizationParams: [this.name],
+        });
     }
 }
 TenantBoxComponent.decorators = [
     { type: Component, args: [{
                 selector: 'abp-tenant-box',
-                template: "<div class=\"card shadow-sm rounded mb-3\">\r\n  <div class=\"card-body px-5\">\r\n    <div class=\"row\">\r\n      <div class=\"col\">\r\n        <span style=\"font-size: 0.8em;\" class=\"text-uppercase text-muted\">{{\r\n          'AbpUiMultiTenancy::Tenant' | abpLocalization\r\n        }}</span\r\n        ><br />\r\n        <h6 class=\"m-0 d-inline-block\">\r\n          <span>\r\n            {{ tenantName || ('AbpUiMultiTenancy::NotSelected' | abpLocalization) }}\r\n          </span>\r\n        </h6>\r\n      </div>\r\n      <div class=\"col-auto\">\r\n        <a\r\n          id=\"AbpTenantSwitchLink\"\r\n          href=\"javascript:void(0);\"\r\n          class=\"btn btn-sm mt-3 btn-outline-primary\"\r\n          (click)=\"onSwitch()\"\r\n          >{{ 'AbpUiMultiTenancy::Switch' | abpLocalization }}</a\r\n        >\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<abp-modal size=\"md\" [(visible)]=\"isModalVisible\" [busy]=\"inProgress\">\r\n  <ng-template #abpHeader>\r\n    <h5>Switch Tenant</h5>\r\n  </ng-template>\r\n  <ng-template #abpBody>\r\n    <form (ngSubmit)=\"save()\">\r\n      <div class=\"mt-2\">\r\n        <div class=\"form-group\">\r\n          <label for=\"name\">{{ 'AbpUiMultiTenancy::Name' | abpLocalization }}</label>\r\n          <input [(ngModel)]=\"tenant.name\" type=\"text\" id=\"name\" name=\"tenant\" class=\"form-control\" autofocus />\r\n        </div>\r\n        <p>{{ 'AbpUiMultiTenancy::SwitchTenantHint' | abpLocalization }}</p>\r\n      </div>\r\n    </form>\r\n  </ng-template>\r\n  <ng-template #abpFooter>\r\n    <button #abpClose type=\"button\" class=\"btn btn-secondary\">\r\n      {{ 'AbpTenantManagement::Cancel' | abpLocalization }}\r\n    </button>\r\n    <abp-button buttonType=\"button\" buttonClass=\"btn btn-primary\" (click)=\"save()\">\r\n      <i class=\"fa fa-check mr-1\"></i> <span>{{ 'AbpTenantManagement::Save' | abpLocalization }}</span>\r\n    </abp-button>\r\n  </ng-template>\r\n</abp-modal>\r\n"
+                template: "<ng-container *ngIf=\"(currentTenant$ | async) || {} as currentTenant\">\r\n  <div class=\"card shadow-sm rounded mb-3\">\r\n    <div class=\"card-body px-5\">\r\n      <div class=\"row\">\r\n        <div class=\"col\">\r\n          <span style=\"font-size: 0.8em;\" class=\"text-uppercase text-muted\">{{\r\n            'AbpUiMultiTenancy::Tenant' | abpLocalization\r\n          }}</span\r\n          ><br />\r\n          <h6 class=\"m-0 d-inline-block\">\r\n            <i>{{ currentTenant.name || ('AbpUiMultiTenancy::NotSelected' | abpLocalization) }}</i>\r\n          </h6>\r\n        </div>\r\n        <div class=\"col-auto\">\r\n          <a\r\n            id=\"AbpTenantSwitchLink\"\r\n            href=\"javascript:void(0);\"\r\n            class=\"btn btn-sm mt-3 btn-outline-primary\"\r\n            (click)=\"onSwitch()\"\r\n            >{{ 'AbpUiMultiTenancy::Switch' | abpLocalization }}</a\r\n          >\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <abp-modal size=\"md\" [(visible)]=\"isModalVisible\" [busy]=\"modalBusy\">\r\n    <ng-template #abpHeader>\r\n      <h5>Switch Tenant</h5>\r\n    </ng-template>\r\n    <ng-template #abpBody>\r\n      <form (ngSubmit)=\"save()\">\r\n        <div class=\"mt-2\">\r\n          <div class=\"form-group\">\r\n            <label for=\"name\">{{ 'AbpUiMultiTenancy::Name' | abpLocalization }}</label>\r\n            <input\r\n              [(ngModel)]=\"name\"\r\n              type=\"text\"\r\n              id=\"name\"\r\n              name=\"tenant\"\r\n              class=\"form-control\"\r\n              autofocus\r\n            />\r\n          </div>\r\n          <p>{{ 'AbpUiMultiTenancy::SwitchTenantHint' | abpLocalization }}</p>\r\n        </div>\r\n      </form>\r\n    </ng-template>\r\n    <ng-template #abpFooter>\r\n      <button #abpClose type=\"button\" class=\"btn btn-secondary\">\r\n        {{ 'AbpTenantManagement::Cancel' | abpLocalization }}\r\n      </button>\r\n      <abp-button\r\n        type=\"abp-button\"\r\n        iconClass=\"fa fa-check\"\r\n        (click)=\"save()\"\r\n        [disabled]=\"currentTenant?.name === name\"\r\n      >\r\n        <span>{{ 'AbpTenantManagement::Save' | abpLocalization }}</span>\r\n      </abp-button>\r\n    </ng-template>\r\n  </abp-modal>\r\n</ng-container>\r\n"
             }] }
 ];
 /** @nocollapse */
@@ -756,15 +745,19 @@ TenantBoxComponent.ctorParameters = () => [
     { type: ToasterService },
     { type: AccountService }
 ];
+__decorate([
+    Select(SessionState.getTenant),
+    __metadata("design:type", Observable)
+], TenantBoxComponent.prototype, "currentTenant$", void 0);
 if (false) {
     /** @type {?} */
-    TenantBoxComponent.prototype.tenant;
+    TenantBoxComponent.prototype.currentTenant$;
     /** @type {?} */
-    TenantBoxComponent.prototype.tenantName;
+    TenantBoxComponent.prototype.name;
     /** @type {?} */
     TenantBoxComponent.prototype.isModalVisible;
     /** @type {?} */
-    TenantBoxComponent.prototype.inProgress;
+    TenantBoxComponent.prototype.modalBusy;
     /**
      * @type {?}
      * @private
@@ -905,6 +898,25 @@ const eAccountComponents = {
     ChangePassword: "Account.ChangePasswordComponent",
     PersonalSettings: "Account.PersonalSettingsComponent",
 };
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/enums/route-names.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @enum {string} */
+const eAccountRouteNames = {
+    Account: "AbpAccount::Menu:Account",
+    Login: "AbpAccount::Login",
+    Register: "AbpAccount::Register",
+    ManageProfile: "AbpAccount::ManageYourProfile",
+};
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/enums/index.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 /**
  * @fileoverview added by tsickle
@@ -1077,6 +1089,8 @@ if (false) {
     TenantIdResponse.prototype.success;
     /** @type {?} */
     TenantIdResponse.prototype.tenantId;
+    /** @type {?} */
+    TenantIdResponse.prototype.name;
 }
 
 /**

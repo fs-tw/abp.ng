@@ -4,8 +4,8 @@ import { Store } from '@ngxs/store';
 export declare class BreadcrumbComponent implements OnInit {
     private router;
     private store;
-    show: boolean;
     segments: string[];
+    show: boolean;
     constructor(router: Router, store: Store);
     ngOnInit(): void;
 }

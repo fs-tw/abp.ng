@@ -11,14 +11,14 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
 var AccountConfigService = /** @class */ (function () {
     function AccountConfigService() {
         addAbpRoutes({
-            name: 'AbpAccount::Menu:Account',
+            name: "AbpAccount::Menu:Account" /* Account */,
             path: 'account',
             invisible: true,
             layout: "application" /* application */,
             children: [
-                { path: 'login', name: 'AbpAccount::Login', order: 1 },
-                { path: 'register', name: 'AbpAccount::Register', order: 2 },
-                { path: 'manage-profile', name: 'AbpAccount::ManageYourProfile', order: 3 },
+                { path: 'login', name: "AbpAccount::Login" /* Login */, order: 1 },
+                { path: 'register', name: "AbpAccount::Register" /* Register */, order: 2 },
+                { path: 'manage-profile', name: "AbpAccount::ManageYourProfile" /* ManageProfile */, order: 3 },
             ],
         });
     }

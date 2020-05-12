@@ -27,13 +27,13 @@ export declare class TemplateProjectionStrategy<T extends TemplateRef<any>> exte
     injectContent(): ComponentRefOrEmbeddedViewRef<T>;
 }
 export declare const PROJECTION_STRATEGY: {
-    AppendComponentToBody<T extends Type<unknown>>(component: T, context?: InferredInstanceOf<T>): RootComponentProjectionStrategy<T>;
-    AppendComponentToContainer<T extends Type<unknown>>(component: T, containerRef: ViewContainerRef, context?: InferredInstanceOf<T>): ComponentProjectionStrategy<T>;
-    AppendTemplateToContainer<T extends TemplateRef<unknown>>(templateRef: T, containerRef: ViewContainerRef, context?: InferredContextOf<T>): TemplateProjectionStrategy<T>;
-    PrependComponentToContainer<T extends Type<unknown>>(component: T, containerRef: ViewContainerRef, context?: InferredInstanceOf<T>): ComponentProjectionStrategy<T>;
-    PrependTemplateToContainer<T extends TemplateRef<unknown>>(templateRef: T, containerRef: ViewContainerRef, context?: InferredContextOf<T>): TemplateProjectionStrategy<T>;
-    ProjectComponentToContainer<T extends Type<unknown>>(component: T, containerRef: ViewContainerRef, context?: InferredInstanceOf<T>): ComponentProjectionStrategy<T>;
-    ProjectTemplateToContainer<T extends TemplateRef<unknown>>(templateRef: T, containerRef: ViewContainerRef, context?: InferredContextOf<T>): TemplateProjectionStrategy<T>;
+    AppendComponentToBody<T extends Type<unknown>>(component: T, context?: Partial<InferredInstanceOf<T>>): RootComponentProjectionStrategy<T>;
+    AppendComponentToContainer<T extends Type<unknown>>(component: T, containerRef: ViewContainerRef, context?: Partial<InferredInstanceOf<T>>): ComponentProjectionStrategy<T>;
+    AppendTemplateToContainer<T extends TemplateRef<unknown>>(templateRef: T, containerRef: ViewContainerRef, context?: Partial<InferredContextOf<T>>): TemplateProjectionStrategy<T>;
+    PrependComponentToContainer<T extends Type<unknown>>(component: T, containerRef: ViewContainerRef, context?: Partial<InferredInstanceOf<T>>): ComponentProjectionStrategy<T>;
+    PrependTemplateToContainer<T extends TemplateRef<unknown>>(templateRef: T, containerRef: ViewContainerRef, context?: Partial<InferredContextOf<T>>): TemplateProjectionStrategy<T>;
+    ProjectComponentToContainer<T extends Type<unknown>>(component: T, containerRef: ViewContainerRef, context?: Partial<InferredInstanceOf<T>>): ComponentProjectionStrategy<T>;
+    ProjectTemplateToContainer<T extends TemplateRef<unknown>>(templateRef: T, containerRef: ViewContainerRef, context?: Partial<InferredContextOf<T>>): TemplateProjectionStrategy<T>;
 };
 declare type ComponentRefOrEmbeddedViewRef<T> = T extends Type<infer U> ? ComponentRef<U> : T extends TemplateRef<infer C> ? EmbeddedViewRef<C> : never;
 export {};

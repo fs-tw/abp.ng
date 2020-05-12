@@ -10,29 +10,29 @@ var IdentityConfigService = /** @class */ (function () {
     function IdentityConfigService() {
         addAbpRoutes([
             {
-                name: 'AbpUiNavigation::Menu:Administration',
+                name: "AbpUiNavigation::Menu:Administration" /* Administration */,
                 path: '',
                 order: 1,
                 wrapper: true,
                 iconClass: 'fa fa-wrench',
             },
             {
-                name: 'AbpIdentity::Menu:IdentityManagement',
+                name: "AbpIdentity::Menu:IdentityManagement" /* IdentityManagement */,
                 path: 'identity',
                 order: 1,
-                parentName: 'AbpUiNavigation::Menu:Administration',
+                parentName: "AbpUiNavigation::Menu:Administration" /* Administration */,
                 layout: "application" /* application */,
                 iconClass: 'fa fa-id-card-o',
                 children: [
                     {
                         path: 'roles',
-                        name: 'AbpIdentity::Roles',
+                        name: "AbpIdentity::Roles" /* Roles */,
                         order: 1,
                         requiredPolicy: 'AbpIdentity.Roles',
                     },
                     {
                         path: 'users',
-                        name: 'AbpIdentity::Users',
+                        name: "AbpIdentity::Users" /* Users */,
                         order: 2,
                         requiredPolicy: 'AbpIdentity.Users',
                     },

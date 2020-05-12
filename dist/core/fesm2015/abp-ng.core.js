@@ -1,13 +1,13 @@
-import { ChangeDetectorRef, Component, Injector, Input, Injectable, ɵɵdefineInjectable, ɵɵinject, InjectionToken, NgZone, Optional, SkipSelf, Directive, ElementRef, EventEmitter, Output, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, Self, Renderer2, ComponentFactoryResolver, Pipe, NgModule, Inject, LOCALE_ID, APP_INITIALIZER, INJECTOR, ApplicationRef } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute, RouterModule } from '@angular/router';
-import { Store, ofActionSuccessful, Actions, Action, Selector, State, createSelector, actionMatcher, InitState, UpdateState, setValue, NgxsModule, NGXS_PLUGINS } from '@ngxs/store';
+import { ChangeDetectorRef, Component, Injector, Input, Injectable, Directive, ElementRef, EventEmitter, Output, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, InjectionToken, Self, ɵɵdefineInjectable, ɵɵinject, Renderer2, Optional, ComponentFactoryResolver, Pipe, NgModule, Inject, NgZone, SkipSelf, LOCALE_ID, APP_INITIALIZER, INJECTOR, ApplicationRef } from '@angular/core';
+import { NavigationEnd, Router, ActivatedRoute, RouterModule } from '@angular/router';
+import { ofActionSuccessful, Store, Actions, Action, Selector, State, createSelector, actionMatcher, InitState, UpdateState, setValue, NgxsModule, NGXS_PLUGINS } from '@ngxs/store';
 import snq from 'snq';
-import { __rest, __awaiter, __decorate, __metadata } from 'tslib';
-import { throwError, noop as noop$1, fromEvent, from, of, Subject, Observable, concat, ReplaySubject } from 'rxjs';
-import { catchError, tap, take, switchMap, takeUntil, distinctUntilChanged, debounceTime, filter, finalize, retryWhen, delay, shareReplay } from 'rxjs/operators';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS, HttpHeaders } from '@angular/common/http';
-import { registerLocaleData, CommonModule, APP_BASE_HREF } from '@angular/common';
+import { __rest, __decorate, __metadata, __awaiter } from 'tslib';
+import { HttpErrorResponse, HttpClient, HttpClientModule, HTTP_INTERCEPTORS, HttpHeaders } from '@angular/common/http';
+import { fromEvent, of, throwError, Subject, Observable, noop as noop$1, from, concat, ReplaySubject } from 'rxjs';
+import { take, tap, switchMap, catchError, takeUntil, distinctUntilChanged, debounceTime, filter, finalize, retryWhen, delay, shareReplay } from 'rxjs/operators';
 import { OAuthService, OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
+import { registerLocaleData, CommonModule, APP_BASE_HREF } from '@angular/common';
 import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxsRouterPluginModule, Navigate } from '@ngxs/router-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
@@ -417,178 +417,6 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/utils/common-utils.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @return {?}
- */
-function noop() {
-    // tslint:disable-next-line: only-arrow-functions
-    /** @type {?} */
-    const fn = (/**
-     * @return {?}
-     */
-    function () { });
-    return fn;
-}
-/**
- * @param {?} value
- * @return {?}
- */
-function isUndefinedOrEmptyString(value) {
-    return value === undefined || value === '';
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/services/rest.service.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class RestService {
-    /**
-     * @param {?} http
-     * @param {?} store
-     */
-    constructor(http, store) {
-        this.http = http;
-        this.store = store;
-    }
-    /**
-     * @private
-     * @param {?} apiName
-     * @return {?}
-     */
-    getApiFromStore(apiName) {
-        return this.store.selectSnapshot(ConfigState.getApiUrl(apiName));
-    }
-    /**
-     * @param {?} err
-     * @return {?}
-     */
-    handleError(err) {
-        this.store.dispatch(new RestOccurError(err));
-        return throwError(err);
-    }
-    // TODO: Deprecate service or improve interface in v3.0
-    /**
-     * @template T, R
-     * @param {?} request
-     * @param {?=} config
-     * @param {?=} api
-     * @return {?}
-     */
-    request(request, config, api) {
-        config = config || ((/** @type {?} */ ({})));
-        api = api || this.getApiFromStore(config.apiName);
-        const { method, params } = request, options = __rest(request, ["method", "params"]);
-        const { observe = "body" /* Body */, skipHandleError } = config;
-        return this.http
-            .request(method, api + request.url, (/** @type {?} */ (Object.assign({ observe }, (params && {
-            params: Object.keys(params).reduce((/**
-             * @param {?} acc
-             * @param {?} key
-             * @return {?}
-             */
-            (acc, key) => {
-                /** @type {?} */
-                const value = params[key];
-                if (!isUndefinedOrEmptyString(value))
-                    acc[key] = value;
-                return acc;
-            }), {}),
-        }), options))))
-            .pipe(catchError((/**
-         * @param {?} err
-         * @return {?}
-         */
-        err => (skipHandleError ? throwError(err) : this.handleError(err)))));
-    }
-}
-RestService.decorators = [
-    { type: Injectable, args: [{
-                providedIn: 'root',
-            },] }
-];
-/** @nocollapse */
-RestService.ctorParameters = () => [
-    { type: HttpClient },
-    { type: Store }
-];
-/** @nocollapse */ RestService.ngInjectableDef = ɵɵdefineInjectable({ factory: function RestService_Factory() { return new RestService(ɵɵinject(HttpClient), ɵɵinject(Store)); }, token: RestService, providedIn: "root" });
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    RestService.prototype.http;
-    /**
-     * @type {?}
-     * @private
-     */
-    RestService.prototype.store;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/services/application-configuration.service.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class ApplicationConfigurationService {
-    /**
-     * @param {?} rest
-     * @param {?} store
-     */
-    constructor(rest, store) {
-        this.rest = rest;
-        this.store = store;
-    }
-    /**
-     * @return {?}
-     */
-    get apiName() {
-        return this.store.selectSnapshot(ConfigState.getDeep('environment.application.name'));
-    }
-    /**
-     * @return {?}
-     */
-    getConfiguration() {
-        /** @type {?} */
-        const request = {
-            method: 'GET',
-            url: '/api/abp/application-configuration',
-        };
-        return this.rest.request(request, {
-            apiName: this.apiName,
-        });
-    }
-}
-ApplicationConfigurationService.decorators = [
-    { type: Injectable, args: [{
-                providedIn: 'root',
-            },] }
-];
-/** @nocollapse */
-ApplicationConfigurationService.ctorParameters = () => [
-    { type: RestService },
-    { type: Store }
-];
-/** @nocollapse */ ApplicationConfigurationService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ApplicationConfigurationService_Factory() { return new ApplicationConfigurationService(ɵɵinject(RestService), ɵɵinject(Store)); }, token: ApplicationConfigurationService, providedIn: "root" });
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    ApplicationConfigurationService.prototype.rest;
-    /**
-     * @type {?}
-     * @private
-     */
-    ApplicationConfigurationService.prototype.store;
-}
-
-/**
- * @fileoverview added by tsickle
  * Generated from: lib/utils/route-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -704,262 +532,14 @@ function getAbpRoutes() {
     return ABP_ROUTES;
 }
 
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/constants/different-locales.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-// Different locales from .NET
-// Key is .NET locale, value is Angular locale
-var localesMapping = {
-    'ar-sa': 'ar-SA',
-    'ca-ES-valencia': 'ca-ES-VALENCIA',
-    'de-de': 'de',
-    'es-ES': 'es',
-    'en-US': 'en',
-    'fil-Latn': 'en',
-    'ku-Arab': 'en',
-    'ky-Cyrl': 'en',
-    'mi-Latn': 'en',
-    'prs-Arab': 'en',
-    'qut-Latn': 'en',
-    nso: 'en',
-    quz: 'en',
-    'fr-FR': 'fr',
-    'gd-Latn': 'gd',
-    'ha-Latn': 'ha',
-    'ig-Latn': 'ig',
-    'it-it': 'it',
-    'mn-Cyrl': 'mn',
-    'pt-BR': 'pt',
-    'sd-Arab': 'pa-Arab',
-    'sr-Cyrl-RS': 'sr-Cyrl',
-    'sr-Latn-RS': 'sr-Latn',
-    'tg-Cyrl': 'tg',
-    'tk-Latn': 'tk',
-    'tt-Cyrl': 'tt',
-    'ug-Arab': 'ug',
-    'yo-Latn': 'yo',
-};
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/tokens/options.token.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/** @type {?} */
-const CORE_OPTIONS = new InjectionToken('CORE_OPTIONS');
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/utils/initial-utils.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-/**
- * @param {?} injector
- * @return {?}
- */
-function getInitialData(injector) {
-    /** @type {?} */
-    const fn = (/**
-     * @return {?}
-     */
-    () => {
-        /** @type {?} */
-        const store = injector.get(Store);
-        const { skipGetAppConfiguration } = (/** @type {?} */ (injector.get(CORE_OPTIONS)));
-        if (skipGetAppConfiguration)
-            return;
-        return store
-            .dispatch(new GetAppConfiguration())
-            .pipe(tap((/**
-         * @param {?} res
-         * @return {?}
-         */
-        res => checkAccessToken(store, injector))))
-            .toPromise();
-    });
-    return fn;
-}
-/**
- * @param {?} store
- * @param {?} injector
- * @return {?}
- */
-function checkAccessToken(store, injector) {
-    /** @type {?} */
-    const oAuth = injector.get(OAuthService);
-    if (oAuth.hasValidAccessToken() && !store.selectSnapshot(ConfigState.getDeep('currentUser.id'))) {
-        oAuth.logOut();
-    }
-}
-/**
- * @param {?} injector
- * @return {?}
- */
-function localeInitializer(injector) {
-    /** @type {?} */
-    const fn = (/**
-     * @return {?}
-     */
-    () => {
-        /** @type {?} */
-        const store = injector.get(Store);
-        /** @type {?} */
-        const lang = store.selectSnapshot((/**
-         * @param {?} state
-         * @return {?}
-         */
-        state => state.SessionState.language)) || 'en';
-        return new Promise((/**
-         * @param {?} resolve
-         * @param {?} reject
-         * @return {?}
-         */
-        (resolve, reject) => {
-            registerLocale(lang).then((/**
-             * @return {?}
-             */
-            () => resolve('resolved')), reject);
-        }));
-    });
-    return fn;
-}
-/**
- * @param {?} locale
- * @return {?}
- */
-function registerLocale(locale) {
-    return import(
-    /* webpackInclude: /(af|am|ar-SA|as|az-Latn|be|bg|bn-BD|bn-IN|bs|ca|ca-ES-VALENCIA|cs|cy|da|de|de|el|en-GB|en|es|en|es-US|es-MX|et|eu|fa|fi|en|fr|fr|fr-CA|ga|gd|gl|gu|ha|he|hi|hr|hu|hy|id|ig|is|it|it|ja|ka|kk|km|kn|ko|kok|en|en|lb|lt|lv|en|mk|ml|mn|mr|ms|mt|nb|ne|nl|nl-BE|nn|en|or|pa|pa-Arab|pl|en|pt|pt-PT|en|en|ro|ru|rw|pa-Arab|si|sk|sl|sq|sr-Cyrl-BA|sr-Cyrl|sr-Latn|sv|sw|ta|te|tg|th|ti|tk|tn|tr|tt|ug|uk|ur|uz-Latn|vi|wo|xh|yo|zh-Hans|zh-Hant|zu)\.js$/ */
-    `@angular/common/locales/${localesMapping[locale] || locale}.js`).then((/**
-     * @param {?} module
-     * @return {?}
-     */
-    module => {
-        registerLocaleData(module.default);
-    }));
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/services/localization.service.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class LocalizationService {
-    /**
-     * @param {?} store
-     * @param {?} router
-     * @param {?} ngZone
-     * @param {?} otherInstance
-     */
-    constructor(store, router, ngZone, otherInstance) {
-        this.store = store;
-        this.router = router;
-        this.ngZone = ngZone;
-        if (otherInstance)
-            throw new Error('LocalizationService should have only one instance.');
-    }
-    /**
-     * Returns currently selected language
-     * @return {?}
-     */
-    get currentLang() {
-        return this.store.selectSnapshot((/**
-         * @param {?} state
-         * @return {?}
-         */
-        state => state.SessionState.language));
-    }
-    /**
-     * @param {?} reuse
-     * @return {?}
-     */
-    setRouteReuse(reuse) {
-        this.router.routeReuseStrategy.shouldReuseRoute = reuse;
-    }
-    /**
-     * @param {?} locale
-     * @return {?}
-     */
-    registerLocale(locale) {
-        const { shouldReuseRoute } = this.router.routeReuseStrategy;
-        this.setRouteReuse((/**
-         * @return {?}
-         */
-        () => false));
-        this.router.navigated = false;
-        return registerLocale(locale).then((/**
-         * @return {?}
-         */
-        () => {
-            this.ngZone.run((/**
-             * @return {?}
-             */
-            () => __awaiter(this, void 0, void 0, function* () {
-                yield this.router.navigateByUrl(this.router.url).catch(noop$1);
-                this.setRouteReuse(shouldReuseRoute);
-            })));
-        }));
-    }
-    /**
-     * Returns an observable localized text with the given interpolation parameters in current language.
-     * @param {?} key Localizaton key to replace with localized text
-     * @param {...?} interpolateParams Values to interpolate
-     * @return {?}
-     */
-    get(key, ...interpolateParams) {
-        return this.store.select(ConfigState.getLocalization(key, ...interpolateParams));
-    }
-    /**
-     * Returns localized text with the given interpolation parameters in current language.
-     * @param {?} key Localization key to replace with localized text
-     * @param {...?} interpolateParams Values to intepolate.
-     * @return {?}
-     */
-    instant(key, ...interpolateParams) {
-        return this.store.selectSnapshot(ConfigState.getLocalization(key, ...interpolateParams));
-    }
-}
-LocalizationService.decorators = [
-    { type: Injectable, args: [{ providedIn: 'root' },] }
-];
-/** @nocollapse */
-LocalizationService.ctorParameters = () => [
-    { type: Store },
-    { type: Router },
-    { type: NgZone },
-    { type: LocalizationService, decorators: [{ type: Optional }, { type: SkipSelf }] }
-];
-/** @nocollapse */ LocalizationService.ngInjectableDef = ɵɵdefineInjectable({ factory: function LocalizationService_Factory() { return new LocalizationService(ɵɵinject(Store), ɵɵinject(Router), ɵɵinject(NgZone), ɵɵinject(LocalizationService, 12)); }, token: LocalizationService, providedIn: "root" });
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    LocalizationService.prototype.store;
-    /**
-     * @type {?}
-     * @private
-     */
-    LocalizationService.prototype.router;
-    /**
-     * @type {?}
-     * @private
-     */
-    LocalizationService.prototype.ngZone;
-}
-
 var SessionState_1;
 let SessionState = SessionState_1 = class SessionState {
     /**
-     * @param {?} localizationService
      * @param {?} oAuthService
      * @param {?} store
      * @param {?} actions
      */
-    constructor(localizationService, oAuthService, store, actions) {
-        this.localizationService = localizationService;
+    constructor(oAuthService, store, actions) {
         this.oAuthService = oAuthService;
         this.store = store;
         this.actions = actions;
@@ -1020,10 +600,7 @@ let SessionState = SessionState_1 = class SessionState {
         patchState({
             language: payload,
         });
-        return dispatch(new GetAppConfiguration()).pipe(switchMap((/**
-         * @return {?}
-         */
-        () => from(this.localizationService.registerLocale(payload)))));
+        return dispatch(new GetAppConfiguration());
     }
     /**
      * @param {?} __0
@@ -1071,7 +648,6 @@ let SessionState = SessionState_1 = class SessionState {
     }
 };
 SessionState.ctorParameters = () => [
-    { type: LocalizationService },
     { type: OAuthService },
     { type: Store },
     { type: Actions }
@@ -1081,7 +657,6 @@ SessionState.decorators = [
 ];
 /** @nocollapse */
 SessionState.ctorParameters = () => [
-    { type: LocalizationService },
     { type: OAuthService },
     { type: Store },
     { type: Actions }
@@ -1133,17 +708,9 @@ SessionState = SessionState_1 = __decorate([
         name: 'SessionState',
         defaults: (/** @type {?} */ ({ sessionDetail: { openedTabCount: 0 } })),
     }),
-    __metadata("design:paramtypes", [LocalizationService,
-        OAuthService,
-        Store,
-        Actions])
+    __metadata("design:paramtypes", [OAuthService, Store, Actions])
 ], SessionState);
 if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    SessionState.prototype.localizationService;
     /**
      * @type {?}
      * @private
@@ -1164,11 +731,11 @@ if (false) {
 var ConfigState_1;
 let ConfigState = ConfigState_1 = class ConfigState {
     /**
-     * @param {?} appConfigurationService
+     * @param {?} http
      * @param {?} store
      */
-    constructor(appConfigurationService, store) {
-        this.appConfigurationService = appConfigurationService;
+    constructor(http, store) {
+        this.http = http;
         this.store = store;
     }
     /**
@@ -1462,7 +1029,13 @@ let ConfigState = ConfigState_1 = class ConfigState {
      * @return {?}
      */
     addData({ patchState, dispatch }) {
-        return this.appConfigurationService.getConfiguration().pipe(tap((/**
+        /** @type {?} */
+        const apiName = this.store.selectSnapshot(ConfigState_1.getDeep('environment.application.name'));
+        /** @type {?} */
+        const api = this.store.selectSnapshot(ConfigState_1.getApiUrl(apiName));
+        return this.http
+            .get(`${api}/api/abp/application-configuration`)
+            .pipe(tap((/**
          * @param {?} configuration
          * @return {?}
          */
@@ -1479,6 +1052,13 @@ let ConfigState = ConfigState_1 = class ConfigState {
             return this.store.selectSnapshot(SessionState.getLanguage)
                 ? of(null)
                 : dispatch(new SetLanguage(defaultLang));
+        })), catchError((/**
+         * @param {?} err
+         * @return {?}
+         */
+        err => {
+            dispatch(new RestOccurError(new HttpErrorResponse({ status: 0, error: err })));
+            return throwError(err);
         })));
     }
     /**
@@ -1597,7 +1177,7 @@ let ConfigState = ConfigState_1 = class ConfigState {
     }
 };
 ConfigState.ctorParameters = () => [
-    { type: ApplicationConfigurationService },
+    { type: HttpClient },
     { type: Store }
 ];
 ConfigState.decorators = [
@@ -1605,7 +1185,7 @@ ConfigState.decorators = [
 ];
 /** @nocollapse */
 ConfigState.ctorParameters = () => [
-    { type: ApplicationConfigurationService },
+    { type: HttpClient },
     { type: Store }
 ];
 __decorate([
@@ -1649,15 +1229,14 @@ ConfigState = ConfigState_1 = __decorate([
         name: 'ConfigState',
         defaults: (/** @type {?} */ ({})),
     }),
-    __metadata("design:paramtypes", [ApplicationConfigurationService,
-        Store])
+    __metadata("design:paramtypes", [HttpClient, Store])
 ], ConfigState);
 if (false) {
     /**
      * @type {?}
      * @private
      */
-    ConfigState.prototype.appConfigurationService;
+    ConfigState.prototype.http;
     /**
      * @type {?}
      * @private
@@ -2069,6 +1648,44 @@ RouterOutletComponent.decorators = [
  * Generated from: lib/components/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/constants/different-locales.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+// Different locales from .NET
+// Key is .NET locale, value is Angular locale
+var localesMapping = {
+    'ar-sa': 'ar-SA',
+    'ca-ES-valencia': 'ca-ES-VALENCIA',
+    'de-de': 'de',
+    'es-ES': 'es',
+    'en-US': 'en',
+    'fil-Latn': 'en',
+    'ku-Arab': 'en',
+    'ky-Cyrl': 'en',
+    'mi-Latn': 'en',
+    'prs-Arab': 'en',
+    'qut-Latn': 'en',
+    nso: 'en',
+    quz: 'en',
+    'fr-FR': 'fr',
+    'gd-Latn': 'gd',
+    'ha-Latn': 'ha',
+    'ig-Latn': 'ig',
+    'it-it': 'it',
+    'mn-Cyrl': 'mn',
+    'pt-BR': 'pt',
+    'sd-Arab': 'pa-Arab',
+    'sr-Cyrl-RS': 'sr-Cyrl',
+    'sr-Latn-RS': 'sr-Latn',
+    'tg-Cyrl': 'tg',
+    'tk-Latn': 'tk',
+    'tt-Cyrl': 'tt',
+    'ug-Arab': 'ug',
+    'yo-Latn': 'yo',
+};
 
 /**
  * @fileoverview added by tsickle
@@ -2536,6 +2153,31 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/utils/common-utils.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @return {?}
+ */
+function noop() {
+    // tslint:disable-next-line: only-arrow-functions
+    /** @type {?} */
+    const fn = (/**
+     * @return {?}
+     */
+    function () { });
+    return fn;
+}
+/**
+ * @param {?} value
+ * @return {?}
+ */
+function isUndefinedOrEmptyString(value) {
+    return value === undefined || value === '';
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/utils/number-utils.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -2636,6 +2278,105 @@ function generatePassword(length = 8) {
      * @return {?}
      */
     () => 0.5 - Math.random())).join('');
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/tokens/options.token.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const CORE_OPTIONS = new InjectionToken('CORE_OPTIONS');
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/utils/initial-utils.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} injector
+ * @return {?}
+ */
+function getInitialData(injector) {
+    /** @type {?} */
+    const fn = (/**
+     * @return {?}
+     */
+    () => {
+        /** @type {?} */
+        const store = injector.get(Store);
+        const { skipGetAppConfiguration } = (/** @type {?} */ (injector.get(CORE_OPTIONS)));
+        if (skipGetAppConfiguration)
+            return;
+        return store
+            .dispatch(new GetAppConfiguration())
+            .pipe(tap((/**
+         * @param {?} res
+         * @return {?}
+         */
+        res => checkAccessToken(store, injector))))
+            .toPromise();
+    });
+    return fn;
+}
+/**
+ * @param {?} store
+ * @param {?} injector
+ * @return {?}
+ */
+function checkAccessToken(store, injector) {
+    /** @type {?} */
+    const oAuth = injector.get(OAuthService);
+    if (oAuth.hasValidAccessToken() && !store.selectSnapshot(ConfigState.getDeep('currentUser.id'))) {
+        oAuth.logOut();
+    }
+}
+/**
+ * @param {?} injector
+ * @return {?}
+ */
+function localeInitializer(injector) {
+    /** @type {?} */
+    const fn = (/**
+     * @return {?}
+     */
+    () => {
+        /** @type {?} */
+        const store = injector.get(Store);
+        /** @type {?} */
+        const lang = store.selectSnapshot((/**
+         * @param {?} state
+         * @return {?}
+         */
+        state => state.SessionState.language)) || 'en';
+        return new Promise((/**
+         * @param {?} resolve
+         * @param {?} reject
+         * @return {?}
+         */
+        (resolve, reject) => {
+            registerLocale(lang).then((/**
+             * @return {?}
+             */
+            () => resolve('resolved')), reject);
+        }));
+    });
+    return fn;
+}
+/**
+ * @param {?} locale
+ * @return {?}
+ */
+function registerLocale(locale) {
+    return import(
+    /* webpackInclude: /(af|am|ar-SA|as|az-Latn|be|bg|bn-BD|bn-IN|bs|ca|ca-ES-VALENCIA|cs|cy|da|de|de|el|en-GB|en|es|en|es-US|es-MX|et|eu|fa|fi|en|fr|fr|fr-CA|ga|gd|gl|gu|ha|he|hi|hr|hu|hy|id|ig|is|it|it|ja|ka|kk|km|kn|ko|kok|en|en|lb|lt|lv|en|mk|ml|mn|mr|ms|mt|nb|ne|nl|nl-BE|nn|en|or|pa|pa-Arab|pl|en|pt|pt-PT|en|en|ro|ru|rw|pa-Arab|si|sk|sl|sq|sr-Cyrl-BA|sr-Cyrl|sr-Latn|sv|sw|ta|te|tg|th|ti|tk|tn|tr|tt|ug|uk|ur|uz-Latn|vi|wo|xh|yo|zh-Hans|zh-Hant|zu)\.js$/ */
+    `@angular/common/locales/${localesMapping[locale] || locale}.js`).then((/**
+     * @param {?} module
+     * @return {?}
+     */
+    module => {
+        registerLocaleData(module.default);
+    }));
 }
 
 /**
@@ -2998,6 +2739,95 @@ if (false) {
      * @private
      */
     InitDirective.prototype.elRef;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/services/rest.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class RestService {
+    /**
+     * @param {?} http
+     * @param {?} store
+     */
+    constructor(http, store) {
+        this.http = http;
+        this.store = store;
+    }
+    /**
+     * @private
+     * @param {?} apiName
+     * @return {?}
+     */
+    getApiFromStore(apiName) {
+        return this.store.selectSnapshot(ConfigState.getApiUrl(apiName));
+    }
+    /**
+     * @param {?} err
+     * @return {?}
+     */
+    handleError(err) {
+        this.store.dispatch(new RestOccurError(err));
+        return throwError(err);
+    }
+    // TODO: Deprecate service or improve interface in v3.0
+    /**
+     * @template T, R
+     * @param {?} request
+     * @param {?=} config
+     * @param {?=} api
+     * @return {?}
+     */
+    request(request, config, api) {
+        config = config || ((/** @type {?} */ ({})));
+        api = api || this.getApiFromStore(config.apiName);
+        const { method, params } = request, options = __rest(request, ["method", "params"]);
+        const { observe = "body" /* Body */, skipHandleError } = config;
+        return this.http
+            .request(method, api + request.url, (/** @type {?} */ (Object.assign({ observe }, (params && {
+            params: Object.keys(params).reduce((/**
+             * @param {?} acc
+             * @param {?} key
+             * @return {?}
+             */
+            (acc, key) => {
+                /** @type {?} */
+                const value = params[key];
+                if (!isUndefinedOrEmptyString(value))
+                    acc[key] = value;
+                return acc;
+            }), {}),
+        }), options))))
+            .pipe(catchError((/**
+         * @param {?} err
+         * @return {?}
+         */
+        err => (skipHandleError ? throwError(err) : this.handleError(err)))));
+    }
+}
+RestService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+/** @nocollapse */
+RestService.ctorParameters = () => [
+    { type: HttpClient },
+    { type: Store }
+];
+/** @nocollapse */ RestService.ngInjectableDef = ɵɵdefineInjectable({ factory: function RestService_Factory() { return new RestService(ɵɵinject(HttpClient), ɵɵinject(Store)); }, token: RestService, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    RestService.prototype.http;
+    /**
+     * @type {?}
+     * @private
+     */
+    RestService.prototype.store;
 }
 
 /**
@@ -3957,8 +3787,8 @@ class ConfigPlugin {
         if (isInitAction && !this.initialized) {
             /** @type {?} */
             const transformedRoutes = transformRoutes(this.router.config);
-            let { routes } = transformedRoutes;
-            const { wrappers } = transformedRoutes;
+            let { routes, wrappers } = transformedRoutes;
+            wrappers = reduceWrappers(wrappers);
             routes = organizeRoutes(routes, wrappers);
             /** @type {?} */
             const flattedRoutes = flatRoutes(clone(routes));
@@ -4096,6 +3926,155 @@ function flatRoutes(routes) {
         }), []);
     });
     return flat(routes);
+}
+/**
+ * @param {?=} wrappers
+ * @return {?}
+ */
+function reduceWrappers(wrappers = []) {
+    /** @type {?} */
+    const existingWrappers = new Set();
+    return wrappers.filter((/**
+     * @param {?} wrapper
+     * @return {?}
+     */
+    wrapper => {
+        if (existingWrappers.has(wrapper.name))
+            return false;
+        existingWrappers.add(wrapper.name);
+        return true;
+    }));
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/services/localization.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class LocalizationService {
+    /**
+     * @param {?} actions
+     * @param {?} store
+     * @param {?} router
+     * @param {?} ngZone
+     * @param {?} otherInstance
+     */
+    constructor(actions, store, router, ngZone, otherInstance) {
+        this.actions = actions;
+        this.store = store;
+        this.router = router;
+        this.ngZone = ngZone;
+        if (otherInstance)
+            throw new Error('LocalizationService should have only one instance.');
+        this.listenToSetLanguage();
+    }
+    /**
+     * Returns currently selected language
+     * @return {?}
+     */
+    get currentLang() {
+        return this.store.selectSnapshot((/**
+         * @param {?} state
+         * @return {?}
+         */
+        state => state.SessionState.language));
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    listenToSetLanguage() {
+        this.actions
+            .pipe(ofActionSuccessful(SetLanguage))
+            .subscribe((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        ({ payload }) => this.registerLocale(payload)));
+    }
+    /**
+     * @param {?} reuse
+     * @return {?}
+     */
+    setRouteReuse(reuse) {
+        this.router.routeReuseStrategy.shouldReuseRoute = reuse;
+    }
+    /**
+     * @param {?} locale
+     * @return {?}
+     */
+    registerLocale(locale) {
+        const { shouldReuseRoute } = this.router.routeReuseStrategy;
+        this.setRouteReuse((/**
+         * @return {?}
+         */
+        () => false));
+        this.router.navigated = false;
+        return registerLocale(locale).then((/**
+         * @return {?}
+         */
+        () => {
+            this.ngZone.run((/**
+             * @return {?}
+             */
+            () => __awaiter(this, void 0, void 0, function* () {
+                yield this.router.navigateByUrl(this.router.url).catch(noop$1);
+                this.setRouteReuse(shouldReuseRoute);
+            })));
+        }));
+    }
+    /**
+     * Returns an observable localized text with the given interpolation parameters in current language.
+     * @param {?} key Localizaton key to replace with localized text
+     * @param {...?} interpolateParams Values to interpolate
+     * @return {?}
+     */
+    get(key, ...interpolateParams) {
+        return this.store.select(ConfigState.getLocalization(key, ...interpolateParams));
+    }
+    /**
+     * Returns localized text with the given interpolation parameters in current language.
+     * @param {?} key Localization key to replace with localized text
+     * @param {...?} interpolateParams Values to intepolate.
+     * @return {?}
+     */
+    instant(key, ...interpolateParams) {
+        return this.store.selectSnapshot(ConfigState.getLocalization(key, ...interpolateParams));
+    }
+}
+LocalizationService.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root' },] }
+];
+/** @nocollapse */
+LocalizationService.ctorParameters = () => [
+    { type: Actions },
+    { type: Store },
+    { type: Router },
+    { type: NgZone },
+    { type: LocalizationService, decorators: [{ type: Optional }, { type: SkipSelf }] }
+];
+/** @nocollapse */ LocalizationService.ngInjectableDef = ɵɵdefineInjectable({ factory: function LocalizationService_Factory() { return new LocalizationService(ɵɵinject(Actions), ɵɵinject(Store), ɵɵinject(Router), ɵɵinject(NgZone), ɵɵinject(LocalizationService, 12)); }, token: LocalizationService, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    LocalizationService.prototype.actions;
+    /**
+     * @type {?}
+     * @private
+     */
+    LocalizationService.prototype.store;
+    /**
+     * @type {?}
+     * @private
+     */
+    LocalizationService.prototype.router;
+    /**
+     * @type {?}
+     * @private
+     */
+    LocalizationService.prototype.ngZone;
 }
 
 /**
@@ -4319,6 +4298,12 @@ class CoreModule {
                     deps: [Injector],
                     useFactory: localeInitializer,
                 },
+                {
+                    provide: APP_INITIALIZER,
+                    multi: true,
+                    deps: [LocalizationService],
+                    useFactory: noop,
+                },
                 ...OAuthModule.forRoot().providers,
                 { provide: OAuthStorage, useFactory: storageFactory },
             ],
@@ -4384,7 +4369,8 @@ class AuthGuard {
         if (hasValidAccessToken) {
             return hasValidAccessToken;
         }
-        return router.createUrlTree(['/account/login'], { state: { redirectUrl: state.url } });
+        router.navigate(['/account/login'], { state: { redirectUrl: state.url } });
+        return true;
     }
 }
 AuthGuard.decorators = [
@@ -4523,9 +4509,13 @@ var ApplicationConfiguration;
     ApplicationConfiguration.Localization = Localization;
     if (false) {
         /** @type {?} */
-        Localization.prototype.values;
+        Localization.prototype.currentCulture;
+        /** @type {?} */
+        Localization.prototype.defaultResourceName;
         /** @type {?} */
         Localization.prototype.languages;
+        /** @type {?} */
+        Localization.prototype.values;
     }
     /**
      * @record
@@ -4546,6 +4536,50 @@ var ApplicationConfiguration;
         Language.prototype.displayName;
         /** @type {?} */
         Language.prototype.flagIcon;
+    }
+    /**
+     * @record
+     */
+    function CurrentCulture() { }
+    ApplicationConfiguration.CurrentCulture = CurrentCulture;
+    if (false) {
+        /** @type {?} */
+        CurrentCulture.prototype.cultureName;
+        /** @type {?} */
+        CurrentCulture.prototype.dateTimeFormat;
+        /** @type {?} */
+        CurrentCulture.prototype.displayName;
+        /** @type {?} */
+        CurrentCulture.prototype.englishName;
+        /** @type {?} */
+        CurrentCulture.prototype.isRightToLeft;
+        /** @type {?} */
+        CurrentCulture.prototype.name;
+        /** @type {?} */
+        CurrentCulture.prototype.nativeName;
+        /** @type {?} */
+        CurrentCulture.prototype.threeLetterIsoLanguageName;
+        /** @type {?} */
+        CurrentCulture.prototype.twoLetterIsoLanguageName;
+    }
+    /**
+     * @record
+     */
+    function DateTimeFormat() { }
+    ApplicationConfiguration.DateTimeFormat = DateTimeFormat;
+    if (false) {
+        /** @type {?} */
+        DateTimeFormat.prototype.calendarAlgorithmType;
+        /** @type {?} */
+        DateTimeFormat.prototype.dateSeparator;
+        /** @type {?} */
+        DateTimeFormat.prototype.fullDateTimePattern;
+        /** @type {?} */
+        DateTimeFormat.prototype.longTimePattern;
+        /** @type {?} */
+        DateTimeFormat.prototype.shortDatePattern;
+        /** @type {?} */
+        DateTimeFormat.prototype.shortTimePattern;
     }
     /**
      * @record
@@ -5203,6 +5237,64 @@ var Session;
  * Generated from: lib/plugins/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/services/application-configuration.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class ApplicationConfigurationService {
+    /**
+     * @param {?} rest
+     * @param {?} store
+     */
+    constructor(rest, store) {
+        this.rest = rest;
+        this.store = store;
+    }
+    /**
+     * @return {?}
+     */
+    get apiName() {
+        return this.store.selectSnapshot(ConfigState.getDeep('environment.application.name'));
+    }
+    /**
+     * @return {?}
+     */
+    getConfiguration() {
+        /** @type {?} */
+        const request = {
+            method: 'GET',
+            url: '/api/abp/application-configuration',
+        };
+        return this.rest.request(request, {
+            apiName: this.apiName,
+        });
+    }
+}
+ApplicationConfigurationService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+/** @nocollapse */
+ApplicationConfigurationService.ctorParameters = () => [
+    { type: RestService },
+    { type: Store }
+];
+/** @nocollapse */ ApplicationConfigurationService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ApplicationConfigurationService_Factory() { return new ApplicationConfigurationService(ɵɵinject(RestService), ɵɵinject(Store)); }, token: ApplicationConfigurationService, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ApplicationConfigurationService.prototype.rest;
+    /**
+     * @type {?}
+     * @private
+     */
+    ApplicationConfigurationService.prototype.store;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -6590,5 +6682,5 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AbstractNgModelComponent, AddReplaceableComponent, AddRoute, ApiInterceptor, ApplicationConfigurationService, AuditedEntityDto, AuditedEntityWithUserDto, AuthGuard, AuthService, AutofocusDirective, CONTAINER_STRATEGY, CONTENT_SECURITY_STRATEGY, CONTENT_STRATEGY, CONTEXT_STRATEGY, CORE_OPTIONS, CROSS_ORIGIN_STRATEGY, ChangePassword, ClearContainerStrategy, ComponentContextStrategy, ComponentProjectionStrategy, ConfigPlugin, ConfigState, ConfigStateService, ContainerStrategy, ContentProjectionService, ContentSecurityStrategy, ContentStrategy, ContextStrategy, CoreModule, CreationAuditedEntityDto, CreationAuditedEntityWithUserDto, CrossOriginStrategy, DOM_STRATEGY, DomInsertionService, DomStrategy, DynamicLayoutComponent, EllipsisDirective, EntityDto, ForDirective, FormSubmitDirective, FullAuditedEntityDto, FullAuditedEntityWithUserDto, GetAppConfiguration, GetProfile, InitDirective, InsertIntoContainerStrategy, LOADING_STRATEGY, LazyLoadService, LimitedResultRequestDto, ListResultDto, LoadingStrategy, LocalizationPipe, LocalizationService, LooseContentSecurityStrategy, MockLocalizationPipe, ModifyOpenedTabCount, NGXS_CONFIG_PLUGIN_OPTIONS, NoContentSecurityStrategy, NoContextStrategy, PROJECTION_STRATEGY, PagedAndSortedResultRequestDto, PagedResultDto, PagedResultRequestDto, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ProjectionStrategy, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, Rest, RestOccurError, RestService, RootComponentProjectionStrategy, RouterOutletComponent, ScriptContentStrategy, ScriptLoadingStrategy, SessionState, SessionStateService, SetEnvironment, SetLanguage, SetRemember, SetTenant, SortPipe, StartLoader, StopLoader, StyleContentStrategy, StyleLoadingStrategy, TemplateContextStrategy, TemplateProjectionStrategy, TrackByService, UpdateProfile, VisibilityDirective, addAbpRoutes, fromLazyLoad, generateHash, generatePassword, getAbpRoutes, getInitialData, isNumber, isUndefinedOrEmptyString, localeInitializer, mapEnumToOptions, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, trackBy, trackByDeep, uuid, storageFactory as ɵa, BaseCoreModule as ɵb, ProfileService as ɵba, RestService as ɵbb, GetProfile as ɵbc, UpdateProfile as ɵbd, ChangePassword as ɵbe, SessionState as ɵbg, LocalizationService as ɵbh, SetLanguage as ɵbi, SetTenant as ɵbj, ModifyOpenedTabCount as ɵbk, SetRemember as ɵbl, ConfigState as ɵbn, ApplicationConfigurationService as ɵbo, PatchRouteByName as ɵbp, GetAppConfiguration as ɵbq, AddRoute as ɵbr, SetEnvironment as ɵbs, LocaleId as ɵbu, LocaleProvider as ɵbv, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbw, ConfigPlugin as ɵbx, CORE_OPTIONS as ɵby, ApiInterceptor as ɵbz, RootCoreModule as ɵc, getInitialData as ɵca, localeInitializer as ɵcb, TestCoreModule as ɵd, AbstractNgModelComponent as ɵe, AutofocusDirective as ɵf, DynamicLayoutComponent as ɵg, EllipsisDirective as ɵh, ForDirective as ɵi, FormSubmitDirective as ɵj, InitDirective as ɵk, InputEventDebounceDirective as ɵl, PermissionDirective as ɵm, ReplaceableRouteContainerComponent as ɵn, ReplaceableTemplateDirective as ɵo, RouterOutletComponent as ɵp, SortPipe as ɵq, StopPropagationDirective as ɵr, VisibilityDirective as ɵs, LocalizationModule as ɵt, LocalizationPipe as ɵu, MockLocalizationPipe as ɵv, ReplaceableComponentsState as ɵw, AddReplaceableComponent as ɵx, ProfileState as ɵz };
+export { AbstractNgModelComponent, AddReplaceableComponent, AddRoute, ApiInterceptor, ApplicationConfigurationService, AuditedEntityDto, AuditedEntityWithUserDto, AuthGuard, AuthService, AutofocusDirective, CONTAINER_STRATEGY, CONTENT_SECURITY_STRATEGY, CONTENT_STRATEGY, CONTEXT_STRATEGY, CORE_OPTIONS, CROSS_ORIGIN_STRATEGY, ChangePassword, ClearContainerStrategy, ComponentContextStrategy, ComponentProjectionStrategy, ConfigPlugin, ConfigState, ConfigStateService, ContainerStrategy, ContentProjectionService, ContentSecurityStrategy, ContentStrategy, ContextStrategy, CoreModule, CreationAuditedEntityDto, CreationAuditedEntityWithUserDto, CrossOriginStrategy, DOM_STRATEGY, DomInsertionService, DomStrategy, DynamicLayoutComponent, EllipsisDirective, EntityDto, ForDirective, FormSubmitDirective, FullAuditedEntityDto, FullAuditedEntityWithUserDto, GetAppConfiguration, GetProfile, InitDirective, InsertIntoContainerStrategy, LOADING_STRATEGY, LazyLoadService, LimitedResultRequestDto, ListResultDto, LoadingStrategy, LocalizationPipe, LocalizationService, LooseContentSecurityStrategy, MockLocalizationPipe, ModifyOpenedTabCount, NGXS_CONFIG_PLUGIN_OPTIONS, NoContentSecurityStrategy, NoContextStrategy, PROJECTION_STRATEGY, PagedAndSortedResultRequestDto, PagedResultDto, PagedResultRequestDto, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ProjectionStrategy, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, Rest, RestOccurError, RestService, RootComponentProjectionStrategy, RouterOutletComponent, ScriptContentStrategy, ScriptLoadingStrategy, SessionState, SessionStateService, SetEnvironment, SetLanguage, SetRemember, SetTenant, SortPipe, StartLoader, StopLoader, StyleContentStrategy, StyleLoadingStrategy, TemplateContextStrategy, TemplateProjectionStrategy, TrackByService, UpdateProfile, VisibilityDirective, addAbpRoutes, fromLazyLoad, generateHash, generatePassword, getAbpRoutes, getInitialData, isNumber, isUndefinedOrEmptyString, localeInitializer, mapEnumToOptions, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, trackBy, trackByDeep, uuid, storageFactory as ɵa, BaseCoreModule as ɵb, ProfileService as ɵba, RestService as ɵbb, GetProfile as ɵbc, UpdateProfile as ɵbd, ChangePassword as ɵbe, SessionState as ɵbg, SetLanguage as ɵbh, SetTenant as ɵbi, ModifyOpenedTabCount as ɵbj, SetRemember as ɵbk, ConfigState as ɵbm, PatchRouteByName as ɵbn, GetAppConfiguration as ɵbo, AddRoute as ɵbp, SetEnvironment as ɵbq, LocaleId as ɵbs, LocaleProvider as ɵbt, LocalizationService as ɵbu, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbv, ConfigPlugin as ɵbw, CORE_OPTIONS as ɵby, ApiInterceptor as ɵbz, RootCoreModule as ɵc, getInitialData as ɵca, localeInitializer as ɵcb, noop as ɵcc, TestCoreModule as ɵd, AbstractNgModelComponent as ɵe, AutofocusDirective as ɵf, DynamicLayoutComponent as ɵg, EllipsisDirective as ɵh, ForDirective as ɵi, FormSubmitDirective as ɵj, InitDirective as ɵk, InputEventDebounceDirective as ɵl, PermissionDirective as ɵm, ReplaceableRouteContainerComponent as ɵn, ReplaceableTemplateDirective as ɵo, RouterOutletComponent as ɵp, SortPipe as ɵq, StopPropagationDirective as ɵr, VisibilityDirective as ɵs, LocalizationModule as ɵt, LocalizationPipe as ɵu, MockLocalizationPipe as ɵv, ReplaceableComponentsState as ɵw, AddReplaceableComponent as ɵx, ProfileState as ɵz };
 //# sourceMappingURL=abp-ng.core.js.map
