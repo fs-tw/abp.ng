@@ -1300,6 +1300,25 @@ const eIdentityComponents = {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/enums/route-names.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @enum {string} */
+const eIdentityRouteNames = {
+    Administration: "AbpUiNavigation::Menu:Administration",
+    IdentityManagement: "AbpIdentity::Menu:IdentityManagement",
+    Roles: "AbpIdentity::Roles",
+    Users: "AbpIdentity::Users",
+};
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/enums/index.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/components/index.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */

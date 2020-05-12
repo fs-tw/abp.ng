@@ -16,7 +16,7 @@ class SettingManagementConfigService {
         this.injector = injector;
         /** @type {?} */
         const route = (/** @type {?} */ ({
-            name: 'AbpSettingManagement::Settings',
+            name: "AbpSettingManagement::Settings" /* Settings */,
             path: 'setting-management',
             parentName: 'AbpUiNavigation::Menu:Administration',
             requiredPolicy: 'AbpAccount.SettingManagement',

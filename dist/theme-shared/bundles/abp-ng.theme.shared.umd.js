@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@angular/common'), require('@angular/core'), require('@ng-bootstrap/ng-bootstrap'), require('@ngx-validate/core'), require('@angular/router'), require('@ngxs/store'), require('rxjs'), require('rxjs/operators'), require('snq'), require('@angular/animations'), require('just-clone'), require('@ngxs/router-plugin'), require('@angular/forms')) :
-    typeof define === 'function' && define.amd ? define('@abp/ng.theme.shared', ['exports', '@abp/ng.core', '@angular/common', '@angular/core', '@ng-bootstrap/ng-bootstrap', '@ngx-validate/core', '@angular/router', '@ngxs/store', 'rxjs', 'rxjs/operators', 'snq', '@angular/animations', 'just-clone', '@ngxs/router-plugin', '@angular/forms'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.theme = global.abp.ng.theme || {}, global.abp.ng.theme.shared = {}), global.ng_core, global.ng.common, global.ng.core, global.ngBootstrap, global.core$1, global.ng.router, global.store, global.rxjs, global.rxjs.operators, global.snq, global.ng.animations, global.clone, global.routerPlugin, global.ng.forms));
-}(this, (function (exports, ng_core, common, core, ngBootstrap, core$1, router, store, rxjs, operators, snq, animations, clone, routerPlugin, forms) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@angular/common'), require('@angular/core'), require('@ng-bootstrap/ng-bootstrap'), require('@ngx-validate/core'), require('@angular/router'), require('@ngxs/store'), require('rxjs'), require('rxjs/operators'), require('snq'), require('@angular/animations'), require('just-clone'), require('@angular/common/http'), require('@ngxs/router-plugin'), require('@angular/forms')) :
+    typeof define === 'function' && define.amd ? define('@abp/ng.theme.shared', ['exports', '@abp/ng.core', '@angular/common', '@angular/core', '@ng-bootstrap/ng-bootstrap', '@ngx-validate/core', '@angular/router', '@ngxs/store', 'rxjs', 'rxjs/operators', 'snq', '@angular/animations', 'just-clone', '@angular/common/http', '@ngxs/router-plugin', '@angular/forms'], factory) :
+    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.theme = global.abp.ng.theme || {}, global.abp.ng.theme.shared = {}), global.ng_core, global.ng.common, global.ng.core, global.ngBootstrap, global.core$1, global.ng.router, global.store, global.rxjs, global.rxjs.operators, global.snq, global.ng.animations, global.clone, global.ng.common.http, global.routerPlugin, global.ng.forms));
+}(this, (function (exports, ng_core, common, core, ngBootstrap, core$1, router, store, rxjs, operators, snq, animations, clone, http, routerPlugin, forms) { 'use strict';
 
     snq = snq && snq.hasOwnProperty('default') ? snq['default'] : snq;
     clone = clone && clone.hasOwnProperty('default') ? clone['default'] : clone;
@@ -227,7 +227,7 @@
              * @return {?}
              */
             function (state) { return state.LeptonLayoutState; }));
-            if (this.show) {
+            if (this.show && !this.segments.length) {
                 /** @type {?} */
                 var splittedUrl = this.router.url.split('/').filter((/**
                  * @param {?} chunk
@@ -252,6 +252,8 @@
                     var _loop_1 = function (i) {
                         /** @type {?} */
                         var element = arr[i];
+                        if (!childRoute.children || !childRoute.children.length)
+                            return { value: void 0 };
                         childRoute = childRoute.children.find((/**
                          * @param {?} child
                          * @return {?}
@@ -261,7 +263,9 @@
                     };
                     var this_1 = this;
                     for (var i = 0; i < arr.length; i++) {
-                        _loop_1(i);
+                        var state_1 = _loop_1(i);
+                        if (typeof state_1 === "object")
+                            return state_1.value;
                     }
                 }
             }
@@ -277,13 +281,16 @@
             { type: router.Router },
             { type: store.Store }
         ]; };
+        BreadcrumbComponent.propDecorators = {
+            segments: [{ type: core.Input }]
+        };
         return BreadcrumbComponent;
     }());
     if (false) {
         /** @type {?} */
-        BreadcrumbComponent.prototype.show;
-        /** @type {?} */
         BreadcrumbComponent.prototype.segments;
+        /** @type {?} */
+        BreadcrumbComponent.prototype.show;
         /**
          * @type {?}
          * @private
@@ -724,226 +731,15 @@
 
     /**
      * @fileoverview added by tsickle
-     * Generated from: lib/services/confirmation.service.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var ConfirmationService = /** @class */ (function () {
-        function ConfirmationService(contentProjectionService) {
-            this.contentProjectionService = contentProjectionService;
-            this.confirmation$ = new rxjs.ReplaySubject(1);
-        }
-        /**
-         * @private
-         * @return {?}
-         */
-        ConfirmationService.prototype.setContainer = /**
-         * @private
-         * @return {?}
-         */
-        function () {
-            var _this = this;
-            setTimeout((/**
-             * @return {?}
-             */
-            function () {
-                _this.containerComponentRef = _this.contentProjectionService.projectContent(ng_core.PROJECTION_STRATEGY.AppendComponentToBody(ConfirmationComponent));
-                _this.containerComponentRef.changeDetectorRef.detectChanges();
-            }), 0);
-        };
-        /**
-         * @param {?} message
-         * @param {?} title
-         * @param {?=} options
-         * @return {?}
-         */
-        ConfirmationService.prototype.info = /**
-         * @param {?} message
-         * @param {?} title
-         * @param {?=} options
-         * @return {?}
-         */
-        function (message, title, options) {
-            return this.show(message, title, 'info', options);
-        };
-        /**
-         * @param {?} message
-         * @param {?} title
-         * @param {?=} options
-         * @return {?}
-         */
-        ConfirmationService.prototype.success = /**
-         * @param {?} message
-         * @param {?} title
-         * @param {?=} options
-         * @return {?}
-         */
-        function (message, title, options) {
-            return this.show(message, title, 'success', options);
-        };
-        /**
-         * @param {?} message
-         * @param {?} title
-         * @param {?=} options
-         * @return {?}
-         */
-        ConfirmationService.prototype.warn = /**
-         * @param {?} message
-         * @param {?} title
-         * @param {?=} options
-         * @return {?}
-         */
-        function (message, title, options) {
-            return this.show(message, title, 'warning', options);
-        };
-        /**
-         * @param {?} message
-         * @param {?} title
-         * @param {?=} options
-         * @return {?}
-         */
-        ConfirmationService.prototype.error = /**
-         * @param {?} message
-         * @param {?} title
-         * @param {?=} options
-         * @return {?}
-         */
-        function (message, title, options) {
-            return this.show(message, title, 'error', options);
-        };
-        /**
-         * @param {?} message
-         * @param {?} title
-         * @param {?=} severity
-         * @param {?=} options
-         * @return {?}
-         */
-        ConfirmationService.prototype.show = /**
-         * @param {?} message
-         * @param {?} title
-         * @param {?=} severity
-         * @param {?=} options
-         * @return {?}
-         */
-        function (message, title, severity, options) {
-            if (!this.containerComponentRef)
-                this.setContainer();
-            this.confirmation$.next({
-                message: message,
-                title: title,
-                severity: severity || 'neutral',
-                options: options,
-            });
-            this.status$ = new rxjs.Subject();
-            this.listenToEscape();
-            return this.status$;
-        };
-        /**
-         * @param {?=} status
-         * @return {?}
-         */
-        ConfirmationService.prototype.clear = /**
-         * @param {?=} status
-         * @return {?}
-         */
-        function (status) {
-            if (status === void 0) { status = exports.Confirmation.Status.dismiss; }
-            this.confirmation$.next();
-            this.status$.next(status);
-        };
-        /**
-         * @private
-         * @return {?}
-         */
-        ConfirmationService.prototype.listenToEscape = /**
-         * @private
-         * @return {?}
-         */
-        function () {
-            var _this = this;
-            rxjs.fromEvent(document, 'keyup')
-                .pipe(operators.takeUntil(this.status$), operators.debounceTime(150), operators.filter((/**
-             * @param {?} key
-             * @return {?}
-             */
-            function (key) { return key && key.key === 'Escape'; })))
-                .subscribe((/**
-             * @param {?} _
-             * @return {?}
-             */
-            function (_) {
-                _this.clear();
-            }));
-        };
-        ConfirmationService.decorators = [
-            { type: core.Injectable, args: [{ providedIn: 'root' },] }
-        ];
-        /** @nocollapse */
-        ConfirmationService.ctorParameters = function () { return [
-            { type: ng_core.ContentProjectionService }
-        ]; };
-        /** @nocollapse */ ConfirmationService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function ConfirmationService_Factory() { return new ConfirmationService(core.ɵɵinject(ng_core.ContentProjectionService)); }, token: ConfirmationService, providedIn: "root" });
-        return ConfirmationService;
-    }());
-    if (false) {
-        /** @type {?} */
-        ConfirmationService.prototype.status$;
-        /** @type {?} */
-        ConfirmationService.prototype.confirmation$;
-        /**
-         * @type {?}
-         * @private
-         */
-        ConfirmationService.prototype.containerComponentRef;
-        /**
-         * @type {?}
-         * @private
-         */
-        ConfirmationService.prototype.contentProjectionService;
-    }
-
-    /**
-     * @fileoverview added by tsickle
      * Generated from: lib/components/confirmation/confirmation.component.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var ConfirmationComponent = /** @class */ (function () {
-        function ConfirmationComponent(confirmationService) {
-            var _this = this;
-            this.confirmationService = confirmationService;
+        function ConfirmationComponent() {
             this.confirm = exports.Confirmation.Status.confirm;
             this.reject = exports.Confirmation.Status.reject;
             this.dismiss = exports.Confirmation.Status.dismiss;
-            this.visible = false;
-            this.confirmationService.confirmation$.subscribe((/**
-             * @param {?} confirmation
-             * @return {?}
-             */
-            function (confirmation) {
-                _this.data = confirmation;
-                _this.visible = !!confirmation;
-            }));
         }
-        Object.defineProperty(ConfirmationComponent.prototype, "iconClass", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                switch (this.data.severity) {
-                    case 'info':
-                        return 'fa-info-circle';
-                    case 'success':
-                        return 'fa-check-circle';
-                    case 'warning':
-                        return 'fa-exclamation-triangle';
-                    case 'error':
-                        return 'fa-times-circle';
-                    default:
-                        return 'fa-question-circle';
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
         /**
          * @param {?} status
          * @return {?}
@@ -953,19 +749,38 @@
          * @return {?}
          */
         function (status) {
-            this.confirmationService.clear(status);
+            this.clear(status);
+        };
+        /**
+         * @param {?} __0
+         * @return {?}
+         */
+        ConfirmationComponent.prototype.getIconClass = /**
+         * @param {?} __0
+         * @return {?}
+         */
+        function (_a) {
+            var severity = _a.severity;
+            switch (severity) {
+                case 'info':
+                    return 'fa-info-circle';
+                case 'success':
+                    return 'fa-check-circle';
+                case 'warning':
+                    return 'fa-exclamation-triangle';
+                case 'error':
+                    return 'fa-times-circle';
+                default:
+                    return 'fa-question-circle';
+            }
         };
         ConfirmationComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'abp-confirmation',
-                        template: "<div class=\"confirmation\" *ngIf=\"visible\">\r\n  <div class=\"confirmation-backdrop\"></div>\r\n  <div class=\"confirmation-dialog\">\r\n    <div class=\"icon-container\" [ngClass]=\"data.severity\" *ngIf=\"data.severity\">\r\n      <i class=\"fa icon\" [ngClass]=\"iconClass\"></i>\r\n    </div>\r\n    <div class=\"content\">\r\n      <h1 class=\"title\" *ngIf=\"data.title\">\r\n        {{ data.title | abpLocalization: data.options?.titleLocalizationParams }}\r\n      </h1>\r\n      <p class=\"message\" *ngIf=\"data.message\">\r\n        {{ data.message | abpLocalization: data.options?.messageLocalizationParams }}\r\n      </p>\r\n    </div>\r\n    <div class=\"footer\">\r\n      <button\r\n        id=\"cancel\"\r\n        class=\"confirmation-button confirmation-button--reject\"\r\n        *ngIf=\"!data?.options?.hideCancelBtn\"\r\n        (click)=\"close(reject)\"\r\n      >\r\n        {{ data.options?.cancelText || 'AbpUi::Cancel' | abpLocalization }}\r\n      </button>\r\n      <button\r\n        id=\"confirm\"\r\n        class=\"confirmation-button confirmation-button--approve\"\r\n        *ngIf=\"!data?.options?.hideYesBtn\"\r\n        (click)=\"close(confirm)\"\r\n      >\r\n        {{ data.options?.yesText || 'AbpUi::Yes' | abpLocalization }}\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                        template: "<div class=\"confirmation\" *ngIf=\"confirmation$ | async as data\">\r\n  <div class=\"confirmation-backdrop\"></div>\r\n  <div class=\"confirmation-dialog\">\r\n    <div class=\"icon-container\" [ngClass]=\"data.severity\" *ngIf=\"data.severity\">\r\n      <i class=\"fa icon\" [ngClass]=\"getIconClass(data)\"></i>\r\n    </div>\r\n    <div class=\"content\">\r\n      <h1\r\n        class=\"title\"\r\n        *ngIf=\"data.title\"\r\n        [innerHTML]=\"data.title | abpLocalization: data.options?.titleLocalizationParams\"\r\n      ></h1>\r\n      <p\r\n        class=\"message\"\r\n        *ngIf=\"data.message\"\r\n        [innerHTML]=\"data.message | abpLocalization: data.options?.messageLocalizationParams\"\r\n      ></p>\r\n    </div>\r\n    <div class=\"footer\">\r\n      <button\r\n        id=\"cancel\"\r\n        class=\"confirmation-button confirmation-button--reject\"\r\n        [innerHTML]=\"data.options?.cancelText || 'AbpUi::Cancel' | abpLocalization\"\r\n        *ngIf=\"!data?.options?.hideCancelBtn\"\r\n        (click)=\"close(reject)\"\r\n      ></button>\r\n      <button\r\n        id=\"confirm\"\r\n        class=\"confirmation-button confirmation-button--approve\"\r\n        [innerHTML]=\"data.options?.yesText || 'AbpUi::Yes' | abpLocalization\"\r\n        *ngIf=\"!data?.options?.hideYesBtn\"\r\n        (click)=\"close(confirm)\"\r\n      ></button>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
                         styles: [".confirmation{position:fixed;top:0;right:0;bottom:0;left:0;display:flex;align-items:center;justify-content:center;z-index:1060}.confirmation .confirmation-backdrop{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1061!important}.confirmation .confirmation-dialog{display:flex;flex-direction:column;margin:20px auto;padding:0;width:450px;min-height:300px;z-index:1062!important}@media screen and (max-width:500px){.confirmation .confirmation-dialog{width:90vw}}.confirmation .confirmation-dialog .icon-container{display:flex;align-items:center;justify-content:center;margin:0 0 10px;padding:20px}.confirmation .confirmation-dialog .icon-container .icon{width:100px;height:100px;stroke-width:1;font-size:80px;text-align:center}.confirmation .confirmation-dialog .content{flex-grow:1;display:block}.confirmation .confirmation-dialog .content .title{display:block;margin:0;padding:0;font-size:27px;font-weight:600;text-align:center}.confirmation .confirmation-dialog .content .message{display:block;margin:10px auto;padding:20px;font-size:16px;font-weight:400;text-align:center}.confirmation .confirmation-dialog .footer{display:flex;align-items:center;justify-content:flex-end;margin:10px 0 0;padding:20px;width:100%}.confirmation .confirmation-dialog .footer .confirmation-button{display:inline-block;margin:0 5px;padding:10px 20px;border:none;border-radius:6px;font-size:14px;font-weight:600}"]
                     }] }
         ];
-        /** @nocollapse */
-        ConfirmationComponent.ctorParameters = function () { return [
-            { type: ConfirmationService }
-        ]; };
         return ConfirmationComponent;
     }());
     if (false) {
@@ -976,14 +791,9 @@
         /** @type {?} */
         ConfirmationComponent.prototype.dismiss;
         /** @type {?} */
-        ConfirmationComponent.prototype.visible;
+        ConfirmationComponent.prototype.confirmation$;
         /** @type {?} */
-        ConfirmationComponent.prototype.data;
-        /**
-         * @type {?}
-         * @private
-         */
-        ConfirmationComponent.prototype.confirmationService;
+        ConfirmationComponent.prototype.clear;
     }
 
     /**
@@ -1425,6 +1235,187 @@
         animations.transition(':enter', animations.useAnimation(fadeInDown)),
         animations.transition(':leave', animations.useAnimation(fadeOut)),
     ]);
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/services/confirmation.service.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var ConfirmationService = /** @class */ (function () {
+        function ConfirmationService(contentProjectionService) {
+            var _this = this;
+            this.contentProjectionService = contentProjectionService;
+            this.confirmation$ = new rxjs.ReplaySubject(1);
+            this.clear = (/**
+             * @param {?=} status
+             * @return {?}
+             */
+            function (status) {
+                if (status === void 0) { status = exports.Confirmation.Status.dismiss; }
+                _this.confirmation$.next();
+                _this.status$.next(status);
+            });
+        }
+        /**
+         * @private
+         * @return {?}
+         */
+        ConfirmationService.prototype.setContainer = /**
+         * @private
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            this.containerComponentRef = this.contentProjectionService.projectContent(ng_core.PROJECTION_STRATEGY.AppendComponentToBody(ConfirmationComponent, {
+                confirmation$: this.confirmation$,
+                clear: this.clear,
+            }));
+            setTimeout((/**
+             * @return {?}
+             */
+            function () {
+                _this.containerComponentRef.changeDetectorRef.detectChanges();
+            }), 0);
+        };
+        /**
+         * @param {?} message
+         * @param {?} title
+         * @param {?=} options
+         * @return {?}
+         */
+        ConfirmationService.prototype.info = /**
+         * @param {?} message
+         * @param {?} title
+         * @param {?=} options
+         * @return {?}
+         */
+        function (message, title, options) {
+            return this.show(message, title, 'info', options);
+        };
+        /**
+         * @param {?} message
+         * @param {?} title
+         * @param {?=} options
+         * @return {?}
+         */
+        ConfirmationService.prototype.success = /**
+         * @param {?} message
+         * @param {?} title
+         * @param {?=} options
+         * @return {?}
+         */
+        function (message, title, options) {
+            return this.show(message, title, 'success', options);
+        };
+        /**
+         * @param {?} message
+         * @param {?} title
+         * @param {?=} options
+         * @return {?}
+         */
+        ConfirmationService.prototype.warn = /**
+         * @param {?} message
+         * @param {?} title
+         * @param {?=} options
+         * @return {?}
+         */
+        function (message, title, options) {
+            return this.show(message, title, 'warning', options);
+        };
+        /**
+         * @param {?} message
+         * @param {?} title
+         * @param {?=} options
+         * @return {?}
+         */
+        ConfirmationService.prototype.error = /**
+         * @param {?} message
+         * @param {?} title
+         * @param {?=} options
+         * @return {?}
+         */
+        function (message, title, options) {
+            return this.show(message, title, 'error', options);
+        };
+        /**
+         * @param {?} message
+         * @param {?} title
+         * @param {?=} severity
+         * @param {?=} options
+         * @return {?}
+         */
+        ConfirmationService.prototype.show = /**
+         * @param {?} message
+         * @param {?} title
+         * @param {?=} severity
+         * @param {?=} options
+         * @return {?}
+         */
+        function (message, title, severity, options) {
+            if (!this.containerComponentRef)
+                this.setContainer();
+            this.confirmation$.next({
+                message: message,
+                title: title,
+                severity: severity || 'neutral',
+                options: options,
+            });
+            this.status$ = new rxjs.Subject();
+            this.listenToEscape();
+            return this.status$;
+        };
+        /**
+         * @private
+         * @return {?}
+         */
+        ConfirmationService.prototype.listenToEscape = /**
+         * @private
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            rxjs.fromEvent(document, 'keyup')
+                .pipe(operators.takeUntil(this.status$), operators.debounceTime(150), operators.filter((/**
+             * @param {?} key
+             * @return {?}
+             */
+            function (key) { return key && key.key === 'Escape'; })))
+                .subscribe((/**
+             * @param {?} _
+             * @return {?}
+             */
+            function (_) {
+                _this.clear();
+            }));
+        };
+        ConfirmationService.decorators = [
+            { type: core.Injectable, args: [{ providedIn: 'root' },] }
+        ];
+        /** @nocollapse */
+        ConfirmationService.ctorParameters = function () { return [
+            { type: ng_core.ContentProjectionService }
+        ]; };
+        /** @nocollapse */ ConfirmationService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function ConfirmationService_Factory() { return new ConfirmationService(core.ɵɵinject(ng_core.ContentProjectionService)); }, token: ConfirmationService, providedIn: "root" });
+        return ConfirmationService;
+    }());
+    if (false) {
+        /** @type {?} */
+        ConfirmationService.prototype.status$;
+        /** @type {?} */
+        ConfirmationService.prototype.confirmation$;
+        /**
+         * @type {?}
+         * @private
+         */
+        ConfirmationService.prototype.containerComponentRef;
+        /** @type {?} */
+        ConfirmationService.prototype.clear;
+        /**
+         * @type {?}
+         * @private
+         */
+        ConfirmationService.prototype.contentProjectionService;
+    }
 
     /**
      * @fileoverview added by tsickle
@@ -2281,6 +2272,146 @@
 
     /**
      * @fileoverview added by tsickle
+     * Generated from: lib/components/toast-container/toast-container.component.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var ToastContainerComponent = /** @class */ (function () {
+        function ToastContainerComponent() {
+            this.toasts = (/** @type {?} */ ([]));
+            this.right = '30px';
+            this.bottom = '30px';
+        }
+        /**
+         * @return {?}
+         */
+        ToastContainerComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+            var _this = this;
+            this.toasts$.subscribe((/**
+             * @param {?} toasts
+             * @return {?}
+             */
+            function (toasts) {
+                _this.toasts = _this.toastKey
+                    ? toasts.filter((/**
+                     * @param {?} t
+                     * @return {?}
+                     */
+                    function (t) {
+                        return t.options && t.options.containerKey !== _this.toastKey;
+                    }))
+                    : toasts;
+            }));
+        };
+        /**
+         * @param {?} index
+         * @param {?} toast
+         * @return {?}
+         */
+        ToastContainerComponent.prototype.trackByFunc = /**
+         * @param {?} index
+         * @param {?} toast
+         * @return {?}
+         */
+        function (index, toast) {
+            if (!toast)
+                return null;
+            return toast.options.id;
+        };
+        ToastContainerComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'abp-toast-container',
+                        template: "<div\r\n  class=\"toast-container\"\r\n  [style.top]=\"top || 'auto'\"\r\n  [style.right]=\"right || 'auto'\"\r\n  [style.bottom]=\"bottom || 'auto'\"\r\n  [style.left]=\"left || 'auto'\"\r\n  [style.display]=\"toasts.length ? 'flex' : 'none'\"\r\n  [@toastInOut]=\"toasts.length\"\r\n>\r\n  <abp-toast [toast]=\"toast\" *ngFor=\"let toast of toasts; trackBy: trackByFunc\"></abp-toast>\r\n</div>\r\n",
+                        animations: [toastInOut],
+                        styles: [".toast-container{position:fixed;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:350px;min-height:80px;z-index:1900}.toast-container.new-on-top{flex-direction:column-reverse}"]
+                    }] }
+        ];
+        ToastContainerComponent.propDecorators = {
+            top: [{ type: core.Input }],
+            right: [{ type: core.Input }],
+            bottom: [{ type: core.Input }],
+            left: [{ type: core.Input }],
+            toastKey: [{ type: core.Input }]
+        };
+        return ToastContainerComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        ToastContainerComponent.prototype.toasts$;
+        /** @type {?} */
+        ToastContainerComponent.prototype.toasts;
+        /** @type {?} */
+        ToastContainerComponent.prototype.top;
+        /** @type {?} */
+        ToastContainerComponent.prototype.right;
+        /** @type {?} */
+        ToastContainerComponent.prototype.bottom;
+        /** @type {?} */
+        ToastContainerComponent.prototype.left;
+        /** @type {?} */
+        ToastContainerComponent.prototype.toastKey;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/models/toaster.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    (function (Toaster) {
+        /**
+         * @record
+         */
+        function ToastOptions() { }
+        Toaster.ToastOptions = ToastOptions;
+        if (false) {
+            /** @type {?|undefined} */
+            ToastOptions.prototype.life;
+            /** @type {?|undefined} */
+            ToastOptions.prototype.sticky;
+            /** @type {?|undefined} */
+            ToastOptions.prototype.closable;
+            /** @type {?|undefined} */
+            ToastOptions.prototype.tapToDismiss;
+            /** @type {?|undefined} */
+            ToastOptions.prototype.messageLocalizationParams;
+            /** @type {?|undefined} */
+            ToastOptions.prototype.titleLocalizationParams;
+            /** @type {?} */
+            ToastOptions.prototype.id;
+            /** @type {?|undefined} */
+            ToastOptions.prototype.containerKey;
+        }
+        /**
+         * @record
+         */
+        function Toast() { }
+        Toaster.Toast = Toast;
+        if (false) {
+            /** @type {?} */
+            Toast.prototype.message;
+            /** @type {?|undefined} */
+            Toast.prototype.title;
+            /** @type {?|undefined} */
+            Toast.prototype.severity;
+            /** @type {?|undefined} */
+            Toast.prototype.options;
+        }
+        /**
+         * @deprecated Status will be removed from toaster model in v3.0
+         */
+        var Status;
+        (function (Status) {
+            Status["confirm"] = "confirm";
+            Status["reject"] = "reject";
+            Status["dismiss"] = "dismiss";
+        })(Status = Toaster.Status || (Toaster.Status = {}));
+    })(exports.Toaster || (exports.Toaster = {}));
+
+    /**
+     * @fileoverview added by tsickle
      * Generated from: lib/services/toaster.service.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
@@ -2300,7 +2431,7 @@
          * @return {?}
          */
         function () {
-            this.containerComponentRef = this.contentProjectionService.projectContent(ng_core.PROJECTION_STRATEGY.AppendComponentToBody(ToastContainerComponent));
+            this.containerComponentRef = this.contentProjectionService.projectContent(ng_core.PROJECTION_STRATEGY.AppendComponentToBody(ToastContainerComponent, { toasts$: this.toasts$ }));
             this.containerComponentRef.changeDetectorRef.detectChanges();
         };
         /**
@@ -2522,154 +2653,6 @@
          */
         ToasterService.prototype.contentProjectionService;
     }
-
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: lib/components/toast-container/toast-container.component.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var ToastContainerComponent = /** @class */ (function () {
-        function ToastContainerComponent(toastService) {
-            this.toastService = toastService;
-            this.toasts = (/** @type {?} */ ([]));
-            this.right = '30px';
-            this.bottom = '30px';
-        }
-        /**
-         * @return {?}
-         */
-        ToastContainerComponent.prototype.ngOnInit = /**
-         * @return {?}
-         */
-        function () {
-            var _this = this;
-            this.toastService.toasts$.subscribe((/**
-             * @param {?} toasts
-             * @return {?}
-             */
-            function (toasts) {
-                _this.toasts = _this.toastKey
-                    ? toasts.filter((/**
-                     * @param {?} t
-                     * @return {?}
-                     */
-                    function (t) {
-                        return t.options && t.options.containerKey !== _this.toastKey;
-                    }))
-                    : toasts;
-            }));
-        };
-        /**
-         * @param {?} index
-         * @param {?} toast
-         * @return {?}
-         */
-        ToastContainerComponent.prototype.trackByFunc = /**
-         * @param {?} index
-         * @param {?} toast
-         * @return {?}
-         */
-        function (index, toast) {
-            if (!toast)
-                return null;
-            return toast.options.id;
-        };
-        ToastContainerComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'abp-toast-container',
-                        template: "<div\r\n  class=\"toast-container\"\r\n  [style.top]=\"top || 'auto'\"\r\n  [style.right]=\"right || 'auto'\"\r\n  [style.bottom]=\"bottom || 'auto'\"\r\n  [style.left]=\"left || 'auto'\"\r\n  [style.display]=\"toasts.length ? 'flex' : 'none'\"\r\n  [@toastInOut]=\"toasts.length\"\r\n>\r\n  <abp-toast [toast]=\"toast\" *ngFor=\"let toast of toasts; trackBy: trackByFunc\"></abp-toast>\r\n</div>\r\n",
-                        animations: [toastInOut],
-                        styles: [".toast-container{position:fixed;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:350px;min-height:80px;z-index:1900}.toast-container.new-on-top{flex-direction:column-reverse}"]
-                    }] }
-        ];
-        /** @nocollapse */
-        ToastContainerComponent.ctorParameters = function () { return [
-            { type: ToasterService }
-        ]; };
-        ToastContainerComponent.propDecorators = {
-            top: [{ type: core.Input }],
-            right: [{ type: core.Input }],
-            bottom: [{ type: core.Input }],
-            left: [{ type: core.Input }],
-            toastKey: [{ type: core.Input }]
-        };
-        return ToastContainerComponent;
-    }());
-    if (false) {
-        /** @type {?} */
-        ToastContainerComponent.prototype.toasts;
-        /** @type {?} */
-        ToastContainerComponent.prototype.top;
-        /** @type {?} */
-        ToastContainerComponent.prototype.right;
-        /** @type {?} */
-        ToastContainerComponent.prototype.bottom;
-        /** @type {?} */
-        ToastContainerComponent.prototype.left;
-        /** @type {?} */
-        ToastContainerComponent.prototype.toastKey;
-        /**
-         * @type {?}
-         * @private
-         */
-        ToastContainerComponent.prototype.toastService;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: lib/models/toaster.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-
-    (function (Toaster) {
-        /**
-         * @record
-         */
-        function ToastOptions() { }
-        Toaster.ToastOptions = ToastOptions;
-        if (false) {
-            /** @type {?|undefined} */
-            ToastOptions.prototype.life;
-            /** @type {?|undefined} */
-            ToastOptions.prototype.sticky;
-            /** @type {?|undefined} */
-            ToastOptions.prototype.closable;
-            /** @type {?|undefined} */
-            ToastOptions.prototype.tapToDismiss;
-            /** @type {?|undefined} */
-            ToastOptions.prototype.messageLocalizationParams;
-            /** @type {?|undefined} */
-            ToastOptions.prototype.titleLocalizationParams;
-            /** @type {?} */
-            ToastOptions.prototype.id;
-            /** @type {?|undefined} */
-            ToastOptions.prototype.containerKey;
-        }
-        /**
-         * @record
-         */
-        function Toast() { }
-        Toaster.Toast = Toast;
-        if (false) {
-            /** @type {?} */
-            Toast.prototype.message;
-            /** @type {?|undefined} */
-            Toast.prototype.title;
-            /** @type {?|undefined} */
-            Toast.prototype.severity;
-            /** @type {?|undefined} */
-            Toast.prototype.options;
-        }
-        /**
-         * @deprecated Status will be removed from toaster model in v3.0
-         */
-        var Status;
-        (function (Status) {
-            Status["confirm"] = "confirm";
-            Status["reject"] = "reject";
-            Status["dismiss"] = "dismiss";
-        })(Status = Toaster.Status || (Toaster.Status = {}));
-    })(exports.Toaster || (exports.Toaster = {}));
 
     /**
      * @fileoverview added by tsickle
@@ -3191,7 +3174,7 @@
                  * @return {?}
                  */
                 function () { return err.error.error; }), DEFAULT_ERROR_MESSAGES.defaultError.title);
-                if (err.headers.get('_AbpErrorFormat')) {
+                if (err instanceof http.HttpErrorResponse && err.headers.get('_AbpErrorFormat')) {
                     /** @type {?} */
                     var confirmation$ = _this.showError(null, null, body);
                     if (err.status === 401) {
@@ -3875,6 +3858,12 @@
 
     /**
      * @fileoverview added by tsickle
+     * Generated from: lib/handlers/index.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
      * Generated from: lib/models/common.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
@@ -4042,7 +4031,9 @@
     exports.ChartComponent = ChartComponent;
     exports.ConfirmationComponent = ConfirmationComponent;
     exports.ConfirmationService = ConfirmationService;
+    exports.DEFAULT_ERROR_MESSAGES = DEFAULT_ERROR_MESSAGES;
     exports.DateParserFormatter = DateParserFormatter;
+    exports.ErrorHandler = ErrorHandler;
     exports.HTTP_ERROR_CONFIG = HTTP_ERROR_CONFIG;
     exports.LoaderBarComponent = LoaderBarComponent;
     exports.LoadingComponent = LoadingComponent;
@@ -4097,15 +4088,15 @@
     exports.ɵbd = DateParserFormatter;
     exports.ɵc = ChartComponent;
     exports.ɵd = ConfirmationComponent;
-    exports.ɵe = ConfirmationService;
-    exports.ɵf = HttpErrorWrapperComponent;
-    exports.ɵg = LoaderBarComponent;
-    exports.ɵh = LoadingComponent;
-    exports.ɵi = ModalComponent;
-    exports.ɵj = fadeAnimation;
-    exports.ɵk = fadeIn;
-    exports.ɵl = fadeOut;
-    exports.ɵm = ModalService;
+    exports.ɵe = HttpErrorWrapperComponent;
+    exports.ɵf = LoaderBarComponent;
+    exports.ɵg = LoadingComponent;
+    exports.ɵh = ModalComponent;
+    exports.ɵi = fadeAnimation;
+    exports.ɵj = fadeIn;
+    exports.ɵk = fadeOut;
+    exports.ɵl = ModalService;
+    exports.ɵm = ConfirmationService;
     exports.ɵn = ModalContainerComponent;
     exports.ɵo = PaginationComponent;
     exports.ɵp = TableComponent;

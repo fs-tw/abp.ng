@@ -1,19 +1,20 @@
 import { ABP } from '@abp/ng.core';
 import { ToasterService } from '@abp/ng.theme.shared';
-import { OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { AccountService } from '../../services/account.service';
+import { Observable } from 'rxjs';
 import { Account } from '../../models/account';
-export declare class TenantBoxComponent implements OnInit, Account.TenantBoxComponentInputs, Account.TenantBoxComponentOutputs {
+import { AccountService } from '../../services/account.service';
+export declare class TenantBoxComponent implements Account.TenantBoxComponentInputs, Account.TenantBoxComponentOutputs {
     private store;
     private toasterService;
     private accountService;
-    tenant: ABP.BasicItem;
-    tenantName: string;
+    currentTenant$: Observable<ABP.BasicItem>;
+    name: string;
     isModalVisible: boolean;
-    inProgress: boolean;
+    modalBusy: boolean;
     constructor(store: Store, toasterService: ToasterService, accountService: AccountService);
-    ngOnInit(): void;
     onSwitch(): void;
     save(): void;
+    private setTenant;
+    private showError;
 }

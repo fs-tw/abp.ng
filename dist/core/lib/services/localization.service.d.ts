@@ -1,10 +1,11 @@
 import { NgZone } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { Store } from '@ngxs/store';
+import { Store, Actions } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Config } from '../models/config';
 declare type ShouldReuseRoute = (future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot) => boolean;
 export declare class LocalizationService {
+    private actions;
     private store;
     private router;
     private ngZone;
@@ -12,7 +13,8 @@ export declare class LocalizationService {
      * Returns currently selected language
      */
     readonly currentLang: string;
-    constructor(store: Store, router: Router, ngZone: NgZone, otherInstance: LocalizationService);
+    constructor(actions: Actions, store: Store, router: Router, ngZone: NgZone, otherInstance: LocalizationService);
+    private listenToSetLanguage;
     setRouteReuse(reuse: ShouldReuseRoute): void;
     registerLocale(locale: string): Promise<void>;
     /**
