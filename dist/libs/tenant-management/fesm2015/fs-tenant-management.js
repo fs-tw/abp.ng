@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { TenantManagementModule as TenantManagementModule$1 } from '@abp/ng.tenant-management';
 import { FeatureManagementModule } from '@abp/ng.feature-management';
-import { TableModule } from 'primeng/table';
 
 /**
  * @fileoverview added by tsickle
@@ -14,7 +13,6 @@ TenantManagementModule.decorators = [
     { type: NgModule, args: [{
                 imports: [TenantManagementModule$1],
                 exports: [
-                    TableModule,
                     TenantManagementModule$1,
                     FeatureManagementModule
                 ]

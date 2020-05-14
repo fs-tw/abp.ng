@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { IdentityModule as IdentityModule$1 } from '@abp/ng.identity';
-import { TableModule } from 'primeng/table';
 import { NgbDropdownModule, NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap';
 import { PermissionManagementModule } from '@abp/ng.permission-management';
 import { NgxValidateCoreModule } from '@ngx-validate/core';
@@ -17,7 +16,6 @@ IdentityModule.decorators = [
                 imports: [IdentityModule$1],
                 exports: [
                     IdentityModule$1,
-                    TableModule,
                     NgbDropdownModule,
                     PermissionManagementModule,
                     NgxValidateCoreModule,
