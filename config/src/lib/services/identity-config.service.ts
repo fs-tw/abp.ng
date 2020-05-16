@@ -7,7 +7,7 @@ import { Store } from '@ngxs/store';
   providedIn: 'root',
 })
 export class IdentityConfigService {
-  constructor(private store: Store) {
+  constructor() {
     const rootRoute = {
       name: 'AbpUiNavigation::Menu:Administration',
       path: '',
