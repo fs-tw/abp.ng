@@ -1,6 +1,5 @@
 import { IdentityModule } from '@fs/identity';
 import { CoreModule, AddReplaceableComponent } from '@abp/ng.core';
-import { CoreModule as FSCoreModule } from '@fs/core';
 import { NgModule } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
 import { UsersComponent } from './components/users/users.component';
@@ -13,7 +12,6 @@ import { SettingManagementNgAlainModule } from '@fs/setting-management/ng-alain'
     declarations: [UsersComponent, RolesComponent],
     entryComponents: [UsersComponent, RolesComponent],
     imports: [
-        FSCoreModule,
         NgAlainBasicModule,
         PermissionManagementNgAlainModule,
         IdentityModule,
