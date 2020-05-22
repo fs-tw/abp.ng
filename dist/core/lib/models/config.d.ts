@@ -15,8 +15,8 @@ export declare namespace Config {
         hmr?: boolean;
         oAuthConfig: AuthConfig;
         apis: Apis;
-        localization: {
-            defaultResourceName: string;
+        localization?: {
+            defaultResourceName?: string;
         };
     }
     interface Application {

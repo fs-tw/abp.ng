@@ -1,8 +1,9 @@
 import { ABP } from '../models';
 export declare class SetLanguage {
     payload: string;
+    dispatchAppConfiguration?: boolean;
     static readonly type = "[Session] Set Language";
-    constructor(payload: string);
+    constructor(payload: string, dispatchAppConfiguration?: boolean);
 }
 export declare class SetTenant {
     payload: ABP.BasicItem;

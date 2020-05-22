@@ -1,4 +1,4 @@
-import { ConfigState, DynamicLayoutComponent, ReplaceableRouteContainerComponent, CoreModule } from '@abp/ng.core';
+import { ConfigState, DynamicLayoutComponent, AuthGuard, ReplaceableRouteContainerComponent, CoreModule } from '@abp/ng.core';
 import { getSettingTabs, ThemeSharedModule } from '@abp/ng.theme.shared';
 import { Injectable, Component, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -169,6 +169,7 @@ const routes = [
     {
         path: '',
         component: DynamicLayoutComponent,
+        canActivate: [AuthGuard],
         children: [
             {
                 path: '',

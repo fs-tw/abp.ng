@@ -13,7 +13,7 @@ export declare class ConfigStateService {
     getSetting(...args: Parameters<typeof ConfigState.getSetting>): string;
     getSettings(...args: Parameters<typeof ConfigState.getSettings>): {};
     getGrantedPolicy(...args: Parameters<typeof ConfigState.getGrantedPolicy>): boolean;
-    getLocalization(...args: Parameters<typeof ConfigState.getLocalization>): any;
+    getLocalization(...args: Parameters<typeof ConfigState.getLocalization>): string;
     dispatchGetAppConfiguration(): import("rxjs").Observable<any>;
     dispatchPatchRouteByName(...args: ConstructorParameters<typeof PatchRouteByName>): import("rxjs").Observable<any>;
     dispatchAddRoute(...args: ConstructorParameters<typeof AddRoute>): import("rxjs").Observable<any>;

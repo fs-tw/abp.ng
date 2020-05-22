@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@abp/ng.tenant-management'), require('@abp/ng.feature-management'), require('primeng/table')) :
-    typeof define === 'function' && define.amd ? define('@fs/tenant-management', ['exports', '@angular/core', '@abp/ng.tenant-management', '@abp/ng.feature-management', 'primeng/table'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['tenant-management'] = {}), global.ng.core, global.ng_tenantManagement, global.ng_featureManagement, global.table));
-}(this, (function (exports, core, ng_tenantManagement, ng_featureManagement, table) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@abp/ng.tenant-management'), require('@abp/ng.feature-management')) :
+    typeof define === 'function' && define.amd ? define('@fs/tenant-management', ['exports', '@angular/core', '@abp/ng.tenant-management', '@abp/ng.feature-management'], factory) :
+    (global = global || self, factory((global.fs = global.fs || {}, global.fs['tenant-management'] = {}), global.ng.core, global.ng_tenantManagement, global.ng_featureManagement));
+}(this, (function (exports, core, ng_tenantManagement, ng_featureManagement) { 'use strict';
 
     /**
      * @fileoverview added by tsickle
@@ -16,7 +16,6 @@
             { type: core.NgModule, args: [{
                         imports: [ng_tenantManagement.TenantManagementModule],
                         exports: [
-                            table.TableModule,
                             ng_tenantManagement.TenantManagementModule,
                             ng_featureManagement.FeatureManagementModule
                         ]

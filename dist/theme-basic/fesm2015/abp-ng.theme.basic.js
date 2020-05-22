@@ -1,6 +1,6 @@
-import { takeUntilDestroy, AddReplaceableComponent, CONTENT_STRATEGY, DomInsertionService, ConfigState, SessionState, SetLanguage, AuthService, CoreModule } from '@abp/ng.core';
+import { takeUntilDestroy, ConfigState, SessionState, SetLanguage, AuthService, AddReplaceableComponent, CONTENT_STRATEGY, DomInsertionService, CoreModule } from '@abp/ng.core';
 import { slideFromBottom, collapseWithMargin, ThemeSharedModule } from '@abp/ng.theme.shared';
-import { Component, Injectable, ChangeDetectionStrategy, ViewEncapsulation, ɵɵdefineInjectable, ɵɵinject, Renderer2, Input, ViewChild, TemplateRef, NgModule } from '@angular/core';
+import { Component, Injectable, ViewChild, TemplateRef, Input, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ɵɵdefineInjectable, ɵɵinject, NgModule } from '@angular/core';
 import { NgbCollapseModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ValidationErrorComponent as ValidationErrorComponent$1, NgxValidateCoreModule } from '@ngx-validate/core';
 import { Store, Action, Selector, State, Select, NgxsModule } from '@ngxs/store';
@@ -159,6 +159,57 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/components/logo/logo.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class LogoComponent {
+    /**
+     * @param {?} store
+     */
+    constructor(store) {
+        this.store = store;
+    }
+    /**
+     * @return {?}
+     */
+    get appInfo() {
+        return this.store.selectSnapshot(ConfigState.getApplicationInfo);
+    }
+}
+LogoComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-logo',
+                template: `
+    <a class="navbar-brand" routerLink="/">
+      <img
+        *ngIf="appInfo.logoUrl; else appName"
+        [src]="appInfo.logoUrl"
+        [alt]="appInfo.name"
+        width="100%"
+        height="auto"
+      />
+    </a>
+
+    <ng-template #appName>
+      {{ appInfo.name }}
+    </ng-template>
+  `
+            }] }
+];
+/** @nocollapse */
+LogoComponent.ctorParameters = () => [
+    { type: Store }
+];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    LogoComponent.prototype.store;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/actions/layout.actions.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -296,6 +347,297 @@ LayoutState = __decorate([
         defaults: (/** @type {?} */ ({ navigationElements: [] })),
     })
 ], LayoutState);
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/components/nav-items/nav-items.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class NavItemsComponent {
+    /**
+     * @param {?} store
+     * @param {?} authService
+     */
+    constructor(store, authService) {
+        this.store = store;
+        this.authService = authService;
+        this.rightPartElements = [];
+        this.trackByFn = (/**
+         * @param {?} _
+         * @param {?} element
+         * @return {?}
+         */
+        (_, element) => element);
+    }
+    /**
+     * @return {?}
+     */
+    get defaultLanguage$() {
+        return this.languages$.pipe(map((/**
+         * @param {?} languages
+         * @return {?}
+         */
+        languages => snq((/**
+         * @return {?}
+         */
+        () => languages.find((/**
+         * @param {?} lang
+         * @return {?}
+         */
+        lang => lang.cultureName === this.selectedLangCulture)).displayName))), ''));
+    }
+    /**
+     * @return {?}
+     */
+    get dropdownLanguages$() {
+        return this.languages$.pipe(map((/**
+         * @param {?} languages
+         * @return {?}
+         */
+        languages => snq((/**
+         * @return {?}
+         */
+        () => languages.filter((/**
+         * @param {?} lang
+         * @return {?}
+         */
+        lang => lang.cultureName !== this.selectedLangCulture))))), []));
+    }
+    /**
+     * @return {?}
+     */
+    get selectedLangCulture() {
+        return this.store.selectSnapshot(SessionState.getLanguage);
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        /** @type {?} */
+        const navigations = this.store
+            .selectSnapshot(LayoutState.getNavigationElements)
+            .map((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        ({ name }) => name));
+        if (navigations.indexOf("LanguageRef" /* Language */) < 0) {
+            this.store.dispatch(new AddNavigationElement([
+                { element: this.languageRef, order: 4, name: "LanguageRef" /* Language */ },
+                { element: this.currentUserRef, order: 5, name: "CurrentUserRef" /* User */ },
+            ]));
+        }
+        this.navElements$
+            .pipe(map((/**
+         * @param {?} elements
+         * @return {?}
+         */
+        elements => elements.map((/**
+         * @param {?} __0
+         * @return {?}
+         */
+        ({ element }) => element)))), filter((/**
+         * @param {?} elements
+         * @return {?}
+         */
+        elements => !compare(elements, this.rightPartElements))), takeUntilDestroy(this))
+            .subscribe((/**
+         * @param {?} elements
+         * @return {?}
+         */
+        elements => {
+            setTimeout((/**
+             * @return {?}
+             */
+            () => (this.rightPartElements = elements)), 0);
+        }));
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() { }
+    /**
+     * @param {?} cultureName
+     * @return {?}
+     */
+    onChangeLang(cultureName) {
+        this.store.dispatch(new SetLanguage(cultureName));
+    }
+    /**
+     * @return {?}
+     */
+    logout() {
+        this.authService.logout().subscribe((/**
+         * @return {?}
+         */
+        () => {
+            this.store.dispatch(new Navigate(['/'], null, {
+                state: { redirectUrl: this.store.selectSnapshot(RouterState).state.url },
+            }));
+        }));
+    }
+}
+NavItemsComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-nav-items',
+                template: "<ul class=\"navbar-nav\">\r\n  <ng-container\r\n    *ngFor=\"let element of rightPartElements; trackBy: trackByFn\"\r\n    [ngTemplateOutlet]=\"element\"\r\n    [ngTemplateOutletContext]=\"{ smallScreen: smallScreen }\"\r\n  ></ng-container>\r\n</ul>\r\n\r\n<ng-template #language let-smallScreen=\"smallScreen\">\r\n  <li *ngIf=\"(dropdownLanguages$ | async)?.length > 0\" class=\"nav-item\">\r\n    <div class=\"dropdown\" ngbDropdown #languageDropdown=\"ngbDropdown\" display=\"static\">\r\n      <a\r\n        ngbDropdownToggle\r\n        class=\"nav-link\"\r\n        href=\"javascript:void(0)\"\r\n        role=\"button\"\r\n        id=\"dropdownMenuLink\"\r\n        data-toggle=\"dropdown\"\r\n        aria-haspopup=\"true\"\r\n        aria-expanded=\"false\"\r\n      >\r\n        {{ defaultLanguage$ | async }}\r\n      </a>\r\n      <div\r\n        class=\"dropdown-menu dropdown-menu-right border-0 shadow-sm\"\r\n        aria-labelledby=\"dropdownMenuLink\"\r\n        [class.d-block]=\"smallScreen && languageDropdown.isOpen()\"\r\n      >\r\n        <a\r\n          *ngFor=\"let lang of dropdownLanguages$ | async\"\r\n          href=\"javascript:void(0)\"\r\n          class=\"dropdown-item\"\r\n          (click)=\"onChangeLang(lang.cultureName)\"\r\n          >{{ lang?.displayName }}</a\r\n        >\r\n      </div>\r\n    </div>\r\n  </li>\r\n</ng-template>\r\n\r\n<ng-template #currentUser let-smallScreen=\"smallScreen\">\r\n  <li class=\"nav-item\">\r\n    <ng-template #loginBtn>\r\n      <a role=\"button\" class=\"nav-link\" routerLink=\"/account/login\">{{\r\n        'AbpAccount::Login' | abpLocalization\r\n      }}</a>\r\n    </ng-template>\r\n    <div\r\n      *ngIf=\"(currentUser$ | async)?.isAuthenticated; else loginBtn\"\r\n      ngbDropdown\r\n      class=\"dropdown\"\r\n      #currentUserDropdown=\"ngbDropdown\"\r\n      display=\"static\"\r\n    >\r\n      <a\r\n        ngbDropdownToggle\r\n        class=\"nav-link\"\r\n        href=\"javascript:void(0)\"\r\n        role=\"button\"\r\n        id=\"dropdownMenuLink\"\r\n        data-toggle=\"dropdown\"\r\n        aria-haspopup=\"true\"\r\n        aria-expanded=\"false\"\r\n      >\r\n        {{ (currentUser$ | async)?.userName }}\r\n      </a>\r\n      <div\r\n        class=\"dropdown-menu dropdown-menu-right border-0 shadow-sm\"\r\n        aria-labelledby=\"dropdownMenuLink\"\r\n        [class.d-block]=\"smallScreen && currentUserDropdown.isOpen()\"\r\n      >\r\n        <a class=\"dropdown-item\" routerLink=\"/account/manage-profile\"\r\n          ><i class=\"fa fa-cog mr-1\"></i>{{ 'AbpAccount::ManageYourProfile' | abpLocalization }}</a\r\n        >\r\n        <a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"logout()\"\r\n          ><i class=\"fa fa-power-off mr-1\"></i>{{ 'AbpUi::Logout' | abpLocalization }}</a\r\n        >\r\n      </div>\r\n    </div>\r\n  </li>\r\n</ng-template>\r\n"
+            }] }
+];
+/** @nocollapse */
+NavItemsComponent.ctorParameters = () => [
+    { type: Store },
+    { type: AuthService }
+];
+NavItemsComponent.propDecorators = {
+    currentUserRef: [{ type: ViewChild, args: ['currentUser', { static: false, read: TemplateRef },] }],
+    languageRef: [{ type: ViewChild, args: ['language', { static: false, read: TemplateRef },] }],
+    smallScreen: [{ type: Input }]
+};
+__decorate([
+    Select(LayoutState.getNavigationElements),
+    __metadata("design:type", Observable)
+], NavItemsComponent.prototype, "navElements$", void 0);
+__decorate([
+    Select(ConfigState.getOne('currentUser')),
+    __metadata("design:type", Observable)
+], NavItemsComponent.prototype, "currentUser$", void 0);
+__decorate([
+    Select(ConfigState.getDeep('localization.languages')),
+    __metadata("design:type", Observable)
+], NavItemsComponent.prototype, "languages$", void 0);
+if (false) {
+    /** @type {?} */
+    NavItemsComponent.prototype.navElements$;
+    /** @type {?} */
+    NavItemsComponent.prototype.currentUser$;
+    /** @type {?} */
+    NavItemsComponent.prototype.languages$;
+    /** @type {?} */
+    NavItemsComponent.prototype.currentUserRef;
+    /** @type {?} */
+    NavItemsComponent.prototype.languageRef;
+    /** @type {?} */
+    NavItemsComponent.prototype.smallScreen;
+    /** @type {?} */
+    NavItemsComponent.prototype.rightPartElements;
+    /** @type {?} */
+    NavItemsComponent.prototype.trackByFn;
+    /**
+     * @type {?}
+     * @private
+     */
+    NavItemsComponent.prototype.store;
+    /**
+     * @type {?}
+     * @private
+     */
+    NavItemsComponent.prototype.authService;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/components/routes/routes.component.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class RoutesComponent {
+    /**
+     * @param {?} renderer
+     */
+    constructor(renderer) {
+        this.renderer = renderer;
+        this.trackByFn = (/**
+         * @param {?} _
+         * @param {?} item
+         * @return {?}
+         */
+        (_, item) => item.name);
+    }
+    /**
+     * @return {?}
+     */
+    get visibleRoutes$() {
+        return this.routes$.pipe(map((/**
+         * @param {?} routes
+         * @return {?}
+         */
+        routes => getVisibleRoutes(routes))));
+    }
+    /**
+     * @param {?} event
+     * @param {?} childrenContainer
+     * @return {?}
+     */
+    openChange(event, childrenContainer) {
+        if (!event) {
+            Object.keys(childrenContainer.style)
+                .filter((/**
+             * @param {?} key
+             * @return {?}
+             */
+            key => Number.isInteger(+key)))
+                .forEach((/**
+             * @param {?} key
+             * @return {?}
+             */
+            key => {
+                this.renderer.removeStyle(childrenContainer, childrenContainer.style[key]);
+            }));
+            this.renderer.removeStyle(childrenContainer, 'left');
+        }
+    }
+}
+RoutesComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-routes',
+                template: "<ul class=\"navbar-nav\">\r\n  <ng-container\r\n    *ngFor=\"let route of visibleRoutes$ | async; trackBy: trackByFn\"\r\n    [ngTemplateOutlet]=\"route?.children?.length ? dropdownLink : defaultLink\"\r\n    [ngTemplateOutletContext]=\"{ $implicit: route }\"\r\n  >\r\n  </ng-container>\r\n\r\n  <ng-template #defaultLink let-route>\r\n    <li class=\"nav-item\" *abpPermission=\"route.requiredPolicy\">\r\n      <a class=\"nav-link\" [routerLink]=\"[route.url]\"\r\n        ><i *ngIf=\"route.iconClass\" [ngClass]=\"route.iconClass\"></i>\r\n        {{ route.name | abpLocalization }}</a\r\n      >\r\n    </li>\r\n  </ng-template>\r\n\r\n  <ng-template #dropdownLink let-route>\r\n    <li\r\n      #navbarRootDropdown\r\n      *abpPermission=\"route.requiredPolicy\"\r\n      [abpVisibility]=\"routeContainer\"\r\n      class=\"nav-item dropdown\"\r\n      display=\"static\"\r\n      (click)=\"\r\n        navbarRootDropdown.expand\r\n          ? (navbarRootDropdown.expand = false)\r\n          : (navbarRootDropdown.expand = true)\r\n      \"\r\n    >\r\n      <a\r\n        class=\"nav-link dropdown-toggle\"\r\n        data-toggle=\"dropdown\"\r\n        aria-haspopup=\"true\"\r\n        aria-expanded=\"false\"\r\n        href=\"javascript:void(0)\"\r\n      >\r\n        <i *ngIf=\"route.iconClass\" [ngClass]=\"route.iconClass\"></i>\r\n        {{ route.name | abpLocalization }}\r\n      </a>\r\n      <div\r\n        #routeContainer\r\n        class=\"dropdown-menu border-0 shadow-sm\"\r\n        (click)=\"$event.preventDefault(); $event.stopPropagation()\"\r\n        [class.d-block]=\"smallScreen && navbarRootDropdown.expand\"\r\n      >\r\n        <ng-template\r\n          #forTemplate\r\n          ngFor\r\n          [ngForOf]=\"route.children\"\r\n          [ngForTrackBy]=\"trackByFn\"\r\n          [ngForTemplate]=\"childWrapper\"\r\n        ></ng-template>\r\n      </div>\r\n    </li>\r\n  </ng-template>\r\n\r\n  <ng-template #childWrapper let-child>\r\n    <ng-template\r\n      [ngTemplateOutlet]=\"child?.children?.length ? dropdownChild : defaultChild\"\r\n      [ngTemplateOutletContext]=\"{ $implicit: child }\"\r\n    ></ng-template>\r\n  </ng-template>\r\n\r\n  <ng-template #defaultChild let-child>\r\n    <div class=\"dropdown-submenu\" *abpPermission=\"child.requiredPolicy\">\r\n      <a class=\"dropdown-item\" [routerLink]=\"[child.url]\">\r\n        <i *ngIf=\"child.iconClass\" [ngClass]=\"child.iconClass\"></i>\r\n        {{ child.name | abpLocalization }}</a\r\n      >\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template #dropdownChild let-child>\r\n    <div\r\n      [abpVisibility]=\"childrenContainer\"\r\n      class=\"dropdown-submenu\"\r\n      ngbDropdown\r\n      #dropdownSubmenu=\"ngbDropdown\"\r\n      [display]=\"isDropdownChildDynamic ? 'dynamic' : 'static'\"\r\n      placement=\"right-top\"\r\n      [autoClose]=\"true\"\r\n      *abpPermission=\"child.requiredPolicy\"\r\n      (openChange)=\"openChange($event, childrenContainer)\"\r\n    >\r\n      <div ngbDropdownToggle [class.dropdown-toggle]=\"false\">\r\n        <a\r\n          abpEllipsis=\"210px\"\r\n          [abpEllipsisEnabled]=\"isDropdownChildDynamic\"\r\n          role=\"button\"\r\n          class=\"btn d-block text-left dropdown-toggle\"\r\n        >\r\n          <i *ngIf=\"child.iconClass\" [ngClass]=\"child.iconClass\"></i>\r\n          {{ child.name | abpLocalization }}\r\n        </a>\r\n      </div>\r\n      <div\r\n        #childrenContainer\r\n        class=\"dropdown-menu border-0 shadow-sm\"\r\n        [class.d-block]=\"smallScreen && dropdownSubmenu.isOpen()\"\r\n      >\r\n        <ng-template\r\n          ngFor\r\n          [ngForOf]=\"child.children\"\r\n          [ngForTrackBy]=\"trackByFn\"\r\n          [ngForTemplate]=\"childWrapper\"\r\n        ></ng-template>\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n</ul>\r\n"
+            }] }
+];
+/** @nocollapse */
+RoutesComponent.ctorParameters = () => [
+    { type: Renderer2 }
+];
+RoutesComponent.propDecorators = {
+    smallScreen: [{ type: Input }],
+    isDropdownChildDynamic: [{ type: Input }]
+};
+__decorate([
+    Select(ConfigState.getOne('routes')),
+    __metadata("design:type", Observable)
+], RoutesComponent.prototype, "routes$", void 0);
+if (false) {
+    /** @type {?} */
+    RoutesComponent.prototype.routes$;
+    /** @type {?} */
+    RoutesComponent.prototype.smallScreen;
+    /** @type {?} */
+    RoutesComponent.prototype.isDropdownChildDynamic;
+    /** @type {?} */
+    RoutesComponent.prototype.trackByFn;
+    /**
+     * @type {?}
+     * @private
+     */
+    RoutesComponent.prototype.renderer;
+}
+/**
+ * @param {?} routes
+ * @return {?}
+ */
+function getVisibleRoutes(routes) {
+    return routes.reduce((/**
+     * @param {?} acc
+     * @param {?} val
+     * @return {?}
+     */
+    (acc, val) => {
+        if (val.invisible)
+            return acc;
+        if (val.children && val.children.length) {
+            val.children = getVisibleRoutes(val.children);
+        }
+        return [...acc, val];
+    }), []);
+}
 
 /**
  * @fileoverview added by tsickle
@@ -534,348 +876,6 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
- * Generated from: lib/components/logo/logo.component.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class LogoComponent {
-    /**
-     * @param {?} store
-     */
-    constructor(store) {
-        this.store = store;
-    }
-    /**
-     * @return {?}
-     */
-    get appInfo() {
-        return this.store.selectSnapshot(ConfigState.getApplicationInfo);
-    }
-}
-LogoComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'abp-logo',
-                template: `
-    <a class="navbar-brand" routerLink="/">
-      <img
-        *ngIf="appInfo.logoUrl; else appName"
-        [src]="appInfo.logoUrl"
-        [alt]="appInfo.name"
-        width="100%"
-        height="auto"
-      />
-    </a>
-
-    <ng-template #appName>
-      {{ appInfo.name }}
-    </ng-template>
-  `
-            }] }
-];
-/** @nocollapse */
-LogoComponent.ctorParameters = () => [
-    { type: Store }
-];
-if (false) {
-    /**
-     * @type {?}
-     * @private
-     */
-    LogoComponent.prototype.store;
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/components/routes/routes.component.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class RoutesComponent {
-    /**
-     * @param {?} renderer
-     */
-    constructor(renderer) {
-        this.renderer = renderer;
-        this.trackByFn = (/**
-         * @param {?} _
-         * @param {?} item
-         * @return {?}
-         */
-        (_, item) => item.name);
-    }
-    /**
-     * @return {?}
-     */
-    get visibleRoutes$() {
-        return this.routes$.pipe(map((/**
-         * @param {?} routes
-         * @return {?}
-         */
-        routes => getVisibleRoutes(routes))));
-    }
-    /**
-     * @param {?} event
-     * @param {?} childrenContainer
-     * @return {?}
-     */
-    openChange(event, childrenContainer) {
-        if (!event) {
-            Object.keys(childrenContainer.style)
-                .filter((/**
-             * @param {?} key
-             * @return {?}
-             */
-            key => Number.isInteger(+key)))
-                .forEach((/**
-             * @param {?} key
-             * @return {?}
-             */
-            key => {
-                this.renderer.removeStyle(childrenContainer, childrenContainer.style[key]);
-            }));
-            this.renderer.removeStyle(childrenContainer, 'left');
-        }
-    }
-}
-RoutesComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'abp-routes',
-                template: "<ul class=\"navbar-nav\">\r\n  <ng-container\r\n    *ngFor=\"let route of visibleRoutes$ | async; trackBy: trackByFn\"\r\n    [ngTemplateOutlet]=\"route?.children?.length ? dropdownLink : defaultLink\"\r\n    [ngTemplateOutletContext]=\"{ $implicit: route }\"\r\n  >\r\n  </ng-container>\r\n\r\n  <ng-template #defaultLink let-route>\r\n    <li class=\"nav-item\" *abpPermission=\"route.requiredPolicy\">\r\n      <a class=\"nav-link\" [routerLink]=\"[route.url]\"\r\n        ><i *ngIf=\"route.iconClass\" [ngClass]=\"route.iconClass\"></i>\r\n        {{ route.name | abpLocalization }}</a\r\n      >\r\n    </li>\r\n  </ng-template>\r\n\r\n  <ng-template #dropdownLink let-route>\r\n    <li\r\n      #navbarRootDropdown\r\n      *abpPermission=\"route.requiredPolicy\"\r\n      [abpVisibility]=\"routeContainer\"\r\n      class=\"nav-item dropdown\"\r\n      display=\"static\"\r\n      (click)=\"\r\n        navbarRootDropdown.expand\r\n          ? (navbarRootDropdown.expand = false)\r\n          : (navbarRootDropdown.expand = true)\r\n      \"\r\n    >\r\n      <a\r\n        class=\"nav-link dropdown-toggle\"\r\n        data-toggle=\"dropdown\"\r\n        aria-haspopup=\"true\"\r\n        aria-expanded=\"false\"\r\n        href=\"javascript:void(0)\"\r\n      >\r\n        <i *ngIf=\"route.iconClass\" [ngClass]=\"route.iconClass\"></i>\r\n        {{ route.name | abpLocalization }}\r\n      </a>\r\n      <div\r\n        #routeContainer\r\n        class=\"dropdown-menu border-0 shadow-sm\"\r\n        (click)=\"$event.preventDefault(); $event.stopPropagation()\"\r\n        [class.d-block]=\"smallScreen && navbarRootDropdown.expand\"\r\n      >\r\n        <ng-template\r\n          #forTemplate\r\n          ngFor\r\n          [ngForOf]=\"route.children\"\r\n          [ngForTrackBy]=\"trackByFn\"\r\n          [ngForTemplate]=\"childWrapper\"\r\n        ></ng-template>\r\n      </div>\r\n    </li>\r\n  </ng-template>\r\n\r\n  <ng-template #childWrapper let-child>\r\n    <ng-template\r\n      [ngTemplateOutlet]=\"child?.children?.length ? dropdownChild : defaultChild\"\r\n      [ngTemplateOutletContext]=\"{ $implicit: child }\"\r\n    ></ng-template>\r\n  </ng-template>\r\n\r\n  <ng-template #defaultChild let-child>\r\n    <div class=\"dropdown-submenu\" *abpPermission=\"child.requiredPolicy\">\r\n      <a class=\"dropdown-item\" [routerLink]=\"[child.url]\">\r\n        <i *ngIf=\"child.iconClass\" [ngClass]=\"child.iconClass\"></i>\r\n        {{ child.name | abpLocalization }}</a\r\n      >\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template #dropdownChild let-child>\r\n    <div\r\n      [abpVisibility]=\"childrenContainer\"\r\n      class=\"dropdown-submenu\"\r\n      ngbDropdown\r\n      #dropdownSubmenu=\"ngbDropdown\"\r\n      [display]=\"isDropdownChildDynamic ? 'dynamic' : 'static'\"\r\n      placement=\"right-top\"\r\n      [autoClose]=\"true\"\r\n      *abpPermission=\"child.requiredPolicy\"\r\n      (openChange)=\"openChange($event, childrenContainer)\"\r\n    >\r\n      <div ngbDropdownToggle [class.dropdown-toggle]=\"false\">\r\n        <a\r\n          abpEllipsis=\"210px\"\r\n          [abpEllipsisEnabled]=\"isDropdownChildDynamic\"\r\n          role=\"button\"\r\n          class=\"btn d-block text-left dropdown-toggle\"\r\n        >\r\n          <i *ngIf=\"child.iconClass\" [ngClass]=\"child.iconClass\"></i>\r\n          {{ child.name | abpLocalization }}\r\n        </a>\r\n      </div>\r\n      <div\r\n        #childrenContainer\r\n        class=\"dropdown-menu border-0 shadow-sm\"\r\n        [class.d-block]=\"smallScreen && dropdownSubmenu.isOpen()\"\r\n      >\r\n        <ng-template\r\n          ngFor\r\n          [ngForOf]=\"child.children\"\r\n          [ngForTrackBy]=\"trackByFn\"\r\n          [ngForTemplate]=\"childWrapper\"\r\n        ></ng-template>\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n</ul>\r\n"
-            }] }
-];
-/** @nocollapse */
-RoutesComponent.ctorParameters = () => [
-    { type: Renderer2 }
-];
-RoutesComponent.propDecorators = {
-    smallScreen: [{ type: Input }],
-    isDropdownChildDynamic: [{ type: Input }]
-};
-__decorate([
-    Select(ConfigState.getOne('routes')),
-    __metadata("design:type", Observable)
-], RoutesComponent.prototype, "routes$", void 0);
-if (false) {
-    /** @type {?} */
-    RoutesComponent.prototype.routes$;
-    /** @type {?} */
-    RoutesComponent.prototype.smallScreen;
-    /** @type {?} */
-    RoutesComponent.prototype.isDropdownChildDynamic;
-    /** @type {?} */
-    RoutesComponent.prototype.trackByFn;
-    /**
-     * @type {?}
-     * @private
-     */
-    RoutesComponent.prototype.renderer;
-}
-/**
- * @param {?} routes
- * @return {?}
- */
-function getVisibleRoutes(routes) {
-    return routes.reduce((/**
-     * @param {?} acc
-     * @param {?} val
-     * @return {?}
-     */
-    (acc, val) => {
-        if (val.invisible)
-            return acc;
-        if (val.children && val.children.length) {
-            val.children = getVisibleRoutes(val.children);
-        }
-        return [...acc, val];
-    }), []);
-}
-
-/**
- * @fileoverview added by tsickle
- * Generated from: lib/components/nav-items/nav-items.component.ts
- * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-class NavItemsComponent {
-    /**
-     * @param {?} store
-     * @param {?} authService
-     */
-    constructor(store, authService) {
-        this.store = store;
-        this.authService = authService;
-        this.rightPartElements = [];
-        this.trackByFn = (/**
-         * @param {?} _
-         * @param {?} element
-         * @return {?}
-         */
-        (_, element) => element);
-    }
-    /**
-     * @return {?}
-     */
-    get defaultLanguage$() {
-        return this.languages$.pipe(map((/**
-         * @param {?} languages
-         * @return {?}
-         */
-        languages => snq((/**
-         * @return {?}
-         */
-        () => languages.find((/**
-         * @param {?} lang
-         * @return {?}
-         */
-        lang => lang.cultureName === this.selectedLangCulture)).displayName))), ''));
-    }
-    /**
-     * @return {?}
-     */
-    get dropdownLanguages$() {
-        return this.languages$.pipe(map((/**
-         * @param {?} languages
-         * @return {?}
-         */
-        languages => snq((/**
-         * @return {?}
-         */
-        () => languages.filter((/**
-         * @param {?} lang
-         * @return {?}
-         */
-        lang => lang.cultureName !== this.selectedLangCulture))))), []));
-    }
-    /**
-     * @return {?}
-     */
-    get selectedLangCulture() {
-        return this.store.selectSnapshot(SessionState.getLanguage);
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterViewInit() {
-        /** @type {?} */
-        const navigations = this.store
-            .selectSnapshot(LayoutState.getNavigationElements)
-            .map((/**
-         * @param {?} __0
-         * @return {?}
-         */
-        ({ name }) => name));
-        if (navigations.indexOf("LanguageRef" /* Language */) < 0) {
-            this.store.dispatch(new AddNavigationElement([
-                { element: this.languageRef, order: 4, name: "LanguageRef" /* Language */ },
-                { element: this.currentUserRef, order: 5, name: "CurrentUserRef" /* User */ },
-            ]));
-        }
-        this.navElements$
-            .pipe(map((/**
-         * @param {?} elements
-         * @return {?}
-         */
-        elements => elements.map((/**
-         * @param {?} __0
-         * @return {?}
-         */
-        ({ element }) => element)))), filter((/**
-         * @param {?} elements
-         * @return {?}
-         */
-        elements => !compare(elements, this.rightPartElements))), takeUntilDestroy(this))
-            .subscribe((/**
-         * @param {?} elements
-         * @return {?}
-         */
-        elements => {
-            setTimeout((/**
-             * @return {?}
-             */
-            () => (this.rightPartElements = elements)), 0);
-        }));
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() { }
-    /**
-     * @param {?} cultureName
-     * @return {?}
-     */
-    onChangeLang(cultureName) {
-        this.store.dispatch(new SetLanguage(cultureName));
-    }
-    /**
-     * @return {?}
-     */
-    logout() {
-        this.authService.logout().subscribe((/**
-         * @return {?}
-         */
-        () => {
-            this.store.dispatch(new Navigate(['/'], null, {
-                state: { redirectUrl: this.store.selectSnapshot(RouterState).state.url },
-            }));
-        }));
-    }
-}
-NavItemsComponent.decorators = [
-    { type: Component, args: [{
-                selector: 'abp-nav-items',
-                template: "<ul class=\"navbar-nav\">\r\n  <ng-container\r\n    *ngFor=\"let element of rightPartElements; trackBy: trackByFn\"\r\n    [ngTemplateOutlet]=\"element\"\r\n    [ngTemplateOutletContext]=\"{ smallScreen: smallScreen }\"\r\n  ></ng-container>\r\n</ul>\r\n\r\n<ng-template #language let-smallScreen=\"smallScreen\">\r\n  <li *ngIf=\"(dropdownLanguages$ | async)?.length > 0\" class=\"nav-item\">\r\n    <div class=\"dropdown\" ngbDropdown #languageDropdown=\"ngbDropdown\" display=\"static\">\r\n      <a\r\n        ngbDropdownToggle\r\n        class=\"nav-link\"\r\n        href=\"javascript:void(0)\"\r\n        role=\"button\"\r\n        id=\"dropdownMenuLink\"\r\n        data-toggle=\"dropdown\"\r\n        aria-haspopup=\"true\"\r\n        aria-expanded=\"false\"\r\n      >\r\n        {{ defaultLanguage$ | async }}\r\n      </a>\r\n      <div\r\n        class=\"dropdown-menu dropdown-menu-right border-0 shadow-sm\"\r\n        aria-labelledby=\"dropdownMenuLink\"\r\n        [class.d-block]=\"smallScreen && languageDropdown.isOpen()\"\r\n      >\r\n        <a\r\n          *ngFor=\"let lang of dropdownLanguages$ | async\"\r\n          href=\"javascript:void(0)\"\r\n          class=\"dropdown-item\"\r\n          (click)=\"onChangeLang(lang.cultureName)\"\r\n          >{{ lang?.displayName }}</a\r\n        >\r\n      </div>\r\n    </div>\r\n  </li>\r\n</ng-template>\r\n\r\n<ng-template #currentUser let-smallScreen=\"smallScreen\">\r\n  <li class=\"nav-item\">\r\n    <ng-template #loginBtn>\r\n      <a role=\"button\" class=\"nav-link\" routerLink=\"/account/login\">{{\r\n        'AbpAccount::Login' | abpLocalization\r\n      }}</a>\r\n    </ng-template>\r\n    <div\r\n      *ngIf=\"(currentUser$ | async)?.isAuthenticated; else loginBtn\"\r\n      ngbDropdown\r\n      class=\"dropdown\"\r\n      #currentUserDropdown=\"ngbDropdown\"\r\n      display=\"static\"\r\n    >\r\n      <a\r\n        ngbDropdownToggle\r\n        class=\"nav-link\"\r\n        href=\"javascript:void(0)\"\r\n        role=\"button\"\r\n        id=\"dropdownMenuLink\"\r\n        data-toggle=\"dropdown\"\r\n        aria-haspopup=\"true\"\r\n        aria-expanded=\"false\"\r\n      >\r\n        {{ (currentUser$ | async)?.userName }}\r\n      </a>\r\n      <div\r\n        class=\"dropdown-menu dropdown-menu-right border-0 shadow-sm\"\r\n        aria-labelledby=\"dropdownMenuLink\"\r\n        [class.d-block]=\"smallScreen && currentUserDropdown.isOpen()\"\r\n      >\r\n        <a class=\"dropdown-item\" routerLink=\"/account/manage-profile\"\r\n          ><i class=\"fa fa-cog mr-1\"></i>{{ 'AbpAccount::ManageYourProfile' | abpLocalization }}</a\r\n        >\r\n        <a class=\"dropdown-item\" href=\"javascript:void(0)\" (click)=\"logout()\"\r\n          ><i class=\"fa fa-power-off mr-1\"></i>{{ 'AbpUi::Logout' | abpLocalization }}</a\r\n        >\r\n      </div>\r\n    </div>\r\n  </li>\r\n</ng-template>\r\n"
-            }] }
-];
-/** @nocollapse */
-NavItemsComponent.ctorParameters = () => [
-    { type: Store },
-    { type: AuthService }
-];
-NavItemsComponent.propDecorators = {
-    currentUserRef: [{ type: ViewChild, args: ['currentUser', { static: false, read: TemplateRef },] }],
-    languageRef: [{ type: ViewChild, args: ['language', { static: false, read: TemplateRef },] }],
-    smallScreen: [{ type: Input }]
-};
-__decorate([
-    Select(LayoutState.getNavigationElements),
-    __metadata("design:type", Observable)
-], NavItemsComponent.prototype, "navElements$", void 0);
-__decorate([
-    Select(ConfigState.getOne('currentUser')),
-    __metadata("design:type", Observable)
-], NavItemsComponent.prototype, "currentUser$", void 0);
-__decorate([
-    Select(ConfigState.getDeep('localization.languages')),
-    __metadata("design:type", Observable)
-], NavItemsComponent.prototype, "languages$", void 0);
-if (false) {
-    /** @type {?} */
-    NavItemsComponent.prototype.navElements$;
-    /** @type {?} */
-    NavItemsComponent.prototype.currentUser$;
-    /** @type {?} */
-    NavItemsComponent.prototype.languages$;
-    /** @type {?} */
-    NavItemsComponent.prototype.currentUserRef;
-    /** @type {?} */
-    NavItemsComponent.prototype.languageRef;
-    /** @type {?} */
-    NavItemsComponent.prototype.smallScreen;
-    /** @type {?} */
-    NavItemsComponent.prototype.rightPartElements;
-    /** @type {?} */
-    NavItemsComponent.prototype.trackByFn;
-    /**
-     * @type {?}
-     * @private
-     */
-    NavItemsComponent.prototype.store;
-    /**
-     * @type {?}
-     * @private
-     */
-    NavItemsComponent.prototype.authService;
-}
-
-/**
- * @fileoverview added by tsickle
  * Generated from: lib/theme-basic.module.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -908,13 +908,17 @@ ThemeBasicModule.decorators = [
                     NgxValidateCoreModule.forRoot({
                         targetSelector: '.form-group',
                         blueprints: {
-                            email: 'AbpAccount::ThisFieldIsNotAValidEmailAddress.',
-                            max: 'AbpAccount::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
-                            maxlength: 'AbpAccount::ThisFieldMustBeAStringOrArrayTypeWithAMaximumLengthOf{0}[{{ requiredLength }}]',
-                            min: 'AbpAccount::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
-                            minlength: 'AbpAccount::ThisFieldMustBeAStringOrArrayTypeWithAMinimumLengthOf{0}[{{ requiredLength }}]',
-                            required: 'AbpAccount::ThisFieldIsRequired.',
+                            creditCard: 'AbpValidation::ThisFieldIsNotAValidCreditCardNumber.',
+                            email: 'AbpValidation::ThisFieldIsNotAValidEmailAddress.',
+                            max: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+                            maxlength: 'AbpValidation::ThisFieldMustBeAStringOrArrayTypeWithAMaximumLengthOf{0}[{{ requiredLength }}]',
+                            min: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+                            minlength: 'AbpValidation::ThisFieldMustBeAStringOrArrayTypeWithAMinimumLengthOf{0}[{{ requiredLength }}]',
+                            ngbDate: 'AbpValidation::ThisFieldIsNotValid.',
                             passwordMismatch: 'AbpIdentity::Identity.PasswordConfirmationFailed',
+                            range: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+                            required: 'AbpValidation::ThisFieldIsRequired.',
+                            url: 'AbpValidation::ThisFieldIsNotAValidFullyQualifiedHttpHttpsOrFtpUrl',
                         },
                         errorTemplate: ValidationErrorComponent,
                     }),

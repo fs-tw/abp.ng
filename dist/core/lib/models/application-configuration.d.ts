@@ -58,5 +58,6 @@ export declare namespace ApplicationConfiguration {
         id: string;
         tenantId: string;
         userName: string;
+        email: string;
     }
 }

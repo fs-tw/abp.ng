@@ -1,0 +1,9 @@
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/tokens/list.token.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+import { InjectionToken } from '@angular/core';
+/** @type {?} */
+export const LIST_QUERY_DEBOUNCE_TIME = new InjectionToken('LIST_QUERY_DEBOUNCE_TIME');
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibGlzdC50b2tlbi5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0BhYnAvbmcuY29yZS8iLCJzb3VyY2VzIjpbImxpYi90b2tlbnMvbGlzdC50b2tlbi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQUFBLE9BQU8sRUFBRSxjQUFjLEVBQUUsTUFBTSxlQUFlLENBQUM7O0FBRS9DLE1BQU0sT0FBTyx3QkFBd0IsR0FBRyxJQUFJLGNBQWMsQ0FBUywwQkFBMEIsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IEluamVjdGlvblRva2VuIH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XHJcblxyXG5leHBvcnQgY29uc3QgTElTVF9RVUVSWV9ERUJPVU5DRV9USU1FID0gbmV3IEluamVjdGlvblRva2VuPG51bWJlcj4oJ0xJU1RfUVVFUllfREVCT1VOQ0VfVElNRScpO1xyXG4iXX0=

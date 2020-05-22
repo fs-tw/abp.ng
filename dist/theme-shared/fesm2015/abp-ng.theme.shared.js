@@ -5,7 +5,7 @@ import { NgbDateParserFormatter, NgbPaginationModule } from '@ng-bootstrap/ng-bo
 import { takeUntilDestroy as takeUntilDestroy$1, NgxValidateCoreModule, validatePassword } from '@ngx-validate/core';
 import { Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 import { Store, ofActionSuccessful, Actions } from '@ngxs/store';
-import { ReplaySubject, BehaviorSubject, fromEvent, interval, timer, Subject } from 'rxjs';
+import { ReplaySubject, BehaviorSubject, fromEvent, timer, Subject } from 'rxjs';
 import { debounceTime, filter, takeUntil, distinctUntilChanged, take, map } from 'rxjs/operators';
 import snq from 'snq';
 import { animation, style, animate, trigger, transition, useAnimation, query, keyframes, state } from '@angular/animations';
@@ -485,7 +485,7 @@ var Confirmation;
         /** @type {?|undefined} */
         Options.prototype.id;
         /** @type {?|undefined} */
-        Options.prototype.closable;
+        Options.prototype.dismissible;
         /** @type {?|undefined} */
         Options.prototype.messageLocalizationParams;
         /** @type {?|undefined} */
@@ -498,6 +498,12 @@ var Confirmation;
         Options.prototype.cancelText;
         /** @type {?|undefined} */
         Options.prototype.yesText;
+        /**
+         *
+         * @deprecated To be deleted in v2.9
+         * @type {?|undefined}
+         */
+        Options.prototype.closable;
     }
     /**
      * @record
@@ -562,7 +568,7 @@ class ConfirmationComponent {
 ConfirmationComponent.decorators = [
     { type: Component, args: [{
                 selector: 'abp-confirmation',
-                template: "<div class=\"confirmation\" *ngIf=\"confirmation$ | async as data\">\r\n  <div class=\"confirmation-backdrop\"></div>\r\n  <div class=\"confirmation-dialog\">\r\n    <div class=\"icon-container\" [ngClass]=\"data.severity\" *ngIf=\"data.severity\">\r\n      <i class=\"fa icon\" [ngClass]=\"getIconClass(data)\"></i>\r\n    </div>\r\n    <div class=\"content\">\r\n      <h1\r\n        class=\"title\"\r\n        *ngIf=\"data.title\"\r\n        [innerHTML]=\"data.title | abpLocalization: data.options?.titleLocalizationParams\"\r\n      ></h1>\r\n      <p\r\n        class=\"message\"\r\n        *ngIf=\"data.message\"\r\n        [innerHTML]=\"data.message | abpLocalization: data.options?.messageLocalizationParams\"\r\n      ></p>\r\n    </div>\r\n    <div class=\"footer\">\r\n      <button\r\n        id=\"cancel\"\r\n        class=\"confirmation-button confirmation-button--reject\"\r\n        [innerHTML]=\"data.options?.cancelText || 'AbpUi::Cancel' | abpLocalization\"\r\n        *ngIf=\"!data?.options?.hideCancelBtn\"\r\n        (click)=\"close(reject)\"\r\n      ></button>\r\n      <button\r\n        id=\"confirm\"\r\n        class=\"confirmation-button confirmation-button--approve\"\r\n        [innerHTML]=\"data.options?.yesText || 'AbpUi::Yes' | abpLocalization\"\r\n        *ngIf=\"!data?.options?.hideYesBtn\"\r\n        (click)=\"close(confirm)\"\r\n      ></button>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                template: "<div class=\"confirmation\" *ngIf=\"confirmation$ | async as data\">\r\n  <div\r\n    class=\"confirmation-backdrop\"\r\n    (click)=\"data.options?.dismissible ? close(dismiss) : null\"\r\n  ></div>\r\n  <div class=\"confirmation-dialog\">\r\n    <div class=\"icon-container\" [ngClass]=\"data.severity\" *ngIf=\"data.severity\">\r\n      <i class=\"fa icon\" [ngClass]=\"getIconClass(data)\"></i>\r\n    </div>\r\n    <div class=\"content\">\r\n      <h1\r\n        class=\"title\"\r\n        *ngIf=\"data.title\"\r\n        [innerHTML]=\"data.title | abpLocalization: data.options?.titleLocalizationParams\"\r\n      ></h1>\r\n      <p\r\n        class=\"message\"\r\n        *ngIf=\"data.message\"\r\n        [innerHTML]=\"data.message | abpLocalization: data.options?.messageLocalizationParams\"\r\n      ></p>\r\n    </div>\r\n    <div class=\"footer\">\r\n      <button\r\n        id=\"cancel\"\r\n        class=\"confirmation-button confirmation-button--reject\"\r\n        [innerHTML]=\"data.options?.cancelText || 'AbpUi::Cancel' | abpLocalization\"\r\n        *ngIf=\"!data?.options?.hideCancelBtn\"\r\n        (click)=\"close(reject)\"\r\n      ></button>\r\n      <button\r\n        id=\"confirm\"\r\n        class=\"confirmation-button confirmation-button--approve\"\r\n        [innerHTML]=\"data.options?.yesText || 'AbpUi::Yes' | abpLocalization\"\r\n        *ngIf=\"!data?.options?.hideYesBtn\"\r\n        (click)=\"close(confirm)\"\r\n      ></button>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
                 styles: [".confirmation{position:fixed;top:0;right:0;bottom:0;left:0;display:flex;align-items:center;justify-content:center;z-index:1060}.confirmation .confirmation-backdrop{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1061!important}.confirmation .confirmation-dialog{display:flex;flex-direction:column;margin:20px auto;padding:0;width:450px;min-height:300px;z-index:1062!important}@media screen and (max-width:500px){.confirmation .confirmation-dialog{width:90vw}}.confirmation .confirmation-dialog .icon-container{display:flex;align-items:center;justify-content:center;margin:0 0 10px;padding:20px}.confirmation .confirmation-dialog .icon-container .icon{width:100px;height:100px;stroke-width:1;font-size:80px;text-align:center}.confirmation .confirmation-dialog .content{flex-grow:1;display:block}.confirmation .confirmation-dialog .content .title{display:block;margin:0;padding:0;font-size:27px;font-weight:600;text-align:center}.confirmation .confirmation-dialog .content .message{display:block;margin:10px auto;padding:20px;font-size:16px;font-weight:400;text-align:center}.confirmation .confirmation-dialog .footer{display:flex;align-items:center;justify-content:flex-end;margin:10px 0 0;padding:20px;width:100%}.confirmation .confirmation-dialog .footer .confirmation-button{display:inline-block;margin:0 5px;padding:10px 20px;border:none;border-radius:6px;font-size:14px;font-weight:600}"]
             }] }
 ];
@@ -707,12 +713,37 @@ class LoaderBarComponent {
         this.isLoading = false;
         this.progressLevel = 0;
         this.intervalPeriod = 350;
-        this.stopDelay = 820;
+        this.stopDelay = 800;
         this.filter = (/**
          * @param {?} action
          * @return {?}
          */
         (action) => action.payload.url.indexOf('openid-configuration') < 0);
+        this.clearProgress = (/**
+         * @return {?}
+         */
+        () => {
+            this.progressLevel = 0;
+            this.cdRef.detectChanges();
+        });
+        this.reportProgress = (/**
+         * @return {?}
+         */
+        () => {
+            if (this.progressLevel < 75) {
+                this.progressLevel += 1 + Math.random() * 9;
+            }
+            else if (this.progressLevel < 90) {
+                this.progressLevel += 0.4;
+            }
+            else if (this.progressLevel < 100) {
+                this.progressLevel += 0.1;
+            }
+            else {
+                this.interval.unsubscribe();
+            }
+            this.cdRef.detectChanges();
+        });
     }
     /**
      * @return {?}
@@ -721,9 +752,10 @@ class LoaderBarComponent {
         return `0 0 10px rgba(${this.color}, 0.5)`;
     }
     /**
+     * @private
      * @return {?}
      */
-    ngOnInit() {
+    subscribeToLoadActions() {
         this.actions
             .pipe(ofActionSuccessful(StartLoader, StopLoader), filter(this.filter), takeUntilDestroy$1(this))
             .subscribe((/**
@@ -736,6 +768,12 @@ class LoaderBarComponent {
             else
                 this.stopLoading();
         }));
+    }
+    /**
+     * @private
+     * @return {?}
+     */
+    subscribeToRouterEvents() {
         this.router.events
             .pipe(filter((/**
          * @param {?} event
@@ -758,6 +796,13 @@ class LoaderBarComponent {
     /**
      * @return {?}
      */
+    ngOnInit() {
+        this.subscribeToLoadActions();
+        this.subscribeToRouterEvents();
+    }
+    /**
+     * @return {?}
+     */
     ngOnDestroy() {
         if (this.interval)
             this.interval.unsubscribe();
@@ -766,27 +811,10 @@ class LoaderBarComponent {
      * @return {?}
      */
     startLoading() {
-        if (this.isLoading || this.progressLevel !== 0)
+        if (this.isLoading || (this.interval && !this.interval.closed))
             return;
         this.isLoading = true;
-        this.interval = interval(this.intervalPeriod).subscribe((/**
-         * @return {?}
-         */
-        () => {
-            if (this.progressLevel < 75) {
-                this.progressLevel += Math.random() * 10;
-            }
-            else if (this.progressLevel < 90) {
-                this.progressLevel += 0.4;
-            }
-            else if (this.progressLevel < 100) {
-                this.progressLevel += 0.1;
-            }
-            else {
-                this.interval.unsubscribe();
-            }
-            this.cdRef.detectChanges();
-        }));
+        this.interval = timer(0, this.intervalPeriod).subscribe(this.reportProgress);
     }
     /**
      * @return {?}
@@ -798,13 +826,7 @@ class LoaderBarComponent {
         this.isLoading = false;
         if (this.timer && !this.timer.closed)
             return;
-        this.timer = timer(this.stopDelay).subscribe((/**
-         * @return {?}
-         */
-        () => {
-            this.progressLevel = 0;
-            this.cdRef.detectChanges();
-        }));
+        this.timer = timer(this.stopDelay).subscribe(this.clearProgress);
     }
 }
 LoaderBarComponent.decorators = [
@@ -814,6 +836,7 @@ LoaderBarComponent.decorators = [
     <div id="abp-loader-bar" [ngClass]="containerClass" [class.is-loading]="isLoading">
       <div
         class="abp-progress"
+        [class.progressing]="progressLevel"
         [style.width.vw]="progressLevel"
         [ngStyle]="{
           'background-color': color,
@@ -822,7 +845,7 @@ LoaderBarComponent.decorators = [
       ></div>
     </div>
   `,
-                styles: [".abp-loader-bar{left:0;opacity:0;position:fixed;top:0;transition:opacity .4s linear .4s;z-index:99999}.abp-loader-bar.is-loading{opacity:1;transition:none}.abp-loader-bar .abp-progress{height:3px;left:0;position:fixed;top:0;transition:width .4s}"]
+                styles: [".abp-loader-bar{left:0;opacity:0;position:fixed;top:0;transition:opacity .4s linear .4s;z-index:99999}.abp-loader-bar.is-loading{opacity:1;transition:none}.abp-loader-bar .abp-progress{height:3px;left:0;position:fixed;top:0}.abp-loader-bar .abp-progress.progressing{transition:width .4s}"]
             }] }
 ];
 /** @nocollapse */
@@ -856,6 +879,16 @@ if (false) {
     LoaderBarComponent.prototype.stopDelay;
     /** @type {?} */
     LoaderBarComponent.prototype.filter;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoaderBarComponent.prototype.clearProgress;
+    /**
+     * @type {?}
+     * @private
+     */
+    LoaderBarComponent.prototype.reportProgress;
     /**
      * @type {?}
      * @private
@@ -1092,7 +1125,7 @@ class ConfirmationService {
      * @param {?=} options
      * @return {?}
      */
-    show(message, title, severity, options) {
+    show(message, title, severity, options = (/** @type {?} */ ({}))) {
         if (!this.containerComponentRef)
             this.setContainer();
         this.confirmation$.next({
@@ -1102,7 +1135,9 @@ class ConfirmationService {
             options,
         });
         this.status$ = new Subject();
-        this.listenToEscape();
+        const { dismissible = true } = options;
+        if (dismissible)
+            this.listenToEscape();
         return this.status$;
     }
     /**

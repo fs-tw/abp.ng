@@ -8,10 +8,18 @@
         ]
     },
     {
-        "name": "abpBaseLibs",
+        "name": "abpCoreBasic",
         "sync": false,
         "packages": [
             "@abp/ng.theme.basic",
+            "@abp/ng.permission-management",
+            "@abp/ng.feature-management"
+        ]
+    },
+    {
+        "name": "abpLibs",
+        "sync": false,
+        "packages": [
             "@abp/ng.account",
             "@abp/ng.identity",
             "@abp/ng.setting-management",
@@ -19,11 +27,9 @@
         ]
     },
     {
-        "name": "abpLibs",
+        "name": "abpLibConfigs",
         "sync": false,
         "packages": [
-            "@abp/ng.feature-management",
-            "@abp/ng.permission-management",
             "@abp/ng.account.config",
             "@abp/ng.identity.config",
             "@abp/ng.setting-management.config",

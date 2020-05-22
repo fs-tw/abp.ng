@@ -1,21 +1,20 @@
-import { NgZone } from '@angular/core';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { Store, Actions } from '@ngxs/store';
+import { Injector, NgZone } from '@angular/core';
+import { Actions, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { SetLanguage } from '../actions/session.actions';
 import { Config } from '../models/config';
-declare type ShouldReuseRoute = (future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot) => boolean;
 export declare class LocalizationService {
     private actions;
     private store;
-    private router;
+    private injector;
     private ngZone;
     /**
      * Returns currently selected language
      */
     readonly currentLang: string;
-    constructor(actions: Actions, store: Store, router: Router, ngZone: NgZone, otherInstance: LocalizationService);
+    readonly languageChange: Observable<SetLanguage>;
+    constructor(actions: Actions, store: Store, injector: Injector, ngZone: NgZone, otherInstance: LocalizationService);
     private listenToSetLanguage;
-    setRouteReuse(reuse: ShouldReuseRoute): void;
     registerLocale(locale: string): Promise<void>;
     /**
      * Returns an observable localized text with the given interpolation parameters in current language.
@@ -29,5 +28,8 @@ export declare class LocalizationService {
      * @param interpolateParams Values to intepolate.
      */
     instant(key: string | Config.LocalizationWithDefault, ...interpolateParams: string[]): string;
+    localize(resourceName: string, key: string, defaultValue: string): Observable<string>;
+    localizeSync(resourceName: string, key: string, defaultValue: string): string;
+    localizeWithFallback(resourceNames: string[], keys: string[], defaultValue: string): Observable<string>;
+    localizeWithFallbackSync(resourceNames: string[], keys: string[], defaultValue: string): string;
 }
-export {};

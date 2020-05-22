@@ -8,18 +8,18 @@
     compare = compare && compare.hasOwnProperty('default') ? compare['default'] : compare;
 
     /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
+    Copyright (c) Microsoft Corporation.
 
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
 
@@ -75,10 +75,11 @@
     }
 
     function __awaiter(thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
             function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
             function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
@@ -111,19 +112,25 @@
         }
     }
 
+    function __createBinding(o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        o[k2] = m[k];
+    }
+
     function __exportStar(m, exports) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) exports[p] = m[p];
     }
 
     function __values(o) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
         if (m) return m.call(o);
-        return {
+        if (o && typeof o.length === "number") return {
             next: function () {
                 if (o && i >= o.length) o = void 0;
                 return { value: o && o[i++], done: !o };
             }
         };
+        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
 
     function __read(o, n) {
@@ -202,6 +209,21 @@
 
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
+    }
+
+    function __classPrivateFieldGet(receiver, privateMap) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to get private field on non-instance");
+        }
+        return privateMap.get(receiver);
+    }
+
+    function __classPrivateFieldSet(receiver, privateMap, value) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to set private field on non-instance");
+        }
+        privateMap.set(receiver, value);
+        return value;
     }
 
     /**
@@ -356,6 +378,45 @@
     if (false) {
         /** @type {?} */
         EmptyLayoutComponent.type;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/components/logo/logo.component.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var LogoComponent = /** @class */ (function () {
+        function LogoComponent(store) {
+            this.store = store;
+        }
+        Object.defineProperty(LogoComponent.prototype, "appInfo", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this.store.selectSnapshot(ng_core.ConfigState.getApplicationInfo);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        LogoComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'abp-logo',
+                        template: "\n    <a class=\"navbar-brand\" routerLink=\"/\">\n      <img\n        *ngIf=\"appInfo.logoUrl; else appName\"\n        [src]=\"appInfo.logoUrl\"\n        [alt]=\"appInfo.name\"\n        width=\"100%\"\n        height=\"auto\"\n      />\n    </a>\n\n    <ng-template #appName>\n      {{ appInfo.name }}\n    </ng-template>\n  "
+                    }] }
+        ];
+        /** @nocollapse */
+        LogoComponent.ctorParameters = function () { return [
+            { type: store.Store }
+        ]; };
+        return LogoComponent;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        LogoComponent.prototype.store;
     }
 
     /**
@@ -519,269 +580,6 @@
         ], LayoutState);
         return LayoutState;
     }());
-
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: lib/components/validation-error/validation-error.component.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var ValidationErrorComponent = /** @class */ (function (_super) {
-        __extends(ValidationErrorComponent, _super);
-        function ValidationErrorComponent() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        Object.defineProperty(ValidationErrorComponent.prototype, "abpErrors", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                if (!this.errors || !this.errors.length)
-                    return [];
-                return this.errors.map((/**
-                 * @param {?} error
-                 * @return {?}
-                 */
-                function (error) {
-                    if (!error.message)
-                        return error;
-                    /** @type {?} */
-                    var index = error.message.indexOf('[');
-                    if (index > -1) {
-                        return __assign({}, error, { message: error.message.slice(0, index), interpoliteParams: error.message.slice(index + 1, error.message.length - 1).split(',') });
-                    }
-                    return error;
-                }));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        ValidationErrorComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'abp-validation-error',
-                        template: "\n    <div class=\"invalid-feedback\" *ngFor=\"let error of abpErrors; trackBy: trackByFn\">\n      {{ error.message | abpLocalization: error.interpoliteParams }}\n    </div>\n  ",
-                        changeDetection: core.ChangeDetectionStrategy.OnPush,
-                        encapsulation: core.ViewEncapsulation.None
-                    }] }
-        ];
-        return ValidationErrorComponent;
-    }(core$1.ValidationErrorComponent));
-
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: lib/constants/styles.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var styles = "\n.content-header-title {\n    font-size: 24px;\n}\n\n.entry-row {\n    margin-bottom: 15px;\n}\n#main-navbar-tools a.dropdown-toggle {\n    text-decoration: none;\n    color: #fff;\n}\n.navbar .dropdown-submenu {\n    position: relative;\n}\n.navbar .dropdown-menu {\n    margin: 0;\n    padding: 0;\n}\n.navbar .dropdown-menu a {\n    font-size: .9em;\n    padding: 10px 15px;\n    display: block;\n    min-width: 210px;\n    text-align: left;\n    border-radius: 0.25rem;\n    min-height: 44px;\n}\n.navbar .dropdown-submenu a::after {\n    transform: rotate(-90deg);\n    position: absolute;\n    right: 16px;\n    top: 18px;\n}\n.navbar .dropdown-submenu .dropdown-menu {\n    top: 0;\n    left: 100%;\n}\n\n.card-header .btn {\n    padding: 2px 6px;\n}\n.card-header h5 {\n    margin: 0;\n}\n.container > .card {\n    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;\n}\n@media screen and (min-width: 768px) {\n    .navbar .dropdown:hover > .dropdown-menu {\n        display: block;\n    }\n\n    .navbar .dropdown-submenu:hover > .dropdown-menu {\n        display: block;\n    }\n}\n.input-validation-error {\n    border-color: #dc3545;\n}\n.field-validation-error {\n    font-size: 0.8em;\n}\n.ui-table .ui-table-tbody > tr.empty-row > div.empty-row-content {\n    border: 1px solid #c8c8c8;\n  }\n.abp-loading {\n    background: rgba(0, 0, 0, 0.1);\n}\n.modal-backdrop {\nbackground-color: rgba(0, 0, 0, 0.6);\n}\n\n.confirmation .confirmation-backdrop {\n\t background: rgba(0, 0, 0, 0.7) !important;\n}\n .confirmation .confirmation-dialog {\n\t border: none;\n\t border-radius: 10px;\n\t background-color: #fff;\n\t box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.5);\n}\n .confirmation .confirmation-dialog .icon-container .icon {\n\t stroke: #fff;\n\t color: #fff;\n}\n .confirmation .confirmation-dialog .icon-container.info .icon {\n\t stroke: #2f96b4;\n\t color: #2f96b4;\n}\n .confirmation .confirmation-dialog .icon-container.success .icon {\n\t stroke: #51a351;\n\t color: #51a351;\n}\n .confirmation .confirmation-dialog .icon-container.warning .icon {\n\t stroke: #f89406;\n\t color: #f89406;\n}\n .confirmation .confirmation-dialog .icon-container.error .icon {\n\t stroke: #bd362f;\n\t color: #bd362f;\n}\n .confirmation .confirmation-dialog .content .title {\n\t color: #222;\n}\n .confirmation .confirmation-dialog .content .message {\n\t color: #777;\n}\n .confirmation .confirmation-dialog .footer {\n\t background: transparent;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button {\n\t background-color: #eee;\n\t color: #777;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button:hover, .confirmation .confirmation-dialog .footer .confirmation-button:focus, .confirmation .confirmation-dialog .footer .confirmation-button:active {\n\t background-color: #bbb;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button--confirm {\n\t background-color: #2f96b4;\n\t color: #fff;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button--confirm:hover {\n\t background-color: #2e819b;\n}\n.ui-table .pagination-wrapper {\n    background-color: #f4f4f4;\n    border: 1px solid #c8c8c8;\n}\n";
-
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: lib/services/initial.service.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var InitialService = /** @class */ (function () {
-        function InitialService(domInsertion, store) {
-            this.domInsertion = domInsertion;
-            this.store = store;
-            this.appendStyle();
-            this.store.dispatch([
-                new ng_core.AddReplaceableComponent({
-                    key: "Theme.ApplicationLayoutComponent" /* ApplicationLayout */,
-                    component: ApplicationLayoutComponent,
-                }),
-                new ng_core.AddReplaceableComponent({
-                    key: "Theme.AccountLayoutComponent" /* AccountLayout */,
-                    component: AccountLayoutComponent,
-                }),
-                new ng_core.AddReplaceableComponent({
-                    key: "Theme.EmptyLayoutComponent" /* EmptyLayout */,
-                    component: EmptyLayoutComponent,
-                }),
-            ]);
-        }
-        /**
-         * @return {?}
-         */
-        InitialService.prototype.appendStyle = /**
-         * @return {?}
-         */
-        function () {
-            this.domInsertion.insertContent(ng_core.CONTENT_STRATEGY.AppendStyleToHead(styles));
-        };
-        InitialService.decorators = [
-            { type: core.Injectable, args: [{ providedIn: 'root' },] }
-        ];
-        /** @nocollapse */
-        InitialService.ctorParameters = function () { return [
-            { type: ng_core.DomInsertionService },
-            { type: store.Store }
-        ]; };
-        /** @nocollapse */ InitialService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function InitialService_Factory() { return new InitialService(core.ɵɵinject(ng_core.DomInsertionService), core.ɵɵinject(store.Store)); }, token: InitialService, providedIn: "root" });
-        return InitialService;
-    }());
-    if (false) {
-        /**
-         * @type {?}
-         * @private
-         */
-        InitialService.prototype.domInsertion;
-        /**
-         * @type {?}
-         * @private
-         */
-        InitialService.prototype.store;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: lib/components/logo/logo.component.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var LogoComponent = /** @class */ (function () {
-        function LogoComponent(store) {
-            this.store = store;
-        }
-        Object.defineProperty(LogoComponent.prototype, "appInfo", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this.store.selectSnapshot(ng_core.ConfigState.getApplicationInfo);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        LogoComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'abp-logo',
-                        template: "\n    <a class=\"navbar-brand\" routerLink=\"/\">\n      <img\n        *ngIf=\"appInfo.logoUrl; else appName\"\n        [src]=\"appInfo.logoUrl\"\n        [alt]=\"appInfo.name\"\n        width=\"100%\"\n        height=\"auto\"\n      />\n    </a>\n\n    <ng-template #appName>\n      {{ appInfo.name }}\n    </ng-template>\n  "
-                    }] }
-        ];
-        /** @nocollapse */
-        LogoComponent.ctorParameters = function () { return [
-            { type: store.Store }
-        ]; };
-        return LogoComponent;
-    }());
-    if (false) {
-        /**
-         * @type {?}
-         * @private
-         */
-        LogoComponent.prototype.store;
-    }
-
-    /**
-     * @fileoverview added by tsickle
-     * Generated from: lib/components/routes/routes.component.ts
-     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
-     */
-    var RoutesComponent = /** @class */ (function () {
-        function RoutesComponent(renderer) {
-            this.renderer = renderer;
-            this.trackByFn = (/**
-             * @param {?} _
-             * @param {?} item
-             * @return {?}
-             */
-            function (_, item) { return item.name; });
-        }
-        Object.defineProperty(RoutesComponent.prototype, "visibleRoutes$", {
-            get: /**
-             * @return {?}
-             */
-            function () {
-                return this.routes$.pipe(operators.map((/**
-                 * @param {?} routes
-                 * @return {?}
-                 */
-                function (routes) { return getVisibleRoutes(routes); })));
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * @param {?} event
-         * @param {?} childrenContainer
-         * @return {?}
-         */
-        RoutesComponent.prototype.openChange = /**
-         * @param {?} event
-         * @param {?} childrenContainer
-         * @return {?}
-         */
-        function (event, childrenContainer) {
-            var _this = this;
-            if (!event) {
-                Object.keys(childrenContainer.style)
-                    .filter((/**
-                 * @param {?} key
-                 * @return {?}
-                 */
-                function (key) { return Number.isInteger(+key); }))
-                    .forEach((/**
-                 * @param {?} key
-                 * @return {?}
-                 */
-                function (key) {
-                    _this.renderer.removeStyle(childrenContainer, childrenContainer.style[key]);
-                }));
-                this.renderer.removeStyle(childrenContainer, 'left');
-            }
-        };
-        RoutesComponent.decorators = [
-            { type: core.Component, args: [{
-                        selector: 'abp-routes',
-                        template: "<ul class=\"navbar-nav\">\r\n  <ng-container\r\n    *ngFor=\"let route of visibleRoutes$ | async; trackBy: trackByFn\"\r\n    [ngTemplateOutlet]=\"route?.children?.length ? dropdownLink : defaultLink\"\r\n    [ngTemplateOutletContext]=\"{ $implicit: route }\"\r\n  >\r\n  </ng-container>\r\n\r\n  <ng-template #defaultLink let-route>\r\n    <li class=\"nav-item\" *abpPermission=\"route.requiredPolicy\">\r\n      <a class=\"nav-link\" [routerLink]=\"[route.url]\"\r\n        ><i *ngIf=\"route.iconClass\" [ngClass]=\"route.iconClass\"></i>\r\n        {{ route.name | abpLocalization }}</a\r\n      >\r\n    </li>\r\n  </ng-template>\r\n\r\n  <ng-template #dropdownLink let-route>\r\n    <li\r\n      #navbarRootDropdown\r\n      *abpPermission=\"route.requiredPolicy\"\r\n      [abpVisibility]=\"routeContainer\"\r\n      class=\"nav-item dropdown\"\r\n      display=\"static\"\r\n      (click)=\"\r\n        navbarRootDropdown.expand\r\n          ? (navbarRootDropdown.expand = false)\r\n          : (navbarRootDropdown.expand = true)\r\n      \"\r\n    >\r\n      <a\r\n        class=\"nav-link dropdown-toggle\"\r\n        data-toggle=\"dropdown\"\r\n        aria-haspopup=\"true\"\r\n        aria-expanded=\"false\"\r\n        href=\"javascript:void(0)\"\r\n      >\r\n        <i *ngIf=\"route.iconClass\" [ngClass]=\"route.iconClass\"></i>\r\n        {{ route.name | abpLocalization }}\r\n      </a>\r\n      <div\r\n        #routeContainer\r\n        class=\"dropdown-menu border-0 shadow-sm\"\r\n        (click)=\"$event.preventDefault(); $event.stopPropagation()\"\r\n        [class.d-block]=\"smallScreen && navbarRootDropdown.expand\"\r\n      >\r\n        <ng-template\r\n          #forTemplate\r\n          ngFor\r\n          [ngForOf]=\"route.children\"\r\n          [ngForTrackBy]=\"trackByFn\"\r\n          [ngForTemplate]=\"childWrapper\"\r\n        ></ng-template>\r\n      </div>\r\n    </li>\r\n  </ng-template>\r\n\r\n  <ng-template #childWrapper let-child>\r\n    <ng-template\r\n      [ngTemplateOutlet]=\"child?.children?.length ? dropdownChild : defaultChild\"\r\n      [ngTemplateOutletContext]=\"{ $implicit: child }\"\r\n    ></ng-template>\r\n  </ng-template>\r\n\r\n  <ng-template #defaultChild let-child>\r\n    <div class=\"dropdown-submenu\" *abpPermission=\"child.requiredPolicy\">\r\n      <a class=\"dropdown-item\" [routerLink]=\"[child.url]\">\r\n        <i *ngIf=\"child.iconClass\" [ngClass]=\"child.iconClass\"></i>\r\n        {{ child.name | abpLocalization }}</a\r\n      >\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template #dropdownChild let-child>\r\n    <div\r\n      [abpVisibility]=\"childrenContainer\"\r\n      class=\"dropdown-submenu\"\r\n      ngbDropdown\r\n      #dropdownSubmenu=\"ngbDropdown\"\r\n      [display]=\"isDropdownChildDynamic ? 'dynamic' : 'static'\"\r\n      placement=\"right-top\"\r\n      [autoClose]=\"true\"\r\n      *abpPermission=\"child.requiredPolicy\"\r\n      (openChange)=\"openChange($event, childrenContainer)\"\r\n    >\r\n      <div ngbDropdownToggle [class.dropdown-toggle]=\"false\">\r\n        <a\r\n          abpEllipsis=\"210px\"\r\n          [abpEllipsisEnabled]=\"isDropdownChildDynamic\"\r\n          role=\"button\"\r\n          class=\"btn d-block text-left dropdown-toggle\"\r\n        >\r\n          <i *ngIf=\"child.iconClass\" [ngClass]=\"child.iconClass\"></i>\r\n          {{ child.name | abpLocalization }}\r\n        </a>\r\n      </div>\r\n      <div\r\n        #childrenContainer\r\n        class=\"dropdown-menu border-0 shadow-sm\"\r\n        [class.d-block]=\"smallScreen && dropdownSubmenu.isOpen()\"\r\n      >\r\n        <ng-template\r\n          ngFor\r\n          [ngForOf]=\"child.children\"\r\n          [ngForTrackBy]=\"trackByFn\"\r\n          [ngForTemplate]=\"childWrapper\"\r\n        ></ng-template>\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n</ul>\r\n"
-                    }] }
-        ];
-        /** @nocollapse */
-        RoutesComponent.ctorParameters = function () { return [
-            { type: core.Renderer2 }
-        ]; };
-        RoutesComponent.propDecorators = {
-            smallScreen: [{ type: core.Input }],
-            isDropdownChildDynamic: [{ type: core.Input }]
-        };
-        __decorate([
-            store.Select(ng_core.ConfigState.getOne('routes')),
-            __metadata("design:type", rxjs.Observable)
-        ], RoutesComponent.prototype, "routes$", void 0);
-        return RoutesComponent;
-    }());
-    if (false) {
-        /** @type {?} */
-        RoutesComponent.prototype.routes$;
-        /** @type {?} */
-        RoutesComponent.prototype.smallScreen;
-        /** @type {?} */
-        RoutesComponent.prototype.isDropdownChildDynamic;
-        /** @type {?} */
-        RoutesComponent.prototype.trackByFn;
-        /**
-         * @type {?}
-         * @private
-         */
-        RoutesComponent.prototype.renderer;
-    }
-    /**
-     * @param {?} routes
-     * @return {?}
-     */
-    function getVisibleRoutes(routes) {
-        return routes.reduce((/**
-         * @param {?} acc
-         * @param {?} val
-         * @return {?}
-         */
-        function (acc, val) {
-            if (val.invisible)
-                return acc;
-            if (val.children && val.children.length) {
-                val.children = getVisibleRoutes(val.children);
-            }
-            return __spread(acc, [val]);
-        }), []);
-    }
 
     /**
      * @fileoverview added by tsickle
@@ -1007,6 +805,230 @@
 
     /**
      * @fileoverview added by tsickle
+     * Generated from: lib/components/routes/routes.component.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var RoutesComponent = /** @class */ (function () {
+        function RoutesComponent(renderer) {
+            this.renderer = renderer;
+            this.trackByFn = (/**
+             * @param {?} _
+             * @param {?} item
+             * @return {?}
+             */
+            function (_, item) { return item.name; });
+        }
+        Object.defineProperty(RoutesComponent.prototype, "visibleRoutes$", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this.routes$.pipe(operators.map((/**
+                 * @param {?} routes
+                 * @return {?}
+                 */
+                function (routes) { return getVisibleRoutes(routes); })));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @param {?} event
+         * @param {?} childrenContainer
+         * @return {?}
+         */
+        RoutesComponent.prototype.openChange = /**
+         * @param {?} event
+         * @param {?} childrenContainer
+         * @return {?}
+         */
+        function (event, childrenContainer) {
+            var _this = this;
+            if (!event) {
+                Object.keys(childrenContainer.style)
+                    .filter((/**
+                 * @param {?} key
+                 * @return {?}
+                 */
+                function (key) { return Number.isInteger(+key); }))
+                    .forEach((/**
+                 * @param {?} key
+                 * @return {?}
+                 */
+                function (key) {
+                    _this.renderer.removeStyle(childrenContainer, childrenContainer.style[key]);
+                }));
+                this.renderer.removeStyle(childrenContainer, 'left');
+            }
+        };
+        RoutesComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'abp-routes',
+                        template: "<ul class=\"navbar-nav\">\r\n  <ng-container\r\n    *ngFor=\"let route of visibleRoutes$ | async; trackBy: trackByFn\"\r\n    [ngTemplateOutlet]=\"route?.children?.length ? dropdownLink : defaultLink\"\r\n    [ngTemplateOutletContext]=\"{ $implicit: route }\"\r\n  >\r\n  </ng-container>\r\n\r\n  <ng-template #defaultLink let-route>\r\n    <li class=\"nav-item\" *abpPermission=\"route.requiredPolicy\">\r\n      <a class=\"nav-link\" [routerLink]=\"[route.url]\"\r\n        ><i *ngIf=\"route.iconClass\" [ngClass]=\"route.iconClass\"></i>\r\n        {{ route.name | abpLocalization }}</a\r\n      >\r\n    </li>\r\n  </ng-template>\r\n\r\n  <ng-template #dropdownLink let-route>\r\n    <li\r\n      #navbarRootDropdown\r\n      *abpPermission=\"route.requiredPolicy\"\r\n      [abpVisibility]=\"routeContainer\"\r\n      class=\"nav-item dropdown\"\r\n      display=\"static\"\r\n      (click)=\"\r\n        navbarRootDropdown.expand\r\n          ? (navbarRootDropdown.expand = false)\r\n          : (navbarRootDropdown.expand = true)\r\n      \"\r\n    >\r\n      <a\r\n        class=\"nav-link dropdown-toggle\"\r\n        data-toggle=\"dropdown\"\r\n        aria-haspopup=\"true\"\r\n        aria-expanded=\"false\"\r\n        href=\"javascript:void(0)\"\r\n      >\r\n        <i *ngIf=\"route.iconClass\" [ngClass]=\"route.iconClass\"></i>\r\n        {{ route.name | abpLocalization }}\r\n      </a>\r\n      <div\r\n        #routeContainer\r\n        class=\"dropdown-menu border-0 shadow-sm\"\r\n        (click)=\"$event.preventDefault(); $event.stopPropagation()\"\r\n        [class.d-block]=\"smallScreen && navbarRootDropdown.expand\"\r\n      >\r\n        <ng-template\r\n          #forTemplate\r\n          ngFor\r\n          [ngForOf]=\"route.children\"\r\n          [ngForTrackBy]=\"trackByFn\"\r\n          [ngForTemplate]=\"childWrapper\"\r\n        ></ng-template>\r\n      </div>\r\n    </li>\r\n  </ng-template>\r\n\r\n  <ng-template #childWrapper let-child>\r\n    <ng-template\r\n      [ngTemplateOutlet]=\"child?.children?.length ? dropdownChild : defaultChild\"\r\n      [ngTemplateOutletContext]=\"{ $implicit: child }\"\r\n    ></ng-template>\r\n  </ng-template>\r\n\r\n  <ng-template #defaultChild let-child>\r\n    <div class=\"dropdown-submenu\" *abpPermission=\"child.requiredPolicy\">\r\n      <a class=\"dropdown-item\" [routerLink]=\"[child.url]\">\r\n        <i *ngIf=\"child.iconClass\" [ngClass]=\"child.iconClass\"></i>\r\n        {{ child.name | abpLocalization }}</a\r\n      >\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template #dropdownChild let-child>\r\n    <div\r\n      [abpVisibility]=\"childrenContainer\"\r\n      class=\"dropdown-submenu\"\r\n      ngbDropdown\r\n      #dropdownSubmenu=\"ngbDropdown\"\r\n      [display]=\"isDropdownChildDynamic ? 'dynamic' : 'static'\"\r\n      placement=\"right-top\"\r\n      [autoClose]=\"true\"\r\n      *abpPermission=\"child.requiredPolicy\"\r\n      (openChange)=\"openChange($event, childrenContainer)\"\r\n    >\r\n      <div ngbDropdownToggle [class.dropdown-toggle]=\"false\">\r\n        <a\r\n          abpEllipsis=\"210px\"\r\n          [abpEllipsisEnabled]=\"isDropdownChildDynamic\"\r\n          role=\"button\"\r\n          class=\"btn d-block text-left dropdown-toggle\"\r\n        >\r\n          <i *ngIf=\"child.iconClass\" [ngClass]=\"child.iconClass\"></i>\r\n          {{ child.name | abpLocalization }}\r\n        </a>\r\n      </div>\r\n      <div\r\n        #childrenContainer\r\n        class=\"dropdown-menu border-0 shadow-sm\"\r\n        [class.d-block]=\"smallScreen && dropdownSubmenu.isOpen()\"\r\n      >\r\n        <ng-template\r\n          ngFor\r\n          [ngForOf]=\"child.children\"\r\n          [ngForTrackBy]=\"trackByFn\"\r\n          [ngForTemplate]=\"childWrapper\"\r\n        ></ng-template>\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n</ul>\r\n"
+                    }] }
+        ];
+        /** @nocollapse */
+        RoutesComponent.ctorParameters = function () { return [
+            { type: core.Renderer2 }
+        ]; };
+        RoutesComponent.propDecorators = {
+            smallScreen: [{ type: core.Input }],
+            isDropdownChildDynamic: [{ type: core.Input }]
+        };
+        __decorate([
+            store.Select(ng_core.ConfigState.getOne('routes')),
+            __metadata("design:type", rxjs.Observable)
+        ], RoutesComponent.prototype, "routes$", void 0);
+        return RoutesComponent;
+    }());
+    if (false) {
+        /** @type {?} */
+        RoutesComponent.prototype.routes$;
+        /** @type {?} */
+        RoutesComponent.prototype.smallScreen;
+        /** @type {?} */
+        RoutesComponent.prototype.isDropdownChildDynamic;
+        /** @type {?} */
+        RoutesComponent.prototype.trackByFn;
+        /**
+         * @type {?}
+         * @private
+         */
+        RoutesComponent.prototype.renderer;
+    }
+    /**
+     * @param {?} routes
+     * @return {?}
+     */
+    function getVisibleRoutes(routes) {
+        return routes.reduce((/**
+         * @param {?} acc
+         * @param {?} val
+         * @return {?}
+         */
+        function (acc, val) {
+            if (val.invisible)
+                return acc;
+            if (val.children && val.children.length) {
+                val.children = getVisibleRoutes(val.children);
+            }
+            return __spread(acc, [val]);
+        }), []);
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/components/validation-error/validation-error.component.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var ValidationErrorComponent = /** @class */ (function (_super) {
+        __extends(ValidationErrorComponent, _super);
+        function ValidationErrorComponent() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        Object.defineProperty(ValidationErrorComponent.prototype, "abpErrors", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                if (!this.errors || !this.errors.length)
+                    return [];
+                return this.errors.map((/**
+                 * @param {?} error
+                 * @return {?}
+                 */
+                function (error) {
+                    if (!error.message)
+                        return error;
+                    /** @type {?} */
+                    var index = error.message.indexOf('[');
+                    if (index > -1) {
+                        return __assign({}, error, { message: error.message.slice(0, index), interpoliteParams: error.message.slice(index + 1, error.message.length - 1).split(',') });
+                    }
+                    return error;
+                }));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        ValidationErrorComponent.decorators = [
+            { type: core.Component, args: [{
+                        selector: 'abp-validation-error',
+                        template: "\n    <div class=\"invalid-feedback\" *ngFor=\"let error of abpErrors; trackBy: trackByFn\">\n      {{ error.message | abpLocalization: error.interpoliteParams }}\n    </div>\n  ",
+                        changeDetection: core.ChangeDetectionStrategy.OnPush,
+                        encapsulation: core.ViewEncapsulation.None
+                    }] }
+        ];
+        return ValidationErrorComponent;
+    }(core$1.ValidationErrorComponent));
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/constants/styles.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var styles = "\n.content-header-title {\n    font-size: 24px;\n}\n\n.entry-row {\n    margin-bottom: 15px;\n}\n#main-navbar-tools a.dropdown-toggle {\n    text-decoration: none;\n    color: #fff;\n}\n.navbar .dropdown-submenu {\n    position: relative;\n}\n.navbar .dropdown-menu {\n    margin: 0;\n    padding: 0;\n}\n.navbar .dropdown-menu a {\n    font-size: .9em;\n    padding: 10px 15px;\n    display: block;\n    min-width: 210px;\n    text-align: left;\n    border-radius: 0.25rem;\n    min-height: 44px;\n}\n.navbar .dropdown-submenu a::after {\n    transform: rotate(-90deg);\n    position: absolute;\n    right: 16px;\n    top: 18px;\n}\n.navbar .dropdown-submenu .dropdown-menu {\n    top: 0;\n    left: 100%;\n}\n\n.card-header .btn {\n    padding: 2px 6px;\n}\n.card-header h5 {\n    margin: 0;\n}\n.container > .card {\n    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;\n}\n@media screen and (min-width: 768px) {\n    .navbar .dropdown:hover > .dropdown-menu {\n        display: block;\n    }\n\n    .navbar .dropdown-submenu:hover > .dropdown-menu {\n        display: block;\n    }\n}\n.input-validation-error {\n    border-color: #dc3545;\n}\n.field-validation-error {\n    font-size: 0.8em;\n}\n.ui-table .ui-table-tbody > tr.empty-row > div.empty-row-content {\n    border: 1px solid #c8c8c8;\n  }\n.abp-loading {\n    background: rgba(0, 0, 0, 0.1);\n}\n.modal-backdrop {\nbackground-color: rgba(0, 0, 0, 0.6);\n}\n\n.confirmation .confirmation-backdrop {\n\t background: rgba(0, 0, 0, 0.7) !important;\n}\n .confirmation .confirmation-dialog {\n\t border: none;\n\t border-radius: 10px;\n\t background-color: #fff;\n\t box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.5);\n}\n .confirmation .confirmation-dialog .icon-container .icon {\n\t stroke: #fff;\n\t color: #fff;\n}\n .confirmation .confirmation-dialog .icon-container.info .icon {\n\t stroke: #2f96b4;\n\t color: #2f96b4;\n}\n .confirmation .confirmation-dialog .icon-container.success .icon {\n\t stroke: #51a351;\n\t color: #51a351;\n}\n .confirmation .confirmation-dialog .icon-container.warning .icon {\n\t stroke: #f89406;\n\t color: #f89406;\n}\n .confirmation .confirmation-dialog .icon-container.error .icon {\n\t stroke: #bd362f;\n\t color: #bd362f;\n}\n .confirmation .confirmation-dialog .content .title {\n\t color: #222;\n}\n .confirmation .confirmation-dialog .content .message {\n\t color: #777;\n}\n .confirmation .confirmation-dialog .footer {\n\t background: transparent;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button {\n\t background-color: #eee;\n\t color: #777;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button:hover, .confirmation .confirmation-dialog .footer .confirmation-button:focus, .confirmation .confirmation-dialog .footer .confirmation-button:active {\n\t background-color: #bbb;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button--confirm {\n\t background-color: #2f96b4;\n\t color: #fff;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button--confirm:hover {\n\t background-color: #2e819b;\n}\n.ui-table .pagination-wrapper {\n    background-color: #f4f4f4;\n    border: 1px solid #c8c8c8;\n}\n";
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/services/initial.service.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var InitialService = /** @class */ (function () {
+        function InitialService(domInsertion, store) {
+            this.domInsertion = domInsertion;
+            this.store = store;
+            this.appendStyle();
+            this.store.dispatch([
+                new ng_core.AddReplaceableComponent({
+                    key: "Theme.ApplicationLayoutComponent" /* ApplicationLayout */,
+                    component: ApplicationLayoutComponent,
+                }),
+                new ng_core.AddReplaceableComponent({
+                    key: "Theme.AccountLayoutComponent" /* AccountLayout */,
+                    component: AccountLayoutComponent,
+                }),
+                new ng_core.AddReplaceableComponent({
+                    key: "Theme.EmptyLayoutComponent" /* EmptyLayout */,
+                    component: EmptyLayoutComponent,
+                }),
+            ]);
+        }
+        /**
+         * @return {?}
+         */
+        InitialService.prototype.appendStyle = /**
+         * @return {?}
+         */
+        function () {
+            this.domInsertion.insertContent(ng_core.CONTENT_STRATEGY.AppendStyleToHead(styles));
+        };
+        InitialService.decorators = [
+            { type: core.Injectable, args: [{ providedIn: 'root' },] }
+        ];
+        /** @nocollapse */
+        InitialService.ctorParameters = function () { return [
+            { type: ng_core.DomInsertionService },
+            { type: store.Store }
+        ]; };
+        /** @nocollapse */ InitialService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function InitialService_Factory() { return new InitialService(core.ɵɵinject(ng_core.DomInsertionService), core.ɵɵinject(store.Store)); }, token: InitialService, providedIn: "root" });
+        return InitialService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        InitialService.prototype.domInsertion;
+        /**
+         * @type {?}
+         * @private
+         */
+        InitialService.prototype.store;
+    }
+
+    /**
+     * @fileoverview added by tsickle
      * Generated from: lib/theme-basic.module.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
@@ -1034,13 +1056,17 @@
                             core$1.NgxValidateCoreModule.forRoot({
                                 targetSelector: '.form-group',
                                 blueprints: {
-                                    email: 'AbpAccount::ThisFieldIsNotAValidEmailAddress.',
-                                    max: 'AbpAccount::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
-                                    maxlength: 'AbpAccount::ThisFieldMustBeAStringOrArrayTypeWithAMaximumLengthOf{0}[{{ requiredLength }}]',
-                                    min: 'AbpAccount::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
-                                    minlength: 'AbpAccount::ThisFieldMustBeAStringOrArrayTypeWithAMinimumLengthOf{0}[{{ requiredLength }}]',
-                                    required: 'AbpAccount::ThisFieldIsRequired.',
+                                    creditCard: 'AbpValidation::ThisFieldIsNotAValidCreditCardNumber.',
+                                    email: 'AbpValidation::ThisFieldIsNotAValidEmailAddress.',
+                                    max: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+                                    maxlength: 'AbpValidation::ThisFieldMustBeAStringOrArrayTypeWithAMaximumLengthOf{0}[{{ requiredLength }}]',
+                                    min: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+                                    minlength: 'AbpValidation::ThisFieldMustBeAStringOrArrayTypeWithAMinimumLengthOf{0}[{{ requiredLength }}]',
+                                    ngbDate: 'AbpValidation::ThisFieldIsNotValid.',
                                     passwordMismatch: 'AbpIdentity::Identity.PasswordConfirmationFailed',
+                                    range: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+                                    required: 'AbpValidation::ThisFieldIsRequired.',
+                                    url: 'AbpValidation::ThisFieldIsNotAValidFullyQualifiedHttpHttpsOrFtpUrl',
                                 },
                                 errorTemplate: ValidationErrorComponent,
                             }),

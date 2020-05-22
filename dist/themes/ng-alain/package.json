@@ -1,6 +1,9 @@
 {
   "name": "@fs/ng-alain",
   "version": "0.0.0",
+  "peerDependencies": {
+    "rxjs": "6.5.2"
+  },
   "dependencies": {
     "@angular/animations": "~8.2.14",
     "@angular/common": "~8.2.14",
@@ -10,7 +13,6 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
-    "rxjs": "6.5.2",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1",
     "@antv/data-set": "^0.10.2",

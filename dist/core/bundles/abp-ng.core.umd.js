@@ -9,18 +9,18 @@
     clone = clone && clone.hasOwnProperty('default') ? clone['default'] : clone;
 
     /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
+    Copyright (c) Microsoft Corporation.
 
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
 
@@ -76,10 +76,11 @@
     }
 
     function __awaiter(thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
         return new (P || (P = Promise))(function (resolve, reject) {
             function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
             function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     }
@@ -112,19 +113,25 @@
         }
     }
 
+    function __createBinding(o, m, k, k2) {
+        if (k2 === undefined) k2 = k;
+        o[k2] = m[k];
+    }
+
     function __exportStar(m, exports) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+        for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) exports[p] = m[p];
     }
 
     function __values(o) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
         if (m) return m.call(o);
-        return {
+        if (o && typeof o.length === "number") return {
             next: function () {
                 if (o && i >= o.length) o = void 0;
                 return { value: o && o[i++], done: !o };
             }
         };
+        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
     }
 
     function __read(o, n) {
@@ -203,6 +210,21 @@
 
     function __importDefault(mod) {
         return (mod && mod.__esModule) ? mod : { default: mod };
+    }
+
+    function __classPrivateFieldGet(receiver, privateMap) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to get private field on non-instance");
+        }
+        return privateMap.get(receiver);
+    }
+
+    function __classPrivateFieldSet(receiver, privateMap, value) {
+        if (!privateMap.has(receiver)) {
+            throw new TypeError("attempted to set private field on non-instance");
+        }
+        privateMap.set(receiver, value);
+        return value;
     }
 
     /**
@@ -553,8 +575,9 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var SetLanguage = /** @class */ (function () {
-        function SetLanguage(payload) {
+        function SetLanguage(payload, dispatchAppConfiguration) {
             this.payload = payload;
+            this.dispatchAppConfiguration = dispatchAppConfiguration;
         }
         SetLanguage.type = '[Session] Set Language';
         return SetLanguage;
@@ -564,6 +587,8 @@
         SetLanguage.type;
         /** @type {?} */
         SetLanguage.prototype.payload;
+        /** @type {?} */
+        SetLanguage.prototype.dispatchAppConfiguration;
     }
     var SetTenant = /** @class */ (function () {
         function SetTenant(payload) {
@@ -819,11 +844,12 @@
          */
         function (_a, _b) {
             var patchState = _a.patchState, dispatch = _a.dispatch;
-            var payload = _b.payload;
+            var payload = _b.payload, _c = _b.dispatchAppConfiguration, dispatchAppConfiguration = _c === void 0 ? true : _c;
             patchState({
                 language: payload,
             });
-            return dispatch(new GetAppConfiguration());
+            if (dispatchAppConfiguration)
+                return dispatch(new GetAppConfiguration());
         };
         /**
          * @param {?} __0
@@ -1267,31 +1293,48 @@
              * @return {?}
              */
             function (state) {
-                if (!state.localization)
-                    return defaultValue || key;
                 /** @type {?} */
-                var defaultResourceName = snq((/**
+                var warn = (/**
+                 * @param {?} message
                  * @return {?}
                  */
-                function () { return state.environment.localization.defaultResourceName; }));
-                if (keys[0] === '') {
-                    if (!defaultResourceName) {
-                        throw new Error("Please check your environment. May you forget set defaultResourceName?\n              Here is the example:\n               { production: false,\n                 localization: {\n                   defaultResourceName: 'MyProjectName'\n                  }\n               }");
-                    }
-                    keys[0] = defaultResourceName;
+                function (message) {
+                    if (!state.environment.production)
+                        console.warn(message);
+                });
+                if (keys.length < 2) {
+                    warn('The localization source separator (::) not found.');
+                    return defaultValue || ((/** @type {?} */ (key)));
+                }
+                if (!state.localization)
+                    return defaultValue || keys[1];
+                /** @type {?} */
+                var sourceName = keys[0] ||
+                    snq((/**
+                     * @return {?}
+                     */
+                    function () { return state.environment.localization.defaultResourceName; })) ||
+                    state.localization.defaultResourceName;
+                /** @type {?} */
+                var sourceKey = keys[1];
+                if (sourceName === '_') {
+                    return defaultValue || sourceKey;
+                }
+                if (!sourceName) {
+                    warn('Localization source name is not specified and the defaultResourceName was not defined!');
+                    return defaultValue || sourceKey;
                 }
                 /** @type {?} */
-                var localization = ((/** @type {?} */ (keys))).reduce((/**
-                 * @param {?} acc
-                 * @param {?} val
-                 * @return {?}
-                 */
-                function (acc, val) {
-                    if (acc) {
-                        return acc[val];
-                    }
-                    return undefined;
-                }), state.localization.values);
+                var source = state.localization.values[sourceName];
+                if (!source) {
+                    warn('Could not find localization source: ' + sourceName);
+                    return defaultValue || sourceKey;
+                }
+                /** @type {?} */
+                var localization = source[sourceKey];
+                if (typeof localization === 'undefined') {
+                    return defaultValue || sourceKey;
+                }
                 interpolateParams = interpolateParams.filter((/**
                  * @param {?} params
                  * @return {?}
@@ -1308,7 +1351,7 @@
                 }
                 if (typeof localization !== 'string')
                     localization = '';
-                return localization || defaultValue || key;
+                return localization || defaultValue || ((/** @type {?} */ (key)));
             }));
             return selector;
         };
@@ -1345,9 +1388,10 @@
                 if (defaultLang.includes(';')) {
                     defaultLang = defaultLang.split(';')[0];
                 }
+                document.documentElement.setAttribute('lang', configuration.localization.currentCulture.cultureName);
                 return _this.store.selectSnapshot(SessionState.getLanguage)
                     ? rxjs.of(null)
-                    : dispatch(new SetLanguage(defaultLang));
+                    : dispatch(new SetLanguage(defaultLang, false));
             })), operators.catchError((/**
              * @param {?} err
              * @return {?}
@@ -1577,7 +1621,7 @@
          */
         function (route) {
             if (route.name === name) {
-                newValue.url = parentUrl + "/" + ((!newValue.path && newValue.path === ''
+                newValue.url = parentUrl + "/" + ((!newValue.path || newValue.path === ''
                     ? route.path
                     : newValue.path) || '');
                 if (newValue.children && newValue.children.length) {
@@ -2969,6 +3013,102 @@
         element.onemptied = null;
         element.onstalled = null;
         element.onsuspend = null;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/utils/localization-utils.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @param {?} localization
+     * @return {?}
+     */
+    function createLocalizer(localization) {
+        return (/**
+         * @param {?} resourceName
+         * @param {?} key
+         * @param {?} defaultValue
+         * @return {?}
+         */
+        function (resourceName, key, defaultValue) {
+            if (resourceName === '_')
+                return key;
+            /** @type {?} */
+            var resource = localization.values[resourceName];
+            if (!resource)
+                return defaultValue;
+            return resource[key] || defaultValue;
+        });
+    }
+    /**
+     * @param {?} localization
+     * @return {?}
+     */
+    function createLocalizerWithFallback(localization) {
+        /** @type {?} */
+        var findLocalization = createLocalizationFinder(localization);
+        return (/**
+         * @param {?} resourceNames
+         * @param {?} keys
+         * @param {?} defaultValue
+         * @return {?}
+         */
+        function (resourceNames, keys, defaultValue) {
+            var localized = findLocalization(resourceNames, keys).localized;
+            return localized || defaultValue;
+        });
+    }
+    /**
+     * @param {?} localization
+     * @return {?}
+     */
+    function createLocalizationPipeKeyGenerator(localization) {
+        /** @type {?} */
+        var findLocalization = createLocalizationFinder(localization);
+        return (/**
+         * @param {?} resourceNames
+         * @param {?} keys
+         * @param {?} defaultKey
+         * @return {?}
+         */
+        function (resourceNames, keys, defaultKey) {
+            var _a = findLocalization(resourceNames, keys), resourceName = _a.resourceName, key = _a.key;
+            return !resourceName ? defaultKey : resourceName === '_' ? key : resourceName + "::" + key;
+        });
+    }
+    /**
+     * @param {?} localization
+     * @return {?}
+     */
+    function createLocalizationFinder(localization) {
+        /** @type {?} */
+        var localize = createLocalizer(localization);
+        return (/**
+         * @param {?} resourceNames
+         * @param {?} keys
+         * @return {?}
+         */
+        function (resourceNames, keys) {
+            resourceNames = resourceNames.concat(localization.defaultResourceName).filter(Boolean);
+            /** @type {?} */
+            var resourceCount = resourceNames.length;
+            /** @type {?} */
+            var keyCount = keys.length;
+            for (var i = 0; i < resourceCount; i++) {
+                /** @type {?} */
+                var resourceName = resourceNames[i];
+                for (var j = 0; j < keyCount; j++) {
+                    /** @type {?} */
+                    var key = keys[j];
+                    /** @type {?} */
+                    var localized = localize(resourceName, key, null);
+                    if (localized)
+                        return { resourceName: resourceName, key: key, localized: localized };
+                }
+            }
+            return { resourceName: undefined, key: undefined, localized: undefined };
+        });
     }
 
     /**
@@ -4507,10 +4647,10 @@
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
     var LocalizationService = /** @class */ (function () {
-        function LocalizationService(actions, store, router, ngZone, otherInstance) {
+        function LocalizationService(actions, store, injector, ngZone, otherInstance) {
             this.actions = actions;
             this.store = store;
-            this.router = router;
+            this.injector = injector;
             this.ngZone = ngZone;
             if (otherInstance)
                 throw new Error('LocalizationService should have only one instance.');
@@ -4534,6 +4674,16 @@
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(LocalizationService.prototype, "languageChange", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this.actions.pipe(store.ofActionSuccessful(SetLanguage));
+            },
+            enumerable: true,
+            configurable: true
+        });
         /**
          * @private
          * @return {?}
@@ -4544,9 +4694,7 @@
          */
         function () {
             var _this = this;
-            this.actions
-                .pipe(store.ofActionSuccessful(SetLanguage))
-                .subscribe((/**
+            this.languageChange.subscribe((/**
              * @param {?} __0
              * @return {?}
              */
@@ -4554,17 +4702,6 @@
                 var payload = _a.payload;
                 return _this.registerLocale(payload);
             }));
-        };
-        /**
-         * @param {?} reuse
-         * @return {?}
-         */
-        LocalizationService.prototype.setRouteReuse = /**
-         * @param {?} reuse
-         * @return {?}
-         */
-        function (reuse) {
-            this.router.routeReuseStrategy.shouldReuseRoute = reuse;
         };
         /**
          * @param {?} locale
@@ -4576,12 +4713,14 @@
          */
         function (locale) {
             var _this = this;
-            var shouldReuseRoute = this.router.routeReuseStrategy.shouldReuseRoute;
-            this.setRouteReuse((/**
+            /** @type {?} */
+            var router$1 = this.injector.get(router.Router);
+            var shouldReuseRoute = router$1.routeReuseStrategy.shouldReuseRoute;
+            router$1.routeReuseStrategy.shouldReuseRoute = (/**
              * @return {?}
              */
-            function () { return false; }));
-            this.router.navigated = false;
+            function () { return false; });
+            router$1.navigated = false;
             return registerLocale(locale).then((/**
              * @return {?}
              */
@@ -4592,10 +4731,10 @@
                 function () { return __awaiter(_this, void 0, void 0, function () {
                     return __generator(this, function (_a) {
                         switch (_a.label) {
-                            case 0: return [4 /*yield*/, this.router.navigateByUrl(this.router.url).catch(rxjs.noop)];
+                            case 0: return [4 /*yield*/, router$1.navigateByUrl(router$1.url).catch(rxjs.noop)];
                             case 1:
                                 _a.sent();
-                                this.setRouteReuse(shouldReuseRoute);
+                                router$1.routeReuseStrategy.shouldReuseRoute = shouldReuseRoute;
                                 return [2 /*return*/];
                         }
                     });
@@ -4650,6 +4789,78 @@
             }
             return this.store.selectSnapshot(ConfigState.getLocalization.apply(ConfigState, __spread([key], interpolateParams)));
         };
+        /**
+         * @param {?} resourceName
+         * @param {?} key
+         * @param {?} defaultValue
+         * @return {?}
+         */
+        LocalizationService.prototype.localize = /**
+         * @param {?} resourceName
+         * @param {?} key
+         * @param {?} defaultValue
+         * @return {?}
+         */
+        function (resourceName, key, defaultValue) {
+            return this.store.select(ConfigState.getOne('localization')).pipe(operators.map(createLocalizer), operators.map((/**
+             * @param {?} localize
+             * @return {?}
+             */
+            function (localize) { return localize(resourceName, key, defaultValue); })));
+        };
+        /**
+         * @param {?} resourceName
+         * @param {?} key
+         * @param {?} defaultValue
+         * @return {?}
+         */
+        LocalizationService.prototype.localizeSync = /**
+         * @param {?} resourceName
+         * @param {?} key
+         * @param {?} defaultValue
+         * @return {?}
+         */
+        function (resourceName, key, defaultValue) {
+            /** @type {?} */
+            var localization = this.store.selectSnapshot(ConfigState.getOne('localization'));
+            return createLocalizer(localization)(resourceName, key, defaultValue);
+        };
+        /**
+         * @param {?} resourceNames
+         * @param {?} keys
+         * @param {?} defaultValue
+         * @return {?}
+         */
+        LocalizationService.prototype.localizeWithFallback = /**
+         * @param {?} resourceNames
+         * @param {?} keys
+         * @param {?} defaultValue
+         * @return {?}
+         */
+        function (resourceNames, keys, defaultValue) {
+            return this.store.select(ConfigState.getOne('localization')).pipe(operators.map(createLocalizerWithFallback), operators.map((/**
+             * @param {?} localizeWithFallback
+             * @return {?}
+             */
+            function (localizeWithFallback) { return localizeWithFallback(resourceNames, keys, defaultValue); })));
+        };
+        /**
+         * @param {?} resourceNames
+         * @param {?} keys
+         * @param {?} defaultValue
+         * @return {?}
+         */
+        LocalizationService.prototype.localizeWithFallbackSync = /**
+         * @param {?} resourceNames
+         * @param {?} keys
+         * @param {?} defaultValue
+         * @return {?}
+         */
+        function (resourceNames, keys, defaultValue) {
+            /** @type {?} */
+            var localization = this.store.selectSnapshot(ConfigState.getOne('localization'));
+            return createLocalizerWithFallback(localization)(resourceNames, keys, defaultValue);
+        };
         LocalizationService.decorators = [
             { type: core.Injectable, args: [{ providedIn: 'root' },] }
         ];
@@ -4657,11 +4868,11 @@
         LocalizationService.ctorParameters = function () { return [
             { type: store.Actions },
             { type: store.Store },
-            { type: router.Router },
+            { type: core.Injector },
             { type: core.NgZone },
             { type: LocalizationService, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] }
         ]; };
-        /** @nocollapse */ LocalizationService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function LocalizationService_Factory() { return new LocalizationService(core.ɵɵinject(store.Actions), core.ɵɵinject(store.Store), core.ɵɵinject(router.Router), core.ɵɵinject(core.NgZone), core.ɵɵinject(LocalizationService, 12)); }, token: LocalizationService, providedIn: "root" });
+        /** @nocollapse */ LocalizationService.ngInjectableDef = core.ɵɵdefineInjectable({ factory: function LocalizationService_Factory() { return new LocalizationService(core.ɵɵinject(store.Actions), core.ɵɵinject(store.Store), core.ɵɵinject(core.INJECTOR), core.ɵɵinject(core.NgZone), core.ɵɵinject(LocalizationService, 12)); }, token: LocalizationService, providedIn: "root" });
         return LocalizationService;
     }());
     if (false) {
@@ -4679,7 +4890,7 @@
          * @type {?}
          * @private
          */
-        LocalizationService.prototype.router;
+        LocalizationService.prototype.injector;
         /**
          * @type {?}
          * @private
@@ -5266,6 +5477,8 @@
             CurrentUser.prototype.tenantId;
             /** @type {?} */
             CurrentUser.prototype.userName;
+            /** @type {?} */
+            CurrentUser.prototype.email;
         }
     })(ApplicationConfiguration || (ApplicationConfiguration = {}));
 
@@ -5417,7 +5630,7 @@
             Environment.prototype.oAuthConfig;
             /** @type {?} */
             Environment.prototype.apis;
-            /** @type {?} */
+            /** @type {?|undefined} */
             Environment.prototype.localization;
         }
         /**
@@ -5699,6 +5912,161 @@
         FullAuditedEntityWithUserDto.prototype.lastModifier;
         /** @type {?} */
         FullAuditedEntityWithUserDto.prototype.deleter;
+    }
+    var ExtensibleObject = /** @class */ (function () {
+        function ExtensibleObject(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            for (var key in initialValues) {
+                if (initialValues.hasOwnProperty(key)) {
+                    this[key] = initialValues[key];
+                }
+            }
+        }
+        return ExtensibleObject;
+    }());
+    if (false) {
+        /** @type {?} */
+        ExtensibleObject.prototype.extraProperties;
+    }
+    /**
+     * @template TKey
+     */
+    var   /**
+     * @template TKey
+     */
+    ExtensibleEntityDto = /** @class */ (function (_super) {
+        __extends(ExtensibleEntityDto, _super);
+        function ExtensibleEntityDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return ExtensibleEntityDto;
+    }(ExtensibleObject));
+    if (false) {
+        /** @type {?} */
+        ExtensibleEntityDto.prototype.id;
+    }
+    /**
+     * @template TPrimaryKey
+     */
+    var   /**
+     * @template TPrimaryKey
+     */
+    ExtensibleCreationAuditedEntityDto = /** @class */ (function (_super) {
+        __extends(ExtensibleCreationAuditedEntityDto, _super);
+        function ExtensibleCreationAuditedEntityDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return ExtensibleCreationAuditedEntityDto;
+    }(ExtensibleEntityDto));
+    if (false) {
+        /** @type {?} */
+        ExtensibleCreationAuditedEntityDto.prototype.creationTime;
+        /** @type {?} */
+        ExtensibleCreationAuditedEntityDto.prototype.creatorId;
+    }
+    /**
+     * @template TPrimaryKey
+     */
+    var   /**
+     * @template TPrimaryKey
+     */
+    ExtensibleAuditedEntityDto = /** @class */ (function (_super) {
+        __extends(ExtensibleAuditedEntityDto, _super);
+        function ExtensibleAuditedEntityDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return ExtensibleAuditedEntityDto;
+    }(ExtensibleCreationAuditedEntityDto));
+    if (false) {
+        /** @type {?} */
+        ExtensibleAuditedEntityDto.prototype.lastModificationTime;
+        /** @type {?} */
+        ExtensibleAuditedEntityDto.prototype.lastModifierId;
+    }
+    /**
+     * @template TPrimaryKey, TUserDto
+     */
+    var   /**
+     * @template TPrimaryKey, TUserDto
+     */
+    ExtensibleAuditedEntityWithUserDto = /** @class */ (function (_super) {
+        __extends(ExtensibleAuditedEntityWithUserDto, _super);
+        function ExtensibleAuditedEntityWithUserDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return ExtensibleAuditedEntityWithUserDto;
+    }(ExtensibleAuditedEntityDto));
+    if (false) {
+        /** @type {?} */
+        ExtensibleAuditedEntityWithUserDto.prototype.creator;
+        /** @type {?} */
+        ExtensibleAuditedEntityWithUserDto.prototype.lastModifier;
+    }
+    /**
+     * @template TPrimaryKey, TUserDto
+     */
+    var   /**
+     * @template TPrimaryKey, TUserDto
+     */
+    ExtensibleCreationAuditedEntityWithUserDto = /** @class */ (function (_super) {
+        __extends(ExtensibleCreationAuditedEntityWithUserDto, _super);
+        function ExtensibleCreationAuditedEntityWithUserDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return ExtensibleCreationAuditedEntityWithUserDto;
+    }(ExtensibleCreationAuditedEntityDto));
+    if (false) {
+        /** @type {?} */
+        ExtensibleCreationAuditedEntityWithUserDto.prototype.creator;
+    }
+    /**
+     * @template TPrimaryKey
+     */
+    var   /**
+     * @template TPrimaryKey
+     */
+    ExtensibleFullAuditedEntityDto = /** @class */ (function (_super) {
+        __extends(ExtensibleFullAuditedEntityDto, _super);
+        function ExtensibleFullAuditedEntityDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return ExtensibleFullAuditedEntityDto;
+    }(ExtensibleAuditedEntityDto));
+    if (false) {
+        /** @type {?} */
+        ExtensibleFullAuditedEntityDto.prototype.isDeleted;
+        /** @type {?} */
+        ExtensibleFullAuditedEntityDto.prototype.deleterId;
+        /** @type {?} */
+        ExtensibleFullAuditedEntityDto.prototype.deletionTime;
+    }
+    /**
+     * @template TPrimaryKey, TUserDto
+     */
+    var   /**
+     * @template TPrimaryKey, TUserDto
+     */
+    ExtensibleFullAuditedEntityWithUserDto = /** @class */ (function (_super) {
+        __extends(ExtensibleFullAuditedEntityWithUserDto, _super);
+        function ExtensibleFullAuditedEntityWithUserDto(initialValues) {
+            if (initialValues === void 0) { initialValues = {}; }
+            return _super.call(this, initialValues) || this;
+        }
+        return ExtensibleFullAuditedEntityWithUserDto;
+    }(ExtensibleFullAuditedEntityDto));
+    if (false) {
+        /** @type {?} */
+        ExtensibleFullAuditedEntityWithUserDto.prototype.creator;
+        /** @type {?} */
+        ExtensibleFullAuditedEntityWithUserDto.prototype.lastModifier;
+        /** @type {?} */
+        ExtensibleFullAuditedEntityWithUserDto.prototype.deleter;
     }
 
     /**
@@ -7393,6 +7761,234 @@
 
     /**
      * @fileoverview added by tsickle
+     * Generated from: lib/tokens/list.token.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /** @type {?} */
+    var LIST_QUERY_DEBOUNCE_TIME = new core.InjectionToken('LIST_QUERY_DEBOUNCE_TIME');
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/services/list.service.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var ListService = /** @class */ (function () {
+        function ListService(delay) {
+            var _this = this;
+            this.delay = delay;
+            this._filter = '';
+            this._maxResultCount = 10;
+            this._page = 1;
+            this._sortKey = '';
+            this._sortOrder = '';
+            this._query$ = new rxjs.ReplaySubject(1);
+            this._isLoading$ = new rxjs.BehaviorSubject(false);
+            this.get = (/**
+             * @return {?}
+             */
+            function () {
+                _this._query$.next({
+                    filter: _this._filter || undefined,
+                    maxResultCount: _this._maxResultCount,
+                    skipCount: (_this._page - 1) * _this._maxResultCount,
+                    sorting: _this._sortOrder ? _this._sortKey + " " + _this._sortOrder : undefined,
+                });
+            });
+            this.get();
+        }
+        Object.defineProperty(ListService.prototype, "filter", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._filter;
+            },
+            set: /**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                this._filter = value;
+                this.get();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ListService.prototype, "maxResultCount", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._maxResultCount;
+            },
+            set: /**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                this._maxResultCount = value;
+                this.get();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ListService.prototype, "page", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._page;
+            },
+            set: /**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                this._page = value;
+                this.get();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ListService.prototype, "sortKey", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._sortKey;
+            },
+            set: /**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                this._sortKey = value;
+                this.get();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ListService.prototype, "sortOrder", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._sortOrder;
+            },
+            set: /**
+             * @param {?} value
+             * @return {?}
+             */
+            function (value) {
+                this._sortOrder = value;
+                this.get();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ListService.prototype, "query$", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._query$
+                    .asObservable()
+                    .pipe(operators.debounceTime(this.delay || 300), operators.shareReplay({ bufferSize: 1, refCount: true }));
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ListService.prototype, "isLoading$", {
+            get: /**
+             * @return {?}
+             */
+            function () {
+                return this._isLoading$.asObservable();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * @template T
+         * @param {?} streamCreatorCallback
+         * @return {?}
+         */
+        ListService.prototype.hookToQuery = /**
+         * @template T
+         * @param {?} streamCreatorCallback
+         * @return {?}
+         */
+        function (streamCreatorCallback) {
+            var _this = this;
+            this._isLoading$.next(true);
+            return this.query$.pipe(operators.switchMap(streamCreatorCallback), operators.tap((/**
+             * @return {?}
+             */
+            function () { return _this._isLoading$.next(false); })), operators.shareReplay({ bufferSize: 1, refCount: true }), takeUntilDestroy(this));
+        };
+        /**
+         * @return {?}
+         */
+        ListService.prototype.ngOnDestroy = /**
+         * @return {?}
+         */
+        function () { };
+        ListService.decorators = [
+            { type: core.Injectable }
+        ];
+        /** @nocollapse */
+        ListService.ctorParameters = function () { return [
+            { type: Number, decorators: [{ type: core.Optional }, { type: core.Inject, args: [LIST_QUERY_DEBOUNCE_TIME,] }] }
+        ]; };
+        return ListService;
+    }());
+    if (false) {
+        /**
+         * @type {?}
+         * @private
+         */
+        ListService.prototype._filter;
+        /**
+         * @type {?}
+         * @private
+         */
+        ListService.prototype._maxResultCount;
+        /**
+         * @type {?}
+         * @private
+         */
+        ListService.prototype._page;
+        /**
+         * @type {?}
+         * @private
+         */
+        ListService.prototype._sortKey;
+        /**
+         * @type {?}
+         * @private
+         */
+        ListService.prototype._sortOrder;
+        /**
+         * @type {?}
+         * @private
+         */
+        ListService.prototype._query$;
+        /**
+         * @type {?}
+         * @private
+         */
+        ListService.prototype._isLoading$;
+        /** @type {?} */
+        ListService.prototype.get;
+        /**
+         * @type {?}
+         * @private
+         */
+        ListService.prototype.delay;
+    }
+
+    /**
+     * @fileoverview added by tsickle
      * Generated from: lib/services/profile-state.service.ts
      * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
      */
@@ -7647,6 +8243,306 @@
         TrackByService.prototype.byDeep;
     }
 
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/services/index.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/tokens/index.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/validators/credit-card.validator.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @record
+     */
+    function CreditCardError() { }
+    if (false) {
+        /** @type {?} */
+        CreditCardError.prototype.creditCard;
+    }
+    /**
+     * @return {?}
+     */
+    function validateCreditCard() {
+        return (/**
+         * @param {?} control
+         * @return {?}
+         */
+        function (control) {
+            if (control.pristine)
+                return null;
+            if (['', null, undefined].indexOf(control.value) > -1)
+                return null;
+            return isValidCreditCard(String(control.value)) ? null : { creditCard: true };
+        });
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    function isValidCreditCard(value) {
+        value = value.replace(/[ -]/g, '');
+        if (!/^[0-9]{13,19}$/.test(value))
+            return false;
+        /** @type {?} */
+        var checksum = 0;
+        /** @type {?} */
+        var multiplier = 1;
+        for (var i = value.length; i > 0; i--) {
+            /** @type {?} */
+            var digit = Number(value[i - 1]) * multiplier;
+            /* tslint:disable-next-line:no-bitwise */
+            checksum += (digit % 10) + ~~(digit / 10);
+            multiplier = (multiplier * 2) % 3;
+        }
+        return checksum % 10 === 0;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/validators/range.validator.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @record
+     */
+    function RangeError() { }
+    if (false) {
+        /** @type {?} */
+        RangeError.prototype.range;
+    }
+    /**
+     * @record
+     */
+    function RangeOptions() { }
+    if (false) {
+        /** @type {?|undefined} */
+        RangeOptions.prototype.maximum;
+        /** @type {?|undefined} */
+        RangeOptions.prototype.minimum;
+    }
+    /**
+     * @param {?=} __0
+     * @return {?}
+     */
+    function validateRange(_a) {
+        var _b = _a === void 0 ? {} : _a, _c = _b.maximum, maximum = _c === void 0 ? Infinity : _c, _d = _b.minimum, minimum = _d === void 0 ? 0 : _d;
+        return (/**
+         * @param {?} control
+         * @return {?}
+         */
+        function (control) {
+            if (control.pristine)
+                return null;
+            if (['', null, undefined].indexOf(control.value) > -1)
+                return null;
+            /** @type {?} */
+            var value = Number(control.value);
+            return getMinError(value, minimum, maximum) || getMaxError(value, maximum, minimum);
+        });
+    }
+    /**
+     * @param {?} value
+     * @param {?} max
+     * @param {?} min
+     * @return {?}
+     */
+    function getMaxError(value, max, min) {
+        return value > max ? { range: { max: max, min: min } } : null;
+    }
+    /**
+     * @param {?} value
+     * @param {?} min
+     * @param {?} max
+     * @return {?}
+     */
+    function getMinError(value, min, max) {
+        return value < min ? { range: { min: min, max: max } } : null;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/validators/required.validator.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @record
+     */
+    function RequiredError() { }
+    if (false) {
+        /** @type {?} */
+        RequiredError.prototype.required;
+    }
+    /**
+     * @record
+     */
+    function RequiredOptions() { }
+    if (false) {
+        /** @type {?|undefined} */
+        RequiredOptions.prototype.allowEmptyStrings;
+    }
+    /**
+     * @param {?=} __0
+     * @return {?}
+     */
+    function validateRequired(_a) {
+        var allowEmptyStrings = (_a === void 0 ? {} : _a).allowEmptyStrings;
+        return (/**
+         * @param {?} control
+         * @return {?}
+         */
+        function (control) {
+            return control.pristine || isValidRequired(control.value, allowEmptyStrings)
+                ? null
+                : { required: true };
+        });
+    }
+    /**
+     * @param {?} value
+     * @param {?} allowEmptyStrings
+     * @return {?}
+     */
+    function isValidRequired(value, allowEmptyStrings) {
+        if (value || value === 0 || value === false)
+            return true;
+        if (allowEmptyStrings && value === '')
+            return true;
+        return false;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/validators/string-length.validator.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @record
+     */
+    function StringLengthError() { }
+    if (false) {
+        /** @type {?|undefined} */
+        StringLengthError.prototype.maxlength;
+        /** @type {?|undefined} */
+        StringLengthError.prototype.minlength;
+    }
+    /**
+     * @record
+     */
+    function StringLengthOptions() { }
+    if (false) {
+        /** @type {?|undefined} */
+        StringLengthOptions.prototype.maximumLength;
+        /** @type {?|undefined} */
+        StringLengthOptions.prototype.minimumLength;
+    }
+    /**
+     * @param {?=} __0
+     * @return {?}
+     */
+    function validateStringLength(_a) {
+        var _b = _a === void 0 ? {} : _a, _c = _b.maximumLength, maximumLength = _c === void 0 ? Infinity : _c, _d = _b.minimumLength, minimumLength = _d === void 0 ? 0 : _d;
+        return (/**
+         * @param {?} control
+         * @return {?}
+         */
+        function (control) {
+            if (control.pristine)
+                return null;
+            if (['', null, undefined].indexOf(control.value) > -1)
+                return null;
+            /** @type {?} */
+            var value = String(control.value);
+            return getMinLengthError(value, minimumLength) || getMaxLengthError(value, maximumLength);
+        });
+    }
+    /**
+     * @param {?} value
+     * @param {?} requiredLength
+     * @return {?}
+     */
+    function getMaxLengthError(value, requiredLength) {
+        return value.length > requiredLength ? { maxlength: { requiredLength: requiredLength } } : null;
+    }
+    /**
+     * @param {?} value
+     * @param {?} requiredLength
+     * @return {?}
+     */
+    function getMinLengthError(value, requiredLength) {
+        return value.length < requiredLength ? { minlength: { requiredLength: requiredLength } } : null;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/validators/url.validator.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    /**
+     * @record
+     */
+    function UrlError() { }
+    if (false) {
+        /** @type {?} */
+        UrlError.prototype.url;
+    }
+    /**
+     * @return {?}
+     */
+    function validateUrl() {
+        return (/**
+         * @param {?} control
+         * @return {?}
+         */
+        function (control) {
+            if (control.pristine)
+                return null;
+            if (['', null, undefined].indexOf(control.value) > -1)
+                return null;
+            return isValidUrl(control.value) ? null : { url: true };
+        });
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    function isValidUrl(value) {
+        if (/^http(s)?:\/\/[^/]/.test(value) || /^ftp:\/\/[^/]/.test(value)) {
+            /** @type {?} */
+            var a = document.createElement('a');
+            a.href = value;
+            return !!a.host;
+        }
+        return false;
+    }
+
+    /**
+     * @fileoverview added by tsickle
+     * Generated from: lib/validators/index.ts
+     * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+     */
+    var ɵ0 = /**
+     * @return {?}
+     */
+    function () { return forms.Validators.email; };
+    /** @type {?} */
+    var AbpValidators = {
+        creditCard: validateCreditCard,
+        emailAddress: (ɵ0),
+        range: validateRange,
+        required: validateRequired,
+        stringLength: validateStringLength,
+        url: validateUrl,
+    };
+
+    exports.AbpValidators = AbpValidators;
     exports.AbstractNgModelComponent = AbstractNgModelComponent;
     exports.AddReplaceableComponent = AddReplaceableComponent;
     exports.AddRoute = AddRoute;
@@ -7685,6 +8581,14 @@
     exports.DynamicLayoutComponent = DynamicLayoutComponent;
     exports.EllipsisDirective = EllipsisDirective;
     exports.EntityDto = EntityDto;
+    exports.ExtensibleAuditedEntityDto = ExtensibleAuditedEntityDto;
+    exports.ExtensibleAuditedEntityWithUserDto = ExtensibleAuditedEntityWithUserDto;
+    exports.ExtensibleCreationAuditedEntityDto = ExtensibleCreationAuditedEntityDto;
+    exports.ExtensibleCreationAuditedEntityWithUserDto = ExtensibleCreationAuditedEntityWithUserDto;
+    exports.ExtensibleEntityDto = ExtensibleEntityDto;
+    exports.ExtensibleFullAuditedEntityDto = ExtensibleFullAuditedEntityDto;
+    exports.ExtensibleFullAuditedEntityWithUserDto = ExtensibleFullAuditedEntityWithUserDto;
+    exports.ExtensibleObject = ExtensibleObject;
     exports.ForDirective = ForDirective;
     exports.FormSubmitDirective = FormSubmitDirective;
     exports.FullAuditedEntityDto = FullAuditedEntityDto;
@@ -7693,10 +8597,12 @@
     exports.GetProfile = GetProfile;
     exports.InitDirective = InitDirective;
     exports.InsertIntoContainerStrategy = InsertIntoContainerStrategy;
+    exports.LIST_QUERY_DEBOUNCE_TIME = LIST_QUERY_DEBOUNCE_TIME;
     exports.LOADING_STRATEGY = LOADING_STRATEGY;
     exports.LazyLoadService = LazyLoadService;
     exports.LimitedResultRequestDto = LimitedResultRequestDto;
     exports.ListResultDto = ListResultDto;
+    exports.ListService = ListService;
     exports.LoadingStrategy = LoadingStrategy;
     exports.LocalizationPipe = LocalizationPipe;
     exports.LocalizationService = LocalizationService;
@@ -7743,6 +8649,9 @@
     exports.UpdateProfile = UpdateProfile;
     exports.VisibilityDirective = VisibilityDirective;
     exports.addAbpRoutes = addAbpRoutes;
+    exports.createLocalizationPipeKeyGenerator = createLocalizationPipeKeyGenerator;
+    exports.createLocalizer = createLocalizer;
+    exports.createLocalizerWithFallback = createLocalizerWithFallback;
     exports.fromLazyLoad = fromLazyLoad;
     exports.generateHash = generateHash;
     exports.generatePassword = generatePassword;
@@ -7761,6 +8670,11 @@
     exports.trackBy = trackBy;
     exports.trackByDeep = trackByDeep;
     exports.uuid = uuid;
+    exports.validateCreditCard = validateCreditCard;
+    exports.validateRange = validateRange;
+    exports.validateRequired = validateRequired;
+    exports.validateStringLength = validateStringLength;
+    exports.validateUrl = validateUrl;
     exports.ɵa = storageFactory;
     exports.ɵb = BaseCoreModule;
     exports.ɵba = ProfileService;
