@@ -714,7 +714,7 @@
             /** @type {?|undefined} */
             Options.prototype.id;
             /** @type {?|undefined} */
-            Options.prototype.closable;
+            Options.prototype.dismissible;
             /** @type {?|undefined} */
             Options.prototype.messageLocalizationParams;
             /** @type {?|undefined} */
@@ -727,6 +727,12 @@
             Options.prototype.cancelText;
             /** @type {?|undefined} */
             Options.prototype.yesText;
+            /**
+             *
+             * @deprecated To be deleted in v2.9
+             * @type {?|undefined}
+             */
+            Options.prototype.closable;
         }
         /**
          * @record
@@ -799,7 +805,7 @@
         ConfirmationComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'abp-confirmation',
-                        template: "<div class=\"confirmation\" *ngIf=\"confirmation$ | async as data\">\r\n  <div class=\"confirmation-backdrop\"></div>\r\n  <div class=\"confirmation-dialog\">\r\n    <div class=\"icon-container\" [ngClass]=\"data.severity\" *ngIf=\"data.severity\">\r\n      <i class=\"fa icon\" [ngClass]=\"getIconClass(data)\"></i>\r\n    </div>\r\n    <div class=\"content\">\r\n      <h1\r\n        class=\"title\"\r\n        *ngIf=\"data.title\"\r\n        [innerHTML]=\"data.title | abpLocalization: data.options?.titleLocalizationParams\"\r\n      ></h1>\r\n      <p\r\n        class=\"message\"\r\n        *ngIf=\"data.message\"\r\n        [innerHTML]=\"data.message | abpLocalization: data.options?.messageLocalizationParams\"\r\n      ></p>\r\n    </div>\r\n    <div class=\"footer\">\r\n      <button\r\n        id=\"cancel\"\r\n        class=\"confirmation-button confirmation-button--reject\"\r\n        [innerHTML]=\"data.options?.cancelText || 'AbpUi::Cancel' | abpLocalization\"\r\n        *ngIf=\"!data?.options?.hideCancelBtn\"\r\n        (click)=\"close(reject)\"\r\n      ></button>\r\n      <button\r\n        id=\"confirm\"\r\n        class=\"confirmation-button confirmation-button--approve\"\r\n        [innerHTML]=\"data.options?.yesText || 'AbpUi::Yes' | abpLocalization\"\r\n        *ngIf=\"!data?.options?.hideYesBtn\"\r\n        (click)=\"close(confirm)\"\r\n      ></button>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                        template: "<div class=\"confirmation\" *ngIf=\"confirmation$ | async as data\">\r\n  <div\r\n    class=\"confirmation-backdrop\"\r\n    (click)=\"data.options?.dismissible ? close(dismiss) : null\"\r\n  ></div>\r\n  <div class=\"confirmation-dialog\">\r\n    <div class=\"icon-container\" [ngClass]=\"data.severity\" *ngIf=\"data.severity\">\r\n      <i class=\"fa icon\" [ngClass]=\"getIconClass(data)\"></i>\r\n    </div>\r\n    <div class=\"content\">\r\n      <h1\r\n        class=\"title\"\r\n        *ngIf=\"data.title\"\r\n        [innerHTML]=\"data.title | abpLocalization: data.options?.titleLocalizationParams\"\r\n      ></h1>\r\n      <p\r\n        class=\"message\"\r\n        *ngIf=\"data.message\"\r\n        [innerHTML]=\"data.message | abpLocalization: data.options?.messageLocalizationParams\"\r\n      ></p>\r\n    </div>\r\n    <div class=\"footer\">\r\n      <button\r\n        id=\"cancel\"\r\n        class=\"confirmation-button confirmation-button--reject\"\r\n        [innerHTML]=\"data.options?.cancelText || 'AbpUi::Cancel' | abpLocalization\"\r\n        *ngIf=\"!data?.options?.hideCancelBtn\"\r\n        (click)=\"close(reject)\"\r\n      ></button>\r\n      <button\r\n        id=\"confirm\"\r\n        class=\"confirmation-button confirmation-button--approve\"\r\n        [innerHTML]=\"data.options?.yesText || 'AbpUi::Yes' | abpLocalization\"\r\n        *ngIf=\"!data?.options?.hideYesBtn\"\r\n        (click)=\"close(confirm)\"\r\n      ></button>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
                         styles: [".confirmation{position:fixed;top:0;right:0;bottom:0;left:0;display:flex;align-items:center;justify-content:center;z-index:1060}.confirmation .confirmation-backdrop{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1061!important}.confirmation .confirmation-dialog{display:flex;flex-direction:column;margin:20px auto;padding:0;width:450px;min-height:300px;z-index:1062!important}@media screen and (max-width:500px){.confirmation .confirmation-dialog{width:90vw}}.confirmation .confirmation-dialog .icon-container{display:flex;align-items:center;justify-content:center;margin:0 0 10px;padding:20px}.confirmation .confirmation-dialog .icon-container .icon{width:100px;height:100px;stroke-width:1;font-size:80px;text-align:center}.confirmation .confirmation-dialog .content{flex-grow:1;display:block}.confirmation .confirmation-dialog .content .title{display:block;margin:0;padding:0;font-size:27px;font-weight:600;text-align:center}.confirmation .confirmation-dialog .content .message{display:block;margin:10px auto;padding:20px;font-size:16px;font-weight:400;text-align:center}.confirmation .confirmation-dialog .footer{display:flex;align-items:center;justify-content:flex-end;margin:10px 0 0;padding:20px;width:100%}.confirmation .confirmation-dialog .footer .confirmation-button{display:inline-block;margin:0 5px;padding:10px 20px;border:none;border-radius:6px;font-size:14px;font-weight:600}"]
                     }] }
         ];
@@ -951,6 +957,7 @@
      */
     var LoaderBarComponent = /** @class */ (function () {
         function LoaderBarComponent(actions, router, cdRef) {
+            var _this = this;
             this.actions = actions;
             this.router = router;
             this.cdRef = cdRef;
@@ -959,13 +966,38 @@
             this.isLoading = false;
             this.progressLevel = 0;
             this.intervalPeriod = 350;
-            this.stopDelay = 820;
+            this.stopDelay = 800;
             this.filter = (/**
              * @param {?} action
              * @return {?}
              */
             function (action) {
                 return action.payload.url.indexOf('openid-configuration') < 0;
+            });
+            this.clearProgress = (/**
+             * @return {?}
+             */
+            function () {
+                _this.progressLevel = 0;
+                _this.cdRef.detectChanges();
+            });
+            this.reportProgress = (/**
+             * @return {?}
+             */
+            function () {
+                if (_this.progressLevel < 75) {
+                    _this.progressLevel += 1 + Math.random() * 9;
+                }
+                else if (_this.progressLevel < 90) {
+                    _this.progressLevel += 0.4;
+                }
+                else if (_this.progressLevel < 100) {
+                    _this.progressLevel += 0.1;
+                }
+                else {
+                    _this.interval.unsubscribe();
+                }
+                _this.cdRef.detectChanges();
             });
         }
         Object.defineProperty(LoaderBarComponent.prototype, "boxShadow", {
@@ -979,9 +1011,11 @@
             configurable: true
         });
         /**
+         * @private
          * @return {?}
          */
-        LoaderBarComponent.prototype.ngOnInit = /**
+        LoaderBarComponent.prototype.subscribeToLoadActions = /**
+         * @private
          * @return {?}
          */
         function () {
@@ -998,6 +1032,17 @@
                 else
                     _this.stopLoading();
             }));
+        };
+        /**
+         * @private
+         * @return {?}
+         */
+        LoaderBarComponent.prototype.subscribeToRouterEvents = /**
+         * @private
+         * @return {?}
+         */
+        function () {
+            var _this = this;
             this.router.events
                 .pipe(operators.filter((/**
              * @param {?} event
@@ -1022,6 +1067,16 @@
         /**
          * @return {?}
          */
+        LoaderBarComponent.prototype.ngOnInit = /**
+         * @return {?}
+         */
+        function () {
+            this.subscribeToLoadActions();
+            this.subscribeToRouterEvents();
+        };
+        /**
+         * @return {?}
+         */
         LoaderBarComponent.prototype.ngOnDestroy = /**
          * @return {?}
          */
@@ -1036,28 +1091,10 @@
          * @return {?}
          */
         function () {
-            var _this = this;
-            if (this.isLoading || this.progressLevel !== 0)
+            if (this.isLoading || (this.interval && !this.interval.closed))
                 return;
             this.isLoading = true;
-            this.interval = rxjs.interval(this.intervalPeriod).subscribe((/**
-             * @return {?}
-             */
-            function () {
-                if (_this.progressLevel < 75) {
-                    _this.progressLevel += Math.random() * 10;
-                }
-                else if (_this.progressLevel < 90) {
-                    _this.progressLevel += 0.4;
-                }
-                else if (_this.progressLevel < 100) {
-                    _this.progressLevel += 0.1;
-                }
-                else {
-                    _this.interval.unsubscribe();
-                }
-                _this.cdRef.detectChanges();
-            }));
+            this.interval = rxjs.timer(0, this.intervalPeriod).subscribe(this.reportProgress);
         };
         /**
          * @return {?}
@@ -1066,26 +1103,19 @@
          * @return {?}
          */
         function () {
-            var _this = this;
             if (this.interval)
                 this.interval.unsubscribe();
             this.progressLevel = 100;
             this.isLoading = false;
             if (this.timer && !this.timer.closed)
                 return;
-            this.timer = rxjs.timer(this.stopDelay).subscribe((/**
-             * @return {?}
-             */
-            function () {
-                _this.progressLevel = 0;
-                _this.cdRef.detectChanges();
-            }));
+            this.timer = rxjs.timer(this.stopDelay).subscribe(this.clearProgress);
         };
         LoaderBarComponent.decorators = [
             { type: core.Component, args: [{
                         selector: 'abp-loader-bar',
-                        template: "\n    <div id=\"abp-loader-bar\" [ngClass]=\"containerClass\" [class.is-loading]=\"isLoading\">\n      <div\n        class=\"abp-progress\"\n        [style.width.vw]=\"progressLevel\"\n        [ngStyle]=\"{\n          'background-color': color,\n          'box-shadow': boxShadow\n        }\"\n      ></div>\n    </div>\n  ",
-                        styles: [".abp-loader-bar{left:0;opacity:0;position:fixed;top:0;transition:opacity .4s linear .4s;z-index:99999}.abp-loader-bar.is-loading{opacity:1;transition:none}.abp-loader-bar .abp-progress{height:3px;left:0;position:fixed;top:0;transition:width .4s}"]
+                        template: "\n    <div id=\"abp-loader-bar\" [ngClass]=\"containerClass\" [class.is-loading]=\"isLoading\">\n      <div\n        class=\"abp-progress\"\n        [class.progressing]=\"progressLevel\"\n        [style.width.vw]=\"progressLevel\"\n        [ngStyle]=\"{\n          'background-color': color,\n          'box-shadow': boxShadow\n        }\"\n      ></div>\n    </div>\n  ",
+                        styles: [".abp-loader-bar{left:0;opacity:0;position:fixed;top:0;transition:opacity .4s linear .4s;z-index:99999}.abp-loader-bar.is-loading{opacity:1;transition:none}.abp-loader-bar .abp-progress{height:3px;left:0;position:fixed;top:0}.abp-loader-bar .abp-progress.progressing{transition:width .4s}"]
                     }] }
         ];
         /** @nocollapse */
@@ -1121,6 +1151,16 @@
         LoaderBarComponent.prototype.stopDelay;
         /** @type {?} */
         LoaderBarComponent.prototype.filter;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoaderBarComponent.prototype.clearProgress;
+        /**
+         * @type {?}
+         * @private
+         */
+        LoaderBarComponent.prototype.reportProgress;
         /**
          * @type {?}
          * @private
@@ -1374,6 +1414,7 @@
          * @return {?}
          */
         function (message, title, severity, options) {
+            if (options === void 0) { options = (/** @type {?} */ ({})); }
             if (!this.containerComponentRef)
                 this.setContainer();
             this.confirmation$.next({
@@ -1383,7 +1424,9 @@
                 options: options,
             });
             this.status$ = new rxjs.Subject();
-            this.listenToEscape();
+            var _a = options.dismissible, dismissible = _a === void 0 ? true : _a;
+            if (dismissible)
+                this.listenToEscape();
             return this.status$;
         };
         /**

@@ -1,14 +1,14 @@
-import { ChangeDetectorRef, Component, Injector, Input, Injectable, Directive, ElementRef, EventEmitter, Output, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, InjectionToken, Self, ɵɵdefineInjectable, ɵɵinject, Renderer2, Optional, ComponentFactoryResolver, Pipe, NgModule, Inject, NgZone, SkipSelf, LOCALE_ID, APP_INITIALIZER, INJECTOR, ApplicationRef } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, Input, Injectable, Directive, ElementRef, EventEmitter, Output, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, InjectionToken, Self, ɵɵdefineInjectable, ɵɵinject, Renderer2, Optional, ComponentFactoryResolver, Pipe, NgModule, Inject, NgZone, SkipSelf, INJECTOR, LOCALE_ID, APP_INITIALIZER, ApplicationRef } from '@angular/core';
 import { NavigationEnd, Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { ofActionSuccessful, Store, Actions, Action, Selector, State, createSelector, actionMatcher, InitState, UpdateState, setValue, NgxsModule, NGXS_PLUGINS } from '@ngxs/store';
 import snq from 'snq';
 import { __rest, __decorate, __metadata, __awaiter } from 'tslib';
 import { HttpErrorResponse, HttpClient, HttpClientModule, HTTP_INTERCEPTORS, HttpHeaders } from '@angular/common/http';
-import { fromEvent, of, throwError, Subject, Observable, noop as noop$1, from, concat, ReplaySubject } from 'rxjs';
-import { take, tap, switchMap, catchError, takeUntil, distinctUntilChanged, debounceTime, filter, finalize, retryWhen, delay, shareReplay } from 'rxjs/operators';
+import { fromEvent, of, throwError, Subject, Observable, noop as noop$1, from, concat, ReplaySubject, BehaviorSubject } from 'rxjs';
+import { take, tap, switchMap, catchError, takeUntil, distinctUntilChanged, debounceTime, filter, finalize, map, retryWhen, delay, shareReplay } from 'rxjs/operators';
 import { OAuthService, OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { registerLocaleData, CommonModule, APP_BASE_HREF } from '@angular/common';
-import { FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroupDirective, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxsRouterPluginModule, Navigate } from '@ngxs/router-plugin';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import compare from 'just-compare';
@@ -351,9 +351,11 @@ if (false) {
 class SetLanguage {
     /**
      * @param {?} payload
+     * @param {?=} dispatchAppConfiguration
      */
-    constructor(payload) {
+    constructor(payload, dispatchAppConfiguration) {
         this.payload = payload;
+        this.dispatchAppConfiguration = dispatchAppConfiguration;
     }
 }
 SetLanguage.type = '[Session] Set Language';
@@ -362,6 +364,8 @@ if (false) {
     SetLanguage.type;
     /** @type {?} */
     SetLanguage.prototype.payload;
+    /** @type {?} */
+    SetLanguage.prototype.dispatchAppConfiguration;
 }
 class SetTenant {
     /**
@@ -596,11 +600,12 @@ let SessionState = SessionState_1 = class SessionState {
      * @param {?} __1
      * @return {?}
      */
-    setLanguage({ patchState, dispatch }, { payload }) {
+    setLanguage({ patchState, dispatch }, { payload, dispatchAppConfiguration = true }) {
         patchState({
             language: payload,
         });
-        return dispatch(new GetAppConfiguration());
+        if (dispatchAppConfiguration)
+            return dispatch(new GetAppConfiguration());
     }
     /**
      * @param {?} __0
@@ -973,37 +978,48 @@ let ConfigState = ConfigState_1 = class ConfigState {
          * @return {?}
          */
         (state) => {
-            if (!state.localization)
-                return defaultValue || key;
             /** @type {?} */
-            const defaultResourceName = snq((/**
+            const warn = (/**
+             * @param {?} message
              * @return {?}
              */
-            () => state.environment.localization.defaultResourceName));
-            if (keys[0] === '') {
-                if (!defaultResourceName) {
-                    throw new Error(`Please check your environment. May you forget set defaultResourceName?
-              Here is the example:
-               { production: false,
-                 localization: {
-                   defaultResourceName: 'MyProjectName'
-                  }
-               }`);
-                }
-                keys[0] = defaultResourceName;
+            (message) => {
+                if (!state.environment.production)
+                    console.warn(message);
+            });
+            if (keys.length < 2) {
+                warn('The localization source separator (::) not found.');
+                return defaultValue || ((/** @type {?} */ (key)));
+            }
+            if (!state.localization)
+                return defaultValue || keys[1];
+            /** @type {?} */
+            const sourceName = keys[0] ||
+                snq((/**
+                 * @return {?}
+                 */
+                () => state.environment.localization.defaultResourceName)) ||
+                state.localization.defaultResourceName;
+            /** @type {?} */
+            const sourceKey = keys[1];
+            if (sourceName === '_') {
+                return defaultValue || sourceKey;
+            }
+            if (!sourceName) {
+                warn('Localization source name is not specified and the defaultResourceName was not defined!');
+                return defaultValue || sourceKey;
             }
             /** @type {?} */
-            let localization = ((/** @type {?} */ (keys))).reduce((/**
-             * @param {?} acc
-             * @param {?} val
-             * @return {?}
-             */
-            (acc, val) => {
-                if (acc) {
-                    return acc[val];
-                }
-                return undefined;
-            }), state.localization.values);
+            const source = state.localization.values[sourceName];
+            if (!source) {
+                warn('Could not find localization source: ' + sourceName);
+                return defaultValue || sourceKey;
+            }
+            /** @type {?} */
+            let localization = source[sourceKey];
+            if (typeof localization === 'undefined') {
+                return defaultValue || sourceKey;
+            }
             interpolateParams = interpolateParams.filter((/**
              * @param {?} params
              * @return {?}
@@ -1020,7 +1036,7 @@ let ConfigState = ConfigState_1 = class ConfigState {
             }
             if (typeof localization !== 'string')
                 localization = '';
-            return localization || defaultValue || key;
+            return localization || defaultValue || ((/** @type {?} */ (key)));
         }));
         return selector;
     }
@@ -1049,9 +1065,10 @@ let ConfigState = ConfigState_1 = class ConfigState {
             if (defaultLang.includes(';')) {
                 defaultLang = defaultLang.split(';')[0];
             }
+            document.documentElement.setAttribute('lang', configuration.localization.currentCulture.cultureName);
             return this.store.selectSnapshot(SessionState.getLanguage)
                 ? of(null)
-                : dispatch(new SetLanguage(defaultLang));
+                : dispatch(new SetLanguage(defaultLang, false));
         })), catchError((/**
          * @param {?} err
          * @return {?}
@@ -1257,7 +1274,7 @@ function patchRouteDeep(routes, name, newValue, parentUrl = '') {
      */
     route => {
         if (route.name === name) {
-            newValue.url = `${parentUrl}/${(!newValue.path && newValue.path === ''
+            newValue.url = `${parentUrl}/${(!newValue.path || newValue.path === ''
                 ? route.path
                 : newValue.path) || ''}`;
             if (newValue.children && newValue.children.length) {
@@ -2566,6 +2583,102 @@ function clearCallbacks(element) {
     element.onemptied = null;
     element.onstalled = null;
     element.onsuspend = null;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/utils/localization-utils.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} localization
+ * @return {?}
+ */
+function createLocalizer(localization) {
+    return (/**
+     * @param {?} resourceName
+     * @param {?} key
+     * @param {?} defaultValue
+     * @return {?}
+     */
+    (resourceName, key, defaultValue) => {
+        if (resourceName === '_')
+            return key;
+        /** @type {?} */
+        const resource = localization.values[resourceName];
+        if (!resource)
+            return defaultValue;
+        return resource[key] || defaultValue;
+    });
+}
+/**
+ * @param {?} localization
+ * @return {?}
+ */
+function createLocalizerWithFallback(localization) {
+    /** @type {?} */
+    const findLocalization = createLocalizationFinder(localization);
+    return (/**
+     * @param {?} resourceNames
+     * @param {?} keys
+     * @param {?} defaultValue
+     * @return {?}
+     */
+    (resourceNames, keys, defaultValue) => {
+        const { localized } = findLocalization(resourceNames, keys);
+        return localized || defaultValue;
+    });
+}
+/**
+ * @param {?} localization
+ * @return {?}
+ */
+function createLocalizationPipeKeyGenerator(localization) {
+    /** @type {?} */
+    const findLocalization = createLocalizationFinder(localization);
+    return (/**
+     * @param {?} resourceNames
+     * @param {?} keys
+     * @param {?} defaultKey
+     * @return {?}
+     */
+    (resourceNames, keys, defaultKey) => {
+        const { resourceName, key } = findLocalization(resourceNames, keys);
+        return !resourceName ? defaultKey : resourceName === '_' ? key : `${resourceName}::${key}`;
+    });
+}
+/**
+ * @param {?} localization
+ * @return {?}
+ */
+function createLocalizationFinder(localization) {
+    /** @type {?} */
+    const localize = createLocalizer(localization);
+    return (/**
+     * @param {?} resourceNames
+     * @param {?} keys
+     * @return {?}
+     */
+    (resourceNames, keys) => {
+        resourceNames = resourceNames.concat(localization.defaultResourceName).filter(Boolean);
+        /** @type {?} */
+        const resourceCount = resourceNames.length;
+        /** @type {?} */
+        const keyCount = keys.length;
+        for (let i = 0; i < resourceCount; i++) {
+            /** @type {?} */
+            const resourceName = resourceNames[i];
+            for (let j = 0; j < keyCount; j++) {
+                /** @type {?} */
+                const key = keys[j];
+                /** @type {?} */
+                const localized = localize(resourceName, key, null);
+                if (localized)
+                    return { resourceName, key, localized };
+            }
+        }
+        return { resourceName: undefined, key: undefined, localized: undefined };
+    });
 }
 
 /**
@@ -3955,14 +4068,14 @@ class LocalizationService {
     /**
      * @param {?} actions
      * @param {?} store
-     * @param {?} router
+     * @param {?} injector
      * @param {?} ngZone
      * @param {?} otherInstance
      */
-    constructor(actions, store, router, ngZone, otherInstance) {
+    constructor(actions, store, injector, ngZone, otherInstance) {
         this.actions = actions;
         this.store = store;
-        this.router = router;
+        this.injector = injector;
         this.ngZone = ngZone;
         if (otherInstance)
             throw new Error('LocalizationService should have only one instance.');
@@ -3980,36 +4093,35 @@ class LocalizationService {
         state => state.SessionState.language));
     }
     /**
+     * @return {?}
+     */
+    get languageChange() {
+        return this.actions.pipe(ofActionSuccessful(SetLanguage));
+    }
+    /**
      * @private
      * @return {?}
      */
     listenToSetLanguage() {
-        this.actions
-            .pipe(ofActionSuccessful(SetLanguage))
-            .subscribe((/**
+        this.languageChange.subscribe((/**
          * @param {?} __0
          * @return {?}
          */
         ({ payload }) => this.registerLocale(payload)));
     }
     /**
-     * @param {?} reuse
-     * @return {?}
-     */
-    setRouteReuse(reuse) {
-        this.router.routeReuseStrategy.shouldReuseRoute = reuse;
-    }
-    /**
      * @param {?} locale
      * @return {?}
      */
     registerLocale(locale) {
-        const { shouldReuseRoute } = this.router.routeReuseStrategy;
-        this.setRouteReuse((/**
+        /** @type {?} */
+        const router = this.injector.get(Router);
+        const { shouldReuseRoute } = router.routeReuseStrategy;
+        router.routeReuseStrategy.shouldReuseRoute = (/**
          * @return {?}
          */
-        () => false));
-        this.router.navigated = false;
+        () => false);
+        router.navigated = false;
         return registerLocale(locale).then((/**
          * @return {?}
          */
@@ -4018,8 +4130,8 @@ class LocalizationService {
              * @return {?}
              */
             () => __awaiter(this, void 0, void 0, function* () {
-                yield this.router.navigateByUrl(this.router.url).catch(noop$1);
-                this.setRouteReuse(shouldReuseRoute);
+                yield router.navigateByUrl(router.url).catch(noop$1);
+                router.routeReuseStrategy.shouldReuseRoute = shouldReuseRoute;
             })));
         }));
     }
@@ -4041,6 +4153,54 @@ class LocalizationService {
     instant(key, ...interpolateParams) {
         return this.store.selectSnapshot(ConfigState.getLocalization(key, ...interpolateParams));
     }
+    /**
+     * @param {?} resourceName
+     * @param {?} key
+     * @param {?} defaultValue
+     * @return {?}
+     */
+    localize(resourceName, key, defaultValue) {
+        return this.store.select(ConfigState.getOne('localization')).pipe(map(createLocalizer), map((/**
+         * @param {?} localize
+         * @return {?}
+         */
+        localize => localize(resourceName, key, defaultValue))));
+    }
+    /**
+     * @param {?} resourceName
+     * @param {?} key
+     * @param {?} defaultValue
+     * @return {?}
+     */
+    localizeSync(resourceName, key, defaultValue) {
+        /** @type {?} */
+        const localization = this.store.selectSnapshot(ConfigState.getOne('localization'));
+        return createLocalizer(localization)(resourceName, key, defaultValue);
+    }
+    /**
+     * @param {?} resourceNames
+     * @param {?} keys
+     * @param {?} defaultValue
+     * @return {?}
+     */
+    localizeWithFallback(resourceNames, keys, defaultValue) {
+        return this.store.select(ConfigState.getOne('localization')).pipe(map(createLocalizerWithFallback), map((/**
+         * @param {?} localizeWithFallback
+         * @return {?}
+         */
+        localizeWithFallback => localizeWithFallback(resourceNames, keys, defaultValue))));
+    }
+    /**
+     * @param {?} resourceNames
+     * @param {?} keys
+     * @param {?} defaultValue
+     * @return {?}
+     */
+    localizeWithFallbackSync(resourceNames, keys, defaultValue) {
+        /** @type {?} */
+        const localization = this.store.selectSnapshot(ConfigState.getOne('localization'));
+        return createLocalizerWithFallback(localization)(resourceNames, keys, defaultValue);
+    }
 }
 LocalizationService.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] }
@@ -4049,11 +4209,11 @@ LocalizationService.decorators = [
 LocalizationService.ctorParameters = () => [
     { type: Actions },
     { type: Store },
-    { type: Router },
+    { type: Injector },
     { type: NgZone },
     { type: LocalizationService, decorators: [{ type: Optional }, { type: SkipSelf }] }
 ];
-/** @nocollapse */ LocalizationService.ngInjectableDef = ɵɵdefineInjectable({ factory: function LocalizationService_Factory() { return new LocalizationService(ɵɵinject(Actions), ɵɵinject(Store), ɵɵinject(Router), ɵɵinject(NgZone), ɵɵinject(LocalizationService, 12)); }, token: LocalizationService, providedIn: "root" });
+/** @nocollapse */ LocalizationService.ngInjectableDef = ɵɵdefineInjectable({ factory: function LocalizationService_Factory() { return new LocalizationService(ɵɵinject(Actions), ɵɵinject(Store), ɵɵinject(INJECTOR), ɵɵinject(NgZone), ɵɵinject(LocalizationService, 12)); }, token: LocalizationService, providedIn: "root" });
 if (false) {
     /**
      * @type {?}
@@ -4069,7 +4229,7 @@ if (false) {
      * @type {?}
      * @private
      */
-    LocalizationService.prototype.router;
+    LocalizationService.prototype.injector;
     /**
      * @type {?}
      * @private
@@ -4620,6 +4780,8 @@ var ApplicationConfiguration;
         CurrentUser.prototype.tenantId;
         /** @type {?} */
         CurrentUser.prototype.userName;
+        /** @type {?} */
+        CurrentUser.prototype.email;
     }
 })(ApplicationConfiguration || (ApplicationConfiguration = {}));
 
@@ -4771,7 +4933,7 @@ var Config;
         Environment.prototype.oAuthConfig;
         /** @type {?} */
         Environment.prototype.apis;
-        /** @type {?} */
+        /** @type {?|undefined} */
         Environment.prototype.localization;
     }
     /**
@@ -5029,6 +5191,141 @@ if (false) {
     FullAuditedEntityWithUserDto.prototype.lastModifier;
     /** @type {?} */
     FullAuditedEntityWithUserDto.prototype.deleter;
+}
+class ExtensibleObject {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        for (const key in initialValues) {
+            if (initialValues.hasOwnProperty(key)) {
+                this[key] = initialValues[key];
+            }
+        }
+    }
+}
+if (false) {
+    /** @type {?} */
+    ExtensibleObject.prototype.extraProperties;
+}
+/**
+ * @template TKey
+ */
+class ExtensibleEntityDto extends ExtensibleObject {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    ExtensibleEntityDto.prototype.id;
+}
+/**
+ * @template TPrimaryKey
+ */
+class ExtensibleCreationAuditedEntityDto extends ExtensibleEntityDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    ExtensibleCreationAuditedEntityDto.prototype.creationTime;
+    /** @type {?} */
+    ExtensibleCreationAuditedEntityDto.prototype.creatorId;
+}
+/**
+ * @template TPrimaryKey
+ */
+class ExtensibleAuditedEntityDto extends ExtensibleCreationAuditedEntityDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    ExtensibleAuditedEntityDto.prototype.lastModificationTime;
+    /** @type {?} */
+    ExtensibleAuditedEntityDto.prototype.lastModifierId;
+}
+/**
+ * @template TPrimaryKey, TUserDto
+ */
+class ExtensibleAuditedEntityWithUserDto extends ExtensibleAuditedEntityDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    ExtensibleAuditedEntityWithUserDto.prototype.creator;
+    /** @type {?} */
+    ExtensibleAuditedEntityWithUserDto.prototype.lastModifier;
+}
+/**
+ * @template TPrimaryKey, TUserDto
+ */
+class ExtensibleCreationAuditedEntityWithUserDto extends ExtensibleCreationAuditedEntityDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    ExtensibleCreationAuditedEntityWithUserDto.prototype.creator;
+}
+/**
+ * @template TPrimaryKey
+ */
+class ExtensibleFullAuditedEntityDto extends ExtensibleAuditedEntityDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    ExtensibleFullAuditedEntityDto.prototype.isDeleted;
+    /** @type {?} */
+    ExtensibleFullAuditedEntityDto.prototype.deleterId;
+    /** @type {?} */
+    ExtensibleFullAuditedEntityDto.prototype.deletionTime;
+}
+/**
+ * @template TPrimaryKey, TUserDto
+ */
+class ExtensibleFullAuditedEntityWithUserDto extends ExtensibleFullAuditedEntityDto {
+    /**
+     * @param {?=} initialValues
+     */
+    constructor(initialValues = {}) {
+        super(initialValues);
+    }
+}
+if (false) {
+    /** @type {?} */
+    ExtensibleFullAuditedEntityWithUserDto.prototype.creator;
+    /** @type {?} */
+    ExtensibleFullAuditedEntityWithUserDto.prototype.lastModifier;
+    /** @type {?} */
+    ExtensibleFullAuditedEntityWithUserDto.prototype.deleter;
 }
 
 /**
@@ -6470,6 +6767,198 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/tokens/list.token.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/** @type {?} */
+const LIST_QUERY_DEBOUNCE_TIME = new InjectionToken('LIST_QUERY_DEBOUNCE_TIME');
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/services/list.service.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+class ListService {
+    /**
+     * @param {?} delay
+     */
+    constructor(delay) {
+        this.delay = delay;
+        this._filter = '';
+        this._maxResultCount = 10;
+        this._page = 1;
+        this._sortKey = '';
+        this._sortOrder = '';
+        this._query$ = new ReplaySubject(1);
+        this._isLoading$ = new BehaviorSubject(false);
+        this.get = (/**
+         * @return {?}
+         */
+        () => {
+            this._query$.next({
+                filter: this._filter || undefined,
+                maxResultCount: this._maxResultCount,
+                skipCount: (this._page - 1) * this._maxResultCount,
+                sorting: this._sortOrder ? `${this._sortKey} ${this._sortOrder}` : undefined,
+            });
+        });
+        this.get();
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set filter(value) {
+        this._filter = value;
+        this.get();
+    }
+    /**
+     * @return {?}
+     */
+    get filter() {
+        return this._filter;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set maxResultCount(value) {
+        this._maxResultCount = value;
+        this.get();
+    }
+    /**
+     * @return {?}
+     */
+    get maxResultCount() {
+        return this._maxResultCount;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set page(value) {
+        this._page = value;
+        this.get();
+    }
+    /**
+     * @return {?}
+     */
+    get page() {
+        return this._page;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set sortKey(value) {
+        this._sortKey = value;
+        this.get();
+    }
+    /**
+     * @return {?}
+     */
+    get sortKey() {
+        return this._sortKey;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set sortOrder(value) {
+        this._sortOrder = value;
+        this.get();
+    }
+    /**
+     * @return {?}
+     */
+    get sortOrder() {
+        return this._sortOrder;
+    }
+    /**
+     * @return {?}
+     */
+    get query$() {
+        return this._query$
+            .asObservable()
+            .pipe(debounceTime(this.delay || 300), shareReplay({ bufferSize: 1, refCount: true }));
+    }
+    /**
+     * @return {?}
+     */
+    get isLoading$() {
+        return this._isLoading$.asObservable();
+    }
+    /**
+     * @template T
+     * @param {?} streamCreatorCallback
+     * @return {?}
+     */
+    hookToQuery(streamCreatorCallback) {
+        this._isLoading$.next(true);
+        return this.query$.pipe(switchMap(streamCreatorCallback), tap((/**
+         * @return {?}
+         */
+        () => this._isLoading$.next(false))), shareReplay({ bufferSize: 1, refCount: true }), takeUntilDestroy(this));
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() { }
+}
+ListService.decorators = [
+    { type: Injectable }
+];
+/** @nocollapse */
+ListService.ctorParameters = () => [
+    { type: Number, decorators: [{ type: Optional }, { type: Inject, args: [LIST_QUERY_DEBOUNCE_TIME,] }] }
+];
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ListService.prototype._filter;
+    /**
+     * @type {?}
+     * @private
+     */
+    ListService.prototype._maxResultCount;
+    /**
+     * @type {?}
+     * @private
+     */
+    ListService.prototype._page;
+    /**
+     * @type {?}
+     * @private
+     */
+    ListService.prototype._sortKey;
+    /**
+     * @type {?}
+     * @private
+     */
+    ListService.prototype._sortOrder;
+    /**
+     * @type {?}
+     * @private
+     */
+    ListService.prototype._query$;
+    /**
+     * @type {?}
+     * @private
+     */
+    ListService.prototype._isLoading$;
+    /** @type {?} */
+    ListService.prototype.get;
+    /**
+     * @type {?}
+     * @private
+     */
+    ListService.prototype.delay;
+}
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: lib/services/profile-state.service.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -6672,6 +7161,290 @@ if (false) {
 
 /**
  * @fileoverview added by tsickle
+ * Generated from: lib/validators/credit-card.validator.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @record
+ */
+function CreditCardError() { }
+if (false) {
+    /** @type {?} */
+    CreditCardError.prototype.creditCard;
+}
+/**
+ * @return {?}
+ */
+function validateCreditCard() {
+    return (/**
+     * @param {?} control
+     * @return {?}
+     */
+    (control) => {
+        if (control.pristine)
+            return null;
+        if (['', null, undefined].indexOf(control.value) > -1)
+            return null;
+        return isValidCreditCard(String(control.value)) ? null : { creditCard: true };
+    });
+}
+/**
+ * @param {?} value
+ * @return {?}
+ */
+function isValidCreditCard(value) {
+    value = value.replace(/[ -]/g, '');
+    if (!/^[0-9]{13,19}$/.test(value))
+        return false;
+    /** @type {?} */
+    let checksum = 0;
+    /** @type {?} */
+    let multiplier = 1;
+    for (let i = value.length; i > 0; i--) {
+        /** @type {?} */
+        const digit = Number(value[i - 1]) * multiplier;
+        /* tslint:disable-next-line:no-bitwise */
+        checksum += (digit % 10) + ~~(digit / 10);
+        multiplier = (multiplier * 2) % 3;
+    }
+    return checksum % 10 === 0;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/validators/range.validator.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @record
+ */
+function RangeError() { }
+if (false) {
+    /** @type {?} */
+    RangeError.prototype.range;
+}
+/**
+ * @record
+ */
+function RangeOptions() { }
+if (false) {
+    /** @type {?|undefined} */
+    RangeOptions.prototype.maximum;
+    /** @type {?|undefined} */
+    RangeOptions.prototype.minimum;
+}
+/**
+ * @param {?=} __0
+ * @return {?}
+ */
+function validateRange({ maximum = Infinity, minimum = 0 } = {}) {
+    return (/**
+     * @param {?} control
+     * @return {?}
+     */
+    (control) => {
+        if (control.pristine)
+            return null;
+        if (['', null, undefined].indexOf(control.value) > -1)
+            return null;
+        /** @type {?} */
+        const value = Number(control.value);
+        return getMinError(value, minimum, maximum) || getMaxError(value, maximum, minimum);
+    });
+}
+/**
+ * @param {?} value
+ * @param {?} max
+ * @param {?} min
+ * @return {?}
+ */
+function getMaxError(value, max, min) {
+    return value > max ? { range: { max, min } } : null;
+}
+/**
+ * @param {?} value
+ * @param {?} min
+ * @param {?} max
+ * @return {?}
+ */
+function getMinError(value, min, max) {
+    return value < min ? { range: { min, max } } : null;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/validators/required.validator.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @record
+ */
+function RequiredError() { }
+if (false) {
+    /** @type {?} */
+    RequiredError.prototype.required;
+}
+/**
+ * @record
+ */
+function RequiredOptions() { }
+if (false) {
+    /** @type {?|undefined} */
+    RequiredOptions.prototype.allowEmptyStrings;
+}
+/**
+ * @param {?=} __0
+ * @return {?}
+ */
+function validateRequired({ allowEmptyStrings } = {}) {
+    return (/**
+     * @param {?} control
+     * @return {?}
+     */
+    (control) => {
+        return control.pristine || isValidRequired(control.value, allowEmptyStrings)
+            ? null
+            : { required: true };
+    });
+}
+/**
+ * @param {?} value
+ * @param {?} allowEmptyStrings
+ * @return {?}
+ */
+function isValidRequired(value, allowEmptyStrings) {
+    if (value || value === 0 || value === false)
+        return true;
+    if (allowEmptyStrings && value === '')
+        return true;
+    return false;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/validators/string-length.validator.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @record
+ */
+function StringLengthError() { }
+if (false) {
+    /** @type {?|undefined} */
+    StringLengthError.prototype.maxlength;
+    /** @type {?|undefined} */
+    StringLengthError.prototype.minlength;
+}
+/**
+ * @record
+ */
+function StringLengthOptions() { }
+if (false) {
+    /** @type {?|undefined} */
+    StringLengthOptions.prototype.maximumLength;
+    /** @type {?|undefined} */
+    StringLengthOptions.prototype.minimumLength;
+}
+/**
+ * @param {?=} __0
+ * @return {?}
+ */
+function validateStringLength({ maximumLength = Infinity, minimumLength = 0, } = {}) {
+    return (/**
+     * @param {?} control
+     * @return {?}
+     */
+    (control) => {
+        if (control.pristine)
+            return null;
+        if (['', null, undefined].indexOf(control.value) > -1)
+            return null;
+        /** @type {?} */
+        const value = String(control.value);
+        return getMinLengthError(value, minimumLength) || getMaxLengthError(value, maximumLength);
+    });
+}
+/**
+ * @param {?} value
+ * @param {?} requiredLength
+ * @return {?}
+ */
+function getMaxLengthError(value, requiredLength) {
+    return value.length > requiredLength ? { maxlength: { requiredLength } } : null;
+}
+/**
+ * @param {?} value
+ * @param {?} requiredLength
+ * @return {?}
+ */
+function getMinLengthError(value, requiredLength) {
+    return value.length < requiredLength ? { minlength: { requiredLength } } : null;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/validators/url.validator.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * @record
+ */
+function UrlError() { }
+if (false) {
+    /** @type {?} */
+    UrlError.prototype.url;
+}
+/**
+ * @return {?}
+ */
+function validateUrl() {
+    return (/**
+     * @param {?} control
+     * @return {?}
+     */
+    (control) => {
+        if (control.pristine)
+            return null;
+        if (['', null, undefined].indexOf(control.value) > -1)
+            return null;
+        return isValidUrl(control.value) ? null : { url: true };
+    });
+}
+/**
+ * @param {?} value
+ * @return {?}
+ */
+function isValidUrl(value) {
+    if (/^http(s)?:\/\/[^/]/.test(value) || /^ftp:\/\/[^/]/.test(value)) {
+        /** @type {?} */
+        const a = document.createElement('a');
+        a.href = value;
+        return !!a.host;
+    }
+    return false;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * Generated from: lib/validators/index.ts
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+const ɵ0 = /**
+ * @return {?}
+ */
+() => Validators.email;
+/** @type {?} */
+const AbpValidators = {
+    creditCard: validateCreditCard,
+    emailAddress: (ɵ0),
+    range: validateRange,
+    required: validateRequired,
+    stringLength: validateStringLength,
+    url: validateUrl,
+};
+
+/**
+ * @fileoverview added by tsickle
  * Generated from: public-api.ts
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
@@ -6682,5 +7455,5 @@ if (false) {
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 
-export { AbstractNgModelComponent, AddReplaceableComponent, AddRoute, ApiInterceptor, ApplicationConfigurationService, AuditedEntityDto, AuditedEntityWithUserDto, AuthGuard, AuthService, AutofocusDirective, CONTAINER_STRATEGY, CONTENT_SECURITY_STRATEGY, CONTENT_STRATEGY, CONTEXT_STRATEGY, CORE_OPTIONS, CROSS_ORIGIN_STRATEGY, ChangePassword, ClearContainerStrategy, ComponentContextStrategy, ComponentProjectionStrategy, ConfigPlugin, ConfigState, ConfigStateService, ContainerStrategy, ContentProjectionService, ContentSecurityStrategy, ContentStrategy, ContextStrategy, CoreModule, CreationAuditedEntityDto, CreationAuditedEntityWithUserDto, CrossOriginStrategy, DOM_STRATEGY, DomInsertionService, DomStrategy, DynamicLayoutComponent, EllipsisDirective, EntityDto, ForDirective, FormSubmitDirective, FullAuditedEntityDto, FullAuditedEntityWithUserDto, GetAppConfiguration, GetProfile, InitDirective, InsertIntoContainerStrategy, LOADING_STRATEGY, LazyLoadService, LimitedResultRequestDto, ListResultDto, LoadingStrategy, LocalizationPipe, LocalizationService, LooseContentSecurityStrategy, MockLocalizationPipe, ModifyOpenedTabCount, NGXS_CONFIG_PLUGIN_OPTIONS, NoContentSecurityStrategy, NoContextStrategy, PROJECTION_STRATEGY, PagedAndSortedResultRequestDto, PagedResultDto, PagedResultRequestDto, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ProjectionStrategy, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, Rest, RestOccurError, RestService, RootComponentProjectionStrategy, RouterOutletComponent, ScriptContentStrategy, ScriptLoadingStrategy, SessionState, SessionStateService, SetEnvironment, SetLanguage, SetRemember, SetTenant, SortPipe, StartLoader, StopLoader, StyleContentStrategy, StyleLoadingStrategy, TemplateContextStrategy, TemplateProjectionStrategy, TrackByService, UpdateProfile, VisibilityDirective, addAbpRoutes, fromLazyLoad, generateHash, generatePassword, getAbpRoutes, getInitialData, isNumber, isUndefinedOrEmptyString, localeInitializer, mapEnumToOptions, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, trackBy, trackByDeep, uuid, storageFactory as ɵa, BaseCoreModule as ɵb, ProfileService as ɵba, RestService as ɵbb, GetProfile as ɵbc, UpdateProfile as ɵbd, ChangePassword as ɵbe, SessionState as ɵbg, SetLanguage as ɵbh, SetTenant as ɵbi, ModifyOpenedTabCount as ɵbj, SetRemember as ɵbk, ConfigState as ɵbm, PatchRouteByName as ɵbn, GetAppConfiguration as ɵbo, AddRoute as ɵbp, SetEnvironment as ɵbq, LocaleId as ɵbs, LocaleProvider as ɵbt, LocalizationService as ɵbu, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbv, ConfigPlugin as ɵbw, CORE_OPTIONS as ɵby, ApiInterceptor as ɵbz, RootCoreModule as ɵc, getInitialData as ɵca, localeInitializer as ɵcb, noop as ɵcc, TestCoreModule as ɵd, AbstractNgModelComponent as ɵe, AutofocusDirective as ɵf, DynamicLayoutComponent as ɵg, EllipsisDirective as ɵh, ForDirective as ɵi, FormSubmitDirective as ɵj, InitDirective as ɵk, InputEventDebounceDirective as ɵl, PermissionDirective as ɵm, ReplaceableRouteContainerComponent as ɵn, ReplaceableTemplateDirective as ɵo, RouterOutletComponent as ɵp, SortPipe as ɵq, StopPropagationDirective as ɵr, VisibilityDirective as ɵs, LocalizationModule as ɵt, LocalizationPipe as ɵu, MockLocalizationPipe as ɵv, ReplaceableComponentsState as ɵw, AddReplaceableComponent as ɵx, ProfileState as ɵz };
+export { AbpValidators, AbstractNgModelComponent, AddReplaceableComponent, AddRoute, ApiInterceptor, ApplicationConfigurationService, AuditedEntityDto, AuditedEntityWithUserDto, AuthGuard, AuthService, AutofocusDirective, CONTAINER_STRATEGY, CONTENT_SECURITY_STRATEGY, CONTENT_STRATEGY, CONTEXT_STRATEGY, CORE_OPTIONS, CROSS_ORIGIN_STRATEGY, ChangePassword, ClearContainerStrategy, ComponentContextStrategy, ComponentProjectionStrategy, ConfigPlugin, ConfigState, ConfigStateService, ContainerStrategy, ContentProjectionService, ContentSecurityStrategy, ContentStrategy, ContextStrategy, CoreModule, CreationAuditedEntityDto, CreationAuditedEntityWithUserDto, CrossOriginStrategy, DOM_STRATEGY, DomInsertionService, DomStrategy, DynamicLayoutComponent, EllipsisDirective, EntityDto, ExtensibleAuditedEntityDto, ExtensibleAuditedEntityWithUserDto, ExtensibleCreationAuditedEntityDto, ExtensibleCreationAuditedEntityWithUserDto, ExtensibleEntityDto, ExtensibleFullAuditedEntityDto, ExtensibleFullAuditedEntityWithUserDto, ExtensibleObject, ForDirective, FormSubmitDirective, FullAuditedEntityDto, FullAuditedEntityWithUserDto, GetAppConfiguration, GetProfile, InitDirective, InsertIntoContainerStrategy, LIST_QUERY_DEBOUNCE_TIME, LOADING_STRATEGY, LazyLoadService, LimitedResultRequestDto, ListResultDto, ListService, LoadingStrategy, LocalizationPipe, LocalizationService, LooseContentSecurityStrategy, MockLocalizationPipe, ModifyOpenedTabCount, NGXS_CONFIG_PLUGIN_OPTIONS, NoContentSecurityStrategy, NoContextStrategy, PROJECTION_STRATEGY, PagedAndSortedResultRequestDto, PagedResultDto, PagedResultRequestDto, PatchRouteByName, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ProjectionStrategy, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, Rest, RestOccurError, RestService, RootComponentProjectionStrategy, RouterOutletComponent, ScriptContentStrategy, ScriptLoadingStrategy, SessionState, SessionStateService, SetEnvironment, SetLanguage, SetRemember, SetTenant, SortPipe, StartLoader, StopLoader, StyleContentStrategy, StyleLoadingStrategy, TemplateContextStrategy, TemplateProjectionStrategy, TrackByService, UpdateProfile, VisibilityDirective, addAbpRoutes, createLocalizationPipeKeyGenerator, createLocalizer, createLocalizerWithFallback, fromLazyLoad, generateHash, generatePassword, getAbpRoutes, getInitialData, isNumber, isUndefinedOrEmptyString, localeInitializer, mapEnumToOptions, noop, organizeRoutes, registerLocale, setChildRoute, sortRoutes, takeUntilDestroy, trackBy, trackByDeep, uuid, validateCreditCard, validateRange, validateRequired, validateStringLength, validateUrl, storageFactory as ɵa, BaseCoreModule as ɵb, ProfileService as ɵba, RestService as ɵbb, GetProfile as ɵbc, UpdateProfile as ɵbd, ChangePassword as ɵbe, SessionState as ɵbg, SetLanguage as ɵbh, SetTenant as ɵbi, ModifyOpenedTabCount as ɵbj, SetRemember as ɵbk, ConfigState as ɵbm, PatchRouteByName as ɵbn, GetAppConfiguration as ɵbo, AddRoute as ɵbp, SetEnvironment as ɵbq, LocaleId as ɵbs, LocaleProvider as ɵbt, LocalizationService as ɵbu, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbv, ConfigPlugin as ɵbw, CORE_OPTIONS as ɵby, ApiInterceptor as ɵbz, RootCoreModule as ɵc, getInitialData as ɵca, localeInitializer as ɵcb, noop as ɵcc, TestCoreModule as ɵd, AbstractNgModelComponent as ɵe, AutofocusDirective as ɵf, DynamicLayoutComponent as ɵg, EllipsisDirective as ɵh, ForDirective as ɵi, FormSubmitDirective as ɵj, InitDirective as ɵk, InputEventDebounceDirective as ɵl, PermissionDirective as ɵm, ReplaceableRouteContainerComponent as ɵn, ReplaceableTemplateDirective as ɵo, RouterOutletComponent as ɵp, SortPipe as ɵq, StopPropagationDirective as ɵr, VisibilityDirective as ɵs, LocalizationModule as ɵt, LocalizationPipe as ɵu, MockLocalizationPipe as ɵv, ReplaceableComponentsState as ɵw, AddReplaceableComponent as ɵx, ProfileState as ɵz };
 //# sourceMappingURL=abp-ng.core.js.map

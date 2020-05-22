@@ -10,7 +10,7 @@ export declare class SessionState {
     static getTenant({ tenant }: Session.State): ABP.BasicItem;
     static getSessionDetail({ sessionDetail }: Session.State): Session.SessionDetail;
     constructor(oAuthService: OAuthService, store: Store, actions: Actions);
-    setLanguage({ patchState, dispatch }: StateContext<Session.State>, { payload }: SetLanguage): import("rxjs").Observable<void>;
+    setLanguage({ patchState, dispatch }: StateContext<Session.State>, { payload, dispatchAppConfiguration }: SetLanguage): import("rxjs").Observable<void>;
     setTenant({ patchState }: StateContext<Session.State>, { payload }: SetTenant): void;
     setRemember({ getState, patchState }: StateContext<Session.State>, { payload: remember }: SetRemember): void;
     modifyOpenedTabCount({ getState, patchState }: StateContext<Session.State>, { operation }: ModifyOpenedTabCount): void;

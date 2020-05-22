@@ -408,6 +408,7 @@
         {
             path: '',
             component: ng_core.DynamicLayoutComponent,
+            canActivate: [ng_core.AuthGuard],
             children: [
                 {
                     path: '',

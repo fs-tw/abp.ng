@@ -16,8 +16,12 @@ export declare class LoaderBarComponent implements OnDestroy, OnInit {
     intervalPeriod: number;
     stopDelay: number;
     filter: (action: StartLoader | StopLoader) => boolean;
+    private readonly clearProgress;
+    private readonly reportProgress;
     readonly boxShadow: string;
     constructor(actions: Actions, router: Router, cdRef: ChangeDetectorRef);
+    private subscribeToLoadActions;
+    private subscribeToRouterEvents;
     ngOnInit(): void;
     ngOnDestroy(): void;
     startLoading(): void;

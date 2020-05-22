@@ -15,7 +15,7 @@ export declare class ConfigState {
     static getSetting(key: string): (state: Config.State) => string;
     static getSettings(keyword?: string): (state: Config.State) => {};
     static getGrantedPolicy(key: string): (state: Config.State) => boolean;
-    static getLocalization(key: string | Config.LocalizationWithDefault, ...interpolateParams: string[]): (state: Config.State) => any;
+    static getLocalization(key: string | Config.LocalizationWithDefault, ...interpolateParams: string[]): (state: Config.State) => string;
     constructor(http: HttpClient, store: Store);
     addData({ patchState, dispatch }: StateContext<Config.State>): import("rxjs").Observable<any>;
     patchRoute({ patchState, getState }: StateContext<Config.State>, { name, newValue }: PatchRouteByName): Config.State;
