@@ -13,7 +13,7 @@ import { TenantBoxComponent as AbpTenantBoxComponent,Account} from '@abp/ng.acco
 })
 export class TenantBoxComponent 
   extends AbpTenantBoxComponent 
-  implements OnInit, Account.TenantBoxComponentInputs, Account.TenantBoxComponentOutputs {
+  implements Account.TenantBoxComponentInputs, Account.TenantBoxComponentOutputs {
   @Input()
   mainContentRef: TemplateRef<any>;
 
