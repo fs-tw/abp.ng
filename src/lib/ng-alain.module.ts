@@ -1,19 +1,17 @@
-import { NgModule, InjectionToken, ModuleWithProviders, Optional, SkipSelf } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Route } from '@angular/router';
-import { CoreModule as AbpCoreModule } from '@abp/ng.core';
-import { CoreModule as NgAlainCoreModule } from '@fs/ng-alain/core';
-import { DelonModule } from '@fs/ng-alain/core'
+import { NgModule, ModuleWithProviders, Optional, SkipSelf } from '@angular/core';
+import { CoreModule } from './core/core.module';
 import { NgAlainSharedModule } from '@fs/ng-alain/shared';
-import { NgAlainBasicModule } from '@fs/ng-alain/basic';
-import { throwIfAlreadyLoaded } from '@fs/ng-alain/core';
+import { NgAlainBasicModule, LayoutDefaultComponent, LayoutPassportComponent, LayoutFullScreenComponent } from '@fs/ng-alain/basic';
+import { throwIfAlreadyLoaded } from './module-import-guard';
+import { ThemeCoreModule } from '@fs/theme.core';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+const AlainLayouts = [LayoutDefaultComponent, LayoutPassportComponent, LayoutFullScreenComponent];
 
 @NgModule({
   imports: [
-    AbpCoreModule,
-    NgAlainCoreModule.forRoot(),
-    NgAlainSharedModule,
-    NgAlainBasicModule
+    CoreModule.forRoot(),
+    ThemeCoreModule.forRoot({ layouts: AlainLayouts }),
+    ThemeSharedModule.forRoot()
   ]
 })
 export class NgAlainModule {
@@ -24,12 +22,6 @@ export class NgAlainModule {
     return {
       ngModule: NgAlainModule,
       providers: [
-        // { provide: NgAlainMsOptionsToken, useValue: options },
-        // {
-        //   provide: 'NgAlainMsOptions',
-        //   useFactory: ngAlainMsOptionsFactory,
-        //   deps: [NgAlainMsOptionsToken],
-        // },
       ],
     };
   }

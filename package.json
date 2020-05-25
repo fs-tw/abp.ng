@@ -2,7 +2,7 @@
   "name": "@fs/ng-alain",
   "version": "0.0.0",
   "peerDependencies": {
-    "@fs/core":"",
+    "@fs/theme.core":"",
     "rxjs": "",
     "@abp/ng.theme.basic": ""
   },
