@@ -5,7 +5,7 @@ import { SharedModule } from './ng-alain/shared.module';
 
 @NgModule({
   imports: [
-    ThemeCoreModule,//fs,abp
+    ThemeCoreModule,//fs
     ThemeSharedModule,//abp
     SharedModule,//alain
   ],

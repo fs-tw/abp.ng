@@ -17,11 +17,8 @@ import { updateHostClass } from '@delon/util';
 import { SettingsService } from '@delon/theme';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
 import { SettingDrawerComponent } from './setting-drawer/setting-drawer.component';
-import { eLayoutType, AddReplaceableComponent } from '@abp/ng.core';
-import { PageBarComponent } from '../../shared/components/page-bar/page-bar.component';
-import { Store} from '@ngxs/store';
+import { eLayoutType } from '@abp/ng.core';
 
 @Component({
     selector: 'layout-default',
@@ -36,7 +33,6 @@ export class LayoutDefaultComponent implements OnInit, AfterViewInit, OnDestroy 
     isFetching = false;
 
     constructor(
-        private store:Store,
         router: Router,
         _message: NzMessageService,
         private resolver: ComponentFactoryResolver,
@@ -91,7 +87,6 @@ export class LayoutDefaultComponent implements OnInit, AfterViewInit, OnDestroy 
     }
 
     ngOnInit() {
-        this.store.dispatch(new AddReplaceableComponent({ component: PageBarComponent, key: 'Core.PageBarComponent' }));
         const { settings, unsubscribe$ } = this;
         settings.notify.pipe(takeUntil(unsubscribe$)).subscribe(() => this.setClass());
         this.setClass();

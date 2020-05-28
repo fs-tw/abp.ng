@@ -1,5 +1,5 @@
 import { NgModule, Optional, SkipSelf, ModuleWithProviders, LOCALE_ID } from '@angular/core';
-import { throwIfAlreadyLoaded } from '../module-import-guard';
+import { throwIfAlreadyLoaded } from '@fs/theme.core';
 import { DelonModule } from './delon/delon.module';
 import { registerLocaleData } from '@angular/common';
 import { default as ngLang } from '@angular/common/locales/zh-Hant';
@@ -26,7 +26,6 @@ const LANG_PROVIDES = [
     DelonModule.forRoot()
   ],
   exports: [
-    DelonModule
   ]
 })
 export class CoreModule {
