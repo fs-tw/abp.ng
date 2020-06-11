@@ -49,7 +49,7 @@ export class LayoutDefaultComponent implements OnInit, AfterViewInit, OnDestroy 
             if (evt instanceof NavigationError || evt instanceof NavigationCancel) {
                 this.isFetching = false;
                 if (evt instanceof NavigationError) {
-                    _message.error(`无法加载${evt.url}路由`, { nzDuration: 1000 * 3 });
+                    _message.error(`angular route excution${evt.url} fail`, { nzDuration: 1000 * 3 });
                 }
                 return;
             }
@@ -79,10 +79,10 @@ export class LayoutDefaultComponent implements OnInit, AfterViewInit, OnDestroy 
     ngAfterViewInit(): void {
         // Setting componet for only developer
         if (true) {
-            setTimeout(() => {
-                const settingFactory = this.resolver.resolveComponentFactory(SettingDrawerComponent);
-                this.settingHost.createComponent(settingFactory);
-            }, 22);
+            // setTimeout(() => {
+            //     const settingFactory = this.resolver.resolveComponentFactory(SettingDrawerComponent);
+            //     this.settingHost.createComponent(settingFactory);
+            // }, 22);
         }
     }
 

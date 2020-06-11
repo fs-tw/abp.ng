@@ -1,9 +1,14 @@
+
 <div class="container">
-  <header-i18n showLangText="false" class="langs"></header-i18n>
-  
+    <div nz-row nzJustify="end">
+        <div nz-col nzSpan="12"></div>
+        <div nz-col nzSpan="12"><header-i18n showLangText="false" class="langs"></header-i18n></div>
+      </div>
+    
   <div class="wrap">
     <div class="top">
       <div class="head">
+          
         <!-- <img class="logo" src="./assets/logo-color.svg" /> -->
         <span class="title">{{htmlDisplay?.title}}</span>
       </div>
@@ -12,6 +17,7 @@
     <router-outlet></router-outlet>
     <global-footer>
       <span [innerHtml]="htmlDisplay?.footer"></span>
+      <!-- <header-i18n showLangText="false" class="langs"></header-i18n> -->
     </global-footer>
   </div>
 
