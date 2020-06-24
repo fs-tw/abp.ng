@@ -50,8 +50,6 @@
                 {{ 'AbpIdentity::Permissions' | abpLocalization }}</li>
               <li nz-menu-item [abpPermission]="'AbpIdentity.Users.Delete'" (click)="delete(data.id, data.userName)">
                 {{ 'AbpIdentity::Delete' | abpLocalization }}</li>
-              <li nz-menu-item (click)="setting(true, data.id)">{{'AbpSettingManagement::Settings' | abpLocalization}}
-              </li>
             </ul>
           </nz-dropdown-menu>
         </td>
@@ -166,5 +164,3 @@
 </nz-modal>
 <ng-alain-permission-management [(visible)]="visiblePermissions" providerName="U" [providerKey]="providerKey">
 </ng-alain-permission-management>
-
-<fs-ng-alain-setting-management [(parameters)]="parameters"></fs-ng-alain-setting-management>
