@@ -1,0 +1,30 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@abp/ng.core": [
+        "dist/core"
+      ],
+      "@abp/ng.theme.shared": ["dist/theme-shared"],
+      "@abp/ng.theme.shared/*": ["dist/theme-shared/*"],
+      "@abp/ng.theme.basic": ["dist/theme-basic"],
+      "@abp/ng.account": ["dist/account"],
+      "@abp/ng.account/*": ["dist/account/*"],
+      "@abp/ng.identity": ["dist/identity"],
+      "@abp/ng.identity/*": ["dist/identity/*"],
+      "@abp/ng.tenant-management": ["dist/tenant-management"],
+      "@abp/ng.tenant-management/*": ["dist/tenant-management/*"],
+      "@abp/ng.setting-management": ["dist/setting-management"],
+      "@abp/ng.setting-management/*": ["dist/setting-management/*"],
+      "@abp/ng.permission-management": ["dist/permission-management"],
+      "@abp/ng.feature-management": ["dist/feature-management"]      
+    }
+  },
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "enableResourceInlining": true
+  },  
+}
