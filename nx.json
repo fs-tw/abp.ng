@@ -22,10 +22,13 @@
     }
   },
   "projects": {
-    "fs.packages": {
+    "dev-app": {
       "tags": []
     },
-    "myapp": {
+    "ng-alain-app": {
+      "tags": []
+    },    
+    "fs.packages": {
       "tags": []
     },
     "abp.core": {
@@ -53,9 +56,6 @@
       "tags": []
     },
     "abp.setting-management": {
-      "tags": []
-    },
-    "dev-app":{
       "tags": []
     }
   }

@@ -1,6 +1,258 @@
 {
   "version": 1,
   "projects": {
+    "dev-app": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/dev-app",
+      "sourceRoot": "apps/dev-app/src",
+      "prefix": "abp",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/dev-app",
+            "index": "apps/dev-app/src/index.html",
+            "main": "apps/dev-app/src/main.ts",
+            "polyfills": "apps/dev-app/src/polyfills.ts",
+            "tsConfig": "apps/dev-app/tsconfig.dev.json",
+            "aot": true,
+            "extractCss": true,
+            "assets": [
+              "apps/dev-app/src/favicon.ico",
+              "apps/dev-app/src/assets"
+            ],
+            "styles": [
+              {
+                "input": "node_modules/@abp/ng.theme.shared/styles/bootstrap-rtl.min.css",
+                "inject": false,
+                "bundleName": "bootstrap-rtl.min"
+              },
+              {
+                "input": "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                "inject": true,
+                "bundleName": "bootstrap-ltr.min"
+              },
+              {
+                "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+                "inject": true,
+                "bundleName": "fontawesome-all.min"
+              },
+              {
+                "input": "node_modules/@fortawesome/fontawesome-free/css/v4-shims.min.css",
+                "inject": true,
+                "bundleName": "fontawesome-v4-shims.min"
+              },
+              {
+                "input": "node_modules/@swimlane/ngx-datatable/index.css",
+                "inject": true,
+                "bundleName": "ngx-datatable-index"
+              },
+              {
+                "input": "node_modules/@swimlane/ngx-datatable/assets/icons.css",
+                "inject": true,
+                "bundleName": "ngx-datatable-icons"
+              },
+              {
+                "input": "node_modules/@swimlane/ngx-datatable/themes/material.css",
+                "inject": true,
+                "bundleName": "ngx-datatable-material"
+              },
+              "apps/dev-app/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "tsConfig": "apps/dev-app/tsconfig.prod.json",
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/dev-app/src/environments/environment.ts",
+                  "with": "apps/dev-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
+            "internal": {
+              "tsConfig": "apps/dev-app/tsconfig.dev.json",
+              "fileReplacements": [
+                {
+                  "replace": "apps/dev-app/src/environments/environment.ts",
+                  "with": "apps/dev-app/src/environments/environment.internal.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "dev-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "dev-app:build:production"
+            },
+            "internal": {
+              "browserTarget": "dev-app:build:internal"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "dev-app:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/dev-app/tsconfig.dev.json",
+              "apps/dev-app/tsconfig.prod.json",
+              "apps/dev-app/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "ng-alain-app": {
+      "projectType": "application",
+      "root": "apps/ng-alain-app",
+      "sourceRoot": "apps/ng-alain-app/src",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist",
+            "index": "apps/ng-alain-app/src/index.html",
+            "main": "apps/ng-alain-app/src/main.ts",
+            "tsConfig": "apps/ng-alain-app/tsconfig.app.json",
+            "polyfills": "apps/ng-alain-app/src/polyfills.ts",
+            "assets": [
+              "apps/ng-alain-app/src/assets",
+              "apps/ng-alain-app/src/favicon.ico"
+            ],
+            "styles": [
+              "apps/ng-alain-app/src/styles.less"
+            ],
+            "scripts": [
+              "node_modules/ajv/dist/ajv.bundle.js",
+              "node_modules/qrious/dist/qrious.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ng-alain-app/src/environments/environment.ts",
+                  "with": "apps/ng-alain-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "6mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
+            "hmr": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ng-alain-app/src/environments/environment.ts",
+                  "with": "apps/ng-alain-app/src/environments/environment.hmr.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ng-alain-app:build",
+            "proxyConfig": "proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ng-alain-app:build:production"
+            },
+            "hmr": {
+              "browserTarget": "ng-alain-app:build:hmr",
+              "hmr": true
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ng-alain-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/ng-alain-app/src/test.ts",
+            "polyfills": "apps/ng-alain-app/src/polyfills.ts",
+            "karmaConfig": "apps/ng-alain-app/karma.conf.js",
+            "tsConfig": "apps/ng-alain-app/tsconfig.spec.json",
+            "scripts": [
+              "node_modules/ajv/dist/ajv.bundle.js",
+              "node_modules/qrious/dist/qrious.min.js"
+            ],
+            "styles": [
+            ],
+            "assets": [
+              "apps/ng-alain-app/src/assets"
+            ]
+          }
+        }
+      }
+    },
     "fs.packages": {
       "projectType": "library",
       "root": "libs/packages",
@@ -13,7 +265,7 @@
             "symlinkConfig": "libs/packages/symlink.json",
             "args": []
           }
-        },        
+        },
         "build": {
           "builder": "@nrwl/angular:package",
           "options": {
@@ -47,95 +299,6 @@
         }
       },
       "schematics": {}
-    },
-    "myapp": {
-      "projectType": "application",
-      "schematics": {},
-      "root": "apps/myapp",
-      "sourceRoot": "apps/myapp/src",
-      "prefix": "fs",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/apps/myapp",
-            "index": "apps/myapp/src/index.html",
-            "main": "apps/myapp/src/main.ts",
-            "polyfills": "apps/myapp/src/polyfills.ts",
-            "tsConfig": "apps/myapp/tsconfig.app.json",
-            "aot": true,
-            "assets": ["apps/myapp/src/favicon.ico", "apps/myapp/src/assets"],
-            "styles": ["apps/myapp/src/styles.css"],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/myapp/src/environments/environment.ts",
-                  "with": "apps/myapp/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "myapp:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "myapp:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "myapp:build"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "apps/myapp/tsconfig.app.json",
-              "apps/myapp/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/myapp/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/myapp/jest.config.js",
-            "tsConfig": "apps/myapp/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/myapp/src/test-setup.ts"
-          }
-        }
-      }
     },
     "abp.core": {
       "projectType": "library",
@@ -465,145 +628,6 @@
           }
         }
       }
-    },
-
-
-
-    "dev-app": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "apps/dev-app",
-      "sourceRoot": "apps/dev-app/src",
-      "prefix": "abp",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/dev-app",
-            "index": "apps/dev-app/src/index.html",
-            "main": "apps/dev-app/src/main.ts",
-            "polyfills": "apps/dev-app/src/polyfills.ts",
-            "tsConfig": "apps/dev-app/tsconfig.dev.json",
-            "aot": true,
-            "extractCss": true,
-            "assets": ["apps/dev-app/src/favicon.ico", "apps/dev-app/src/assets"],
-            "styles": [
-              {
-                "input": "node_modules/@abp/ng.theme.shared/styles/bootstrap-rtl.min.css",
-                "inject": false,
-                "bundleName": "bootstrap-rtl.min"
-              },
-              {
-                "input": "node_modules/bootstrap/dist/css/bootstrap.min.css",
-                "inject": true,
-                "bundleName": "bootstrap-ltr.min"
-              },
-              {
-                "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-                "inject": true,
-                "bundleName": "fontawesome-all.min"
-              },
-              {
-                "input": "node_modules/@fortawesome/fontawesome-free/css/v4-shims.min.css",
-                "inject": true,
-                "bundleName": "fontawesome-v4-shims.min"
-              },
-              {
-                "input": "node_modules/@swimlane/ngx-datatable/index.css",
-                "inject": true,
-                "bundleName": "ngx-datatable-index"
-              },
-              {
-                "input": "node_modules/@swimlane/ngx-datatable/assets/icons.css",
-                "inject": true,
-                "bundleName": "ngx-datatable-icons"
-              },
-              {
-                "input": "node_modules/@swimlane/ngx-datatable/themes/material.css",
-                "inject": true,
-                "bundleName": "ngx-datatable-material"
-              },
-              "apps/dev-app/src/styles.scss"
-            ],
-            "scripts": []
-          },
-          "configurations": {
-            "tsConfig": "apps/dev-app/tsconfig.prod.json",
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/dev-app/src/environments/environment.ts",
-                  "with": "apps/dev-app/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "1mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            },
-            "internal": {
-              "tsConfig": "apps/dev-app/tsconfig.dev.json",
-              "fileReplacements": [
-                {
-                  "replace": "apps/dev-app/src/environments/environment.ts",
-                  "with": "apps/dev-app/src/environments/environment.internal.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "dev-app:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "dev-app:build:production"
-            },
-            "internal": {
-              "browserTarget": "dev-app:build:internal"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "dev-app:build"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "apps/dev-app/tsconfig.dev.json",
-              "apps/dev-app/tsconfig.prod.json",
-              "apps/dev-app/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
-          }
-        }
-      }
     }
   },
   "cli": {
@@ -618,5 +642,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "myapp"
+  "defaultProject": "dev-app"
 }
