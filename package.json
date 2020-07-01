@@ -39,13 +39,16 @@
     "@angular/platform-browser-dynamic": "~10.0.0",
     "@angular/router": "~10.0.0",
     "rxjs": "~6.5.4",
+    "tslib": "^1.10.0",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
+    "@angular-devkit/build-ng-packagr": "~0.901.9",
     "@angular/cli": "~10.0.0",
     "@nrwl/workspace": "9.5.0",
     "@types/node": "^12.11.1",
     "dotenv": "6.2.0",
+    "ng-packagr": "^9.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
     "eslint": "6.8.0",

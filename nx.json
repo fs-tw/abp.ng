@@ -24,6 +24,9 @@
   "projects": {
     "myapp": {
       "tags": []
+    },
+    "core": {
+      "tags": []
     }
   }
 }
