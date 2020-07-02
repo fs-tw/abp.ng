@@ -1,0 +1,78 @@
+<ngx-admin-tenant-box></ngx-admin-tenant-box>
+
+<nb-card class="mt-3 shadow-sm rounded bg-light">
+  <nb-card-body class="p-5">
+    <h1 id="title" class="title">{{ 'AbpAccount::Login' | abpLocalization }}</h1>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" novalidate aria-labelledby="title">
+
+      <div class="form-control-group">
+        <label class="label" for="login-input-user-name-or-email-address">
+          {{
+          'AbpAccount::UserNameOrEmailAddress' | abpLocalization
+          }}
+        </label>
+        <input nbInput
+               fullWidth
+               id="login-input-user-name-or-email-address"
+               fieldSize="large"
+               placeholder="username"
+               formControlName="username"
+               autofocus>
+      </div>
+
+      <div class="form-control-group">
+        <span class="label-with-link">
+          <label class="label" for="login-input-password">{{ 'AbpAccount::Password' | abpLocalization }}</label>
+        </span>
+        <input nbInput
+               fullWidth
+               formControlName="password"
+               type="password"
+               id="login-input-password"
+               placeholder="Password"
+               fieldSize="large">
+      </div>
+
+      <div class="form-control-group accept-group">
+        <nb-checkbox formControlName="remember">{{ 'AbpAccount::RememberMe' | abpLocalization }}</nb-checkbox>
+      </div>
+
+      <button nbButton
+              fullWidth
+              status="primary"
+              size="large"
+              [disabled]="!form.valid">
+        {{ 'AbpAccount::Login' | abpLocalization }}
+      </button>
+    </form>
+
+    <!-- <section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">
+      or enter with:
+      <div class="socials">
+        <ng-container *ngFor="let socialLink of socialLinks">
+          <a *ngIf="socialLink.link"
+             [routerLink]="socialLink.link"
+             [attr.target]="socialLink.target"
+             [attr.class]="socialLink.icon"
+             [class.with-icon]="socialLink.icon">
+            <nb-icon *ngIf="socialLink.icon; else title" [icon]="socialLink.icon"></nb-icon>
+            <ng-template #title>{{ socialLink.title }}</ng-template>
+          </a>
+          <a *ngIf="socialLink.url"
+             [attr.href]="socialLink.url"
+             [attr.target]="socialLink.target"
+             [attr.class]="socialLink.icon"
+             [class.with-icon]="socialLink.icon">
+            <nb-icon *ngIf="socialLink.icon; else title" [icon]="socialLink.icon"></nb-icon>
+            <ng-template #title>{{ socialLink.title }}</ng-template>
+          </a>
+        </ng-container>
+      </div>
+    </section> -->
+
+    <section class="another-action" aria-label="Register">
+      {{ 'AbpAccount::AreYouANewUser' | abpLocalization }} <a class="text-link" routerLink="/account/register">{{ 'AbpAccount::Register' | abpLocalization }}</a>
+    </section>
+  </nb-card-body>
+</nb-card>

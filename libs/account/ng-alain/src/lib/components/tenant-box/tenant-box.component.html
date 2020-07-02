@@ -1,0 +1,56 @@
+  <nz-card [nzTitle]="cardTitle" [nzExtra]="extraTemplate">
+    <ng-content *ngTemplateOutlet="mainContentRef"></ng-content>
+  </nz-card>
+  <ng-template #extraTemplate>
+    <a id="AbpTenantSwitchLink"
+       href="javascript:void(0);"
+       class="btn btn-sm mt-3 btn-outline-primary"
+       *ngIf="isMultiTenancyEnabled$ | async"
+       (click)="onSwitch()">{{ 'AbpUiMultiTenancy::Switch' | abpLocalization }}</a>
+  </ng-template>
+
+  <ng-template #cardTitle>
+    <span *ngIf="isMultiTenancyEnabled$ | async">
+        {{'AbpUiMultiTenancy::Tenant' | abpLocalization}} ({{ tenantName || ('AbpUiMultiTenancy::NotSelected' | abpLocalization) }}) 
+    </span>
+  </ng-template>
+
+  <nz-modal [nzStyle]="{ top: '20px' }"
+            [(nzVisible)]="isModalVisible"
+            [nzTitle]="modalTitle"
+            [nzContent]="modalContent"
+            [nzFooter]="modalFooter"
+            (nzOnCancel)="isModalVisible=false">
+    <ng-template #modalTitle>
+      {{'AbpUiMultiTenancy::Tenant' | abpLocalization}}
+    </ng-template>
+
+    <ng-template #modalContent>
+      <ng-template #loaderRef>
+        <div class="text-center"><i class="fa fa-pulse fa-spinner"></i></div>
+      </ng-template>
+
+      <form nz-form *ngIf="tenant; else loaderRef"  (ngSubmit)="save()">
+
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">{{ 'AbpUiMultiTenancy::Name' | abpLocalization }}</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24" nzExtra="{{ 'AbpUiMultiTenancy::SwitchTenantHint' | abpLocalization }}">
+            <input nz-input [(ngModel)]="tenant.name" id="name" name="name" />
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </ng-template>
+
+    <ng-template #modalFooter>
+      <button nz-button nzType="default" (click)="isModalVisible=false">
+        {{ 'AbpTenantManagement::Cancel' | abpLocalization }}
+      </button>
+      <button nz-button nzType="primary" (click)="save()">
+        {{
+      'AbpTenantManagement::Save' | abpLocalization
+        }}
+      </button>
+    </ng-template>
+  </nz-modal>
+
