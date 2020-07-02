@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SimpleGuard } from '@delon/auth';
-import { environment } from '@env/environment';
 // layout
-import { LayoutDefaultComponent } from '../layout/default/default.component';
-import { LayoutFullScreenComponent } from '../layout/fullscreen/fullscreen.component';
-import { LayoutPassportComponent } from '../layout/passport/passport.component';
+import { LayoutDefaultComponent } from '@fs/ng-alain/layout';
+import { LayoutFullScreenComponent } from '@fs/ng-alain/layout';
+import { LayoutPassportComponent } from '@fs/ng-alain/layout';
 // single pages
 import { CallbackComponent } from './callback/callback.component';
 import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';
@@ -84,12 +83,13 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, {
-      useHash: environment.useHash,
-      // NOTICE: If you use `reuse-tab` component and turn on keepingScroll you can set to `disabled`
-      // Pls refer to https://ng-alain.com/components/reuse-tab
-      scrollPositionRestoration: 'top',
-    }),
+    RouterModule.forChild(routes)
+    // RouterModule.forRoot(routes, {
+    //   useHash: true,
+    //   // NOTICE: If you use `reuse-tab` component and turn on keepingScroll you can set to `disabled`
+    //   // Pls refer to https://ng-alain.com/components/reuse-tab
+    //   scrollPositionRestoration: 'top',
+    // }),
   ],
   exports: [RouterModule],
 })

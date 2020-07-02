@@ -140,6 +140,48 @@
         }
       }
     },
+    "fs.ng-alain": {
+      "projectType": "library",
+      "root": "themes/ng-alain",
+      "sourceRoot": "themes/ng-alain/src",
+      "prefix": "fs",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "tsconfig.lib.json",
+            "project": "themes/ng-alain/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "tsconfig.lib.prod.json"
+            }
+          }          
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "themes/ng-alain/tsconfig.lib.json",
+              "themes/ng-alain/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!themes/ng-alain/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "themes/ng-alain/jest.config.js",
+            "tsConfig": "themes/ng-alain/tsconfig.spec.json",
+            "setupFile": "themes/ng-alain/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },    
     "ng-alain-app": {
       "projectType": "application",
       "root": "apps/ng-alain-app",
@@ -157,7 +199,7 @@
             "outputPath": "dist",
             "index": "apps/ng-alain-app/src/index.html",
             "main": "apps/ng-alain-app/src/main.ts",
-            "tsConfig": "apps/ng-alain-app/tsconfig.app.json",
+            "tsConfig": "apps/ng-alain-app/tsconfig.dev.json",
             "polyfills": "apps/ng-alain-app/src/polyfills.ts",
             "assets": [
               "apps/ng-alain-app/src/assets",
@@ -169,9 +211,15 @@
             "scripts": [
               "node_modules/ajv/dist/ajv.bundle.js",
               "node_modules/qrious/dist/qrious.min.js"
-            ]
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules/"
+              ]
+            }            
           },
           "configurations": {
+            "tsConfig": "apps/ng-alain-app/tsconfig.prod.json",
             "production": {
               "fileReplacements": [
                 {
@@ -214,8 +262,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng-alain-app:build",
-            "proxyConfig": "apps/ng-alain-app/proxy.conf.json"
+            "browserTarget": "ng-alain-app:build"
           },
           "configurations": {
             "production": {
@@ -231,24 +278,6 @@
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "ng-alain-app:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "apps/ng-alain-app/src/test.ts",
-            "polyfills": "apps/ng-alain-app/src/polyfills.ts",
-            "karmaConfig": "apps/ng-alain-app/karma.conf.js",
-            "tsConfig": "apps/ng-alain-app/tsconfig.spec.json",
-            "scripts": [
-              "node_modules/ajv/dist/ajv.bundle.js",
-              "node_modules/qrious/dist/qrious.min.js"
-            ],
-            "styles": [
-            ],
-            "assets": [
-              "apps/ng-alain-app/src/assets"
-            ]
           }
         }
       }

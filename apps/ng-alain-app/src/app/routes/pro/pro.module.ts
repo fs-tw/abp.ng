@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from '@shared';
+import { SharedModule } from '@fs/ng-alain/shared';
 import { ProRoutingModule } from './pro-routing.module';
 
 import { ProAccountCenterApplicationsComponent } from './account/center/applications/applications.component';

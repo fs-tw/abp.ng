@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '@shared';
+import { SharedModule } from '@fs/ng-alain/shared';
 
 import { WidgetsRoutingModule } from './widgets-routing.module';
 

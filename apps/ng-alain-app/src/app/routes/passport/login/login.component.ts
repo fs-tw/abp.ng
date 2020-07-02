@@ -1,11 +1,10 @@
 import { Component, Inject, OnDestroy, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { StartupService } from '@core';
+import { StartupService } from '@fs/ng-alain/core';
 import { ReuseTabService } from '@delon/abc/reuse-tab';
 import { DA_SERVICE_TOKEN, ITokenService, SocialOpenType, SocialService } from '@delon/auth';
 import { SettingsService, _HttpClient } from '@delon/theme';
-import { environment } from '@env/environment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
@@ -140,7 +139,7 @@ export class UserLoginComponent implements OnDestroy {
     let url = ``;
     let callback = ``;
     // tslint:disable-next-line: prefer-conditional-expression
-    if (environment.production) {
+    if (false) {
       callback = 'https://ng-alain.github.io/ng-alain/#/callback/' + type;
     } else {
       callback = 'http://localhost:4200/#/callback/' + type;

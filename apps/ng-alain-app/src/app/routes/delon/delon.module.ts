@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { SharedModule } from '@shared';
+import { SharedModule } from '@fs/ng-alain/shared';
 
 import { DelonRoutingModule } from './delon-routing.module';
 
