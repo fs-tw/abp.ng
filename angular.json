@@ -212,7 +212,7 @@
                 "input": "node_modules/@fortawesome/fontawesome-free/css/v4-shims.min.css",
                 "inject": true,
                 "bundleName": "fontawesome-v4-shims.min"
-              },              
+              },
               "apps/ng-alain-app/src/styles.less"
             ],
             "scripts": [
@@ -698,6 +698,46 @@
             "tsConfig": "libs/account/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/account/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "identity": {
+      "projectType": "library",
+      "root": "libs/identity",
+      "sourceRoot": "libs/identity/src",
+      "prefix": "fs",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/identity/tsconfig.lib.json",
+            "project": "libs/identity/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/identity/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/identity/tsconfig.lib.json",
+              "libs/identity/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/identity/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/identity/jest.config.js",
+            "tsConfig": "libs/identity/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/identity/src/test-setup.ts"
           }
         }
       },

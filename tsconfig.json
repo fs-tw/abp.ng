@@ -47,7 +47,8 @@
       "@fs/ng-alain": ["themes/ng-alain/src/index.ts"],
       "@fs/ng-alain/*": ["themes/ng-alain/*/src/index.ts"],
       "@fs/account": ["libs/account/src/index.ts"],
-      "@fs/account/*": ["libs/account/*/src/index.ts"]
+      "@fs/account/*": ["libs/account/*/src/index.ts"],
+      "@fs/identity": ["libs/identity/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
