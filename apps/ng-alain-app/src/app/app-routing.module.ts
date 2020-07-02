@@ -7,12 +7,7 @@ const routes: Routes = [
     path: '',
     component: DynamicLayoutComponent,
     children: [
-      { path: '', redirectTo: '/dashboard/v1', pathMatch: 'full' },
-      {
-        path: '',
-        loadChildren: () =>
-          import('./routes/routes.module').then(m =>m.RoutesModule),
-      },   
+      { path: '', redirectTo: '/dashboard/v1', pathMatch: 'full' }, 
       {
         path: 'home',
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
@@ -36,6 +31,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('@abp/ng.setting-management').then(m => m.SettingManagementModule.forLazy()),
       },
+      {
+        path: '',
+        loadChildren: () =>
+          import('./routes/routes.module').then(m =>m.RoutesModule),
+      }
     ],
   },
 ];

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ThemeBasicModule } from '@abp/ng.theme.basic';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { NgxValidateCoreModule } from '@ngx-validate/core';
-import { SharedModule as NgAlinSharedModule } from '@fs/ng-alain/shared';
+import { NgAlainSharedModule } from '@fs/ng-alain/shared';
 import { LayoutModule } from '@fs/ng-alain/layout';
 
 @NgModule({
@@ -14,7 +14,7 @@ import { LayoutModule } from '@fs/ng-alain/layout';
     ThemeBasicModule,
     NgxValidateCoreModule,
     LayoutModule,
-    NgAlinSharedModule
+    NgAlainSharedModule
   ],
   exports: [
     CoreModule,
@@ -22,7 +22,7 @@ import { LayoutModule } from '@fs/ng-alain/layout';
     ThemeBasicModule,
     NgxValidateCoreModule,
     LayoutModule,
-    NgAlinSharedModule
+    NgAlainSharedModule
   ],
   providers: [],
 })

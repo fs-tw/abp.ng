@@ -156,7 +156,7 @@
             "production": {
               "tsConfig": "tsconfig.lib.prod.json"
             }
-          }          
+          }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -165,10 +165,7 @@
               "themes/ng-alain/tsconfig.lib.json",
               "themes/ng-alain/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!themes/ng-alain/**"
-            ]
+            "exclude": ["**/node_modules/**", "!themes/ng-alain/**"]
           }
         },
         "test": {
@@ -181,7 +178,7 @@
         }
       },
       "schematics": {}
-    },    
+    },
     "ng-alain-app": {
       "projectType": "application",
       "root": "apps/ng-alain-app",
@@ -205,18 +202,14 @@
               "apps/ng-alain-app/src/assets",
               "apps/ng-alain-app/src/favicon.ico"
             ],
-            "styles": [
-              "apps/ng-alain-app/src/styles.less"
-            ],
+            "styles": ["apps/ng-alain-app/src/styles.less"],
             "scripts": [
               "node_modules/ajv/dist/ajv.bundle.js",
               "node_modules/qrious/dist/qrious.min.js"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "node_modules/"
-              ]
-            }            
+              "includePaths": ["node_modules/"]
+            }
           },
           "configurations": {
             "tsConfig": "apps/ng-alain-app/tsconfig.prod.json",
@@ -657,6 +650,46 @@
           }
         }
       }
+    },
+    "fs.account": {
+      "projectType": "library",
+      "root": "libs/account",
+      "sourceRoot": "libs/account/src",
+      "prefix": "fs",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/account/tsconfig.lib.json",
+            "project": "libs/account/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/account/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/account/tsconfig.lib.json",
+              "libs/account/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/account/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/account/jest.config.js",
+            "tsConfig": "libs/account/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/account/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {

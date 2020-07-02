@@ -11,7 +11,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "peerDependencies": {
+    "@angular-devkit/architect": "~0.901.6",
     "@types/jasmine": "^3.3.12",
     "@types/node": "^11.13.4",
     "jasmine": "^3.4.0",
@@ -19,8 +20,10 @@
     "ts-node": "^8.1.0",
     "typescript": "^3.4.3"
   },
+  "devDependencies": {
+
+  },
   "dependencies": {
-    "@angular-devkit/architect": "^0.803.21",
     "execa": "^4.0.0"
   }
 }

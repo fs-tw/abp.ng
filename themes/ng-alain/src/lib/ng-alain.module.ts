@@ -55,7 +55,8 @@ const I18NSERVICE_PROVIDES = [
 
 // #region global third module
 
-const GLOBAL_THIRD_MODULES = [];
+const GLOBAL_THIRD_MODULES = [
+];
 
 // #endregion
 
@@ -95,6 +96,24 @@ import { GlobalConfigModule } from './global-config.module';
 //import { LayoutModule } from './layout/layout.module';
 import { STWidgetModule } from '@fs/ng-alain/shared';
 
+
+// #endregion
+
+// #region global third module
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { ThemeBasicModule } from '@abp/ng.theme.basic';
+import { NgAlainSharedModule } from '@fs/ng-alain/shared';
+import { NgAlainBasicModule } from '@fs/ng-alain/basic';
+const ABP_MODULES = [
+  ThemeSharedModule.forRoot(),
+  ThemeBasicModule.forRoot(),
+  NgAlainBasicModule.forRoot()
+
+];
+
+// #endregion
+
+
 @NgModule({
   imports: [
     GlobalConfigModule.forRoot(),
@@ -102,6 +121,7 @@ import { STWidgetModule } from '@fs/ng-alain/shared';
     //LayoutModule,
     STWidgetModule,
     ...I18NSERVICE_MODULES,
+    ...ABP_MODULES,
     ...GLOBAL_THIRD_MODULES,
     ...FORM_MODULES,
   ],

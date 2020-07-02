@@ -43,8 +43,8 @@
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
-    "@fs/packages": "file:libs/packages",
-    "@fs/builder": "file:dist/tools/builder",
+    "@fs/packages": "file:libs/packages/src",
+    "@fs/builder": "file:tools/builder",
     "@fs/ng-alain": "file:themes/ng-alain",
     "@angular-devkit/build-angular": "~0.901.6",
     "@angular-devkit/build-ng-packagr": "~0.901.6",

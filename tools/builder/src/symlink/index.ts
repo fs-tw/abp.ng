@@ -1,5 +1,4 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import * as childProcess from 'child_process';
 import { JsonObject } from '@angular-devkit/core';
 import execa from 'execa';
 import * as path from 'path';

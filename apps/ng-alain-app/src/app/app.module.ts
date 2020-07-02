@@ -38,13 +38,13 @@ const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
       sendNullsAsQueryParam: false,
       skipGetAppConfiguration: false,
     }),
-    ThemeSharedModule.forRoot(),
+    //ThemeSharedModule.forRoot(),
     AccountConfigModule.forRoot(),
     IdentityConfigModule.forRoot(),
     TenantManagementConfigModule.forRoot(),
     SettingManagementConfigModule.forRoot(),
     NgxsModule.forRoot(),
-    ThemeBasicModule.forRoot(),
+    //ThemeBasicModule.forRoot(),
     ...(environment.production ? [] : LOGGERS),
 
 

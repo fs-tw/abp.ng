@@ -9,7 +9,7 @@ function configureRoutes(routes: RoutesService) {
   return () => {
     routes.add([
       {
-        path: '/',
+        path: '/home',
         name: '::Menu:Home',
         iconClass: 'fas fa-home',
         order: 1,

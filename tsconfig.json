@@ -10,41 +10,22 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@abp/ng.core": [
-        "packages/core/src/public-api.ts"
-      ],
-      "@abp/ng.theme.shared": [
-        "packages/theme-shared/src/public-api.ts"
-      ],
+      "@abp/ng.core": ["packages/core/src/public-api.ts"],
+      "@abp/ng.theme.shared": ["packages/theme-shared/src/public-api.ts"],
       "@abp/ng.theme.shared/extensions": [
         "packages/theme-shared/src/public-api.ts"
       ],
-      "@abp/ng.theme.basic": [
-        "packages/theme-basic/src/public-api.ts"
-      ],
-      "@abp/ng.account": [
-        "packages/account/src/public-api.ts"
-      ],
-      "@abp/ng.account/config": [
-        "packages/account/config/src/public-api.ts"
-      ],
-      "@abp/ng.identity": [
-        "packages/identity/src/public-api.ts"
-      ],
-      "@abp/ng.identity/config": [
-        "packages/identity/config/src/public-api.ts"
-      ],
+      "@abp/ng.theme.basic": ["packages/theme-basic/src/public-api.ts"],
+      "@abp/ng.account": ["packages/account/src/public-api.ts"],
+      "@abp/ng.account/config": ["packages/account/config/src/public-api.ts"],
+      "@abp/ng.identity": ["packages/identity/src/public-api.ts"],
+      "@abp/ng.identity/config": ["packages/identity/config/src/public-api.ts"],
       "@abp/ng.tenant-management": [
         "packages/tenant-management/src/public-api.ts"
       ],
@@ -63,17 +44,11 @@
       "@abp/ng.feature-management": [
         "packages/feature-management/src/public-api.ts"
       ],
-      "@fs/ng-alain": [
-        "themes/ng-alain/src/index.ts"
-      ],
-      "@fs/ng-alain/*": [
-        "themes/ng-alain/*/src/index.ts"
-      ]
-
+      "@fs/ng-alain": ["themes/ng-alain/src/index.ts"],
+      "@fs/ng-alain/*": ["themes/ng-alain/*/src/index.ts"],
+      "@fs/account": ["libs/account/src/index.ts"],
+      "@fs/account/*": ["libs/account/*/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }
