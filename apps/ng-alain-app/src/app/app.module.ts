@@ -20,6 +20,7 @@ import { TenantManagementConfigModule } from '@abp/ng.tenant-management/config';
 import { ThemeBasicModule } from '@abp/ng.theme.basic';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { AppRoutingModule } from './app-routing.module';
+import { AccountNgAlainConfigModule } from '@fs/account/ng-alain/config';
 
 const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
 
@@ -39,7 +40,8 @@ const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
       skipGetAppConfiguration: false,
     }),
     //ThemeSharedModule.forRoot(),
-    AccountConfigModule.forRoot(),
+    // AccountConfigModule.forRoot(),
+    AccountNgAlainConfigModule.forRoot(),
     IdentityConfigModule.forRoot(),
     TenantManagementConfigModule.forRoot(),
     SettingManagementConfigModule.forRoot(),

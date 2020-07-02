@@ -18,7 +18,9 @@
       "@abp/ng.setting-management/*": ["dist/setting-management/*"],
       "@abp/ng.permission-management": ["dist/permission-management"],
       "@fs/ng-alain": ["dist/themes/ng-alain"],
-      "@fs/ng-alain/*": ["dist/themes/ng-alain/*"]
+      "@fs/ng-alain/*": ["dist/themes/ng-alain/*"],
+      "@fs/account": ["dist/account"],
+      "@fs/account/*": ["dist/account/*"]      
     }
   },
   "angularCompilerOptions": {

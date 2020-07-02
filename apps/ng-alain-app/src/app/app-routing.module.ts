@@ -7,15 +7,15 @@ const routes: Routes = [
     path: '',
     component: DynamicLayoutComponent,
     children: [
-      { path: '', redirectTo: '/dashboard/v1', pathMatch: 'full' }, 
+      { path: '', redirectTo: '/home', pathMatch: 'full' }, 
       {
         path: 'home',
-        loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
       },
       {
         path: 'account',
         loadChildren: () =>
-          import('@abp/ng.account').then(m => m.AccountModule.forLazy({ redirectUrl: '/' })),
+          import('@fs/account/ng-alain').then(m => m.AccountNgAlainModule.forLazy({ redirectUrl: '/' })),
       },
       {
         path: 'identity',

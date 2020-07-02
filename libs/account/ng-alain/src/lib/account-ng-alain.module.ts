@@ -1,6 +1,6 @@
 import { AccountModule } from '@fs/account';
-import { CoreModule, AddReplaceableComponent, PatchRouteByName, eLayoutType } from '@abp/ng.core';
-import { NgModule } from '@angular/core';
+import { CoreModule, AddReplaceableComponent, eLayoutType, LazyModuleFactory } from '@abp/ng.core';
+import { NgModule, ModuleWithProviders, NgModuleFactory } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
 import { UserLoginComponent } from './components/login/login.component';
 import { UserRegisterComponent } from './components/register/register.component';
@@ -10,6 +10,13 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.component';
 import { TenantBoxComponent } from './components/tenant-box/tenant-box.component';
 import { Store } from '@ngxs/store';
+import { Options, ACCOUNT_OPTIONS } from '@abp/ng.account';
+export function accountOptionsFactory(options: Options) {
+  return {
+    redirectUrl: '/',
+    ...options,
+  };
+}
 
 @NgModule({
   declarations: [
@@ -21,7 +28,7 @@ import { Store } from '@ngxs/store';
     PersonalSettingsComponent,
     ChangePasswordComponent
   ],
-  entryComponents:[
+  entryComponents: [
     UserLoginComponent,
     UserRegisterComponent,
     ManageProfileComponent
@@ -33,15 +40,20 @@ import { Store } from '@ngxs/store';
   ]
 })
 export class AccountNgAlainModule {
-  constructor(private store: Store) {
-
-    store.dispatch(new PatchRouteByName('AbpAccount::Menu:Account', { layout: eLayoutType.account}));
-    store.dispatch(new PatchRouteByName('AbpAccount::ManageYourProfile', { layout: eLayoutType.application}));
-    store.dispatch(new AddReplaceableComponent({ component: UserLoginComponent, key: 'Account.LoginComponent' }));
-    store.dispatch(new AddReplaceableComponent({ component: UserRegisterComponent, key: 'Account.RegisterComponent' }));
-    store.dispatch(new AddReplaceableComponent({ component: ManageProfileComponent, key: 'Account.ManageProfileComponent' }));
-    
-    
+  static forChild(options): ModuleWithProviders<AccountNgAlainModule> {
+    return {
+      ngModule: AccountNgAlainModule,
+      providers: [
+        { provide: ACCOUNT_OPTIONS, useValue: options },
+        {
+          provide: 'ACCOUNT_OPTIONS',
+          useFactory: accountOptionsFactory,
+          deps: [ACCOUNT_OPTIONS],
+        },        
+      ],
+    };
   }
-
- }
+  static forLazy(options: Options): NgModuleFactory<AccountModule> {
+    return new LazyModuleFactory(AccountNgAlainModule.forChild(options));
+  }  
+}
