@@ -1,0 +1,12 @@
+{
+  "packages": [
+    "dist/*/*",
+    "dist/tools/*/*"
+  ],
+  "version": "3.0.0-alpha.3.0",
+  "command": {
+    "publish": {
+      "registry": "http://192.168.1.7:4873/"
+    }
+  }
+}
