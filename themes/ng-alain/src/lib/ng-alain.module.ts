@@ -1,6 +1,6 @@
 // tslint:disable: no-duplicate-imports
 import { HttpClient } from '@angular/common/http';
-import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
+import { APP_INITIALIZER, LOCALE_ID, NgModule, ModuleWithProviders } from '@angular/core';
 
 // #region default language
 // 参考：https://ng-alain.com/docs/i18n
@@ -127,4 +127,10 @@ const ABP_MODULES = [
   ],
   providers: [...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...I18NSERVICE_PROVIDES, ...APPINIT_PROVIDES],
 })
-export class NgAlainModule {}
+export class NgAlainModule {
+  static forRoot(): ModuleWithProviders<NgAlainModule> {
+    return {
+      ngModule: NgAlainModule
+    };
+  }  
+}

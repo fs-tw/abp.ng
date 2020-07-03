@@ -19,12 +19,12 @@ const routes: Routes = [
       },
       {
         path: 'identity',
-        loadChildren: () => import('@abp/ng.identity').then(m => m.IdentityModule.forLazy()),
+        loadChildren: () => import('@fs/identity/ng-alain').then(m => m.IdentityNgAlainModule.forLazy()),
       },
       {
         path: 'tenant-management',
         loadChildren: () =>
-          import('@abp/ng.tenant-management').then(m => m.TenantManagementModule.forLazy()),
+          import('@fs/tenant-management/ng-alain').then(m => m.TenantManagementNgAlainModule.forLazy()),
       },
       {
         path: 'setting-management',

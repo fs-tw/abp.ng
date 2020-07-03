@@ -27,6 +27,37 @@
         ]
     },
     {
+        "name": "fsBaseThemes",
+        "sync": false,
+        "ignore_packages": [
+        ],
+        "packages": [
+            "@fs/ng-alain"
+        ]
+    },   
+    {
+        "name": "fsBaseLibs",
+        "sync": false,
+        "ignore_packages": [
+        ],
+        "packages": [
+            "@fs/permission-management",
+            "@fs/feature-management"
+        ]
+    },        
+    {
+        "name": "fsLibs",
+        "sync": false,
+        "ignore_packages": [
+        ],
+        "packages": [
+            "@fs/account",
+            "@fs/identity",
+            "@fs/tenant-management",
+            "@fs/setting-management"
+        ]
+    },         
+    {
         "name": "fsPackages",
         "sync": false,
         "packages": [

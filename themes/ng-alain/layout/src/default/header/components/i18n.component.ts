@@ -90,16 +90,6 @@ export class HeaderI18nComponent {
     private store: Store
   ) {}
 
-  change(lang: string) {
-    const spinEl = this.doc.createElement('div');
-    spinEl.setAttribute('class', `page-loading ant-spin ant-spin-lg ant-spin-spinning`);
-    spinEl.innerHTML = `<span class="ant-spin-dot ant-spin-dot-spin"><i></i><i></i><i></i><i></i></span>`;
-    this.doc.body.appendChild(spinEl);
-
-    this.i18n.use(lang);
-    this.settings.setLayout('lang', lang);
-    setTimeout(() => this.doc.location.reload());
-  }
   onChangeLang(cultureName: string) {
     this.store.dispatch(new SetLanguage(cultureName));
   }  

@@ -9,8 +9,8 @@ import { PersonalSettingsComponent } from './components/personal-settings/person
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.component';
 import { TenantBoxComponent } from './components/tenant-box/tenant-box.component';
-import { Store } from '@ngxs/store';
 import { Options, ACCOUNT_OPTIONS } from '@abp/ng.account';
+import { AccountWrapModule } from '@fs/account/wrap';
 export function accountOptionsFactory(options: Options) {
   return {
     redirectUrl: '/',
@@ -36,7 +36,7 @@ export function accountOptionsFactory(options: Options) {
   imports: [
     CoreModule,
     NgAlainBasicModule,
-    AccountModule
+    AccountWrapModule
   ]
 })
 export class AccountNgAlainModule {

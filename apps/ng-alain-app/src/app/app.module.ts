@@ -16,11 +16,12 @@ import { environment } from '../environments/environment';
 import { AccountConfigModule } from '@abp/ng.account/config';
 import { IdentityConfigModule } from '@abp/ng.identity/config';
 import { SettingManagementConfigModule } from '@abp/ng.setting-management/config';
-import { TenantManagementConfigModule } from '@abp/ng.tenant-management/config';
+import { TenantManagementNgAlainConfigModule } from '@fs/tenant-management/ng-alain/config';
 import { ThemeBasicModule } from '@abp/ng.theme.basic';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { AppRoutingModule } from './app-routing.module';
 import { AccountNgAlainConfigModule } from '@fs/account/ng-alain/config';
+import { IdentityNgAlainConfigModule } from '@fs/identity/ng-alain/config';
 
 const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
 
@@ -39,14 +40,11 @@ const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
       sendNullsAsQueryParam: false,
       skipGetAppConfiguration: false,
     }),
-    //ThemeSharedModule.forRoot(),
-    // AccountConfigModule.forRoot(),
     AccountNgAlainConfigModule.forRoot(),
-    IdentityConfigModule.forRoot(),
-    TenantManagementConfigModule.forRoot(),
+    IdentityNgAlainConfigModule.forRoot(),
+    TenantManagementNgAlainConfigModule.forRoot(),
     SettingManagementConfigModule.forRoot(),
     NgxsModule.forRoot(),
-    //ThemeBasicModule.forRoot(),
     ...(environment.production ? [] : LOGGERS),
 
 

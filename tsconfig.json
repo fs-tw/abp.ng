@@ -48,7 +48,18 @@
       "@fs/ng-alain/*": ["themes/ng-alain/*/src/index.ts"],
       "@fs/account": ["libs/account/src/index.ts"],
       "@fs/account/*": ["libs/account/*/src/index.ts"],
-      "@fs/identity": ["libs/identity/src/index.ts"]
+      "@fs/identity": ["libs/identity/src/index.ts"],
+      "@fs/identity/*": ["libs/identity/*/src/index.ts"],
+      "@fs/permission-management": ["libs/permission-management/src/index.ts"],
+      "@fs/permission-management/*": [
+        "libs/permission-management/*/src/index.ts"
+      ],
+      "@fs/tenant-management": ["libs/tenant-management/src/index.ts"],
+      "@fs/tenant-management/*": ["libs/tenant-management/*/src/index.ts"],
+      "@fs/feature-management": ["libs/feature-management/src/index.ts"],
+      "@fs/feature-management/*": ["libs/feature-management/*/src/index.ts"],
+      "@fs/setting-management": ["libs/setting-management/src/index.ts"],
+      "@fs/setting-management/*": ["libs/setting-management/*/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -64,7 +64,19 @@
     "fs.account": {
       "tags": []
     },
-    "identity": {
+    "fs.identity": {
+      "tags": []
+    },
+    "fs.permission-management": {
+      "tags": []
+    },
+    "fs.tenant-management": {
+      "tags": []
+    },
+    "fs.feature-management": {
+      "tags": []
+    },
+    "fs.setting-management": {
       "tags": []
     }
   }

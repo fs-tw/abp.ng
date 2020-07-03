@@ -20,7 +20,17 @@
       "@fs/ng-alain": ["dist/themes/ng-alain"],
       "@fs/ng-alain/*": ["dist/themes/ng-alain/*"],
       "@fs/account": ["dist/account"],
-      "@fs/account/*": ["dist/account/*"]      
+      "@fs/account/*": ["dist/account/*"],
+      "@fs/identity": ["dist/identity"],
+      "@fs/identity/*": ["dist/identity/*"],
+      "@fs/permission-management": ["dist/permission-management"],
+      "@fs/permission-management/*": ["dist/permission-management/*"],
+      "@fs/tenant-management": ["dist/tenant-management"],
+      "@fs/tenant-management/*": ["dist/tenant-management/*"],
+      "@fs/feature-management": ["dist/feature-management"],
+      "@fs/feature-management/*": ["dist/feature-management/*"],
+      "@fs/setting-management": ["dist/setting-management"],
+      "@fs/setting-management/*": ["dist/setting-management/*"]      
     }
   },
   "angularCompilerOptions": {
