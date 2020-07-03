@@ -51,7 +51,7 @@
     "@angular/language-service": "~9.1.9",
     "@fs/builder": "file:tools/builder",
     "@fs/ng-alain": "file:themes/ng-alain",
-    "@fs/packages": "file:libs/packages",
+    "@fs/dev": "file:libs/dev",
     "@nrwl/cypress": "9.5.0",
     "@nrwl/jest": "9.5.0",
     "@nrwl/workspace": "9.5.0",

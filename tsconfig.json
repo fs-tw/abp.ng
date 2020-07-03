@@ -59,7 +59,8 @@
       "@fs/feature-management": ["libs/feature-management/src/index.ts"],
       "@fs/feature-management/*": ["libs/feature-management/*/src/index.ts"],
       "@fs/setting-management": ["libs/setting-management/src/index.ts"],
-      "@fs/setting-management/*": ["libs/setting-management/*/src/index.ts"]
+      "@fs/setting-management/*": ["libs/setting-management/*/src/index.ts"],
+      "@fs/dev": ["libs/dev/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

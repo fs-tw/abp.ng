@@ -1,6 +1,46 @@
 {
   "version": 1,
   "projects": {
+    "fs.dev": {
+      "projectType": "library",
+      "root": "themes/dev",
+      "sourceRoot": "themes/dev/src",
+      "prefix": "fs",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "tsconfig.lib.json",
+            "project": "themes/dev/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "themes/dev/tsconfig.lib.json",
+              "themes/dev/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!themes/dev/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "themes/dev/jest.config.js",
+            "tsConfig": "themes/dev/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "themes/dev/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },    
     "dev-app": {
       "projectType": "application",
       "schematics": {
@@ -140,6 +180,53 @@
         }
       }
     },
+    "fs.packages": {
+      "projectType": "library",
+      "root": "libs/packages",
+      "sourceRoot": "libs/packages/src",
+      "prefix": "fs",
+      "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:symlink",
+          "options": {
+            "symlinkConfig": "libs/packages/symlink.json",
+            "args": []
+          }
+        },
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "tsconfig.lib.json",
+            "project": "libs/packages/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/packages/tsconfig.lib.json",
+              "libs/packages/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/packages/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/packages/jest.config.js",
+            "tsConfig": "libs/packages/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/packages/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },    
     "fs.ng-alain": {
       "projectType": "library",
       "root": "themes/ng-alain",
@@ -286,53 +373,6 @@
           }
         }
       }
-    },
-    "fs.packages": {
-      "projectType": "library",
-      "root": "libs/packages",
-      "sourceRoot": "libs/packages/src",
-      "prefix": "fs",
-      "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:symlink",
-          "options": {
-            "symlinkConfig": "libs/packages/symlink.json",
-            "args": []
-          }
-        },
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "tsconfig.lib.json",
-            "project": "libs/packages/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/packages/tsconfig.lib.json",
-              "libs/packages/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/packages/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/packages/jest.config.js",
-            "tsConfig": "libs/packages/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/packages/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {}
     },
     "abp.core": {
       "projectType": "library",

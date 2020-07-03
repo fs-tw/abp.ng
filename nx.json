@@ -19,6 +19,9 @@
     }
   },
   "projects": {
+    "fs.dev": {
+      "tags": []
+    },    
     "dev-app": {
       "tags": []
     },
