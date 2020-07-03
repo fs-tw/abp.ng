@@ -4,7 +4,7 @@
     "dist/themes/*",
     "dist/tools/*/*"
   ],
-  "version": "3.0.0-alpha.3.0",
+  "version": "3.0.0-alpha.3.1",
   "command": {
     "publish": {
       "registry": "http://192.168.1.7:4873/"

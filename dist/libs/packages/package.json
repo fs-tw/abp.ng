@@ -1,16 +1,15 @@
 {
   "name": "@fs/packages",
-  "version": "0.0.1",
-  "peerDependencies": {},
+  "version": "3.0.0-alpha.3.1",
   "dependencies": {
-    "@fs/dev": "",
     "@fs/account": "",
+    "@fs/dev": "",
     "@fs/feature-management": "",
     "@fs/identity": "",
+    "@fs/ng-alain": "",
     "@fs/permission-management": "",
     "@fs/setting-management": "",
     "@fs/tenant-management": "",
-    "@fs/ng-alain": "",
     "tslib": "^1.10.0"
   },
   "main": "bundles/fs-packages.umd.js",

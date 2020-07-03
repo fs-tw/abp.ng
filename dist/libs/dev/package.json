@@ -1,6 +1,6 @@
 {
   "name": "@fs/dev",
-  "version": "0.0.1",
+  "version": "3.0.0-alpha.3.1",
   "peerDependencies": {
     "@angular-devkit/build-angular": "~0.1000.0",
     "@angular-devkit/build-ng-packagr": "~0.1000.0",
