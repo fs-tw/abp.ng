@@ -1,6 +1,7 @@
 {
   "packages": [
-    "dist/*/*",
+    "dist/libs/*",
+    "dist/themes/*",
     "dist/tools/*/*"
   ],
   "version": "3.0.0-alpha.3.0",
