@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/tenant-management/wrap'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@abp/ng.tenant-management'), require('@abp/ng.theme.shared'), require('@angular/forms'), require('@ngxs/store'), require('ng-zorro-antd/card'), require('ng-zorro-antd/grid'), require('ng-zorro-antd/form'), require('ng-zorro-antd/input'), require('ng-zorro-antd/button'), require('ng-zorro-antd/core/wave'), require('ng-zorro-antd/core/transition-patch'), require('ng-zorro-antd/icon'), require('ng-zorro-antd/table'), require('@angular/common'), require('ng-zorro-antd/modal'), require('@fs/feature-management/ng-alain'), require('ng-zorro-antd/dropdown'), require('ng-zorro-antd/menu'), require('@ngx-validate/core'), require('ng-zorro-antd/checkbox')) :
-    typeof define === 'function' && define.amd ? define('@fs/tenant-management/ng-alain', ['exports', '@fs/tenant-management/wrap', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@abp/ng.tenant-management', '@abp/ng.theme.shared', '@angular/forms', '@ngxs/store', 'ng-zorro-antd/card', 'ng-zorro-antd/grid', 'ng-zorro-antd/form', 'ng-zorro-antd/input', 'ng-zorro-antd/button', 'ng-zorro-antd/core/wave', 'ng-zorro-antd/core/transition-patch', 'ng-zorro-antd/icon', 'ng-zorro-antd/table', '@angular/common', 'ng-zorro-antd/modal', '@fs/feature-management/ng-alain', 'ng-zorro-antd/dropdown', 'ng-zorro-antd/menu', '@ngx-validate/core', 'ng-zorro-antd/checkbox'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['tenant-management'] = global.fs['tenant-management'] || {}, global.fs['tenant-management']['ng-alain'] = {}), global.fs['tenant-management'].wrap, global.i1, global.ng.core, global.basic, global.i3, global.i2, global.ng.forms, global.i5, global.i6, global.i7, global.i8, global.i9, global.i10, global.i11, global.i12, global.i13, global.i14, global.ng.common, global.i16, global.i17, global.i18, global.i19, global.i20, global.i21));
-}(this, (function (exports, wrap, i1, i0, basic, i3, i2, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15, i16, i17, i18, i19, i20, i21) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/tenant-management/wrap'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@abp/ng.tenant-management'), require('@abp/ng.theme.shared'), require('@angular/forms'), require('@ngxs/store'), require('@fs/feature-management/ng-alain')) :
+    typeof define === 'function' && define.amd ? define('@fs/tenant-management/ng-alain', ['exports', '@fs/tenant-management/wrap', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@abp/ng.tenant-management', '@abp/ng.theme.shared', '@angular/forms', '@ngxs/store', '@fs/feature-management/ng-alain'], factory) :
+    (global = global || self, factory((global.fs = global.fs || {}, global.fs['tenant-management'] = global.fs['tenant-management'] || {}, global.fs['tenant-management']['ng-alain'] = {}), global.fs['tenant-management'].wrap, global.ng_core, global.ng.core, global.basic, global.ng_tenantManagement, global.ng_theme_shared, global.ng.forms, global.store, global.ngAlain));
+}(this, (function (exports, wrap, ng_core, core, basic, ng_tenantManagement, ng_theme_shared, forms, store, ngAlain) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -296,280 +296,7 @@
         return value;
     }
 
-    function TenantsComponent_tr_30_li_11_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r20_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "li", 23);
-            i0.ɵɵlistener("click", function TenantsComponent_tr_30_li_11_Template_li_click_0_listener() { i0.ɵɵrestoreView(_r20_1); var data_r12 = i0.ɵɵnextContext().$implicit; var ctx_r18 = i0.ɵɵnextContext(); return ctx_r18.editTenant(data_r12.id); });
-            i0.ɵɵtext(1);
-            i0.ɵɵpipe(2, "abpLocalization");
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(2, 1, "AbpTenantManagement::Edit"), "");
-        }
-    }
-    function TenantsComponent_tr_30_li_12_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r23_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "li", 23);
-            i0.ɵɵlistener("click", function TenantsComponent_tr_30_li_12_Template_li_click_0_listener() { i0.ɵɵrestoreView(_r23_1); var data_r12 = i0.ɵɵnextContext().$implicit; var ctx_r21 = i0.ɵɵnextContext(); return ctx_r21.onEditConnectionString(data_r12.id); });
-            i0.ɵɵtext(1);
-            i0.ɵɵpipe(2, "abpLocalization");
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(2, 1, "AbpTenantManagement::Permission:ManageConnectionStrings"), "");
-        }
-    }
-    function TenantsComponent_tr_30_li_13_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r26_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "li", 23);
-            i0.ɵɵlistener("click", function TenantsComponent_tr_30_li_13_Template_li_click_0_listener() { i0.ɵɵrestoreView(_r26_1); var data_r12 = i0.ɵɵnextContext().$implicit; var ctx_r24 = i0.ɵɵnextContext(); return ctx_r24.openFeaturesModal(data_r12.id); });
-            i0.ɵɵtext(1);
-            i0.ɵɵpipe(2, "abpLocalization");
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(2, 1, "AbpTenantManagement::Permission:ManageFeatures"), "");
-        }
-    }
-    function TenantsComponent_tr_30_li_14_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r29_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "li", 23);
-            i0.ɵɵlistener("click", function TenantsComponent_tr_30_li_14_Template_li_click_0_listener() { i0.ɵɵrestoreView(_r29_1); var data_r12 = i0.ɵɵnextContext().$implicit; var ctx_r27 = i0.ɵɵnextContext(); return ctx_r27.delete(data_r12.id, data_r12.name); });
-            i0.ɵɵtext(1);
-            i0.ɵɵpipe(2, "abpLocalization");
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate(i0.ɵɵpipeBind1(2, 1, "AbpTenantManagement::Delete"));
-        }
-    }
-    function TenantsComponent_tr_30_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementStart(0, "tr");
-            i0.ɵɵelementStart(1, "td");
-            i0.ɵɵtext(2);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(3, "td");
-            i0.ɵɵelementStart(4, "a", 18);
-            i0.ɵɵtext(5);
-            i0.ɵɵpipe(6, "abpLocalization");
-            i0.ɵɵelement(7, "i", 19);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(8, "nz-dropdown-menu", null, 20);
-            i0.ɵɵelementStart(10, "ul", 21);
-            i0.ɵɵtemplate(11, TenantsComponent_tr_30_li_11_Template, 3, 3, "li", 22);
-            i0.ɵɵtemplate(12, TenantsComponent_tr_30_li_12_Template, 3, 3, "li", 22);
-            i0.ɵɵtemplate(13, TenantsComponent_tr_30_li_13_Template, 3, 3, "li", 22);
-            i0.ɵɵtemplate(14, TenantsComponent_tr_30_li_14_Template, 3, 3, "li", 22);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            var data_r12 = ctx.$implicit;
-            var _r13 = i0.ɵɵreference(9);
-            i0.ɵɵadvance(2);
-            i0.ɵɵtextInterpolate(data_r12.name);
-            i0.ɵɵadvance(2);
-            i0.ɵɵproperty("nzDropdownMenu", _r13);
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(6, 7, "AbpTenantManagement::Actions"), " ");
-            i0.ɵɵadvance(6);
-            i0.ɵɵproperty("abpPermission", "AbpTenantManagement.Tenants.Update");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("abpPermission", "AbpTenantManagement.Tenants.ManageConnectionStrings");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("abpPermission", "AbpTenantManagement.Tenants.ManageFeatures");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("abpPermission", "AbpTenantManagement.Tenants.Delete");
-        }
-    }
-    function TenantsComponent_ng_template_32_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵtext(0);
-            i0.ɵɵpipe(1, "abpLocalization");
-        }
-        if (rf & 2) {
-            var ctx_r3 = i0.ɵɵnextContext();
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(1, 1, ctx_r3.selectedModalContent.title), " ");
-        }
-    }
-    function TenantsComponent_ng_template_34_ng_container_0_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementContainer(0);
-        }
-    }
-    function TenantsComponent_ng_template_34_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵtemplate(0, TenantsComponent_ng_template_34_ng_container_0_Template, 1, 0, "ng-container", 24);
-        }
-        if (rf & 2) {
-            var ctx_r5 = i0.ɵɵnextContext();
-            i0.ɵɵproperty("ngTemplateOutlet", ctx_r5.selectedModalContent == null ? null : ctx_r5.selectedModalContent.template);
-        }
-    }
-    function TenantsComponent_ng_template_36_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r32_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "button", 25);
-            i0.ɵɵlistener("click", function TenantsComponent_ng_template_36_Template_button_click_0_listener() { i0.ɵɵrestoreView(_r32_1); var ctx_r31 = i0.ɵɵnextContext(); return ctx_r31.isModalVisible = false; });
-            i0.ɵɵtext(1);
-            i0.ɵɵpipe(2, "abpLocalization");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(3, "button", 26);
-            i0.ɵɵlistener("click", function TenantsComponent_ng_template_36_Template_button_click_3_listener() { i0.ɵɵrestoreView(_r32_1); var ctx_r33 = i0.ɵɵnextContext(); return ctx_r33.save(); });
-            i0.ɵɵpipe(4, "async");
-            i0.ɵɵtext(5);
-            i0.ɵɵpipe(6, "abpLocalization");
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            var ctx_r7 = i0.ɵɵnextContext();
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(2, 3, "AbpTenantManagement::Cancel"), " ");
-            i0.ɵɵadvance(2);
-            i0.ɵɵproperty("nzLoading", i0.ɵɵpipeBind1(4, 5, ctx_r7.list.isLoading$));
-            i0.ɵɵadvance(2);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(6, 7, "AbpIdentity::Save"), " ");
-        }
-    }
-    function TenantsComponent_ng_template_38_nz_form_item_7_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementStart(0, "nz-form-item");
-            i0.ɵɵelementStart(1, "nz-form-label", 32);
-            i0.ɵɵtext(2);
-            i0.ɵɵpipe(3, "abpLocalization");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(4, "nz-form-control", 29);
-            i0.ɵɵelement(5, "input", 33);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSm", 24)("nzXs", 24);
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(3, 5, "AbpTenantManagement::DisplayName:AdminEmailAddress"), "");
-            i0.ɵɵadvance(2);
-            i0.ɵɵproperty("nzSm", 24)("nzXs", 24);
-        }
-    }
-    function TenantsComponent_ng_template_38_nz_form_item_8_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementStart(0, "nz-form-item");
-            i0.ɵɵelementStart(1, "nz-form-label", 34);
-            i0.ɵɵtext(2);
-            i0.ɵɵpipe(3, "abpLocalization");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(4, "nz-form-control", 29);
-            i0.ɵɵelement(5, "input", 35);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSm", 24)("nzXs", 24);
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(3, 5, "AbpTenantManagement::DisplayName:AdminPassword"), "");
-            i0.ɵɵadvance(2);
-            i0.ɵɵproperty("nzSm", 24)("nzXs", 24);
-        }
-    }
-    function TenantsComponent_ng_template_38_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r37_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "form", 27);
-            i0.ɵɵlistener("ngSubmit", function TenantsComponent_ng_template_38_Template_form_ngSubmit_0_listener() { i0.ɵɵrestoreView(_r37_1); var ctx_r36 = i0.ɵɵnextContext(); return ctx_r36.save(); });
-            i0.ɵɵelementStart(1, "nz-form-item");
-            i0.ɵɵelementStart(2, "nz-form-label", 28);
-            i0.ɵɵtext(3);
-            i0.ɵɵpipe(4, "abpLocalization");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(5, "nz-form-control", 29);
-            i0.ɵɵelement(6, "input", 30);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵtemplate(7, TenantsComponent_ng_template_38_nz_form_item_7_Template, 6, 7, "nz-form-item", 31);
-            i0.ɵɵtemplate(8, TenantsComponent_ng_template_38_nz_form_item_8_Template, 6, 7, "nz-form-item", 31);
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            var ctx_r9 = i0.ɵɵnextContext();
-            i0.ɵɵproperty("formGroup", ctx_r9.tenantForm)("nzLayout", "vertical");
-            i0.ɵɵadvance(2);
-            i0.ɵɵproperty("nzSm", 24)("nzXs", 24);
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(4, 9, "AbpTenantManagement::TenantName"), "");
-            i0.ɵɵadvance(2);
-            i0.ɵɵproperty("nzSm", 24)("nzXs", 24);
-            i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngIf", ctx_r9.tenantForm.controls.adminEmailAddress);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngIf", ctx_r9.tenantForm.controls.adminPassword);
-        }
-    }
-    function TenantsComponent_ng_template_40_nz_form_item_7_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementStart(0, "nz-form-item");
-            i0.ɵɵelementStart(1, "nz-form-label", 39);
-            i0.ɵɵtext(2);
-            i0.ɵɵpipe(3, "abpLocalization");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(4, "nz-form-control", 29);
-            i0.ɵɵelement(5, "input", 40);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSm", 24)("nzXs", 24);
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(3, 5, "AbpTenantManagement::DisplayName:DefaultConnectionString"), "");
-            i0.ɵɵadvance(2);
-            i0.ɵɵproperty("nzSm", 24)("nzXs", 24);
-        }
-    }
-    function TenantsComponent_ng_template_40_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r40_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "form", 36);
-            i0.ɵɵlistener("ngSubmit", function TenantsComponent_ng_template_40_Template_form_ngSubmit_0_listener() { i0.ɵɵrestoreView(_r40_1); var ctx_r39 = i0.ɵɵnextContext(); return ctx_r39.save(); });
-            i0.ɵɵelementStart(1, "nz-form-item");
-            i0.ɵɵelementStart(2, "nz-form-control", 37);
-            i0.ɵɵelementStart(3, "label", 38);
-            i0.ɵɵelementStart(4, "span");
-            i0.ɵɵtext(5);
-            i0.ɵɵpipe(6, "abpLocalization");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵtemplate(7, TenantsComponent_ng_template_40_nz_form_item_7_Template, 6, 7, "nz-form-item", 31);
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            var ctx_r11 = i0.ɵɵnextContext();
-            i0.ɵɵproperty("nzLayout", "vertical")("formGroup", ctx_r11.defaultConnectionStringForm);
-            i0.ɵɵadvance(2);
-            i0.ɵɵproperty("nzSpan", 14)("nzOffset", 6);
-            i0.ɵɵadvance(3);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(6, 6, "AbpTenantManagement::DisplayName:UseSharedDatabase"), " ");
-            i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngIf", !ctx_r11.useSharedDatabase);
-        }
-    }
-    var _c0 = function () { return { xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }; };
-    var TenantsComponent = /** @class */ (function (_super) {
+    exports.TenantsComponent = /** @class */ (function (_super) {
         __extends(TenantsComponent, _super);
         function TenantsComponent(_list, _confirmationService, _tenantService, _fb, _store) {
             var _this = _super.call(this, _list, _confirmationService, _tenantService, _fb, _store) || this;
@@ -581,158 +308,51 @@
             return _this;
         }
         return TenantsComponent;
-    }(i3.TenantsComponent));
-    TenantsComponent.ɵfac = function TenantsComponent_Factory(t) { return new (t || TenantsComponent)(i0.ɵɵdirectiveInject(i1.ListService), i0.ɵɵdirectiveInject(i2.ConfirmationService), i0.ɵɵdirectiveInject(i3.TenantManagementService), i0.ɵɵdirectiveInject(i4.FormBuilder), i0.ɵɵdirectiveInject(i5.Store)); };
-    TenantsComponent.ɵcmp = i0.ɵɵdefineComponent({ type: TenantsComponent, selectors: [["ng-alain-tenants"]], features: [i0.ɵɵProvidersFeature([i1.ListService]), i0.ɵɵInheritDefinitionFeature], decls: 43, vars: 39, consts: [[3, "nzBordered"], ["nz-row", "", 3, "nzGutter"], ["nz-col", "", "nzMd", "8", "nzSm", "24"], ["nzFor", "no"], ["nz-input", "", "type", "search", 3, "placeholder", "ngModel", "ngModelChange"], ["nz-button", "", 3, "abpPermission", "nzType", "click"], ["nz-icon", "", "nzType", "plus"], [1, "my-md"], [3, "nzData", "nzPageSize", "nzTotal", "nzLoading", "nzFrontPagination", "nzPageIndexChange"], ["basicTable", ""], [4, "ngFor", "ngForOf"], [3, "nzVisible", "nzTitle", "nzContent", "nzFooter", "nzVisibleChange", "nzOnCancel"], ["modalTitle", ""], ["modalContent", ""], ["modalFooter", ""], ["tenantModalTemplate", ""], ["connectionStringModalTemplate", ""], ["providerName", "T", 3, "visible", "providerKey", "visibleChange"], ["nz-dropdown", "", 3, "nzDropdownMenu"], ["nz-icon", "", "nzType", "down"], ["opMenu", "nzDropdownMenu"], ["nz-menu", ""], ["nz-menu-item", "", 3, "click", 4, "abpPermission"], ["nz-menu-item", "", 3, "click"], [4, "ngTemplateOutlet"], ["nz-button", "", "nzType", "default", 3, "click"], ["nz-button", "", "nzType", "primary", 3, "nzLoading", "click"], ["nz-form", "", 3, "formGroup", "nzLayout", "ngSubmit"], ["nzRequired", "", "nzFor", "role-name", 3, "nzSm", "nzXs"], [3, "nzSm", "nzXs"], ["nz-input", "", "formControlName", "name"], [4, "ngIf"], ["nzRequired", "", "nzFor", "role-adminEmailAddress", 3, "nzSm", "nzXs"], ["nz-input", "", "formControlName", "adminEmailAddress", "type", "email"], ["nzRequired", "", "nzFor", "role-adminPassword", 3, "nzSm", "nzXs"], ["nz-input", "", "formControlName", "adminPassword", "type", "password"], ["nz-form", "", 3, "nzLayout", "formGroup", "ngSubmit"], [3, "nzSpan", "nzOffset"], ["nz-checkbox", "", "formControlName", "useSharedDatabase"], ["nzRequired", "", "nzFor", "defaultConnectionString", 3, "nzSm", "nzXs"], ["nz-input", "", "formControlName", "defaultConnectionString", "id", "defaultConnectionString"]], template: function TenantsComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelementStart(0, "nz-card", 0);
-                i0.ɵɵelementStart(1, "div", 1);
-                i0.ɵɵelementStart(2, "div", 2);
-                i0.ɵɵelementStart(3, "nz-form-item");
-                i0.ɵɵelementStart(4, "nz-form-label", 3);
-                i0.ɵɵtext(5);
-                i0.ɵɵpipe(6, "abpLocalization");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(7, "nz-form-control");
-                i0.ɵɵelementStart(8, "input", 4);
-                i0.ɵɵlistener("ngModelChange", function TenantsComponent_Template_input_ngModelChange_8_listener($event) { return ctx.list.filter = $event; });
-                i0.ɵɵpipe(9, "abpLocalization");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(10, "button", 5);
-                i0.ɵɵlistener("click", function TenantsComponent_Template_button_click_10_listener() { return ctx.addTenant(); });
-                i0.ɵɵelement(11, "i", 6);
-                i0.ɵɵelementStart(12, "span");
-                i0.ɵɵtext(13);
-                i0.ɵɵpipe(14, "abpLocalization");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelement(15, "div", 7);
-                i0.ɵɵelementStart(16, "nz-table", 8, 9);
-                i0.ɵɵlistener("nzPageIndexChange", function TenantsComponent_Template_nz_table_nzPageIndexChange_16_listener($event) { return ctx.list.page = $event - 1; });
-                i0.ɵɵpipe(18, "async");
-                i0.ɵɵpipe(19, "async");
-                i0.ɵɵpipe(20, "async");
-                i0.ɵɵelementStart(21, "thead");
-                i0.ɵɵelementStart(22, "tr");
-                i0.ɵɵelementStart(23, "th");
-                i0.ɵɵtext(24);
-                i0.ɵɵpipe(25, "abpLocalization");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(26, "th");
-                i0.ɵɵtext(27);
-                i0.ɵɵpipe(28, "abpLocalization");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(29, "tbody");
-                i0.ɵɵtemplate(30, TenantsComponent_tr_30_Template, 15, 9, "tr", 10);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(31, "nz-modal", 11);
-                i0.ɵɵlistener("nzVisibleChange", function TenantsComponent_Template_nz_modal_nzVisibleChange_31_listener($event) { return ctx.isModalVisible = $event; })("nzOnCancel", function TenantsComponent_Template_nz_modal_nzOnCancel_31_listener() { return ctx.isModalVisible = false; });
-                i0.ɵɵtemplate(32, TenantsComponent_ng_template_32_Template, 2, 3, "ng-template", null, 12, i0.ɵɵtemplateRefExtractor);
-                i0.ɵɵtemplate(34, TenantsComponent_ng_template_34_Template, 1, 1, "ng-template", null, 13, i0.ɵɵtemplateRefExtractor);
-                i0.ɵɵtemplate(36, TenantsComponent_ng_template_36_Template, 7, 9, "ng-template", null, 14, i0.ɵɵtemplateRefExtractor);
-                i0.ɵɵelementEnd();
-                i0.ɵɵtemplate(38, TenantsComponent_ng_template_38_Template, 9, 11, "ng-template", null, 15, i0.ɵɵtemplateRefExtractor);
-                i0.ɵɵtemplate(40, TenantsComponent_ng_template_40_Template, 8, 8, "ng-template", null, 16, i0.ɵɵtemplateRefExtractor);
-                i0.ɵɵelementStart(42, "ng-alain-feature-management", 17);
-                i0.ɵɵlistener("visibleChange", function TenantsComponent_Template_ng_alain_feature_management_visibleChange_42_listener($event) { return ctx.visibleFeatures = $event; });
-                i0.ɵɵelementEnd();
-            }
-            if (rf & 2) {
-                var _r0 = i0.ɵɵreference(17);
-                var _r2 = i0.ɵɵreference(33);
-                var _r4 = i0.ɵɵreference(35);
-                var _r6 = i0.ɵɵreference(37);
-                i0.ɵɵproperty("nzBordered", false);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("nzGutter", i0.ɵɵpureFunction0(38, _c0));
-                i0.ɵɵadvance(4);
-                i0.ɵɵtextInterpolate(i0.ɵɵpipeBind1(6, 22, "AbpIdentity::PagerSearch"));
-                i0.ɵɵadvance(3);
-                i0.ɵɵproperty("placeholder", i0.ɵɵpipeBind1(9, 24, "AbpUi::PagerSearch"))("ngModel", ctx.list.filter);
-                i0.ɵɵadvance(2);
-                i0.ɵɵproperty("abpPermission", "AbpTenantManagement.Tenants.Create")("nzType", "primary");
-                i0.ɵɵadvance(3);
-                i0.ɵɵtextInterpolate(i0.ɵɵpipeBind1(14, 26, "AbpTenantManagement::NewTenant"));
-                i0.ɵɵadvance(3);
-                i0.ɵɵproperty("nzData", i0.ɵɵpipeBind1(18, 28, ctx.data$))("nzPageSize", ctx.list.maxResultCount)("nzTotal", i0.ɵɵpipeBind1(19, 30, ctx.totalCount$))("nzLoading", i0.ɵɵpipeBind1(20, 32, ctx.list.isLoading$))("nzFrontPagination", false);
-                i0.ɵɵadvance(8);
-                i0.ɵɵtextInterpolate(i0.ɵɵpipeBind1(25, 34, "AbpTenantManagement::DisplayName:TenantName"));
-                i0.ɵɵadvance(3);
-                i0.ɵɵtextInterpolate(i0.ɵɵpipeBind1(28, 36, "AbpTenantManagement::Actions"));
-                i0.ɵɵadvance(3);
-                i0.ɵɵproperty("ngForOf", _r0.data);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("nzVisible", ctx.isModalVisible)("nzTitle", _r2)("nzContent", _r4)("nzFooter", _r6);
-                i0.ɵɵadvance(11);
-                i0.ɵɵproperty("visible", ctx.visibleFeatures)("providerKey", ctx.providerKey);
-            }
-        }, directives: [i6.NzCardComponent, i7.NzRowDirective, i7.NzColDirective, i8.NzFormItemComponent, i8.NzFormLabelComponent, i8.NzFormControlComponent, i9.NzInputDirective, i4.DefaultValueAccessor, i4.NgControlStatus, i4.NgModel, i10.NzButtonComponent, i11.NzWaveDirective, i12.ɵNzTransitionPatchDirective, i1.PermissionDirective, i13.NzIconDirective, i14.NzTableComponent, i14.NzTheadComponent, i14.NzTrDirective, i14.NzTableCellDirective, i14.NzThMeasureDirective, i14.NzTbodyComponent, i15.NgForOf, i16.NzModalComponent, i17.FeatureManagementComponent, i18.NzDropDownADirective, i18.NzDropDownDirective, i18.NzDropdownMenuComponent, i19.NzMenuDirective, i19.NzMenuItemDirective, i15.NgTemplateOutlet, i4.ɵangular_packages_forms_forms_y, i4.NgControlStatusGroup, i1.FormSubmitDirective, i8.NzFormDirective, i4.FormGroupDirective, i20.ValidationGroupDirective, i4.FormControlName, i20.ValidationDirective, i15.NgIf, i21.NzCheckboxComponent], pipes: [i1.LocalizationPipe, i15.AsyncPipe], encapsulation: 2 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(TenantsComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'ng-alain-tenants',
-                        templateUrl: './tenants.component.html',
-                        providers: [i1.ListService]
-                    }]
-            }], function () { return [{ type: i1.ListService }, { type: i2.ConfirmationService }, { type: i3.TenantManagementService }, { type: i4.FormBuilder }, { type: i5.Store }]; }, null);
-    })();
+    }(ng_tenantManagement.TenantsComponent));
+    exports.TenantsComponent = __decorate([
+        core.Component({
+            selector: 'ng-alain-tenants',
+            template: "<nz-card [nzBordered]=\"false\">\r\n  <!-- <form nz-form [nzLayout]=\"'inline'\" class=\"search__form\"> -->\r\n  <div nz-row [nzGutter]=\"{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }\">\r\n    <div nz-col nzMd=\"8\" nzSm=\"24\">\r\n      <nz-form-item>\r\n        <nz-form-label nzFor=\"no\">{{'AbpIdentity::PagerSearch' | abpLocalization }}</nz-form-label>\r\n        <nz-form-control>\r\n          <input nz-input type=\"search\" [placeholder]=\"'AbpUi::PagerSearch' | abpLocalization\" [(ngModel)]=\"list.filter\" />\r\n        </nz-form-control>\r\n      </nz-form-item>\r\n    </div>\r\n  </div>\r\n  <!-- </form> -->\r\n  <button nz-button [abpPermission]=\"'AbpTenantManagement.Tenants.Create'\" (click)=\"addTenant()\" [nzType]=\"'primary'\">\r\n    <i nz-icon nzType=\"plus\"></i>\r\n    <span>{{ 'AbpTenantManagement::NewTenant' | abpLocalization }}</span>\r\n  </button>\r\n  <div class=\"my-md\"></div>\r\n  <nz-table #basicTable [nzData]=\"data$ | async\" [nzPageSize]=\"list.maxResultCount\" [nzTotal]=\"totalCount$ | async\"\r\n    [nzLoading]=\"list.isLoading$ | async\" [nzFrontPagination]=\"false\" (nzPageIndexChange)=\"list.page=$event-1;\">\r\n    <thead>\r\n      <tr>\r\n        <th>{{ 'AbpTenantManagement::DisplayName:TenantName' | abpLocalization }}</th>\r\n        <th>{{ 'AbpTenantManagement::Actions' | abpLocalization }}</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let data of basicTable.data\">\r\n        <td>{{ data.name }}</td>\r\n        <td>\r\n          <a nz-dropdown [nzDropdownMenu]=\"opMenu\">\r\n            {{ 'AbpTenantManagement::Actions' | abpLocalization }}\r\n            <i nz-icon nzType=\"down\"></i>\r\n          </a>\r\n          <nz-dropdown-menu #opMenu=\"nzDropdownMenu\">\r\n            <ul nz-menu>\r\n              <li nz-menu-item *abpPermission=\"'AbpTenantManagement.Tenants.Update'\" (click)=\"editTenant(data.id)\">\r\n                {{ 'AbpTenantManagement::Edit' | abpLocalization }}</li>\r\n              <li nz-menu-item *abpPermission=\"'AbpTenantManagement.Tenants.ManageConnectionStrings'\"\r\n                (click)=\"onEditConnectionString(data.id)\">\r\n                {{ 'AbpTenantManagement::Permission:ManageConnectionStrings' | abpLocalization }}</li>\r\n              <li nz-menu-item *abpPermission=\"'AbpTenantManagement.Tenants.ManageFeatures'\"\r\n                (click)=\"openFeaturesModal(data.id)\">\r\n                {{ 'AbpTenantManagement::Permission:ManageFeatures' | abpLocalization }}</li>\r\n              <li nz-menu-item *abpPermission=\"'AbpTenantManagement.Tenants.Delete'\"\r\n                (click)=\"delete(data.id, data.name)\">{{ 'AbpTenantManagement::Delete' | abpLocalization }}</li>\r\n            </ul>\r\n          </nz-dropdown-menu>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </nz-table>\r\n</nz-card>\r\n\r\n<nz-modal [(nzVisible)]=\"isModalVisible\" [nzTitle]=\"modalTitle\" [nzContent]=\"modalContent\" [nzFooter]=\"modalFooter\"\r\n  (nzOnCancel)=\"isModalVisible=false\">\r\n  <ng-template #modalTitle>\r\n    {{ selectedModalContent.title | abpLocalization }}\r\n  </ng-template>\r\n\r\n  <ng-template #modalContent>\r\n    <ng-container *ngTemplateOutlet=\"selectedModalContent?.template\"></ng-container>\r\n  </ng-template>\r\n\r\n  <ng-template #modalFooter>\r\n    <button nz-button nzType=\"default\" (click)=\"isModalVisible=false\">\r\n      {{ 'AbpTenantManagement::Cancel' | abpLocalization }}\r\n    </button>\r\n    <button nz-button nzType=\"primary\" (click)=\"save()\" [nzLoading]=\"list.isLoading$ | async\">\r\n      {{\r\n      'AbpIdentity::Save' | abpLocalization\r\n      }}\r\n    </button>\r\n  </ng-template>\r\n</nz-modal>\r\n\r\n\r\n\r\n<ng-template #tenantModalTemplate>\r\n  <form nz-form [formGroup]=\"tenantForm\" (ngSubmit)=\"save()\" [nzLayout]=\"'vertical'\">\r\n    <nz-form-item>\r\n      <nz-form-label [nzSm]=\"24\" [nzXs]=\"24\" nzRequired nzFor=\"role-name\">\r\n        {{ 'AbpTenantManagement::TenantName' | abpLocalization }}</nz-form-label>\r\n      <nz-form-control [nzSm]=\"24\" [nzXs]=\"24\">\r\n        <input nz-input formControlName=\"name\" />\r\n      </nz-form-control>\r\n    </nz-form-item>\r\n\r\n    <nz-form-item *ngIf=\"tenantForm.controls.adminEmailAddress\">\r\n      <nz-form-label [nzSm]=\"24\" [nzXs]=\"24\" nzRequired nzFor=\"role-adminEmailAddress\">\r\n        {{ 'AbpTenantManagement::DisplayName:AdminEmailAddress' | abpLocalization }}</nz-form-label>\r\n      <nz-form-control [nzSm]=\"24\" [nzXs]=\"24\">\r\n        <input nz-input formControlName=\"adminEmailAddress\" type=\"email\" />\r\n      </nz-form-control>\r\n    </nz-form-item>\r\n\r\n    <nz-form-item *ngIf=\"tenantForm.controls.adminPassword\">\r\n      <nz-form-label [nzSm]=\"24\" [nzXs]=\"24\" nzRequired nzFor=\"role-adminPassword\">\r\n        {{ 'AbpTenantManagement::DisplayName:AdminPassword' | abpLocalization }}</nz-form-label>\r\n      <nz-form-control [nzSm]=\"24\" [nzXs]=\"24\">\r\n        <input nz-input formControlName=\"adminPassword\" type=\"password\" />\r\n      </nz-form-control>\r\n    </nz-form-item>\r\n  </form>\r\n</ng-template>\r\n\r\n<ng-template #connectionStringModalTemplate>\r\n  <form nz-form [nzLayout]=\"'vertical'\" [formGroup]=\"defaultConnectionStringForm\" (ngSubmit)=\"save()\">\r\n    <nz-form-item>\r\n      <nz-form-control [nzSpan]=\"14\" [nzOffset]=\"6\">\r\n        <label nz-checkbox formControlName=\"useSharedDatabase\">\r\n          <span>\r\n            {{\r\n                  'AbpTenantManagement::DisplayName:UseSharedDatabase' | abpLocalization\r\n            }}\r\n          </span>\r\n        </label>\r\n      </nz-form-control>\r\n    </nz-form-item>\r\n    <nz-form-item *ngIf=\"!useSharedDatabase\">\r\n      <nz-form-label [nzSm]=\"24\" [nzXs]=\"24\" nzRequired nzFor=\"defaultConnectionString\">\r\n        {{ 'AbpTenantManagement::DisplayName:DefaultConnectionString' | abpLocalization }}</nz-form-label>\r\n      <nz-form-control [nzSm]=\"24\" [nzXs]=\"24\">\r\n        <input nz-input formControlName=\"defaultConnectionString\" id=\"defaultConnectionString\" />\r\n      </nz-form-control>\r\n    </nz-form-item>\r\n  </form>\r\n</ng-template>\r\n\r\n<ng-alain-feature-management [(visible)]=\"visibleFeatures\" providerName=\"T\" [providerKey]=\"providerKey\">\r\n</ng-alain-feature-management>",
+            providers: [ng_core.ListService]
+        }),
+        __metadata("design:paramtypes", [ng_core.ListService,
+            ng_theme_shared.ConfirmationService,
+            ng_tenantManagement.TenantManagementService,
+            forms.FormBuilder,
+            store.Store])
+    ], exports.TenantsComponent);
 
-    var TenantManagementNgAlainModule = /** @class */ (function () {
+    var TenantManagementNgAlainModule_1;
+    exports.TenantManagementNgAlainModule = TenantManagementNgAlainModule_1 = /** @class */ (function () {
         function TenantManagementNgAlainModule() {
         }
         TenantManagementNgAlainModule.forChild = function () {
             return {
-                ngModule: TenantManagementNgAlainModule,
+                ngModule: TenantManagementNgAlainModule_1,
                 providers: [],
             };
         };
         TenantManagementNgAlainModule.forLazy = function () {
-            return new i1.LazyModuleFactory(TenantManagementNgAlainModule.forChild());
+            return new ng_core.LazyModuleFactory(TenantManagementNgAlainModule_1.forChild());
         };
         return TenantManagementNgAlainModule;
     }());
-    TenantManagementNgAlainModule.ɵmod = i0.ɵɵdefineNgModule({ type: TenantManagementNgAlainModule });
-    TenantManagementNgAlainModule.ɵinj = i0.ɵɵdefineInjector({ factory: function TenantManagementNgAlainModule_Factory(t) { return new (t || TenantManagementNgAlainModule)(); }, imports: [[
+    exports.TenantManagementNgAlainModule = TenantManagementNgAlainModule_1 = __decorate([
+        core.NgModule({
+            declarations: [exports.TenantsComponent],
+            entryComponents: [exports.TenantsComponent],
+            exports: [exports.TenantsComponent],
+            imports: [
                 basic.NgAlainBasicModule,
-                i17.FeatureManagementNgAlainModule,
+                ngAlain.FeatureManagementNgAlainModule,
                 wrap.TenantManagementWrapModule
-            ]] });
-    (function () {
-        (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(TenantManagementNgAlainModule, { declarations: [TenantsComponent], imports: [basic.NgAlainBasicModule,
-                i17.FeatureManagementNgAlainModule,
-                wrap.TenantManagementWrapModule], exports: [TenantsComponent] });
-    })();
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(TenantManagementNgAlainModule, [{
-                type: i0.NgModule,
-                args: [{
-                        declarations: [TenantsComponent],
-                        entryComponents: [TenantsComponent],
-                        exports: [TenantsComponent],
-                        imports: [
-                            basic.NgAlainBasicModule,
-                            i17.FeatureManagementNgAlainModule,
-                            wrap.TenantManagementWrapModule
-                        ]
-                    }]
-            }], null, null);
-    })();
+            ]
+        })
+    ], exports.TenantManagementNgAlainModule);
 
     /**
      * Generated bundle index. Do not edit.
      */
-
-    exports.TenantManagementNgAlainModule = TenantManagementNgAlainModule;
-    exports.TenantsComponent = TenantsComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

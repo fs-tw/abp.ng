@@ -1,7 +1,8 @@
+import { __decorate } from 'tslib';
 import { ThemeBasicModule } from '@abp/ng.theme.basic';
 import { NgAlainSharedModule } from '@fs/ng-alain/shared';
 import { LayoutDefaultComponent, LayoutPassportComponent, LayoutFullScreenComponent, LayoutModule } from '@fs/ng-alain/layout';
-import { APP_INITIALIZER, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, ɵsetClassMetadata, NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { AddReplaceableComponent } from '@abp/ng.core';
 import { Store } from '@ngxs/store';
 
@@ -36,40 +37,28 @@ function initLayouts(store) {
     ]);
 }
 
-class NgAlainBasicModule {
+var NgAlainBasicModule_1;
+let NgAlainBasicModule = NgAlainBasicModule_1 = class NgAlainBasicModule {
     static forRoot() {
         return {
-            ngModule: NgAlainBasicModule,
+            ngModule: NgAlainBasicModule_1,
             providers: [BASIC_THEME_STYLES_PROVIDERS],
         };
     }
-}
-NgAlainBasicModule.ɵmod = ɵɵdefineNgModule({ type: NgAlainBasicModule });
-NgAlainBasicModule.ɵinj = ɵɵdefineInjector({ factory: function NgAlainBasicModule_Factory(t) { return new (t || NgAlainBasicModule)(); }, imports: [[
+};
+NgAlainBasicModule = NgAlainBasicModule_1 = __decorate([
+    NgModule({
+        imports: [
             NgAlainSharedModule,
             ThemeBasicModule,
             LayoutModule
         ],
-        NgAlainSharedModule,
-        ThemeBasicModule] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(NgAlainBasicModule, { imports: [NgAlainSharedModule,
-        ThemeBasicModule,
-        LayoutModule], exports: [NgAlainSharedModule,
-        ThemeBasicModule] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(NgAlainBasicModule, [{
-        type: NgModule,
-        args: [{
-                imports: [
-                    NgAlainSharedModule,
-                    ThemeBasicModule,
-                    LayoutModule
-                ],
-                exports: [
-                    NgAlainSharedModule,
-                    ThemeBasicModule
-                ]
-            }]
-    }], null, null); })();
+        exports: [
+            NgAlainSharedModule,
+            ThemeBasicModule
+        ]
+    })
+], NgAlainBasicModule);
 
 /**
  * Generated bundle index. Do not edit.

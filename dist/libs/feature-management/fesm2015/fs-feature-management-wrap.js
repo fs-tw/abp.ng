@@ -1,19 +1,15 @@
-import { ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, ɵsetClassMetadata, NgModule } from '@angular/core';
+import { __decorate } from 'tslib';
+import { NgModule } from '@angular/core';
 import { FeatureManagementModule } from '@abp/ng.feature-management';
 
-class FeatureManagementWrapModule {
-}
-FeatureManagementWrapModule.ɵmod = ɵɵdefineNgModule({ type: FeatureManagementWrapModule });
-FeatureManagementWrapModule.ɵinj = ɵɵdefineInjector({ factory: function FeatureManagementWrapModule_Factory(t) { return new (t || FeatureManagementWrapModule)(); }, imports: [[FeatureManagementModule],
-        FeatureManagementModule] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(FeatureManagementWrapModule, { imports: [FeatureManagementModule], exports: [FeatureManagementModule] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(FeatureManagementWrapModule, [{
-        type: NgModule,
-        args: [{
-                imports: [FeatureManagementModule],
-                exports: [FeatureManagementModule]
-            }]
-    }], null, null); })();
+let FeatureManagementWrapModule = class FeatureManagementWrapModule {
+};
+FeatureManagementWrapModule = __decorate([
+    NgModule({
+        imports: [FeatureManagementModule],
+        exports: [FeatureManagementModule]
+    })
+], FeatureManagementWrapModule);
 
 /**
  * Generated bundle index. Do not edit.

@@ -2,7 +2,6 @@ import { AlainI18NService, DelonLocaleService, SettingsService } from '@delon/th
 import { TranslateService } from '@ngx-translate/core';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { Observable } from 'rxjs';
-import * as i0 from "@angular/core";
 export declare class I18NService implements AlainI18NService {
     private settings;
     private nzI18nService;
@@ -28,6 +27,4 @@ export declare class I18NService implements AlainI18NService {
     get defaultLang(): string;
     /** 当前语言 */
     get currentLang(): string;
-    static ɵfac: i0.ɵɵFactoryDef<I18NService, never>;
-    static ɵprov: i0.ɵɵInjectableDef<I18NService>;
 }

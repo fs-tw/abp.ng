@@ -5,6 +5,7 @@
   "esm2015": "../esm2015/wrap/fs-permission-management-wrap.js",
   "fesm2015": "../fesm2015/fs-permission-management-wrap.js",
   "typings": "fs-permission-management-wrap.d.ts",
+  "metadata": "fs-permission-management-wrap.metadata.json",
   "sideEffects": false,
   "name": "@fs/permission-management/wrap"
 }

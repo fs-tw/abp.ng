@@ -1,17 +1,14 @@
-import { ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, ɵsetClassMetadata, NgModule } from '@angular/core';
+import { __decorate } from 'tslib';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-class SettingManagementModule {
-}
-SettingManagementModule.ɵmod = ɵɵdefineNgModule({ type: SettingManagementModule });
-SettingManagementModule.ɵinj = ɵɵdefineInjector({ factory: function SettingManagementModule_Factory(t) { return new (t || SettingManagementModule)(); }, imports: [[CommonModule]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(SettingManagementModule, { imports: [CommonModule] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(SettingManagementModule, [{
-        type: NgModule,
-        args: [{
-                imports: [CommonModule],
-            }]
-    }], null, null); })();
+let SettingManagementModule = class SettingManagementModule {
+};
+SettingManagementModule = __decorate([
+    NgModule({
+        imports: [CommonModule],
+    })
+], SettingManagementModule);
 
 /**
  * Generated bundle index. Do not edit.

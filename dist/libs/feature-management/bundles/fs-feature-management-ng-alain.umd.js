@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/feature-management/wrap'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@abp/ng.feature-management'), require('@ngxs/store'), require('ng-zorro-antd/modal'), require('@angular/common'), require('@angular/forms'), require('ng-zorro-antd/form'), require('ng-zorro-antd/button'), require('ng-zorro-antd/core/wave'), require('ng-zorro-antd/core/transition-patch')) :
-    typeof define === 'function' && define.amd ? define('@fs/feature-management/ng-alain', ['exports', '@fs/feature-management/wrap', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@abp/ng.feature-management', '@ngxs/store', 'ng-zorro-antd/modal', '@angular/common', '@angular/forms', 'ng-zorro-antd/form', 'ng-zorro-antd/button', 'ng-zorro-antd/core/wave', 'ng-zorro-antd/core/transition-patch'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['feature-management'] = global.fs['feature-management'] || {}, global.fs['feature-management']['ng-alain'] = {}), global.fs['feature-management'].wrap, global.i5, global.ng.core, global.basic, global.ng_featureManagement, global.i1, global.i2, global.ng.common, global.ng.forms, global.i6, global.i7, global.i8, global.i9));
-}(this, (function (exports, wrap, i5, i0, basic, ng_featureManagement, i1, i2, i3, i4, i6, i7, i8, i9) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/feature-management/wrap'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@ngxs/store'), require('@abp/ng.feature-management')) :
+    typeof define === 'function' && define.amd ? define('@fs/feature-management/ng-alain', ['exports', '@fs/feature-management/wrap', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@ngxs/store', '@abp/ng.feature-management'], factory) :
+    (global = global || self, factory((global.fs = global.fs || {}, global.fs['feature-management'] = global.fs['feature-management'] || {}, global.fs['feature-management']['ng-alain'] = {}), global.fs['feature-management'].wrap, global.ng_core, global.ng.core, global.basic, global.store, global.ng_featureManagement));
+}(this, (function (exports, wrap, ng_core, core, basic, store, ng_featureManagement) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -296,120 +296,7 @@
         return value;
     }
 
-    function FeatureManagementComponent_ng_template_1_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementStart(0, "h3");
-            i0.ɵɵtext(1);
-            i0.ɵɵpipe(2, "abpLocalization");
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate(i0.ɵɵpipeBind1(2, 1, "AbpTenantManagement::Permission:ManageFeatures"));
-        }
-    }
-    function FeatureManagementComponent_ng_template_3_ng_template_0_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 6);
-            i0.ɵɵelement(1, "i", 7);
-            i0.ɵɵelementEnd();
-        }
-    }
-    function FeatureManagementComponent_ng_template_3_form_2_div_1_div_3_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 13);
-            i0.ɵɵelement(1, "input", 14);
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            var i_r11 = i0.ɵɵnextContext().index;
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("formControlName", i_r11);
-        }
-    }
-    function FeatureManagementComponent_ng_template_3_form_2_div_1_div_4_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 13);
-            i0.ɵɵelement(1, "input", 15);
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            var i_r11 = i0.ɵɵnextContext().index;
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("formControlName", i_r11);
-        }
-    }
-    function FeatureManagementComponent_ng_template_3_form_2_div_1_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 10);
-            i0.ɵɵelementStart(1, "div", 11);
-            i0.ɵɵtext(2);
-            i0.ɵɵelementEnd();
-            i0.ɵɵtemplate(3, FeatureManagementComponent_ng_template_3_form_2_div_1_div_3_Template, 2, 1, "div", 12);
-            i0.ɵɵtemplate(4, FeatureManagementComponent_ng_template_3_form_2_div_1_div_4_Template, 2, 1, "div", 12);
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            var feature_r10 = ctx.$implicit;
-            i0.ɵɵproperty("ngSwitch", feature_r10.valueType.name);
-            i0.ɵɵadvance(2);
-            i0.ɵɵtextInterpolate(feature_r10.name);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngSwitchCase", "ToggleStringValueType");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngSwitchCase", "FreeTextStringValueType");
-        }
-    }
-    function FeatureManagementComponent_ng_template_3_form_2_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r17_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "form", 8);
-            i0.ɵɵlistener("ngSubmit", function FeatureManagementComponent_ng_template_3_form_2_Template_form_ngSubmit_0_listener() { i0.ɵɵrestoreView(_r17_1); var ctx_r16 = i0.ɵɵnextContext(2); return ctx_r16.save(); });
-            i0.ɵɵtemplate(1, FeatureManagementComponent_ng_template_3_form_2_div_1_Template, 5, 4, "div", 9);
-            i0.ɵɵpipe(2, "async");
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            var ctx_r8 = i0.ɵɵnextContext(2);
-            i0.ɵɵproperty("formGroup", ctx_r8.form);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngForOf", i0.ɵɵpipeBind1(2, 2, ctx_r8.features$));
-        }
-    }
-    function FeatureManagementComponent_ng_template_3_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵtemplate(0, FeatureManagementComponent_ng_template_3_ng_template_0_Template, 2, 0, "ng-template", null, 4, i0.ɵɵtemplateRefExtractor);
-            i0.ɵɵtemplate(2, FeatureManagementComponent_ng_template_3_form_2_Template, 3, 4, "form", 5);
-        }
-        if (rf & 2) {
-            var _r6 = i0.ɵɵreference(1);
-            var ctx_r3 = i0.ɵɵnextContext();
-            i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngIf", ctx_r3.form)("ngIfElse", _r6);
-        }
-    }
-    function FeatureManagementComponent_ng_template_5_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r19_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "button", 16);
-            i0.ɵɵlistener("click", function FeatureManagementComponent_ng_template_5_Template_button_click_0_listener() { i0.ɵɵrestoreView(_r19_1); var ctx_r18 = i0.ɵɵnextContext(); return ctx_r18.visible = false; });
-            i0.ɵɵtext(1);
-            i0.ɵɵpipe(2, "abpLocalization");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(3, "button", 17);
-            i0.ɵɵlistener("click", function FeatureManagementComponent_ng_template_5_Template_button_click_3_listener() { i0.ɵɵrestoreView(_r19_1); var ctx_r20 = i0.ɵɵnextContext(); return ctx_r20.save(); });
-            i0.ɵɵtext(4);
-            i0.ɵɵpipe(5, "abpLocalization");
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(2, 2, "AbpFeatureManagement::Cancel"), " ");
-            i0.ɵɵadvance(3);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(5, 4, "AbpFeatureManagement::Save"), " ");
-        }
-    }
-    var FeatureManagementComponent = /** @class */ (function (_super) {
+    exports.FeatureManagementComponent = /** @class */ (function (_super) {
         __extends(FeatureManagementComponent, _super);
         function FeatureManagementComponent(_store) {
             var _this = _super.call(this, _store) || this;
@@ -431,76 +318,47 @@
         });
         return FeatureManagementComponent;
     }(ng_featureManagement.FeatureManagementComponent));
-    FeatureManagementComponent.ɵfac = function FeatureManagementComponent_Factory(t) { return new (t || FeatureManagementComponent)(i0.ɵɵdirectiveInject(i1.Store)); };
-    FeatureManagementComponent.ɵcmp = i0.ɵɵdefineComponent({ type: FeatureManagementComponent, selectors: [["ng-alain-feature-management"]], inputs: { providerKey: "providerKey", providerName: "providerName", visible: "visible" }, features: [i0.ɵɵInheritDefinitionFeature], decls: 7, vars: 4, consts: [[3, "nzVisible", "nzTitle", "nzContent", "nzFooter", "nzVisibleChange", "nzOnCancel"], ["modalTitle", ""], ["modalContent", ""], ["modalFooter", ""], ["loaderRef", ""], ["nz-form", "", 3, "formGroup", "ngSubmit", 4, "ngIf", "ngIfElse"], [1, "text-center"], [1, "fa", "fa-pulse", "fa-spinner"], ["nz-form", "", 3, "formGroup", "ngSubmit"], ["class", "row my-3", 3, "ngSwitch", 4, "ngFor", "ngForOf"], [1, "row", "my-3", 3, "ngSwitch"], [1, "col-4"], ["class", "col-8", 4, "ngSwitchCase"], [1, "col-8"], ["type", "checkbox", "name", "feature.name", 3, "formControlName"], ["type", "text", "name", "feature.name", 3, "formControlName"], ["nz-button", "", "nzType", "default", 3, "click"], ["nz-button", "", "nzType", "primary", 3, "click"]], template: function FeatureManagementComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelementStart(0, "nz-modal", 0);
-                i0.ɵɵlistener("nzVisibleChange", function FeatureManagementComponent_Template_nz_modal_nzVisibleChange_0_listener($event) { return ctx.visible = $event; })("nzOnCancel", function FeatureManagementComponent_Template_nz_modal_nzOnCancel_0_listener() { return ctx.visible = false; });
-                i0.ɵɵtemplate(1, FeatureManagementComponent_ng_template_1_Template, 3, 3, "ng-template", null, 1, i0.ɵɵtemplateRefExtractor);
-                i0.ɵɵtemplate(3, FeatureManagementComponent_ng_template_3_Template, 3, 2, "ng-template", null, 2, i0.ɵɵtemplateRefExtractor);
-                i0.ɵɵtemplate(5, FeatureManagementComponent_ng_template_5_Template, 6, 6, "ng-template", null, 3, i0.ɵɵtemplateRefExtractor);
-                i0.ɵɵelementEnd();
-            }
-            if (rf & 2) {
-                var _r0 = i0.ɵɵreference(2);
-                var _r2 = i0.ɵɵreference(4);
-                var _r4 = i0.ɵɵreference(6);
-                i0.ɵɵproperty("nzVisible", ctx.visible)("nzTitle", _r0)("nzContent", _r2)("nzFooter", _r4);
-            }
-        }, directives: [i2.NzModalComponent, i3.NgIf, i4.ɵangular_packages_forms_forms_y, i4.NgControlStatusGroup, i5.FormSubmitDirective, i6.NzFormDirective, i4.FormGroupDirective, i3.NgForOf, i3.NgSwitch, i3.NgSwitchCase, i4.CheckboxControlValueAccessor, i4.NgControlStatus, i4.FormControlName, i4.DefaultValueAccessor, i7.NzButtonComponent, i8.NzWaveDirective, i9.ɵNzTransitionPatchDirective], pipes: [i5.LocalizationPipe, i3.AsyncPipe], encapsulation: 2 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(FeatureManagementComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'ng-alain-feature-management',
-                        templateUrl: './feature-management.component.html'
-                    }]
-            }], function () { return [{ type: i1.Store }]; }, { providerKey: [{
-                    type: i0.Input
-                }], providerName: [{
-                    type: i0.Input
-                }], visible: [{
-                    type: i0.Input
-                }] });
-    })();
+    __decorate([
+        core.Input(),
+        __metadata("design:type", String)
+    ], exports.FeatureManagementComponent.prototype, "providerKey", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", String)
+    ], exports.FeatureManagementComponent.prototype, "providerName", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], exports.FeatureManagementComponent.prototype, "visible", null);
+    exports.FeatureManagementComponent = __decorate([
+        core.Component({
+            selector: 'ng-alain-feature-management',
+            template: "<nz-modal [(nzVisible)]=\"visible\"\r\n          [nzTitle]=\"modalTitle\"\r\n          [nzContent]=\"modalContent\"\r\n          [nzFooter]=\"modalFooter\"\r\n          (nzOnCancel)=\"visible=false\"\r\n>\r\n  <ng-template #modalTitle>\r\n    <h3>{{ 'AbpTenantManagement::Permission:ManageFeatures' | abpLocalization }}</h3>\r\n  </ng-template>\r\n\r\n  <ng-template #modalContent>\r\n    <ng-template #loaderRef>\r\n      <div class=\"text-center\"><i class=\"fa fa-pulse fa-spinner\"></i></div>\r\n    </ng-template>\r\n\r\n    <form nz-form *ngIf=\"form; else loaderRef\" [formGroup]=\"form\" (ngSubmit)=\"save()\">\r\n\r\n\r\n      <div class=\"row my-3\"\r\n           *ngFor=\"let feature of features$ | async; let i = index\"\r\n           [ngSwitch]=\"feature.valueType.name\">\r\n        <div class=\"col-4\">{{ feature.name }}</div>\r\n        <div class=\"col-8\" *ngSwitchCase=\"'ToggleStringValueType'\">\r\n          <input type=\"checkbox\" name=\"feature.name\" [formControlName]=\"i\" />\r\n        </div>\r\n        <div class=\"col-8\" *ngSwitchCase=\"'FreeTextStringValueType'\">\r\n          <input type=\"text\" name=\"feature.name\" [formControlName]=\"i\" />\r\n        </div>\r\n      </div>\r\n\r\n\r\n    </form>\r\n  </ng-template>\r\n\r\n  <ng-template #modalFooter>\r\n    <button nz-button nzType=\"default\" (click)=\"visible=false\">\r\n      {{ 'AbpFeatureManagement::Cancel' | abpLocalization }}\r\n    </button>\r\n    <button nz-button nzType=\"primary\" (click)=\"save()\">\r\n      {{\r\n      'AbpFeatureManagement::Save' | abpLocalization\r\n      }}\r\n    </button>\r\n  </ng-template>\r\n</nz-modal>\r\n"
+        }),
+        __metadata("design:paramtypes", [store.Store])
+    ], exports.FeatureManagementComponent);
 
-    var FeatureManagementNgAlainModule = /** @class */ (function () {
+    exports.FeatureManagementNgAlainModule = /** @class */ (function () {
         function FeatureManagementNgAlainModule() {
         }
         return FeatureManagementNgAlainModule;
     }());
-    FeatureManagementNgAlainModule.ɵmod = i0.ɵɵdefineNgModule({ type: FeatureManagementNgAlainModule });
-    FeatureManagementNgAlainModule.ɵinj = i0.ɵɵdefineInjector({ factory: function FeatureManagementNgAlainModule_Factory(t) { return new (t || FeatureManagementNgAlainModule)(); }, imports: [[
-                i5.CoreModule,
+    exports.FeatureManagementNgAlainModule = __decorate([
+        core.NgModule({
+            declarations: [exports.FeatureManagementComponent],
+            imports: [
+                ng_core.CoreModule,
                 basic.NgAlainBasicModule,
                 wrap.FeatureManagementWrapModule
-            ]] });
-    (function () {
-        (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(FeatureManagementNgAlainModule, { declarations: [FeatureManagementComponent], imports: [i5.CoreModule,
-                basic.NgAlainBasicModule,
-                wrap.FeatureManagementWrapModule], exports: [FeatureManagementComponent] });
-    })();
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(FeatureManagementNgAlainModule, [{
-                type: i0.NgModule,
-                args: [{
-                        declarations: [FeatureManagementComponent],
-                        imports: [
-                            i5.CoreModule,
-                            basic.NgAlainBasicModule,
-                            wrap.FeatureManagementWrapModule
-                        ],
-                        exports: [FeatureManagementComponent]
-                    }]
-            }], null, null);
-    })();
+            ],
+            exports: [exports.FeatureManagementComponent]
+        })
+    ], exports.FeatureManagementNgAlainModule);
 
     /**
      * Generated bundle index. Do not edit.
      */
-
-    exports.FeatureManagementComponent = FeatureManagementComponent;
-    exports.FeatureManagementNgAlainModule = FeatureManagementNgAlainModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

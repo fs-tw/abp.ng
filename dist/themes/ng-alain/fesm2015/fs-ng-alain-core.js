@@ -1,9 +1,10 @@
+import { __decorate, __metadata, __param } from 'tslib';
 import { registerLocaleData } from '@angular/common';
 import ngEn from '@angular/common/locales/en';
 import ngZh from '@angular/common/locales/zh';
 import ngZhTw from '@angular/common/locales/zh-Hant';
-import { ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, Injector, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule, Optional, SkipSelf } from '@angular/core';
-import { zh_CN as zh_CN$1, zh_TW as zh_TW$1, en_US as en_US$1, SettingsService, DelonLocaleService, _HttpClient, MenuService, ALAIN_I18N_TOKEN, TitleService } from '@delon/theme';
+import { ɵɵdefineInjectable, ɵɵinject, Injectable, Injector, Inject, NgModule, Optional, SkipSelf } from '@angular/core';
+import { zh_CN as zh_CN$1, zh_TW as zh_TW$1, en_US as en_US$1, SettingsService, DelonLocaleService, _HttpClient, ALAIN_I18N_TOKEN, MenuService, TitleService } from '@delon/theme';
 import { TranslateService } from '@ngx-translate/core';
 import { zhCN, zhTW, enUS } from 'date-fns/locale';
 import { zh_CN, zh_TW, en_US, NzI18nService } from 'ng-zorro-antd/i18n';
@@ -18,7 +19,6 @@ import { NzIconService } from 'ng-zorro-antd/icon';
 import { InfoOutline, BulbOutline, ProfileOutline, ExceptionOutline, LinkOutline, AlipayCircleOutline, ApiOutline, AppstoreOutline, ArrowDownOutline, BookOutline, CloudOutline, CopyrightOutline, CustomerServiceOutline, DashboardOutline, DatabaseOutline, DingdingOutline, DislikeOutline, DownloadOutline, ForkOutline, FrownOutline, FullscreenExitOutline, FullscreenOutline, GithubOutline, GlobalOutline, HddOutline, LaptopOutline, LikeOutline, LockOutline, LogoutOutline, MailOutline, MenuFoldOutline, MenuUnfoldOutline, MessageOutline, PayCircleOutline, PieChartOutline, PrinterOutline, RocketOutline, ScanOutline, SettingOutline, ShareAltOutline, ShoppingCartOutline, SoundOutline, StarOutline, TaobaoCircleOutline, TaobaoOutline, TeamOutline, ToolOutline, TrophyOutline, UsbOutline, UserOutline, WeiboCircleOutline } from '@ant-design/icons-angular/icons';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
-// 请参考：https://ng-alain.com/docs/i18n
 const DEFAULT = 'zh-CN';
 const LANGS = {
     'zh-CN': {
@@ -46,7 +46,7 @@ const LANGS = {
         abbr: '🇬🇧',
     },
 };
-class I18NService {
+let I18NService = class I18NService {
     constructor(settings, nzI18nService, delonLocaleService, translate) {
         this.settings = settings;
         this.nzI18nService = nzI18nService;
@@ -107,13 +107,15 @@ class I18NService {
     get currentLang() {
         return this.translate.currentLang || this.translate.getDefaultLang() || this._default;
     }
-}
-I18NService.ɵfac = function I18NService_Factory(t) { return new (t || I18NService)(ɵɵinject(SettingsService), ɵɵinject(NzI18nService), ɵɵinject(DelonLocaleService), ɵɵinject(TranslateService)); };
-I18NService.ɵprov = ɵɵdefineInjectable({ token: I18NService, factory: I18NService.ɵfac, providedIn: 'root' });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(I18NService, [{
-        type: Injectable,
-        args: [{ providedIn: 'root' }]
-    }], function () { return [{ type: SettingsService }, { type: NzI18nService }, { type: DelonLocaleService }, { type: TranslateService }]; }, null); })();
+};
+I18NService.ɵprov = ɵɵdefineInjectable({ factory: function I18NService_Factory() { return new I18NService(ɵɵinject(SettingsService), ɵɵinject(NzI18nService), ɵɵinject(DelonLocaleService), ɵɵinject(TranslateService)); }, token: I18NService, providedIn: "root" });
+I18NService = __decorate([
+    Injectable({ providedIn: 'root' }),
+    __metadata("design:paramtypes", [SettingsService,
+        NzI18nService,
+        DelonLocaleService,
+        TranslateService])
+], I18NService);
 
 // https://angular.io/guide/styleguide#style-04-12
 function throwIfAlreadyLoaded(parentModule, moduleName) {
@@ -142,7 +144,7 @@ const CODEMESSAGE = {
 /**
  * 默认HTTP拦截器，其注册细节见 `app.module.ts`
  */
-class DefaultInterceptor {
+let DefaultInterceptor = class DefaultInterceptor {
     constructor(injector) {
         this.injector = injector;
     }
@@ -228,12 +230,11 @@ class DefaultInterceptor {
             return of(event);
         }), catchError((err) => this.handleData(err)));
     }
-}
-DefaultInterceptor.ɵfac = function DefaultInterceptor_Factory(t) { return new (t || DefaultInterceptor)(ɵɵinject(Injector)); };
-DefaultInterceptor.ɵprov = ɵɵdefineInjectable({ token: DefaultInterceptor, factory: DefaultInterceptor.ɵfac });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(DefaultInterceptor, [{
-        type: Injectable
-    }], function () { return [{ type: Injector }]; }, null); })();
+};
+DefaultInterceptor = __decorate([
+    Injectable(),
+    __metadata("design:paramtypes", [Injector])
+], DefaultInterceptor);
 
 // Custom icon static resources
 const ICONS = [InfoOutline, BulbOutline, ProfileOutline, ExceptionOutline, LinkOutline];
@@ -295,7 +296,7 @@ const ICONS_AUTO = [
  * 用于应用启动时
  * 一般用来获取应用所需要的基础数据等
  */
-class StartupService {
+let StartupService = class StartupService {
     constructor(iconSrv, menuService, translate, i18n, settingService, aclService, titleService, httpClient) {
         this.menuService = menuService;
         this.translate = translate;
@@ -340,35 +341,34 @@ class StartupService {
             });
         });
     }
-}
-StartupService.ɵfac = function StartupService_Factory(t) { return new (t || StartupService)(ɵɵinject(NzIconService), ɵɵinject(MenuService), ɵɵinject(TranslateService), ɵɵinject(ALAIN_I18N_TOKEN), ɵɵinject(SettingsService), ɵɵinject(ACLService), ɵɵinject(TitleService), ɵɵinject(HttpClient)); };
-StartupService.ɵprov = ɵɵdefineInjectable({ token: StartupService, factory: StartupService.ɵfac });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(StartupService, [{
-        type: Injectable
-    }], function () { return [{ type: NzIconService }, { type: MenuService }, { type: TranslateService }, { type: I18NService, decorators: [{
-                type: Inject,
-                args: [ALAIN_I18N_TOKEN]
-            }] }, { type: SettingsService }, { type: ACLService }, { type: TitleService }, { type: HttpClient }]; }, null); })();
+};
+StartupService = __decorate([
+    Injectable(),
+    __param(3, Inject(ALAIN_I18N_TOKEN)),
+    __metadata("design:paramtypes", [NzIconService,
+        MenuService,
+        TranslateService,
+        I18NService,
+        SettingsService,
+        ACLService,
+        TitleService,
+        HttpClient])
+], StartupService);
 
-class CoreModule {
+let CoreModule = class CoreModule {
     constructor(parentModule) {
         throwIfAlreadyLoaded(parentModule, 'CoreModule');
     }
-}
-CoreModule.ɵmod = ɵɵdefineNgModule({ type: CoreModule });
-CoreModule.ɵinj = ɵɵdefineInjector({ factory: function CoreModule_Factory(t) { return new (t || CoreModule)(ɵɵinject(CoreModule, 12)); }, providers: [] });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(CoreModule, [{
-        type: NgModule,
-        args: [{
-                providers: [],
-            }]
-    }], function () { return [{ type: CoreModule, decorators: [{
-                type: Optional
-            }, {
-                type: SkipSelf
-            }] }]; }, null); })();
+};
+CoreModule = __decorate([
+    NgModule({
+        providers: [],
+    }),
+    __param(0, Optional()), __param(0, SkipSelf()),
+    __metadata("design:paramtypes", [CoreModule])
+], CoreModule);
 
-class MessagesService {
+let MessagesService = class MessagesService {
     constructor(modalSrv) {
         this.modalSrv = modalSrv;
     }
@@ -426,15 +426,14 @@ class MessagesService {
             });
         }
     }
-}
-MessagesService.ɵfac = function MessagesService_Factory(t) { return new (t || MessagesService)(ɵɵinject(NzModalService)); };
-MessagesService.ɵprov = ɵɵdefineInjectable({ token: MessagesService, factory: MessagesService.ɵfac, providedIn: 'root' });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(MessagesService, [{
-        type: Injectable,
-        args: [{ providedIn: 'root' }]
-    }], function () { return [{ type: NzModalService }]; }, null); })();
+};
+MessagesService.ɵprov = ɵɵdefineInjectable({ factory: function MessagesService_Factory() { return new MessagesService(ɵɵinject(NzModalService)); }, token: MessagesService, providedIn: "root" });
+MessagesService = __decorate([
+    Injectable({ providedIn: 'root' }),
+    __metadata("design:paramtypes", [NzModalService])
+], MessagesService);
 
-class NotifyService {
+let NotifyService = class NotifyService {
     constructor(notification) {
         this.notification = notification;
     }
@@ -453,13 +452,12 @@ class NotifyService {
     error(content = '', title = "錯誤") {
         this.showNotify('error', title, content);
     }
-}
-NotifyService.ɵfac = function NotifyService_Factory(t) { return new (t || NotifyService)(ɵɵinject(NzNotificationService)); };
-NotifyService.ɵprov = ɵɵdefineInjectable({ token: NotifyService, factory: NotifyService.ɵfac, providedIn: 'root' });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(NotifyService, [{
-        type: Injectable,
-        args: [{ providedIn: 'root' }]
-    }], function () { return [{ type: NzNotificationService }]; }, null); })();
+};
+NotifyService.ɵprov = ɵɵdefineInjectable({ factory: function NotifyService_Factory() { return new NotifyService(ɵɵinject(NzNotificationService)); }, token: NotifyService, providedIn: "root" });
+NotifyService = __decorate([
+    Injectable({ providedIn: 'root' }),
+    __metadata("design:paramtypes", [NzNotificationService])
+], NotifyService);
 
 /**
  * Generated bundle index. Do not edit.

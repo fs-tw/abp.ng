@@ -1,4 +1,5 @@
-import { APP_INITIALIZER, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, ɵsetClassMetadata, NgModule } from '@angular/core';
+import { __decorate } from 'tslib';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { RoutesService, AddReplaceableComponent } from '@abp/ng.core';
 import { Store } from '@ngxs/store';
 import { UserLoginComponent, UserRegisterComponent, ManageProfileComponent } from '@fs/account/ng-alain';
@@ -33,31 +34,26 @@ function initLayouts(store) {
     store.dispatch(new AddReplaceableComponent({ component: ManageProfileComponent, key: "Account.ManageProfileComponent" /* ManageProfile */ }));
 }
 
-class AccountNgAlainConfigModule {
+var AccountNgAlainConfigModule_1;
+let AccountNgAlainConfigModule = AccountNgAlainConfigModule_1 = class AccountNgAlainConfigModule {
     static forRoot() {
         return {
-            ngModule: AccountNgAlainConfigModule,
+            ngModule: AccountNgAlainConfigModule_1,
             providers: [ROUTE_PROVIDERS, STYLES_PROVIDERS],
         };
     }
-}
-AccountNgAlainConfigModule.ɵmod = ɵɵdefineNgModule({ type: AccountNgAlainConfigModule });
-AccountNgAlainConfigModule.ɵinj = ɵɵdefineInjector({ factory: function AccountNgAlainConfigModule_Factory(t) { return new (t || AccountNgAlainConfigModule)(); }, imports: [[
+};
+AccountNgAlainConfigModule = AccountNgAlainConfigModule_1 = __decorate([
+    NgModule({
+        imports: [
             AccountConfigModule.forRoot()
-        ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(AccountNgAlainConfigModule, { imports: [AccountConfigModule] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(AccountNgAlainConfigModule, [{
-        type: NgModule,
-        args: [{
-                imports: [
-                    AccountConfigModule.forRoot()
-                ]
-            }]
-    }], null, null); })();
+        ]
+    })
+], AccountNgAlainConfigModule);
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { AccountNgAlainConfigModule };
+export { AccountNgAlainConfigModule, ROUTE_PROVIDERS as ɵa, STYLES_PROVIDERS as ɵb, configureStyles as ɵc };
 //# sourceMappingURL=fs-account-ng-alain-config.js.map

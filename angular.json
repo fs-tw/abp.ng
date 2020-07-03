@@ -301,14 +301,14 @@
           }
         },
         "build": {
-          "builder": "@nrwl/angular:package",
+          "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "libs/packages/tsconfig.lib.json",
+            "tsConfig": "tsconfig.lib.json",
             "project": "libs/packages/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "libs/packages/tsconfig.lib.prod.json"
+              "tsConfig": "tsconfig.lib.prod.json"
             }
           }
         },

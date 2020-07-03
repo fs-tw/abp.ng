@@ -5,6 +5,7 @@
   "esm2015": "../esm2015/wrap/fs-identity-wrap.js",
   "fesm2015": "../fesm2015/fs-identity-wrap.js",
   "typings": "fs-identity-wrap.d.ts",
+  "metadata": "fs-identity-wrap.metadata.json",
   "sideEffects": false,
   "name": "@fs/identity/wrap"
 }

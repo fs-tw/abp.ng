@@ -28,6 +28,8 @@ export default createBuilder<Options>((options, context) => {
           'symlink',
           'copy',
           '--angular',
+          '--prod',
+          '--yarn',
           '--no-watch',
           buildActions[i].sync ? '--sync' : '',
           '--packages',
@@ -37,25 +39,6 @@ export default createBuilder<Options>((options, context) => {
       );
       console.log(`"${buildActions[i].name}" Symlink done ...`);
     }
-
-    // console.log(`Others packages Symlink building ...`);
-    // //others
-    // await execa(
-    //   'yarn',
-    //   [
-    //     'symlink',
-    //     'copy',
-    //     '--angular',
-    //     '--no-watch',
-    //     '--all-packages',
-    //     '--excluded-packages',
-    //     buildActions.reduce(function (a, b) {  return {sync:false,packages:a.packages.concat(b.packages)}; }).packages.join(','),
-    //   ],
-    //   { stdout: 'inherit', cwd: './' },
-    // );
-    // console.log(`Others packages Symlink done ...`);
-
-
     console.log(`Task Done.`);
 
     resolve({ success: true });

@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@fs/ng-alain/basic'), require('@abp/ng.permission-management'), require('rxjs/operators'), require('@ngxs/store'), require('@angular/common'), require('ng-zorro-antd/modal'), require('ng-zorro-antd/checkbox'), require('@angular/forms'), require('ng-zorro-antd/menu'), require('ng-zorro-antd/core/transition-patch'), require('ng-zorro-antd/button'), require('ng-zorro-antd/core/wave'), require('@abp/ng.core'), require('@fs/permission-management/wrap')) :
-    typeof define === 'function' && define.amd ? define('@fs/permission-management/ng-alain', ['exports', '@angular/core', '@fs/ng-alain/basic', '@abp/ng.permission-management', 'rxjs/operators', '@ngxs/store', '@angular/common', 'ng-zorro-antd/modal', 'ng-zorro-antd/checkbox', '@angular/forms', 'ng-zorro-antd/menu', 'ng-zorro-antd/core/transition-patch', 'ng-zorro-antd/button', 'ng-zorro-antd/core/wave', '@abp/ng.core', '@fs/permission-management/wrap'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['permission-management'] = global.fs['permission-management'] || {}, global.fs['permission-management']['ng-alain'] = {}), global.ng.core, global.basic, global.ng_permissionManagement, global.rxjs.operators, global.i1, global.ng.common, global.i3, global.i4, global.ng.forms, global.i6, global.i7, global.i8, global.i9, global.i10, global.fs['permission-management'].wrap));
-}(this, (function (exports, i0, basic, ng_permissionManagement, operators, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, wrap) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@fs/ng-alain/basic'), require('@abp/ng.permission-management'), require('@ngxs/store'), require('rxjs/operators'), require('@abp/ng.core'), require('@fs/permission-management/wrap')) :
+    typeof define === 'function' && define.amd ? define('@fs/permission-management/ng-alain', ['exports', '@angular/core', '@fs/ng-alain/basic', '@abp/ng.permission-management', '@ngxs/store', 'rxjs/operators', '@abp/ng.core', '@fs/permission-management/wrap'], factory) :
+    (global = global || self, factory((global.fs = global.fs || {}, global.fs['permission-management'] = global.fs['permission-management'] || {}, global.fs['permission-management']['ng-alain'] = {}), global.ng.core, global.basic, global.ng_permissionManagement, global.store, global.rxjs.operators, global.ng_core, global.fs['permission-management'].wrap));
+}(this, (function (exports, core, basic, ng_permissionManagement, store, operators, ng_core, wrap) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -296,164 +296,7 @@
         return value;
     }
 
-    function PermissionManagementComponent_ng_container_0_ng_template_2_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵtext(0);
-            i0.ɵɵpipe(1, "abpLocalization");
-        }
-        if (rf & 2) {
-            var data_r1 = i0.ɵɵnextContext().ngIf;
-            i0.ɵɵtextInterpolate2(" ", i0.ɵɵpipeBind1(1, 2, "AbpPermissionManagement::Permissions"), " - ", data_r1.entityName, " ");
-        }
-    }
-    function PermissionManagementComponent_ng_container_0_ng_template_4_li_7_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r13_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "li", 13);
-            i0.ɵɵlistener("click", function PermissionManagementComponent_ng_container_0_ng_template_4_li_7_Template_li_click_0_listener() { i0.ɵɵrestoreView(_r13_1); var group_r11 = ctx.$implicit; var ctx_r12 = i0.ɵɵnextContext(3); return ctx_r12.onChangeGroup(group_r11); });
-            i0.ɵɵtext(1);
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            var group_r11 = ctx.$implicit;
-            var ctx_r9 = i0.ɵɵnextContext(3);
-            i0.ɵɵproperty("nzSelected", (ctx_r9.selectedGroup == null ? null : ctx_r9.selectedGroup.name) === (group_r11 == null ? null : group_r11.name));
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate(group_r11 == null ? null : group_r11.displayName);
-        }
-    }
-    function PermissionManagementComponent_ng_container_0_ng_template_4_div_16_span_4_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementStart(0, "span");
-            i0.ɵɵtext(1);
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            var provider_r17 = ctx.$implicit;
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate2("", provider_r17.providerName, ": ", provider_r17.providerKey, "");
-        }
-    }
-    function PermissionManagementComponent_ng_container_0_ng_template_4_div_16_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r19_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "div");
-            i0.ɵɵelementStart(1, "nz-checkbox-wrapper");
-            i0.ɵɵelementStart(2, "label", 14);
-            i0.ɵɵlistener("ngModelChange", function PermissionManagementComponent_ng_container_0_ng_template_4_div_16_Template_label_ngModelChange_2_listener() { i0.ɵɵrestoreView(_r19_1); var permission_r14 = ctx.$implicit; var ctx_r18 = i0.ɵɵnextContext(3); return ctx_r18.onClickCheckbox(permission_r14); });
-            i0.ɵɵtext(3);
-            i0.ɵɵtemplate(4, PermissionManagementComponent_ng_container_0_ng_template_4_div_16_span_4_Template, 2, 2, "span", 15);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            var permission_r14 = ctx.$implicit;
-            var ctx_r10 = i0.ɵɵnextContext(3);
-            i0.ɵɵstyleProp("margin-left", permission_r14.margin + "px");
-            i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngModel", ctx_r10.getChecked(permission_r14.name))("nzDisabled", ctx_r10.isGrantedByOtherProviderName(permission_r14.grantedProviders));
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", permission_r14.displayName, " ");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngForOf", permission_r14.grantedProviders);
-        }
-    }
-    function PermissionManagementComponent_ng_container_0_ng_template_4_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r21_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "nz-checkbox-wrapper");
-            i0.ɵɵelementStart(1, "label", 5);
-            i0.ɵɵlistener("ngModelChange", function PermissionManagementComponent_ng_container_0_ng_template_4_Template_label_ngModelChange_1_listener($event) { i0.ɵɵrestoreView(_r21_1); var ctx_r20 = i0.ɵɵnextContext(2); return ctx_r20.selectAllTab = $event; })("ngModelChange", function PermissionManagementComponent_ng_container_0_ng_template_4_Template_label_ngModelChange_1_listener() { i0.ɵɵrestoreView(_r21_1); var ctx_r22 = i0.ɵɵnextContext(2); return ctx_r22.onClickSelectAll(); });
-            i0.ɵɵtext(2);
-            i0.ɵɵpipe(3, "abpLocalization");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(4, "div", 6);
-            i0.ɵɵelementStart(5, "div", 7);
-            i0.ɵɵelementStart(6, "ul", 8);
-            i0.ɵɵtemplate(7, PermissionManagementComponent_ng_container_0_ng_template_4_li_7_Template, 2, 2, "li", 9);
-            i0.ɵɵpipe(8, "async");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(9, "div", 10);
-            i0.ɵɵelementStart(10, "div", 11);
-            i0.ɵɵtext(11);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(12, "nz-checkbox-wrapper");
-            i0.ɵɵelementStart(13, "label", 5);
-            i0.ɵɵlistener("ngModelChange", function PermissionManagementComponent_ng_container_0_ng_template_4_Template_label_ngModelChange_13_listener($event) { i0.ɵɵrestoreView(_r21_1); var ctx_r23 = i0.ɵɵnextContext(2); return ctx_r23.selectThisTab = $event; })("ngModelChange", function PermissionManagementComponent_ng_container_0_ng_template_4_Template_label_ngModelChange_13_listener() { i0.ɵɵrestoreView(_r21_1); var ctx_r24 = i0.ɵɵnextContext(2); return ctx_r24.onClickSelectThisTab(); });
-            i0.ɵɵtext(14);
-            i0.ɵɵpipe(15, "abpLocalization");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵtemplate(16, PermissionManagementComponent_ng_container_0_ng_template_4_div_16_Template, 5, 6, "div", 12);
-            i0.ɵɵpipe(17, "async");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            var ctx_r5 = i0.ɵɵnextContext(2);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngModel", ctx_r5.selectAllTab)("nzIndeterminate", ctx_r5.selectAllIndeterminate);
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(3, 11, "AbpPermissionManagement::SelectAllInAllTabs"), " ");
-            i0.ɵɵadvance(5);
-            i0.ɵɵproperty("ngForOf", i0.ɵɵpipeBind1(8, 13, ctx_r5.groups$))("ngForTrackBy", ctx_r5.trackByFn);
-            i0.ɵɵadvance(4);
-            i0.ɵɵtextInterpolate(ctx_r5.selectedGroup == null ? null : ctx_r5.selectedGroup.displayName);
-            i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngModel", ctx_r5.selectThisTab)("nzIndeterminate", ctx_r5.selectAllThisTabIndeterminate);
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(15, 15, "AbpPermissionManagement::SelectAllInThisTab"), " ");
-            i0.ɵɵadvance(2);
-            i0.ɵɵproperty("ngForOf", i0.ɵɵpipeBind1(17, 17, ctx_r5.selectedGroupPermissions$))("ngForTrackBy", ctx_r5.trackByFn);
-        }
-    }
-    function PermissionManagementComponent_ng_container_0_ng_template_6_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r26_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "button", 16);
-            i0.ɵɵlistener("click", function PermissionManagementComponent_ng_container_0_ng_template_6_Template_button_click_0_listener() { i0.ɵɵrestoreView(_r26_1); var ctx_r25 = i0.ɵɵnextContext(2); return ctx_r25.visible = false; });
-            i0.ɵɵtext(1);
-            i0.ɵɵpipe(2, "abpLocalization");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(3, "button", 17);
-            i0.ɵɵlistener("click", function PermissionManagementComponent_ng_container_0_ng_template_6_Template_button_click_3_listener() { i0.ɵɵrestoreView(_r26_1); var ctx_r27 = i0.ɵɵnextContext(2); return ctx_r27.submit(); });
-            i0.ɵɵtext(4);
-            i0.ɵɵpipe(5, "abpLocalization");
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(2, 2, "AbpIdentity::Cancel"), " ");
-            i0.ɵɵadvance(3);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(5, 4, "AbpIdentity::Save"), " ");
-        }
-    }
-    function PermissionManagementComponent_ng_container_0_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r29_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "nz-modal", 1);
-            i0.ɵɵlistener("nzVisibleChange", function PermissionManagementComponent_ng_container_0_Template_nz_modal_nzVisibleChange_1_listener($event) { i0.ɵɵrestoreView(_r29_1); var ctx_r28 = i0.ɵɵnextContext(); return ctx_r28.visible = $event; })("nzAfterOpen", function PermissionManagementComponent_ng_container_0_Template_nz_modal_nzAfterOpen_1_listener() { i0.ɵɵrestoreView(_r29_1); var ctx_r30 = i0.ɵɵnextContext(); return ctx_r30.initModal(); })("nzOnCancel", function PermissionManagementComponent_ng_container_0_Template_nz_modal_nzOnCancel_1_listener() { i0.ɵɵrestoreView(_r29_1); var ctx_r31 = i0.ɵɵnextContext(); return ctx_r31.visible = false; });
-            i0.ɵɵtemplate(2, PermissionManagementComponent_ng_container_0_ng_template_2_Template, 2, 4, "ng-template", null, 2, i0.ɵɵtemplateRefExtractor);
-            i0.ɵɵtemplate(4, PermissionManagementComponent_ng_container_0_ng_template_4_Template, 18, 19, "ng-template", null, 3, i0.ɵɵtemplateRefExtractor);
-            i0.ɵɵtemplate(6, PermissionManagementComponent_ng_container_0_ng_template_6_Template, 6, 6, "ng-template", null, 4, i0.ɵɵtemplateRefExtractor);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementContainerEnd();
-        }
-        if (rf & 2) {
-            var _r2 = i0.ɵɵreference(3);
-            var _r4 = i0.ɵɵreference(5);
-            var _r6 = i0.ɵɵreference(7);
-            var ctx_r0 = i0.ɵɵnextContext();
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzVisible", ctx_r0.visible)("nzTitle", _r2)("nzContent", _r4)("nzFooter", _r6);
-        }
-    }
-    var _c0 = function (a0) { return { entityName: a0 }; };
-    var PermissionManagementComponent = /** @class */ (function (_super) {
+    exports.PermissionManagementComponent = /** @class */ (function (_super) {
         __extends(PermissionManagementComponent, _super);
         function PermissionManagementComponent(_store, _renderer) {
             var _this = _super.call(this, _store, _renderer) || this;
@@ -461,7 +304,7 @@
             _this._renderer = _renderer;
             _this.hideBadges = false;
             _this._visible = false;
-            _this.visibleChange = new i0.EventEmitter();
+            _this.visibleChange = new core.EventEmitter();
             _this.selectAllIndeterminate = false;
             _this.selectAllThisTabIndeterminate = false;
             console.log('yc');
@@ -572,80 +415,59 @@
         };
         return PermissionManagementComponent;
     }(ng_permissionManagement.PermissionManagementComponent));
-    PermissionManagementComponent.ɵfac = function PermissionManagementComponent_Factory(t) { return new (t || PermissionManagementComponent)(i0.ɵɵdirectiveInject(i1.Store), i0.ɵɵdirectiveInject(i0.Renderer2)); };
-    PermissionManagementComponent.ɵcmp = i0.ɵɵdefineComponent({ type: PermissionManagementComponent, selectors: [["ng-alain-permission-management"]], inputs: { providerName: "providerName", providerKey: "providerKey", hideBadges: "hideBadges", visible: "visible" }, outputs: { visibleChange: "visibleChange" }, features: [i0.ɵɵInheritDefinitionFeature], decls: 2, vars: 5, consts: [[4, "ngIf"], ["nzWidth", "1040", 3, "nzVisible", "nzTitle", "nzContent", "nzFooter", "nzVisibleChange", "nzAfterOpen", "nzOnCancel"], ["modalTitle", ""], ["modalContent", ""], ["modalFooter", ""], ["nz-checkbox", "", 3, "ngModel", "nzIndeterminate", "ngModelChange"], [1, "main"], [1, "menu"], ["nz-menu", "", "nzMode", "inline"], ["nz-menu-item", "", 3, "nzSelected", "click", 4, "ngFor", "ngForOf", "ngForTrackBy"], [1, "content"], [1, "title"], [3, "margin-left", 4, "ngFor", "ngForOf", "ngForTrackBy"], ["nz-menu-item", "", 3, "nzSelected", "click"], ["nz-checkbox", "", 3, "ngModel", "nzDisabled", "ngModelChange"], [4, "ngFor", "ngForOf"], ["nz-button", "", "nzType", "default", 3, "click"], ["nz-button", "", "nzType", "primary", 3, "click"]], template: function PermissionManagementComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵtemplate(0, PermissionManagementComponent_ng_container_0_Template, 8, 4, "ng-container", 0);
-                i0.ɵɵpipe(1, "async");
-            }
-            if (rf & 2) {
-                i0.ɵɵproperty("ngIf", i0.ɵɵpureFunction1(3, _c0, i0.ɵɵpipeBind1(1, 1, ctx.entityName$)));
-            }
-        }, directives: [i2.NgIf, i3.NzModalComponent, i4.NzCheckboxWrapperComponent, i4.NzCheckboxComponent, i5.NgControlStatus, i5.NgModel, i6.NzMenuDirective, i2.NgForOf, i7.ɵNzTransitionPatchDirective, i6.NzMenuItemDirective, i8.NzButtonComponent, i9.NzWaveDirective], pipes: [i2.AsyncPipe, i10.LocalizationPipe], styles: ["[_nghost-%COMP%]{display:block;padding-top:24px}.main[_ngcontent-%COMP%]{background-color:#fff;display:flex;overflow:auto;width:100%}.menu[_ngcontent-%COMP%]{border-right:1px solid #f0f0f0;width:224px}.menu[_ngcontent-%COMP%]     .ant-menu-inline{border:none}.menu[_ngcontent-%COMP%]     .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{font-weight:700}.content[_ngcontent-%COMP%]{flex:1;padding:8px 40px}.content[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{color:rgba(0,0,0,.85);font-size:20px;font-weight:500;line-height:28px;margin-bottom:12px}.content[_ngcontent-%COMP%]     .ant-list-split .ant-list-item:last-child{border-bottom:1px solid #e8e8e8}.content[_ngcontent-%COMP%]     .ant-list-item{padding-bottom:14px;padding-top:14px}@media screen and (max-width:767px){.main[_ngcontent-%COMP%]{flex-direction:column}.main[_ngcontent-%COMP%]   .menu[_ngcontent-%COMP%]{border:none;width:100%}.main[_ngcontent-%COMP%]   .content[_ngcontent-%COMP%]{padding:40px}}"] });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(PermissionManagementComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'ng-alain-permission-management',
-                        styleUrls: ['./permission-management.component.less'],
-                        templateUrl: './permission-management.component.html'
-                    }]
-            }], function () { return [{ type: i1.Store }, { type: i0.Renderer2 }]; }, { providerName: [{
-                    type: i0.Input
-                }], providerKey: [{
-                    type: i0.Input
-                }], hideBadges: [{
-                    type: i0.Input
-                }], visible: [{
-                    type: i0.Input
-                }], visibleChange: [{
-                    type: i0.Output
-                }] });
-    })();
+    __decorate([
+        core.Input(),
+        __metadata("design:type", String)
+    ], exports.PermissionManagementComponent.prototype, "providerName", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", String)
+    ], exports.PermissionManagementComponent.prototype, "providerKey", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Object)
+    ], exports.PermissionManagementComponent.prototype, "hideBadges", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], exports.PermissionManagementComponent.prototype, "visible", null);
+    __decorate([
+        core.Output(),
+        __metadata("design:type", Object)
+    ], exports.PermissionManagementComponent.prototype, "visibleChange", void 0);
+    exports.PermissionManagementComponent = __decorate([
+        core.Component({
+            selector: 'ng-alain-permission-management',
+            template: "<ng-container *ngIf=\"{ entityName: entityName$ | async } as data\">\r\n  <nz-modal [(nzVisible)]=\"visible\"\r\n            (nzAfterOpen)=\"initModal()\"\r\n            [nzTitle]=\"modalTitle\"\r\n            [nzContent]=\"modalContent\"\r\n            [nzFooter]=\"modalFooter\"\r\n            (nzOnCancel)=\"visible=false\"\r\n            nzWidth=\"1040\"\r\n  >\r\n\r\n    <ng-template #modalTitle>\r\n      {{ 'AbpPermissionManagement::Permissions' | abpLocalization }} - {{ data.entityName }}\r\n    </ng-template>\r\n\r\n    <ng-template #modalContent>\r\n      <nz-checkbox-wrapper >\r\n        <label nz-checkbox [(ngModel)]=\"selectAllTab\" (ngModelChange)=\"onClickSelectAll()\" [nzIndeterminate]=\"selectAllIndeterminate\">\r\n          {{'AbpPermissionManagement::SelectAllInAllTabs' | abpLocalization}}\r\n        </label>\r\n      </nz-checkbox-wrapper>\r\n\r\n\r\n      <div class=\"main\">\r\n        <div class=\"menu\">\r\n          <ul nz-menu nzMode=\"inline\">\r\n            <li *ngFor=\"let group of groups$ | async; trackBy: trackByFn\" nz-menu-item [nzSelected]=\"selectedGroup?.name === group?.name\" (click)=\"onChangeGroup(group)\">{{ group?.displayName }}</li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"content\">\r\n          <div class=\"title\">{{ selectedGroup?.displayName }}</div>\r\n          <nz-checkbox-wrapper>\r\n            <label nz-checkbox [(ngModel)]=\"selectThisTab\" (ngModelChange)=\"onClickSelectThisTab()\" [nzIndeterminate]=\"selectAllThisTabIndeterminate\">\r\n              {{'AbpPermissionManagement::SelectAllInThisTab' | abpLocalization}}\r\n            </label>\r\n          </nz-checkbox-wrapper>\r\n          <div *ngFor=\"let permission of selectedGroupPermissions$ | async; let i = index; trackBy: trackByFn\"\r\n               [style.margin-left]=\"permission.margin + 'px'\">\r\n            <nz-checkbox-wrapper>\r\n              <label nz-checkbox\r\n                     [ngModel]=\"getChecked(permission.name)\"\r\n                     [nzDisabled]=\"isGrantedByOtherProviderName(permission.grantedProviders)\"\r\n                     (ngModelChange)=\"onClickCheckbox(permission)\"\r\n                     >\r\n                {{ permission.displayName }}\r\n                <span *ngFor=\"let provider of permission.grantedProviders\">{{ provider.providerName }}: {{ provider.providerKey }}</span>\r\n              </label>\r\n            </nz-checkbox-wrapper>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n    </ng-template>\r\n\r\n    <ng-template #modalFooter>\r\n      <button nz-button nzType=\"default\" (click)=\"visible=false\">\r\n        {{ 'AbpIdentity::Cancel' | abpLocalization }}\r\n      </button>\r\n      <button nz-button nzType=\"primary\" (click)=\"submit()\">\r\n        {{\r\n      'AbpIdentity::Save' | abpLocalization\r\n        }}\r\n      </button>\r\n    </ng-template>\r\n\r\n\r\n  </nz-modal>\r\n</ng-container>\r\n",
+            styles: [":host{display:block;padding-top:24px}.main{background-color:#fff;display:flex;overflow:auto;width:100%}.menu{border-right:1px solid #f0f0f0;width:224px}.menu ::ng-deep .ant-menu-inline{border:none}.menu ::ng-deep .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{font-weight:700}.content{flex:1;padding:8px 40px}.content .title{color:rgba(0,0,0,.85);font-size:20px;font-weight:500;line-height:28px;margin-bottom:12px}.content ::ng-deep .ant-list-split .ant-list-item:last-child{border-bottom:1px solid #e8e8e8}.content ::ng-deep .ant-list-item{padding-bottom:14px;padding-top:14px}@media screen and (max-width:767px){.main{flex-direction:column}.main .menu{border:none;width:100%}.main .content{padding:40px}}"]
+        }),
+        __metadata("design:paramtypes", [store.Store, core.Renderer2])
+    ], exports.PermissionManagementComponent);
 
-    //import { PermissionManagementNgAlainModule } from '@fs/permission-management/ng-alain';
-    //import { SettingManagementNgAlainModule } from '@fs/setting-management/ng-alain';
-    //import { InitialService} from './services/initial.service'
-    var PermissionManagementNgAlainModule = /** @class */ (function () {
+    exports.PermissionManagementNgAlainModule = /** @class */ (function () {
         function PermissionManagementNgAlainModule() {
         }
         return PermissionManagementNgAlainModule;
     }());
-    PermissionManagementNgAlainModule.ɵmod = i0.ɵɵdefineNgModule({ type: PermissionManagementNgAlainModule });
-    PermissionManagementNgAlainModule.ɵinj = i0.ɵɵdefineInjector({ factory: function PermissionManagementNgAlainModule_Factory(t) { return new (t || PermissionManagementNgAlainModule)(); }, imports: [[
-                i10.CoreModule,
+    exports.PermissionManagementNgAlainModule = __decorate([
+        core.NgModule({
+            declarations: [exports.PermissionManagementComponent],
+            entryComponents: [exports.PermissionManagementComponent],
+            imports: [
+                ng_core.CoreModule,
                 basic.NgAlainBasicModule,
                 wrap.PermissionManagementWrapModule
-            ]] });
-    (function () {
-        (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(PermissionManagementNgAlainModule, { declarations: [PermissionManagementComponent], imports: [i10.CoreModule,
-                basic.NgAlainBasicModule,
-                wrap.PermissionManagementWrapModule], exports: [PermissionManagementComponent] });
-    })();
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(PermissionManagementNgAlainModule, [{
-                type: i0.NgModule,
-                args: [{
-                        declarations: [PermissionManagementComponent],
-                        entryComponents: [PermissionManagementComponent],
-                        imports: [
-                            i10.CoreModule,
-                            basic.NgAlainBasicModule,
-                            wrap.PermissionManagementWrapModule
-                        ],
-                        exports: [
-                            PermissionManagementComponent
-                        ]
-                    }]
-            }], null, null);
-    })();
+            ],
+            exports: [
+                exports.PermissionManagementComponent
+            ]
+        })
+    ], exports.PermissionManagementNgAlainModule);
 
     /**
      * Generated bundle index. Do not edit.
      */
-
-    exports.PermissionManagementComponent = PermissionManagementComponent;
-    exports.PermissionManagementNgAlainModule = PermissionManagementNgAlainModule;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

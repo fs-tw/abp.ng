@@ -5,6 +5,7 @@
   "esm2015": "../../esm2015/ng-alain/config/fs-setting-management-ng-alain-config.js",
   "fesm2015": "../../fesm2015/fs-setting-management-ng-alain-config.js",
   "typings": "fs-setting-management-ng-alain-config.d.ts",
+  "metadata": "fs-setting-management-ng-alain-config.metadata.json",
   "sideEffects": false,
   "name": "@fs/setting-management/ng-alain/config"
 }

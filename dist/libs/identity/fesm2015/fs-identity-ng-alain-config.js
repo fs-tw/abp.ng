@@ -1,4 +1,5 @@
-import { APP_INITIALIZER, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, ɵsetClassMetadata, NgModule } from '@angular/core';
+import { __decorate } from 'tslib';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { IdentityConfigModule } from '@abp/ng.identity/config';
 import { RoutesService, AddReplaceableComponent } from '@abp/ng.core';
 import { Store } from '@ngxs/store';
@@ -38,31 +39,26 @@ function initLayouts(store) {
     ]);
 }
 
-class IdentityNgAlainConfigModule {
+var IdentityNgAlainConfigModule_1;
+let IdentityNgAlainConfigModule = IdentityNgAlainConfigModule_1 = class IdentityNgAlainConfigModule {
     static forRoot() {
         return {
-            ngModule: IdentityNgAlainConfigModule,
+            ngModule: IdentityNgAlainConfigModule_1,
             providers: [ROUTE_PROVIDERS, STYLES_PROVIDERS],
         };
     }
-}
-IdentityNgAlainConfigModule.ɵmod = ɵɵdefineNgModule({ type: IdentityNgAlainConfigModule });
-IdentityNgAlainConfigModule.ɵinj = ɵɵdefineInjector({ factory: function IdentityNgAlainConfigModule_Factory(t) { return new (t || IdentityNgAlainConfigModule)(); }, imports: [[
+};
+IdentityNgAlainConfigModule = IdentityNgAlainConfigModule_1 = __decorate([
+    NgModule({
+        imports: [
             IdentityConfigModule.forRoot()
-        ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(IdentityNgAlainConfigModule, { imports: [IdentityConfigModule] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(IdentityNgAlainConfigModule, [{
-        type: NgModule,
-        args: [{
-                imports: [
-                    IdentityConfigModule.forRoot()
-                ]
-            }]
-    }], null, null); })();
+        ]
+    })
+], IdentityNgAlainConfigModule);
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { IdentityNgAlainConfigModule };
+export { IdentityNgAlainConfigModule, ROUTE_PROVIDERS as ɵa, STYLES_PROVIDERS as ɵb, configureStyles as ɵc };
 //# sourceMappingURL=fs-identity-ng-alain-config.js.map

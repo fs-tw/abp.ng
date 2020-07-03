@@ -2,8 +2,6 @@ import { AddReplaceableComponent, CONTENT_STRATEGY, DomInsertionService } from '
 import { APP_INITIALIZER } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { eSettingManagementComponents } from '@abp/ng.setting-management';
-import { UsersComponent } from '@fs/identity/ng-alain';
-import { RolesComponent } from '@fs/identity/ng-alain';
 
 export const STYLES_PROVIDERS = [
   {
@@ -21,14 +19,4 @@ export function configureStyles(store: Store) {
 }
 
 function initLayouts(store: Store) {
-  // store.dispatch([
-  //   new AddReplaceableComponent({
-  //     key: eIdentityComponents.Users,
-  //     component: UsersComponent,
-  //   }),
-  //   new AddReplaceableComponent({
-  //     key: eIdentityComponents.Roles,
-  //     component: RolesComponent
-  //   })
-  // ]);
 }

@@ -5,6 +5,7 @@
   "esm2015": "../esm2015/ng-alain/fs-feature-management-ng-alain.js",
   "fesm2015": "../fesm2015/fs-feature-management-ng-alain.js",
   "typings": "fs-feature-management-ng-alain.d.ts",
+  "metadata": "fs-feature-management-ng-alain.metadata.json",
   "sideEffects": false,
   "name": "@fs/feature-management/ng-alain"
 }

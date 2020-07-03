@@ -1,4 +1,5 @@
-import { APP_INITIALIZER, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, ɵsetClassMetadata, NgModule } from '@angular/core';
+import { __decorate } from 'tslib';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { TenantManagementConfigModule } from '@abp/ng.tenant-management/config';
 import { RoutesService, AddReplaceableComponent } from '@abp/ng.core';
 import { Store } from '@ngxs/store';
@@ -34,31 +35,26 @@ function initLayouts(store) {
     ]);
 }
 
-class TenantManagementNgAlainConfigModule {
+var TenantManagementNgAlainConfigModule_1;
+let TenantManagementNgAlainConfigModule = TenantManagementNgAlainConfigModule_1 = class TenantManagementNgAlainConfigModule {
     static forRoot() {
         return {
-            ngModule: TenantManagementNgAlainConfigModule,
+            ngModule: TenantManagementNgAlainConfigModule_1,
             providers: [ROUTE_PROVIDERS, STYLES_PROVIDERS],
         };
     }
-}
-TenantManagementNgAlainConfigModule.ɵmod = ɵɵdefineNgModule({ type: TenantManagementNgAlainConfigModule });
-TenantManagementNgAlainConfigModule.ɵinj = ɵɵdefineInjector({ factory: function TenantManagementNgAlainConfigModule_Factory(t) { return new (t || TenantManagementNgAlainConfigModule)(); }, imports: [[
+};
+TenantManagementNgAlainConfigModule = TenantManagementNgAlainConfigModule_1 = __decorate([
+    NgModule({
+        imports: [
             TenantManagementConfigModule.forRoot()
-        ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(TenantManagementNgAlainConfigModule, { imports: [TenantManagementConfigModule] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(TenantManagementNgAlainConfigModule, [{
-        type: NgModule,
-        args: [{
-                imports: [
-                    TenantManagementConfigModule.forRoot()
-                ]
-            }]
-    }], null, null); })();
+        ]
+    })
+], TenantManagementNgAlainConfigModule);
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { TenantManagementNgAlainConfigModule };
+export { TenantManagementNgAlainConfigModule, ROUTE_PROVIDERS as ɵa, configureRoutes as ɵb, STYLES_PROVIDERS as ɵc, configureStyles as ɵd };
 //# sourceMappingURL=fs-tenant-management-ng-alain-config.js.map

@@ -5,6 +5,7 @@
   "esm2015": "../esm2015/core/fs-ng-alain-core.js",
   "fesm2015": "../fesm2015/fs-ng-alain-core.js",
   "typings": "fs-ng-alain-core.d.ts",
+  "metadata": "fs-ng-alain-core.metadata.json",
   "sideEffects": false,
   "name": "@fs/ng-alain/core"
 }

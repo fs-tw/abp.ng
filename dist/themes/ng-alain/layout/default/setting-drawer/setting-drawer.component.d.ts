@@ -2,7 +2,6 @@ import { ChangeDetectorRef, NgZone } from '@angular/core';
 import { SettingsService } from '@delon/theme';
 import { LazyService } from '@delon/util';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import * as i0 from "@angular/core";
 export declare class SettingDrawerComponent {
     private cdr;
     private msg;
@@ -33,6 +32,4 @@ export declare class SettingDrawerComponent {
     apply(): void;
     reset(): void;
     copyVar(): void;
-    static ɵfac: i0.ɵɵFactoryDef<SettingDrawerComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<SettingDrawerComponent, "setting-drawer", never, {}, {}, never, never>;
 }

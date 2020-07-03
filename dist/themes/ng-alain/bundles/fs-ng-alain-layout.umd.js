@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@fs/ng-alain/shared'), require('@angular/common'), require('@angular/router'), require('@delon/util'), require('rxjs'), require('rxjs/operators'), require('ng-zorro-antd/message'), require('@delon/theme'), require('ng-zorro-antd/drawer'), require('ng-zorro-antd/divider'), require('ng-zorro-antd/tabs'), require('ng-zorro-antd/input'), require('@angular/forms'), require('ng-zorro-antd/input-number'), require('ng-zorro-antd/switch'), require('ng-zorro-antd/button'), require('ng-zorro-antd/core/wave'), require('ng-zorro-antd/core/transition-patch'), require('ng-zorro-antd/alert'), require('ng-zorro-antd/icon'), require('ng-zorro-antd/tooltip'), require('@abp/ng.core'), require('@ngxs/store'), require('ng-zorro-antd/dropdown'), require('ng-zorro-antd/menu'), require('snq'), require('@fs/ng-alain/core'), require('@delon/auth'), require('@delon/abc/sidebar-nav'), require('@ngx-translate/core'), require('screenfull'), require('ng-zorro-antd/spin'), require('ng-zorro-antd/grid'), require('date-fns/add'), require('date-fns/formatDistanceToNow'), require('date-fns/parse'), require('ng-zorro-antd/i18n'), require('@delon/abc/notice-icon'), require('ng-zorro-antd/modal'), require('ng-zorro-antd/badge'), require('ng-zorro-antd/card'), require('ng-zorro-antd/avatar'), require('@delon/abc/global-footer')) :
-    typeof define === 'function' && define.amd ? define('@fs/ng-alain/layout', ['exports', '@angular/core', '@fs/ng-alain/shared', '@angular/common', '@angular/router', '@delon/util', 'rxjs', 'rxjs/operators', 'ng-zorro-antd/message', '@delon/theme', 'ng-zorro-antd/drawer', 'ng-zorro-antd/divider', 'ng-zorro-antd/tabs', 'ng-zorro-antd/input', '@angular/forms', 'ng-zorro-antd/input-number', 'ng-zorro-antd/switch', 'ng-zorro-antd/button', 'ng-zorro-antd/core/wave', 'ng-zorro-antd/core/transition-patch', 'ng-zorro-antd/alert', 'ng-zorro-antd/icon', 'ng-zorro-antd/tooltip', '@abp/ng.core', '@ngxs/store', 'ng-zorro-antd/dropdown', 'ng-zorro-antd/menu', 'snq', '@fs/ng-alain/core', '@delon/auth', '@delon/abc/sidebar-nav', '@ngx-translate/core', 'screenfull', 'ng-zorro-antd/spin', 'ng-zorro-antd/grid', 'date-fns/add', 'date-fns/formatDistanceToNow', 'date-fns/parse', 'ng-zorro-antd/i18n', '@delon/abc/notice-icon', 'ng-zorro-antd/modal', 'ng-zorro-antd/badge', 'ng-zorro-antd/card', 'ng-zorro-antd/avatar', '@delon/abc/global-footer'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].layout = {}), global.ng.core, global.fs['ng-alain'].shared, global.ng.common, global.ng.router, global.i3, global.rxjs, global.rxjs.operators, global.i1$1, global.i1$2, global.i4$1, global.i6, global.i7, global.i1$3, global.ng.forms, global.i4$2, global.i5, global.i11, global.i12, global.i4$3, global.i14, global.i4$4, global.i16, global.i2, global.i2$1, global.i1$4, global.i5$1, global.snq, global.fs['ng-alain'].core, global.auth, global.i7$1, global.i3$3, global.screenfull, global.i5$2, global.i6$1, global.add, global.formatDistanceToNow, global.parse, global.i2$2, global.i3$4, global.i1$5, global.i2$3, global.i8, global.i10, global.i3$5));
-}(this, (function (exports, i0, shared, i4, i1, i3, rxjs, operators, i1$1, i1$2, i4$1, i6, i7, i1$3, i3$1, i4$2, i5, i11, i12, i4$3, i14, i4$4, i16, i2, i2$1, i1$4, i5$1, snq, i3$2, auth, i7$1, i3$3, screenfull, i5$2, i6$1, add, formatDistanceToNow, parse, i2$2, i3$4, i1$5, i2$3, i8, i10, i3$5) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@fs/ng-alain/shared'), require('@angular/common'), require('@angular/router'), require('@delon/theme'), require('@delon/util'), require('ng-zorro-antd/message'), require('rxjs'), require('rxjs/operators'), require('screenfull'), require('@fs/ng-alain/core'), require('@abp/ng.core'), require('@ngxs/store'), require('snq'), require('date-fns/add'), require('date-fns/formatDistanceToNow'), require('date-fns/parse'), require('ng-zorro-antd/i18n'), require('ng-zorro-antd/modal'), require('@delon/auth')) :
+    typeof define === 'function' && define.amd ? define('@fs/ng-alain/layout', ['exports', '@angular/core', '@fs/ng-alain/shared', '@angular/common', '@angular/router', '@delon/theme', '@delon/util', 'ng-zorro-antd/message', 'rxjs', 'rxjs/operators', 'screenfull', '@fs/ng-alain/core', '@abp/ng.core', '@ngxs/store', 'snq', 'date-fns/add', 'date-fns/formatDistanceToNow', 'date-fns/parse', 'ng-zorro-antd/i18n', 'ng-zorro-antd/modal', '@delon/auth'], factory) :
+    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].layout = {}), global.ng.core, global.fs['ng-alain'].shared, global.ng.common, global.ng.router, global.theme, global.util, global.message, global.rxjs, global.rxjs.operators, global.screenfull, global.fs['ng-alain'].core, global.ng_core, global.store, global.snq, global.add, global.formatDistanceToNow, global.parse, global.i18n, global.modal, global.auth));
+}(this, (function (exports, core, shared, common, router, theme, util, message, rxjs, operators, screenfull, core$1, ng_core, store, snq, add, formatDistanceToNow, parse, i18n, modal, auth) { 'use strict';
 
     snq = snq && Object.prototype.hasOwnProperty.call(snq, 'default') ? snq['default'] : snq;
     add = add && Object.prototype.hasOwnProperty.call(add, 'default') ? add['default'] : add;
@@ -301,175 +301,6 @@
         return value;
     }
 
-    var _c0 = function () { return { standalone: true }; };
-    function SettingDrawerItemComponent_ng_container_5_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r6_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "input", 4);
-            i0.ɵɵlistener("ngModelChange", function SettingDrawerItemComponent_ng_container_5_Template_input_ngModelChange_1_listener($event) { i0.ɵɵrestoreView(_r6_1); var ctx_r5 = i0.ɵɵnextContext(); return ctx_r5.i.value = $event; });
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementContainerEnd();
-        }
-        if (rf & 2) {
-            var ctx_r0 = i0.ɵɵnextContext();
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngModel", ctx_r0.i.value)("ngModelOptions", i0.ɵɵpureFunction0(2, _c0));
-        }
-    }
-    function SettingDrawerItemComponent_ng_container_6_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r8_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "input", 5);
-            i0.ɵɵlistener("ngModelChange", function SettingDrawerItemComponent_ng_container_6_Template_input_ngModelChange_1_listener($event) { i0.ɵɵrestoreView(_r8_1); var ctx_r7 = i0.ɵɵnextContext(); return ctx_r7.i.value = $event; });
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementContainerEnd();
-        }
-        if (rf & 2) {
-            var ctx_r1 = i0.ɵɵnextContext();
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngModel", ctx_r1.i.value)("ngModelOptions", i0.ɵɵpureFunction0(2, _c0));
-        }
-    }
-    function SettingDrawerItemComponent_ng_container_7_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r10_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "nz-input-number", 6);
-            i0.ɵɵlistener("ngModelChange", function SettingDrawerItemComponent_ng_container_7_Template_nz_input_number_ngModelChange_1_listener($event) { i0.ɵɵrestoreView(_r10_1); var ctx_r9 = i0.ɵɵnextContext(); return ctx_r9.pxVal = $event; })("ngModelChange", function SettingDrawerItemComponent_ng_container_7_Template_nz_input_number_ngModelChange_1_listener($event) { i0.ɵɵrestoreView(_r10_1); var ctx_r11 = i0.ɵɵnextContext(); return ctx_r11.pxChange($event); });
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementContainerEnd();
-        }
-        if (rf & 2) {
-            var ctx_r2 = i0.ɵɵnextContext();
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngModel", ctx_r2.pxVal)("nzMin", ctx_r2.i.min)("nzMax", ctx_r2.i.max)("nzStep", ctx_r2.i.step || 2)("nzFormatter", ctx_r2.format);
-        }
-    }
-    function SettingDrawerItemComponent_ng_container_8_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r13_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementContainerStart(0);
-            i0.ɵɵelementStart(1, "nz-switch", 7);
-            i0.ɵɵlistener("ngModelChange", function SettingDrawerItemComponent_ng_container_8_Template_nz_switch_ngModelChange_1_listener($event) { i0.ɵɵrestoreView(_r13_1); var ctx_r12 = i0.ɵɵnextContext(); return ctx_r12.i.value = $event; });
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementContainerEnd();
-        }
-        if (rf & 2) {
-            var ctx_r3 = i0.ɵɵnextContext();
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngModel", ctx_r3.i.value)("ngModelOptions", i0.ɵɵpureFunction0(2, _c0));
-        }
-    }
-    function SettingDrawerItemComponent_ng_container_9_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementContainerStart(0);
-            i0.ɵɵprojection(1);
-            i0.ɵɵelementContainerEnd();
-        }
-    }
-    var _c1 = ["*"];
-    var SettingDrawerItemComponent = /** @class */ (function () {
-        function SettingDrawerItemComponent() {
-            this.i = {};
-            this.format = function (value) { return value + " px"; };
-        }
-        Object.defineProperty(SettingDrawerItemComponent.prototype, "data", {
-            set: function (val) {
-                this.i = val;
-                if (val.type === 'px') {
-                    this.pxVal = +val.value.replace('px', '');
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        SettingDrawerItemComponent.prototype.pxChange = function (val) {
-            this.i.value = val + "px";
-        };
-        return SettingDrawerItemComponent;
-    }());
-    SettingDrawerItemComponent.ɵfac = function SettingDrawerItemComponent_Factory(t) { return new (t || SettingDrawerItemComponent)(); };
-    SettingDrawerItemComponent.ɵcmp = i0.ɵɵdefineComponent({ type: SettingDrawerItemComponent, selectors: [["setting-drawer-item"]], hostVars: 2, hostBindings: function SettingDrawerItemComponent_HostBindings(rf, ctx) {
-            if (rf & 2) {
-                i0.ɵɵclassProp("setting-drawer__body-item", true);
-            }
-        }, inputs: { data: "data" }, ngContentSelectors: _c1, decls: 10, vars: 7, consts: [[1, "pl-sm", "text-grey"], [3, "ngSwitch"], [4, "ngSwitchCase"], [4, "ngSwitchDefault"], ["nz-input", "", "type", "color", 2, "min-width", "88px", 3, "ngModel", "ngModelOptions", "ngModelChange"], ["nz-input", "", 2, "min-width", "88px", 3, "ngModel", "ngModelOptions", "ngModelChange"], [3, "ngModel", "nzMin", "nzMax", "nzStep", "nzFormatter", "ngModelChange"], ["nzSize", "small", 3, "ngModel", "ngModelOptions", "ngModelChange"]], template: function SettingDrawerItemComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵprojectionDef();
-                i0.ɵɵelementStart(0, "span");
-                i0.ɵɵtext(1);
-                i0.ɵɵelementStart(2, "span", 0);
-                i0.ɵɵtext(3);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(4, "div", 1);
-                i0.ɵɵtemplate(5, SettingDrawerItemComponent_ng_container_5_Template, 2, 3, "ng-container", 2);
-                i0.ɵɵtemplate(6, SettingDrawerItemComponent_ng_container_6_Template, 2, 3, "ng-container", 2);
-                i0.ɵɵtemplate(7, SettingDrawerItemComponent_ng_container_7_Template, 2, 5, "ng-container", 2);
-                i0.ɵɵtemplate(8, SettingDrawerItemComponent_ng_container_8_Template, 2, 3, "ng-container", 2);
-                i0.ɵɵtemplate(9, SettingDrawerItemComponent_ng_container_9_Template, 2, 0, "ng-container", 3);
-                i0.ɵɵelementEnd();
-            }
-            if (rf & 2) {
-                i0.ɵɵadvance(1);
-                i0.ɵɵtextInterpolate(ctx.i.label);
-                i0.ɵɵadvance(2);
-                i0.ɵɵtextInterpolate(ctx.i.tip);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("ngSwitch", ctx.i.type);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("ngSwitchCase", "color");
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("ngSwitchCase", "input");
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("ngSwitchCase", "px");
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("ngSwitchCase", "switch");
-            }
-        }, directives: [i4.NgSwitch, i4.NgSwitchCase, i4.NgSwitchDefault, i1$3.NzInputDirective, i3$1.DefaultValueAccessor, i3$1.NgControlStatus, i3$1.NgModel, i4$2.NzInputNumberComponent, i5.NzSwitchComponent], encapsulation: 2 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(SettingDrawerItemComponent, [{
-                type: i0.Component,
-                args: [{
-                        // tslint:disable-next-line:component-selector
-                        selector: 'setting-drawer-item',
-                        templateUrl: './setting-drawer-item.component.html',
-                        // tslint:disable-next-line: no-host-metadata-property
-                        host: {
-                            '[class.setting-drawer__body-item]': 'true',
-                        },
-                    }]
-            }], null, { data: [{
-                    type: i0.Input
-                }] });
-    })();
-
-    function SettingDrawerComponent_span_5_i_1_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelement(0, "i", 20);
-        }
-    }
-    var _c0$1 = function (a0) { return { "background-color": a0 }; };
-    function SettingDrawerComponent_span_5_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r4_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "span", 18);
-            i0.ɵɵlistener("click", function SettingDrawerComponent_span_5_Template_span_click_0_listener() { i0.ɵɵrestoreView(_r4_1); var c_r1 = ctx.$implicit; var ctx_r3 = i0.ɵɵnextContext(); return ctx_r3.changeColor(c_r1.color); });
-            i0.ɵɵtemplate(1, SettingDrawerComponent_span_5_i_1_Template, 1, 0, "i", 19);
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            var c_r1 = ctx.$implicit;
-            var ctx_r0 = i0.ɵɵnextContext();
-            i0.ɵɵstyleMap(i0.ɵɵpureFunction1(4, _c0$1, c_r1.color));
-            i0.ɵɵproperty("nzTooltipTitle", c_r1.key);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngIf", ctx_r0.color === c_r1.color);
-        }
-    }
-    var _c1$1 = function (a0) { return { "setting-drawer__handle-opened": a0 }; };
     var ALAINDEFAULTVAR = 'alain-default-vars';
     var DEFAULT_COLORS = [
         {
@@ -662,7 +493,7 @@
             max: 128,
         },
     };
-    var SettingDrawerComponent = /** @class */ (function () {
+    exports.SettingDrawerComponent = /** @class */ (function () {
         function SettingDrawerComponent(cdr, msg, settingSrv, lazy, zone, doc) {
             this.cdr = cdr;
             this.msg = msg;
@@ -759,7 +590,7 @@
             var _this = this;
             if (run === void 0) { run = true; }
             nowData = nowData || {};
-            var data = i3.deepCopy(DEFAULT_VARS);
+            var data = util.deepCopy(DEFAULT_VARS);
             Object.keys(data).forEach(function (key) {
                 var value = nowData["@" + key] || data[key].default || '';
                 data[key].value = value === "@primary-color" ? _this.color : value;
@@ -791,218 +622,160 @@
             var copyContent = Object.keys(vars)
                 .map(function (key) { return key + ": " + vars[key] + ";"; })
                 .join('\n');
-            i3.copy(copyContent);
+            util.copy(copyContent);
             this.msg.success('Copy success');
         };
         return SettingDrawerComponent;
     }());
-    SettingDrawerComponent.ɵfac = function SettingDrawerComponent_Factory(t) { return new (t || SettingDrawerComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef), i0.ɵɵdirectiveInject(i1$1.NzMessageService), i0.ɵɵdirectiveInject(i1$2.SettingsService), i0.ɵɵdirectiveInject(i3.LazyService), i0.ɵɵdirectiveInject(i0.NgZone), i0.ɵɵdirectiveInject(i4.DOCUMENT)); };
-    SettingDrawerComponent.ɵcmp = i0.ɵɵdefineComponent({ type: SettingDrawerComponent, selectors: [["setting-drawer"]], hostVars: 2, hostBindings: function SettingDrawerComponent_HostBindings(rf, ctx) {
-            if (rf & 2) {
-                i0.ɵɵclassProp("setting-drawer", true);
-            }
-        }, decls: 51, vars: 26, consts: [[3, "nzVisible", "nzWidth", "nzVisibleChange", "nzOnClose"], [1, "setting-drawer__content"], [1, "setting-drawer__body", "setting-drawer__theme"], [1, "setting-drawer__title"], ["nz-tooltip", "", "class", "setting-drawer__theme-tag", 3, "style", "nzTooltipTitle", "click", 4, "ngFor", "ngForOf"], [1, "setting-drawer__body"], ["nzTitle", "\u9876\u90E8"], [3, "data"], ["nzTitle", "\u4FA7\u8FB9\u680F"], ["nzTitle", "\u5185\u5BB9"], ["nzTitle", "\u5176\u5B83"], [1, "setting-drawer__body-item"], ["nzSize", "small", 3, "ngModel", "ngModelChange"], ["type", "button", "nz-button", "", "nzType", "primary", 3, "click"], ["type", "button", "nz-button", "", 3, "click"], ["nzType", "warning", "nzMessage", "\u914D\u7F6E\u680F\u53EA\u5728\u5F00\u53D1\u73AF\u5883\u7528\u4E8E\u9884\u89C8\uFF0C\u751F\u4EA7\u73AF\u5883\u4E0D\u4F1A\u5C55\u73B0\uFF0C\u8BF7\u62F7\u8D1D\u540E\u624B\u52A8\u4FEE\u6539\u53C2\u6570\u914D\u7F6E\u6587\u4EF6 src/styles/theme.less", 1, "mt-md"], [1, "setting-drawer__handle", 3, "ngClass", "click"], ["nz-icon", "", 1, "setting-drawer__handle-icon", 3, "nzType"], ["nz-tooltip", "", 1, "setting-drawer__theme-tag", 3, "nzTooltipTitle", "click"], ["nz-icon", "", "nzType", "check", 4, "ngIf"], ["nz-icon", "", "nzType", "check"]], template: function SettingDrawerComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelementStart(0, "nz-drawer", 0);
-                i0.ɵɵlistener("nzVisibleChange", function SettingDrawerComponent_Template_nz_drawer_nzVisibleChange_0_listener($event) { return ctx.collapse = $event; })("nzOnClose", function SettingDrawerComponent_Template_nz_drawer_nzOnClose_0_listener() { return ctx.toggle(); });
-                i0.ɵɵelementStart(1, "div", 1);
-                i0.ɵɵelementStart(2, "div", 2);
-                i0.ɵɵelementStart(3, "h3", 3);
-                i0.ɵɵtext(4, "\u4E3B\u9898\u8272");
-                i0.ɵɵelementEnd();
-                i0.ɵɵtemplate(5, SettingDrawerComponent_span_5_Template, 2, 6, "span", 4);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelement(6, "nz-divider");
-                i0.ɵɵelementStart(7, "div", 5);
-                i0.ɵɵelementStart(8, "h3", 3);
-                i0.ɵɵtext(9, "\u8BBE\u7F6E");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(10, "nz-tabset");
-                i0.ɵɵelementStart(11, "nz-tab", 6);
-                i0.ɵɵelementStart(12, "div", 5);
-                i0.ɵɵelement(13, "setting-drawer-item", 7);
-                i0.ɵɵelement(14, "setting-drawer-item", 7);
-                i0.ɵɵelement(15, "setting-drawer-item", 7);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(16, "nz-tab", 8);
-                i0.ɵɵelement(17, "setting-drawer-item", 7);
-                i0.ɵɵelement(18, "setting-drawer-item", 7);
-                i0.ɵɵelement(19, "setting-drawer-item", 7);
-                i0.ɵɵelement(20, "setting-drawer-item", 7);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(21, "nz-tab", 9);
-                i0.ɵɵelement(22, "setting-drawer-item", 7);
-                i0.ɵɵelement(23, "setting-drawer-item", 7);
-                i0.ɵɵelement(24, "setting-drawer-item", 7);
-                i0.ɵɵelement(25, "setting-drawer-item", 7);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(26, "nz-tab", 10);
-                i0.ɵɵelement(27, "setting-drawer-item", 7);
-                i0.ɵɵelement(28, "setting-drawer-item", 7);
-                i0.ɵɵelement(29, "setting-drawer-item", 7);
-                i0.ɵɵelement(30, "setting-drawer-item", 7);
-                i0.ɵɵelement(31, "setting-drawer-item", 7);
-                i0.ɵɵelement(32, "setting-drawer-item", 7);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelement(33, "nz-divider");
-                i0.ɵɵelementStart(34, "div", 5);
-                i0.ɵɵelementStart(35, "div", 11);
-                i0.ɵɵtext(36, " \u56FA\u5B9A\u5934\u548C\u4FA7\u8FB9\u680F ");
-                i0.ɵɵelementStart(37, "nz-switch", 12);
-                i0.ɵɵlistener("ngModelChange", function SettingDrawerComponent_Template_nz_switch_ngModelChange_37_listener($event) { return ctx.layout.fixed = $event; })("ngModelChange", function SettingDrawerComponent_Template_nz_switch_ngModelChange_37_listener() { return ctx.setLayout("fixed", ctx.layout.fixed); });
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(38, "div", 11);
-                i0.ɵɵtext(39, " \u8272\u5F31\u6A21\u5F0F ");
-                i0.ɵɵelementStart(40, "nz-switch", 12);
-                i0.ɵɵlistener("ngModelChange", function SettingDrawerComponent_Template_nz_switch_ngModelChange_40_listener($event) { return ctx.layout.colorWeak = $event; })("ngModelChange", function SettingDrawerComponent_Template_nz_switch_ngModelChange_40_listener() { return ctx.setLayout("colorWeak", ctx.layout.colorWeak); });
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelement(41, "nz-divider");
-                i0.ɵɵelementStart(42, "button", 13);
-                i0.ɵɵlistener("click", function SettingDrawerComponent_Template_button_click_42_listener() { return ctx.apply(); });
-                i0.ɵɵtext(43, "\u9884\u89C8");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(44, "button", 14);
-                i0.ɵɵlistener("click", function SettingDrawerComponent_Template_button_click_44_listener() { return ctx.reset(); });
-                i0.ɵɵtext(45, "\u91CD\u7F6E");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(46, "button", 14);
-                i0.ɵɵlistener("click", function SettingDrawerComponent_Template_button_click_46_listener() { return ctx.copyVar(); });
-                i0.ɵɵtext(47, "\u62F7\u8D1D");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelement(48, "nz-alert", 15);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(49, "div", 16);
-                i0.ɵɵlistener("click", function SettingDrawerComponent_Template_div_click_49_listener() { return ctx.toggle(); });
-                i0.ɵɵelement(50, "i", 17);
-                i0.ɵɵelementEnd();
-            }
-            if (rf & 2) {
-                i0.ɵɵproperty("nzVisible", ctx.collapse)("nzWidth", 500);
-                i0.ɵɵadvance(5);
-                i0.ɵɵproperty("ngForOf", ctx.colors);
-                i0.ɵɵadvance(8);
-                i0.ɵɵproperty("data", ctx.data["alain-default-header-hg"]);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("data", ctx.data["alain-default-header-bg"]);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("data", ctx.data["alain-default-header-padding"]);
-                i0.ɵɵadvance(2);
-                i0.ɵɵproperty("data", ctx.data["alain-default-aside-wd"]);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("data", ctx.data["alain-default-aside-bg"]);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("data", ctx.data["alain-default-aside-collapsed-wd"]);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("data", ctx.data["alain-default-aside-nav-padding-top-bottom"]);
-                i0.ɵɵadvance(2);
-                i0.ɵɵproperty("data", ctx.data["alain-default-content-bg"]);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("data", ctx.data["alain-default-content-heading-bg"]);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("data", ctx.data["alain-default-content-heading-border"]);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("data", ctx.data["alain-default-content-padding"]);
-                i0.ɵɵadvance(2);
-                i0.ɵɵproperty("data", ctx.data["form-state-visual-feedback-enabled"]);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("data", ctx.data["preserve-white-spaces-enabled"]);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("data", ctx.data["nz-table-img-radius"]);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("data", ctx.data["nz-table-img-margin-right"]);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("data", ctx.data["nz-table-img-max-width"]);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("data", ctx.data["nz-table-img-max-height"]);
-                i0.ɵɵadvance(5);
-                i0.ɵɵproperty("ngModel", ctx.layout.fixed);
-                i0.ɵɵadvance(3);
-                i0.ɵɵproperty("ngModel", ctx.layout.colorWeak);
-                i0.ɵɵadvance(9);
-                i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(24, _c1$1, ctx.collapse));
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("nzType", !ctx.collapse ? "setting" : "close");
-            }
-        }, directives: [i4$1.NzDrawerComponent, i4.NgForOf, i6.NzDividerComponent, i7.NzTabSetComponent, i7.NzTabComponent, SettingDrawerItemComponent, i5.NzSwitchComponent, i3$1.NgControlStatus, i3$1.NgModel, i11.NzButtonComponent, i12.NzWaveDirective, i4$3.ɵNzTransitionPatchDirective, i14.NzAlertComponent, i4.NgClass, i4$4.NzIconDirective, i16.NzTooltipDirective, i4.NgIf], encapsulation: 2, changeDetection: 0 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(SettingDrawerComponent, [{
-                type: i0.Component,
-                args: [{
-                        // tslint:disable-next-line:component-selector
-                        selector: 'setting-drawer',
-                        templateUrl: './setting-drawer.component.html',
-                        // tslint:disable-next-line: no-host-metadata-property
-                        host: {
-                            '[class.setting-drawer]': 'true',
-                        },
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                    }]
-            }], function () {
-            return [{ type: i0.ChangeDetectorRef }, { type: i1$1.NzMessageService }, { type: i1$2.SettingsService }, { type: i3.LazyService }, { type: i0.NgZone }, { type: undefined, decorators: [{
-                            type: i0.Inject,
-                            args: [i4.DOCUMENT]
-                        }] }];
-        }, null);
-    })();
+    exports.SettingDrawerComponent = __decorate([
+        core.Component({
+            // tslint:disable-next-line:component-selector
+            selector: 'setting-drawer',
+            template: "<nz-drawer [(nzVisible)]=\"collapse\" [nzWidth]=\"500\" (nzOnClose)=\"toggle()\">\r\n  <div class=\"setting-drawer__content\">\r\n    <div class=\"setting-drawer__body setting-drawer__theme\">\r\n      <h3 class=\"setting-drawer__title\">\u4E3B\u9898\u8272</h3>\r\n      <span\r\n        *ngFor=\"let c of colors\"\r\n        [style]=\"{ 'background-color': c.color }\"\r\n        (click)=\"changeColor(c.color)\"\r\n        nz-tooltip\r\n        [nzTooltipTitle]=\"c.key\"\r\n        class=\"setting-drawer__theme-tag\"\r\n        ><i *ngIf=\"color === c.color\" nz-icon nzType=\"check\"></i\r\n      ></span>\r\n    </div>\r\n    <nz-divider></nz-divider>\r\n    <div class=\"setting-drawer__body\">\r\n      <h3 class=\"setting-drawer__title\">\u8BBE\u7F6E</h3>\r\n      <nz-tabset>\r\n        <nz-tab nzTitle=\"\u9876\u90E8\">\r\n          <div class=\"setting-drawer__body\">\r\n            <setting-drawer-item [data]=\"data['alain-default-header-hg']\"></setting-drawer-item>\r\n            <setting-drawer-item [data]=\"data['alain-default-header-bg']\"></setting-drawer-item>\r\n            <setting-drawer-item [data]=\"data['alain-default-header-padding']\"></setting-drawer-item>\r\n          </div>\r\n        </nz-tab>\r\n        <nz-tab nzTitle=\"\u4FA7\u8FB9\u680F\">\r\n          <setting-drawer-item [data]=\"data['alain-default-aside-wd']\"></setting-drawer-item>\r\n          <setting-drawer-item [data]=\"data['alain-default-aside-bg']\"></setting-drawer-item>\r\n          <setting-drawer-item [data]=\"data['alain-default-aside-collapsed-wd']\"></setting-drawer-item>\r\n          <setting-drawer-item [data]=\"data['alain-default-aside-nav-padding-top-bottom']\"></setting-drawer-item>\r\n        </nz-tab>\r\n        <nz-tab nzTitle=\"\u5185\u5BB9\">\r\n          <setting-drawer-item [data]=\"data['alain-default-content-bg']\"></setting-drawer-item>\r\n          <setting-drawer-item [data]=\"data['alain-default-content-heading-bg']\"></setting-drawer-item>\r\n          <setting-drawer-item [data]=\"data['alain-default-content-heading-border']\"></setting-drawer-item>\r\n          <setting-drawer-item [data]=\"data['alain-default-content-padding']\"></setting-drawer-item>\r\n        </nz-tab>\r\n        <nz-tab nzTitle=\"\u5176\u5B83\">\r\n          <setting-drawer-item [data]=\"data['form-state-visual-feedback-enabled']\"></setting-drawer-item>\r\n          <setting-drawer-item [data]=\"data['preserve-white-spaces-enabled']\"></setting-drawer-item>\r\n          <setting-drawer-item [data]=\"data['nz-table-img-radius']\"></setting-drawer-item>\r\n          <setting-drawer-item [data]=\"data['nz-table-img-margin-right']\"></setting-drawer-item>\r\n          <setting-drawer-item [data]=\"data['nz-table-img-max-width']\"></setting-drawer-item>\r\n          <setting-drawer-item [data]=\"data['nz-table-img-max-height']\"></setting-drawer-item>\r\n        </nz-tab>\r\n      </nz-tabset>\r\n    </div>\r\n    <nz-divider></nz-divider>\r\n    <div class=\"setting-drawer__body\">\r\n      <div class=\"setting-drawer__body-item\">\r\n        \u56FA\u5B9A\u5934\u548C\u4FA7\u8FB9\u680F\r\n        <nz-switch nzSize=\"small\" [(ngModel)]=\"layout.fixed\" (ngModelChange)=\"setLayout('fixed', layout.fixed)\"></nz-switch>\r\n      </div>\r\n      <div class=\"setting-drawer__body-item\">\r\n        \u8272\u5F31\u6A21\u5F0F\r\n        <nz-switch nzSize=\"small\" [(ngModel)]=\"layout.colorWeak\" (ngModelChange)=\"setLayout('colorWeak', layout.colorWeak)\"></nz-switch>\r\n      </div>\r\n    </div>\r\n    <nz-divider></nz-divider>\r\n    <button (click)=\"apply()\" type=\"button\" nz-button nzType=\"primary\">\u9884\u89C8</button>\r\n    <button (click)=\"reset()\" type=\"button\" nz-button>\u91CD\u7F6E</button>\r\n    <button (click)=\"copyVar()\" type=\"button\" nz-button>\u62F7\u8D1D</button>\r\n    <nz-alert\r\n      class=\"mt-md\"\r\n      nzType=\"warning\"\r\n      nzMessage=\"\u914D\u7F6E\u680F\u53EA\u5728\u5F00\u53D1\u73AF\u5883\u7528\u4E8E\u9884\u89C8\uFF0C\u751F\u4EA7\u73AF\u5883\u4E0D\u4F1A\u5C55\u73B0\uFF0C\u8BF7\u62F7\u8D1D\u540E\u624B\u52A8\u4FEE\u6539\u53C2\u6570\u914D\u7F6E\u6587\u4EF6 src/styles/theme.less\"\r\n    ></nz-alert>\r\n  </div>\r\n</nz-drawer>\r\n<div class=\"setting-drawer__handle\" [ngClass]=\"{ 'setting-drawer__handle-opened': collapse }\" (click)=\"toggle()\">\r\n  <i nz-icon [nzType]=\"!collapse ? 'setting' : 'close'\" class=\"setting-drawer__handle-icon\"></i>\r\n</div>\r\n",
+            // tslint:disable-next-line: no-host-metadata-property
+            host: {
+                '[class.setting-drawer]': 'true',
+            },
+            changeDetection: core.ChangeDetectionStrategy.OnPush
+        }),
+        __param(5, core.Inject(common.DOCUMENT)),
+        __metadata("design:paramtypes", [core.ChangeDetectorRef,
+            message.NzMessageService,
+            theme.SettingsService,
+            util.LazyService,
+            core.NgZone, Object])
+    ], exports.SettingDrawerComponent);
 
-    function HeaderI18nComponent_div_0_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 5);
-            i0.ɵɵelement(1, "i", 6);
-            i0.ɵɵtext(2);
-            i0.ɵɵpipe(3, "async");
-            i0.ɵɵelement(4, "i", 7);
-            i0.ɵɵelementEnd();
+    exports.LayoutDefaultComponent = /** @class */ (function () {
+        function LayoutDefaultComponent(router$1, msgSrv, resolver, settings, el, renderer, doc) {
+            var _this = this;
+            this.resolver = resolver;
+            this.settings = settings;
+            this.el = el;
+            this.renderer = renderer;
+            this.doc = doc;
+            this.unsubscribe$ = new rxjs.Subject();
+            this.isFetching = false;
+            // scroll to top in change page
+            router$1.events.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (evt) {
+                if (!_this.isFetching && evt instanceof router.RouteConfigLoadStart) {
+                    _this.isFetching = true;
+                }
+                if (evt instanceof router.NavigationError || evt instanceof router.NavigationCancel) {
+                    _this.isFetching = false;
+                    if (evt instanceof router.NavigationError) {
+                        msgSrv.error("\u65E0\u6CD5\u52A0\u8F7D" + evt.url + "\u8DEF\u7531", { nzDuration: 1000 * 3 });
+                    }
+                    return;
+                }
+                if (!(evt instanceof router.NavigationEnd || evt instanceof router.RouteConfigLoadEnd)) {
+                    return;
+                }
+                if (_this.isFetching) {
+                    setTimeout(function () {
+                        _this.isFetching = false;
+                    }, 100);
+                }
+            });
         }
-        if (rf & 2) {
-            var ctx_r0 = i0.ɵɵnextContext();
-            var _r2 = i0.ɵɵreference(3);
-            i0.ɵɵproperty("nzDropdownMenu", _r2);
-            i0.ɵɵadvance(2);
-            i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(3, 2, ctx_r0.defaultLanguage$), " ");
+        LayoutDefaultComponent.prototype.setClass = function () {
+            var _a;
+            var _b = this, el = _b.el, doc = _b.doc, renderer = _b.renderer, settings = _b.settings;
+            var layout = settings.layout;
+            util.updateHostClass(el.nativeElement, renderer, (_a = {},
+                _a['alain-default'] = true,
+                _a["alain-default__fixed"] = layout.fixed,
+                _a["alain-default__collapsed"] = layout.collapsed,
+                _a));
+            doc.body.classList[layout.colorWeak ? 'add' : 'remove']('color-weak');
+        };
+        LayoutDefaultComponent.prototype.ngAfterViewInit = function () {
+            var _this = this;
+            // Setting componet for only developer
+            if (true) {
+                setTimeout(function () {
+                    var settingFactory = _this.resolver.resolveComponentFactory(exports.SettingDrawerComponent);
+                    _this.settingHost.createComponent(settingFactory);
+                }, 22);
+            }
+        };
+        LayoutDefaultComponent.prototype.ngOnInit = function () {
+            var _this = this;
+            var _a = this, settings = _a.settings, unsubscribe$ = _a.unsubscribe$;
+            settings.notify.pipe(operators.takeUntil(unsubscribe$)).subscribe(function () { return _this.setClass(); });
+            this.setClass();
+        };
+        LayoutDefaultComponent.prototype.ngOnDestroy = function () {
+            var unsubscribe$ = this.unsubscribe$;
+            unsubscribe$.next();
+            unsubscribe$.complete();
+        };
+        return LayoutDefaultComponent;
+    }());
+    __decorate([
+        core.ViewChild('settingHost', { read: core.ViewContainerRef, static: true }),
+        __metadata("design:type", core.ViewContainerRef)
+    ], exports.LayoutDefaultComponent.prototype, "settingHost", void 0);
+    exports.LayoutDefaultComponent = __decorate([
+        core.Component({
+            selector: 'layout-default',
+            template: "<div class=\"alain-default__progress-bar\" *ngIf=\"isFetching\"></div>\r\n<layout-header class=\"alain-default__header\"></layout-header>\r\n<layout-sidebar class=\"alain-default__aside\"></layout-sidebar>\r\n<section class=\"alain-default__content\">\r\n  <router-outlet></router-outlet>\r\n</section>\r\n<ng-template #settingHost></ng-template>\r\n<layout-theme-btn></layout-theme-btn>\r\n"
+        }),
+        __param(6, core.Inject(common.DOCUMENT)),
+        __metadata("design:paramtypes", [router.Router,
+            message.NzMessageService,
+            core.ComponentFactoryResolver,
+            theme.SettingsService,
+            core.ElementRef,
+            core.Renderer2, Object])
+    ], exports.LayoutDefaultComponent);
+
+    exports.ɵe = /** @class */ (function () {
+        function HeaderFullScreenComponent() {
+            this.status = false;
         }
-    }
-    function HeaderI18nComponent_i_1_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelement(0, "i", 8);
-        }
-        if (rf & 2) {
-            i0.ɵɵnextContext();
-            var _r2 = i0.ɵɵreference(3);
-            i0.ɵɵproperty("nzDropdownMenu", _r2);
-        }
-    }
-    function HeaderI18nComponent_li_5_Template(rf, ctx) {
-        if (rf & 1) {
-            var _r6_1 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "li", 9);
-            i0.ɵɵlistener("click", function HeaderI18nComponent_li_5_Template_li_click_0_listener() { i0.ɵɵrestoreView(_r6_1); var lang_r4 = ctx.$implicit; var ctx_r5 = i0.ɵɵnextContext(); return ctx_r5.onChangeLang(lang_r4.cultureName); });
-            i0.ɵɵelementStart(1, "span", 10);
-            i0.ɵɵtext(2);
-            i0.ɵɵelementEnd();
-            i0.ɵɵtext(3);
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            var lang_r4 = ctx.$implicit;
-            var ctx_r3 = i0.ɵɵnextContext();
-            i0.ɵɵproperty("nzSelected", lang_r4.cultureName === ctx_r3.selectedLangCulture);
-            i0.ɵɵadvance(1);
-            i0.ɵɵattribute("aria-label", lang_r4 == null ? null : lang_r4.displayName);
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate(lang_r4.cultureName);
-            i0.ɵɵadvance(1);
-            i0.ɵɵtextInterpolate1(" ", lang_r4 == null ? null : lang_r4.displayName, " ");
-        }
-    }
-    var HeaderI18nComponent = /** @class */ (function () {
+        Object.defineProperty(HeaderFullScreenComponent.prototype, "sf", {
+            get: function () {
+                return screenfull;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        HeaderFullScreenComponent.prototype._resize = function () {
+            this.status = this.sf.isFullscreen;
+        };
+        HeaderFullScreenComponent.prototype._click = function () {
+            if (this.sf.isEnabled) {
+                this.sf.toggle();
+            }
+        };
+        return HeaderFullScreenComponent;
+    }());
+    __decorate([
+        core.HostListener('window:resize'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], exports.ɵe.prototype, "_resize", null);
+    __decorate([
+        core.HostListener('click'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], exports.ɵe.prototype, "_click", null);
+    exports.ɵe = __decorate([
+        core.Component({
+            selector: 'header-fullscreen',
+            template: "\n    <i nz-icon [nzType]=\"status ? 'fullscreen-exit' : 'fullscreen'\"></i>\n    {{ (status ? 'menu.fullscreen.exit' : 'menu.fullscreen') | translate }}\n  ",
+            // tslint:disable-next-line: no-host-metadata-property
+            host: {
+                '[class.d-block]': 'true',
+            },
+            changeDetection: core.ChangeDetectionStrategy.OnPush
+        })
+    ], exports.ɵe);
+
+    exports.ɵf = /** @class */ (function () {
         function HeaderI18nComponent(settings, i18n, doc, store) {
             this.settings = settings;
             this.i18n = i18n;
@@ -1029,7 +802,7 @@
         });
         Object.defineProperty(HeaderI18nComponent.prototype, "selectedLangCulture", {
             get: function () {
-                return this.store.selectSnapshot(i2.SessionState.getLanguage);
+                return this.store.selectSnapshot(ng_core.SessionState.getLanguage);
             },
             enumerable: true,
             configurable: true
@@ -1049,589 +822,31 @@
             configurable: true
         });
         HeaderI18nComponent.prototype.onChangeLang = function (cultureName) {
-            this.store.dispatch(new i2.SetLanguage(cultureName));
+            this.store.dispatch(new ng_core.SetLanguage(cultureName));
         };
         return HeaderI18nComponent;
     }());
-    HeaderI18nComponent.ɵfac = function HeaderI18nComponent_Factory(t) { return new (t || HeaderI18nComponent)(i0.ɵɵdirectiveInject(i1$2.SettingsService), i0.ɵɵdirectiveInject(i1$2.ALAIN_I18N_TOKEN), i0.ɵɵdirectiveInject(i4.DOCUMENT), i0.ɵɵdirectiveInject(i2$1.Store)); };
-    HeaderI18nComponent.ɵcmp = i0.ɵɵdefineComponent({ type: HeaderI18nComponent, selectors: [["header-i18n"]], inputs: { showLangText: "showLangText" }, decls: 7, vars: 5, consts: [["nz-dropdown", "", "nzPlacement", "bottomRight", 3, "nzDropdownMenu", 4, "ngIf"], ["nz-dropdown", "", "nzPlacement", "bottomRight", "nz-icon", "", "nzType", "global", 3, "nzDropdownMenu", 4, "ngIf"], ["langMenu", "nzDropdownMenu"], ["nz-menu", ""], ["nz-menu-item", "", 3, "nzSelected", "click", 4, "ngFor", "ngForOf"], ["nz-dropdown", "", "nzPlacement", "bottomRight", 3, "nzDropdownMenu"], ["nz-icon", "", "nzType", "global"], ["nz-icon", "", "nzType", "down"], ["nz-dropdown", "", "nzPlacement", "bottomRight", "nz-icon", "", "nzType", "global", 3, "nzDropdownMenu"], ["nz-menu-item", "", 3, "nzSelected", "click"], ["role", "img", 1, "pr-xs"]], template: function HeaderI18nComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵtemplate(0, HeaderI18nComponent_div_0_Template, 5, 4, "div", 0);
-                i0.ɵɵtemplate(1, HeaderI18nComponent_i_1_Template, 1, 1, "i", 1);
-                i0.ɵɵelementStart(2, "nz-dropdown-menu", null, 2);
-                i0.ɵɵelementStart(4, "ul", 3);
-                i0.ɵɵtemplate(5, HeaderI18nComponent_li_5_Template, 4, 4, "li", 4);
-                i0.ɵɵpipe(6, "async");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-            }
-            if (rf & 2) {
-                i0.ɵɵproperty("ngIf", ctx.showLangText);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("ngIf", !ctx.showLangText);
-                i0.ɵɵadvance(4);
-                i0.ɵɵproperty("ngForOf", i0.ɵɵpipeBind1(6, 3, ctx.dropdownLanguages$));
-            }
-        }, directives: [i4.NgIf, i1$4.NzDropdownMenuComponent, i5$1.NzMenuDirective, i4.NgForOf, i1$4.NzDropDownDirective, i4$3.ɵNzTransitionPatchDirective, i4$4.NzIconDirective, i5$1.NzMenuItemDirective], pipes: [i4.AsyncPipe], encapsulation: 2, changeDetection: 0 });
     __decorate([
-        i2$1.Select(i2.ConfigState.getDeep('localization.languages')),
+        store.Select(ng_core.ConfigState.getDeep('localization.languages')),
         __metadata("design:type", rxjs.Observable)
-    ], HeaderI18nComponent.prototype, "languages$", void 0);
+    ], exports.ɵf.prototype, "languages$", void 0);
     __decorate([
-        i3.InputBoolean(),
+        core.Input(), util.InputBoolean(),
         __metadata("design:type", Object)
-    ], HeaderI18nComponent.prototype, "showLangText", void 0);
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(HeaderI18nComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'header-i18n',
-                        template: "\n    <div *ngIf=\"showLangText\" nz-dropdown [nzDropdownMenu]=\"langMenu\" nzPlacement=\"bottomRight\">\n      <i nz-icon nzType=\"global\"></i>\n      {{ defaultLanguage$ | async }}\n      <i nz-icon nzType=\"down\"></i>\n    </div>\n    <i\n      *ngIf=\"!showLangText\"\n      nz-dropdown\n      [nzDropdownMenu]=\"langMenu\"\n      nzPlacement=\"bottomRight\"\n      nz-icon\n      nzType=\"global\"\n    ></i>\n    <nz-dropdown-menu #langMenu=\"nzDropdownMenu\">\n      <ul nz-menu>\n        <li\n          nz-menu-item\n          *ngFor=\"let lang of dropdownLanguages$ | async\"\n          [nzSelected]=\"lang.cultureName === selectedLangCulture\"\n          (click)=\"onChangeLang(lang.cultureName)\"\n        >\n          <span role=\"img\" [attr.aria-label]=\"lang?.displayName\" class=\"pr-xs\">{{ lang.cultureName }}</span>\n          {{ lang?.displayName }}\n        </li>\n      </ul>\n    </nz-dropdown-menu>\n  ",
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                    }]
-            }], function () {
-            return [{ type: i1$2.SettingsService }, { type: i3$2.I18NService, decorators: [{
-                            type: i0.Inject,
-                            args: [i1$2.ALAIN_I18N_TOKEN]
-                        }] }, { type: undefined, decorators: [{
-                            type: i0.Inject,
-                            args: [i4.DOCUMENT]
-                        }] }, { type: i2$1.Store }];
-        }, { languages$: [], showLangText: [{
-                    type: i0.Input
-                }] });
-    })();
+    ], exports.ɵf.prototype, "showLangText", void 0);
+    exports.ɵf = __decorate([
+        core.Component({
+            selector: 'header-i18n',
+            template: "\n    <div *ngIf=\"showLangText\" nz-dropdown [nzDropdownMenu]=\"langMenu\" nzPlacement=\"bottomRight\">\n      <i nz-icon nzType=\"global\"></i>\n      {{ defaultLanguage$ | async }}\n      <i nz-icon nzType=\"down\"></i>\n    </div>\n    <i\n      *ngIf=\"!showLangText\"\n      nz-dropdown\n      [nzDropdownMenu]=\"langMenu\"\n      nzPlacement=\"bottomRight\"\n      nz-icon\n      nzType=\"global\"\n    ></i>\n    <nz-dropdown-menu #langMenu=\"nzDropdownMenu\">\n      <ul nz-menu>\n        <li\n          nz-menu-item\n          *ngFor=\"let lang of dropdownLanguages$ | async\"\n          [nzSelected]=\"lang.cultureName === selectedLangCulture\"\n          (click)=\"onChangeLang(lang.cultureName)\"\n        >\n          <span role=\"img\" [attr.aria-label]=\"lang?.displayName\" class=\"pr-xs\">{{ lang.cultureName }}</span>\n          {{ lang?.displayName }}\n        </li>\n      </ul>\n    </nz-dropdown-menu>\n  ",
+            changeDetection: core.ChangeDetectionStrategy.OnPush
+        }),
+        __param(1, core.Inject(theme.ALAIN_I18N_TOKEN)),
+        __param(2, core.Inject(common.DOCUMENT)),
+        __metadata("design:paramtypes", [theme.SettingsService,
+            core$1.I18NService, Object, store.Store])
+    ], exports.ɵf);
 
-    var HeaderUserComponent = /** @class */ (function () {
-        function HeaderUserComponent(settings, router, authService, tokenService) {
-            this.settings = settings;
-            this.router = router;
-            this.authService = authService;
-            this.tokenService = tokenService;
-        }
-        HeaderUserComponent.prototype.logout = function () {
-            var _this = this;
-            //this.tokenService.clear();
-            //this.router.navigateByUrl(this.tokenService.login_url);
-            this.authService.logout().subscribe(function () {
-                _this.router.navigate(['/'], { state: { redirectUrl: _this.router.url } });
-            });
-        };
-        return HeaderUserComponent;
-    }());
-    HeaderUserComponent.ɵfac = function HeaderUserComponent_Factory(t) { return new (t || HeaderUserComponent)(i0.ɵɵdirectiveInject(i1$2.SettingsService), i0.ɵɵdirectiveInject(i1.Router), i0.ɵɵdirectiveInject(i2.AuthService), i0.ɵɵdirectiveInject(auth.DA_SERVICE_TOKEN)); };
-    HeaderUserComponent.ɵcmp = i0.ɵɵdefineComponent({ type: HeaderUserComponent, selectors: [["header-user"]], decls: 15, vars: 10, consts: [["nz-dropdown", "", "nzPlacement", "bottomRight", 1, "alain-default__nav-item", "d-flex", "align-items-center", "px-sm", 3, "nzDropdownMenu"], ["userMenu", "nzDropdownMenu"], ["nz-menu", "", 1, "width-sm"], ["nz-menu-item", "", "routerLink", "/account/manage-profile"], ["nz-icon", "", "nzType", "user", 1, "mr-sm"], ["nz-menu-divider", ""], ["nz-menu-item", "", 3, "click"], ["nz-icon", "", "nzType", "logout", 1, "mr-sm"]], template: function HeaderUserComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelementStart(0, "div", 0);
-                i0.ɵɵtext(1);
-                i0.ɵɵpipe(2, "async");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(3, "nz-dropdown-menu", null, 1);
-                i0.ɵɵelementStart(5, "div", 2);
-                i0.ɵɵelementStart(6, "div", 3);
-                i0.ɵɵelement(7, "i", 4);
-                i0.ɵɵtext(8);
-                i0.ɵɵpipe(9, "abpLocalization");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelement(10, "li", 5);
-                i0.ɵɵelementStart(11, "div", 6);
-                i0.ɵɵlistener("click", function HeaderUserComponent_Template_div_click_11_listener() { return ctx.logout(); });
-                i0.ɵɵelement(12, "i", 7);
-                i0.ɵɵtext(13);
-                i0.ɵɵpipe(14, "abpLocalization");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-            }
-            if (rf & 2) {
-                var _r0 = i0.ɵɵreference(4);
-                var tmp_1_0 = null;
-                i0.ɵɵproperty("nzDropdownMenu", _r0);
-                i0.ɵɵadvance(1);
-                i0.ɵɵtextInterpolate1(" ", (tmp_1_0 = i0.ɵɵpipeBind1(2, 4, ctx.currentUser$)) == null ? null : tmp_1_0.userName, " ");
-                i0.ɵɵadvance(7);
-                i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(9, 6, "AbpAccount::ManageYourProfile"), " ");
-                i0.ɵɵadvance(5);
-                i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(14, 8, "AbpUi::Logout"), " ");
-            }
-        }, directives: [i1$4.NzDropDownDirective, i1$4.NzDropdownMenuComponent, i5$1.NzMenuDirective, i4$3.ɵNzTransitionPatchDirective, i5$1.NzMenuItemDirective, i1.RouterLink, i4$4.NzIconDirective, i5$1.NzMenuDividerDirective], pipes: [i4.AsyncPipe, i2.LocalizationPipe], encapsulation: 2, changeDetection: 0 });
-    __decorate([
-        i2$1.Select(i2.ConfigState.getOne('currentUser')),
-        __metadata("design:type", rxjs.Observable)
-    ], HeaderUserComponent.prototype, "currentUser$", void 0);
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(HeaderUserComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'header-user',
-                        template: "\n    <div\n      class=\"alain-default__nav-item d-flex align-items-center px-sm\"\n      nz-dropdown\n      nzPlacement=\"bottomRight\"\n      [nzDropdownMenu]=\"userMenu\"\n    >\n      <!--<nz-avatar [nzSrc]=\"settings.user.avatar\" nzSize=\"small\" class=\"mr-sm\"></nz-avatar>-->\n      {{ (currentUser$ | async)?.userName }}\n    </div>\n    <nz-dropdown-menu #userMenu=\"nzDropdownMenu\">\n      <div nz-menu class=\"width-sm\">\n        <div nz-menu-item routerLink=\"/account/manage-profile\">\n          <i nz-icon nzType=\"user\" class=\"mr-sm\"></i>\n          {{ 'AbpAccount::ManageYourProfile' | abpLocalization }}\n        </div>\n        <!--<div nz-menu-item routerLink=\"/pro/account/settings\">\n          <i nz-icon nzType=\"setting\" class=\"mr-sm\"></i>\n          {{ 'menu.account.settings' | translate }}\n        </div>\n        <div nz-menu-item routerLink=\"/exception/trigger\">\n          <i nz-icon nzType=\"close-circle\" class=\"mr-sm\"></i>\n          {{ 'menu.account.trigger' | translate }}\n        </div>-->\n        <li nz-menu-divider></li>\n        <div nz-menu-item (click)=\"logout()\">\n          <i nz-icon nzType=\"logout\" class=\"mr-sm\"></i>\n          {{ 'AbpUi::Logout' | abpLocalization }}\n        </div>\n      </div>\n    </nz-dropdown-menu>\n  ",
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                    }]
-            }], function () {
-            return [{ type: i1$2.SettingsService }, { type: i1.Router }, { type: i2.AuthService }, { type: undefined, decorators: [{
-                            type: i0.Inject,
-                            args: [auth.DA_SERVICE_TOKEN]
-                        }] }];
-        }, { currentUser$: [] });
-    })();
-
-    function HeaderComponent_ng_template_4_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵtext(0);
-        }
-        if (rf & 2) {
-            var ctx_r1 = i0.ɵɵnextContext();
-            i0.ɵɵtextInterpolate1(" ", ctx_r1.appInfo.name, " ");
-        }
-    }
-    var _c0$2 = function () { return ["/"]; };
-    var HeaderComponent = /** @class */ (function () {
-        function HeaderComponent(settings, store) {
-            this.settings = settings;
-            this.store = store;
-        }
-        Object.defineProperty(HeaderComponent.prototype, "appInfo", {
-            get: function () {
-                return this.store.selectSnapshot(i2.ConfigState.getApplicationInfo);
-            },
-            enumerable: true,
-            configurable: true
-        });
-        HeaderComponent.prototype.toggleCollapsedSidebar = function () {
-            this.settings.setLayout('collapsed', !this.settings.layout.collapsed);
-        };
-        HeaderComponent.prototype.searchToggleChange = function () {
-            this.searchToggleStatus = !this.searchToggleStatus;
-        };
-        return HeaderComponent;
-    }());
-    HeaderComponent.ɵfac = function HeaderComponent_Factory(t) { return new (t || HeaderComponent)(i0.ɵɵdirectiveInject(i1$2.SettingsService), i0.ɵɵdirectiveInject(i2$1.Store)); };
-    HeaderComponent.ɵcmp = i0.ɵɵdefineComponent({ type: HeaderComponent, selectors: [["layout-header"]], decls: 22, vars: 6, consts: [[1, "alain-default__header-logo"], [1, "alain-default__header-logo-link", 3, "routerLink"], ["src", "./assets/logo-full.svg", 1, "alain-default__header-logo-expanded", 2, "max-height", "40px", 3, "alt"], ["src", "./assets/logo.svg", 1, "alain-default__header-logo-collapsed", 2, "max-height", "30px", 3, "alt"], ["appName", ""], [1, "alain-default__nav-wrap"], [1, "alain-default__nav"], [1, "alain-default__nav-item", 3, "click"], ["nz-icon", "", 3, "nzType"], ["nz-dropdown", "", "nzTrigger", "click", "nzPlacement", "bottomRight", 1, "alain-default__nav-item", 3, "nzDropdownMenu"], ["nz-icon", "", "nzType", "setting"], ["settingsMenu", "nzDropdownMenu"], ["nz-menu", "", 2, "width", "200px"], ["nz-menu-item", ""]], template: function HeaderComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelementStart(0, "div", 0);
-                i0.ɵɵelementStart(1, "a", 1);
-                i0.ɵɵelement(2, "img", 2);
-                i0.ɵɵelement(3, "img", 3);
-                i0.ɵɵelementEnd();
-                i0.ɵɵtemplate(4, HeaderComponent_ng_template_4_Template, 1, 1, "ng-template", null, 4, i0.ɵɵtemplateRefExtractor);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(6, "div", 5);
-                i0.ɵɵelementStart(7, "ul", 6);
-                i0.ɵɵelementStart(8, "li");
-                i0.ɵɵelementStart(9, "div", 7);
-                i0.ɵɵlistener("click", function HeaderComponent_Template_div_click_9_listener() { return ctx.toggleCollapsedSidebar(); });
-                i0.ɵɵelement(10, "i", 8);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(11, "ul", 6);
-                i0.ɵɵelementStart(12, "li");
-                i0.ɵɵelementStart(13, "div", 9);
-                i0.ɵɵelement(14, "i", 10);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(15, "nz-dropdown-menu", null, 11);
-                i0.ɵɵelementStart(17, "div", 12);
-                i0.ɵɵelementStart(18, "div", 13);
-                i0.ɵɵelement(19, "header-i18n");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(20, "li");
-                i0.ɵɵelement(21, "header-user");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-            }
-            if (rf & 2) {
-                var _r2 = i0.ɵɵreference(16);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("routerLink", i0.ɵɵpureFunction0(5, _c0$2));
-                i0.ɵɵadvance(1);
-                i0.ɵɵpropertyInterpolate("alt", ctx.appInfo.name);
-                i0.ɵɵadvance(1);
-                i0.ɵɵpropertyInterpolate("alt", ctx.appInfo.name);
-                i0.ɵɵadvance(7);
-                i0.ɵɵpropertyInterpolate1("nzType", "menu-", ctx.settings.layout.collapsed ? "unfold" : "fold", "");
-                i0.ɵɵadvance(3);
-                i0.ɵɵproperty("nzDropdownMenu", _r2);
-            }
-        }, directives: [i1.RouterLinkWithHref, i4$3.ɵNzTransitionPatchDirective, i4$4.NzIconDirective, i1$4.NzDropDownDirective, i1$4.NzDropdownMenuComponent, i5$1.NzMenuDirective, i5$1.NzMenuItemDirective, HeaderI18nComponent, HeaderUserComponent], encapsulation: 2, changeDetection: 0 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(HeaderComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'layout-header',
-                        templateUrl: './header.component.html',
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                    }]
-            }], function () { return [{ type: i1$2.SettingsService }, { type: i2$1.Store }]; }, null);
-    })();
-
-    var SidebarComponent = /** @class */ (function () {
-        function SidebarComponent(settings, menuService, routes, configStateService, localizationPipe) {
-            var _this = this;
-            this.settings = settings;
-            this.menuService = menuService;
-            this.routes = routes;
-            this.configStateService = configStateService;
-            this.localizationPipe = localizationPipe;
-            this.routes.visible$.subscribe(function (x) {
-                _this.setMenu(x);
-            });
-        }
-        SidebarComponent.prototype.setMenu = function (routes) {
-            var _this = this;
-            var result = [];
-            var condition = function (x) { return !!!x.invisible && _this.isGrantedPolicy(x.requiredPolicy); };
-            routes.filter(condition).forEach(function (first) {
-                var group = {
-                    text: _this.localizationPipe.transform(first.name),
-                    group: true,
-                    hideInBreadcrumb: true,
-                    children: []
-                };
-                result.push(group);
-                first.children.filter(condition).forEach(function (second) {
-                    if (second.children.length === 0) {
-                        var left = {
-                            text: _this.localizationPipe.transform(second.name),
-                            link: second.path,
-                            icon: second.iconClass
-                        };
-                        if (left.link.split('/').length > 2)
-                            group.children.push(left);
-                    }
-                    if (second.children.length != 0) {
-                        var node_1 = {
-                            text: _this.localizationPipe.transform(second.name),
-                            icon: second.iconClass,
-                            children: []
-                        };
-                        group.children.push(node_1);
-                        second.children.filter(condition).forEach(function (third) {
-                            var left = {
-                                text: _this.localizationPipe.transform(third.name),
-                                link: third.path,
-                                icon: third.iconClass
-                            };
-                            node_1.children.push(left);
-                        });
-                    }
-                });
-            });
-            this.menuService.clear();
-            this.menuService.add(result);
-        };
-        SidebarComponent.prototype.isGrantedPolicy = function (requiredPolicy) {
-            if (!!requiredPolicy) {
-                return this.configStateService.getGrantedPolicy(requiredPolicy);
-            }
-            return true;
-        };
-        return SidebarComponent;
-    }());
-    SidebarComponent.ɵfac = function SidebarComponent_Factory(t) { return new (t || SidebarComponent)(i0.ɵɵdirectiveInject(i1$2.SettingsService), i0.ɵɵdirectiveInject(i1$2.MenuService), i0.ɵɵdirectiveInject(i2.RoutesService), i0.ɵɵdirectiveInject(i2.ConfigStateService), i0.ɵɵdirectiveInject(i2.LocalizationPipe)); };
-    SidebarComponent.ɵcmp = i0.ɵɵdefineComponent({ type: SidebarComponent, selectors: [["layout-sidebar"]], decls: 11, vars: 6, consts: [[1, "alain-default__aside-inner"], ["userMenu", "nzDropdownMenu"], ["nz-menu", ""], ["nz-menu-item", "", "routerLink", "/pro/account/center"], ["nz-menu-item", "", "routerLink", "/pro/account/settings"], [1, "d-block", "py-lg"]], template: function SidebarComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelementStart(0, "div", 0);
-                i0.ɵɵelementStart(1, "nz-dropdown-menu", null, 1);
-                i0.ɵɵelementStart(3, "ul", 2);
-                i0.ɵɵelementStart(4, "li", 3);
-                i0.ɵɵtext(5);
-                i0.ɵɵpipe(6, "translate");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(7, "li", 4);
-                i0.ɵɵtext(8);
-                i0.ɵɵpipe(9, "translate");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelement(10, "sidebar-nav", 5);
-                i0.ɵɵelementEnd();
-            }
-            if (rf & 2) {
-                i0.ɵɵadvance(5);
-                i0.ɵɵtextInterpolate(i0.ɵɵpipeBind1(6, 2, "menu.account.center"));
-                i0.ɵɵadvance(3);
-                i0.ɵɵtextInterpolate(i0.ɵɵpipeBind1(9, 4, "menu.account.settings"));
-            }
-        }, directives: [i1$4.NzDropdownMenuComponent, i5$1.NzMenuDirective, i4$3.ɵNzTransitionPatchDirective, i5$1.NzMenuItemDirective, i1.RouterLink, i7$1.SidebarNavComponent], pipes: [i3$3.TranslatePipe], encapsulation: 2, changeDetection: 0 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(SidebarComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'layout-sidebar',
-                        templateUrl: './sidebar.component.html',
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                    }]
-            }], function () { return [{ type: i1$2.SettingsService }, { type: i1$2.MenuService }, { type: i2.RoutesService }, { type: i2.ConfigStateService }, { type: i2.LocalizationPipe }]; }, null);
-    })();
-
-    var LayoutThemeBtnComponent = /** @class */ (function () {
-        function LayoutThemeBtnComponent(renderer, configSrv) {
-            this.renderer = renderer;
-            this.configSrv = configSrv;
-            this.theme = 'default';
-        }
-        LayoutThemeBtnComponent.prototype.ngOnInit = function () {
-            this.initTheme();
-        };
-        LayoutThemeBtnComponent.prototype.initTheme = function () {
-            this.theme = localStorage.getItem('site-theme') || 'default';
-            this.updateChartTheme();
-            this.onThemeChange(this.theme);
-        };
-        LayoutThemeBtnComponent.prototype.updateChartTheme = function () {
-            this.configSrv.set('chart', { theme: this.theme === 'dark' ? 'dark' : '' });
-        };
-        LayoutThemeBtnComponent.prototype.onThemeChange = function (theme) {
-            this.theme = theme;
-            this.renderer.setAttribute(document.body, 'data-theme', theme);
-            var dom = document.getElementById('site-theme');
-            if (dom) {
-                dom.remove();
-            }
-            localStorage.removeItem('site-theme');
-            if (theme !== 'default') {
-                var style = document.createElement('link');
-                style.type = 'text/css';
-                style.rel = 'stylesheet';
-                style.id = 'site-theme';
-                style.href = "assets/style." + theme + ".css";
-                localStorage.setItem('site-theme', theme);
-                document.body.append(style);
-            }
-            this.updateChartTheme();
-        };
-        return LayoutThemeBtnComponent;
-    }());
-    LayoutThemeBtnComponent.ɵfac = function LayoutThemeBtnComponent_Factory(t) { return new (t || LayoutThemeBtnComponent)(i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i3.AlainConfigService)); };
-    LayoutThemeBtnComponent.ɵcmp = i0.ɵɵdefineComponent({ type: LayoutThemeBtnComponent, selectors: [["layout-theme-btn"]], decls: 14, vars: 1, consts: [["nz-dropdown", "", "nzPlacement", "topCenter", 1, "ant-avatar", "ant-avatar-circle", "ant-avatar-icon", 3, "nzDropdownMenu"], ["role", "img", "width", "21", "height", "21", "viewBox", "0 0 21 21", "fill", "currentColor", 1, "anticon"], ["fill-rule", "evenodd"], ["fill-rule", "nonzero"], ["d", "M7.02 3.635l12.518 12.518a1.863 1.863 0 010 2.635l-1.317 1.318a1.863 1.863 0 01-2.635 0L3.068 7.588A2.795 2.795 0 117.02 3.635zm2.09 14.428a.932.932 0 110 1.864.932.932 0 010-1.864zm-.043-9.747L7.75 9.635l9.154 9.153 1.318-1.317-9.154-9.155zM3.52 12.473c.514 0 .931.417.931.931v.932h.932a.932.932 0 110 1.864h-.932v.931a.932.932 0 01-1.863 0l-.001-.931h-.93a.932.932 0 010-1.864h.93v-.932c0-.514.418-.931.933-.931zm15.374-3.727a1.398 1.398 0 110 2.795 1.398 1.398 0 010-2.795zM4.385 4.953a.932.932 0 000 1.317l2.046 2.047L7.75 7 5.703 4.953a.932.932 0 00-1.318 0zM14.701.36a.932.932 0 01.931.932v.931h.932a.932.932 0 010 1.864h-.933l.001.932a.932.932 0 11-1.863 0l-.001-.932h-.93a.932.932 0 110-1.864h.93v-.931a.932.932 0 01.933-.932z"], ["menu", "nzDropdownMenu"], ["nz-menu", "", "nzSelectable", ""], ["nz-menu-item", "", 3, "click"]], template: function LayoutThemeBtnComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelementStart(0, "div", 0);
-                i0.ɵɵnamespaceSVG();
-                i0.ɵɵelementStart(1, "svg", 1);
-                i0.ɵɵelementStart(2, "g", 2);
-                i0.ɵɵelementStart(3, "g", 3);
-                i0.ɵɵelement(4, "path", 4);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵnamespaceHTML();
-                i0.ɵɵelementStart(5, "nz-dropdown-menu", null, 5);
-                i0.ɵɵelementStart(7, "ul", 6);
-                i0.ɵɵelementStart(8, "li", 7);
-                i0.ɵɵlistener("click", function LayoutThemeBtnComponent_Template_li_click_8_listener() { return ctx.onThemeChange("default"); });
-                i0.ɵɵtext(9, "Default Theme");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(10, "li", 7);
-                i0.ɵɵlistener("click", function LayoutThemeBtnComponent_Template_li_click_10_listener() { return ctx.onThemeChange("dark"); });
-                i0.ɵɵtext(11, "Dark Theme");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(12, "li", 7);
-                i0.ɵɵlistener("click", function LayoutThemeBtnComponent_Template_li_click_12_listener() { return ctx.onThemeChange("compact"); });
-                i0.ɵɵtext(13, "Compact Theme");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-            }
-            if (rf & 2) {
-                var _r0 = i0.ɵɵreference(6);
-                i0.ɵɵproperty("nzDropdownMenu", _r0);
-            }
-        }, directives: [i1$4.NzDropDownDirective, i1$4.NzDropdownMenuComponent, i5$1.NzMenuDirective, i4$3.ɵNzTransitionPatchDirective, i5$1.NzMenuItemDirective], styles: ["[_nghost-%COMP%]    {bottom:102px;cursor:pointer;display:flex;flex-direction:column;position:fixed;right:32px;z-index:2147483640}[_nghost-%COMP%]    -active{color:#1890ff;font-size:22px;height:44px;line-height:44px;width:44px}[_nghost-%COMP%]     .ant-avatar{background-color:#fff;box-shadow:0 3px 6px -4px rgba(0,0,0,.12),0 6px 16px 0 rgba(0,0,0,.08),0 9px 28px 8px rgba(0,0,0,.05);color:#000;transition:color .3s}[_nghost-%COMP%]     .ant-avatar:hover{color:#1890ff}"], changeDetection: 0 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(LayoutThemeBtnComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'layout-theme-btn',
-                        templateUrl: './theme-btn.component.html',
-                        styleUrls: ['./theme-btn.component.less'],
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                    }]
-            }], function () { return [{ type: i0.Renderer2 }, { type: i3.AlainConfigService }]; }, null);
-    })();
-
-    var _c0$3 = ["settingHost"];
-    function LayoutDefaultComponent_div_0_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelement(0, "div", 5);
-        }
-    }
-    function LayoutDefaultComponent_ng_template_5_Template(rf, ctx) { }
-    var LayoutDefaultComponent = /** @class */ (function () {
-        function LayoutDefaultComponent(router, msgSrv, resolver, settings, el, renderer, doc) {
-            var _this = this;
-            this.resolver = resolver;
-            this.settings = settings;
-            this.el = el;
-            this.renderer = renderer;
-            this.doc = doc;
-            this.unsubscribe$ = new rxjs.Subject();
-            this.isFetching = false;
-            // scroll to top in change page
-            router.events.pipe(operators.takeUntil(this.unsubscribe$)).subscribe(function (evt) {
-                if (!_this.isFetching && evt instanceof i1.RouteConfigLoadStart) {
-                    _this.isFetching = true;
-                }
-                if (evt instanceof i1.NavigationError || evt instanceof i1.NavigationCancel) {
-                    _this.isFetching = false;
-                    if (evt instanceof i1.NavigationError) {
-                        msgSrv.error("\u65E0\u6CD5\u52A0\u8F7D" + evt.url + "\u8DEF\u7531", { nzDuration: 1000 * 3 });
-                    }
-                    return;
-                }
-                if (!(evt instanceof i1.NavigationEnd || evt instanceof i1.RouteConfigLoadEnd)) {
-                    return;
-                }
-                if (_this.isFetching) {
-                    setTimeout(function () {
-                        _this.isFetching = false;
-                    }, 100);
-                }
-            });
-        }
-        LayoutDefaultComponent.prototype.setClass = function () {
-            var _a;
-            var _b = this, el = _b.el, doc = _b.doc, renderer = _b.renderer, settings = _b.settings;
-            var layout = settings.layout;
-            i3.updateHostClass(el.nativeElement, renderer, (_a = {},
-                _a['alain-default'] = true,
-                _a["alain-default__fixed"] = layout.fixed,
-                _a["alain-default__collapsed"] = layout.collapsed,
-                _a));
-            doc.body.classList[layout.colorWeak ? 'add' : 'remove']('color-weak');
-        };
-        LayoutDefaultComponent.prototype.ngAfterViewInit = function () {
-            var _this = this;
-            // Setting componet for only developer
-            if (true) {
-                setTimeout(function () {
-                    var settingFactory = _this.resolver.resolveComponentFactory(SettingDrawerComponent);
-                    _this.settingHost.createComponent(settingFactory);
-                }, 22);
-            }
-        };
-        LayoutDefaultComponent.prototype.ngOnInit = function () {
-            var _this = this;
-            var _a = this, settings = _a.settings, unsubscribe$ = _a.unsubscribe$;
-            settings.notify.pipe(operators.takeUntil(unsubscribe$)).subscribe(function () { return _this.setClass(); });
-            this.setClass();
-        };
-        LayoutDefaultComponent.prototype.ngOnDestroy = function () {
-            var unsubscribe$ = this.unsubscribe$;
-            unsubscribe$.next();
-            unsubscribe$.complete();
-        };
-        return LayoutDefaultComponent;
-    }());
-    LayoutDefaultComponent.ɵfac = function LayoutDefaultComponent_Factory(t) { return new (t || LayoutDefaultComponent)(i0.ɵɵdirectiveInject(i1.Router), i0.ɵɵdirectiveInject(i1$1.NzMessageService), i0.ɵɵdirectiveInject(i0.ComponentFactoryResolver), i0.ɵɵdirectiveInject(i1$2.SettingsService), i0.ɵɵdirectiveInject(i0.ElementRef), i0.ɵɵdirectiveInject(i0.Renderer2), i0.ɵɵdirectiveInject(i4.DOCUMENT)); };
-    LayoutDefaultComponent.ɵcmp = i0.ɵɵdefineComponent({ type: LayoutDefaultComponent, selectors: [["layout-default"]], viewQuery: function LayoutDefaultComponent_Query(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵstaticViewQuery(_c0$3, true, i0.ViewContainerRef);
-            }
-            if (rf & 2) {
-                var _t;
-                i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.settingHost = _t.first);
-            }
-        }, decls: 8, vars: 1, consts: [["class", "alain-default__progress-bar", 4, "ngIf"], [1, "alain-default__header"], [1, "alain-default__aside"], [1, "alain-default__content"], ["settingHost", ""], [1, "alain-default__progress-bar"]], template: function LayoutDefaultComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵtemplate(0, LayoutDefaultComponent_div_0_Template, 1, 0, "div", 0);
-                i0.ɵɵelement(1, "layout-header", 1);
-                i0.ɵɵelement(2, "layout-sidebar", 2);
-                i0.ɵɵelementStart(3, "section", 3);
-                i0.ɵɵelement(4, "router-outlet");
-                i0.ɵɵelementEnd();
-                i0.ɵɵtemplate(5, LayoutDefaultComponent_ng_template_5_Template, 0, 0, "ng-template", null, 4, i0.ɵɵtemplateRefExtractor);
-                i0.ɵɵelement(7, "layout-theme-btn");
-            }
-            if (rf & 2) {
-                i0.ɵɵproperty("ngIf", ctx.isFetching);
-            }
-        }, directives: [i4.NgIf, HeaderComponent, SidebarComponent, i1.RouterOutlet, LayoutThemeBtnComponent], encapsulation: 2 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(LayoutDefaultComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'layout-default',
-                        templateUrl: './default.component.html',
-                    }]
-            }], function () {
-            return [{ type: i1.Router }, { type: i1$1.NzMessageService }, { type: i0.ComponentFactoryResolver }, { type: i1$2.SettingsService }, { type: i0.ElementRef }, { type: i0.Renderer2 }, { type: undefined, decorators: [{
-                            type: i0.Inject,
-                            args: [i4.DOCUMENT]
-                        }] }];
-        }, { settingHost: [{
-                    type: i0.ViewChild,
-                    args: ['settingHost', { read: i0.ViewContainerRef, static: true }]
-                }] });
-    })();
-
-    var HeaderFullScreenComponent = /** @class */ (function () {
-        function HeaderFullScreenComponent() {
-            this.status = false;
-        }
-        Object.defineProperty(HeaderFullScreenComponent.prototype, "sf", {
-            get: function () {
-                return screenfull;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        HeaderFullScreenComponent.prototype._resize = function () {
-            this.status = this.sf.isFullscreen;
-        };
-        HeaderFullScreenComponent.prototype._click = function () {
-            if (this.sf.isEnabled) {
-                this.sf.toggle();
-            }
-        };
-        return HeaderFullScreenComponent;
-    }());
-    HeaderFullScreenComponent.ɵfac = function HeaderFullScreenComponent_Factory(t) { return new (t || HeaderFullScreenComponent)(); };
-    HeaderFullScreenComponent.ɵcmp = i0.ɵɵdefineComponent({ type: HeaderFullScreenComponent, selectors: [["header-fullscreen"]], hostVars: 2, hostBindings: function HeaderFullScreenComponent_HostBindings(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵlistener("resize", function HeaderFullScreenComponent_resize_HostBindingHandler() { return ctx._resize(); }, false, i0.ɵɵresolveWindow)("click", function HeaderFullScreenComponent_click_HostBindingHandler() { return ctx._click(); });
-            }
-            if (rf & 2) {
-                i0.ɵɵclassProp("d-block", true);
-            }
-        }, decls: 3, vars: 4, consts: [["nz-icon", "", 3, "nzType"]], template: function HeaderFullScreenComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelement(0, "i", 0);
-                i0.ɵɵtext(1);
-                i0.ɵɵpipe(2, "translate");
-            }
-            if (rf & 2) {
-                i0.ɵɵproperty("nzType", ctx.status ? "fullscreen-exit" : "fullscreen");
-                i0.ɵɵadvance(1);
-                i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(2, 2, ctx.status ? "menu.fullscreen.exit" : "menu.fullscreen"), " ");
-            }
-        }, directives: [i4$3.ɵNzTransitionPatchDirective, i4$4.NzIconDirective], pipes: [i3$3.TranslatePipe], encapsulation: 2, changeDetection: 0 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(HeaderFullScreenComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'header-fullscreen',
-                        template: "\n    <i nz-icon [nzType]=\"status ? 'fullscreen-exit' : 'fullscreen'\"></i>\n    {{ (status ? 'menu.fullscreen.exit' : 'menu.fullscreen') | translate }}\n  ",
-                        // tslint:disable-next-line: no-host-metadata-property
-                        host: {
-                            '[class.d-block]': 'true',
-                        },
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                    }]
-            }], null, { _resize: [{
-                    type: i0.HostListener,
-                    args: ['window:resize']
-                }], _click: [{
-                    type: i0.HostListener,
-                    args: ['click']
-                }] });
-    })();
-
-    var HeaderIconComponent = /** @class */ (function () {
+    exports.ɵd = /** @class */ (function () {
         function HeaderIconComponent(cdr) {
             this.cdr = cdr;
             this.loading = true;
@@ -1645,110 +860,19 @@
         };
         return HeaderIconComponent;
     }());
-    HeaderIconComponent.ɵfac = function HeaderIconComponent_Factory(t) { return new (t || HeaderIconComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    HeaderIconComponent.ɵcmp = i0.ɵɵdefineComponent({ type: HeaderIconComponent, selectors: [["header-icon"]], decls: 39, vars: 14, consts: [["nz-dropdown", "", "nzTrigger", "click", "nzPlacement", "bottomRight", 1, "alain-default__nav-item", 3, "nzDropdownMenu", "nzVisibleChange"], ["nz-icon", "", "nzType", "appstore"], ["iconMenu", "nzDropdownMenu"], ["nz-menu", "", 1, "wd-xl", "animated", "jello"], [3, "nzSpinning", "nzTip"], ["nz-row", "", 1, "app-icons", 3, "nzType", "nzJustify", "nzAlign"], ["nz-col", "", 3, "nzSpan"], ["nz-icon", "", "nzType", "calendar", 1, "bg-error", "text-white"], ["nz-icon", "", "nzType", "file", 1, "bg-geekblue", "text-white"], ["nz-icon", "", "nzType", "cloud", 1, "bg-success", "text-white"], ["nz-icon", "", "nzType", "star", 1, "bg-magenta", "text-white"], ["nz-icon", "", "nzType", "team", 1, "bg-purple", "text-white"], ["nz-icon", "", "nzType", "scan", 1, "bg-warning", "text-white"], ["nz-icon", "", "nzType", "pay-circle", 1, "bg-cyan", "text-white"], ["nz-icon", "", "nzType", "printer", 1, "bg-grey", "text-white"]], template: function HeaderIconComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelementStart(0, "div", 0);
-                i0.ɵɵlistener("nzVisibleChange", function HeaderIconComponent_Template_div_nzVisibleChange_0_listener() { return ctx.change(); });
-                i0.ɵɵelement(1, "i", 1);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(2, "nz-dropdown-menu", null, 2);
-                i0.ɵɵelementStart(4, "div", 3);
-                i0.ɵɵelementStart(5, "nz-spin", 4);
-                i0.ɵɵelementStart(6, "div", 5);
-                i0.ɵɵelementStart(7, "div", 6);
-                i0.ɵɵelement(8, "i", 7);
-                i0.ɵɵelementStart(9, "small");
-                i0.ɵɵtext(10, "Calendar");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(11, "div", 6);
-                i0.ɵɵelement(12, "i", 8);
-                i0.ɵɵelementStart(13, "small");
-                i0.ɵɵtext(14, "Files");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(15, "div", 6);
-                i0.ɵɵelement(16, "i", 9);
-                i0.ɵɵelementStart(17, "small");
-                i0.ɵɵtext(18, "Cloud");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(19, "div", 6);
-                i0.ɵɵelement(20, "i", 10);
-                i0.ɵɵelementStart(21, "small");
-                i0.ɵɵtext(22, "Star");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(23, "div", 6);
-                i0.ɵɵelement(24, "i", 11);
-                i0.ɵɵelementStart(25, "small");
-                i0.ɵɵtext(26, "Team");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(27, "div", 6);
-                i0.ɵɵelement(28, "i", 12);
-                i0.ɵɵelementStart(29, "small");
-                i0.ɵɵtext(30, "QR");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(31, "div", 6);
-                i0.ɵɵelement(32, "i", 13);
-                i0.ɵɵelementStart(33, "small");
-                i0.ɵɵtext(34, "Pay");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(35, "div", 6);
-                i0.ɵɵelement(36, "i", 14);
-                i0.ɵɵelementStart(37, "small");
-                i0.ɵɵtext(38, "Print");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-            }
-            if (rf & 2) {
-                var _r0 = i0.ɵɵreference(3);
-                i0.ɵɵproperty("nzDropdownMenu", _r0);
-                i0.ɵɵadvance(5);
-                i0.ɵɵproperty("nzSpinning", ctx.loading)("nzTip", "\u6B63\u5728\u8BFB\u53D6\u6570\u636E...");
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("nzType", "flex")("nzJustify", "center")("nzAlign", "middle");
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("nzSpan", 6);
-                i0.ɵɵadvance(4);
-                i0.ɵɵproperty("nzSpan", 6);
-                i0.ɵɵadvance(4);
-                i0.ɵɵproperty("nzSpan", 6);
-                i0.ɵɵadvance(4);
-                i0.ɵɵproperty("nzSpan", 6);
-                i0.ɵɵadvance(4);
-                i0.ɵɵproperty("nzSpan", 6);
-                i0.ɵɵadvance(4);
-                i0.ɵɵproperty("nzSpan", 6);
-                i0.ɵɵadvance(4);
-                i0.ɵɵproperty("nzSpan", 6);
-                i0.ɵɵadvance(4);
-                i0.ɵɵproperty("nzSpan", 6);
-            }
-        }, directives: [i1$4.NzDropDownDirective, i4$3.ɵNzTransitionPatchDirective, i4$4.NzIconDirective, i1$4.NzDropdownMenuComponent, i5$1.NzMenuDirective, i5$2.NzSpinComponent, i6$1.NzRowDirective, i6$1.NzColDirective], encapsulation: 2, changeDetection: 0 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(HeaderIconComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'header-icon',
-                        template: "\n    <div\n      class=\"alain-default__nav-item\"\n      nz-dropdown\n      [nzDropdownMenu]=\"iconMenu\"\n      nzTrigger=\"click\"\n      nzPlacement=\"bottomRight\"\n      (nzVisibleChange)=\"change()\"\n    >\n      <i nz-icon nzType=\"appstore\"></i>\n    </div>\n    <nz-dropdown-menu #iconMenu=\"nzDropdownMenu\">\n      <div nz-menu class=\"wd-xl animated jello\">\n        <nz-spin [nzSpinning]=\"loading\" [nzTip]=\"'\u6B63\u5728\u8BFB\u53D6\u6570\u636E...'\">\n          <div nz-row [nzType]=\"'flex'\" [nzJustify]=\"'center'\" [nzAlign]=\"'middle'\" class=\"app-icons\">\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"calendar\" class=\"bg-error text-white\"></i>\n              <small>Calendar</small>\n            </div>\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"file\" class=\"bg-geekblue text-white\"></i>\n              <small>Files</small>\n            </div>\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"cloud\" class=\"bg-success text-white\"></i>\n              <small>Cloud</small>\n            </div>\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"star\" class=\"bg-magenta text-white\"></i>\n              <small>Star</small>\n            </div>\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"team\" class=\"bg-purple text-white\"></i>\n              <small>Team</small>\n            </div>\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"scan\" class=\"bg-warning text-white\"></i>\n              <small>QR</small>\n            </div>\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"pay-circle\" class=\"bg-cyan text-white\"></i>\n              <small>Pay</small>\n            </div>\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"printer\" class=\"bg-grey text-white\"></i>\n              <small>Print</small>\n            </div>\n          </div>\n        </nz-spin>\n      </div>\n    </nz-dropdown-menu>\n  ",
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                    }]
-            }], function () { return [{ type: i0.ChangeDetectorRef }]; }, null);
-    })();
+    exports.ɵd = __decorate([
+        core.Component({
+            selector: 'header-icon',
+            template: "\n    <div\n      class=\"alain-default__nav-item\"\n      nz-dropdown\n      [nzDropdownMenu]=\"iconMenu\"\n      nzTrigger=\"click\"\n      nzPlacement=\"bottomRight\"\n      (nzVisibleChange)=\"change()\"\n    >\n      <i nz-icon nzType=\"appstore\"></i>\n    </div>\n    <nz-dropdown-menu #iconMenu=\"nzDropdownMenu\">\n      <div nz-menu class=\"wd-xl animated jello\">\n        <nz-spin [nzSpinning]=\"loading\" [nzTip]=\"'\u6B63\u5728\u8BFB\u53D6\u6570\u636E...'\">\n          <div nz-row [nzType]=\"'flex'\" [nzJustify]=\"'center'\" [nzAlign]=\"'middle'\" class=\"app-icons\">\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"calendar\" class=\"bg-error text-white\"></i>\n              <small>Calendar</small>\n            </div>\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"file\" class=\"bg-geekblue text-white\"></i>\n              <small>Files</small>\n            </div>\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"cloud\" class=\"bg-success text-white\"></i>\n              <small>Cloud</small>\n            </div>\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"star\" class=\"bg-magenta text-white\"></i>\n              <small>Star</small>\n            </div>\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"team\" class=\"bg-purple text-white\"></i>\n              <small>Team</small>\n            </div>\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"scan\" class=\"bg-warning text-white\"></i>\n              <small>QR</small>\n            </div>\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"pay-circle\" class=\"bg-cyan text-white\"></i>\n              <small>Pay</small>\n            </div>\n            <div nz-col [nzSpan]=\"6\">\n              <i nz-icon nzType=\"printer\" class=\"bg-grey text-white\"></i>\n              <small>Print</small>\n            </div>\n          </div>\n        </nz-spin>\n      </div>\n    </nz-dropdown-menu>\n  ",
+            changeDetection: core.ChangeDetectionStrategy.OnPush
+        }),
+        __metadata("design:paramtypes", [core.ChangeDetectorRef])
+    ], exports.ɵd);
 
     /**
      * 菜单通知
      */
-    var HeaderNotifyComponent = /** @class */ (function () {
+    exports.ɵb = /** @class */ (function () {
         function HeaderNotifyComponent(msg, nzI18n) {
             this.msg = msg;
             this.nzI18n = nzI18n;
@@ -1915,29 +1039,16 @@
         };
         return HeaderNotifyComponent;
     }());
-    HeaderNotifyComponent.ɵfac = function HeaderNotifyComponent_Factory(t) { return new (t || HeaderNotifyComponent)(i0.ɵɵdirectiveInject(i1$1.NzMessageService), i0.ɵɵdirectiveInject(i2$2.NzI18nService)); };
-    HeaderNotifyComponent.ɵcmp = i0.ɵɵdefineComponent({ type: HeaderNotifyComponent, selectors: [["header-notify"]], decls: 1, vars: 3, consts: [["btnClass", "alain-default__nav-item", "btnIconClass", "alain-default__nav-item-icon", 3, "data", "count", "loading", "select", "clear", "popoverVisibleChange"]], template: function HeaderNotifyComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelementStart(0, "notice-icon", 0);
-                i0.ɵɵlistener("select", function HeaderNotifyComponent_Template_notice_icon_select_0_listener($event) { return ctx.select($event); })("clear", function HeaderNotifyComponent_Template_notice_icon_clear_0_listener($event) { return ctx.clear($event); })("popoverVisibleChange", function HeaderNotifyComponent_Template_notice_icon_popoverVisibleChange_0_listener() { return ctx.loadData(); });
-                i0.ɵɵelementEnd();
-            }
-            if (rf & 2) {
-                i0.ɵɵproperty("data", ctx.data)("count", ctx.count)("loading", ctx.loading);
-            }
-        }, directives: [i3$4.NoticeIconComponent], encapsulation: 2, changeDetection: 0 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(HeaderNotifyComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'header-notify',
-                        template: "\n    <notice-icon\n      [data]=\"data\"\n      [count]=\"count\"\n      [loading]=\"loading\"\n      btnClass=\"alain-default__nav-item\"\n      btnIconClass=\"alain-default__nav-item-icon\"\n      (select)=\"select($event)\"\n      (clear)=\"clear($event)\"\n      (popoverVisibleChange)=\"loadData()\"\n    ></notice-icon>\n  ",
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                    }]
-            }], function () { return [{ type: i1$1.NzMessageService }, { type: i2$2.NzI18nService }]; }, null);
-    })();
+    exports.ɵb = __decorate([
+        core.Component({
+            selector: 'header-notify',
+            template: "\n    <notice-icon\n      [data]=\"data\"\n      [count]=\"count\"\n      [loading]=\"loading\"\n      btnClass=\"alain-default__nav-item\"\n      btnIconClass=\"alain-default__nav-item-icon\"\n      (select)=\"select($event)\"\n      (clear)=\"clear($event)\"\n      (popoverVisibleChange)=\"loadData()\"\n    ></notice-icon>\n  ",
+            changeDetection: core.ChangeDetectionStrategy.OnPush
+        }),
+        __metadata("design:paramtypes", [message.NzMessageService, i18n.NzI18nService])
+    ], exports.ɵb);
 
-    var HeaderSearchComponent = /** @class */ (function () {
+    exports.ɵa = /** @class */ (function () {
         function HeaderSearchComponent(el) {
             this.el = el;
             this.focus = false;
@@ -1968,46 +1079,29 @@
         };
         return HeaderSearchComponent;
     }());
-    HeaderSearchComponent.ɵfac = function HeaderSearchComponent_Factory(t) { return new (t || HeaderSearchComponent)(i0.ɵɵdirectiveInject(i0.ElementRef)); };
-    HeaderSearchComponent.ɵcmp = i0.ɵɵdefineComponent({ type: HeaderSearchComponent, selectors: [["header-search"]], hostVars: 4, hostBindings: function HeaderSearchComponent_HostBindings(rf, ctx) {
-            if (rf & 2) {
-                i0.ɵɵclassProp("alain-default__search-focus", ctx.focus)("alain-default__search-toggled", ctx.searchToggled);
-            }
-        }, inputs: { toggleChange: "toggleChange" }, decls: 3, vars: 5, consts: [[3, "nzAddOnBeforeIcon"], ["nz-input", "", 3, "ngModel", "placeholder", "ngModelChange", "focus", "blur"]], template: function HeaderSearchComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelementStart(0, "nz-input-group", 0);
-                i0.ɵɵelementStart(1, "input", 1);
-                i0.ɵɵlistener("ngModelChange", function HeaderSearchComponent_Template_input_ngModelChange_1_listener($event) { return ctx.q = $event; })("focus", function HeaderSearchComponent_Template_input_focus_1_listener() { return ctx.qFocus(); })("blur", function HeaderSearchComponent_Template_input_blur_1_listener() { return ctx.qBlur(); });
-                i0.ɵɵpipe(2, "translate");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-            }
-            if (rf & 2) {
-                i0.ɵɵproperty("nzAddOnBeforeIcon", ctx.focus ? "arrow-down" : "search");
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("ngModel", ctx.q)("placeholder", i0.ɵɵpipeBind1(2, 3, "menu.search.placeholder"));
-            }
-        }, directives: [i1$3.NzInputGroupComponent, i1$3.NzInputDirective, i3$1.DefaultValueAccessor, i3$1.NgControlStatus, i3$1.NgModel], pipes: [i3$3.TranslatePipe], encapsulation: 2, changeDetection: 0 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(HeaderSearchComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'header-search',
-                        template: "\n    <nz-input-group [nzAddOnBeforeIcon]=\"focus ? 'arrow-down' : 'search'\">\n      <input\n        nz-input\n        [(ngModel)]=\"q\"\n        (focus)=\"qFocus()\"\n        (blur)=\"qBlur()\"\n        [placeholder]=\"'menu.search.placeholder' | translate\"\n      />\n    </nz-input-group>\n  ",
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                    }]
-            }], function () { return [{ type: i0.ElementRef }]; }, { focus: [{
-                    type: i0.HostBinding,
-                    args: ['class.alain-default__search-focus']
-                }], searchToggled: [{
-                    type: i0.HostBinding,
-                    args: ['class.alain-default__search-toggled']
-                }], toggleChange: [{
-                    type: i0.Input
-                }] });
-    })();
+    __decorate([
+        core.HostBinding('class.alain-default__search-focus'),
+        __metadata("design:type", Object)
+    ], exports.ɵa.prototype, "focus", void 0);
+    __decorate([
+        core.HostBinding('class.alain-default__search-toggled'),
+        __metadata("design:type", Object)
+    ], exports.ɵa.prototype, "searchToggled", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], exports.ɵa.prototype, "toggleChange", null);
+    exports.ɵa = __decorate([
+        core.Component({
+            selector: 'header-search',
+            template: "\n    <nz-input-group [nzAddOnBeforeIcon]=\"focus ? 'arrow-down' : 'search'\">\n      <input\n        nz-input\n        [(ngModel)]=\"q\"\n        (focus)=\"qFocus()\"\n        (blur)=\"qBlur()\"\n        [placeholder]=\"'menu.search.placeholder' | translate\"\n      />\n    </nz-input-group>\n  ",
+            changeDetection: core.ChangeDetectionStrategy.OnPush
+        }),
+        __metadata("design:paramtypes", [core.ElementRef])
+    ], exports.ɵa);
 
-    var HeaderStorageComponent = /** @class */ (function () {
+    exports.ɵg = /** @class */ (function () {
         function HeaderStorageComponent(modalSrv, messageSrv) {
             this.modalSrv = modalSrv;
             this.messageSrv = messageSrv;
@@ -2024,177 +1118,26 @@
         };
         return HeaderStorageComponent;
     }());
-    HeaderStorageComponent.ɵfac = function HeaderStorageComponent_Factory(t) { return new (t || HeaderStorageComponent)(i0.ɵɵdirectiveInject(i1$5.NzModalService), i0.ɵɵdirectiveInject(i1$1.NzMessageService)); };
-    HeaderStorageComponent.ɵcmp = i0.ɵɵdefineComponent({ type: HeaderStorageComponent, selectors: [["header-storage"]], hostVars: 2, hostBindings: function HeaderStorageComponent_HostBindings(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵlistener("click", function HeaderStorageComponent_click_HostBindingHandler() { return ctx._click(); });
-            }
-            if (rf & 2) {
-                i0.ɵɵclassProp("d-block", true);
-            }
-        }, decls: 3, vars: 3, consts: [["nz-icon", "", "nzType", "tool"]], template: function HeaderStorageComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelement(0, "i", 0);
-                i0.ɵɵtext(1);
-                i0.ɵɵpipe(2, "translate");
-            }
-            if (rf & 2) {
-                i0.ɵɵadvance(1);
-                i0.ɵɵtextInterpolate1(" ", i0.ɵɵpipeBind1(2, 1, "menu.clear.local.storage"), " ");
-            }
-        }, directives: [i4$3.ɵNzTransitionPatchDirective, i4$4.NzIconDirective], pipes: [i3$3.TranslatePipe], encapsulation: 2, changeDetection: 0 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(HeaderStorageComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'header-storage',
-                        template: "\n    <i nz-icon nzType=\"tool\"></i>\n    {{ 'menu.clear.local.storage' | translate }}\n  ",
-                        // tslint:disable-next-line: no-host-metadata-property
-                        host: {
-                            '[class.d-block]': 'true',
-                        },
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                    }]
-            }], function () { return [{ type: i1$5.NzModalService }, { type: i1$1.NzMessageService }]; }, { _click: [{
-                    type: i0.HostListener,
-                    args: ['click']
-                }] });
-    })();
+    __decorate([
+        core.HostListener('click'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], exports.ɵg.prototype, "_click", null);
+    exports.ɵg = __decorate([
+        core.Component({
+            selector: 'header-storage',
+            template: "\n    <i nz-icon nzType=\"tool\"></i>\n    {{ 'menu.clear.local.storage' | translate }}\n  ",
+            // tslint:disable-next-line: no-host-metadata-property
+            host: {
+                '[class.d-block]': 'true',
+            },
+            changeDetection: core.ChangeDetectionStrategy.OnPush
+        }),
+        __metadata("design:paramtypes", [modal.NzModalService, message.NzMessageService])
+    ], exports.ɵg);
 
-    function HeaderTaskComponent_div_6_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 7);
-            i0.ɵɵelement(1, "nz-spin");
-            i0.ɵɵelementEnd();
-        }
-    }
-    function HeaderTaskComponent_nz_card_7_ng_template_1_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelement(0, "i", 17);
-        }
-    }
-    function HeaderTaskComponent_nz_card_7_Template(rf, ctx) {
-        if (rf & 1) {
-            i0.ɵɵelementStart(0, "nz-card", 8);
-            i0.ɵɵtemplate(1, HeaderTaskComponent_nz_card_7_ng_template_1_Template, 1, 0, "ng-template", null, 9, i0.ɵɵtemplateRefExtractor);
-            i0.ɵɵelementStart(3, "div", 10);
-            i0.ɵɵelementStart(4, "div", 11);
-            i0.ɵɵelement(5, "nz-avatar", 12);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(6, "div", 13);
-            i0.ɵɵelementStart(7, "strong");
-            i0.ɵɵtext(8, "cipchk");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(9, "p", 14);
-            i0.ɵɵtext(10, "Please tell me what happened in a few words, don't go into details.");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(11, "div", 10);
-            i0.ɵɵelementStart(12, "div", 11);
-            i0.ɵɵelement(13, "nz-avatar", 12);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(14, "div", 13);
-            i0.ɵɵelementStart(15, "strong");
-            i0.ɵɵtext(16, "\u306F\u306A\u3055\u304D");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(17, "p", 14);
-            i0.ɵɵtext(18, "\u30CF\u30EB\u30AB\u30BD\u30E9\u30C8\u30AD\u30D8\u30C0\u30C4\u30D2\u30AB\u30EA");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(19, "div", 10);
-            i0.ɵɵelementStart(20, "div", 11);
-            i0.ɵɵelement(21, "nz-avatar", 12);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(22, "div", 13);
-            i0.ɵɵelementStart(23, "strong");
-            i0.ɵɵtext(24, "\u82CF\u5148\u751F");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(25, "p", 14);
-            i0.ɵɵtext(26, "\u8BF7\u544A\u8BC9\u6211\uFF0C\u6211\u5E94\u8BE5\u8BF4\u70B9\u4EC0\u4E48\u597D\uFF1F");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(27, "div", 10);
-            i0.ɵɵelementStart(28, "div", 11);
-            i0.ɵɵelement(29, "nz-avatar", 12);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(30, "div", 13);
-            i0.ɵɵelementStart(31, "strong");
-            i0.ɵɵtext(32, "Kent");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(33, "p", 14);
-            i0.ɵɵtext(34, "Please tell me what happened in a few words, don't go into details.");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(35, "div", 10);
-            i0.ɵɵelementStart(36, "div", 11);
-            i0.ɵɵelement(37, "nz-avatar", 12);
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(38, "div", 13);
-            i0.ɵɵelementStart(39, "strong");
-            i0.ɵɵtext(40, "Jefferson");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(41, "p", 14);
-            i0.ɵɵtext(42, "Please tell me what happened in a few words, don't go into details.");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementStart(43, "div", 15);
-            i0.ɵɵelementStart(44, "div", 16);
-            i0.ɵɵtext(45, " See All ");
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-            i0.ɵɵelementEnd();
-        }
-        if (rf & 2) {
-            i0.ɵɵadvance(3);
-            i0.ɵɵproperty("nzType", "flex")("nzJustify", "center")("nzAlign", "middle");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSpan", 4);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSrc", "./assets/tmp/img/1.png");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSpan", 20);
-            i0.ɵɵadvance(5);
-            i0.ɵɵproperty("nzType", "flex")("nzJustify", "center")("nzAlign", "middle");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSpan", 4);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSrc", "./assets/tmp/img/2.png");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSpan", 20);
-            i0.ɵɵadvance(5);
-            i0.ɵɵproperty("nzType", "flex")("nzJustify", "center")("nzAlign", "middle");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSpan", 4);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSrc", "./assets/tmp/img/3.png");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSpan", 20);
-            i0.ɵɵadvance(5);
-            i0.ɵɵproperty("nzType", "flex")("nzJustify", "center")("nzAlign", "middle");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSpan", 4);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSrc", "./assets/tmp/img/4.png");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSpan", 20);
-            i0.ɵɵadvance(5);
-            i0.ɵɵproperty("nzType", "flex")("nzJustify", "center")("nzAlign", "middle");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSpan", 4);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSrc", "./assets/tmp/img/5.png");
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("nzSpan", 20);
-            i0.ɵɵadvance(6);
-            i0.ɵɵproperty("nzSpan", 24);
-        }
-    }
-    var HeaderTaskComponent = /** @class */ (function () {
+    exports.ɵc = /** @class */ (function () {
         function HeaderTaskComponent(cdr) {
             this.cdr = cdr;
             this.loading = true;
@@ -2208,74 +1151,256 @@
         };
         return HeaderTaskComponent;
     }());
-    HeaderTaskComponent.ɵfac = function HeaderTaskComponent_Factory(t) { return new (t || HeaderTaskComponent)(i0.ɵɵdirectiveInject(i0.ChangeDetectorRef)); };
-    HeaderTaskComponent.ɵcmp = i0.ɵɵdefineComponent({ type: HeaderTaskComponent, selectors: [["header-task"]], decls: 8, vars: 4, consts: [["nz-dropdown", "", "nzTrigger", "click", "nzPlacement", "bottomRight", 1, "alain-default__nav-item", 3, "nzDropdownMenu", "nzVisibleChange"], [3, "nzDot"], ["nz-icon", "", "nzType", "bell", 1, "alain-default__nav-item-icon"], ["taskMenu", "nzDropdownMenu"], ["nz-menu", "", 1, "wd-lg"], ["class", "mx-lg p-lg", 4, "ngIf"], ["nzTitle", "Notifications", "nzBordered", "false", "class", "ant-card__body-nopadding", 4, "ngIf"], [1, "mx-lg", "p-lg"], ["nzTitle", "Notifications", "nzBordered", "false", 1, "ant-card__body-nopadding"], ["extra", ""], ["nz-row", "", 1, "py-sm", "point", 3, "nzType", "nzJustify", "nzAlign"], ["nz-col", "", 1, "text-center", 3, "nzSpan"], [3, "nzSrc"], ["nz-col", "", 3, "nzSpan"], [1, "mb0"], ["nz-row", ""], ["nz-col", "", 1, "pt-md", "border-top-1", "text-center", "text-grey", "point", 3, "nzSpan"], ["nz-icon", "", "nzType", "plus"]], template: function HeaderTaskComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelementStart(0, "div", 0);
-                i0.ɵɵlistener("nzVisibleChange", function HeaderTaskComponent_Template_div_nzVisibleChange_0_listener() { return ctx.change(); });
-                i0.ɵɵelementStart(1, "nz-badge", 1);
-                i0.ɵɵelement(2, "i", 2);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(3, "nz-dropdown-menu", null, 3);
-                i0.ɵɵelementStart(5, "div", 4);
-                i0.ɵɵtemplate(6, HeaderTaskComponent_div_6_Template, 2, 0, "div", 5);
-                i0.ɵɵtemplate(7, HeaderTaskComponent_nz_card_7_Template, 46, 31, "nz-card", 6);
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-            }
-            if (rf & 2) {
-                var _r0 = i0.ɵɵreference(4);
-                i0.ɵɵproperty("nzDropdownMenu", _r0);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("nzDot", true);
-                i0.ɵɵadvance(5);
-                i0.ɵɵproperty("ngIf", ctx.loading);
-                i0.ɵɵadvance(1);
-                i0.ɵɵproperty("ngIf", !ctx.loading);
-            }
-        }, directives: [i1$4.NzDropDownDirective, i2$3.NzBadgeComponent, i4$3.ɵNzTransitionPatchDirective, i4$4.NzIconDirective, i1$4.NzDropdownMenuComponent, i5$1.NzMenuDirective, i4.NgIf, i5$2.NzSpinComponent, i8.NzCardComponent, i6$1.NzRowDirective, i6$1.NzColDirective, i10.NzAvatarComponent], encapsulation: 2, changeDetection: 0 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(HeaderTaskComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'header-task',
-                        template: "\n    <div\n      class=\"alain-default__nav-item\"\n      nz-dropdown\n      [nzDropdownMenu]=\"taskMenu\"\n      nzTrigger=\"click\"\n      nzPlacement=\"bottomRight\"\n      (nzVisibleChange)=\"change()\"\n    >\n      <nz-badge [nzDot]=\"true\">\n        <i nz-icon nzType=\"bell\" class=\"alain-default__nav-item-icon\"></i>\n      </nz-badge>\n    </div>\n    <nz-dropdown-menu #taskMenu=\"nzDropdownMenu\">\n      <div nz-menu class=\"wd-lg\">\n        <div *ngIf=\"loading\" class=\"mx-lg p-lg\"><nz-spin></nz-spin></div>\n        <nz-card *ngIf=\"!loading\" nzTitle=\"Notifications\" nzBordered=\"false\" class=\"ant-card__body-nopadding\">\n          <ng-template #extra><i nz-icon nzType=\"plus\"></i></ng-template>\n          <div nz-row [nzType]=\"'flex'\" [nzJustify]=\"'center'\" [nzAlign]=\"'middle'\" class=\"py-sm point\">\n            <div nz-col [nzSpan]=\"4\" class=\"text-center\">\n              <nz-avatar [nzSrc]=\"'./assets/tmp/img/1.png'\"></nz-avatar>\n            </div>\n            <div nz-col [nzSpan]=\"20\">\n              <strong>cipchk</strong>\n              <p class=\"mb0\">Please tell me what happened in a few words, don't go into details.</p>\n            </div>\n          </div>\n          <div nz-row [nzType]=\"'flex'\" [nzJustify]=\"'center'\" [nzAlign]=\"'middle'\" class=\"py-sm point\">\n            <div nz-col [nzSpan]=\"4\" class=\"text-center\">\n              <nz-avatar [nzSrc]=\"'./assets/tmp/img/2.png'\"></nz-avatar>\n            </div>\n            <div nz-col [nzSpan]=\"20\">\n              <strong>\u306F\u306A\u3055\u304D</strong>\n              <p class=\"mb0\">\u30CF\u30EB\u30AB\u30BD\u30E9\u30C8\u30AD\u30D8\u30C0\u30C4\u30D2\u30AB\u30EA</p>\n            </div>\n          </div>\n          <div nz-row [nzType]=\"'flex'\" [nzJustify]=\"'center'\" [nzAlign]=\"'middle'\" class=\"py-sm point\">\n            <div nz-col [nzSpan]=\"4\" class=\"text-center\">\n              <nz-avatar [nzSrc]=\"'./assets/tmp/img/3.png'\"></nz-avatar>\n            </div>\n            <div nz-col [nzSpan]=\"20\">\n              <strong>\u82CF\u5148\u751F</strong>\n              <p class=\"mb0\">\u8BF7\u544A\u8BC9\u6211\uFF0C\u6211\u5E94\u8BE5\u8BF4\u70B9\u4EC0\u4E48\u597D\uFF1F</p>\n            </div>\n          </div>\n          <div nz-row [nzType]=\"'flex'\" [nzJustify]=\"'center'\" [nzAlign]=\"'middle'\" class=\"py-sm point\">\n            <div nz-col [nzSpan]=\"4\" class=\"text-center\">\n              <nz-avatar [nzSrc]=\"'./assets/tmp/img/4.png'\"></nz-avatar>\n            </div>\n            <div nz-col [nzSpan]=\"20\">\n              <strong>Kent</strong>\n              <p class=\"mb0\">Please tell me what happened in a few words, don't go into details.</p>\n            </div>\n          </div>\n          <div nz-row [nzType]=\"'flex'\" [nzJustify]=\"'center'\" [nzAlign]=\"'middle'\" class=\"py-sm point\">\n            <div nz-col [nzSpan]=\"4\" class=\"text-center\">\n              <nz-avatar [nzSrc]=\"'./assets/tmp/img/5.png'\"></nz-avatar>\n            </div>\n            <div nz-col [nzSpan]=\"20\">\n              <strong>Jefferson</strong>\n              <p class=\"mb0\">Please tell me what happened in a few words, don't go into details.</p>\n            </div>\n          </div>\n          <div nz-row>\n            <div nz-col [nzSpan]=\"24\" class=\"pt-md border-top-1 text-center text-grey point\">\n              See All\n            </div>\n          </div>\n        </nz-card>\n      </div>\n    </nz-dropdown-menu>\n  ",
-                        changeDetection: i0.ChangeDetectionStrategy.OnPush,
-                    }]
-            }], function () { return [{ type: i0.ChangeDetectorRef }]; }, null);
-    })();
+    exports.ɵc = __decorate([
+        core.Component({
+            selector: 'header-task',
+            template: "\n    <div\n      class=\"alain-default__nav-item\"\n      nz-dropdown\n      [nzDropdownMenu]=\"taskMenu\"\n      nzTrigger=\"click\"\n      nzPlacement=\"bottomRight\"\n      (nzVisibleChange)=\"change()\"\n    >\n      <nz-badge [nzDot]=\"true\">\n        <i nz-icon nzType=\"bell\" class=\"alain-default__nav-item-icon\"></i>\n      </nz-badge>\n    </div>\n    <nz-dropdown-menu #taskMenu=\"nzDropdownMenu\">\n      <div nz-menu class=\"wd-lg\">\n        <div *ngIf=\"loading\" class=\"mx-lg p-lg\"><nz-spin></nz-spin></div>\n        <nz-card *ngIf=\"!loading\" nzTitle=\"Notifications\" nzBordered=\"false\" class=\"ant-card__body-nopadding\">\n          <ng-template #extra><i nz-icon nzType=\"plus\"></i></ng-template>\n          <div nz-row [nzType]=\"'flex'\" [nzJustify]=\"'center'\" [nzAlign]=\"'middle'\" class=\"py-sm point\">\n            <div nz-col [nzSpan]=\"4\" class=\"text-center\">\n              <nz-avatar [nzSrc]=\"'./assets/tmp/img/1.png'\"></nz-avatar>\n            </div>\n            <div nz-col [nzSpan]=\"20\">\n              <strong>cipchk</strong>\n              <p class=\"mb0\">Please tell me what happened in a few words, don't go into details.</p>\n            </div>\n          </div>\n          <div nz-row [nzType]=\"'flex'\" [nzJustify]=\"'center'\" [nzAlign]=\"'middle'\" class=\"py-sm point\">\n            <div nz-col [nzSpan]=\"4\" class=\"text-center\">\n              <nz-avatar [nzSrc]=\"'./assets/tmp/img/2.png'\"></nz-avatar>\n            </div>\n            <div nz-col [nzSpan]=\"20\">\n              <strong>\u306F\u306A\u3055\u304D</strong>\n              <p class=\"mb0\">\u30CF\u30EB\u30AB\u30BD\u30E9\u30C8\u30AD\u30D8\u30C0\u30C4\u30D2\u30AB\u30EA</p>\n            </div>\n          </div>\n          <div nz-row [nzType]=\"'flex'\" [nzJustify]=\"'center'\" [nzAlign]=\"'middle'\" class=\"py-sm point\">\n            <div nz-col [nzSpan]=\"4\" class=\"text-center\">\n              <nz-avatar [nzSrc]=\"'./assets/tmp/img/3.png'\"></nz-avatar>\n            </div>\n            <div nz-col [nzSpan]=\"20\">\n              <strong>\u82CF\u5148\u751F</strong>\n              <p class=\"mb0\">\u8BF7\u544A\u8BC9\u6211\uFF0C\u6211\u5E94\u8BE5\u8BF4\u70B9\u4EC0\u4E48\u597D\uFF1F</p>\n            </div>\n          </div>\n          <div nz-row [nzType]=\"'flex'\" [nzJustify]=\"'center'\" [nzAlign]=\"'middle'\" class=\"py-sm point\">\n            <div nz-col [nzSpan]=\"4\" class=\"text-center\">\n              <nz-avatar [nzSrc]=\"'./assets/tmp/img/4.png'\"></nz-avatar>\n            </div>\n            <div nz-col [nzSpan]=\"20\">\n              <strong>Kent</strong>\n              <p class=\"mb0\">Please tell me what happened in a few words, don't go into details.</p>\n            </div>\n          </div>\n          <div nz-row [nzType]=\"'flex'\" [nzJustify]=\"'center'\" [nzAlign]=\"'middle'\" class=\"py-sm point\">\n            <div nz-col [nzSpan]=\"4\" class=\"text-center\">\n              <nz-avatar [nzSrc]=\"'./assets/tmp/img/5.png'\"></nz-avatar>\n            </div>\n            <div nz-col [nzSpan]=\"20\">\n              <strong>Jefferson</strong>\n              <p class=\"mb0\">Please tell me what happened in a few words, don't go into details.</p>\n            </div>\n          </div>\n          <div nz-row>\n            <div nz-col [nzSpan]=\"24\" class=\"pt-md border-top-1 text-center text-grey point\">\n              See All\n            </div>\n          </div>\n        </nz-card>\n      </div>\n    </nz-dropdown-menu>\n  ",
+            changeDetection: core.ChangeDetectionStrategy.OnPush
+        }),
+        __metadata("design:paramtypes", [core.ChangeDetectorRef])
+    ], exports.ɵc);
 
-    var LayoutFullScreenComponent = /** @class */ (function () {
+    exports.ɵh = /** @class */ (function () {
+        function HeaderUserComponent(settings, router, authService, tokenService) {
+            this.settings = settings;
+            this.router = router;
+            this.authService = authService;
+            this.tokenService = tokenService;
+        }
+        HeaderUserComponent.prototype.logout = function () {
+            var _this = this;
+            //this.tokenService.clear();
+            //this.router.navigateByUrl(this.tokenService.login_url);
+            this.authService.logout().subscribe(function () {
+                _this.router.navigate(['/'], { state: { redirectUrl: _this.router.url } });
+            });
+        };
+        return HeaderUserComponent;
+    }());
+    __decorate([
+        store.Select(ng_core.ConfigState.getOne('currentUser')),
+        __metadata("design:type", rxjs.Observable)
+    ], exports.ɵh.prototype, "currentUser$", void 0);
+    exports.ɵh = __decorate([
+        core.Component({
+            selector: 'header-user',
+            template: "\n    <div\n      class=\"alain-default__nav-item d-flex align-items-center px-sm\"\n      nz-dropdown\n      nzPlacement=\"bottomRight\"\n      [nzDropdownMenu]=\"userMenu\"\n    >\n      <!--<nz-avatar [nzSrc]=\"settings.user.avatar\" nzSize=\"small\" class=\"mr-sm\"></nz-avatar>-->\n      {{ (currentUser$ | async)?.userName }}\n    </div>\n    <nz-dropdown-menu #userMenu=\"nzDropdownMenu\">\n      <div nz-menu class=\"width-sm\">\n        <div nz-menu-item routerLink=\"/account/manage-profile\">\n          <i nz-icon nzType=\"user\" class=\"mr-sm\"></i>\n          {{ 'AbpAccount::ManageYourProfile' | abpLocalization }}\n        </div>\n        <!--<div nz-menu-item routerLink=\"/pro/account/settings\">\n          <i nz-icon nzType=\"setting\" class=\"mr-sm\"></i>\n          {{ 'menu.account.settings' | translate }}\n        </div>\n        <div nz-menu-item routerLink=\"/exception/trigger\">\n          <i nz-icon nzType=\"close-circle\" class=\"mr-sm\"></i>\n          {{ 'menu.account.trigger' | translate }}\n        </div>-->\n        <li nz-menu-divider></li>\n        <div nz-menu-item (click)=\"logout()\">\n          <i nz-icon nzType=\"logout\" class=\"mr-sm\"></i>\n          {{ 'AbpUi::Logout' | abpLocalization }}\n        </div>\n      </div>\n    </nz-dropdown-menu>\n  ",
+            changeDetection: core.ChangeDetectionStrategy.OnPush
+        }),
+        __param(3, core.Inject(auth.DA_SERVICE_TOKEN)),
+        __metadata("design:paramtypes", [theme.SettingsService,
+            router.Router,
+            ng_core.AuthService, Object])
+    ], exports.ɵh);
+
+    exports.HeaderComponent = /** @class */ (function () {
+        function HeaderComponent(settings, store) {
+            this.settings = settings;
+            this.store = store;
+        }
+        Object.defineProperty(HeaderComponent.prototype, "appInfo", {
+            get: function () {
+                return this.store.selectSnapshot(ng_core.ConfigState.getApplicationInfo);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        HeaderComponent.prototype.toggleCollapsedSidebar = function () {
+            this.settings.setLayout('collapsed', !this.settings.layout.collapsed);
+        };
+        HeaderComponent.prototype.searchToggleChange = function () {
+            this.searchToggleStatus = !this.searchToggleStatus;
+        };
+        return HeaderComponent;
+    }());
+    exports.HeaderComponent = __decorate([
+        core.Component({
+            selector: 'layout-header',
+            template: "<div class=\"alain-default__header-logo\">\r\n  <a [routerLink]=\"['/']\" class=\"alain-default__header-logo-link\">\r\n    <!-- <img\r\n    *ngIf=\"appInfo.logoUrl; else appName\"\r\n    [src]=\"appInfo.logoUrl\"\r\n    [alt]=\"appInfo.name\"\r\n    style=\"max-height:40px;\"\r\n    />     -->\r\n    <img\r\n      class=\"alain-default__header-logo-expanded\"\r\n      src=\"./assets/logo-full.svg\"\r\n      alt=\"{{ appInfo.name }}\"\r\n      style=\"max-height:40px;\"\r\n    />\r\n    <img\r\n      class=\"alain-default__header-logo-collapsed\"\r\n      src=\"./assets/logo.svg\"\r\n      alt=\"{{ appInfo.name }}\"\r\n      style=\"max-height:30px;\"\r\n    />\r\n  </a>\r\n  <ng-template #appName>\r\n    {{ appInfo.name }}\r\n  </ng-template>  \r\n</div>\r\n<div class=\"alain-default__nav-wrap\">\r\n  <ul class=\"alain-default__nav\">\r\n    <!-- Menu -->\r\n    <li>\r\n      <div class=\"alain-default__nav-item\" (click)=\"toggleCollapsedSidebar()\">\r\n        <i nz-icon nzType=\"menu-{{ settings.layout.collapsed ? 'unfold' : 'fold' }}\"></i>\r\n      </div>\r\n    </li>\r\n    <!-- Github Page -->\r\n    <!-- <li>\r\n      <a class=\"alain-default__nav-item\" href=\"//github.com/ng-alain/ng-alain\" target=\"_blank\">\r\n        <i nz-icon nzType=\"github\"></i>\r\n      </a>\r\n    </li> -->\r\n    <!-- Lock Page -->\r\n    <!-- <li class=\"hidden-mobile\">\r\n      <div class=\"alain-default__nav-item\" routerLink=\"/passport/lock\">\r\n        <i nz-icon nzType=\"lock\"></i>\r\n      </div>\r\n    </li> -->\r\n    <!-- Search Button -->\r\n    <!-- <li class=\"hidden-pc\" (click)=\"searchToggleChange()\">\r\n      <div class=\"alain-default__nav-item\">\r\n        <i nz-icon nzType=\"search\"></i>\r\n      </div>\r\n    </li> -->\r\n  </ul>\r\n  <!-- <header-search class=\"alain-default__search\" [toggleChange]=\"searchToggleStatus\"></header-search> -->\r\n  <ul class=\"alain-default__nav\">\r\n    <!-- Notify -->\r\n    <!-- <li>\r\n      <header-notify></header-notify>\r\n    </li> -->\r\n    <!-- Task -->\r\n    <!-- <li class=\"hidden-mobile\">\r\n      <header-task></header-task>\r\n    </li> -->\r\n    <!-- App Icons -->\r\n    <!-- <li class=\"hidden-mobile\">\r\n      <header-icon></header-icon>\r\n    </li> -->\r\n    <!-- Settings -->\r\n    <li>\r\n      <div\r\n        class=\"alain-default__nav-item\"\r\n        nz-dropdown\r\n        [nzDropdownMenu]=\"settingsMenu\"\r\n        nzTrigger=\"click\"\r\n        nzPlacement=\"bottomRight\"\r\n      >\r\n        <i nz-icon nzType=\"setting\"></i>\r\n      </div>\r\n      <nz-dropdown-menu #settingsMenu=\"nzDropdownMenu\">\r\n        <div nz-menu style=\"width:200px;\">\r\n          <!-- <div nz-menu-item>\r\n            <header-fullscreen></header-fullscreen>\r\n          </div>\r\n          <div nz-menu-item>\r\n            <header-storage></header-storage>\r\n          </div> -->\r\n          <div nz-menu-item>\r\n            <header-i18n></header-i18n>\r\n          </div>\r\n        </div>\r\n      </nz-dropdown-menu>\r\n    </li>\r\n    <li>\r\n      <header-user></header-user>\r\n    </li>\r\n  </ul>\r\n</div>\r\n",
+            changeDetection: core.ChangeDetectionStrategy.OnPush
+        }),
+        __metadata("design:paramtypes", [theme.SettingsService,
+            store.Store])
+    ], exports.HeaderComponent);
+
+    exports.SidebarComponent = /** @class */ (function () {
+        function SidebarComponent(settings, menuService, routes, configStateService, localizationPipe) {
+            var _this = this;
+            this.settings = settings;
+            this.menuService = menuService;
+            this.routes = routes;
+            this.configStateService = configStateService;
+            this.localizationPipe = localizationPipe;
+            this.routes.visible$.subscribe(function (x) {
+                _this.setMenu(x);
+            });
+        }
+        SidebarComponent.prototype.setMenu = function (routes) {
+            var _this = this;
+            var result = [];
+            var condition = function (x) { return !!!x.invisible && _this.isGrantedPolicy(x.requiredPolicy); };
+            routes.filter(condition).forEach(function (first) {
+                var group = {
+                    text: _this.localizationPipe.transform(first.name),
+                    group: true,
+                    hideInBreadcrumb: true,
+                    children: []
+                };
+                result.push(group);
+                first.children.filter(condition).forEach(function (second) {
+                    if (second.children.length === 0) {
+                        var left = {
+                            text: _this.localizationPipe.transform(second.name),
+                            link: second.path,
+                            icon: second.iconClass
+                        };
+                        if (left.link.split('/').length > 2)
+                            group.children.push(left);
+                    }
+                    if (second.children.length != 0) {
+                        var node_1 = {
+                            text: _this.localizationPipe.transform(second.name),
+                            icon: second.iconClass,
+                            children: []
+                        };
+                        group.children.push(node_1);
+                        second.children.filter(condition).forEach(function (third) {
+                            var left = {
+                                text: _this.localizationPipe.transform(third.name),
+                                link: third.path,
+                                icon: third.iconClass
+                            };
+                            node_1.children.push(left);
+                        });
+                    }
+                });
+            });
+            this.menuService.clear();
+            this.menuService.add(result);
+        };
+        SidebarComponent.prototype.isGrantedPolicy = function (requiredPolicy) {
+            if (!!requiredPolicy) {
+                return this.configStateService.getGrantedPolicy(requiredPolicy);
+            }
+            return true;
+        };
+        return SidebarComponent;
+    }());
+    exports.SidebarComponent = __decorate([
+        core.Component({
+            selector: 'layout-sidebar',
+            template: "<div class=\"alain-default__aside-inner\">\r\n  <!-- <div nz-dropdown nzTrigger=\"click\" [nzDropdownMenu]=\"userMenu\" class=\"alain-default__aside-user\">\r\n    <nz-avatar class=\"alain-default__aside-user-avatar\" [nzSrc]=\"settings.user.avatar\"></nz-avatar>\r\n    <div class=\"alain-default__aside-user-info\">\r\n      <strong>{{ settings.user.name }}</strong>\r\n      <p class=\"mb0\">{{ settings.user.email }}</p>\r\n    </div>\r\n  </div> -->\r\n  <nz-dropdown-menu #userMenu=\"nzDropdownMenu\">\r\n    <ul nz-menu>\r\n      <li nz-menu-item routerLink=\"/pro/account/center\">{{ 'menu.account.center' | translate }}</li>\r\n      <li nz-menu-item routerLink=\"/pro/account/settings\">{{ 'menu.account.settings' | translate }}</li>\r\n    </ul>\r\n  </nz-dropdown-menu>\r\n  <sidebar-nav class=\"d-block py-lg\"></sidebar-nav>\r\n</div>\r\n",
+            changeDetection: core.ChangeDetectionStrategy.OnPush
+        }),
+        __metadata("design:paramtypes", [theme.SettingsService,
+            theme.MenuService,
+            ng_core.RoutesService,
+            ng_core.ConfigStateService,
+            ng_core.LocalizationPipe])
+    ], exports.SidebarComponent);
+
+    exports.LayoutFullScreenComponent = /** @class */ (function () {
         function LayoutFullScreenComponent() {
         }
         return LayoutFullScreenComponent;
     }());
-    LayoutFullScreenComponent.ɵfac = function LayoutFullScreenComponent_Factory(t) { return new (t || LayoutFullScreenComponent)(); };
-    LayoutFullScreenComponent.ɵcmp = i0.ɵɵdefineComponent({ type: LayoutFullScreenComponent, selectors: [["layout-fullscreen"]], hostVars: 2, hostBindings: function LayoutFullScreenComponent_HostBindings(rf, ctx) {
-            if (rf & 2) {
-                i0.ɵɵclassProp("alain-fullscreen", true);
+    exports.LayoutFullScreenComponent = __decorate([
+        core.Component({
+            selector: 'layout-fullscreen',
+            template: "<router-outlet></router-outlet>\r\n",
+            // tslint:disable-next-line: no-host-metadata-property
+            host: {
+                '[class.alain-fullscreen]': 'true',
             }
-        }, decls: 1, vars: 0, template: function LayoutFullScreenComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelement(0, "router-outlet");
-            }
-        }, directives: [i1.RouterOutlet], encapsulation: 2 });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(LayoutFullScreenComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'layout-fullscreen',
-                        templateUrl: './fullscreen.component.html',
-                        // tslint:disable-next-line: no-host-metadata-property
-                        host: {
-                            '[class.alain-fullscreen]': 'true',
-                        },
-                    }]
-            }], null, null);
-    })();
+        })
+    ], exports.LayoutFullScreenComponent);
 
-    var LayoutPassportComponent = /** @class */ (function () {
+    exports.SettingDrawerItemComponent = /** @class */ (function () {
+        function SettingDrawerItemComponent() {
+            this.i = {};
+            this.format = function (value) { return value + " px"; };
+        }
+        Object.defineProperty(SettingDrawerItemComponent.prototype, "data", {
+            set: function (val) {
+                this.i = val;
+                if (val.type === 'px') {
+                    this.pxVal = +val.value.replace('px', '');
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        SettingDrawerItemComponent.prototype.pxChange = function (val) {
+            this.i.value = val + "px";
+        };
+        return SettingDrawerItemComponent;
+    }());
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Object),
+        __metadata("design:paramtypes", [Object])
+    ], exports.SettingDrawerItemComponent.prototype, "data", null);
+    exports.SettingDrawerItemComponent = __decorate([
+        core.Component({
+            // tslint:disable-next-line:component-selector
+            selector: 'setting-drawer-item',
+            template: "<span\r\n  >{{ i.label }}<span class=\"pl-sm text-grey\">{{ i.tip }}</span></span\r\n>\r\n<div [ngSwitch]=\"i.type\">\r\n  <ng-container *ngSwitchCase=\"'color'\">\r\n    <input\r\n      nz-input\r\n      type=\"color\"\r\n      style=\"min-width: 88px\"\r\n      [(ngModel)]=\"i.value\"\r\n      [ngModelOptions]=\"{ standalone: true }\"\r\n    />\r\n  </ng-container>\r\n  <ng-container *ngSwitchCase=\"'input'\">\r\n    <input nz-input style=\"min-width: 88px\" [(ngModel)]=\"i.value\" [ngModelOptions]=\"{ standalone: true }\" />\r\n  </ng-container>\r\n  <ng-container *ngSwitchCase=\"'px'\">\r\n    <nz-input-number\r\n      [(ngModel)]=\"pxVal\"\r\n      (ngModelChange)=\"pxChange($event)\"\r\n      [nzMin]=\"i.min\"\r\n      [nzMax]=\"i.max\"\r\n      [nzStep]=\"i.step || 2\"\r\n      [nzFormatter]=\"format\"\r\n    ></nz-input-number>\r\n  </ng-container>\r\n  <ng-container *ngSwitchCase=\"'switch'\">\r\n    <nz-switch nzSize=\"small\" [(ngModel)]=\"i.value\" [ngModelOptions]=\"{ standalone: true }\"></nz-switch>\r\n  </ng-container>\r\n  <ng-container *ngSwitchDefault>\r\n    <ng-content></ng-content>\r\n  </ng-container>\r\n</div>\r\n",
+            // tslint:disable-next-line: no-host-metadata-property
+            host: {
+                '[class.setting-drawer__body-item]': 'true',
+            }
+        })
+    ], exports.SettingDrawerItemComponent);
+
+    exports.LayoutThemeBtnComponent = /** @class */ (function () {
+        function LayoutThemeBtnComponent(renderer, configSrv) {
+            this.renderer = renderer;
+            this.configSrv = configSrv;
+            this.theme = 'default';
+        }
+        LayoutThemeBtnComponent.prototype.ngOnInit = function () {
+            this.initTheme();
+        };
+        LayoutThemeBtnComponent.prototype.initTheme = function () {
+            this.theme = localStorage.getItem('site-theme') || 'default';
+            this.updateChartTheme();
+            this.onThemeChange(this.theme);
+        };
+        LayoutThemeBtnComponent.prototype.updateChartTheme = function () {
+            this.configSrv.set('chart', { theme: this.theme === 'dark' ? 'dark' : '' });
+        };
+        LayoutThemeBtnComponent.prototype.onThemeChange = function (theme) {
+            this.theme = theme;
+            this.renderer.setAttribute(document.body, 'data-theme', theme);
+            var dom = document.getElementById('site-theme');
+            if (dom) {
+                dom.remove();
+            }
+            localStorage.removeItem('site-theme');
+            if (theme !== 'default') {
+                var style = document.createElement('link');
+                style.type = 'text/css';
+                style.rel = 'stylesheet';
+                style.id = 'site-theme';
+                style.href = "assets/style." + theme + ".css";
+                localStorage.setItem('site-theme', theme);
+                document.body.append(style);
+            }
+            this.updateChartTheme();
+        };
+        return LayoutThemeBtnComponent;
+    }());
+    exports.LayoutThemeBtnComponent = __decorate([
+        core.Component({
+            selector: 'layout-theme-btn',
+            template: "<div class=\"ant-avatar ant-avatar-circle ant-avatar-icon\" nz-dropdown nzPlacement=\"topCenter\" [nzDropdownMenu]=\"menu\">\r\n  <svg class=\"anticon\" role=\"img\" width=\"21\" height=\"21\" viewBox=\"0 0 21 21\" fill=\"currentColor\">\r\n    <g fill-rule=\"evenodd\">\r\n      <g fill-rule=\"nonzero\">\r\n        <path\r\n          d=\"M7.02 3.635l12.518 12.518a1.863 1.863 0 010 2.635l-1.317 1.318a1.863 1.863 0 01-2.635 0L3.068 7.588A2.795 2.795 0 117.02 3.635zm2.09 14.428a.932.932 0 110 1.864.932.932 0 010-1.864zm-.043-9.747L7.75 9.635l9.154 9.153 1.318-1.317-9.154-9.155zM3.52 12.473c.514 0 .931.417.931.931v.932h.932a.932.932 0 110 1.864h-.932v.931a.932.932 0 01-1.863 0l-.001-.931h-.93a.932.932 0 010-1.864h.93v-.932c0-.514.418-.931.933-.931zm15.374-3.727a1.398 1.398 0 110 2.795 1.398 1.398 0 010-2.795zM4.385 4.953a.932.932 0 000 1.317l2.046 2.047L7.75 7 5.703 4.953a.932.932 0 00-1.318 0zM14.701.36a.932.932 0 01.931.932v.931h.932a.932.932 0 010 1.864h-.933l.001.932a.932.932 0 11-1.863 0l-.001-.932h-.93a.932.932 0 110-1.864h.93v-.931a.932.932 0 01.933-.932z\"\r\n        ></path>\r\n      </g>\r\n    </g>\r\n  </svg>\r\n  <nz-dropdown-menu #menu=\"nzDropdownMenu\">\r\n    <ul nz-menu nzSelectable>\r\n      <li nz-menu-item (click)=\"onThemeChange('default')\">Default Theme</li>\r\n      <li nz-menu-item (click)=\"onThemeChange('dark')\">Dark Theme</li>\r\n      <li nz-menu-item (click)=\"onThemeChange('compact')\">Compact Theme</li>\r\n    </ul>\r\n  </nz-dropdown-menu>\r\n</div>\r\n",
+            changeDetection: core.ChangeDetectionStrategy.OnPush,
+            styles: [":host ::ng-deep{bottom:102px;cursor:pointer;display:flex;flex-direction:column;position:fixed;right:32px;z-index:2147483640}:host ::ng-deep-active{color:#1890ff;font-size:22px;height:44px;line-height:44px;width:44px}:host ::ng-deep .ant-avatar{background-color:#fff;box-shadow:0 3px 6px -4px rgba(0,0,0,.12),0 6px 16px 0 rgba(0,0,0,.08),0 9px 28px 8px rgba(0,0,0,.05);color:#000;transition:color .3s}:host ::ng-deep .ant-avatar:hover{color:#1890ff}"]
+        }),
+        __metadata("design:paramtypes", [core.Renderer2, util.AlainConfigService])
+    ], exports.LayoutThemeBtnComponent);
+
+    exports.LayoutPassportComponent = /** @class */ (function () {
         function LayoutPassportComponent() {
             this.links = [
                 {
@@ -2294,129 +1419,52 @@
         }
         return LayoutPassportComponent;
     }());
-    LayoutPassportComponent.type = "account" /* account */;
-    LayoutPassportComponent.ɵfac = function LayoutPassportComponent_Factory(t) { return new (t || LayoutPassportComponent)(); };
-    LayoutPassportComponent.ɵcmp = i0.ɵɵdefineComponent({ type: LayoutPassportComponent, selectors: [["layout-passport"]], decls: 19, vars: 1, consts: [[1, "container"], ["showLangText", "false", 1, "langs"], [1, "wrap"], [1, "top"], [1, "head"], ["src", "./assets/logo-color.svg", 1, "logo"], [1, "title"], [1, "desc"], [3, "links"], ["nz-icon", "", "nzType", "copyright"], ["href", "//github.com/cipchk", "target", "_blank"]], template: function LayoutPassportComponent_Template(rf, ctx) {
-            if (rf & 1) {
-                i0.ɵɵelementStart(0, "div", 0);
-                i0.ɵɵelement(1, "header-i18n", 1);
-                i0.ɵɵelementStart(2, "div", 2);
-                i0.ɵɵelementStart(3, "div", 3);
-                i0.ɵɵelementStart(4, "div", 4);
-                i0.ɵɵelement(5, "img", 5);
-                i0.ɵɵelementStart(6, "span", 6);
-                i0.ɵɵtext(7, "ng-alain");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementStart(8, "div", 7);
-                i0.ɵɵtext(9, "\u6B66\u6797\u4E2D\u6700\u6709\u5F71\u54CD\u529B\u7684\u300A\u8475\u82B1\u5B9D\u5178\u300B\uFF1B\u6B32\u7EC3\u795E\u529F\uFF0C\u6325\u5200\u81EA\u5BAB");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelement(10, "router-outlet");
-                i0.ɵɵelementStart(11, "global-footer", 8);
-                i0.ɵɵtext(12, " Copyright ");
-                i0.ɵɵelement(13, "i", 9);
-                i0.ɵɵtext(14, " 2017 ");
-                i0.ɵɵelementStart(15, "a", 10);
-                i0.ɵɵtext(16, "\u5361\u8272");
-                i0.ɵɵelementEnd();
-                i0.ɵɵtext(17, "\u51FA\u54C1 ");
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelementEnd();
-                i0.ɵɵelement(18, "layout-theme-btn");
-            }
-            if (rf & 2) {
-                i0.ɵɵadvance(11);
-                i0.ɵɵproperty("links", ctx.links);
-            }
-        }, directives: [HeaderI18nComponent, i1.RouterOutlet, i3$5.GlobalFooterComponent, i4$3.ɵNzTransitionPatchDirective, i4$4.NzIconDirective, LayoutThemeBtnComponent], styles: ["[_nghost-%COMP%]     .container{background:#f0f2f5;display:flex;flex-direction:column;min-height:100%}[_nghost-%COMP%]     .langs{height:40px;line-height:44px;text-align:right;width:100%}[_nghost-%COMP%]     .langs .anticon{cursor:pointer;font-size:14px;margin-right:24px;margin-top:24px;vertical-align:top}[_nghost-%COMP%]     .wrap{flex:1;padding:32px 0}[_nghost-%COMP%]     .ant-form-item{display:flex;justify-content:space-between;margin-bottom:24px}@media (min-width:768px){[_nghost-%COMP%]     .container{background-image:url(https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg);background-position:center 110px;background-repeat:no-repeat;background-size:100%}[_nghost-%COMP%]     .wrap{padding:32px 0 24px}}[_nghost-%COMP%]     .top{text-align:center}[_nghost-%COMP%]     .header{height:44px;line-height:44px}[_nghost-%COMP%]     .header a{text-decoration:none}[_nghost-%COMP%]     .logo{height:44px;margin-right:16px}[_nghost-%COMP%]     .title{color:rgba(0,0,0,.85);font-family:Myriad Pro,Helvetica Neue,Arial,Helvetica,sans-serif;font-size:33px;font-weight:600;position:relative;vertical-align:middle}[_nghost-%COMP%]     .desc{color:rgba(0,0,0,.45);font-size:14px;margin-bottom:40px;margin-top:12px}[data-theme=dark]   [_nghost-%COMP%]     .container{background:#141414}[data-theme=dark]   [_nghost-%COMP%]     .title{color:hsla(0,0%,100%,.85)}[data-theme=dark]   [_nghost-%COMP%]     .desc{color:hsla(0,0%,100%,.45)}@media (min-width:768px){[data-theme=dark]   [_nghost-%COMP%]     .container{background-image:none}}[data-theme=compact]   [_nghost-%COMP%]     .ant-form-item{margin-bottom:16px}"] });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(LayoutPassportComponent, [{
-                type: i0.Component,
-                args: [{
-                        selector: 'layout-passport',
-                        templateUrl: './passport.component.html',
-                        styleUrls: ['./passport.component.less'],
-                    }]
-            }], null, null);
-    })();
+    exports.LayoutPassportComponent.type = "account" /* account */;
+    exports.LayoutPassportComponent = __decorate([
+        core.Component({
+            selector: 'layout-passport',
+            template: "<div class=\"container\">\r\n  <header-i18n showLangText=\"false\" class=\"langs\"></header-i18n>\r\n  <div class=\"wrap\">\r\n    <div class=\"top\">\r\n      <div class=\"head\">\r\n        <img class=\"logo\" src=\"./assets/logo-color.svg\" />\r\n        <span class=\"title\">ng-alain</span>\r\n      </div>\r\n      <div class=\"desc\">\u6B66\u6797\u4E2D\u6700\u6709\u5F71\u54CD\u529B\u7684\u300A\u8475\u82B1\u5B9D\u5178\u300B\uFF1B\u6B32\u7EC3\u795E\u529F\uFF0C\u6325\u5200\u81EA\u5BAB</div>\r\n    </div>\r\n    <router-outlet></router-outlet>\r\n    <global-footer [links]=\"links\">\r\n      Copyright\r\n      <i nz-icon nzType=\"copyright\"></i> 2017 <a href=\"//github.com/cipchk\" target=\"_blank\">\u5361\u8272</a>\u51FA\u54C1\r\n    </global-footer>\r\n  </div>\r\n</div>\r\n<layout-theme-btn></layout-theme-btn>\r\n",
+            styles: [":host ::ng-deep .container{background:#f0f2f5;display:flex;flex-direction:column;min-height:100%}:host ::ng-deep .langs{height:40px;line-height:44px;text-align:right;width:100%}:host ::ng-deep .langs .anticon{cursor:pointer;font-size:14px;margin-right:24px;margin-top:24px;vertical-align:top}:host ::ng-deep .wrap{flex:1;padding:32px 0}:host ::ng-deep .ant-form-item{display:flex;justify-content:space-between;margin-bottom:24px}@media (min-width:768px){:host ::ng-deep .container{background-image:url(https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg);background-position:center 110px;background-repeat:no-repeat;background-size:100%}:host ::ng-deep .wrap{padding:32px 0 24px}}:host ::ng-deep .top{text-align:center}:host ::ng-deep .header{height:44px;line-height:44px}:host ::ng-deep .header a{text-decoration:none}:host ::ng-deep .logo{height:44px;margin-right:16px}:host ::ng-deep .title{color:rgba(0,0,0,.85);font-family:Myriad Pro,Helvetica Neue,Arial,Helvetica,sans-serif;font-size:33px;font-weight:600;position:relative;vertical-align:middle}:host ::ng-deep .desc{color:rgba(0,0,0,.45);font-size:14px;margin-bottom:40px;margin-top:12px}[data-theme=dark] :host ::ng-deep .container{background:#141414}[data-theme=dark] :host ::ng-deep .title{color:hsla(0,0%,100%,.85)}[data-theme=dark] :host ::ng-deep .desc{color:hsla(0,0%,100%,.45)}@media (min-width:768px){[data-theme=dark] :host ::ng-deep .container{background-image:none}}[data-theme=compact] :host ::ng-deep .ant-form-item{margin-bottom:16px}"]
+        })
+    ], exports.LayoutPassportComponent);
 
-    var SETTINGDRAWER = [SettingDrawerComponent, SettingDrawerItemComponent];
+    var SETTINGDRAWER = [exports.SettingDrawerComponent, exports.SettingDrawerItemComponent];
     var COMPONENTS = __spread([
-        LayoutDefaultComponent,
-        LayoutFullScreenComponent,
-        HeaderComponent,
-        SidebarComponent
+        exports.LayoutDefaultComponent,
+        exports.LayoutFullScreenComponent,
+        exports.HeaderComponent,
+        exports.SidebarComponent
     ], SETTINGDRAWER, [
-        LayoutThemeBtnComponent,
+        exports.LayoutThemeBtnComponent,
     ]);
     var HEADERCOMPONENTS = [
-        HeaderSearchComponent,
-        HeaderNotifyComponent,
-        HeaderTaskComponent,
-        HeaderIconComponent,
-        HeaderFullScreenComponent,
-        HeaderI18nComponent,
-        HeaderStorageComponent,
-        HeaderUserComponent,
+        exports.ɵa,
+        exports.ɵb,
+        exports.ɵc,
+        exports.ɵd,
+        exports.ɵe,
+        exports.ɵf,
+        exports.ɵg,
+        exports.ɵh,
     ];
-    var PASSPORT = [LayoutPassportComponent];
-    var LayoutModule = /** @class */ (function () {
+    var PASSPORT = [exports.LayoutPassportComponent];
+    exports.LayoutModule = /** @class */ (function () {
         function LayoutModule() {
         }
         return LayoutModule;
     }());
-    LayoutModule.ɵmod = i0.ɵɵdefineNgModule({ type: LayoutModule });
-    LayoutModule.ɵinj = i0.ɵɵdefineInjector({ factory: function LayoutModule_Factory(t) { return new (t || LayoutModule)(); }, imports: [[shared.SharedModule]] });
-    (function () {
-        (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(LayoutModule, { declarations: [LayoutDefaultComponent,
-                LayoutFullScreenComponent,
-                HeaderComponent,
-                SidebarComponent,
-                SettingDrawerComponent, SettingDrawerItemComponent,
-                LayoutThemeBtnComponent,
-                HeaderSearchComponent,
-                HeaderNotifyComponent,
-                HeaderTaskComponent,
-                HeaderIconComponent,
-                HeaderFullScreenComponent,
-                HeaderI18nComponent,
-                HeaderStorageComponent,
-                HeaderUserComponent,
-                LayoutPassportComponent], imports: [shared.SharedModule], exports: [LayoutDefaultComponent,
-                LayoutFullScreenComponent,
-                HeaderComponent,
-                SidebarComponent,
-                SettingDrawerComponent, SettingDrawerItemComponent,
-                LayoutThemeBtnComponent,
-                LayoutPassportComponent] });
-    })();
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(LayoutModule, [{
-                type: i0.NgModule,
-                args: [{
-                        imports: [shared.SharedModule],
-                        entryComponents: SETTINGDRAWER,
-                        declarations: __spread(COMPONENTS, HEADERCOMPONENTS, PASSPORT),
-                        exports: __spread(COMPONENTS, PASSPORT),
-                    }]
-            }], null, null);
-    })();
+    exports.LayoutModule = __decorate([
+        core.NgModule({
+            imports: [shared.SharedModule],
+            entryComponents: SETTINGDRAWER,
+            declarations: __spread(COMPONENTS, HEADERCOMPONENTS, PASSPORT),
+            exports: __spread(COMPONENTS, PASSPORT),
+        })
+    ], exports.LayoutModule);
 
     /**
      * Generated bundle index. Do not edit.
      */
-
-    exports.HeaderComponent = HeaderComponent;
-    exports.LayoutDefaultComponent = LayoutDefaultComponent;
-    exports.LayoutFullScreenComponent = LayoutFullScreenComponent;
-    exports.LayoutModule = LayoutModule;
-    exports.LayoutPassportComponent = LayoutPassportComponent;
-    exports.LayoutThemeBtnComponent = LayoutThemeBtnComponent;
-    exports.SettingDrawerComponent = SettingDrawerComponent;
-    exports.SettingDrawerItemComponent = SettingDrawerItemComponent;
-    exports.SidebarComponent = SidebarComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

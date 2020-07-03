@@ -5,6 +5,7 @@
   "esm2015": "../esm2015/basic/fs-ng-alain-basic.js",
   "fesm2015": "../fesm2015/fs-ng-alain-basic.js",
   "typings": "fs-ng-alain-basic.d.ts",
+  "metadata": "fs-ng-alain-basic.metadata.json",
   "sideEffects": false,
   "name": "@fs/ng-alain/basic"
 }

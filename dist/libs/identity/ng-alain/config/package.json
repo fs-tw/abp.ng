@@ -5,6 +5,7 @@
   "esm2015": "../../esm2015/ng-alain/config/fs-identity-ng-alain-config.js",
   "fesm2015": "../../fesm2015/fs-identity-ng-alain-config.js",
   "typings": "fs-identity-ng-alain-config.d.ts",
+  "metadata": "fs-identity-ng-alain-config.metadata.json",
   "sideEffects": false,
   "name": "@fs/identity/ng-alain/config"
 }

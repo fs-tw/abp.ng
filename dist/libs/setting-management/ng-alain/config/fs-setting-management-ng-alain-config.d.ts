@@ -1,5 +1,6 @@
 /**
  * Generated bundle index. Do not edit.
  */
-/// <amd-module name="@fs/setting-management/ng-alain/config" />
 export * from './index';
+export { ROUTE_PROVIDERS as ɵa } from './lib/providers/route.provider';
+export { STYLES_PROVIDERS as ɵb, configureStyles as ɵc } from './lib/providers/styles.provider';

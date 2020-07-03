@@ -5,6 +5,7 @@
   "esm2015": "../../esm2015/ng-alain/config/fs-account-ng-alain-config.js",
   "fesm2015": "../../fesm2015/fs-account-ng-alain-config.js",
   "typings": "fs-account-ng-alain-config.d.ts",
+  "metadata": "fs-account-ng-alain-config.metadata.json",
   "sideEffects": false,
   "name": "@fs/account/ng-alain/config"
 }

@@ -1,6 +1,7 @@
+import { __decorate, __metadata } from 'tslib';
 import { CoreModule } from '@abp/ng.core';
 import { CommonModule } from '@angular/common';
-import { ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, ɵsetClassMetadata, NgModule, ɵɵinject } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DelonACLModule } from '@delon/acl';
@@ -183,10 +184,11 @@ const THIRDMODULES = [CountdownModule, UEditorModule, NgxTinymceModule];
 const COMPONENTS = [];
 const DIRECTIVES = [];
 // #endregion
-class SharedModule {
-}
-SharedModule.ɵmod = ɵɵdefineNgModule({ type: SharedModule });
-SharedModule.ɵinj = ɵɵdefineInjector({ factory: function SharedModule_Factory(t) { return new (t || SharedModule)(); }, imports: [[
+let SharedModule = class SharedModule {
+};
+SharedModule = __decorate([
+    NgModule({
+        imports: [
             CommonModule,
             CoreModule,
             FormsModule,
@@ -200,71 +202,31 @@ SharedModule.ɵinj = ɵɵdefineInjector({ factory: function SharedModule_Factory
             // third libs
             ...THIRDMODULES,
         ],
-        CommonModule,
-        CoreModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RouterModule,
-        AlainThemeModule,
-        DelonACLModule,
-        DelonFormModule,
-        TranslateModule, AvatarListModule, CountDownModule, DatePickerModule, DownFileModule, EllipsisModule, STModule, SVModule, SEModule, QRModule, NumberToChineseModule, ErrorCollectModule, ExceptionModule, FooterToolbarModule, GlobalFooterModule, GlobalFooterModule, PageHeaderModule, ResultModule, TagSelectModule, NoticeIconModule, QuickMenuModule, SidebarNavModule, G2BarModule, G2CardModule, G2GaugeModule, G2MiniAreaModule, G2MiniBarModule, G2MiniProgressModule, G2PieModule, G2RadarModule, G2SingleBarModule, G2TagCloudModule, G2TimelineModule, G2WaterWaveModule, NumberInfoModule, TrendModule, FullContentModule, NzButtonModule, NzMessageModule, NzBackTopModule, NzDropDownModule, NzGridModule, NzCarouselModule, NzCheckboxModule, NzToolTipModule, NzPopoverModule, NzSelectModule, NzIconModule, NzAffixModule, NzBadgeModule, NzAlertModule, NzModalModule, NzTableModule, NzDrawerModule, NzTabsModule, NzInputModule, NzDatePickerModule, NzTimePickerModule, NzTagModule, NzInputNumberModule, NzBreadCrumbModule, NzStepsModule, NzListModule, NzSwitchModule, NzRadioModule, NzFormModule, NzAvatarModule, NzSpinModule, NzCardModule, NzDividerModule, NzProgressModule, NzPopconfirmModule, NzNotificationModule, NzPaginationModule, NzUploadModule, CountdownModule, UEditorModule, NgxTinymceModule] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(SharedModule, { imports: [CommonModule,
-        CoreModule,
-        FormsModule,
-        RouterModule,
-        ReactiveFormsModule, AlainThemeModule, DelonACLModule,
-        DelonFormModule, AvatarListModule, CountDownModule, DatePickerModule, DownFileModule, EllipsisModule, STModule, SVModule, SEModule, QRModule, NumberToChineseModule, ErrorCollectModule, ExceptionModule, FooterToolbarModule, GlobalFooterModule, GlobalFooterModule, PageHeaderModule, ResultModule, TagSelectModule, NoticeIconModule, QuickMenuModule, SidebarNavModule, G2BarModule, G2CardModule, G2GaugeModule, G2MiniAreaModule, G2MiniBarModule, G2MiniProgressModule, G2PieModule, G2RadarModule, G2SingleBarModule, G2TagCloudModule, G2TimelineModule, G2WaterWaveModule, NumberInfoModule, TrendModule, FullContentModule, NzButtonModule, NzMessageModule, NzBackTopModule, NzDropDownModule, NzGridModule, NzCarouselModule, NzCheckboxModule, NzToolTipModule, NzPopoverModule, NzSelectModule, NzIconModule, NzAffixModule, NzBadgeModule, NzAlertModule, NzModalModule, NzTableModule, NzDrawerModule, NzTabsModule, NzInputModule, NzDatePickerModule, NzTimePickerModule, NzTagModule, NzInputNumberModule, NzBreadCrumbModule, NzStepsModule, NzListModule, NzSwitchModule, NzRadioModule, NzFormModule, NzAvatarModule, NzSpinModule, NzCardModule, NzDividerModule, NzProgressModule, NzPopconfirmModule, NzNotificationModule, NzPaginationModule, NzUploadModule, CountdownModule, UEditorModule, NgxTinymceModule], exports: [CommonModule,
-        CoreModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RouterModule,
-        AlainThemeModule,
-        DelonACLModule,
-        DelonFormModule,
-        TranslateModule, AvatarListModule, CountDownModule, DatePickerModule, DownFileModule, EllipsisModule, STModule, SVModule, SEModule, QRModule, NumberToChineseModule, ErrorCollectModule, ExceptionModule, FooterToolbarModule, GlobalFooterModule, GlobalFooterModule, PageHeaderModule, ResultModule, TagSelectModule, NoticeIconModule, QuickMenuModule, SidebarNavModule, G2BarModule, G2CardModule, G2GaugeModule, G2MiniAreaModule, G2MiniBarModule, G2MiniProgressModule, G2PieModule, G2RadarModule, G2SingleBarModule, G2TagCloudModule, G2TimelineModule, G2WaterWaveModule, NumberInfoModule, TrendModule, FullContentModule, NzButtonModule, NzMessageModule, NzBackTopModule, NzDropDownModule, NzGridModule, NzCarouselModule, NzCheckboxModule, NzToolTipModule, NzPopoverModule, NzSelectModule, NzIconModule, NzAffixModule, NzBadgeModule, NzAlertModule, NzModalModule, NzTableModule, NzDrawerModule, NzTabsModule, NzInputModule, NzDatePickerModule, NzTimePickerModule, NzTagModule, NzInputNumberModule, NzBreadCrumbModule, NzStepsModule, NzListModule, NzSwitchModule, NzRadioModule, NzFormModule, NzAvatarModule, NzSpinModule, NzCardModule, NzDividerModule, NzProgressModule, NzPopconfirmModule, NzNotificationModule, NzPaginationModule, NzUploadModule, CountdownModule, UEditorModule, NgxTinymceModule] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(SharedModule, [{
-        type: NgModule,
-        args: [{
-                imports: [
-                    CommonModule,
-                    CoreModule,
-                    FormsModule,
-                    RouterModule,
-                    ReactiveFormsModule,
-                    AlainThemeModule.forChild(),
-                    DelonACLModule,
-                    DelonFormModule,
-                    ...SHARED_DELON_MODULES,
-                    ...SHARED_ZORRO_MODULES,
-                    // third libs
-                    ...THIRDMODULES,
-                ],
-                declarations: [
-                    // your components
-                    ...COMPONENTS,
-                    ...DIRECTIVES,
-                ],
-                exports: [
-                    CommonModule,
-                    CoreModule,
-                    FormsModule,
-                    ReactiveFormsModule,
-                    RouterModule,
-                    AlainThemeModule,
-                    DelonACLModule,
-                    DelonFormModule,
-                    TranslateModule,
-                    ...SHARED_DELON_MODULES,
-                    ...SHARED_ZORRO_MODULES,
-                    // third libs
-                    ...THIRDMODULES,
-                    // your components
-                    ...COMPONENTS,
-                    ...DIRECTIVES,
-                ],
-            }]
-    }], null, null); })();
+        declarations: [
+            // your components
+            ...COMPONENTS,
+            ...DIRECTIVES,
+        ],
+        exports: [
+            CommonModule,
+            CoreModule,
+            FormsModule,
+            ReactiveFormsModule,
+            RouterModule,
+            AlainThemeModule,
+            DelonACLModule,
+            DelonFormModule,
+            TranslateModule,
+            ...SHARED_DELON_MODULES,
+            ...SHARED_ZORRO_MODULES,
+            // third libs
+            ...THIRDMODULES,
+            // your components
+            ...COMPONENTS,
+            ...DIRECTIVES,
+        ],
+    })
+], SharedModule);
 
 // import { TinymceWidget } from './widgets/tinymce/tinymce.widget';
 // import { UeditorWidget } from './widgets/ueditor/ueditor.widget';
@@ -272,65 +234,47 @@ const SCHEMA_THIRDS_COMPONENTS = [
 // TinymceWidget,
 // UeditorWidget
 ];
-class JsonSchemaModule {
+let JsonSchemaModule = class JsonSchemaModule {
     constructor(widgetRegistry) {
         // widgetRegistry.register(TinymceWidget.KEY, TinymceWidget);
         // widgetRegistry.register(UeditorWidget.KEY, UeditorWidget);
     }
-}
-JsonSchemaModule.ɵmod = ɵɵdefineNgModule({ type: JsonSchemaModule });
-JsonSchemaModule.ɵinj = ɵɵdefineInjector({ factory: function JsonSchemaModule_Factory(t) { return new (t || JsonSchemaModule)(ɵɵinject(WidgetRegistry)); }, imports: [[SharedModule, DelonFormModule.forRoot()]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(JsonSchemaModule, { imports: [SharedModule, DelonFormModule] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(JsonSchemaModule, [{
-        type: NgModule,
-        args: [{
-                declarations: SCHEMA_THIRDS_COMPONENTS,
-                entryComponents: SCHEMA_THIRDS_COMPONENTS,
-                imports: [SharedModule, DelonFormModule.forRoot()],
-                exports: [...SCHEMA_THIRDS_COMPONENTS],
-            }]
-    }], function () { return [{ type: WidgetRegistry }]; }, null); })();
+};
+JsonSchemaModule = __decorate([
+    NgModule({
+        declarations: SCHEMA_THIRDS_COMPONENTS,
+        entryComponents: SCHEMA_THIRDS_COMPONENTS,
+        imports: [SharedModule, DelonFormModule.forRoot()],
+        exports: [...SCHEMA_THIRDS_COMPONENTS],
+    }),
+    __metadata("design:paramtypes", [WidgetRegistry])
+], JsonSchemaModule);
 
 const STWIDGET_COMPONENTS = [];
-class STWidgetModule {
-}
-STWidgetModule.ɵmod = ɵɵdefineNgModule({ type: STWidgetModule });
-STWidgetModule.ɵinj = ɵɵdefineInjector({ factory: function STWidgetModule_Factory(t) { return new (t || STWidgetModule)(); }, imports: [[SharedModule]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(STWidgetModule, { imports: [SharedModule] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(STWidgetModule, [{
-        type: NgModule,
-        args: [{
-                declarations: STWIDGET_COMPONENTS,
-                imports: [SharedModule],
-                exports: [...STWIDGET_COMPONENTS],
-            }]
-    }], null, null); })();
+let STWidgetModule = class STWidgetModule {
+};
+STWidgetModule = __decorate([
+    NgModule({
+        declarations: STWIDGET_COMPONENTS,
+        imports: [SharedModule],
+        exports: [...STWIDGET_COMPONENTS],
+    })
+], STWidgetModule);
 
-class NgAlainSharedModule {
-}
-NgAlainSharedModule.ɵmod = ɵɵdefineNgModule({ type: NgAlainSharedModule });
-NgAlainSharedModule.ɵinj = ɵɵdefineInjector({ factory: function NgAlainSharedModule_Factory(t) { return new (t || NgAlainSharedModule)(); }, imports: [[
+let NgAlainSharedModule = class NgAlainSharedModule {
+};
+NgAlainSharedModule = __decorate([
+    NgModule({
+        imports: [
             ThemeSharedModule,
             SharedModule
         ],
-        ThemeSharedModule,
-        SharedModule] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(NgAlainSharedModule, { imports: [ThemeSharedModule,
-        SharedModule], exports: [ThemeSharedModule,
-        SharedModule] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(NgAlainSharedModule, [{
-        type: NgModule,
-        args: [{
-                imports: [
-                    ThemeSharedModule,
-                    SharedModule
-                ],
-                exports: [
-                    ThemeSharedModule,
-                    SharedModule
-                ]
-            }]
-    }], null, null); })();
+        exports: [
+            ThemeSharedModule,
+            SharedModule
+        ]
+    })
+], NgAlainSharedModule);
 
 // Components
 
@@ -338,5 +282,5 @@ NgAlainSharedModule.ɵinj = ɵɵdefineInjector({ factory: function NgAlainShared
  * Generated bundle index. Do not edit.
  */
 
-export { JsonSchemaModule, NgAlainSharedModule, SCHEMA_THIRDS_COMPONENTS, STWIDGET_COMPONENTS, STWidgetModule, SharedModule, yuan };
+export { JsonSchemaModule, NgAlainSharedModule, SCHEMA_THIRDS_COMPONENTS, STWIDGET_COMPONENTS, STWidgetModule, SharedModule, yuan, SHARED_DELON_MODULES as ɵa, SHARED_ZORRO_MODULES as ɵb };
 //# sourceMappingURL=fs-ng-alain-shared.js.map

@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@angular/common'), require('@angular/core'), require('@angular/forms'), require('@angular/router'), require('@delon/acl'), require('@delon/form'), require('@delon/theme'), require('@ngx-translate/core'), require('@delon/abc/avatar-list'), require('@delon/abc/count-down'), require('@delon/abc/date-picker'), require('@delon/abc/down-file'), require('@delon/abc/ellipsis'), require('@delon/abc/error-collect'), require('@delon/abc/exception'), require('@delon/abc/footer-toolbar'), require('@delon/abc/full-content'), require('@delon/abc/global-footer'), require('@delon/abc/notice-icon'), require('@delon/abc/number-to-chinese'), require('@delon/abc/page-header'), require('@delon/abc/qr'), require('@delon/abc/quick-menu'), require('@delon/abc/result'), require('@delon/abc/se'), require('@delon/abc/sidebar-nav'), require('@delon/abc/st'), require('@delon/abc/sv'), require('@delon/abc/tag-select'), require('@delon/chart/bar'), require('@delon/chart/card'), require('@delon/chart/gauge'), require('@delon/chart/mini-area'), require('@delon/chart/mini-bar'), require('@delon/chart/mini-progress'), require('@delon/chart/number-info'), require('@delon/chart/pie'), require('@delon/chart/radar'), require('@delon/chart/single-bar'), require('@delon/chart/tag-cloud'), require('@delon/chart/timeline'), require('@delon/chart/trend'), require('@delon/chart/water-wave'), require('ng-zorro-antd/affix'), require('ng-zorro-antd/alert'), require('ng-zorro-antd/avatar'), require('ng-zorro-antd/back-top'), require('ng-zorro-antd/badge'), require('ng-zorro-antd/breadcrumb'), require('ng-zorro-antd/button'), require('ng-zorro-antd/card'), require('ng-zorro-antd/carousel'), require('ng-zorro-antd/checkbox'), require('ng-zorro-antd/date-picker'), require('ng-zorro-antd/divider'), require('ng-zorro-antd/drawer'), require('ng-zorro-antd/dropdown'), require('ng-zorro-antd/form'), require('ng-zorro-antd/grid'), require('ng-zorro-antd/icon'), require('ng-zorro-antd/input'), require('ng-zorro-antd/input-number'), require('ng-zorro-antd/list'), require('ng-zorro-antd/message'), require('ng-zorro-antd/modal'), require('ng-zorro-antd/notification'), require('ng-zorro-antd/pagination'), require('ng-zorro-antd/popconfirm'), require('ng-zorro-antd/popover'), require('ng-zorro-antd/progress'), require('ng-zorro-antd/radio'), require('ng-zorro-antd/select'), require('ng-zorro-antd/spin'), require('ng-zorro-antd/steps'), require('ng-zorro-antd/switch'), require('ng-zorro-antd/table'), require('ng-zorro-antd/tabs'), require('ng-zorro-antd/tag'), require('ng-zorro-antd/time-picker'), require('ng-zorro-antd/tooltip'), require('ng-zorro-antd/upload'), require('ngx-countdown'), require('ngx-tinymce'), require('ngx-ueditor'), require('@abp/ng.theme.shared')) :
     typeof define === 'function' && define.amd ? define('@fs/ng-alain/shared', ['exports', '@abp/ng.core', '@angular/common', '@angular/core', '@angular/forms', '@angular/router', '@delon/acl', '@delon/form', '@delon/theme', '@ngx-translate/core', '@delon/abc/avatar-list', '@delon/abc/count-down', '@delon/abc/date-picker', '@delon/abc/down-file', '@delon/abc/ellipsis', '@delon/abc/error-collect', '@delon/abc/exception', '@delon/abc/footer-toolbar', '@delon/abc/full-content', '@delon/abc/global-footer', '@delon/abc/notice-icon', '@delon/abc/number-to-chinese', '@delon/abc/page-header', '@delon/abc/qr', '@delon/abc/quick-menu', '@delon/abc/result', '@delon/abc/se', '@delon/abc/sidebar-nav', '@delon/abc/st', '@delon/abc/sv', '@delon/abc/tag-select', '@delon/chart/bar', '@delon/chart/card', '@delon/chart/gauge', '@delon/chart/mini-area', '@delon/chart/mini-bar', '@delon/chart/mini-progress', '@delon/chart/number-info', '@delon/chart/pie', '@delon/chart/radar', '@delon/chart/single-bar', '@delon/chart/tag-cloud', '@delon/chart/timeline', '@delon/chart/trend', '@delon/chart/water-wave', 'ng-zorro-antd/affix', 'ng-zorro-antd/alert', 'ng-zorro-antd/avatar', 'ng-zorro-antd/back-top', 'ng-zorro-antd/badge', 'ng-zorro-antd/breadcrumb', 'ng-zorro-antd/button', 'ng-zorro-antd/card', 'ng-zorro-antd/carousel', 'ng-zorro-antd/checkbox', 'ng-zorro-antd/date-picker', 'ng-zorro-antd/divider', 'ng-zorro-antd/drawer', 'ng-zorro-antd/dropdown', 'ng-zorro-antd/form', 'ng-zorro-antd/grid', 'ng-zorro-antd/icon', 'ng-zorro-antd/input', 'ng-zorro-antd/input-number', 'ng-zorro-antd/list', 'ng-zorro-antd/message', 'ng-zorro-antd/modal', 'ng-zorro-antd/notification', 'ng-zorro-antd/pagination', 'ng-zorro-antd/popconfirm', 'ng-zorro-antd/popover', 'ng-zorro-antd/progress', 'ng-zorro-antd/radio', 'ng-zorro-antd/select', 'ng-zorro-antd/spin', 'ng-zorro-antd/steps', 'ng-zorro-antd/switch', 'ng-zorro-antd/table', 'ng-zorro-antd/tabs', 'ng-zorro-antd/tag', 'ng-zorro-antd/time-picker', 'ng-zorro-antd/tooltip', 'ng-zorro-antd/upload', 'ngx-countdown', 'ngx-tinymce', 'ngx-ueditor', '@abp/ng.theme.shared'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].shared = {}), global.ng_core, global.ng.common, global.ng.core, global.ng.forms, global.ng.router, global.acl, global.i1, global.i1$1, global.core, global.i2, global.i3, global.i4, global.i5, global.i6, global.i12, global.i13, global.i14, global.i36, global.i15, global.i19, global.i11, global.i16, global.i10, global.i20, global.i17, global.i9, global.i21, global.i7, global.i8, global.i18, global.i22, global.i23, global.i24, global.i25, global.i26, global.i27, global.i34, global.i28, global.i29, global.i30, global.i31, global.i32, global.i35, global.i33, global.i48, global.i50, global.i66, global.i39, global.i49, global.i60, global.i37, global.i68, global.i42, global.i43, global.i56, global.i69, global.i53, global.i40, global.i65, global.i41, global.i47, global.i55, global.i59, global.i62, global.i38, global.i51, global.i72, global.i73, global.i71, global.i45, global.i70, global.i64, global.i46, global.i67, global.i61, global.i63, global.i52, global.i54, global.i58, global.i57, global.i44, global.i74, global.ngxCountdown, global.ngxTinymce, global.ngxUeditor, global.ng_theme_shared));
-}(this, (function (exports, ng_core, common, i0, forms, router, acl, i1, i1$1, core, i2, i3, i4, i5, i6, i12, i13, i14, i36, i15, i19, i11, i16, i10, i20, i17, i9, i21, i7, i8, i18, i22, i23, i24, i25, i26, i27, i34, i28, i29, i30, i31, i32, i35, i33, i48, i50, i66, i39, i49, i60, i37, i68, i42, i43, i56, i69, i53, i40, i65, i41, i47, i55, i59, i62, i38, i51, i72, i73, i71, i45, i70, i64, i46, i67, i61, i63, i52, i54, i58, i57, i44, i74, ngxCountdown, ngxTinymce, ngxUeditor, ng_theme_shared) { 'use strict';
+    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].shared = {}), global.ng_core, global.ng.common, global.ng.core, global.ng.forms, global.ng.router, global.acl, global.form, global.theme, global.core$1, global.avatarList, global.countDown, global.datePicker, global.downFile, global.ellipsis, global.errorCollect, global.exception, global.footerToolbar, global.fullContent, global.globalFooter, global.noticeIcon, global.numberToChinese, global.pageHeader, global.qr, global.quickMenu, global.result, global.se, global.sidebarNav, global.st, global.sv, global.tagSelect, global.bar, global.card, global.gauge, global.miniArea, global.miniBar, global.miniProgress, global.numberInfo, global.pie, global.radar, global.singleBar, global.tagCloud, global.timeline, global.trend, global.waterWave, global.affix, global.alert, global.avatar, global.backTop, global.badge, global.breadcrumb, global.button, global.card$1, global.carousel, global.checkbox, global.datePicker$1, global.divider, global.drawer, global.dropdown, global.form$1, global.grid, global.icon, global.input, global.inputNumber, global.list, global.message, global.modal, global.notification, global.pagination, global.popconfirm, global.popover, global.progress, global.radio, global.select, global.spin, global.steps, global._switch, global.table, global.tabs, global.tag, global.timePicker, global.tooltip, global.upload, global.ngxCountdown, global.ngxTinymce, global.ngxUeditor, global.ng_theme_shared));
+}(this, (function (exports, ng_core, common, core, forms, router, acl, form, theme, core$1, avatarList, countDown, datePicker, downFile, ellipsis, errorCollect, exception, footerToolbar, fullContent, globalFooter, noticeIcon, numberToChinese, pageHeader, qr, quickMenu, result, se, sidebarNav, st, sv, tagSelect, bar, card, gauge, miniArea, miniBar, miniProgress, numberInfo, pie, radar, singleBar, tagCloud, timeline, trend, waterWave, affix, alert, avatar, backTop, badge, breadcrumb, button, card$1, carousel, checkbox, datePicker$1, divider, drawer, dropdown, form$1, grid, icon, input, inputNumber, list, message, modal, notification, pagination, popconfirm, popover, progress, radio, select, spin, steps, _switch, table, tabs, tag, timePicker, tooltip, upload, ngxCountdown, ngxTinymce, ngxUeditor, ng_theme_shared) { 'use strict';
 
     /**
      * 转化成RMB元字符串
@@ -310,83 +310,83 @@
     }
 
     var SHARED_DELON_MODULES = [
-        i2.AvatarListModule,
-        i3.CountDownModule,
-        i4.DatePickerModule,
-        i5.DownFileModule,
-        i6.EllipsisModule,
-        i7.STModule,
-        i8.SVModule,
-        i9.SEModule,
-        i10.QRModule,
-        i11.NumberToChineseModule,
-        i12.ErrorCollectModule,
-        i13.ExceptionModule,
-        i14.FooterToolbarModule,
-        i15.GlobalFooterModule,
-        i15.GlobalFooterModule,
-        i16.PageHeaderModule,
-        i17.ResultModule,
-        i18.TagSelectModule,
-        i19.NoticeIconModule,
-        i20.QuickMenuModule,
-        i21.SidebarNavModule,
-        i22.G2BarModule,
-        i23.G2CardModule,
-        i24.G2GaugeModule,
-        i25.G2MiniAreaModule,
-        i26.G2MiniBarModule,
-        i27.G2MiniProgressModule,
-        i28.G2PieModule,
-        i29.G2RadarModule,
-        i30.G2SingleBarModule,
-        i31.G2TagCloudModule,
-        i32.G2TimelineModule,
-        i33.G2WaterWaveModule,
-        i34.NumberInfoModule,
-        i35.TrendModule,
-        i36.FullContentModule,
+        avatarList.AvatarListModule,
+        countDown.CountDownModule,
+        datePicker.DatePickerModule,
+        downFile.DownFileModule,
+        ellipsis.EllipsisModule,
+        st.STModule,
+        sv.SVModule,
+        se.SEModule,
+        qr.QRModule,
+        numberToChinese.NumberToChineseModule,
+        errorCollect.ErrorCollectModule,
+        exception.ExceptionModule,
+        footerToolbar.FooterToolbarModule,
+        globalFooter.GlobalFooterModule,
+        globalFooter.GlobalFooterModule,
+        pageHeader.PageHeaderModule,
+        result.ResultModule,
+        tagSelect.TagSelectModule,
+        noticeIcon.NoticeIconModule,
+        quickMenu.QuickMenuModule,
+        sidebarNav.SidebarNavModule,
+        bar.G2BarModule,
+        card.G2CardModule,
+        gauge.G2GaugeModule,
+        miniArea.G2MiniAreaModule,
+        miniBar.G2MiniBarModule,
+        miniProgress.G2MiniProgressModule,
+        pie.G2PieModule,
+        radar.G2RadarModule,
+        singleBar.G2SingleBarModule,
+        tagCloud.G2TagCloudModule,
+        timeline.G2TimelineModule,
+        waterWave.G2WaterWaveModule,
+        numberInfo.NumberInfoModule,
+        trend.TrendModule,
+        fullContent.FullContentModule,
     ];
 
     var SHARED_ZORRO_MODULES = [
-        i37.NzButtonModule,
-        i38.NzMessageModule,
-        i39.NzBackTopModule,
-        i40.NzDropDownModule,
-        i41.NzGridModule,
-        i42.NzCarouselModule,
-        i43.NzCheckboxModule,
-        i44.NzToolTipModule,
-        i45.NzPopoverModule,
-        i46.NzSelectModule,
-        i47.NzIconModule,
-        i48.NzAffixModule,
-        i49.NzBadgeModule,
-        i50.NzAlertModule,
-        i51.NzModalModule,
-        i52.NzTableModule,
-        i53.NzDrawerModule,
-        i54.NzTabsModule,
-        i55.NzInputModule,
-        i56.NzDatePickerModule,
-        i57.NzTimePickerModule,
-        i58.NzTagModule,
-        i59.NzInputNumberModule,
-        i60.NzBreadCrumbModule,
-        i61.NzStepsModule,
-        i62.NzListModule,
-        i63.NzSwitchModule,
-        i64.NzRadioModule,
-        i65.NzFormModule,
-        i66.NzAvatarModule,
-        i67.NzSpinModule,
-        i68.NzCardModule,
-        i69.NzDividerModule,
-        i70.NzProgressModule,
-        i71.NzPopconfirmModule,
-        i72.NzNotificationModule,
-        i73.NzPaginationModule,
-        i74.NzUploadModule,
+        button.NzButtonModule,
+        message.NzMessageModule,
+        backTop.NzBackTopModule,
+        dropdown.NzDropDownModule,
+        grid.NzGridModule,
+        carousel.NzCarouselModule,
+        checkbox.NzCheckboxModule,
+        tooltip.NzToolTipModule,
+        popover.NzPopoverModule,
+        select.NzSelectModule,
+        icon.NzIconModule,
+        affix.NzAffixModule,
+        badge.NzBadgeModule,
+        alert.NzAlertModule,
+        modal.NzModalModule,
+        table.NzTableModule,
+        drawer.NzDrawerModule,
+        tabs.NzTabsModule,
+        input.NzInputModule,
+        datePicker$1.NzDatePickerModule,
+        timePicker.NzTimePickerModule,
+        tag.NzTagModule,
+        inputNumber.NzInputNumberModule,
+        breadcrumb.NzBreadCrumbModule,
+        steps.NzStepsModule,
+        list.NzListModule,
+        _switch.NzSwitchModule,
+        radio.NzRadioModule,
+        form$1.NzFormModule,
+        avatar.NzAvatarModule,
+        spin.NzSpinModule,
+        card$1.NzCardModule,
+        divider.NzDividerModule,
+        progress.NzProgressModule,
+        popconfirm.NzPopconfirmModule,
+        notification.NzNotificationModule,
+        pagination.NzPaginationModule,
+        upload.NzUploadModule,
     ];
 
     var THIRDMODULES = [ngxCountdown.CountdownModule, ngxUeditor.UEditorModule, ngxTinymce.NgxTinymceModule];
@@ -395,75 +395,37 @@
     var COMPONENTS = [];
     var DIRECTIVES = [];
     // #endregion
-    var SharedModule = /** @class */ (function () {
+    exports.SharedModule = /** @class */ (function () {
         function SharedModule() {
         }
         return SharedModule;
     }());
-    SharedModule.ɵmod = i0.ɵɵdefineNgModule({ type: SharedModule });
-    SharedModule.ɵinj = i0.ɵɵdefineInjector({ factory: function SharedModule_Factory(t) { return new (t || SharedModule)(); }, imports: [__spread([
+    exports.SharedModule = __decorate([
+        core.NgModule({
+            imports: __spread([
                 common.CommonModule,
                 ng_core.CoreModule,
                 forms.FormsModule,
                 router.RouterModule,
                 forms.ReactiveFormsModule,
-                i1$1.AlainThemeModule.forChild(),
+                theme.AlainThemeModule.forChild(),
                 acl.DelonACLModule,
-                i1.DelonFormModule
-            ], SHARED_DELON_MODULES, SHARED_ZORRO_MODULES, THIRDMODULES), common.CommonModule,
-            ng_core.CoreModule,
-            forms.FormsModule,
-            forms.ReactiveFormsModule,
-            router.RouterModule,
-            i1$1.AlainThemeModule,
-            acl.DelonACLModule,
-            i1.DelonFormModule,
-            core.TranslateModule, i2.AvatarListModule, i3.CountDownModule, i4.DatePickerModule, i5.DownFileModule, i6.EllipsisModule, i7.STModule, i8.SVModule, i9.SEModule, i10.QRModule, i11.NumberToChineseModule, i12.ErrorCollectModule, i13.ExceptionModule, i14.FooterToolbarModule, i15.GlobalFooterModule, i15.GlobalFooterModule, i16.PageHeaderModule, i17.ResultModule, i18.TagSelectModule, i19.NoticeIconModule, i20.QuickMenuModule, i21.SidebarNavModule, i22.G2BarModule, i23.G2CardModule, i24.G2GaugeModule, i25.G2MiniAreaModule, i26.G2MiniBarModule, i27.G2MiniProgressModule, i28.G2PieModule, i29.G2RadarModule, i30.G2SingleBarModule, i31.G2TagCloudModule, i32.G2TimelineModule, i33.G2WaterWaveModule, i34.NumberInfoModule, i35.TrendModule, i36.FullContentModule, i37.NzButtonModule, i38.NzMessageModule, i39.NzBackTopModule, i40.NzDropDownModule, i41.NzGridModule, i42.NzCarouselModule, i43.NzCheckboxModule, i44.NzToolTipModule, i45.NzPopoverModule, i46.NzSelectModule, i47.NzIconModule, i48.NzAffixModule, i49.NzBadgeModule, i50.NzAlertModule, i51.NzModalModule, i52.NzTableModule, i53.NzDrawerModule, i54.NzTabsModule, i55.NzInputModule, i56.NzDatePickerModule, i57.NzTimePickerModule, i58.NzTagModule, i59.NzInputNumberModule, i60.NzBreadCrumbModule, i61.NzStepsModule, i62.NzListModule, i63.NzSwitchModule, i64.NzRadioModule, i65.NzFormModule, i66.NzAvatarModule, i67.NzSpinModule, i68.NzCardModule, i69.NzDividerModule, i70.NzProgressModule, i71.NzPopconfirmModule, i72.NzNotificationModule, i73.NzPaginationModule, i74.NzUploadModule, ngxCountdown.CountdownModule, ngxUeditor.UEditorModule, ngxTinymce.NgxTinymceModule] });
-    (function () {
-        (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(SharedModule, { imports: [common.CommonModule,
-                ng_core.CoreModule,
-                forms.FormsModule,
-                router.RouterModule,
-                forms.ReactiveFormsModule, i1$1.AlainThemeModule, acl.DelonACLModule,
-                i1.DelonFormModule, i2.AvatarListModule, i3.CountDownModule, i4.DatePickerModule, i5.DownFileModule, i6.EllipsisModule, i7.STModule, i8.SVModule, i9.SEModule, i10.QRModule, i11.NumberToChineseModule, i12.ErrorCollectModule, i13.ExceptionModule, i14.FooterToolbarModule, i15.GlobalFooterModule, i15.GlobalFooterModule, i16.PageHeaderModule, i17.ResultModule, i18.TagSelectModule, i19.NoticeIconModule, i20.QuickMenuModule, i21.SidebarNavModule, i22.G2BarModule, i23.G2CardModule, i24.G2GaugeModule, i25.G2MiniAreaModule, i26.G2MiniBarModule, i27.G2MiniProgressModule, i28.G2PieModule, i29.G2RadarModule, i30.G2SingleBarModule, i31.G2TagCloudModule, i32.G2TimelineModule, i33.G2WaterWaveModule, i34.NumberInfoModule, i35.TrendModule, i36.FullContentModule, i37.NzButtonModule, i38.NzMessageModule, i39.NzBackTopModule, i40.NzDropDownModule, i41.NzGridModule, i42.NzCarouselModule, i43.NzCheckboxModule, i44.NzToolTipModule, i45.NzPopoverModule, i46.NzSelectModule, i47.NzIconModule, i48.NzAffixModule, i49.NzBadgeModule, i50.NzAlertModule, i51.NzModalModule, i52.NzTableModule, i53.NzDrawerModule, i54.NzTabsModule, i55.NzInputModule, i56.NzDatePickerModule, i57.NzTimePickerModule, i58.NzTagModule, i59.NzInputNumberModule, i60.NzBreadCrumbModule, i61.NzStepsModule, i62.NzListModule, i63.NzSwitchModule, i64.NzRadioModule, i65.NzFormModule, i66.NzAvatarModule, i67.NzSpinModule, i68.NzCardModule, i69.NzDividerModule, i70.NzProgressModule, i71.NzPopconfirmModule, i72.NzNotificationModule, i73.NzPaginationModule, i74.NzUploadModule, ngxCountdown.CountdownModule, ngxUeditor.UEditorModule, ngxTinymce.NgxTinymceModule], exports: [common.CommonModule,
+                form.DelonFormModule
+            ], SHARED_DELON_MODULES, SHARED_ZORRO_MODULES, THIRDMODULES),
+            declarations: __spread(COMPONENTS, DIRECTIVES),
+            exports: __spread([
+                common.CommonModule,
                 ng_core.CoreModule,
                 forms.FormsModule,
                 forms.ReactiveFormsModule,
                 router.RouterModule,
-                i1$1.AlainThemeModule,
+                theme.AlainThemeModule,
                 acl.DelonACLModule,
-                i1.DelonFormModule,
-                core.TranslateModule, i2.AvatarListModule, i3.CountDownModule, i4.DatePickerModule, i5.DownFileModule, i6.EllipsisModule, i7.STModule, i8.SVModule, i9.SEModule, i10.QRModule, i11.NumberToChineseModule, i12.ErrorCollectModule, i13.ExceptionModule, i14.FooterToolbarModule, i15.GlobalFooterModule, i15.GlobalFooterModule, i16.PageHeaderModule, i17.ResultModule, i18.TagSelectModule, i19.NoticeIconModule, i20.QuickMenuModule, i21.SidebarNavModule, i22.G2BarModule, i23.G2CardModule, i24.G2GaugeModule, i25.G2MiniAreaModule, i26.G2MiniBarModule, i27.G2MiniProgressModule, i28.G2PieModule, i29.G2RadarModule, i30.G2SingleBarModule, i31.G2TagCloudModule, i32.G2TimelineModule, i33.G2WaterWaveModule, i34.NumberInfoModule, i35.TrendModule, i36.FullContentModule, i37.NzButtonModule, i38.NzMessageModule, i39.NzBackTopModule, i40.NzDropDownModule, i41.NzGridModule, i42.NzCarouselModule, i43.NzCheckboxModule, i44.NzToolTipModule, i45.NzPopoverModule, i46.NzSelectModule, i47.NzIconModule, i48.NzAffixModule, i49.NzBadgeModule, i50.NzAlertModule, i51.NzModalModule, i52.NzTableModule, i53.NzDrawerModule, i54.NzTabsModule, i55.NzInputModule, i56.NzDatePickerModule, i57.NzTimePickerModule, i58.NzTagModule, i59.NzInputNumberModule, i60.NzBreadCrumbModule, i61.NzStepsModule, i62.NzListModule, i63.NzSwitchModule, i64.NzRadioModule, i65.NzFormModule, i66.NzAvatarModule, i67.NzSpinModule, i68.NzCardModule, i69.NzDividerModule, i70.NzProgressModule, i71.NzPopconfirmModule, i72.NzNotificationModule, i73.NzPaginationModule, i74.NzUploadModule, ngxCountdown.CountdownModule, ngxUeditor.UEditorModule, ngxTinymce.NgxTinymceModule] });
-    })();
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(SharedModule, [{
-                type: i0.NgModule,
-                args: [{
-                        imports: __spread([
-                            common.CommonModule,
-                            ng_core.CoreModule,
-                            forms.FormsModule,
-                            router.RouterModule,
-                            forms.ReactiveFormsModule,
-                            i1$1.AlainThemeModule.forChild(),
-                            acl.DelonACLModule,
-                            i1.DelonFormModule
-                        ], SHARED_DELON_MODULES, SHARED_ZORRO_MODULES, THIRDMODULES),
-                        declarations: __spread(COMPONENTS, DIRECTIVES),
-                        exports: __spread([
-                            common.CommonModule,
-                            ng_core.CoreModule,
-                            forms.FormsModule,
-                            forms.ReactiveFormsModule,
-                            router.RouterModule,
-                            i1$1.AlainThemeModule,
-                            acl.DelonACLModule,
-                            i1.DelonFormModule,
-                            core.TranslateModule
-                        ], SHARED_DELON_MODULES, SHARED_ZORRO_MODULES, THIRDMODULES, COMPONENTS, DIRECTIVES),
-                    }]
-            }], null, null);
-    })();
+                form.DelonFormModule,
+                core$1.TranslateModule
+            ], SHARED_DELON_MODULES, SHARED_ZORRO_MODULES, THIRDMODULES, COMPONENTS, DIRECTIVES),
+        })
+    ], exports.SharedModule);
 
     // import { TinymceWidget } from './widgets/tinymce/tinymce.widget';
     // import { UeditorWidget } from './widgets/ueditor/ueditor.widget';
@@ -471,80 +433,54 @@
     // TinymceWidget,
     // UeditorWidget
     ];
-    var JsonSchemaModule = /** @class */ (function () {
+    exports.JsonSchemaModule = /** @class */ (function () {
         function JsonSchemaModule(widgetRegistry) {
             // widgetRegistry.register(TinymceWidget.KEY, TinymceWidget);
             // widgetRegistry.register(UeditorWidget.KEY, UeditorWidget);
         }
         return JsonSchemaModule;
     }());
-    JsonSchemaModule.ɵmod = i0.ɵɵdefineNgModule({ type: JsonSchemaModule });
-    JsonSchemaModule.ɵinj = i0.ɵɵdefineInjector({ factory: function JsonSchemaModule_Factory(t) { return new (t || JsonSchemaModule)(i0.ɵɵinject(i1.WidgetRegistry)); }, imports: [[SharedModule, i1.DelonFormModule.forRoot()]] });
-    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(JsonSchemaModule, { imports: [SharedModule, i1.DelonFormModule] }); })();
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(JsonSchemaModule, [{
-                type: i0.NgModule,
-                args: [{
-                        declarations: SCHEMA_THIRDS_COMPONENTS,
-                        entryComponents: SCHEMA_THIRDS_COMPONENTS,
-                        imports: [SharedModule, i1.DelonFormModule.forRoot()],
-                        exports: __spread(SCHEMA_THIRDS_COMPONENTS),
-                    }]
-            }], function () { return [{ type: i1.WidgetRegistry }]; }, null);
-    })();
+    exports.JsonSchemaModule = __decorate([
+        core.NgModule({
+            declarations: SCHEMA_THIRDS_COMPONENTS,
+            entryComponents: SCHEMA_THIRDS_COMPONENTS,
+            imports: [exports.SharedModule, form.DelonFormModule.forRoot()],
+            exports: __spread(SCHEMA_THIRDS_COMPONENTS),
+        }),
+        __metadata("design:paramtypes", [form.WidgetRegistry])
+    ], exports.JsonSchemaModule);
 
     var STWIDGET_COMPONENTS = [];
-    var STWidgetModule = /** @class */ (function () {
+    exports.STWidgetModule = /** @class */ (function () {
         function STWidgetModule() {
         }
         return STWidgetModule;
     }());
-    STWidgetModule.ɵmod = i0.ɵɵdefineNgModule({ type: STWidgetModule });
-    STWidgetModule.ɵinj = i0.ɵɵdefineInjector({ factory: function STWidgetModule_Factory(t) { return new (t || STWidgetModule)(); }, imports: [[SharedModule]] });
-    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(STWidgetModule, { imports: [SharedModule] }); })();
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(STWidgetModule, [{
-                type: i0.NgModule,
-                args: [{
-                        declarations: STWIDGET_COMPONENTS,
-                        imports: [SharedModule],
-                        exports: __spread(STWIDGET_COMPONENTS),
-                    }]
-            }], null, null);
-    })();
+    exports.STWidgetModule = __decorate([
+        core.NgModule({
+            declarations: STWIDGET_COMPONENTS,
+            imports: [exports.SharedModule],
+            exports: __spread(STWIDGET_COMPONENTS),
+        })
+    ], exports.STWidgetModule);
 
-    var NgAlainSharedModule = /** @class */ (function () {
+    exports.NgAlainSharedModule = /** @class */ (function () {
         function NgAlainSharedModule() {
         }
         return NgAlainSharedModule;
     }());
-    NgAlainSharedModule.ɵmod = i0.ɵɵdefineNgModule({ type: NgAlainSharedModule });
-    NgAlainSharedModule.ɵinj = i0.ɵɵdefineInjector({ factory: function NgAlainSharedModule_Factory(t) { return new (t || NgAlainSharedModule)(); }, imports: [[
+    exports.NgAlainSharedModule = __decorate([
+        core.NgModule({
+            imports: [
                 ng_theme_shared.ThemeSharedModule,
-                SharedModule
+                exports.SharedModule
             ],
-            ng_theme_shared.ThemeSharedModule,
-            SharedModule] });
-    (function () {
-        (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(NgAlainSharedModule, { imports: [ng_theme_shared.ThemeSharedModule,
-                SharedModule], exports: [ng_theme_shared.ThemeSharedModule,
-                SharedModule] });
-    })();
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(NgAlainSharedModule, [{
-                type: i0.NgModule,
-                args: [{
-                        imports: [
-                            ng_theme_shared.ThemeSharedModule,
-                            SharedModule
-                        ],
-                        exports: [
-                            ng_theme_shared.ThemeSharedModule,
-                            SharedModule
-                        ]
-                    }]
-            }], null, null);
-    })();
+            exports: [
+                ng_theme_shared.ThemeSharedModule,
+                exports.SharedModule
+            ]
+        })
+    ], exports.NgAlainSharedModule);
 
     // Components
 
@@ -552,13 +488,11 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.JsonSchemaModule = JsonSchemaModule;
-    exports.NgAlainSharedModule = NgAlainSharedModule;
     exports.SCHEMA_THIRDS_COMPONENTS = SCHEMA_THIRDS_COMPONENTS;
     exports.STWIDGET_COMPONENTS = STWIDGET_COMPONENTS;
-    exports.STWidgetModule = STWidgetModule;
-    exports.SharedModule = SharedModule;
     exports.yuan = yuan;
+    exports.ɵa = SHARED_DELON_MODULES;
+    exports.ɵb = SHARED_ZORRO_MODULES;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -78,7 +78,8 @@ const INTERCEPTOR_PROVIDES = [
 // #region Startup Service
 import { StartupService } from '@fs/ng-alain/core';
 export function StartupServiceFactory(startupService: StartupService) {
-  return () => startupService.load();
+  let fun = () => startupService.load();
+  return fun;
 }
 const APPINIT_PROVIDES = [
   StartupService,
@@ -132,5 +133,5 @@ export class NgAlainModule {
     return {
       ngModule: NgAlainModule
     };
-  }  
+  }
 }

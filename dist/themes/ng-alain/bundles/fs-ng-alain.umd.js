@@ -1,8 +1,8 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common/http'), require('@angular/core'), require('@angular/common/locales/zh'), require('@delon/theme'), require('date-fns/locale'), require('ng-zorro-antd/i18n'), require('@angular/common'), require('@fs/ng-alain/core'), require('@ngx-translate/core'), require('@ngx-translate/http-loader'), require('@fs/ng-alain/shared'), require('@delon/mock'), require('@delon/util'), require('@delon/acl'), require('date-fns/format'), require('mockjs'), require('ng-zorro-antd/core/config'), require('@abp/ng.theme.shared'), require('@abp/ng.theme.basic'), require('@fs/ng-alain/basic')) :
     typeof define === 'function' && define.amd ? define('@fs/ng-alain', ['exports', '@angular/common/http', '@angular/core', '@angular/common/locales/zh', '@delon/theme', 'date-fns/locale', 'ng-zorro-antd/i18n', '@angular/common', '@fs/ng-alain/core', '@ngx-translate/core', '@ngx-translate/http-loader', '@fs/ng-alain/shared', '@delon/mock', '@delon/util', '@delon/acl', 'date-fns/format', 'mockjs', 'ng-zorro-antd/core/config', '@abp/ng.theme.shared', '@abp/ng.theme.basic', '@fs/ng-alain/basic'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = {}), global.ng.common.http, global.ng.core, global.ng.common.locales.zh, global.i1, global.locale, global.i18n, global.ng.common, global.fs['ng-alain'].core, global.i2, global.httpLoader, global.fs['ng-alain'].shared, global.i3, global.util, global.i2$1, global.format, global.Mock, global.config, global.i3$1, global.i4, global.fs['ng-alain'].basic));
-}(this, (function (exports, http, i0, ngLang, i1, locale, i18n, common, core, i2, httpLoader, shared, i3, util, i2$1, format, Mock, config, i3$1, i4, i5) { 'use strict';
+    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = {}), global.ng.common.http, global.ng.core, global.ng.common.locales.zh, global.theme, global.locale, global.i18n, global.ng.common, global.fs['ng-alain'].core, global.core$2, global.httpLoader, global.fs['ng-alain'].shared, global.mock, global.util, global.acl, global.format, global.Mock, global.config, global.ng_theme_shared, global.ng_theme_basic, global.fs['ng-alain'].basic));
+}(this, (function (exports, http, core, ngLang, theme, locale, i18n, common, core$1, core$2, httpLoader, shared, mock, util, acl, format, Mock, config, ng_theme_shared, ng_theme_basic, basic) { 'use strict';
 
     ngLang = ngLang && Object.prototype.hasOwnProperty.call(ngLang, 'default') ? ngLang['default'] : ngLang;
     format = format && Object.prototype.hasOwnProperty.call(format, 'default') ? format['default'] : format;
@@ -516,10 +516,11 @@
             progress: Math.ceil(Math.random() * 100),
         });
     }
+    var ɵ0 = function (req) { return getRule(req.queryString); }, ɵ1 = function (req) { return removeRule(req.queryString.nos); }, ɵ2 = function (req) { return saveRule(req.body.description); };
     var RULES = {
-        '/rule': function (req) { return getRule(req.queryString); },
-        'DELETE /rule': function (req) { return removeRule(req.queryString.nos); },
-        'POST /rule': function (req) { return saveRule(req.body.description); },
+        '/rule': ɵ0,
+        'DELETE /rule': ɵ1,
+        'POST /rule': ɵ2,
     };
 
     // region: mock data
@@ -770,22 +771,23 @@
             },
         ];
     }
+    var ɵ0$1 = function (req) { return getFakeList(req.queryString.count); }, ɵ1$1 = function () { return getNotice(); }, ɵ2$1 = function () { return getActivities(); }, ɵ3 = function () {
+        throw new mock.MockStatusError(401);
+    }, ɵ4 = function () {
+        throw new mock.MockStatusError(403);
+    }, ɵ5 = function () {
+        throw new mock.MockStatusError(404);
+    }, ɵ6 = function () {
+        throw new mock.MockStatusError(500);
+    };
     var APIS = {
-        '/api/list': function (req) { return getFakeList(req.queryString.count); },
-        '/api/notice': function () { return getNotice(); },
-        '/api/activities': function () { return getActivities(); },
-        '/api/401': function () {
-            throw new i3.MockStatusError(401);
-        },
-        '/api/403': function () {
-            throw new i3.MockStatusError(403);
-        },
-        '/api/404': function () {
-            throw new i3.MockStatusError(404);
-        },
-        '/api/500': function () {
-            throw new i3.MockStatusError(500);
-        },
+        '/api/list': ɵ0$1,
+        '/api/notice': ɵ1$1,
+        '/api/activities': ɵ2$1,
+        '/api/401': ɵ3,
+        '/api/403': ɵ4,
+        '/api/404': ɵ5,
+        '/api/500': ɵ6,
     };
 
     // region: mock data
@@ -1080,10 +1082,26 @@
         Object.assign(item, value);
         return { msg: 'ok' };
     }
+    var ɵ0$2 = function (req) { return genData(req.queryString); }, ɵ1$2 = function (req) { return list$1.find(function (w) { return w.id === +req.params.id; }); }, ɵ2$2 = function (req) { return saveData(+req.params.id, req.body); }, ɵ3$1 = function (req) {
+        var data = req.body;
+        if (!(data.userName === 'admin' || data.userName === 'user') || data.password !== 'ng-alain.com') {
+            return { msg: "Invalid username or password\uFF08admin/ng-alain.com\uFF09" };
+        }
+        return {
+            msg: 'ok',
+            user: {
+                token: '123456789',
+                name: data.userName,
+                email: data.userName + "@qq.com",
+                id: 10000,
+                time: +new Date(),
+            },
+        };
+    };
     var USERS = {
-        '/user': function (req) { return genData(req.queryString); },
-        '/user/:id': function (req) { return list$1.find(function (w) { return w.id === +req.params.id; }); },
-        'POST /user/:id': function (req) { return saveData(+req.params.id, req.body); },
+        '/user': ɵ0$2,
+        '/user/:id': ɵ1$2,
+        'POST /user/:id': ɵ2$2,
         '/user/current': {
             name: 'Cipchk',
             avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
@@ -1134,22 +1152,7 @@
             phone: '你猜-你猜你猜猜猜',
         },
         'POST /user/avatar': 'ok',
-        'POST /login/account': function (req) {
-            var data = req.body;
-            if (!(data.userName === 'admin' || data.userName === 'user') || data.password !== 'ng-alain.com') {
-                return { msg: "Invalid username or password\uFF08admin/ng-alain.com\uFF09" };
-            }
-            return {
-                msg: 'ok',
-                user: {
-                    token: '123456789',
-                    name: data.userName,
-                    email: data.userName + "@qq.com",
-                    id: 10000,
-                    time: +new Date(),
-                },
-            };
-        },
+        'POST /login/account': ɵ3$1,
         'POST /register': {
             msg: 'ok',
         },
@@ -1221,25 +1224,34 @@
             id: '331100',
         },
     ];
+    var ɵ0$3 = function () { return DATA.filter(function (w) { return w.id.endsWith('0000'); }); }, ɵ1$3 = function (req) {
+        var pid = (req.params.id || '310000').slice(0, 2);
+        return DATA.filter(function (w) { return w.id.slice(0, 2) === pid && !w.id.endsWith('0000'); });
+    };
     var GEOS = {
-        '/geo/province': function () { return DATA.filter(function (w) { return w.id.endsWith('0000'); }); },
-        '/geo/:id': function (req) {
-            var pid = (req.params.id || '310000').slice(0, 2);
-            return DATA.filter(function (w) { return w.id.slice(0, 2) === pid && !w.id.endsWith('0000'); });
-        },
+        '/geo/province': ɵ0$3,
+        '/geo/:id': ɵ1$3,
     };
 
     var MOCKDATA = /*#__PURE__*/Object.freeze({
         __proto__: null,
         PROFILES: PROFILES,
         RULES: RULES,
+        ɵ0: ɵ0,
+        ɵ1: ɵ1,
+        ɵ2: ɵ2,
         APIS: APIS,
+        ɵ3: ɵ3,
+        ɵ4: ɵ4,
+        ɵ5: ɵ5,
+        ɵ6: ɵ6,
         CHARTS: CHARTS,
         POIS: POIS,
         USERS: USERS,
         GEOS: GEOS
     });
 
+    var GlobalConfigModule_1;
     var alainConfig = {
         st: { modal: { size: 'lg' } },
         pageHeader: { homeI18n: 'home' },
@@ -1249,73 +1261,67 @@
         },
         auth: { login_url: '/passport/login' },
     };
-    var alainModules = [i1.AlainThemeModule.forRoot(), i2$1.DelonACLModule.forRoot(), i3.DelonMockModule.forRoot()];
-    var alainProvides = [{ provide: util.ALAIN_CONFIG, useValue: alainConfig }];
+    var alainModules = [theme.AlainThemeModule.forRoot(), acl.DelonACLModule.forRoot(), mock.DelonMockModule.forRoot()];
+    var ɵ0$4 = alainConfig;
+    var alainProvides = [{ provide: util.ALAIN_CONFIG, useValue: ɵ0$4 }];
     if (true) {
         alainConfig.mock = { data: MOCKDATA };
     }
     var ngZorroConfig = {};
-    var zorroProvides = [{ provide: config.NZ_CONFIG, useValue: ngZorroConfig }];
+    var ɵ1$4 = ngZorroConfig;
+    var zorroProvides = [{ provide: config.NZ_CONFIG, useValue: ɵ1$4 }];
     // #endregion
-    var GlobalConfigModule = /** @class */ (function () {
+    exports.GlobalConfigModule = GlobalConfigModule_1 = /** @class */ (function () {
         function GlobalConfigModule(parentModule) {
-            core.throwIfAlreadyLoaded(parentModule, 'GlobalConfigModule');
+            core$1.throwIfAlreadyLoaded(parentModule, 'GlobalConfigModule');
         }
         GlobalConfigModule.forRoot = function () {
             return {
-                ngModule: GlobalConfigModule,
+                ngModule: GlobalConfigModule_1,
                 providers: __spread(alainProvides, zorroProvides),
             };
         };
         return GlobalConfigModule;
     }());
-    GlobalConfigModule.ɵmod = i0.ɵɵdefineNgModule({ type: GlobalConfigModule });
-    GlobalConfigModule.ɵinj = i0.ɵɵdefineInjector({ factory: function GlobalConfigModule_Factory(t) { return new (t || GlobalConfigModule)(i0.ɵɵinject(GlobalConfigModule, 12)); }, imports: [__spread(alainModules)] });
-    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(GlobalConfigModule, { imports: [i1.AlainThemeModule, i2$1.DelonACLModule, i3.DelonMockModule] }); })();
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(GlobalConfigModule, [{
-                type: i0.NgModule,
-                args: [{
-                        imports: __spread(alainModules),
-                    }]
-            }], function () {
-            return [{ type: GlobalConfigModule, decorators: [{
-                            type: i0.Optional
-                        }, {
-                            type: i0.SkipSelf
-                        }] }];
-        }, null);
-    })();
+    exports.GlobalConfigModule = GlobalConfigModule_1 = __decorate([
+        core.NgModule({
+            imports: __spread(alainModules),
+        }),
+        __param(0, core.Optional()), __param(0, core.SkipSelf()),
+        __metadata("design:paramtypes", [exports.GlobalConfigModule])
+    ], exports.GlobalConfigModule);
 
+    var NgAlainModule_1;
     var LANG = {
         abbr: 'zh',
         ng: ngLang,
         zorro: i18n.zh_CN,
         date: locale.zhCN,
-        delon: i1.zh_CN,
+        delon: theme.zh_CN,
     };
     common.registerLocaleData(LANG.ng, LANG.abbr);
+    var ɵ0$5 = LANG.abbr, ɵ1$5 = LANG.zorro, ɵ2$3 = LANG.date, ɵ3$2 = LANG.delon;
     var LANG_PROVIDES = [
-        { provide: i0.LOCALE_ID, useValue: LANG.abbr },
-        { provide: i18n.NZ_I18N, useValue: LANG.zorro },
-        { provide: i18n.NZ_DATE_LOCALE, useValue: LANG.date },
-        { provide: i1.DELON_LOCALE, useValue: LANG.delon },
+        { provide: core.LOCALE_ID, useValue: ɵ0$5 },
+        { provide: i18n.NZ_I18N, useValue: ɵ1$5 },
+        { provide: i18n.NZ_DATE_LOCALE, useValue: ɵ2$3 },
+        { provide: theme.DELON_LOCALE, useValue: ɵ3$2 },
     ];
     // 加载i18n语言文件
     function I18nHttpLoaderFactory(http) {
         return new httpLoader.TranslateHttpLoader(http, "assets/tmp/i18n/", '.json');
     }
     var I18NSERVICE_MODULES = [
-        i2.TranslateModule.forRoot({
+        core$2.TranslateModule.forRoot({
             loader: {
-                provide: i2.TranslateLoader,
+                provide: core$2.TranslateLoader,
                 useFactory: I18nHttpLoaderFactory,
                 deps: [http.HttpClient],
             },
         }),
     ];
     var I18NSERVICE_PROVIDES = [
-        { provide: i1.ALAIN_I18N_TOKEN, useClass: core.I18NService, multi: false }
+        { provide: theme.ALAIN_I18N_TOKEN, useClass: core$1.I18NService, multi: false }
     ];
     // #endregion
     // #region global third module
@@ -1331,59 +1337,45 @@
     // { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
     ];
     function StartupServiceFactory(startupService) {
-        return function () { return startupService.load(); };
+        var fun = function () { return startupService.load(); };
+        return fun;
     }
     var APPINIT_PROVIDES = [
-        core.StartupService,
+        core$1.StartupService,
         {
-            provide: i0.APP_INITIALIZER,
+            provide: core.APP_INITIALIZER,
             useFactory: StartupServiceFactory,
-            deps: [core.StartupService],
+            deps: [core$1.StartupService],
             multi: true,
         },
     ];
     var ABP_MODULES = [
-        i3$1.ThemeSharedModule.forRoot(),
-        i4.ThemeBasicModule.forRoot(),
-        i5.NgAlainBasicModule.forRoot()
+        ng_theme_shared.ThemeSharedModule.forRoot(),
+        ng_theme_basic.ThemeBasicModule.forRoot(),
+        basic.NgAlainBasicModule.forRoot()
     ];
     // #endregion
-    var NgAlainModule = /** @class */ (function () {
+    exports.NgAlainModule = NgAlainModule_1 = /** @class */ (function () {
         function NgAlainModule() {
         }
         NgAlainModule.forRoot = function () {
             return {
-                ngModule: NgAlainModule
+                ngModule: NgAlainModule_1
             };
         };
         return NgAlainModule;
     }());
-    NgAlainModule.ɵmod = i0.ɵɵdefineNgModule({ type: NgAlainModule });
-    NgAlainModule.ɵinj = i0.ɵɵdefineInjector({ factory: function NgAlainModule_Factory(t) { return new (t || NgAlainModule)(); }, providers: __spread(LANG_PROVIDES, INTERCEPTOR_PROVIDES, I18NSERVICE_PROVIDES, APPINIT_PROVIDES), imports: [__spread([
-                GlobalConfigModule.forRoot(),
-                core.CoreModule,
+    exports.NgAlainModule = NgAlainModule_1 = __decorate([
+        core.NgModule({
+            imports: __spread([
+                exports.GlobalConfigModule.forRoot(),
+                core$1.CoreModule,
                 //LayoutModule,
                 shared.STWidgetModule
-            ], I18NSERVICE_MODULES, ABP_MODULES, GLOBAL_THIRD_MODULES, FORM_MODULES)] });
-    (function () {
-        (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(NgAlainModule, { imports: [GlobalConfigModule, core.CoreModule,
-                //LayoutModule,
-                shared.STWidgetModule, i2.TranslateModule, i3$1.ThemeSharedModule, i4.ThemeBasicModule, i5.NgAlainBasicModule, shared.JsonSchemaModule] });
-    })();
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(NgAlainModule, [{
-                type: i0.NgModule,
-                args: [{
-                        imports: __spread([
-                            GlobalConfigModule.forRoot(),
-                            core.CoreModule,
-                            //LayoutModule,
-                            shared.STWidgetModule
-                        ], I18NSERVICE_MODULES, ABP_MODULES, GLOBAL_THIRD_MODULES, FORM_MODULES),
-                        providers: __spread(LANG_PROVIDES, INTERCEPTOR_PROVIDES, I18NSERVICE_PROVIDES, APPINIT_PROVIDES),
-                    }]
-            }], null, null);
-    })();
+            ], I18NSERVICE_MODULES, ABP_MODULES, GLOBAL_THIRD_MODULES, FORM_MODULES),
+            providers: __spread(LANG_PROVIDES, INTERCEPTOR_PROVIDES, I18NSERVICE_PROVIDES, APPINIT_PROVIDES),
+        })
+    ], exports.NgAlainModule);
 
     // https://angular.io/guide/styleguide#style-04-12
     function throwIfAlreadyLoaded(parentModule, moduleName) {
@@ -1396,11 +1388,13 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.GlobalConfigModule = GlobalConfigModule;
     exports.I18nHttpLoaderFactory = I18nHttpLoaderFactory;
-    exports.NgAlainModule = NgAlainModule;
     exports.StartupServiceFactory = StartupServiceFactory;
     exports.throwIfAlreadyLoaded = throwIfAlreadyLoaded;
+    exports.ɵ0 = ɵ0$5;
+    exports.ɵ1 = ɵ1$5;
+    exports.ɵ2 = ɵ2$3;
+    exports.ɵ3 = ɵ3$2;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -1,5 +1,6 @@
+import { __decorate, __param, __metadata } from 'tslib';
 import { HttpClient } from '@angular/common/http';
-import { ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵinject, ɵɵsetNgModuleScope, ɵsetClassMetadata, NgModule, Optional, SkipSelf, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
+import { NgModule, Optional, SkipSelf, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
 import ngLang from '@angular/common/locales/zh';
 import { AlainThemeModule, zh_CN as zh_CN$1, DELON_LOCALE, ALAIN_I18N_TOKEN } from '@delon/theme';
 import { zhCN } from 'date-fns/locale';
@@ -236,10 +237,11 @@ function saveRule(description) {
         progress: Math.ceil(Math.random() * 100),
     });
 }
+const ɵ0 = (req) => getRule(req.queryString), ɵ1 = (req) => removeRule(req.queryString.nos), ɵ2 = (req) => saveRule(req.body.description);
 const RULES = {
-    '/rule': (req) => getRule(req.queryString),
-    'DELETE /rule': (req) => removeRule(req.queryString.nos),
-    'POST /rule': (req) => saveRule(req.body.description),
+    '/rule': ɵ0,
+    'DELETE /rule': ɵ1,
+    'POST /rule': ɵ2,
 };
 
 // region: mock data
@@ -489,22 +491,23 @@ function getActivities() {
         },
     ];
 }
+const ɵ0$1 = (req) => getFakeList(req.queryString.count), ɵ1$1 = () => getNotice(), ɵ2$1 = () => getActivities(), ɵ3 = () => {
+    throw new MockStatusError(401);
+}, ɵ4 = () => {
+    throw new MockStatusError(403);
+}, ɵ5 = () => {
+    throw new MockStatusError(404);
+}, ɵ6 = () => {
+    throw new MockStatusError(500);
+};
 const APIS = {
-    '/api/list': (req) => getFakeList(req.queryString.count),
-    '/api/notice': () => getNotice(),
-    '/api/activities': () => getActivities(),
-    '/api/401': () => {
-        throw new MockStatusError(401);
-    },
-    '/api/403': () => {
-        throw new MockStatusError(403);
-    },
-    '/api/404': () => {
-        throw new MockStatusError(404);
-    },
-    '/api/500': () => {
-        throw new MockStatusError(500);
-    },
+    '/api/list': ɵ0$1,
+    '/api/notice': ɵ1$1,
+    '/api/activities': ɵ2$1,
+    '/api/401': ɵ3,
+    '/api/403': ɵ4,
+    '/api/404': ɵ5,
+    '/api/500': ɵ6,
 };
 
 // region: mock data
@@ -799,10 +802,26 @@ function saveData(id, value) {
     Object.assign(item, value);
     return { msg: 'ok' };
 }
+const ɵ0$2 = (req) => genData(req.queryString), ɵ1$2 = (req) => list$1.find(w => w.id === +req.params.id), ɵ2$2 = (req) => saveData(+req.params.id, req.body), ɵ3$1 = (req) => {
+    const data = req.body;
+    if (!(data.userName === 'admin' || data.userName === 'user') || data.password !== 'ng-alain.com') {
+        return { msg: `Invalid username or password（admin/ng-alain.com）` };
+    }
+    return {
+        msg: 'ok',
+        user: {
+            token: '123456789',
+            name: data.userName,
+            email: `${data.userName}@qq.com`,
+            id: 10000,
+            time: +new Date(),
+        },
+    };
+};
 const USERS = {
-    '/user': (req) => genData(req.queryString),
-    '/user/:id': (req) => list$1.find(w => w.id === +req.params.id),
-    'POST /user/:id': (req) => saveData(+req.params.id, req.body),
+    '/user': ɵ0$2,
+    '/user/:id': ɵ1$2,
+    'POST /user/:id': ɵ2$2,
     '/user/current': {
         name: 'Cipchk',
         avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
@@ -853,22 +872,7 @@ const USERS = {
         phone: '你猜-你猜你猜猜猜',
     },
     'POST /user/avatar': 'ok',
-    'POST /login/account': (req) => {
-        const data = req.body;
-        if (!(data.userName === 'admin' || data.userName === 'user') || data.password !== 'ng-alain.com') {
-            return { msg: `Invalid username or password（admin/ng-alain.com）` };
-        }
-        return {
-            msg: 'ok',
-            user: {
-                token: '123456789',
-                name: data.userName,
-                email: `${data.userName}@qq.com`,
-                id: 10000,
-                time: +new Date(),
-            },
-        };
-    },
+    'POST /login/account': ɵ3$1,
     'POST /register': {
         msg: 'ok',
     },
@@ -940,25 +944,34 @@ const DATA = [
         id: '331100',
     },
 ];
+const ɵ0$3 = () => DATA.filter(w => w.id.endsWith('0000')), ɵ1$3 = (req) => {
+    const pid = (req.params.id || '310000').slice(0, 2);
+    return DATA.filter(w => w.id.slice(0, 2) === pid && !w.id.endsWith('0000'));
+};
 const GEOS = {
-    '/geo/province': () => DATA.filter(w => w.id.endsWith('0000')),
-    '/geo/:id': (req) => {
-        const pid = (req.params.id || '310000').slice(0, 2);
-        return DATA.filter(w => w.id.slice(0, 2) === pid && !w.id.endsWith('0000'));
-    },
+    '/geo/province': ɵ0$3,
+    '/geo/:id': ɵ1$3,
 };
 
 var MOCKDATA = /*#__PURE__*/Object.freeze({
     __proto__: null,
     PROFILES: PROFILES,
     RULES: RULES,
+    ɵ0: ɵ0,
+    ɵ1: ɵ1,
+    ɵ2: ɵ2,
     APIS: APIS,
+    ɵ3: ɵ3,
+    ɵ4: ɵ4,
+    ɵ5: ɵ5,
+    ɵ6: ɵ6,
     CHARTS: CHARTS,
     POIS: POIS,
     USERS: USERS,
     GEOS: GEOS
 });
 
+var GlobalConfigModule_1;
 const alainConfig = {
     st: { modal: { size: 'lg' } },
     pageHeader: { homeI18n: 'home' },
@@ -969,39 +982,35 @@ const alainConfig = {
     auth: { login_url: '/passport/login' },
 };
 const alainModules = [AlainThemeModule.forRoot(), DelonACLModule.forRoot(), DelonMockModule.forRoot()];
-const alainProvides = [{ provide: ALAIN_CONFIG, useValue: alainConfig }];
+const ɵ0$4 = alainConfig;
+const alainProvides = [{ provide: ALAIN_CONFIG, useValue: ɵ0$4 }];
 if (true) {
     alainConfig.mock = { data: MOCKDATA };
 }
 const ngZorroConfig = {};
-const zorroProvides = [{ provide: NZ_CONFIG, useValue: ngZorroConfig }];
+const ɵ1$4 = ngZorroConfig;
+const zorroProvides = [{ provide: NZ_CONFIG, useValue: ɵ1$4 }];
 // #endregion
-class GlobalConfigModule {
+let GlobalConfigModule = GlobalConfigModule_1 = class GlobalConfigModule {
     constructor(parentModule) {
         throwIfAlreadyLoaded$1(parentModule, 'GlobalConfigModule');
     }
     static forRoot() {
         return {
-            ngModule: GlobalConfigModule,
+            ngModule: GlobalConfigModule_1,
             providers: [...alainProvides, ...zorroProvides],
         };
     }
-}
-GlobalConfigModule.ɵmod = ɵɵdefineNgModule({ type: GlobalConfigModule });
-GlobalConfigModule.ɵinj = ɵɵdefineInjector({ factory: function GlobalConfigModule_Factory(t) { return new (t || GlobalConfigModule)(ɵɵinject(GlobalConfigModule, 12)); }, imports: [[...alainModules]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(GlobalConfigModule, { imports: [AlainThemeModule, DelonACLModule, DelonMockModule] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(GlobalConfigModule, [{
-        type: NgModule,
-        args: [{
-                imports: [...alainModules],
-            }]
-    }], function () { return [{ type: GlobalConfigModule, decorators: [{
-                type: Optional
-            }, {
-                type: SkipSelf
-            }] }]; }, null); })();
+};
+GlobalConfigModule = GlobalConfigModule_1 = __decorate([
+    NgModule({
+        imports: [...alainModules],
+    }),
+    __param(0, Optional()), __param(0, SkipSelf()),
+    __metadata("design:paramtypes", [GlobalConfigModule])
+], GlobalConfigModule);
 
-// tslint:disable: no-duplicate-imports
+var NgAlainModule_1;
 const LANG = {
     abbr: 'zh',
     ng: ngLang,
@@ -1010,11 +1019,12 @@ const LANG = {
     delon: zh_CN$1,
 };
 registerLocaleData(LANG.ng, LANG.abbr);
+const ɵ0$5 = LANG.abbr, ɵ1$5 = LANG.zorro, ɵ2$3 = LANG.date, ɵ3$2 = LANG.delon;
 const LANG_PROVIDES = [
-    { provide: LOCALE_ID, useValue: LANG.abbr },
-    { provide: NZ_I18N, useValue: LANG.zorro },
-    { provide: NZ_DATE_LOCALE, useValue: LANG.date },
-    { provide: DELON_LOCALE, useValue: LANG.delon },
+    { provide: LOCALE_ID, useValue: ɵ0$5 },
+    { provide: NZ_I18N, useValue: ɵ1$5 },
+    { provide: NZ_DATE_LOCALE, useValue: ɵ2$3 },
+    { provide: DELON_LOCALE, useValue: ɵ3$2 },
 ];
 // 加载i18n语言文件
 function I18nHttpLoaderFactory(http) {
@@ -1046,7 +1056,8 @@ const INTERCEPTOR_PROVIDES = [
 // { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
 ];
 function StartupServiceFactory(startupService) {
-    return () => startupService.load();
+    let fun = () => startupService.load();
+    return fun;
 }
 const APPINIT_PROVIDES = [
     StartupService,
@@ -1063,15 +1074,16 @@ const ABP_MODULES = [
     NgAlainBasicModule.forRoot()
 ];
 // #endregion
-class NgAlainModule {
+let NgAlainModule = NgAlainModule_1 = class NgAlainModule {
     static forRoot() {
         return {
-            ngModule: NgAlainModule
+            ngModule: NgAlainModule_1
         };
     }
-}
-NgAlainModule.ɵmod = ɵɵdefineNgModule({ type: NgAlainModule });
-NgAlainModule.ɵinj = ɵɵdefineInjector({ factory: function NgAlainModule_Factory(t) { return new (t || NgAlainModule)(); }, providers: [...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...I18NSERVICE_PROVIDES, ...APPINIT_PROVIDES], imports: [[
+};
+NgAlainModule = NgAlainModule_1 = __decorate([
+    NgModule({
+        imports: [
             GlobalConfigModule.forRoot(),
             CoreModule,
             //LayoutModule,
@@ -1080,26 +1092,10 @@ NgAlainModule.ɵinj = ɵɵdefineInjector({ factory: function NgAlainModule_Facto
             ...ABP_MODULES,
             ...GLOBAL_THIRD_MODULES,
             ...FORM_MODULES,
-        ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(NgAlainModule, { imports: [GlobalConfigModule, CoreModule,
-        //LayoutModule,
-        STWidgetModule, TranslateModule, ThemeSharedModule, ThemeBasicModule, NgAlainBasicModule, JsonSchemaModule] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(NgAlainModule, [{
-        type: NgModule,
-        args: [{
-                imports: [
-                    GlobalConfigModule.forRoot(),
-                    CoreModule,
-                    //LayoutModule,
-                    STWidgetModule,
-                    ...I18NSERVICE_MODULES,
-                    ...ABP_MODULES,
-                    ...GLOBAL_THIRD_MODULES,
-                    ...FORM_MODULES,
-                ],
-                providers: [...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...I18NSERVICE_PROVIDES, ...APPINIT_PROVIDES],
-            }]
-    }], null, null); })();
+        ],
+        providers: [...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...I18NSERVICE_PROVIDES, ...APPINIT_PROVIDES],
+    })
+], NgAlainModule);
 
 // https://angular.io/guide/styleguide#style-04-12
 function throwIfAlreadyLoaded(parentModule, moduleName) {
@@ -1112,5 +1108,5 @@ function throwIfAlreadyLoaded(parentModule, moduleName) {
  * Generated bundle index. Do not edit.
  */
 
-export { GlobalConfigModule, I18nHttpLoaderFactory, NgAlainModule, StartupServiceFactory, throwIfAlreadyLoaded };
+export { GlobalConfigModule, I18nHttpLoaderFactory, NgAlainModule, StartupServiceFactory, throwIfAlreadyLoaded, ɵ0$5 as ɵ0, ɵ1$5 as ɵ1, ɵ2$3 as ɵ2, ɵ3$2 as ɵ3 };
 //# sourceMappingURL=fs-ng-alain.js.map

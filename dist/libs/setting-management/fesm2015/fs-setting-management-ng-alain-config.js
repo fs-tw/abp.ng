@@ -1,4 +1,5 @@
-import { APP_INITIALIZER, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, ɵsetClassMetadata, NgModule } from '@angular/core';
+import { __decorate } from 'tslib';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { SettingManagementConfigModule } from '@abp/ng.setting-management/config';
 import { RoutesService } from '@abp/ng.core';
 import { Store } from '@ngxs/store';
@@ -25,43 +26,28 @@ function configureStyles(store) {
     };
 }
 function initLayouts(store) {
-    // store.dispatch([
-    //   new AddReplaceableComponent({
-    //     key: eIdentityComponents.Users,
-    //     component: UsersComponent,
-    //   }),
-    //   new AddReplaceableComponent({
-    //     key: eIdentityComponents.Roles,
-    //     component: RolesComponent
-    //   })
-    // ]);
 }
 
-class SettingManagementNgAlainConfigModule {
+var SettingManagementNgAlainConfigModule_1;
+let SettingManagementNgAlainConfigModule = SettingManagementNgAlainConfigModule_1 = class SettingManagementNgAlainConfigModule {
     static forRoot() {
         return {
-            ngModule: SettingManagementNgAlainConfigModule,
+            ngModule: SettingManagementNgAlainConfigModule_1,
             providers: [ROUTE_PROVIDERS, STYLES_PROVIDERS],
         };
     }
-}
-SettingManagementNgAlainConfigModule.ɵmod = ɵɵdefineNgModule({ type: SettingManagementNgAlainConfigModule });
-SettingManagementNgAlainConfigModule.ɵinj = ɵɵdefineInjector({ factory: function SettingManagementNgAlainConfigModule_Factory(t) { return new (t || SettingManagementNgAlainConfigModule)(); }, imports: [[
+};
+SettingManagementNgAlainConfigModule = SettingManagementNgAlainConfigModule_1 = __decorate([
+    NgModule({
+        imports: [
             SettingManagementConfigModule.forRoot()
-        ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(SettingManagementNgAlainConfigModule, { imports: [SettingManagementConfigModule] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(SettingManagementNgAlainConfigModule, [{
-        type: NgModule,
-        args: [{
-                imports: [
-                    SettingManagementConfigModule.forRoot()
-                ]
-            }]
-    }], null, null); })();
+        ]
+    })
+], SettingManagementNgAlainConfigModule);
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { SettingManagementNgAlainConfigModule };
+export { SettingManagementNgAlainConfigModule, ROUTE_PROVIDERS as ɵa, STYLES_PROVIDERS as ɵb, configureStyles as ɵc };
 //# sourceMappingURL=fs-setting-management-ng-alain-config.js.map

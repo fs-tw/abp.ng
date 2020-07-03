@@ -5,6 +5,7 @@
   "esm2015": "../esm2015/ng-alain/fs-permission-management-ng-alain.js",
   "fesm2015": "../fesm2015/fs-permission-management-ng-alain.js",
   "typings": "fs-permission-management-ng-alain.d.ts",
+  "metadata": "fs-permission-management-ng-alain.metadata.json",
   "sideEffects": false,
   "name": "@fs/permission-management/ng-alain"
 }

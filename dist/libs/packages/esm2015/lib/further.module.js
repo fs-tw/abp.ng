@@ -1,15 +1,12 @@
+import { __decorate } from "tslib";
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import * as i0 from "@angular/core";
-export class FurtherModule {
-}
-/** @nocollapse */ FurtherModule.ɵmod = i0.ɵɵdefineNgModule({ type: FurtherModule });
-/** @nocollapse */ FurtherModule.ɵinj = i0.ɵɵdefineInjector({ factory: function FurtherModule_Factory(t) { return new (t || FurtherModule)(); }, imports: [[CommonModule]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(FurtherModule, { imports: [CommonModule] }); })();
-/*@__PURE__*/ (function () { i0.ɵsetClassMetadata(FurtherModule, [{
-        type: NgModule,
-        args: [{
-                imports: [CommonModule]
-            }]
-    }], null, null); })();
-//# sourceMappingURL=further.module.js.map
+let FurtherModule = class FurtherModule {
+};
+FurtherModule = __decorate([
+    NgModule({
+        imports: [CommonModule]
+    })
+], FurtherModule);
+export { FurtherModule };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZnVydGhlci5tb2R1bGUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi9saWJzL3BhY2thZ2VzL3NyYy9saWIvZnVydGhlci5tb2R1bGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBLE9BQU8sRUFBRSxRQUFRLEVBQUUsTUFBTSxlQUFlLENBQUM7QUFDekMsT0FBTyxFQUFFLFlBQVksRUFBRSxNQUFNLGlCQUFpQixDQUFDO0FBSy9DLElBQWEsYUFBYSxHQUExQixNQUFhLGFBQWE7Q0FBRyxDQUFBO0FBQWhCLGFBQWE7SUFIekIsUUFBUSxDQUFDO1FBQ1IsT0FBTyxFQUFFLENBQUMsWUFBWSxDQUFDO0tBQ3hCLENBQUM7R0FDVyxhQUFhLENBQUc7U0FBaEIsYUFBYSIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IE5nTW9kdWxlIH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XHJcbmltcG9ydCB7IENvbW1vbk1vZHVsZSB9IGZyb20gJ0Bhbmd1bGFyL2NvbW1vbic7XHJcblxyXG5ATmdNb2R1bGUoe1xyXG4gIGltcG9ydHM6IFtDb21tb25Nb2R1bGVdXHJcbn0pXHJcbmV4cG9ydCBjbGFzcyBGdXJ0aGVyTW9kdWxlIHt9XHJcbiJdfQ==
