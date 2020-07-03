@@ -1,0 +1,10 @@
+{
+  "main": "../bundles/fs-feature-management-wrap.umd.js",
+  "module": "../fesm2015/fs-feature-management-wrap.js",
+  "es2015": "../fesm2015/fs-feature-management-wrap.js",
+  "esm2015": "../esm2015/wrap/fs-feature-management-wrap.js",
+  "fesm2015": "../fesm2015/fs-feature-management-wrap.js",
+  "typings": "fs-feature-management-wrap.d.ts",
+  "sideEffects": false,
+  "name": "@fs/feature-management/wrap"
+}

@@ -1,0 +1,10 @@
+{
+  "main": "../bundles/fs-ng-alain-core.umd.js",
+  "module": "../fesm2015/fs-ng-alain-core.js",
+  "es2015": "../fesm2015/fs-ng-alain-core.js",
+  "esm2015": "../esm2015/core/fs-ng-alain-core.js",
+  "fesm2015": "../fesm2015/fs-ng-alain-core.js",
+  "typings": "fs-ng-alain-core.d.ts",
+  "sideEffects": false,
+  "name": "@fs/ng-alain/core"
+}

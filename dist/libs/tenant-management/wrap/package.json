@@ -1,0 +1,10 @@
+{
+  "main": "../bundles/fs-tenant-management-wrap.umd.js",
+  "module": "../fesm2015/fs-tenant-management-wrap.js",
+  "es2015": "../fesm2015/fs-tenant-management-wrap.js",
+  "esm2015": "../esm2015/wrap/fs-tenant-management-wrap.js",
+  "fesm2015": "../fesm2015/fs-tenant-management-wrap.js",
+  "typings": "fs-tenant-management-wrap.d.ts",
+  "sideEffects": false,
+  "name": "@fs/tenant-management/wrap"
+}

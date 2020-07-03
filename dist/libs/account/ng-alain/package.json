@@ -1,0 +1,10 @@
+{
+  "main": "../bundles/fs-account-ng-alain.umd.js",
+  "module": "../fesm2015/fs-account-ng-alain.js",
+  "es2015": "../fesm2015/fs-account-ng-alain.js",
+  "esm2015": "../esm2015/ng-alain/fs-account-ng-alain.js",
+  "fesm2015": "../fesm2015/fs-account-ng-alain.js",
+  "typings": "fs-account-ng-alain.d.ts",
+  "sideEffects": false,
+  "name": "@fs/account/ng-alain"
+}

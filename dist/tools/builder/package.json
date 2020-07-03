@@ -1,0 +1,29 @@
+{
+  "name": "@fs/builder",
+  "version": "0.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "builders": "builders.json",
+  "scripts": {
+    "build": "",
+    "test": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "@angular-devkit/architect": "~0.901.6",
+    "@types/jasmine": "^3.3.12",
+    "@types/node": "^11.13.4",
+    "jasmine": "^3.4.0",
+    "jasmine-node": "^1.16.2",
+    "ts-node": "^8.1.0",
+    "typescript": "^3.4.3"
+  },
+  "devDependencies": {
+
+  },
+  "dependencies": {
+    "execa": "^4.0.0"
+  }
+}
