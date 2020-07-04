@@ -1,8 +1,0 @@
-/*
- * Public API Surface of theme-basic
- */
-export * from './lib/components';
-export * from './lib/enums';
-export * from './lib/providers';
-export * from './lib/theme-basic.module';
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3BhY2thZ2VzL3RoZW1lLWJhc2ljL3NyYy9wdWJsaWMtYXBpLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztHQUVHO0FBRUgsY0FBYyxrQkFBa0IsQ0FBQztBQUNqQyxjQUFjLGFBQWEsQ0FBQztBQUU1QixjQUFjLGlCQUFpQixDQUFDO0FBQ2hDLGNBQWMsMEJBQTBCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxyXG4gKiBQdWJsaWMgQVBJIFN1cmZhY2Ugb2YgdGhlbWUtYmFzaWNcclxuICovXHJcblxyXG5leHBvcnQgKiBmcm9tICcuL2xpYi9jb21wb25lbnRzJztcclxuZXhwb3J0ICogZnJvbSAnLi9saWIvZW51bXMnO1xyXG5leHBvcnQgKiBmcm9tICcuL2xpYi9tb2RlbHMnO1xyXG5leHBvcnQgKiBmcm9tICcuL2xpYi9wcm92aWRlcnMnO1xyXG5leHBvcnQgKiBmcm9tICcuL2xpYi90aGVtZS1iYXNpYy5tb2R1bGUnO1xyXG4iXX0=

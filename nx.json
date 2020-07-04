@@ -19,9 +19,12 @@
     }
   },
   "projects": {
+    "fs.theme-core": {
+      "tags": []
+    },
     "fs.dev": {
       "tags": []
-    },    
+    },
     "dev-app": {
       "tags": []
     },

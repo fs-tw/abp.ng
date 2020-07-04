@@ -1,6 +1,6 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import { JsonObject } from '@angular-devkit/core';
-import execa from 'execa';
+import execa = require('execa');
 import * as path from 'path';
 import { readFileSync } from 'fs';
 
@@ -10,18 +10,18 @@ interface Options extends JsonObject {
 }
 
 export default createBuilder<Options>((options, context) => {
-  return new Promise<BuilderOutput>(async (resolve, reject) => {
+  return new Promise<BuilderOutput>(async (resolve) => {
     const systemRoot = context.workspaceRoot;
     const symlinkConfigPath = options.symlinkConfig
     ? path.resolve(systemRoot, options.symlinkConfig)
-    : null;
+    : '';
 
     let buildActions=JSON.parse(getFileContents(symlinkConfigPath));
     console.log(`Task Executing ...`);
 
     for (var i = 0; i < buildActions.length; i++) {
       console.log(`"${buildActions[i].name}" Symlink building ...`);
-      let buildPackages=buildActions[i].packages.filter(x=>!buildActions[i].ignore_packages || buildActions[i].ignore_packages.indexOf(x)==-1);
+      let buildPackages=buildActions[i].packages.filter((x: any)=>!buildActions[i].ignore_packages || buildActions[i].ignore_packages.indexOf(x)==-1);
       await execa(
         'yarn',
         [

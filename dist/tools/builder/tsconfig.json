@@ -7,11 +7,14 @@
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "types": ["node", "jasmine"],
-    "esModuleInterop":true,
-    "outDir": "../../dist/tools/builder"
+    "strictNullChecks": true,
+    "types": ["node", "jasmine"]
   }
 }

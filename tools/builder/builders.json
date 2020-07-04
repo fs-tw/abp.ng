@@ -1,14 +1,9 @@
 {
   "builders": {
-    "command": {
-      "implementation": "./src/command",
-      "schema": "./src/command/schema.json",
-      "description": "Runs any command line in the operating system."
-    },
     "symlink": {
       "implementation": "./src/symlink",
       "schema": "./src/symlink/schema.json",
-      "description": "Build all packages."
-    }    
+      "description": "Runs SymLink"
+    }
   }
 }

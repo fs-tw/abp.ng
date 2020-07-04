@@ -45,7 +45,7 @@ const PASSPORT = [LayoutPassportComponent];
 
 @NgModule({
   imports: [SharedModule],
-  entryComponents: SETTINGDRAWER,
+  entryComponents: COMPONENTS,
   declarations: [...COMPONENTS, ...HEADERCOMPONENTS, ...PASSPORT],
   exports: [...COMPONENTS, ...PASSPORT],
 })

@@ -829,7 +829,7 @@
             {
               "file": "libs/permission-management/ng-alain/src/lib/permission-management-ng-alain.module.ts",
               "ext": ".ts",
-              "mtime": 1593747734205.1687
+              "mtime": 1593756562351.666
             },
             {
               "file": "libs/permission-management/ng-package.json",
@@ -1069,12 +1069,12 @@
             {
               "file": "libs/feature-management/wrap/src/index.ts",
               "ext": ".ts",
-              "mtime": 1593744613620.31
+              "mtime": 1593764098763.7927
             },
             {
               "file": "libs/feature-management/wrap/src/lib/feature-management-wrap.module.ts",
               "ext": ".ts",
-              "mtime": 1593744613621.3074
+              "mtime": 1593763329185.1472
             },
             {
               "file": "libs/feature-management/wrap/src/lib/index.ts",
@@ -1164,7 +1164,7 @@
             {
               "file": "libs/setting-management/ng-alain/config/src/lib/providers/styles.provider.ts",
               "ext": ".ts",
-              "mtime": 1593747794739.0745
+              "mtime": 1593756562352.663
             },
             {
               "file": "libs/setting-management/ng-alain/config/src/lib/services/setting-management-config.service.ts",
@@ -2531,6 +2531,291 @@
           ]
         }
       },
+      "fs.theme-core": {
+        "name": "fs.theme-core",
+        "type": "lib",
+        "data": {
+          "projectType": "library",
+          "root": "themes/theme-core",
+          "sourceRoot": "themes/theme-core/src",
+          "prefix": "fs",
+          "architect": {
+            "build": {
+              "builder": "@angular-devkit/build-ng-packagr:build",
+              "options": {
+                "tsConfig": "tsconfig.lib.json",
+                "project": "themes/theme-core/ng-package.json"
+              },
+              "configurations": {
+                "production": {
+                  "tsConfig": "tsconfig.lib.prod.json"
+                }
+              }
+            },
+            "lint": {
+              "builder": "@angular-devkit/build-angular:tslint",
+              "options": {
+                "tsConfig": [
+                  "themes/theme-core/tsconfig.lib.json",
+                  "themes/theme-core/tsconfig.spec.json"
+                ],
+                "exclude": [
+                  "**/node_modules/**",
+                  "!themes/theme-core/**/*"
+                ]
+              }
+            },
+            "test": {
+              "builder": "@nrwl/jest:jest",
+              "options": {
+                "jestConfig": "themes/theme-core/jest.config.js",
+                "tsConfig": "themes/theme-core/tsconfig.spec.json",
+                "passWithNoTests": true,
+                "setupFile": "themes/theme-core/src/test-setup.ts"
+              }
+            }
+          },
+          "schematics": {},
+          "tags": [],
+          "files": [
+            {
+              "file": "themes/theme-core/jest.config.js",
+              "ext": ".js",
+              "mtime": 1593760478416.5278
+            },
+            {
+              "file": "themes/theme-core/ng-package.json",
+              "ext": ".json",
+              "mtime": 1593760478409.5452
+            },
+            {
+              "file": "themes/theme-core/package.json",
+              "ext": ".json",
+              "mtime": 1593760671346.1848
+            },
+            {
+              "file": "themes/theme-core/README.md",
+              "ext": ".md",
+              "mtime": 1593760478410.558
+            },
+            {
+              "file": "themes/theme-core/src/actions/.gitkeep",
+              "ext": "",
+              "mtime": 1591539882823.2783
+            },
+            {
+              "file": "themes/theme-core/src/actions/index.ts",
+              "ext": ".ts",
+              "mtime": 1593219932650.4526
+            },
+            {
+              "file": "themes/theme-core/src/actions/router.actions.ts",
+              "ext": ".ts",
+              "mtime": 1591539882824.2754
+            },
+            {
+              "file": "themes/theme-core/src/actions/theme-core.actions.ts",
+              "ext": ".ts",
+              "mtime": 1593489648083.709
+            },
+            {
+              "file": "themes/theme-core/src/components/index.ts",
+              "ext": ".ts",
+              "mtime": 1591539882825.2737
+            },
+            {
+              "file": "themes/theme-core/src/components/page-bar.component.html",
+              "ext": ".html",
+              "mtime": 1591539882826.2705
+            },
+            {
+              "file": "themes/theme-core/src/components/page-bar.component.ts",
+              "ext": ".ts",
+              "mtime": 1593819991361.1165
+            },
+            {
+              "file": "themes/theme-core/src/enums/components.ts",
+              "ext": ".ts",
+              "mtime": 1591539882827.2683
+            },
+            {
+              "file": "themes/theme-core/src/enums/index.ts",
+              "ext": ".ts",
+              "mtime": 1591539882827.2683
+            },
+            {
+              "file": "themes/theme-core/src/index.ts",
+              "ext": ".ts",
+              "mtime": 1591539882828.265
+            },
+            {
+              "file": "themes/theme-core/src/lib/theme-core.module.ts",
+              "ext": ".ts",
+              "mtime": 1593760478415.5295
+            },
+            {
+              "file": "themes/theme-core/src/models/coding-dto/coding-dto.ts",
+              "ext": ".ts",
+              "mtime": 1593489648084.7065
+            },
+            {
+              "file": "themes/theme-core/src/models/coding-tree-model.ts",
+              "ext": ".ts",
+              "mtime": 1593489648085.7039
+            },
+            {
+              "file": "themes/theme-core/src/models/coding-with-setting-dto/coding-children-settings-dto.ts",
+              "ext": ".ts",
+              "mtime": 1593489648086.702
+            },
+            {
+              "file": "themes/theme-core/src/models/coding-with-setting-dto/coding-with-settings-dto.ts",
+              "ext": ".ts",
+              "mtime": 1593489648086.702
+            },
+            {
+              "file": "themes/theme-core/src/models/coding-with-setting-dto/get-coding-settings-input.ts",
+              "ext": ".ts",
+              "mtime": 1593489648087.6992
+            },
+            {
+              "file": "themes/theme-core/src/models/coding-with-setting-dto/patch-code-settings-input.ts",
+              "ext": ".ts",
+              "mtime": 1593489648087.6992
+            },
+            {
+              "file": "themes/theme-core/src/models/config.ts",
+              "ext": ".ts",
+              "mtime": 1591539882837.2412
+            },
+            {
+              "file": "themes/theme-core/src/models/index.ts",
+              "ext": ".ts",
+              "mtime": 1593489648088.6968
+            },
+            {
+              "file": "themes/theme-core/src/models/router.ts",
+              "ext": ".ts",
+              "mtime": 1593760995337.1362
+            },
+            {
+              "file": "themes/theme-core/src/models/setting-dto/setting-dto.ts",
+              "ext": ".ts",
+              "mtime": 1593489648089.6946
+            },
+            {
+              "file": "themes/theme-core/src/models/setting-dto/setting-input-dto.ts",
+              "ext": ".ts",
+              "mtime": 1593489648089.6946
+            },
+            {
+              "file": "themes/theme-core/src/models/setting-dto/setting-name-and-key-dto.ts",
+              "ext": ".ts",
+              "mtime": 1593489648090.6914
+            },
+            {
+              "file": "themes/theme-core/src/models/setting-dto/setting-update-input.ts",
+              "ext": ".ts",
+              "mtime": 1593489648090.6914
+            },
+            {
+              "file": "themes/theme-core/src/models/theme-core.models.ts",
+              "ext": ".ts",
+              "mtime": 1593489648091.6887
+            },
+            {
+              "file": "themes/theme-core/src/module-import-guard.ts",
+              "ext": ".ts",
+              "mtime": 1591539882842.2278
+            },
+            {
+              "file": "themes/theme-core/src/services/.gitkeep",
+              "ext": "",
+              "mtime": 1591539882843.2263
+            },
+            {
+              "file": "themes/theme-core/src/services/coding-with-setting.service.ts",
+              "ext": ".ts",
+              "mtime": 1593489648091.6887
+            },
+            {
+              "file": "themes/theme-core/src/services/index.ts",
+              "ext": ".ts",
+              "mtime": 1593489648092.6855
+            },
+            {
+              "file": "themes/theme-core/src/services/initial.service.ts",
+              "ext": ".ts",
+              "mtime": 1591539882846.2168
+            },
+            {
+              "file": "themes/theme-core/src/services/theme-core-state.service.ts",
+              "ext": ".ts",
+              "mtime": 1593489648093.6833
+            },
+            {
+              "file": "themes/theme-core/src/services/theme-core.service.ts",
+              "ext": ".ts",
+              "mtime": 1593760904450.0603
+            },
+            {
+              "file": "themes/theme-core/src/states/.gitkeep",
+              "ext": "",
+              "mtime": 1591539882847.2148
+            },
+            {
+              "file": "themes/theme-core/src/states/index.ts",
+              "ext": ".ts",
+              "mtime": 1593219932656.406
+            },
+            {
+              "file": "themes/theme-core/src/states/router.state.ts",
+              "ext": ".ts",
+              "mtime": 1591539882848.2126
+            },
+            {
+              "file": "themes/theme-core/src/states/theme-core.state.ts",
+              "ext": ".ts",
+              "mtime": 1593489648094.6797
+            },
+            {
+              "file": "themes/theme-core/src/test-setup.ts",
+              "ext": ".ts",
+              "mtime": 1593760478418.521
+            },
+            {
+              "file": "themes/theme-core/src/theme-core.module.ts",
+              "ext": ".ts",
+              "mtime": 1593489648095.6782
+            },
+            {
+              "file": "themes/theme-core/tsconfig.json",
+              "ext": ".json",
+              "mtime": 1593760478416.5278
+            },
+            {
+              "file": "themes/theme-core/tsconfig.lib.json",
+              "ext": ".json",
+              "mtime": 1593760478412.5383
+            },
+            {
+              "file": "themes/theme-core/tsconfig.lib.prod.json",
+              "ext": ".json",
+              "mtime": 1593760478413.5347
+            },
+            {
+              "file": "themes/theme-core/tsconfig.spec.json",
+              "ext": ".json",
+              "mtime": 1593760478417.5244
+            },
+            {
+              "file": "themes/theme-core/tslint.json",
+              "ext": ".json",
+              "mtime": 1593760478414.5315
+            }
+          ]
+        }
+      },
       "ng-alain-app": {
         "name": "ng-alain-app",
         "type": "app",
@@ -3723,7 +4008,7 @@
             {
               "file": "apps/ng-alain-app/tsconfig.dev.json",
               "ext": ".json",
-              "mtime": 1593744613192.454
+              "mtime": 1593778775340.0132
             },
             {
               "file": "apps/ng-alain-app/tsconfig.prod.json",
@@ -4594,7 +4879,7 @@
             {
               "file": "themes/ng-alain/layout/src/layout.module.ts",
               "ext": ".ts",
-              "mtime": 1593744613997.3027
+              "mtime": 1593764259629.1462
             },
             {
               "file": "themes/ng-alain/layout/src/passport/index.ts",
@@ -4620,466 +4905,6 @@
               "file": "themes/ng-alain/ng-package.json",
               "ext": ".json",
               "mtime": 1593598679994.1182
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/.tonic_example.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/dist/ajv.bundle.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/dist/ajv.min.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/dist/ajv.min.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/ajv.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/ajv.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/cache.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/compile/async.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/compile/equal.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/compile/error_classes.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/compile/formats.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/compile/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/compile/resolve.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/compile/rules.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/compile/schema_obj.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/compile/ucs2length.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/compile/util.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/data.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/definition_schema.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/allOf.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/anyOf.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/coerce.def",
-              "ext": ".def",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/comment.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/const.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/contains.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/custom.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/defaults.def",
-              "ext": ".def",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/definitions.def",
-              "ext": ".def",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/dependencies.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/enum.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/errors.def",
-              "ext": ".def",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/format.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/if.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/items.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/missing.def",
-              "ext": ".def",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/multipleOf.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/not.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/oneOf.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/pattern.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/properties.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/propertyNames.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/ref.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/required.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/uniqueItems.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/validate.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/_limit.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/_limitItems.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/_limitLength.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dot/_limitProperties.jst",
-              "ext": ".jst",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/allOf.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/anyOf.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/comment.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/const.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/contains.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/custom.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/dependencies.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/enum.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/format.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/if.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/items.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/multipleOf.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/not.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/oneOf.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/pattern.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/properties.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/propertyNames.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/README.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/ref.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/required.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/uniqueItems.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/validate.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/_limit.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/_limitItems.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/_limitLength.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/dotjs/_limitProperties.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/keyword.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/refs/data.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/refs/json-schema-draft-04.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/refs/json-schema-draft-06.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/refs/json-schema-draft-07.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/lib/refs/json-schema-secure.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/LICENSE",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/package.json",
-              "ext": ".json",
-              "mtime": 1593754067094.8662
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/README.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/scripts/.eslintrc.yml",
-              "ext": ".yml",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/scripts/bundle.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/scripts/compile-dots.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/scripts/info",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/scripts/prepare-tests",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/scripts/publish-built-version",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "themes/ng-alain/node_modules/ajv/scripts/travis-gh-pages",
-              "ext": "",
-              "mtime": 499162500000
             },
             {
               "file": "themes/ng-alain/package.json",
@@ -5189,7 +5014,7 @@
             {
               "file": "themes/ng-alain/src/lib/ng-alain.module.ts",
               "ext": ".ts",
-              "mtime": 1593751681506.3848
+              "mtime": 1593756562368.6208
             },
             {
               "file": "themes/ng-alain/src/test-setup.ts",
@@ -5334,2344 +5159,9 @@
               "mtime": 1593591782703.4265
             },
             {
-              "file": "libs/packages/node_modules/.bin/protractor",
-              "ext": "",
-              "mtime": 1593754067175.648
-            },
-            {
-              "file": "libs/packages/node_modules/.bin/protractor.cmd",
-              "ext": ".cmd",
-              "mtime": 1593754067175.648
-            },
-            {
-              "file": "libs/packages/node_modules/.bin/protractor.ps1",
-              "ext": ".ps1",
-              "mtime": 1593754067175.648
-            },
-            {
-              "file": "libs/packages/node_modules/.bin/rimraf",
-              "ext": "",
-              "mtime": 1593754067167.669
-            },
-            {
-              "file": "libs/packages/node_modules/.bin/rimraf.cmd",
-              "ext": ".cmd",
-              "mtime": 1593754067167.669
-            },
-            {
-              "file": "libs/packages/node_modules/.bin/rimraf.ps1",
-              "ext": ".ps1",
-              "mtime": 1593754067166.6724
-            },
-            {
-              "file": "libs/packages/node_modules/.bin/webdriver-manager",
-              "ext": "",
-              "mtime": 1593754067176.6453
-            },
-            {
-              "file": "libs/packages/node_modules/.bin/webdriver-manager.cmd",
-              "ext": ".cmd",
-              "mtime": 1593754067176.6453
-            },
-            {
-              "file": "libs/packages/node_modules/.bin/webdriver-manager.ps1",
-              "ext": ".ps1",
-              "mtime": 1593754067176.6453
-            },
-            {
-              "file": "libs/packages/node_modules/@types/q/index.d.ts",
-              "ext": ".ts",
-              "mtime": 1475700816000
-            },
-            {
-              "file": "libs/packages/node_modules/@types/q/package.json",
-              "ext": ".json",
-              "mtime": 1593754067099.8508
-            },
-            {
-              "file": "libs/packages/node_modules/@types/q/README.md",
-              "ext": ".md",
-              "mtime": 1475700816000
-            },
-            {
-              "file": "libs/packages/node_modules/@types/q/types-metadata.json",
-              "ext": ".json",
-              "mtime": 1475700816000
-            },
-            {
-              "file": "libs/packages/node_modules/ansi-regex/index.js",
-              "ext": ".js",
-              "mtime": 1484362985000
-            },
-            {
-              "file": "libs/packages/node_modules/ansi-regex/license",
-              "ext": "",
-              "mtime": 1465490702000
-            },
-            {
-              "file": "libs/packages/node_modules/ansi-regex/package.json",
-              "ext": ".json",
-              "mtime": 1593754067090.8748
-            },
-            {
-              "file": "libs/packages/node_modules/ansi-regex/readme.md",
-              "ext": ".md",
-              "mtime": 1484362985000
-            },
-            {
-              "file": "libs/packages/node_modules/ansi-styles/index.js",
-              "ext": ".js",
-              "mtime": 1459197140000
-            },
-            {
-              "file": "libs/packages/node_modules/ansi-styles/license",
-              "ext": "",
-              "mtime": 1396798991000
-            },
-            {
-              "file": "libs/packages/node_modules/ansi-styles/package.json",
-              "ext": ".json",
-              "mtime": 1593754067092.8696
-            },
-            {
-              "file": "libs/packages/node_modules/ansi-styles/readme.md",
-              "ext": ".md",
-              "mtime": 1459197140000
-            },
-            {
-              "file": "libs/packages/node_modules/array-union/index.js",
-              "ext": ".js",
-              "mtime": 1403191308000
-            },
-            {
-              "file": "libs/packages/node_modules/array-union/license",
-              "ext": "",
-              "mtime": 1396798991000
-            },
-            {
-              "file": "libs/packages/node_modules/array-union/package.json",
-              "ext": ".json",
-              "mtime": 1593754067091.8728
-            },
-            {
-              "file": "libs/packages/node_modules/array-union/readme.md",
-              "ext": ".md",
-              "mtime": 1466079289000
-            },
-            {
-              "file": "libs/packages/node_modules/chalk/index.js",
-              "ext": ".js",
-              "mtime": 1459210441000
-            },
-            {
-              "file": "libs/packages/node_modules/chalk/license",
-              "ext": "",
-              "mtime": 1459195776000
-            },
-            {
-              "file": "libs/packages/node_modules/chalk/package.json",
-              "ext": ".json",
-              "mtime": 1593754067136.7517
-            },
-            {
-              "file": "libs/packages/node_modules/chalk/readme.md",
-              "ext": ".md",
-              "mtime": 1459210441000
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/CHANGELOG.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/LICENSE.txt",
-              "ext": ".txt",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/node_modules/ansi-regex/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/node_modules/ansi-regex/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/node_modules/ansi-regex/license",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/node_modules/ansi-regex/package.json",
-              "ext": ".json",
-              "mtime": 1593754067101.8464
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/node_modules/ansi-regex/readme.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/node_modules/strip-ansi/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/node_modules/strip-ansi/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/node_modules/strip-ansi/license",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/node_modules/strip-ansi/package.json",
-              "ext": ".json",
-              "mtime": 1593754067101.8464
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/node_modules/strip-ansi/readme.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/package.json",
-              "ext": ".json",
-              "mtime": 1593754067134.7568
-            },
-            {
-              "file": "libs/packages/node_modules/cliui/README.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/del/index.js",
-              "ext": ".js",
-              "mtime": 1466080749000
-            },
-            {
-              "file": "libs/packages/node_modules/del/license",
-              "ext": "",
-              "mtime": 1396798991000
-            },
-            {
-              "file": "libs/packages/node_modules/del/package.json",
-              "ext": ".json",
-              "mtime": 1593754067097.8555
-            },
-            {
-              "file": "libs/packages/node_modules/del/readme.md",
-              "ext": ".md",
-              "mtime": 1471046617000
-            },
-            {
-              "file": "libs/packages/node_modules/emoji-regex/es2015/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/emoji-regex/es2015/text.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/emoji-regex/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/emoji-regex/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/emoji-regex/LICENSE-MIT.txt",
-              "ext": ".txt",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/emoji-regex/package.json",
-              "ext": ".json",
-              "mtime": 1593754067092.8696
-            },
-            {
-              "file": "libs/packages/node_modules/emoji-regex/README.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/emoji-regex/text.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/find-up/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/find-up/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/find-up/license",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/find-up/package.json",
-              "ext": ".json",
-              "mtime": 1593754067097.8555
-            },
-            {
-              "file": "libs/packages/node_modules/find-up/readme.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/globby/index.js",
-              "ext": ".js",
-              "mtime": 1465625832000
-            },
-            {
-              "file": "libs/packages/node_modules/globby/license",
-              "ext": "",
-              "mtime": 1419915134000
-            },
-            {
-              "file": "libs/packages/node_modules/globby/package.json",
-              "ext": ".json",
-              "mtime": 1593754067096.8599
-            },
-            {
-              "file": "libs/packages/node_modules/globby/readme.md",
-              "ext": ".md",
-              "mtime": 1465625832000
-            },
-            {
-              "file": "libs/packages/node_modules/is-fullwidth-code-point/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/is-fullwidth-code-point/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/is-fullwidth-code-point/license",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/is-fullwidth-code-point/package.json",
-              "ext": ".json",
-              "mtime": 1593754067093.8672
-            },
-            {
-              "file": "libs/packages/node_modules/is-fullwidth-code-point/readme.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/is-path-cwd/index.js",
-              "ext": ".js",
-              "mtime": 1403171242000
-            },
-            {
-              "file": "libs/packages/node_modules/is-path-cwd/package.json",
-              "ext": ".json",
-              "mtime": 1593754067092.8696
-            },
-            {
-              "file": "libs/packages/node_modules/is-path-cwd/readme.md",
-              "ext": ".md",
-              "mtime": 1403173090000
-            },
-            {
-              "file": "libs/packages/node_modules/is-path-in-cwd/index.js",
-              "ext": ".js",
-              "mtime": 1477421189000
-            },
-            {
-              "file": "libs/packages/node_modules/is-path-in-cwd/license",
-              "ext": "",
-              "mtime": 1477421189000
-            },
-            {
-              "file": "libs/packages/node_modules/is-path-in-cwd/package.json",
-              "ext": ".json",
-              "mtime": 1593754067093.8672
-            },
-            {
-              "file": "libs/packages/node_modules/is-path-in-cwd/readme.md",
-              "ext": ".md",
-              "mtime": 1494595155000
-            },
-            {
-              "file": "libs/packages/node_modules/is-path-inside/index.js",
-              "ext": ".js",
-              "mtime": 1477421192000
-            },
-            {
-              "file": "libs/packages/node_modules/is-path-inside/license",
-              "ext": "",
-              "mtime": 1512038061000
-            },
-            {
-              "file": "libs/packages/node_modules/is-path-inside/package.json",
-              "ext": ".json",
-              "mtime": 1593754067092.8696
-            },
-            {
-              "file": "libs/packages/node_modules/is-path-inside/readme.md",
-              "ext": ".md",
-              "mtime": 1512038061000
-            },
-            {
-              "file": "libs/packages/node_modules/locate-path/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/locate-path/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/locate-path/license",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/locate-path/package.json",
-              "ext": ".json",
-              "mtime": 1593754067095.8618
-            },
-            {
-              "file": "libs/packages/node_modules/locate-path/readme.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/p-locate/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/p-locate/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/p-locate/license",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/p-locate/package.json",
-              "ext": ".json",
-              "mtime": 1593754067093.8672
-            },
-            {
-              "file": "libs/packages/node_modules/p-locate/readme.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/path-exists/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/path-exists/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/path-exists/license",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/path-exists/package.json",
-              "ext": ".json",
-              "mtime": 1593754067096.8599
-            },
-            {
-              "file": "libs/packages/node_modules/path-exists/readme.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/pify/index.js",
-              "ext": ".js",
-              "mtime": 1445864677000
-            },
-            {
-              "file": "libs/packages/node_modules/pify/license",
-              "ext": "",
-              "mtime": 1396798991000
-            },
-            {
-              "file": "libs/packages/node_modules/pify/package.json",
-              "ext": ".json",
-              "mtime": 1593754067094.8662
-            },
-            {
-              "file": "libs/packages/node_modules/pify/readme.md",
-              "ext": ".md",
-              "mtime": 1445864979000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/.circleci/config.yml",
-              "ext": ".yml",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/.jshintignore",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/bin/elementexplorer.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/bin/protractor",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/bin/webdriver-manager",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/bpRunner.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/bpRunner.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/breakpointhook.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/browser.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/browser.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/cli.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/cli.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/clientsidescripts.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/config.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/config.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/configParser.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/configParser.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/debugger/clients/explorer.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/debugger/clients/wddebugger.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/debugger/debuggerCommons.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/debugger/modes/commandRepl.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/debugger/modes/debuggerRepl.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/debugger.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/debugger.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/attachSession.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/attachSession.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/browserStack.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/browserStack.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/direct.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/direct.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/driverProvider.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/driverProvider.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/hosted.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/hosted.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/kobiton.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/kobiton.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/local.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/local.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/mock.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/mock.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/sauce.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/sauce.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/testObject.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/testObject.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/useExistingWebDriver.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/driverProviders/useExistingWebDriver.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/element.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/element.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/exitCodes.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/exitCodes.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/expectedConditions.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/expectedConditions.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/frameworks/debugprint.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/frameworks/explorer.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/frameworks/jasmine.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/frameworks/mocha.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/frameworks/setupAfterEach.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/frameworks/__protractor_internal_afterEach_setup_spec.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/launcher.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/launcher.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/locators.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/locators.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/logger.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/logger.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/plugins.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/plugins.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/ptor.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/ptor.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/runner.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/runner.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/runnerCli.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/runnerCli.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/selenium-webdriver/locators.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/selenium-webdriver/webdriver.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/taskLogger.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/taskLogger.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/taskRunner.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/taskRunner.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/taskScheduler.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/taskScheduler.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/util.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/util.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/built/webdriver-js-extender/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/CHANGELOG.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/CONTRIBUTING.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/DEVELOPER.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/example/angular_material/conf.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/example/angular_material/input_spec.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/example/angular_material/mat_paginator_spec.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/example/conf.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/example/example_spec.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/exampleTypescript/angularPage.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/exampleTypescript/asyncAwait/conf.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/exampleTypescript/asyncAwait/README.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/exampleTypescript/asyncAwait/spec.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/exampleTypescript/conf.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/exampleTypescript/confPageObjects.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/exampleTypescript/package.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/exampleTypescript/plugins.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/exampleTypescript/README.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/exampleTypescript/spec.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/exampleTypescript/specPageObjects.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/exampleTypescript/tsconfig.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/gulpfile.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/LICENSE",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/.bin/webdriver-manager",
-              "ext": "",
-              "mtime": 1593754067171.6587
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/.bin/webdriver-manager.cmd",
-              "ext": ".cmd",
-              "mtime": 1593754067170.6614
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/.bin/webdriver-manager.ps1",
-              "ext": ".ps1",
-              "mtime": 1593754067170.6614
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/.circleci/config.yml",
-              "ext": ".yml",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/bin/webdriver-manager",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/config.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/android_sdk.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/android_sdk.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/android_sdk.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/appium.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/appium.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/appium.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/binary.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/binary.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/binary.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/chrome_driver.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/chrome_driver.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/chrome_driver.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/chrome_xml.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/chrome_xml.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/chrome_xml.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/config_source.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/config_source.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/config_source.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/gecko_driver.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/gecko_driver.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/gecko_driver.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/gecko_driver_github.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/gecko_driver_github.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/gecko_driver_github.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/iedriver.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/iedriver.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/iedriver.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/iedriver_xml.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/iedriver_xml.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/iedriver_xml.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/index.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/standalone.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/standalone.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/standalone.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/standalone_xml.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/standalone_xml.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/binaries/standalone_xml.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/cli.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/cli.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/cli.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/index.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/logger.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/logger.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/logger.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/options.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/options.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/options.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/programs.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/programs.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli/programs.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli_instance.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli_instance.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cli_instance.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/clean.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/clean.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/clean.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/index.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/initialize.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/initialize.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/initialize.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/opts.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/opts.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/opts.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/shutdown.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/shutdown.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/shutdown.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/start.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/start.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/start.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/status.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/status.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/status.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/update.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/update.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/update.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/version.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/version.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/cmds/version.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/config.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/config.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/config.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/files/downloaded_binary.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/files/downloaded_binary.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/files/downloaded_binary.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/files/downloader.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/files/downloader.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/files/downloader.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/files/file_manager.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/files/file_manager.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/files/file_manager.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/files/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/files/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/files/index.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/http_utils.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/http_utils.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/http_utils.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/utils.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/utils.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/utils.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/webdriver.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/webdriver.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/lib/webdriver.js.map",
-              "ext": ".map",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/built/package.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/CHANGELOG.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/config.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/CONTRIBUTING.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/docs/mobile.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/docs/protractor.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/docs/README.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/docs/versions.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/gulpfile.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/LICENSE",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/package.json",
-              "ext": ".json",
-              "mtime": 1593754067139.744
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/node_modules/webdriver-manager/README.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/package.json",
-              "ext": ".json",
-              "mtime": 1593754067135.754
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/README.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/tsconfig.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/tslint.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/protractor/ts_spec_config.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/q/CHANGES.md",
-              "ext": ".md",
-              "mtime": 1431834909000
-            },
-            {
-              "file": "libs/packages/node_modules/q/LICENSE",
-              "ext": "",
-              "mtime": 1431834486000
-            },
-            {
-              "file": "libs/packages/node_modules/q/package.json",
-              "ext": ".json",
-              "mtime": 1593754067095.8618
-            },
-            {
-              "file": "libs/packages/node_modules/q/q.js",
-              "ext": ".js",
-              "mtime": 1431834518000
-            },
-            {
-              "file": "libs/packages/node_modules/q/queue.js",
-              "ext": ".js",
-              "mtime": 1431834486000
-            },
-            {
-              "file": "libs/packages/node_modules/q/README.md",
-              "ext": ".md",
-              "mtime": 1431834486000
-            },
-            {
-              "file": "libs/packages/node_modules/rimraf/bin.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/rimraf/LICENSE",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/rimraf/package.json",
-              "ext": ".json",
-              "mtime": 1593754067100.8486
-            },
-            {
-              "file": "libs/packages/node_modules/rimraf/README.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/rimraf/rimraf.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/CHANGELOG.md",
-              "ext": ".md",
-              "mtime": 1492467890000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/dist/source-map.debug.js",
-              "ext": ".js",
-              "mtime": 1503322374000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/dist/source-map.js",
-              "ext": ".js",
-              "mtime": 1503322374000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/dist/source-map.min.js",
-              "ext": ".js",
-              "mtime": 1503322374000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/dist/source-map.min.js.map",
-              "ext": ".map",
-              "mtime": 1503322374000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/lib/array-set.js",
-              "ext": ".js",
-              "mtime": 1496683247000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/lib/base64-vlq.js",
-              "ext": ".js",
-              "mtime": 1492467891000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/lib/base64.js",
-              "ext": ".js",
-              "mtime": 1492467891000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/lib/binary-search.js",
-              "ext": ".js",
-              "mtime": 1492467891000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/lib/mapping-list.js",
-              "ext": ".js",
-              "mtime": 1492467891000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/lib/quick-sort.js",
-              "ext": ".js",
-              "mtime": 1492467891000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/lib/source-map-consumer.js",
-              "ext": ".js",
-              "mtime": 1492467891000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/lib/source-map-generator.js",
-              "ext": ".js",
-              "mtime": 1496683247000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/lib/source-node.js",
-              "ext": ".js",
-              "mtime": 1496683247000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/lib/util.js",
-              "ext": ".js",
-              "mtime": 1492467891000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/LICENSE",
-              "ext": "",
-              "mtime": 1492467890000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/package.json",
-              "ext": ".json",
-              "mtime": 1593754067098.8528
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/README.md",
-              "ext": ".md",
-              "mtime": 1492467890000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map/source-map.js",
-              "ext": ".js",
-              "mtime": 1492467891000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map-support/browser-source-map-support.js",
-              "ext": ".js",
-              "mtime": 1505036653000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map-support/LICENSE.md",
-              "ext": ".md",
-              "mtime": 1502959804000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map-support/package.json",
-              "ext": ".json",
-              "mtime": 1593754067139.744
-            },
-            {
-              "file": "libs/packages/node_modules/source-map-support/README.md",
-              "ext": ".md",
-              "mtime": 1502959804000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map-support/register.js",
-              "ext": ".js",
-              "mtime": 1502959804000
-            },
-            {
-              "file": "libs/packages/node_modules/source-map-support/source-map-support.js",
-              "ext": ".js",
-              "mtime": 1505036548000
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/license",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/node_modules/ansi-regex/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/node_modules/ansi-regex/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/node_modules/ansi-regex/license",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/node_modules/ansi-regex/package.json",
-              "ext": ".json",
-              "mtime": 1593754067143.733
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/node_modules/ansi-regex/readme.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/node_modules/strip-ansi/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/node_modules/strip-ansi/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/node_modules/strip-ansi/license",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/node_modules/strip-ansi/package.json",
-              "ext": ".json",
-              "mtime": 1593754067140.7412
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/node_modules/strip-ansi/readme.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/package.json",
-              "ext": ".json",
-              "mtime": 1593754067136.7517
-            },
-            {
-              "file": "libs/packages/node_modules/string-width/readme.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/strip-ansi/index.js",
-              "ext": ".js",
-              "mtime": 1424597013000
-            },
-            {
-              "file": "libs/packages/node_modules/strip-ansi/license",
-              "ext": "",
-              "mtime": 1424597013000
-            },
-            {
-              "file": "libs/packages/node_modules/strip-ansi/package.json",
-              "ext": ".json",
-              "mtime": 1593754067136.7517
-            },
-            {
-              "file": "libs/packages/node_modules/strip-ansi/readme.md",
-              "ext": ".md",
-              "mtime": 1456056884000
-            },
-            {
-              "file": "libs/packages/node_modules/supports-color/index.js",
-              "ext": ".js",
-              "mtime": 1435362323000
-            },
-            {
-              "file": "libs/packages/node_modules/supports-color/license",
-              "ext": "",
-              "mtime": 1396798991000
-            },
-            {
-              "file": "libs/packages/node_modules/supports-color/package.json",
-              "ext": ".json",
-              "mtime": 1593754067136.7517
-            },
-            {
-              "file": "libs/packages/node_modules/supports-color/readme.md",
-              "ext": ".md",
-              "mtime": 1435704929000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/license",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/ansi-regex/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/ansi-regex/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/ansi-regex/license",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/ansi-regex/package.json",
-              "ext": ".json",
-              "mtime": 1593754067137.7495
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/ansi-regex/readme.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/ansi-styles/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/ansi-styles/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/ansi-styles/license",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/ansi-styles/package.json",
-              "ext": ".json",
-              "mtime": 1593754067137.7495
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/ansi-styles/readme.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/strip-ansi/index.d.ts",
-              "ext": ".ts",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/strip-ansi/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/strip-ansi/license",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/strip-ansi/package.json",
-              "ext": ".json",
-              "mtime": 1593754067137.7495
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/node_modules/strip-ansi/readme.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/package.json",
-              "ext": ".json",
-              "mtime": 1593754067134.7568
-            },
-            {
-              "file": "libs/packages/node_modules/wrap-ansi/readme.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/CHANGELOG.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/lib/apply-extends.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/lib/argsert.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/lib/command.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/lib/completion-templates.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/lib/completion.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/lib/is-promise.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/lib/levenshtein.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/lib/middleware.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/lib/obj-filter.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/lib/process-argv.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/lib/usage.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/lib/validation.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/lib/yerror.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/LICENSE",
-              "ext": "",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/be.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/de.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/en.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/es.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/fi.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/fr.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/hi.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/hu.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/id.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/it.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/ja.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/ko.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/nb.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/nl.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/nn.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/pirate.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/pl.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/pt.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/pt_BR.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/ru.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/th.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/tr.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/zh_CN.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/locales/zh_TW.json",
-              "ext": ".json",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/package.json",
-              "ext": ".json",
-              "mtime": 1593754067134.7568
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/README.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs/yargs.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs-parser/CHANGELOG.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs-parser/index.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs-parser/lib/tokenize-arg-string.js",
-              "ext": ".js",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs-parser/LICENSE.txt",
-              "ext": ".txt",
-              "mtime": 499162500000
-            },
-            {
-              "file": "libs/packages/node_modules/yargs-parser/package.json",
-              "ext": ".json",
-              "mtime": 1593754067134.7568
-            },
-            {
-              "file": "libs/packages/node_modules/yargs-parser/README.md",
-              "ext": ".md",
-              "mtime": 499162500000
-            },
-            {
               "file": "libs/packages/package.json",
               "ext": ".json",
-              "mtime": 1593754291685.1057
+              "mtime": 1593756562349.6714
             },
             {
               "file": "libs/packages/README.md",
@@ -7701,7 +5191,7 @@
             {
               "file": "libs/packages/symlink.json",
               "ext": ".json",
-              "mtime": 1593754329019.294
+              "mtime": 1593756562350.6687
             },
             {
               "file": "libs/packages/tsconfig.json",
@@ -9520,62 +7010,62 @@
             {
               "file": "themes/dev/jest.config.js",
               "ext": ".js",
-              "mtime": 1593754057693.4075
+              "mtime": 1593756562362.6365
             },
             {
               "file": "themes/dev/ng-package.json",
               "ext": ".json",
-              "mtime": 1593755531422.88
+              "mtime": 1593756562362.6365
             },
             {
               "file": "themes/dev/package.json",
               "ext": ".json",
-              "mtime": 1593754600896.0938
+              "mtime": 1593756562363.6338
             },
             {
               "file": "themes/dev/README.md",
               "ext": ".md",
-              "mtime": 1593754057686.4263
+              "mtime": 1593756562361.6392
             },
             {
               "file": "themes/dev/src/index.ts",
               "ext": ".ts",
-              "mtime": 1593754057690.4155
+              "mtime": 1593756562363.6338
             },
             {
               "file": "themes/dev/src/lib/dev.module.ts",
               "ext": ".ts",
-              "mtime": 1593754057691.4128
+              "mtime": 1593756562364.631
             },
             {
               "file": "themes/dev/src/test-setup.ts",
               "ext": ".ts",
-              "mtime": 1593754057694.4048
+              "mtime": 1593756562364.631
             },
             {
               "file": "themes/dev/tsconfig.json",
               "ext": ".json",
-              "mtime": 1593754057692.41
+              "mtime": 1593756562365.6284
             },
             {
               "file": "themes/dev/tsconfig.lib.json",
               "ext": ".json",
-              "mtime": 1593754057688.421
+              "mtime": 1593756562365.6284
             },
             {
               "file": "themes/dev/tsconfig.lib.prod.json",
               "ext": ".json",
-              "mtime": 1593754057689.4194
+              "mtime": 1593756562366.6255
             },
             {
               "file": "themes/dev/tsconfig.spec.json",
               "ext": ".json",
-              "mtime": 1593754057693.4075
+              "mtime": 1593756562366.6255
             },
             {
               "file": "themes/dev/tslint.json",
               "ext": ".json",
-              "mtime": 1593754057689.4194
+              "mtime": 1593756562367.6235
             }
           ]
         }
@@ -9733,15 +7223,6 @@
           "files": []
         }
       },
-      "npm:@fs/builder": {
-        "type": "npm",
-        "name": "npm:@fs/builder",
-        "data": {
-          "version": "file:tools/builder",
-          "packageName": "@fs/builder",
-          "files": []
-        }
-      },
       "npm:@fs/ng-alain": {
         "type": "npm",
         "name": "npm:@fs/ng-alain",
@@ -9755,7 +7236,7 @@
         "type": "npm",
         "name": "npm:@fs/dev",
         "data": {
-          "version": "file:libs/dev",
+          "version": "file:themes/dev",
           "packageName": "@fs/dev",
           "files": []
         }
@@ -10279,6 +7760,38 @@
           "target": "npm:@angular/router"
         }
       ],
+      "fs.theme-core": [
+        {
+          "type": "static",
+          "source": "fs.theme-core",
+          "target": "abp.core"
+        },
+        {
+          "type": "static",
+          "source": "fs.theme-core",
+          "target": "npm:@angular/core"
+        },
+        {
+          "type": "static",
+          "source": "fs.theme-core",
+          "target": "npm:@angular/common"
+        },
+        {
+          "type": "static",
+          "source": "fs.theme-core",
+          "target": "npm:rxjs"
+        },
+        {
+          "type": "static",
+          "source": "fs.theme-core",
+          "target": "npm:@angular/router"
+        },
+        {
+          "type": "static",
+          "source": "fs.theme-core",
+          "target": "npm:jest-preset-angular"
+        }
+      ],
       "ng-alain-app": [
         {
           "type": "static",
@@ -10493,11 +8006,6 @@
         }
       ],
       "fs.packages": [
-        {
-          "type": "static",
-          "source": "fs.packages",
-          "target": "npm:ts-node"
-        },
         {
           "type": "static",
           "source": "fs.packages",
@@ -10751,7 +8259,6 @@
       "npm:@angular/cli": [],
       "npm:@angular/compiler-cli": [],
       "npm:@angular/language-service": [],
-      "npm:@fs/builder": [],
       "npm:@fs/ng-alain": [],
       "npm:@fs/dev": [],
       "npm:@nrwl/cypress": [],
@@ -11392,7 +8899,7 @@
       {
         "file": "libs/permission-management/ng-alain/src/lib/permission-management-ng-alain.module.ts",
         "ext": ".ts",
-        "mtime": 1593747734205.1687
+        "mtime": 1593756562351.666
       },
       {
         "file": "libs/permission-management/ng-package.json",
@@ -11584,12 +9091,12 @@
       {
         "file": "libs/feature-management/wrap/src/index.ts",
         "ext": ".ts",
-        "mtime": 1593744613620.31
+        "mtime": 1593764098763.7927
       },
       {
         "file": "libs/feature-management/wrap/src/lib/feature-management-wrap.module.ts",
         "ext": ".ts",
-        "mtime": 1593744613621.3074
+        "mtime": 1593763329185.1472
       },
       {
         "file": "libs/feature-management/wrap/src/lib/index.ts",
@@ -11631,7 +9138,7 @@
       {
         "file": "libs/setting-management/ng-alain/config/src/lib/providers/styles.provider.ts",
         "ext": ".ts",
-        "mtime": 1593747794739.0745
+        "mtime": 1593756562352.663
       },
       {
         "file": "libs/setting-management/ng-alain/config/src/lib/services/setting-management-config.service.ts",
@@ -12860,6 +10367,243 @@
         "mtime": 1593592663634.4597
       }
     ],
+    "fs.theme-core": [
+      {
+        "file": "themes/theme-core/jest.config.js",
+        "ext": ".js",
+        "mtime": 1593760478416.5278
+      },
+      {
+        "file": "themes/theme-core/ng-package.json",
+        "ext": ".json",
+        "mtime": 1593760478409.5452
+      },
+      {
+        "file": "themes/theme-core/package.json",
+        "ext": ".json",
+        "mtime": 1593760671346.1848
+      },
+      {
+        "file": "themes/theme-core/README.md",
+        "ext": ".md",
+        "mtime": 1593760478410.558
+      },
+      {
+        "file": "themes/theme-core/src/actions/.gitkeep",
+        "ext": "",
+        "mtime": 1591539882823.2783
+      },
+      {
+        "file": "themes/theme-core/src/actions/index.ts",
+        "ext": ".ts",
+        "mtime": 1593219932650.4526
+      },
+      {
+        "file": "themes/theme-core/src/actions/router.actions.ts",
+        "ext": ".ts",
+        "mtime": 1591539882824.2754
+      },
+      {
+        "file": "themes/theme-core/src/actions/theme-core.actions.ts",
+        "ext": ".ts",
+        "mtime": 1593489648083.709
+      },
+      {
+        "file": "themes/theme-core/src/components/index.ts",
+        "ext": ".ts",
+        "mtime": 1591539882825.2737
+      },
+      {
+        "file": "themes/theme-core/src/components/page-bar.component.html",
+        "ext": ".html",
+        "mtime": 1591539882826.2705
+      },
+      {
+        "file": "themes/theme-core/src/components/page-bar.component.ts",
+        "ext": ".ts",
+        "mtime": 1593819991361.1165
+      },
+      {
+        "file": "themes/theme-core/src/enums/components.ts",
+        "ext": ".ts",
+        "mtime": 1591539882827.2683
+      },
+      {
+        "file": "themes/theme-core/src/enums/index.ts",
+        "ext": ".ts",
+        "mtime": 1591539882827.2683
+      },
+      {
+        "file": "themes/theme-core/src/index.ts",
+        "ext": ".ts",
+        "mtime": 1591539882828.265
+      },
+      {
+        "file": "themes/theme-core/src/lib/theme-core.module.ts",
+        "ext": ".ts",
+        "mtime": 1593760478415.5295
+      },
+      {
+        "file": "themes/theme-core/src/models/coding-dto/coding-dto.ts",
+        "ext": ".ts",
+        "mtime": 1593489648084.7065
+      },
+      {
+        "file": "themes/theme-core/src/models/coding-tree-model.ts",
+        "ext": ".ts",
+        "mtime": 1593489648085.7039
+      },
+      {
+        "file": "themes/theme-core/src/models/coding-with-setting-dto/coding-children-settings-dto.ts",
+        "ext": ".ts",
+        "mtime": 1593489648086.702
+      },
+      {
+        "file": "themes/theme-core/src/models/coding-with-setting-dto/coding-with-settings-dto.ts",
+        "ext": ".ts",
+        "mtime": 1593489648086.702
+      },
+      {
+        "file": "themes/theme-core/src/models/coding-with-setting-dto/get-coding-settings-input.ts",
+        "ext": ".ts",
+        "mtime": 1593489648087.6992
+      },
+      {
+        "file": "themes/theme-core/src/models/coding-with-setting-dto/patch-code-settings-input.ts",
+        "ext": ".ts",
+        "mtime": 1593489648087.6992
+      },
+      {
+        "file": "themes/theme-core/src/models/config.ts",
+        "ext": ".ts",
+        "mtime": 1591539882837.2412
+      },
+      {
+        "file": "themes/theme-core/src/models/index.ts",
+        "ext": ".ts",
+        "mtime": 1593489648088.6968
+      },
+      {
+        "file": "themes/theme-core/src/models/router.ts",
+        "ext": ".ts",
+        "mtime": 1593760995337.1362
+      },
+      {
+        "file": "themes/theme-core/src/models/setting-dto/setting-dto.ts",
+        "ext": ".ts",
+        "mtime": 1593489648089.6946
+      },
+      {
+        "file": "themes/theme-core/src/models/setting-dto/setting-input-dto.ts",
+        "ext": ".ts",
+        "mtime": 1593489648089.6946
+      },
+      {
+        "file": "themes/theme-core/src/models/setting-dto/setting-name-and-key-dto.ts",
+        "ext": ".ts",
+        "mtime": 1593489648090.6914
+      },
+      {
+        "file": "themes/theme-core/src/models/setting-dto/setting-update-input.ts",
+        "ext": ".ts",
+        "mtime": 1593489648090.6914
+      },
+      {
+        "file": "themes/theme-core/src/models/theme-core.models.ts",
+        "ext": ".ts",
+        "mtime": 1593489648091.6887
+      },
+      {
+        "file": "themes/theme-core/src/module-import-guard.ts",
+        "ext": ".ts",
+        "mtime": 1591539882842.2278
+      },
+      {
+        "file": "themes/theme-core/src/services/.gitkeep",
+        "ext": "",
+        "mtime": 1591539882843.2263
+      },
+      {
+        "file": "themes/theme-core/src/services/coding-with-setting.service.ts",
+        "ext": ".ts",
+        "mtime": 1593489648091.6887
+      },
+      {
+        "file": "themes/theme-core/src/services/index.ts",
+        "ext": ".ts",
+        "mtime": 1593489648092.6855
+      },
+      {
+        "file": "themes/theme-core/src/services/initial.service.ts",
+        "ext": ".ts",
+        "mtime": 1591539882846.2168
+      },
+      {
+        "file": "themes/theme-core/src/services/theme-core-state.service.ts",
+        "ext": ".ts",
+        "mtime": 1593489648093.6833
+      },
+      {
+        "file": "themes/theme-core/src/services/theme-core.service.ts",
+        "ext": ".ts",
+        "mtime": 1593760904450.0603
+      },
+      {
+        "file": "themes/theme-core/src/states/.gitkeep",
+        "ext": "",
+        "mtime": 1591539882847.2148
+      },
+      {
+        "file": "themes/theme-core/src/states/index.ts",
+        "ext": ".ts",
+        "mtime": 1593219932656.406
+      },
+      {
+        "file": "themes/theme-core/src/states/router.state.ts",
+        "ext": ".ts",
+        "mtime": 1591539882848.2126
+      },
+      {
+        "file": "themes/theme-core/src/states/theme-core.state.ts",
+        "ext": ".ts",
+        "mtime": 1593489648094.6797
+      },
+      {
+        "file": "themes/theme-core/src/test-setup.ts",
+        "ext": ".ts",
+        "mtime": 1593760478418.521
+      },
+      {
+        "file": "themes/theme-core/src/theme-core.module.ts",
+        "ext": ".ts",
+        "mtime": 1593489648095.6782
+      },
+      {
+        "file": "themes/theme-core/tsconfig.json",
+        "ext": ".json",
+        "mtime": 1593760478416.5278
+      },
+      {
+        "file": "themes/theme-core/tsconfig.lib.json",
+        "ext": ".json",
+        "mtime": 1593760478412.5383
+      },
+      {
+        "file": "themes/theme-core/tsconfig.lib.prod.json",
+        "ext": ".json",
+        "mtime": 1593760478413.5347
+      },
+      {
+        "file": "themes/theme-core/tsconfig.spec.json",
+        "ext": ".json",
+        "mtime": 1593760478417.5244
+      },
+      {
+        "file": "themes/theme-core/tslint.json",
+        "ext": ".json",
+        "mtime": 1593760478414.5315
+      }
+    ],
     "ng-alain-app": [
       {
         "file": "apps/ng-alain-app/src/app/app-routing.module.ts",
@@ -13939,7 +11683,7 @@
       {
         "file": "apps/ng-alain-app/tsconfig.dev.json",
         "ext": ".json",
-        "mtime": 1593744613192.454
+        "mtime": 1593778775340.0132
       },
       {
         "file": "apps/ng-alain-app/tsconfig.prod.json",
@@ -14675,7 +12419,7 @@
       {
         "file": "themes/ng-alain/layout/src/layout.module.ts",
         "ext": ".ts",
-        "mtime": 1593744613997.3027
+        "mtime": 1593764259629.1462
       },
       {
         "file": "themes/ng-alain/layout/src/passport/index.ts",
@@ -14810,7 +12554,7 @@
       {
         "file": "themes/ng-alain/src/lib/ng-alain.module.ts",
         "ext": ".ts",
-        "mtime": 1593751681506.3848
+        "mtime": 1593756562368.6208
       },
       {
         "file": "themes/ng-alain/src/test-setup.ts",
@@ -14902,7 +12646,7 @@
       {
         "file": "libs/packages/package.json",
         "ext": ".json",
-        "mtime": 1593754291685.1057
+        "mtime": 1593756562349.6714
       },
       {
         "file": "libs/packages/README.md",
@@ -14932,7 +12676,7 @@
       {
         "file": "libs/packages/symlink.json",
         "ext": ".json",
-        "mtime": 1593754329019.294
+        "mtime": 1593756562350.6687
       },
       {
         "file": "libs/packages/tsconfig.json",
@@ -16417,62 +14161,62 @@
       {
         "file": "themes/dev/jest.config.js",
         "ext": ".js",
-        "mtime": 1593754057693.4075
+        "mtime": 1593756562362.6365
       },
       {
         "file": "themes/dev/ng-package.json",
         "ext": ".json",
-        "mtime": 1593755531422.88
+        "mtime": 1593756562362.6365
       },
       {
         "file": "themes/dev/package.json",
         "ext": ".json",
-        "mtime": 1593754600896.0938
+        "mtime": 1593756562363.6338
       },
       {
         "file": "themes/dev/README.md",
         "ext": ".md",
-        "mtime": 1593754057686.4263
+        "mtime": 1593756562361.6392
       },
       {
         "file": "themes/dev/src/index.ts",
         "ext": ".ts",
-        "mtime": 1593754057690.4155
+        "mtime": 1593756562363.6338
       },
       {
         "file": "themes/dev/src/lib/dev.module.ts",
         "ext": ".ts",
-        "mtime": 1593754057691.4128
+        "mtime": 1593756562364.631
       },
       {
         "file": "themes/dev/src/test-setup.ts",
         "ext": ".ts",
-        "mtime": 1593754057694.4048
+        "mtime": 1593756562364.631
       },
       {
         "file": "themes/dev/tsconfig.json",
         "ext": ".json",
-        "mtime": 1593754057692.41
+        "mtime": 1593756562365.6284
       },
       {
         "file": "themes/dev/tsconfig.lib.json",
         "ext": ".json",
-        "mtime": 1593754057688.421
+        "mtime": 1593756562365.6284
       },
       {
         "file": "themes/dev/tsconfig.lib.prod.json",
         "ext": ".json",
-        "mtime": 1593754057689.4194
+        "mtime": 1593756562366.6255
       },
       {
         "file": "themes/dev/tsconfig.spec.json",
         "ext": ".json",
-        "mtime": 1593754057693.4075
+        "mtime": 1593756562366.6255
       },
       {
         "file": "themes/dev/tslint.json",
         "ext": ".json",
-        "mtime": 1593754057689.4194
+        "mtime": 1593756562367.6235
       }
     ]
   }

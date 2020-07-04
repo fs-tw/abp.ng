@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var architect_1 = require("@angular-devkit/architect");
-var execa_1 = require("execa");
+var execa = require("execa");
 var path = require("path");
 var fs_1 = require("fs");
 exports.default = architect_1.createBuilder(function (options, context) {
-    return new Promise(function (resolve, reject) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
+    return new Promise(function (resolve) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
         var systemRoot, symlinkConfigPath, buildActions, i, buildPackages;
         return tslib_1.__generator(this, function (_a) {
             switch (_a.label) {
@@ -14,7 +14,7 @@ exports.default = architect_1.createBuilder(function (options, context) {
                     systemRoot = context.workspaceRoot;
                     symlinkConfigPath = options.symlinkConfig
                         ? path.resolve(systemRoot, options.symlinkConfig)
-                        : null;
+                        : '';
                     buildActions = JSON.parse(getFileContents(symlinkConfigPath));
                     console.log("Task Executing ...");
                     i = 0;
@@ -23,7 +23,7 @@ exports.default = architect_1.createBuilder(function (options, context) {
                     if (!(i < buildActions.length)) return [3 /*break*/, 4];
                     console.log("\"" + buildActions[i].name + "\" Symlink building ...");
                     buildPackages = buildActions[i].packages.filter(function (x) { return !buildActions[i].ignore_packages || buildActions[i].ignore_packages.indexOf(x) == -1; });
-                    return [4 /*yield*/, execa_1('yarn', [
+                    return [4 /*yield*/, execa('yarn', [
                             'symlink',
                             'copy',
                             '--angular',
