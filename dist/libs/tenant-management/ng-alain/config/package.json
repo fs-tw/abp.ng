@@ -1,0 +1,11 @@
+{
+  "main": "../../bundles/fs-tenant-management-ng-alain-config.umd.js",
+  "module": "../../fesm2015/fs-tenant-management-ng-alain-config.js",
+  "es2015": "../../fesm2015/fs-tenant-management-ng-alain-config.js",
+  "esm2015": "../../esm2015/ng-alain/config/fs-tenant-management-ng-alain-config.js",
+  "fesm2015": "../../fesm2015/fs-tenant-management-ng-alain-config.js",
+  "typings": "fs-tenant-management-ng-alain-config.d.ts",
+  "metadata": "fs-tenant-management-ng-alain-config.metadata.json",
+  "sideEffects": false,
+  "name": "@fs/tenant-management/ng-alain/config"
+}

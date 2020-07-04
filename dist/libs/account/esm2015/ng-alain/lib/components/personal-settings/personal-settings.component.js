@@ -1,0 +1,24 @@
+import { __decorate, __metadata } from "tslib";
+import { PersonalSettingsComponent as AbpPersonalSettingsComponent } from '@abp/ng.account';
+import { ToasterService } from '@abp/ng.theme.shared';
+import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Store } from '@ngxs/store';
+let PersonalSettingsComponent = class PersonalSettingsComponent extends AbpPersonalSettingsComponent {
+    constructor(_fb, _store, _toasterService) {
+        super(_fb, _store, _toasterService);
+        this._fb = _fb;
+        this._store = _store;
+        this._toasterService = _toasterService;
+    }
+};
+PersonalSettingsComponent = __decorate([
+    Component({
+        selector: 'ng-alain-personal-settings-form',
+        template: "<form novalidate *ngIf=\"form\" [formGroup]=\"form\" (ngSubmit)=\"submit()\">\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"username\">{{ 'AbpIdentity::DisplayName:UserName' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"userName\" id=\"username\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"name\">{{ 'AbpIdentity::DisplayName:Name' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"name\" id=\"name\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"surname\">{{ 'AbpIdentity::DisplayName:Surname' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"surname\" id=\"surname\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"email-address\">{{ 'AbpIdentity::DisplayName:Email' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"email\" id=\"email-address\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"phone-number\">{{ 'AbpIdentity::DisplayName:PhoneNumber' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"phoneNumber\" id=\"phone-number\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <button nz-button nzType=\"primary\">\r\n    {{\r\n      'AbpIdentity::Save' | abpLocalization\r\n    }}\r\n  </button>\r\n</form>\r\n\r\n\r\n",
+        styles: ["nz-form-item{margin-bottom:0}"]
+    }),
+    __metadata("design:paramtypes", [FormBuilder, Store, ToasterService])
+], PersonalSettingsComponent);
+export { PersonalSettingsComponent };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicGVyc29uYWwtc2V0dGluZ3MuY29tcG9uZW50LmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vLi4vLi4vLi4vLi4vbGlicy9hY2NvdW50L25nLWFsYWluL3NyYy9saWIvY29tcG9uZW50cy9wZXJzb25hbC1zZXR0aW5ncy9wZXJzb25hbC1zZXR0aW5ncy5jb21wb25lbnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBLE9BQU8sRUFBRSx5QkFBeUIsSUFBSSw0QkFBNEIsRUFBRSxNQUFNLGlCQUFpQixDQUFDO0FBQzVGLE9BQU8sRUFBRSxjQUFjLEVBQUUsTUFBTSxzQkFBc0IsQ0FBQztBQUN0RCxPQUFPLEVBQUUsU0FBUyxFQUFVLE1BQU0sZUFBZSxDQUFDO0FBQ2xELE9BQU8sRUFBRSxXQUFXLEVBQWMsTUFBTSxnQkFBZ0IsQ0FBQztBQUN6RCxPQUFPLEVBQUUsS0FBSyxFQUFFLE1BQU0sYUFBYSxDQUFDO0FBTXBDLElBQWEseUJBQXlCLEdBQXRDLE1BQWEseUJBQTBCLFNBQVEsNEJBQTRCO0lBRXZFLFlBQW9CLEdBQWdCLEVBQVUsTUFBYSxFQUFVLGVBQStCO1FBQ2hHLEtBQUssQ0FBQyxHQUFHLEVBQUUsTUFBTSxFQUFFLGVBQWUsQ0FBQyxDQUFDO1FBRHBCLFFBQUcsR0FBSCxHQUFHLENBQWE7UUFBVSxXQUFNLEdBQU4sTUFBTSxDQUFPO1FBQVUsb0JBQWUsR0FBZixlQUFlLENBQWdCO0lBRXBHLENBQUM7Q0FFSixDQUFBO0FBTlkseUJBQXlCO0lBTHJDLFNBQVMsQ0FBQztRQUNQLFFBQVEsRUFBRSxpQ0FBaUM7UUFDM0Msb3FEQUFpRDs7S0FFcEQsQ0FBQztxQ0FHMkIsV0FBVyxFQUFrQixLQUFLLEVBQTJCLGNBQWM7R0FGM0YseUJBQXlCLENBTXJDO1NBTlkseUJBQXlCIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgUGVyc29uYWxTZXR0aW5nc0NvbXBvbmVudCBhcyBBYnBQZXJzb25hbFNldHRpbmdzQ29tcG9uZW50IH0gZnJvbSAnQGFicC9uZy5hY2NvdW50JztcclxuaW1wb3J0IHsgVG9hc3RlclNlcnZpY2UgfSBmcm9tICdAYWJwL25nLnRoZW1lLnNoYXJlZCc7XHJcbmltcG9ydCB7IENvbXBvbmVudCwgT25Jbml0IH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XHJcbmltcG9ydCB7IEZvcm1CdWlsZGVyLCBWYWxpZGF0b3JzIH0gZnJvbSAnQGFuZ3VsYXIvZm9ybXMnO1xyXG5pbXBvcnQgeyBTdG9yZSB9IGZyb20gJ0BuZ3hzL3N0b3JlJztcclxuQENvbXBvbmVudCh7XHJcbiAgICBzZWxlY3RvcjogJ25nLWFsYWluLXBlcnNvbmFsLXNldHRpbmdzLWZvcm0nLFxyXG4gICAgdGVtcGxhdGVVcmw6ICcuL3BlcnNvbmFsLXNldHRpbmdzLmNvbXBvbmVudC5odG1sJyxcclxuICAgIHN0eWxlVXJsczogWycuL3BlcnNvbmFsLXNldHRpbmdzLmNvbXBvbmVudC5sZXNzJ11cclxufSlcclxuZXhwb3J0IGNsYXNzIFBlcnNvbmFsU2V0dGluZ3NDb21wb25lbnQgZXh0ZW5kcyBBYnBQZXJzb25hbFNldHRpbmdzQ29tcG9uZW50IGltcGxlbWVudHMgT25Jbml0IHtcclxuXHJcbiAgICBjb25zdHJ1Y3Rvcihwcml2YXRlIF9mYjogRm9ybUJ1aWxkZXIsIHByaXZhdGUgX3N0b3JlOiBTdG9yZSwgcHJpdmF0ZSBfdG9hc3RlclNlcnZpY2U6IFRvYXN0ZXJTZXJ2aWNlKSB7XHJcbiAgICAgICAgc3VwZXIoX2ZiLCBfc3RvcmUsIF90b2FzdGVyU2VydmljZSk7XHJcbiAgICB9XHJcblxyXG59XHJcbiJdfQ==

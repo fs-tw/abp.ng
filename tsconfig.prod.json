@@ -17,6 +17,8 @@
       "@abp/ng.setting-management": ["dist/setting-management"],
       "@abp/ng.setting-management/*": ["dist/setting-management/*"],
       "@abp/ng.permission-management": ["dist/permission-management"],
+      "@abp/ng.feature-management": ["dist/feature-management"],
+      "@abp/ng.feature-management/*": ["dist/feature-management/*"],      
       "@fs/ng-alain": ["dist/themes/ng-alain"],
       "@fs/ng-alain/*": ["dist/themes/ng-alain/*"],
       "@fs/account": ["dist/libs/account"],

@@ -1,0 +1,19 @@
+{
+  "name": "@fs/account",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^9.1.11",
+    "@angular/core": "^9.1.11"
+  },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  },
+  "main": "bundles/fs-account.umd.js",
+  "module": "fesm2015/fs-account.js",
+  "es2015": "fesm2015/fs-account.js",
+  "esm2015": "esm2015/fs-account.js",
+  "fesm2015": "fesm2015/fs-account.js",
+  "typings": "fs-account.d.ts",
+  "metadata": "fs-account.metadata.json",
+  "sideEffects": false
+}

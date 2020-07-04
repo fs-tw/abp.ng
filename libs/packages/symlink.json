@@ -3,27 +3,27 @@
         "name": "abpCore",
         "sync": true,
         "packages": [
-            "@abp/ng.core",
-            "@abp/ng.theme.shared"
+            "abp.core",
+            "abp.theme-shared"
         ]
     },
     {
         "name": "abpCoreBasic",
         "sync": false,
         "packages": [
-            "@abp/ng.theme.basic",
-            "@abp/ng.permission-management",
-            "@abp/ng.feature-management"
+            "abp.theme-basic",
+            "abp.permission-management",
+            "abp.feature-management"
         ]
     },
     {
         "name": "abpLibs",
         "sync": false,
         "packages": [
-            "@abp/ng.account",
-            "@abp/ng.identity",
-            "@abp/ng.setting-management",
-            "@abp/ng.tenant-management"
+            "abp.account",
+            "abp.identity",
+            "abp.setting-management",
+            "abp.tenant-management"
         ]
     },
     {
@@ -32,7 +32,7 @@
         "ignore_packages": [
         ],
         "packages": [
-            "@fs/ng-alain"
+            "fs.ng-alain"
         ]
     },   
     {
@@ -41,8 +41,8 @@
         "ignore_packages": [
         ],
         "packages": [
-            "@fs/permission-management",
-            "@fs/feature-management"
+            "fs.permission-management",
+            "fs.feature-management"
         ]
     },        
     {
@@ -51,18 +51,17 @@
         "ignore_packages": [
         ],
         "packages": [
-            "@fs/account",
-            "@fs/identity",
-            "@fs/tenant-management",
-            "@fs/setting-management"
+            "fs.account",
+            "fs.identity",
+            "fs.tenant-management",
+            "fs.setting-management"
         ]
     },         
     {
         "name": "fsPackages",
         "sync": false,
         "packages": [
-            "@fs/packages",
-            "@fs/dev"
+            "fs.packages"
         ]
-    }    
+    } 
 ]

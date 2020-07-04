@@ -23,6 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AccountNgAlainConfigModule } from '@fs/account/ng-alain/config';
 import { IdentityNgAlainConfigModule } from '@fs/identity/ng-alain/config';
 
+
 const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
 
 @NgModule({
@@ -49,7 +50,9 @@ const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
 
 
   ],
-  providers: [APP_ROUTE_PROVIDER],
+  providers: [
+    APP_ROUTE_PROVIDER
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

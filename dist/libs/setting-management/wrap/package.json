@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/fs-setting-management-wrap.umd.js",
+  "module": "../fesm2015/fs-setting-management-wrap.js",
+  "es2015": "../fesm2015/fs-setting-management-wrap.js",
+  "esm2015": "../esm2015/wrap/fs-setting-management-wrap.js",
+  "fesm2015": "../fesm2015/fs-setting-management-wrap.js",
+  "typings": "fs-setting-management-wrap.d.ts",
+  "metadata": "fs-setting-management-wrap.metadata.json",
+  "sideEffects": false,
+  "name": "@fs/setting-management/wrap"
+}

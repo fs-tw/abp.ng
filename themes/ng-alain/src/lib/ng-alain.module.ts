@@ -101,6 +101,7 @@ import { STWidgetModule } from '@fs/ng-alain/shared';
 // #endregion
 
 // #region global third module
+import { AlainConfigService } from '@delon/util';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { ThemeBasicModule } from '@abp/ng.theme.basic';
 import { NgAlainSharedModule } from '@fs/ng-alain/shared';
@@ -126,7 +127,9 @@ const ABP_MODULES = [
     ...GLOBAL_THIRD_MODULES,
     ...FORM_MODULES,
   ],
-  providers: [...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...I18NSERVICE_PROVIDES, ...APPINIT_PROVIDES],
+  providers: [
+    AlainConfigService,//Issue: https://github.com/ng-alain/ng-alain/issues/1624
+    ...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...I18NSERVICE_PROVIDES, ...APPINIT_PROVIDES],
 })
 export class NgAlainModule {
   static forRoot(): ModuleWithProviders<NgAlainModule> {

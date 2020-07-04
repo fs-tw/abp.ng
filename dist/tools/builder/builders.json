@@ -1,0 +1,9 @@
+{
+  "builders": {
+    "symlink": {
+      "implementation": "./src/symlink",
+      "schema": "./src/symlink/schema.json",
+      "description": "Runs SymLink"
+    }
+  }
+}

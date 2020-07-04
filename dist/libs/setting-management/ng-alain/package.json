@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/fs-setting-management-ng-alain.umd.js",
+  "module": "../fesm2015/fs-setting-management-ng-alain.js",
+  "es2015": "../fesm2015/fs-setting-management-ng-alain.js",
+  "esm2015": "../esm2015/ng-alain/fs-setting-management-ng-alain.js",
+  "fesm2015": "../fesm2015/fs-setting-management-ng-alain.js",
+  "typings": "fs-setting-management-ng-alain.d.ts",
+  "metadata": "fs-setting-management-ng-alain.metadata.json",
+  "sideEffects": false,
+  "name": "@fs/setting-management/ng-alain"
+}

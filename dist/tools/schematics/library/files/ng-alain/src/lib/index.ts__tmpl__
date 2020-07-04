@@ -1,0 +1,2 @@
+export * from './<%= projectName %>-ng-alain.module';
+export * from './shared';

@@ -1,0 +1,16 @@
+{
+  "name": "@fs/packages",
+  "version": "0.0.1",
+  "peerDependencies": {},
+  "dependencies": {
+    "tslib": "^1.10.0"
+  },
+  "main": "bundles/fs-packages.umd.js",
+  "module": "fesm2015/fs-packages.js",
+  "es2015": "fesm2015/fs-packages.js",
+  "esm2015": "esm2015/fs-packages.js",
+  "fesm2015": "fesm2015/fs-packages.js",
+  "typings": "fs-packages.d.ts",
+  "metadata": "fs-packages.metadata.json",
+  "sideEffects": false
+}

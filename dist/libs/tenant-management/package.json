@@ -1,0 +1,19 @@
+{
+  "name": "@fs/tenant-management",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^9.1.11",
+    "@angular/core": "^9.1.11"
+  },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  },
+  "main": "bundles/fs-tenant-management.umd.js",
+  "module": "fesm2015/fs-tenant-management.js",
+  "es2015": "fesm2015/fs-tenant-management.js",
+  "esm2015": "esm2015/fs-tenant-management.js",
+  "fesm2015": "fesm2015/fs-tenant-management.js",
+  "typings": "fs-tenant-management.d.ts",
+  "metadata": "fs-tenant-management.metadata.json",
+  "sideEffects": false
+}

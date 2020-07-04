@@ -1,0 +1,11 @@
+{
+  "main": "../bundles/fs-account-wrap.umd.js",
+  "module": "../fesm2015/fs-account-wrap.js",
+  "es2015": "../fesm2015/fs-account-wrap.js",
+  "esm2015": "../esm2015/wrap/fs-account-wrap.js",
+  "fesm2015": "../fesm2015/fs-account-wrap.js",
+  "typings": "fs-account-wrap.d.ts",
+  "metadata": "fs-account-wrap.metadata.json",
+  "sideEffects": false,
+  "name": "@fs/account/wrap"
+}
