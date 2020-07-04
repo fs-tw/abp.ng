@@ -2938,7 +2938,7 @@
             {
               "file": "apps/ng-alain-app/src/app/app.component.ts",
               "ext": ".ts",
-              "mtime": 1593744613099.702
+              "mtime": 1593852616185.7686
             },
             {
               "file": "apps/ng-alain-app/src/app/app.module.ts",
@@ -3968,12 +3968,12 @@
             {
               "file": "apps/ng-alain-app/src/index.html",
               "ext": ".html",
-              "mtime": 1593744613189.462
+              "mtime": 1593852663373.5173
             },
             {
               "file": "apps/ng-alain-app/src/main.ts",
               "ext": ".ts",
-              "mtime": 1593744613190.4592
+              "mtime": 1593852678086.8274
             },
             {
               "file": "apps/ng-alain-app/src/polyfills.ts",
@@ -6452,7 +6452,7 @@
                 ],
                 "styles": [
                   {
-                    "input": "node_modules/@abp/ng.theme.shared/styles/bootstrap-rtl.min.css",
+                    "input": "packages/theme-shared/styles/bootstrap-rtl.min.css",
                     "inject": false,
                     "bundleName": "bootstrap-rtl.min"
                   },
@@ -6675,7 +6675,7 @@
             {
               "file": "apps/dev-app/tsconfig.dev.json",
               "ext": ".json",
-              "mtime": 1593744613096.7097
+              "mtime": 1593852494455.15
             },
             {
               "file": "apps/dev-app/tsconfig.prod.json",
@@ -10644,7 +10644,7 @@
       {
         "file": "apps/ng-alain-app/src/app/app.component.ts",
         "ext": ".ts",
-        "mtime": 1593744613099.702
+        "mtime": 1593852616185.7686
       },
       {
         "file": "apps/ng-alain-app/src/app/app.module.ts",
@@ -11674,12 +11674,12 @@
       {
         "file": "apps/ng-alain-app/src/index.html",
         "ext": ".html",
-        "mtime": 1593744613189.462
+        "mtime": 1593852663373.5173
       },
       {
         "file": "apps/ng-alain-app/src/main.ts",
         "ext": ".ts",
-        "mtime": 1593744613190.4592
+        "mtime": 1593852678086.8274
       },
       {
         "file": "apps/ng-alain-app/src/polyfills.ts",
@@ -13953,7 +13953,7 @@
       {
         "file": "apps/dev-app/tsconfig.dev.json",
         "ext": ".json",
-        "mtime": 1593744613096.7097
+        "mtime": 1593852494455.15
       },
       {
         "file": "apps/dev-app/tsconfig.prod.json",
