@@ -50,6 +50,7 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
+            "outputPath": "dist/apps/dev-app",
             "tsConfig": "tsconfig.lib.json",
             "project": "themes/dev/ng-package.json"
           },
@@ -320,7 +321,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/apps/ng-alain-app",
             "index": "apps/ng-alain-app/src/index.html",
             "main": "apps/ng-alain-app/src/main.ts",
             "tsConfig": "apps/ng-alain-app/tsconfig.dev.json",

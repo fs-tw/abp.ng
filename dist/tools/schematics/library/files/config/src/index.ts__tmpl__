@@ -1,2 +1,0 @@
-export * from './lib/<%= projectName %>-config.module';
-export * from './lib/services/<%= projectName %>-config.service';

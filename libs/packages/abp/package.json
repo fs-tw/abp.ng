@@ -1,6 +1,9 @@
 {
-  "name": "@fs/dev",
-  "version": "0.0.1",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "src/index.ts"
+    }
+  },
   "dependencies": {
     "@abp/utils": "",
     "@angular-builders/jest": "^9.0.1",
@@ -32,5 +35,5 @@
     "ts-toolbelt": "^6.9.9",
     "tsickle": "^0.38.1",
     "tslib": "^2.0.0"
-  }
+  }  
 }

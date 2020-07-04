@@ -3,13 +3,5 @@
   "version": "0.0.1",
   "peerDependencies": {},
   "dependencies": {
-    "@fs/dev": "",
-    "@fs/account": "",
-    "@fs/feature-management": "",
-    "@fs/identity": "",
-    "@fs/permission-management": "",
-    "@fs/setting-management": "",
-    "@fs/tenant-management": "",
-    "@fs/ng-alain": ""
   }
 }
