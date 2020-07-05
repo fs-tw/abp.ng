@@ -106,12 +106,14 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { ThemeBasicModule } from '@abp/ng.theme.basic';
 import { NgAlainSharedModule } from '@fs/ng-alain/shared';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
-const ABP_MODULES = [
-  ThemeSharedModule.forRoot(),
-  ThemeBasicModule.forRoot(),
-  NgAlainBasicModule.forRoot()
-
-];
+@NgModule({
+  imports: [
+    ThemeSharedModule.forRoot(),
+    ThemeBasicModule.forRoot(),
+    NgAlainBasicModule.forRoot()
+  ],
+})
+export class RootNgAlainModule {}
 
 // #endregion
 
@@ -122,8 +124,8 @@ const ABP_MODULES = [
     CoreModule,
     //LayoutModule,
     STWidgetModule,
+    RootNgAlainModule,
     ...I18NSERVICE_MODULES,
-    ...ABP_MODULES,
     ...GLOBAL_THIRD_MODULES,
     ...FORM_MODULES,
   ],
