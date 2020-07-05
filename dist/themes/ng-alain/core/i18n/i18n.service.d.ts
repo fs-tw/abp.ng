@@ -1,3 +1,4 @@
+import { Platform } from '@angular/cdk/platform';
 import { AlainI18NService, DelonLocaleService, SettingsService } from '@delon/theme';
 import { TranslateService } from '@ngx-translate/core';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
@@ -7,10 +8,11 @@ export declare class I18NService implements AlainI18NService {
     private nzI18nService;
     private delonLocaleService;
     private translate;
+    private platform;
     private _default;
     private change$;
     private _langs;
-    constructor(settings: SettingsService, nzI18nService: NzI18nService, delonLocaleService: DelonLocaleService, translate: TranslateService);
+    constructor(settings: SettingsService, nzI18nService: NzI18nService, delonLocaleService: DelonLocaleService, translate: TranslateService, platform: Platform);
     private getDefaultLang;
     private updateLangData;
     get change(): Observable<string>;

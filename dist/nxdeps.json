@@ -4644,7 +4644,7 @@
             {
               "file": "themes/ng-alain/core/src/i18n/i18n.service.ts",
               "ext": ".ts",
-              "mtime": 1593744613972.3694
+              "mtime": 1593911671870.2402
             },
             {
               "file": "themes/ng-alain/core/src/index.ts",
@@ -4854,7 +4854,7 @@
             {
               "file": "themes/ng-alain/layout/src/default/theme-btn/theme-btn.component.ts",
               "ext": ".ts",
-              "mtime": 1593744613995.308
+              "mtime": 1593911710601.5159
             },
             {
               "file": "themes/ng-alain/layout/src/fullscreen/fullscreen.component.html",
@@ -4909,7 +4909,7 @@
             {
               "file": "themes/ng-alain/package.json",
               "ext": ".json",
-              "mtime": 1593744614000.2944
+              "mtime": 1593910970377.9636
             },
             {
               "file": "themes/ng-alain/README.md",
@@ -5181,7 +5181,7 @@
             {
               "file": "libs/packages/ng-alain/package.json",
               "ext": ".json",
-              "mtime": 1593833113844.5122
+              "mtime": 1593910890279.3728
             },
             {
               "file": "libs/packages/ng-alain/src/.gitkeep",
@@ -5211,7 +5211,7 @@
             {
               "file": "libs/packages/package.json",
               "ext": ".json",
-              "mtime": 1593833393686.7437
+              "mtime": 1593911028561.9143
             },
             {
               "file": "libs/packages/README.md",
@@ -7283,21 +7283,12 @@
           "files": []
         }
       },
-      "npm:@fs/packages-ng-alain": {
+      "npm:@fs/packages": {
         "type": "npm",
-        "name": "npm:@fs/packages-ng-alain",
+        "name": "npm:@fs/packages",
         "data": {
-          "version": "file:libs/packages/ng-alain",
-          "packageName": "@fs/packages-ng-alain",
-          "files": []
-        }
-      },
-      "npm:@fs/packages-abp": {
-        "type": "npm",
-        "name": "npm:@fs/packages-abp",
-        "data": {
-          "version": "file:libs/packages/abp",
-          "packageName": "@fs/packages-abp",
+          "version": "file:libs/packages",
+          "packageName": "@fs/packages",
           "files": []
         }
       },
@@ -8290,8 +8281,7 @@
       "npm:@angular/compiler-cli": [],
       "npm:@angular/language-service": [],
       "npm:@angular/localize": [],
-      "npm:@fs/packages-ng-alain": [],
-      "npm:@fs/packages-abp": [],
+      "npm:@fs/packages": [],
       "npm:@nrwl/cypress": [],
       "npm:@nrwl/jest": [],
       "npm:@nrwl/workspace": [],
@@ -12215,7 +12205,7 @@
       {
         "file": "themes/ng-alain/core/src/i18n/i18n.service.ts",
         "ext": ".ts",
-        "mtime": 1593744613972.3694
+        "mtime": 1593911671870.2402
       },
       {
         "file": "themes/ng-alain/core/src/index.ts",
@@ -12425,7 +12415,7 @@
       {
         "file": "themes/ng-alain/layout/src/default/theme-btn/theme-btn.component.ts",
         "ext": ".ts",
-        "mtime": 1593744613995.308
+        "mtime": 1593911710601.5159
       },
       {
         "file": "themes/ng-alain/layout/src/fullscreen/fullscreen.component.html",
@@ -12480,7 +12470,7 @@
       {
         "file": "themes/ng-alain/package.json",
         "ext": ".json",
-        "mtime": 1593744614000.2944
+        "mtime": 1593910970377.9636
       },
       {
         "file": "themes/ng-alain/README.md",
@@ -12697,7 +12687,7 @@
       {
         "file": "libs/packages/ng-alain/package.json",
         "ext": ".json",
-        "mtime": 1593833113844.5122
+        "mtime": 1593910890279.3728
       },
       {
         "file": "libs/packages/ng-alain/src/.gitkeep",
@@ -12727,7 +12717,7 @@
       {
         "file": "libs/packages/package.json",
         "ext": ".json",
-        "mtime": 1593833393686.7437
+        "mtime": 1593911028561.9143
       },
       {
         "file": "libs/packages/README.md",

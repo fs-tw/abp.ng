@@ -19,6 +19,7 @@ import parse from 'date-fns/parse';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DA_SERVICE_TOKEN } from '@delon/auth';
+import { Platform } from '@angular/cdk/platform';
 
 const ALAINDEFAULTVAR = 'alain-default-vars';
 const DEFAULT_COLORS = [
@@ -1195,15 +1196,19 @@ SettingDrawerItemComponent = __decorate([
 ], SettingDrawerItemComponent);
 
 let LayoutThemeBtnComponent = class LayoutThemeBtnComponent {
-    constructor(renderer, configSrv) {
+    constructor(renderer, configSrv, platform) {
         this.renderer = renderer;
         this.configSrv = configSrv;
+        this.platform = platform;
         this.theme = 'default';
     }
     ngOnInit() {
         this.initTheme();
     }
     initTheme() {
+        if (!this.platform.isBrowser) {
+            return;
+        }
         this.theme = localStorage.getItem('site-theme') || 'default';
         this.updateChartTheme();
         this.onThemeChange(this.theme);
@@ -1212,6 +1217,9 @@ let LayoutThemeBtnComponent = class LayoutThemeBtnComponent {
         this.configSrv.set('chart', { theme: this.theme === 'dark' ? 'dark' : '' });
     }
     onThemeChange(theme) {
+        if (!this.platform.isBrowser) {
+            return;
+        }
         this.theme = theme;
         this.renderer.setAttribute(document.body, 'data-theme', theme);
         const dom = document.getElementById('site-theme');
@@ -1220,15 +1228,20 @@ let LayoutThemeBtnComponent = class LayoutThemeBtnComponent {
         }
         localStorage.removeItem('site-theme');
         if (theme !== 'default') {
-            const style = document.createElement('link');
-            style.type = 'text/css';
-            style.rel = 'stylesheet';
-            style.id = 'site-theme';
-            style.href = `assets/style.${theme}.css`;
+            const el = (this.el = document.createElement('link'));
+            el.type = 'text/css';
+            el.rel = 'stylesheet';
+            el.id = 'site-theme';
+            el.href = `assets/style.${theme}.css`;
             localStorage.setItem('site-theme', theme);
-            document.body.append(style);
+            document.body.append(el);
         }
         this.updateChartTheme();
+    }
+    ngOnDestroy() {
+        if (this.el) {
+            document.body.removeChild(this.el);
+        }
     }
 };
 LayoutThemeBtnComponent = __decorate([
@@ -1238,7 +1251,7 @@ LayoutThemeBtnComponent = __decorate([
         changeDetection: ChangeDetectionStrategy.OnPush,
         styles: [":host ::ng-deep{bottom:102px;cursor:pointer;display:flex;flex-direction:column;position:fixed;right:32px;z-index:2147483640}:host ::ng-deep-active{color:#1890ff;font-size:22px;height:44px;line-height:44px;width:44px}:host ::ng-deep .ant-avatar{background-color:#fff;box-shadow:0 3px 6px -4px rgba(0,0,0,.12),0 6px 16px 0 rgba(0,0,0,.08),0 9px 28px 8px rgba(0,0,0,.05);color:#000;transition:color .3s}:host ::ng-deep .ant-avatar:hover{color:#1890ff}"]
     }),
-    __metadata("design:paramtypes", [Renderer2, AlainConfigService])
+    __metadata("design:paramtypes", [Renderer2, AlainConfigService, Platform])
 ], LayoutThemeBtnComponent);
 
 let LayoutPassportComponent = class LayoutPassportComponent {

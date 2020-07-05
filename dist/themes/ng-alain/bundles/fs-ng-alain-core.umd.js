@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/common/locales/en'), require('@angular/common/locales/zh'), require('@angular/common/locales/zh-Hant'), require('@angular/core'), require('@delon/theme'), require('@ngx-translate/core'), require('date-fns/locale'), require('ng-zorro-antd/i18n'), require('rxjs'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/router'), require('@delon/auth'), require('ng-zorro-antd/notification'), require('@delon/acl'), require('ng-zorro-antd/icon'), require('@ant-design/icons-angular/icons'), require('ng-zorro-antd/modal')) :
-    typeof define === 'function' && define.amd ? define('@fs/ng-alain/core', ['exports', '@angular/common', '@angular/common/locales/en', '@angular/common/locales/zh', '@angular/common/locales/zh-Hant', '@angular/core', '@delon/theme', '@ngx-translate/core', 'date-fns/locale', 'ng-zorro-antd/i18n', 'rxjs', 'rxjs/operators', '@angular/common/http', '@angular/router', '@delon/auth', 'ng-zorro-antd/notification', '@delon/acl', 'ng-zorro-antd/icon', '@ant-design/icons-angular/icons', 'ng-zorro-antd/modal'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].core = {}), global.ng.common, global.ng.common.locales.en, global.ng.common.locales.zh, global.ng.common.locales.zhHant, global.ng.core, global.i1, global.i3, global.locale, global.i2, global.rxjs, global.rxjs.operators, global.ng.common.http, global.ng.router, global.auth, global.i1$1, global.acl, global.icon, global.icons, global.i1$2));
-}(this, (function (exports, common, ngEn, ngZh, ngZhTw, i0, i1, i3, locale, i2, rxjs, operators, http, router, auth, i1$1, acl, icon, icons, i1$2) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/platform'), require('@angular/common'), require('@angular/common/locales/en'), require('@angular/common/locales/zh'), require('@angular/common/locales/zh-Hant'), require('@angular/core'), require('@delon/theme'), require('@ngx-translate/core'), require('date-fns/locale'), require('ng-zorro-antd/i18n'), require('rxjs'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/router'), require('@delon/auth'), require('ng-zorro-antd/notification'), require('@delon/acl'), require('ng-zorro-antd/icon'), require('@ant-design/icons-angular/icons'), require('ng-zorro-antd/modal')) :
+    typeof define === 'function' && define.amd ? define('@fs/ng-alain/core', ['exports', '@angular/cdk/platform', '@angular/common', '@angular/common/locales/en', '@angular/common/locales/zh', '@angular/common/locales/zh-Hant', '@angular/core', '@delon/theme', '@ngx-translate/core', 'date-fns/locale', 'ng-zorro-antd/i18n', 'rxjs', 'rxjs/operators', '@angular/common/http', '@angular/router', '@delon/auth', 'ng-zorro-antd/notification', '@delon/acl', 'ng-zorro-antd/icon', '@ant-design/icons-angular/icons', 'ng-zorro-antd/modal'], factory) :
+    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].core = {}), global.ng.cdk.platform, global.ng.common, global.ng.common.locales.en, global.ng.common.locales.zh, global.ng.common.locales.zhHant, global.ng.core, global.i1, global.i3, global.locale, global.i2, global.rxjs, global.rxjs.operators, global.ng.common.http, global.ng.router, global.auth, global.i1$1, global.acl, global.icon, global.icons, global.i1$2));
+}(this, (function (exports, i4, common, ngEn, ngZh, ngZhTw, i0, i1, i3, locale, i2, rxjs, operators, http, router, auth, i1$1, acl, icon, icons, i1$2) { 'use strict';
 
     ngEn = ngEn && Object.prototype.hasOwnProperty.call(ngEn, 'default') ? ngEn['default'] : ngEn;
     ngZh = ngZh && Object.prototype.hasOwnProperty.call(ngZh, 'default') ? ngZh['default'] : ngZh;
@@ -328,11 +328,12 @@
         },
     };
     exports.I18NService = /** @class */ (function () {
-        function I18NService(settings, nzI18nService, delonLocaleService, translate) {
+        function I18NService(settings, nzI18nService, delonLocaleService, translate, platform) {
             this.settings = settings;
             this.nzI18nService = nzI18nService;
             this.delonLocaleService = delonLocaleService;
             this.translate = translate;
+            this.platform = platform;
             this._default = DEFAULT;
             this.change$ = new rxjs.BehaviorSubject(null);
             this._langs = Object.keys(LANGS).map(function (code) {
@@ -349,6 +350,9 @@
             this.updateLangData(this._default);
         }
         I18NService.prototype.getDefaultLang = function () {
+            if (!this.platform.isBrowser) {
+                return DEFAULT;
+            }
             if (this.settings.layout.lang) {
                 return this.settings.layout.lang;
             }
@@ -403,13 +407,14 @@
         });
         return I18NService;
     }());
-    exports.I18NService.ɵprov = i0.ɵɵdefineInjectable({ factory: function I18NService_Factory() { return new exports.I18NService(i0.ɵɵinject(i1.SettingsService), i0.ɵɵinject(i2.NzI18nService), i0.ɵɵinject(i1.DelonLocaleService), i0.ɵɵinject(i3.TranslateService)); }, token: exports.I18NService, providedIn: "root" });
+    exports.I18NService.ɵprov = i0.ɵɵdefineInjectable({ factory: function I18NService_Factory() { return new exports.I18NService(i0.ɵɵinject(i1.SettingsService), i0.ɵɵinject(i2.NzI18nService), i0.ɵɵinject(i1.DelonLocaleService), i0.ɵɵinject(i3.TranslateService), i0.ɵɵinject(i4.Platform)); }, token: exports.I18NService, providedIn: "root" });
     exports.I18NService = __decorate([
         i0.Injectable({ providedIn: 'root' }),
         __metadata("design:paramtypes", [i1.SettingsService,
             i2.NzI18nService,
             i1.DelonLocaleService,
-            i3.TranslateService])
+            i3.TranslateService,
+            i4.Platform])
     ], exports.I18NService);
 
     // https://angular.io/guide/styleguide#style-04-12

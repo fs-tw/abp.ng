@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@fs/ng-alain/shared'), require('@angular/common'), require('@angular/router'), require('@delon/theme'), require('@delon/util'), require('ng-zorro-antd/message'), require('rxjs'), require('rxjs/operators'), require('screenfull'), require('@fs/ng-alain/core'), require('@abp/ng.core'), require('@ngxs/store'), require('snq'), require('date-fns/add'), require('date-fns/formatDistanceToNow'), require('date-fns/parse'), require('ng-zorro-antd/i18n'), require('ng-zorro-antd/modal'), require('@delon/auth')) :
-    typeof define === 'function' && define.amd ? define('@fs/ng-alain/layout', ['exports', '@angular/core', '@fs/ng-alain/shared', '@angular/common', '@angular/router', '@delon/theme', '@delon/util', 'ng-zorro-antd/message', 'rxjs', 'rxjs/operators', 'screenfull', '@fs/ng-alain/core', '@abp/ng.core', '@ngxs/store', 'snq', 'date-fns/add', 'date-fns/formatDistanceToNow', 'date-fns/parse', 'ng-zorro-antd/i18n', 'ng-zorro-antd/modal', '@delon/auth'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].layout = {}), global.ng.core, global.fs['ng-alain'].shared, global.ng.common, global.ng.router, global.theme, global.util, global.message, global.rxjs, global.rxjs.operators, global.screenfull, global.fs['ng-alain'].core, global.ng_core, global.store, global.snq, global.add, global.formatDistanceToNow, global.parse, global.i18n, global.modal, global.auth));
-}(this, (function (exports, core, shared, common, router, theme, util, message, rxjs, operators, screenfull, core$1, ng_core, store, snq, add, formatDistanceToNow, parse, i18n, modal, auth) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@fs/ng-alain/shared'), require('@angular/common'), require('@angular/router'), require('@delon/theme'), require('@delon/util'), require('ng-zorro-antd/message'), require('rxjs'), require('rxjs/operators'), require('screenfull'), require('@fs/ng-alain/core'), require('@abp/ng.core'), require('@ngxs/store'), require('snq'), require('date-fns/add'), require('date-fns/formatDistanceToNow'), require('date-fns/parse'), require('ng-zorro-antd/i18n'), require('ng-zorro-antd/modal'), require('@delon/auth'), require('@angular/cdk/platform')) :
+    typeof define === 'function' && define.amd ? define('@fs/ng-alain/layout', ['exports', '@angular/core', '@fs/ng-alain/shared', '@angular/common', '@angular/router', '@delon/theme', '@delon/util', 'ng-zorro-antd/message', 'rxjs', 'rxjs/operators', 'screenfull', '@fs/ng-alain/core', '@abp/ng.core', '@ngxs/store', 'snq', 'date-fns/add', 'date-fns/formatDistanceToNow', 'date-fns/parse', 'ng-zorro-antd/i18n', 'ng-zorro-antd/modal', '@delon/auth', '@angular/cdk/platform'], factory) :
+    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].layout = {}), global.ng.core, global.fs['ng-alain'].shared, global.ng.common, global.ng.router, global.theme, global.util, global.message, global.rxjs, global.rxjs.operators, global.screenfull, global.fs['ng-alain'].core, global.ng_core, global.store, global.snq, global.add, global.formatDistanceToNow, global.parse, global.i18n, global.modal, global.auth, global.ng.cdk.platform));
+}(this, (function (exports, core, shared, common, router, theme, util, message, rxjs, operators, screenfull, core$1, ng_core, store, snq, add, formatDistanceToNow, parse, i18n, modal, auth, platform) { 'use strict';
 
     snq = snq && Object.prototype.hasOwnProperty.call(snq, 'default') ? snq['default'] : snq;
     add = add && Object.prototype.hasOwnProperty.call(add, 'default') ? add['default'] : add;
@@ -1353,15 +1353,19 @@
     ], exports.SettingDrawerItemComponent);
 
     exports.LayoutThemeBtnComponent = /** @class */ (function () {
-        function LayoutThemeBtnComponent(renderer, configSrv) {
+        function LayoutThemeBtnComponent(renderer, configSrv, platform) {
             this.renderer = renderer;
             this.configSrv = configSrv;
+            this.platform = platform;
             this.theme = 'default';
         }
         LayoutThemeBtnComponent.prototype.ngOnInit = function () {
             this.initTheme();
         };
         LayoutThemeBtnComponent.prototype.initTheme = function () {
+            if (!this.platform.isBrowser) {
+                return;
+            }
             this.theme = localStorage.getItem('site-theme') || 'default';
             this.updateChartTheme();
             this.onThemeChange(this.theme);
@@ -1370,6 +1374,9 @@
             this.configSrv.set('chart', { theme: this.theme === 'dark' ? 'dark' : '' });
         };
         LayoutThemeBtnComponent.prototype.onThemeChange = function (theme) {
+            if (!this.platform.isBrowser) {
+                return;
+            }
             this.theme = theme;
             this.renderer.setAttribute(document.body, 'data-theme', theme);
             var dom = document.getElementById('site-theme');
@@ -1378,15 +1385,20 @@
             }
             localStorage.removeItem('site-theme');
             if (theme !== 'default') {
-                var style = document.createElement('link');
-                style.type = 'text/css';
-                style.rel = 'stylesheet';
-                style.id = 'site-theme';
-                style.href = "assets/style." + theme + ".css";
+                var el = (this.el = document.createElement('link'));
+                el.type = 'text/css';
+                el.rel = 'stylesheet';
+                el.id = 'site-theme';
+                el.href = "assets/style." + theme + ".css";
                 localStorage.setItem('site-theme', theme);
-                document.body.append(style);
+                document.body.append(el);
             }
             this.updateChartTheme();
+        };
+        LayoutThemeBtnComponent.prototype.ngOnDestroy = function () {
+            if (this.el) {
+                document.body.removeChild(this.el);
+            }
         };
         return LayoutThemeBtnComponent;
     }());
@@ -1397,7 +1409,7 @@
             changeDetection: core.ChangeDetectionStrategy.OnPush,
             styles: [":host ::ng-deep{bottom:102px;cursor:pointer;display:flex;flex-direction:column;position:fixed;right:32px;z-index:2147483640}:host ::ng-deep-active{color:#1890ff;font-size:22px;height:44px;line-height:44px;width:44px}:host ::ng-deep .ant-avatar{background-color:#fff;box-shadow:0 3px 6px -4px rgba(0,0,0,.12),0 6px 16px 0 rgba(0,0,0,.08),0 9px 28px 8px rgba(0,0,0,.05);color:#000;transition:color .3s}:host ::ng-deep .ant-avatar:hover{color:#1890ff}"]
         }),
-        __metadata("design:paramtypes", [core.Renderer2, util.AlainConfigService])
+        __metadata("design:paramtypes", [core.Renderer2, util.AlainConfigService, platform.Platform])
     ], exports.LayoutThemeBtnComponent);
 
     exports.LayoutPassportComponent = /** @class */ (function () {

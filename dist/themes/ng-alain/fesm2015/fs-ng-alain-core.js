@@ -1,4 +1,5 @@
 import { __decorate, __metadata, __param } from 'tslib';
+import { Platform } from '@angular/cdk/platform';
 import { registerLocaleData } from '@angular/common';
 import ngEn from '@angular/common/locales/en';
 import ngZh from '@angular/common/locales/zh';
@@ -47,11 +48,12 @@ const LANGS = {
     },
 };
 let I18NService = class I18NService {
-    constructor(settings, nzI18nService, delonLocaleService, translate) {
+    constructor(settings, nzI18nService, delonLocaleService, translate, platform) {
         this.settings = settings;
         this.nzI18nService = nzI18nService;
         this.delonLocaleService = delonLocaleService;
         this.translate = translate;
+        this.platform = platform;
         this._default = DEFAULT;
         this.change$ = new BehaviorSubject(null);
         this._langs = Object.keys(LANGS).map((code) => {
@@ -68,6 +70,9 @@ let I18NService = class I18NService {
         this.updateLangData(this._default);
     }
     getDefaultLang() {
+        if (!this.platform.isBrowser) {
+            return DEFAULT;
+        }
         if (this.settings.layout.lang) {
             return this.settings.layout.lang;
         }
@@ -108,13 +113,14 @@ let I18NService = class I18NService {
         return this.translate.currentLang || this.translate.getDefaultLang() || this._default;
     }
 };
-I18NService.ɵprov = ɵɵdefineInjectable({ factory: function I18NService_Factory() { return new I18NService(ɵɵinject(SettingsService), ɵɵinject(NzI18nService), ɵɵinject(DelonLocaleService), ɵɵinject(TranslateService)); }, token: I18NService, providedIn: "root" });
+I18NService.ɵprov = ɵɵdefineInjectable({ factory: function I18NService_Factory() { return new I18NService(ɵɵinject(SettingsService), ɵɵinject(NzI18nService), ɵɵinject(DelonLocaleService), ɵɵinject(TranslateService), ɵɵinject(Platform)); }, token: I18NService, providedIn: "root" });
 I18NService = __decorate([
     Injectable({ providedIn: 'root' }),
     __metadata("design:paramtypes", [SettingsService,
         NzI18nService,
         DelonLocaleService,
-        TranslateService])
+        TranslateService,
+        Platform])
 ], I18NService);
 
 // https://angular.io/guide/styleguide#style-04-12
