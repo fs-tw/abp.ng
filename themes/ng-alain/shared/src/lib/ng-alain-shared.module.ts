@@ -1,6 +1,6 @@
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { SharedModule } from './shared.module';
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 
 @NgModule({
     imports: [
@@ -12,4 +12,10 @@ import { NgModule } from '@angular/core';
         SharedModule
     ]
 })
-export class NgAlainSharedModule { }
+export class NgAlainSharedModule {
+    static forRoot(): ModuleWithProviders<NgAlainSharedModule> {
+        return {
+            ngModule: NgAlainSharedModule
+        };
+    }
+}

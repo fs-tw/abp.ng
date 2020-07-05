@@ -106,11 +106,17 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { ThemeBasicModule } from '@abp/ng.theme.basic';
 import { NgAlainSharedModule } from '@fs/ng-alain/shared';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
+import { ThemeCoreModule } from '@fs/theme.core';
+
 @NgModule({
   imports: [
     ThemeSharedModule.forRoot(),
     ThemeBasicModule.forRoot(),
-    NgAlainBasicModule.forRoot()
+    NgAlainSharedModule.forRoot(),
+    NgAlainBasicModule.forRoot(),
+    ThemeCoreModule.forRoot({
+      layouts: []
+    }),
   ],
 })
 export class RootNgAlainModule {}
