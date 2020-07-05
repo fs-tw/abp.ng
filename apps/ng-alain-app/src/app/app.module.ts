@@ -22,6 +22,7 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { AppRoutingModule } from './app-routing.module';
 import { AccountNgAlainConfigModule } from '@fs/account/ng-alain/config';
 import { IdentityNgAlainConfigModule } from '@fs/identity/ng-alain/config';
+import { ThemeCoreModule } from '@fs/theme.core';
 
 
 const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
@@ -32,7 +33,7 @@ const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NgAlainModule,
+    NgAlainModule.forRoot(),
     SharedModule,
     // RoutesModule,
     AppRoutingModule,
@@ -45,6 +46,7 @@ const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
     IdentityNgAlainConfigModule.forRoot(),
     TenantManagementNgAlainConfigModule.forRoot(),
     SettingManagementConfigModule.forRoot(),
+
     NgxsModule.forRoot(),
     ...(environment.production ? [] : LOGGERS),
 
