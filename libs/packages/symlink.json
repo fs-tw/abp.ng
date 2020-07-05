@@ -4,7 +4,8 @@
         "sync": true,
         "packages": [
             "abp.core",
-            "abp.theme-shared"
+            "abp.theme-shared",
+            "fs.theme-core"
         ]
     },
     {

@@ -1,6 +1,5 @@
-import { TemplateRef, Injector } from '@angular/core';
 import { RouterStateSnapshot } from '@angular/router';
-import { ConfigStateService, ABP,TreeNode } from '@abp/ng.core';
+import { ABP,TreeNode } from '@abp/ng.core';
 export namespace Router {
   export interface State {
     profile: Profile;

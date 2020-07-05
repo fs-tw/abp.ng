@@ -1,10 +1,10 @@
 import { NgModule, ModuleWithProviders, InjectionToken, Type } from '@angular/core';
 import { CoreModule as AbpCoreModule, noop } from '@abp/ng.core';
 import { NgxsModule } from '@ngxs/store';
-import { RouterState } from './states/router.state';
 import { PageBarComponent } from './components/page-bar.component';
-import { InitialService } from './services/initial.service';
-import { ThemeCoreState } from './states/theme-core.state';
+import { INITIAL_PROVIDERS } from './providers/initial.provider';
+import { RouterState } from './states/router.state';
+
 
 
 export interface ThemeCoreOptions {
@@ -26,8 +26,8 @@ export const THEME_CORE_OPTIONS = new InjectionToken('ThemeCoreOptions');
   imports: [
     AbpCoreModule,
     NgxsModule.forFeature([
-      RouterState, 
-      ThemeCoreState
+      RouterState
+      //ThemeCoreState
     ])
   ],
   exports: [
@@ -36,11 +36,12 @@ export const THEME_CORE_OPTIONS = new InjectionToken('ThemeCoreOptions');
   ]
 })
 export class ThemeCoreModule {
-  constructor(initialService:InitialService){}
-  static forRoot(options: ThemeCoreOptions): ModuleWithProviders {
+  static forRoot(options: ThemeCoreOptions): ModuleWithProviders<ThemeCoreModule> {
     return {
       ngModule: ThemeCoreModule,
       providers: [
+        INITIAL_PROVIDERS,
+        
         { provide: THEME_CORE_OPTIONS, useValue: options },
         {
           provide: 'ThemeCoreOptions',

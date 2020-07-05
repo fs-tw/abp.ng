@@ -1,4 +1,4 @@
-import { Router } from '../models/router';
+import { Router } from '../models/router/router';
 
 export class UpdateProfile {
   static readonly type = '[Router] UpdateProfile';

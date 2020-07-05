@@ -6,11 +6,13 @@ import { GetChildrenByNos, GetAllDefinitions, GetSettingsGroups, PatchCodeSettin
 import { switchMap, tap } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { SettingDto } from '../models/setting-dto/setting-dto';
+import { Injectable } from '@angular/core';
 
 @State<ThemeCore.State>({
     name: 'ThemeCoreState',
     defaults: { codingsByDefinition: new CodingsByDefinitionModel({}) } as ThemeCore.State,
 })
+@Injectable()
 export class ThemeCoreState {
     static getSettingsGroups() {
         const selector = createSelector([ThemeCoreState], (state: ThemeCore.State) => {
