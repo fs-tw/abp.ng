@@ -3,12 +3,13 @@ import { JsonObject } from '@angular-devkit/core';
 import execa = require('execa');
 import * as path from 'path';
 import { readFileSync } from 'fs';
+import { Log } from '../utils/log';
 
 interface Options extends JsonObject {
   symlinkConfig: string;
   args: string[];
 }
-
+let spinner = Log.spinner('Processing...');
 export default createBuilder<Options>((options, context) => {
   return new Promise<BuilderOutput>(async (resolve) => {
     const systemRoot = context.workspaceRoot;
@@ -17,15 +18,12 @@ export default createBuilder<Options>((options, context) => {
       : '';
 
     let buildActions = JSON.parse(getFileContents(symlinkConfigPath));
-    console.log(`//////////////////////////////////////////`);
-    console.log(`Task Executing ...`);
-
+    Log.primary(`\nTask Executing ...`);
     for (let i = 0; i < buildActions.length; i++) {
       let job = buildActions[i];
       await doJob(job);
     }
-    console.log(`//////////////////////////////////////////`);
-    console.log(`Task Done.`);
+    Log.primary(`Task Done.`);
 
     resolve({ success: true });
   });
@@ -38,28 +36,42 @@ function getFileContents(file: string): string {
   }
 }
 async function doJob(buildAction: any) {
-  let buildPackages = buildAction.packages.filter((x: any) => !buildAction.ignore_packages || buildAction.ignore_packages.indexOf(x) == -1);
-  console.log('----------------------------------------------');
-  console.log(`Building packages: ${buildPackages.join(',')}`);
 
-  let commands=buildPackages.map((packName:any)=>{
-    return  [
+  let buildPackages = buildAction.packages.filter((x: any) => !buildAction.ignore_packages || buildAction.ignore_packages.indexOf(x) == -1);
+  let commands = buildPackages.map((packName: any) => {
+    return [
       'ng',
       'build',
       packName,
       '--prod'
     ];
   });
-  if(buildAction.sync){
-    commands.forEach((command:any)=>{
-      execa.sync('yarn', command);
-      console.log(`\n${command[2]} successfully built.`);    
-    });
+  Log.info(`\nBuilding packages(${buildAction.sync ? "sync" : "async"}): ${buildPackages.join(',')}`);
+  spinner.start();
+  if (buildAction.sync) {
+    for (let i = 0; i < commands.length; i++) {
+      let command = commands[i];
+      try {
+        await execa('yarn', command);
+        Log.success(`${command[2]} successfully built.`);
+      } catch (error) {
+        Log.error(`"${command[2]}" ERR!!!.Rebuild again in ng command`);
+        process.exit(1);
+        return;
+      }
+    }
   }
-  else{
-    await Promise.all(commands.map(async (command:any)=>{
-      await execa('yarn',command);
-      console.log(`\n${command[2]} successfully built.`);    
+  else {
+    await Promise.all(commands.map(async (command: any) => {
+      try {
+        await execa('yarn', command);
+        Log.success(`${command[2]} successfully built.`);
+      } catch (error) {
+        Log.error(`"${command[2]}" ERR!!!.Rebuild again in ng command`);
+        process.exit(1);
+        return;
+      }
+
     }));
   }
 }
