@@ -33,7 +33,7 @@
       "@fs/feature-management/*": ["dist/libs/feature-management/*"],
       "@fs/setting-management": ["dist/libs/setting-management"],
       "@fs/setting-management/*": ["dist/libs/setting-management/*"],
-      "@fs/theme-core": ["dist/themes/theme-core"]
+      "@fs/theme.core": ["dist/themes/theme-core"]
     }
   },
   "angularCompilerOptions": {
