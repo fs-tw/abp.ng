@@ -17,12 +17,6 @@ function configureRoutes(routes) {
                 parentName: "AbpSettingManagement::Settings" /* Settings */,
                 order: 1,
             },
-            {
-                path: '/setting-management/settings',
-                name: "SettingManagement::Menu:SettingManagement.DevelopPage" /* DevelopPage */,
-                parentName: "AbpSettingManagement::Settings" /* Settings */,
-                order: 2,
-            }
         ]);
     };
 }

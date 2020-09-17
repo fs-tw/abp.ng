@@ -1,18 +1,35 @@
 import { __decorate, __metadata } from 'tslib';
-import { EventEmitter, Input, Output, Component, ViewChild, ChangeDetectorRef, NgModule } from '@angular/core';
+import { NgModule, EventEmitter, Input, Output, Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FsNgAlainTreeComponent, NgAlainBasicModule } from '@fs/ng-alain/basic';
-import { SettingTabsService, ConfigStateService, LazyModuleFactory, DynamicLayoutComponent, AuthGuard, PermissionGuard, CoreModule } from '@abp/ng.core';
+import { DynamicLayoutComponent, AuthGuard, PermissionGuard, SettingTabsService, ConfigStateService, LazyModuleFactory, CoreModule } from '@abp/ng.core';
 import { RouterModule } from '@angular/router';
 import { JsonEditorOptions, JsonEditorComponent, NgJsonEditorModule } from 'ang-jsoneditor';
 import { uniq, startsWith, findIndex, uniqBy, drop, dropRight, last, toLower, head } from 'lodash';
 import { Select, Store } from '@ngxs/store';
-import { ThemeCoreState, CodesWithSettingsOutput, ThemeCoreStateService, UpdateSettingsByProviderName, GetSettingByNameAndKey } from '@fs/theme.core';
+import { ThemeCoreState, CodesWithSettingsOutput, ThemeCoreStateService, UpdateSettingsByProviderName } from '@fs/theme.core';
 import { takeUntil, finalize } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NotifyService } from '@fs/ng-alain/core';
 import { NzContextMenuService } from 'ng-zorro-antd';
 import { SettingManagementComponent as SettingManagementComponent$1, SettingManagementModule } from '@abp/ng.setting-management';
+
+const routes = [
+    {
+        path: '',
+        component: DynamicLayoutComponent,
+        canActivate: [AuthGuard, PermissionGuard],
+    }
+];
+// @dynamic
+let SettingManagementNgAlainRoutingModule = class SettingManagementNgAlainRoutingModule {
+};
+SettingManagementNgAlainRoutingModule = __decorate([
+    NgModule({
+        imports: [RouterModule.forChild(routes)],
+        exports: [RouterModule],
+    })
+], SettingManagementNgAlainRoutingModule);
 
 let ModalComponent = class ModalComponent {
     constructor(themeCoreStateService) {
@@ -658,199 +675,6 @@ SharedModule = __decorate([
     })
 ], SharedModule);
 
-let MainComponent$1 = class MainComponent {
-    constructor(store, notifyService, themeCoreStateService) {
-        this.store = store;
-        this.notifyService = notifyService;
-        this.themeCoreStateService = themeCoreStateService;
-        this.providerNameList = [
-            {
-                tag: "D",
-                displayName: "DefaultValue"
-            },
-            {
-                tag: "C",
-                displayName: "Configuration"
-            },
-            {
-                tag: "G",
-                displayName: "Global"
-            },
-            {
-                tag: "T",
-                displayName: "Tenant"
-            },
-            {
-                tag: "U",
-                displayName: "User"
-            }
-        ];
-        this.settingGroups = null;
-        this.selectedSettingData = null;
-        this.loading = false;
-        this.visible = false;
-        this.providerName = null;
-        this.providerKey = null;
-        this.destroy$ = new Subject();
-    }
-    ngOnInit() {
-        this.settingdata$.pipe(takeUntil(this.destroy$)).subscribe(x => {
-            if (x && this.visible && this.selectedSettingData) {
-                this.selectedSettingData = x.map(y => {
-                    return {
-                        name: y.name,
-                        value: y.value,
-                        displayName: y.displayName,
-                        properties: y.properties
-                    };
-                });
-            }
-        });
-        this.settingGroupdata$.pipe(takeUntil(this.destroy$)).subscribe(x => {
-            this.settingGroups = null;
-            if (x) {
-                let settingGroup = uniq(x);
-                this.settingGroups = settingGroup.filter((x, i, arr) => {
-                    return arr.filter((y, j) => i != j && startsWith(x, y + ".")).length == 0;
-                });
-            }
-        });
-    }
-    ngOnDestroy() {
-        this.destroy$.next();
-    }
-    editManageAction(item) {
-        this.loading = true;
-        let input = {
-            providerName: item,
-            providerKey: undefined
-        };
-        this.store.dispatch(new GetSettingByNameAndKey(input))
-            .pipe(finalize(() => this.loading = false))
-            .subscribe(() => {
-            this.setting(true, input);
-        }, (error) => {
-            this.notifyService.error("查詢失敗");
-        });
-    }
-    setting(visible, provider) {
-        this.visible = visible;
-        this.providerName = provider.providerName;
-        this.providerKey = provider.providerKey;
-        let data = this.themeCoreStateService.getSettingsByProviderName();
-        this.selectedSettingData = data.map(x => {
-            return {
-                name: x.name,
-                value: x.value,
-                displayName: x.displayName,
-                properties: x.properties
-            };
-        });
-    }
-};
-__decorate([
-    Select(ThemeCoreState.getSettingsByProviderName),
-    __metadata("design:type", Observable)
-], MainComponent$1.prototype, "settingdata$", void 0);
-__decorate([
-    Select(ThemeCoreState.getSettingsGroups),
-    __metadata("design:type", Observable)
-], MainComponent$1.prototype, "settingGroupdata$", void 0);
-MainComponent$1 = __decorate([
-    Component({
-        selector: 'fs-main',
-        template: "<nz-row nzGutter=\"16\">\r\n    <nz-col [nzLg]=\"24\" [nzXl]=\"5\" style=\"padding-bottom: 10px;\">\r\n        <ul nz-menu nzMode=\"inline\">\r\n            <ul>\r\n                <li nz-menu-item nz-popover *ngFor=\"let item of providerNameList\" (click)=\"editManageAction(item.tag)\">\r\n                    <nz-tag [nzColor]=\"'green'\">{{ item.tag }}</nz-tag>\r\n                    {{ item.displayName }}\r\n                </li>\r\n            </ul>\r\n        </ul>\r\n    </nz-col>\r\n    <nz-col [nzLg]=\"24\" [nzXl]=\"19\" *ngIf=\"selectedSettingData\">\r\n        <fs-ng-alain-setting-management-main [providerName]=\"providerName\" [providerKey]=\"providerKey\" [settingGroups]=\"settingGroups\" [(visible)]=\"visible\" [rawData]=\"selectedSettingData\"></fs-ng-alain-setting-management-main>\r\n    </nz-col>\r\n</nz-row>\r\n",
-        styles: [""]
-    }),
-    __metadata("design:paramtypes", [Store,
-        NotifyService,
-        ThemeCoreStateService])
-], MainComponent$1);
-
-let LayoutComponent = class LayoutComponent {
-    constructor() { }
-    ngOnInit() {
-    }
-};
-LayoutComponent = __decorate([
-    Component({
-        selector: 'fs-layout',
-        template: "<fs-page-bar></fs-page-bar>\r\n\r\n<router-outlet></router-outlet>\r\n\r\n\r\n",
-        styles: [""]
-    }),
-    __metadata("design:paramtypes", [])
-], LayoutComponent);
-
-const routes = [
-    {
-        path: '',
-        component: LayoutComponent,
-        children: [
-            {
-                path: '',
-                component: MainComponent$1
-            }
-        ],
-    }
-];
-let SettingsRoutingModule = class SettingsRoutingModule {
-};
-SettingsRoutingModule = __decorate([
-    NgModule({
-        imports: [RouterModule.forChild(routes)],
-        exports: [RouterModule]
-    })
-], SettingsRoutingModule);
-
-var SettingsModule_1;
-let SettingsModule = SettingsModule_1 = class SettingsModule {
-    static forChild() {
-        return {
-            ngModule: SettingsModule_1,
-            providers: [],
-        };
-    }
-    static forLazy() {
-        return new LazyModuleFactory(SettingsModule_1.forChild());
-    }
-    static forEarly() {
-        return new LazyModuleFactory(SettingsModule_1.forChild());
-    }
-};
-SettingsModule = SettingsModule_1 = __decorate([
-    NgModule({
-        declarations: [LayoutComponent, MainComponent$1],
-        imports: [
-            SharedModule,
-            SettingsRoutingModule
-        ]
-    })
-], SettingsModule);
-
-const ɵ0 = SettingsModule.forEarly;
-const routes$1 = [
-    {
-        path: '',
-        component: DynamicLayoutComponent,
-        canActivate: [AuthGuard, PermissionGuard],
-        children: [
-            {
-                path: 'settings',
-                loadChildren: ɵ0
-            },
-        ],
-    }
-];
-// @dynamic
-let SettingManagementNgAlainRoutingModule = class SettingManagementNgAlainRoutingModule {
-};
-SettingManagementNgAlainRoutingModule = __decorate([
-    NgModule({
-        imports: [RouterModule.forChild(routes$1)],
-        exports: [RouterModule],
-    })
-], SettingManagementNgAlainRoutingModule);
-
 var SettingManagementNgAlainModule_1;
 let SettingManagementNgAlainModule = SettingManagementNgAlainModule_1 = class SettingManagementNgAlainModule {
     static forChild() {
@@ -882,5 +706,5 @@ SettingManagementNgAlainModule = SettingManagementNgAlainModule_1 = __decorate([
  * Generated bundle index. Do not edit.
  */
 
-export { DetailComponent, MainComponent, ModalComponent, MySettings2Component, MySettingsComponent, SettingManagementComponent, SettingManagementNgAlainModule, SharedModule, FsNgAlainJsonEditorComponent as ɵa, SettingManagementNgAlainRoutingModule as ɵb, SettingsModule as ɵc, LayoutComponent as ɵd, MainComponent$1 as ɵe, SettingsRoutingModule as ɵf };
+export { DetailComponent, MainComponent, ModalComponent, MySettings2Component, MySettingsComponent, SettingManagementComponent, SettingManagementNgAlainModule, SharedModule, FsNgAlainJsonEditorComponent as ɵa, SettingManagementNgAlainRoutingModule as ɵb };
 //# sourceMappingURL=fs-setting-management-ng-alain.js.map
