@@ -22,69 +22,7 @@ function addSchematicFiles(themeName) {
     ]);
 }
 function updateProject(themeName) {
-    switch (themeName) {
-        case 'ng-alain':
-            return ngAlainTheme();
-        case 'ng-alain-ms':
-            return ngAlainMsTheme();
-        default:
-            return ngAlainTheme();
-    }
-    //themes:ng-alain-ms
-    function ngAlainMsTheme() {
-        return function (host) {
-            return schematics_1.chain([
-                workspace_1.updateJsonInTree(workspace_1.getWorkspacePath(host), function (json) {
-                    json.projects[appProjectName]
-                        .architect.build.options.assets =
-                        [
-                            "apps/" + appProjectRoot + "/src/favicon.ico",
-                            "apps/" + appProjectRoot + "/src/assets",
-                            {
-                                "glob": "**/*",
-                                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                                "output": "/assets/"
-                            }
-                        ];
-                    json.projects[appProjectName]
-                        .architect.build.options.styles =
-                        [
-                            {
-                                "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-                                "inject": true,
-                                "bundleName": "fontawesome-all.min"
-                            },
-                            {
-                                "input": "node_modules/@fortawesome/fontawesome-free/css/v4-shims.min.css",
-                                "inject": true,
-                                "bundleName": "fontawesome-v4-shims.min"
-                            },
-                            "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
-                            "node_modules/quill/dist/quill.snow.css",
-                            "apps/" + appProjectRoot + "/src/styles.less",
-                        ];
-                    json.projects[appProjectName]
-                        .architect.build.options.stylePreprocessorOptions = {
-                        "includePaths": [
-                            "node_modules/"
-                        ]
-                    };
-                    json.projects[appProjectName]
-                        .architect.build.options.scripts =
-                        [
-                            "node_modules/ajv/dist/ajv.bundle.js",
-                            "node_modules/qrious/dist/qrious.min.js",
-                            "node_modules/masonry-layout/dist/masonry.pkgd.js",
-                            "node_modules/quill/dist/quill.min.js",
-                            "node_modules/perfect-scrollbar/dist/perfect-scrollbar.js"
-                        ];
-                    json.projects[appProjectName]
-                        .architect.build.options.tsConfig = "apps/" + appProjectRoot + "/tsconfig.dev.json";
-                    return json;
-                })
-            ]);
-        };
-    }
+    return ngAlainTheme();
     //themes: ng-alain
     function ngAlainTheme() {
         return function (host) {

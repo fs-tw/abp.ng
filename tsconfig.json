@@ -67,15 +67,6 @@
       "@abp/ng.feature-management": [
         "packages/feature-management/src/public-api.ts"
       ],
-      "@fs/theme.core": [
-        "themes/theme-core/src/index.ts"
-      ],
-      "@fs/ng-alain": [
-        "themes/ng-alain/src/index.ts"
-      ],
-      "@fs/ng-alain/*": [
-        "themes/ng-alain/*/src/index.ts"
-      ],
       "@fs/account": [
         "libs/account/src/index.ts"
       ],
@@ -111,6 +102,15 @@
       ],
       "@fs/setting-management/*": [
         "libs/setting-management/*/src/index.ts"
+      ],
+      "@fs/theme.core": [
+        "themes/theme-core/src/index.ts"
+      ],
+      "@fs/ng-alain": [
+        "themes/ng-alain/src/index.ts"
+      ],
+      "@fs/ng-alain/*": [
+        "themes/ng-alain/*/src/index.ts"
       ]
     }
   },
