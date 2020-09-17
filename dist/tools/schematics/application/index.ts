@@ -38,122 +38,58 @@ function addSchematicFiles(themeName): Rule {
   ]);
 }
 function updateProject(themeName): Rule {
-
-  switch(themeName){
-    case 'ng-alain':
-      return ngAlainTheme();
-      case 'ng-alain-ms':
-        return ngAlainMsTheme();
-    default:
-      return ngAlainTheme();
-  }
-
-  //themes:ng-alain-ms
-  function ngAlainMsTheme(){
-    return (host: Tree) => {
-      return chain([
-        updateJsonInTree(getWorkspacePath(host),json=>{
-          json.projects[appProjectName]
-          .architect.build.options.assets =
-          [
-            `apps/${appProjectRoot}/src/favicon.ico`,
-            `apps/${appProjectRoot}/src/assets`,
-            {
-              "glob": "**/*",
-              "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-              "output": "/assets/"
-            }
-          ];
-        json.projects[appProjectName]
-          .architect.build.options.styles =
-          [
-            {
-              "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "inject": true,
-              "bundleName": "fontawesome-all.min"
-            },
-            {
-              "input": "node_modules/@fortawesome/fontawesome-free/css/v4-shims.min.css",
-              "inject": true,
-              "bundleName": "fontawesome-v4-shims.min"
-            },
-            "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
-            "node_modules/quill/dist/quill.snow.css",
-            `apps/${appProjectRoot}/src/styles.less`,
-          ];
-          json.projects[appProjectName]
-          .architect.build.options.stylePreprocessorOptions = {
-            "includePaths": [
-              "node_modules/"
-            ]
-          };
-        json.projects[appProjectName]
-          .architect.build.options.scripts =
-          [
-            "node_modules/ajv/dist/ajv.bundle.js",
-            "node_modules/qrious/dist/qrious.min.js",
-            "node_modules/masonry-layout/dist/masonry.pkgd.js",
-            "node_modules/quill/dist/quill.min.js",
-            "node_modules/perfect-scrollbar/dist/perfect-scrollbar.js"
-          ];
-          json.projects[appProjectName]
-          .architect.build.options.tsConfig = `apps/${appProjectRoot}/tsconfig.dev.json`;
-        return json;          
-        })
-      ]);
-    };
-  }
+  return ngAlainTheme();
   //themes: ng-alain
-  function ngAlainTheme(){
+  function ngAlainTheme() {
     return (host: Tree) => {
       return chain([
-        updateJsonInTree(getWorkspacePath(host),json=>{
+        updateJsonInTree(getWorkspacePath(host), json => {
           json.projects[appProjectName]
-          .architect.build.options.assets =
-          [
-            `apps/${appProjectRoot}/src/favicon.ico`,
-            `apps/${appProjectRoot}/src/assets`,
-            {
-              "glob": "**/*",
-              "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-              "output": "/assets/"
-            }
-          ];
-        json.projects[appProjectName]
-          .architect.build.options.styles =
-          [
-            {
-              "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "inject": true,
-              "bundleName": "fontawesome-all.min"
-            },
-            {
-              "input": "node_modules/@fortawesome/fontawesome-free/css/v4-shims.min.css",
-              "inject": true,
-              "bundleName": "fontawesome-v4-shims.min"
-            },
-            `apps/${appProjectRoot}/src/styles.less`,
-          ];
+            .architect.build.options.assets =
+            [
+              `apps/${appProjectRoot}/src/favicon.ico`,
+              `apps/${appProjectRoot}/src/assets`,
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
+            ];
           json.projects[appProjectName]
-          .architect.build.options.stylePreprocessorOptions = {
+            .architect.build.options.styles =
+            [
+              {
+                "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+                "inject": true,
+                "bundleName": "fontawesome-all.min"
+              },
+              {
+                "input": "node_modules/@fortawesome/fontawesome-free/css/v4-shims.min.css",
+                "inject": true,
+                "bundleName": "fontawesome-v4-shims.min"
+              },
+              `apps/${appProjectRoot}/src/styles.less`,
+            ];
+          json.projects[appProjectName]
+            .architect.build.options.stylePreprocessorOptions = {
             "includePaths": [
               "node_modules/"
             ]
           };
-        json.projects[appProjectName]
-          .architect.build.options.scripts =
-          [
-            "node_modules/ajv/dist/ajv.bundle.js",
-            "node_modules/qrious/dist/qrious.min.js"
-          ];
           json.projects[appProjectName]
-          .architect.build.options.tsConfig = `apps/${appProjectRoot}/tsconfig.dev.json`;
-        return json;          
+            .architect.build.options.scripts =
+            [
+              "node_modules/ajv/dist/ajv.bundle.js",
+              "node_modules/qrious/dist/qrious.min.js"
+            ];
+          json.projects[appProjectName]
+            .architect.build.options.tsConfig = `apps/${appProjectRoot}/tsconfig.dev.json`;
+          return json;
         })
       ]);
     };
   }
-  
+
 }
 
 function installPackages() {
@@ -162,7 +98,7 @@ function installPackages() {
   };
 }
 
-export default function(schema: any): Rule {
+export default function (schema: any): Rule {
   return (host: Tree, context: SchematicContext) => {
     const workspaceJson = readJsonInTree(host, getWorkspacePath(host));
     var appDirectory = schema.directory
@@ -173,7 +109,7 @@ export default function(schema: any): Rule {
     themeName = schema.theme;
     return chain([
       externalSchematic('@nrwl/angular', 'application', {
-        e2eTestRunner:'none',
+        e2eTestRunner: 'none',
         directory: schema.directory,
         name: schema.name,
         routing: true,

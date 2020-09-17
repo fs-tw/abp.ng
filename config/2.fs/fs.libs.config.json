@@ -1,0 +1,412 @@
+{
+  "order": 20,
+  "nx": {
+    "fs.packages": {
+      "tags": []
+    },
+    "fs.account": {
+      "tags": []
+    },
+    "fs.identity": {
+      "tags": []
+    },
+    "fs.permission-management": {
+      "tags": []
+    },
+    "fs.tenant-management": {
+      "tags": []
+    },
+    "fs.feature-management": {
+      "tags": []
+    },
+    "fs.setting-management": {
+      "tags": []
+    }
+  },
+  "angular":{
+    "fs.packages": {
+      "projectType": "library",
+      "root": "libs/packages",
+      "sourceRoot": "libs/packages/src",
+      "prefix": "fs",
+      "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:symlink",
+          "options": {
+            "symlinkConfig": "libs/packages/symlink.json",
+            "args": []
+          }
+        },
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "tsconfig.lib.json",
+            "project": "libs/packages/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/packages/tsconfig.lib.json",
+              "libs/packages/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/packages/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/packages/jest.config.js",
+            "tsConfig": "libs/packages/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/packages/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "fs.account": {
+      "projectType": "library",
+      "root": "libs/account",
+      "sourceRoot": "libs/account/src",
+      "prefix": "fs",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "tsconfig.lib.json",
+            "project": "libs/account/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/account/tsconfig.lib.json",
+              "libs/account/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/account/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/account/jest.config.js",
+            "tsConfig": "libs/account/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/account/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "fs.identity": {
+      "projectType": "library",
+      "root": "libs/identity",
+      "sourceRoot": "libs/identity/src",
+      "prefix": "fs",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "tsconfig.lib.json",
+            "project": "libs/identity/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/identity/tsconfig.lib.json",
+              "libs/identity/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/identity/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/identity/jest.config.js",
+            "tsConfig": "libs/identity/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/identity/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "fs.permission-management": {
+      "projectType": "library",
+      "root": "libs/permission-management",
+      "sourceRoot": "libs/permission-management/src",
+      "prefix": "fs",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "tsconfig.lib.json",
+            "project": "libs/permission-management/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/permission-management/tsconfig.lib.json",
+              "libs/permission-management/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/permission-management/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/permission-management/jest.config.js",
+            "tsConfig": "libs/permission-management/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/permission-management/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "fs.tenant-management": {
+      "projectType": "library",
+      "root": "libs/tenant-management",
+      "sourceRoot": "libs/tenant-management/src",
+      "prefix": "fs",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "tsconfig.lib.json",
+            "project": "libs/tenant-management/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/tenant-management/tsconfig.lib.json",
+              "libs/tenant-management/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/tenant-management/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/tenant-management/jest.config.js",
+            "tsConfig": "libs/tenant-management/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/tenant-management/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "fs.feature-management": {
+      "projectType": "library",
+      "root": "libs/feature-management",
+      "sourceRoot": "libs/feature-management/src",
+      "prefix": "fs",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "tsconfig.lib.json",
+            "project": "libs/feature-management/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/feature-management/tsconfig.lib.json",
+              "libs/feature-management/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/feature-management/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/feature-management/jest.config.js",
+            "tsConfig": "libs/feature-management/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/feature-management/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "fs.setting-management": {
+      "projectType": "library",
+      "root": "libs/setting-management",
+      "sourceRoot": "libs/setting-management/src",
+      "prefix": "fs",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "tsconfig.lib.json",
+            "project": "libs/setting-management/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/setting-management/tsconfig.lib.json",
+              "libs/setting-management/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/setting-management/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/setting-management/jest.config.js",
+            "tsConfig": "libs/setting-management/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/setting-management/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    }    
+  },
+  "tsconfig":{
+    "@fs/account": [
+      "libs/account/src/index.ts"
+    ],
+    "@fs/account/*": [
+      "libs/account/*/src/index.ts"
+    ],
+    "@fs/identity": [
+      "libs/identity/src/index.ts"
+    ],
+    "@fs/identity/*": [
+      "libs/identity/*/src/index.ts"
+    ],
+    "@fs/permission-management": [
+      "libs/permission-management/src/index.ts"
+    ],
+    "@fs/permission-management/*": [
+      "libs/permission-management/*/src/index.ts"
+    ],
+    "@fs/tenant-management": [
+      "libs/tenant-management/src/index.ts"
+    ],
+    "@fs/tenant-management/*": [
+      "libs/tenant-management/*/src/index.ts"
+    ],
+    "@fs/feature-management": [
+      "libs/feature-management/src/index.ts"
+    ],
+    "@fs/feature-management/*": [
+      "libs/feature-management/*/src/index.ts"
+    ],
+    "@fs/setting-management": [
+      "libs/setting-management/src/index.ts"
+    ],
+    "@fs/setting-management/*": [
+      "libs/setting-management/*/src/index.ts"
+    ]
+  },
+  "tsconfigProd":{
+    "@fs/account": [
+      "dist/libs/account"
+    ],
+    "@fs/account/*": [
+      "dist/libs/account/*"
+    ],
+    "@fs/identity": [
+      "dist/libs/identity"
+    ],
+    "@fs/identity/*": [
+      "dist/libs/identity/*"
+    ],
+    "@fs/permission-management": [
+      "dist/libs/permission-management"
+    ],
+    "@fs/permission-management/*": [
+      "dist/libs/permission-management/*"
+    ],
+    "@fs/tenant-management": [
+      "dist/libs/tenant-management"
+    ],
+    "@fs/tenant-management/*": [
+      "dist/libs/tenant-management/*"
+    ],
+    "@fs/feature-management": [
+      "dist/libs/feature-management"
+    ],
+    "@fs/feature-management/*": [
+      "dist/libs/feature-management/*"
+    ],
+    "@fs/setting-management": [
+      "dist/libs/setting-management"
+    ],
+    "@fs/setting-management/*": [
+      "dist/libs/setting-management/*"
+    ]
+  }
+}

@@ -19,12 +19,6 @@
     }
   },
   "projects": {
-    "tmpl.dev-app": {
-      "tags": []
-    },
-    "tmpl.ng-alain-app": {
-      "tags": []
-    },
     "abp.core": {
       "tags": []
     },
@@ -55,18 +49,12 @@
     "abp.setting-management": {
       "tags": []
     },
-    "fs.theme-core": {
-      "tags": []
-    },
-    "fs.dev": {
-      "tags": []
-    },
-    "fs.ng-alain": {
+    "abp.schematics": {
       "tags": []
     },
     "fs.packages": {
       "tags": []
-    },    
+    },
     "fs.account": {
       "tags": []
     },
@@ -83,6 +71,21 @@
       "tags": []
     },
     "fs.setting-management": {
+      "tags": []
+    },
+    "fs.theme-core": {
+      "tags": []
+    },
+    "fs.dev": {
+      "tags": []
+    },
+    "fs.ng-alain": {
+      "tags": []
+    },
+    "tmpl.dev-app": {
+      "tags": []
+    },
+    "tmpl.ng-alain-app": {
       "tags": []
     }
   }

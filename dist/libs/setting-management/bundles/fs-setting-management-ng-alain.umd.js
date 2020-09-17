@@ -296,6 +296,26 @@
         return value;
     }
 
+    var routes = [
+        {
+            path: '',
+            component: ng_core.DynamicLayoutComponent,
+            canActivate: [ng_core.AuthGuard, ng_core.PermissionGuard],
+        }
+    ];
+    // @dynamic
+    exports.ɵb = /** @class */ (function () {
+        function SettingManagementNgAlainRoutingModule() {
+        }
+        return SettingManagementNgAlainRoutingModule;
+    }());
+    exports.ɵb = __decorate([
+        core.NgModule({
+            imports: [router.RouterModule.forChild(routes)],
+            exports: [router.RouterModule],
+        })
+    ], exports.ɵb);
+
     exports.ModalComponent = /** @class */ (function () {
         function ModalComponent(themeCoreStateService) {
             this.themeCoreStateService = themeCoreStateService;
@@ -985,213 +1005,6 @@
             ], COMPONENT)
         })
     ], exports.SharedModule);
-
-    exports.ɵe = /** @class */ (function () {
-        function MainComponent(store, notifyService, themeCoreStateService) {
-            this.store = store;
-            this.notifyService = notifyService;
-            this.themeCoreStateService = themeCoreStateService;
-            this.providerNameList = [
-                {
-                    tag: "D",
-                    displayName: "DefaultValue"
-                },
-                {
-                    tag: "C",
-                    displayName: "Configuration"
-                },
-                {
-                    tag: "G",
-                    displayName: "Global"
-                },
-                {
-                    tag: "T",
-                    displayName: "Tenant"
-                },
-                {
-                    tag: "U",
-                    displayName: "User"
-                }
-            ];
-            this.settingGroups = null;
-            this.selectedSettingData = null;
-            this.loading = false;
-            this.visible = false;
-            this.providerName = null;
-            this.providerKey = null;
-            this.destroy$ = new rxjs.Subject();
-        }
-        MainComponent.prototype.ngOnInit = function () {
-            var _this = this;
-            this.settingdata$.pipe(operators.takeUntil(this.destroy$)).subscribe(function (x) {
-                if (x && _this.visible && _this.selectedSettingData) {
-                    _this.selectedSettingData = x.map(function (y) {
-                        return {
-                            name: y.name,
-                            value: y.value,
-                            displayName: y.displayName,
-                            properties: y.properties
-                        };
-                    });
-                }
-            });
-            this.settingGroupdata$.pipe(operators.takeUntil(this.destroy$)).subscribe(function (x) {
-                _this.settingGroups = null;
-                if (x) {
-                    var settingGroup = _.uniq(x);
-                    _this.settingGroups = settingGroup.filter(function (x, i, arr) {
-                        return arr.filter(function (y, j) { return i != j && _.startsWith(x, y + "."); }).length == 0;
-                    });
-                }
-            });
-        };
-        MainComponent.prototype.ngOnDestroy = function () {
-            this.destroy$.next();
-        };
-        MainComponent.prototype.editManageAction = function (item) {
-            var _this = this;
-            this.loading = true;
-            var input = {
-                providerName: item,
-                providerKey: undefined
-            };
-            this.store.dispatch(new theme_core.GetSettingByNameAndKey(input))
-                .pipe(operators.finalize(function () { return _this.loading = false; }))
-                .subscribe(function () {
-                _this.setting(true, input);
-            }, function (error) {
-                _this.notifyService.error("查詢失敗");
-            });
-        };
-        MainComponent.prototype.setting = function (visible, provider) {
-            this.visible = visible;
-            this.providerName = provider.providerName;
-            this.providerKey = provider.providerKey;
-            var data = this.themeCoreStateService.getSettingsByProviderName();
-            this.selectedSettingData = data.map(function (x) {
-                return {
-                    name: x.name,
-                    value: x.value,
-                    displayName: x.displayName,
-                    properties: x.properties
-                };
-            });
-        };
-        return MainComponent;
-    }());
-    __decorate([
-        store.Select(theme_core.ThemeCoreState.getSettingsByProviderName),
-        __metadata("design:type", rxjs.Observable)
-    ], exports.ɵe.prototype, "settingdata$", void 0);
-    __decorate([
-        store.Select(theme_core.ThemeCoreState.getSettingsGroups),
-        __metadata("design:type", rxjs.Observable)
-    ], exports.ɵe.prototype, "settingGroupdata$", void 0);
-    exports.ɵe = __decorate([
-        core.Component({
-            selector: 'fs-main',
-            template: "<nz-row nzGutter=\"16\">\r\n    <nz-col [nzLg]=\"24\" [nzXl]=\"5\" style=\"padding-bottom: 10px;\">\r\n        <ul nz-menu nzMode=\"inline\">\r\n            <ul>\r\n                <li nz-menu-item nz-popover *ngFor=\"let item of providerNameList\" (click)=\"editManageAction(item.tag)\">\r\n                    <nz-tag [nzColor]=\"'green'\">{{ item.tag }}</nz-tag>\r\n                    {{ item.displayName }}\r\n                </li>\r\n            </ul>\r\n        </ul>\r\n    </nz-col>\r\n    <nz-col [nzLg]=\"24\" [nzXl]=\"19\" *ngIf=\"selectedSettingData\">\r\n        <fs-ng-alain-setting-management-main [providerName]=\"providerName\" [providerKey]=\"providerKey\" [settingGroups]=\"settingGroups\" [(visible)]=\"visible\" [rawData]=\"selectedSettingData\"></fs-ng-alain-setting-management-main>\r\n    </nz-col>\r\n</nz-row>\r\n",
-            styles: [""]
-        }),
-        __metadata("design:paramtypes", [store.Store,
-            core$1.NotifyService,
-            theme_core.ThemeCoreStateService])
-    ], exports.ɵe);
-
-    exports.ɵd = /** @class */ (function () {
-        function LayoutComponent() {
-        }
-        LayoutComponent.prototype.ngOnInit = function () {
-        };
-        return LayoutComponent;
-    }());
-    exports.ɵd = __decorate([
-        core.Component({
-            selector: 'fs-layout',
-            template: "<fs-page-bar></fs-page-bar>\r\n\r\n<router-outlet></router-outlet>\r\n\r\n\r\n",
-            styles: [""]
-        }),
-        __metadata("design:paramtypes", [])
-    ], exports.ɵd);
-
-    var routes = [
-        {
-            path: '',
-            component: exports.ɵd,
-            children: [
-                {
-                    path: '',
-                    component: exports.ɵe
-                }
-            ],
-        }
-    ];
-    exports.ɵf = /** @class */ (function () {
-        function SettingsRoutingModule() {
-        }
-        return SettingsRoutingModule;
-    }());
-    exports.ɵf = __decorate([
-        core.NgModule({
-            imports: [router.RouterModule.forChild(routes)],
-            exports: [router.RouterModule]
-        })
-    ], exports.ɵf);
-
-    var SettingsModule_1;
-    exports.ɵc = SettingsModule_1 = /** @class */ (function () {
-        function SettingsModule() {
-        }
-        SettingsModule.forChild = function () {
-            return {
-                ngModule: SettingsModule_1,
-                providers: [],
-            };
-        };
-        SettingsModule.forLazy = function () {
-            return new ng_core.LazyModuleFactory(SettingsModule_1.forChild());
-        };
-        SettingsModule.forEarly = function () {
-            return new ng_core.LazyModuleFactory(SettingsModule_1.forChild());
-        };
-        return SettingsModule;
-    }());
-    exports.ɵc = SettingsModule_1 = __decorate([
-        core.NgModule({
-            declarations: [exports.ɵd, exports.ɵe],
-            imports: [
-                exports.SharedModule,
-                exports.ɵf
-            ]
-        })
-    ], exports.ɵc);
-
-    var ɵ0 = exports.ɵc.forEarly;
-    var routes$1 = [
-        {
-            path: '',
-            component: ng_core.DynamicLayoutComponent,
-            canActivate: [ng_core.AuthGuard, ng_core.PermissionGuard],
-            children: [
-                {
-                    path: 'settings',
-                    loadChildren: ɵ0
-                },
-            ],
-        }
-    ];
-    // @dynamic
-    exports.ɵb = /** @class */ (function () {
-        function SettingManagementNgAlainRoutingModule() {
-        }
-        return SettingManagementNgAlainRoutingModule;
-    }());
-    exports.ɵb = __decorate([
-        core.NgModule({
-            imports: [router.RouterModule.forChild(routes$1)],
-            exports: [router.RouterModule],
-        })
-    ], exports.ɵb);
 
     var SettingManagementNgAlainModule_1;
     exports.SettingManagementNgAlainModule = SettingManagementNgAlainModule_1 = /** @class */ (function () {

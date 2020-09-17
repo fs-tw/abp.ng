@@ -4,7 +4,6 @@
   "peerDependencies": {},
   "dependencies": {
     "@fs/packages-ng-alain": "file:ng-alain",
-    "@fs/packages-ng-alain-ms": "file:ng-alain-ms",
     "@fs/packages-abp": "file:abp",
     "@fs/packages-setting-management": "file:setting-management",
     "tslib": "^1.10.0"
