@@ -3,29 +3,18 @@ import { NgModule } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
 import { PermissionManagementComponent } from './components/permission-management.component';
 import { CoreModule } from '@abp/ng.core';
-import { PermissionManagementWrapModule } from '@fs/permission-management/wrap';
+import { PermissionManagementModule } from '@abp/ng.permission-management';
 
 @NgModule({
-  declarations: [PermissionManagementComponent],
-  entryComponents: [PermissionManagementComponent],
   imports: [
     CoreModule,
     NgAlainBasicModule,
-    PermissionManagementWrapModule
+    PermissionManagementModule
   ],
-  exports:[
+  exports: [
     PermissionManagementComponent
-  ]
+  ],
+  declarations: [PermissionManagementComponent],
+  entryComponents: [PermissionManagementComponent]
 })
-export class PermissionManagementNgAlainModule {
-  // static forChild(): ModuleWithProviders<PermissionManagementNgAlainModule> {
-  //   return {
-  //     ngModule: PermissionManagementNgAlainModule,
-  //     providers: [],
-  //   };
-  // }
-
-  // static forLazy(): NgModuleFactory<PermissionManagementNgAlainModule> {
-  //   return new LazyModuleFactory(PermissionManagementNgAlainModule.forChild());
-  // }
-}
+export class PermissionManagementNgAlainModule { }

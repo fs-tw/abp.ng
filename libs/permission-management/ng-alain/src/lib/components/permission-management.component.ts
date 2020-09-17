@@ -48,8 +48,6 @@ export class PermissionManagementComponent extends AbpPermissionManagementCompon
   selectAllThisTabIndeterminate = false;
   constructor(private _store: Store, private _renderer: Renderer2) {
     super(_store, _renderer);
-
-    console.log('yc');
   }
   isGrantedByOtherProviderName(grantedProviders: PermissionManagement.GrantedProvider[]): boolean {
     if (grantedProviders.length) {
