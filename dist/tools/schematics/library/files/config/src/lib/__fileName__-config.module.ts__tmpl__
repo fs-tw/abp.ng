@@ -1,8 +1,0 @@
-import { noop } from '@abp/ng.core';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { <%= projectName %>ConfigService } from './services/<%= projectName %>-config.service';
-
-@NgModule({
-  providers: [{ provide: APP_INITIALIZER, deps: [<%= projectName %>ConfigService], useFactory: noop, multi: true }],
-})
-export class <%= projectName %>ConfigModule {}
