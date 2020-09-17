@@ -1,4 +1,3 @@
-import { AccountModule } from '@fs/account';
 import { CoreModule, AddReplaceableComponent, eLayoutType, LazyModuleFactory } from '@abp/ng.core';
 import { NgModule, ModuleWithProviders, NgModuleFactory } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
@@ -9,8 +8,10 @@ import { PersonalSettingsComponent } from './components/personal-settings/person
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { AuthWrapperComponent } from './components/auth-wrapper/auth-wrapper.component';
 import { TenantBoxComponent } from './components/tenant-box/tenant-box.component';
-import { Options, ACCOUNT_OPTIONS } from '@abp/ng.account';
-import { AccountWrapModule } from '@fs/account/wrap';
+import { Options, ACCOUNT_OPTIONS, AuthenticationFlowGuard } from '@abp/ng.account';
+import { AccountModule } from '@abp/ng.account';
+import { NgxValidateCoreModule } from '@ngx-validate/core';
+import { LoginService } from './service/login.service';
 export function accountOptionsFactory(options: Options) {
   return {
     redirectUrl: '/',
@@ -19,6 +20,12 @@ export function accountOptionsFactory(options: Options) {
 }
 
 @NgModule({
+  imports: [
+    CoreModule,
+    NgAlainBasicModule,
+    NgxValidateCoreModule,
+    AccountModule
+  ],
   declarations: [
     AuthWrapperComponent,
     TenantBoxComponent,
@@ -33,10 +40,8 @@ export function accountOptionsFactory(options: Options) {
     UserRegisterComponent,
     ManageProfileComponent
   ],
-  imports: [
-    CoreModule,
-    NgAlainBasicModule,
-    AccountWrapModule
+  providers: [
+    LoginService
   ]
 })
 export class AccountNgAlainModule {
@@ -44,16 +49,17 @@ export class AccountNgAlainModule {
     return {
       ngModule: AccountNgAlainModule,
       providers: [
+        AuthenticationFlowGuard,
         { provide: ACCOUNT_OPTIONS, useValue: options },
         {
           provide: 'ACCOUNT_OPTIONS',
           useFactory: accountOptionsFactory,
           deps: [ACCOUNT_OPTIONS],
-        },        
+        },
       ],
     };
   }
-  static forLazy(options: Options): NgModuleFactory<AccountModule> {
+  static forLazy(options: Options): NgModuleFactory<AccountNgAlainModule> {
     return new LazyModuleFactory(AccountNgAlainModule.forChild(options));
-  }  
+  }
 }
