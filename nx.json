@@ -19,28 +19,19 @@
     }
   },
   "projects": {
-    "fs.theme-core": {
+    "tmpl.dev-app": {
       "tags": []
     },
-    "fs.dev": {
-      "tags": []
-    },
-    "dev-app": {
-      "tags": []
-    },
-    "fs.ng-alain": {
-      "tags": []
-    },
-    "ng-alain-app": {
-      "tags": []
-    },
-    "fs.packages": {
+    "tmpl.ng-alain-app": {
       "tags": []
     },
     "abp.core": {
       "tags": []
     },
     "abp.theme-shared": {
+      "tags": []
+    },
+    "abp.components": {
       "tags": []
     },
     "abp.theme-basic": {
@@ -64,6 +55,18 @@
     "abp.setting-management": {
       "tags": []
     },
+    "fs.theme-core": {
+      "tags": []
+    },
+    "fs.dev": {
+      "tags": []
+    },
+    "fs.ng-alain": {
+      "tags": []
+    },
+    "fs.packages": {
+      "tags": []
+    },    
     "fs.account": {
       "tags": []
     },

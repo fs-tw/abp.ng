@@ -5,35 +5,96 @@
       "@abp/ng.core": [
         "dist/core"
       ],
-      "@abp/ng.theme.shared": ["dist/theme-shared"],
-      "@abp/ng.theme.shared/*": ["dist/theme-shared/*"],
-      "@abp/ng.theme.basic": ["dist/theme-basic"],
-      "@abp/ng.account": ["dist/account"],
-      "@abp/ng.account/*": ["dist/account/*"],
-      "@abp/ng.identity": ["dist/identity"],
-      "@abp/ng.identity/*": ["dist/identity/*"],
-      "@abp/ng.tenant-management": ["dist/tenant-management"],
-      "@abp/ng.tenant-management/*": ["dist/tenant-management/*"],
-      "@abp/ng.setting-management": ["dist/setting-management"],
-      "@abp/ng.setting-management/*": ["dist/setting-management/*"],
-      "@abp/ng.permission-management": ["dist/permission-management"],
-      "@abp/ng.feature-management": ["dist/feature-management"],
-      "@abp/ng.feature-management/*": ["dist/feature-management/*"],      
-      "@fs/ng-alain": ["dist/themes/ng-alain"],
-      "@fs/ng-alain/*": ["dist/themes/ng-alain/*"],
-      "@fs/account": ["dist/libs/account"],
-      "@fs/account/*": ["dist/libs/account/*"],
-      "@fs/identity": ["dist/libs/identity"],
-      "@fs/identity/*": ["dist/libs/identity/*"],
-      "@fs/permission-management": ["dist/libs/permission-management"],
-      "@fs/permission-management/*": ["dist/libs/permission-management/*"],
-      "@fs/tenant-management": ["dist/libs/tenant-management"],
-      "@fs/tenant-management/*": ["dist/libs/tenant-management/*"],
-      "@fs/feature-management": ["dist/libs/feature-management"],
-      "@fs/feature-management/*": ["dist/libs/feature-management/*"],
-      "@fs/setting-management": ["dist/libs/setting-management"],
-      "@fs/setting-management/*": ["dist/libs/setting-management/*"],
-      "@fs/theme.core": ["dist/themes/theme-core"]
+      "@abp/ng.theme.shared": [
+        "dist/theme-shared"
+      ],
+      "@abp/ng.theme.shared/*": [
+        "dist/theme-shared/*"
+      ],
+      "@abp/ng.components/tree": [
+        "dist/components/tree/src/public-api.ts"
+      ],      
+      "@abp/ng.theme.basic": [
+        "dist/theme-basic"
+      ],
+      "@abp/ng.account": [
+        "dist/account"
+      ],
+      "@abp/ng.account/*": [
+        "dist/account/*"
+      ],
+      "@abp/ng.identity": [
+        "dist/identity"
+      ],
+      "@abp/ng.identity/*": [
+        "dist/identity/*"
+      ],
+      "@abp/ng.tenant-management": [
+        "dist/tenant-management"
+      ],
+      "@abp/ng.tenant-management/*": [
+        "dist/tenant-management/*"
+      ],
+      "@abp/ng.setting-management": [
+        "dist/setting-management"
+      ],
+      "@abp/ng.setting-management/*": [
+        "dist/setting-management/*"
+      ],
+      "@abp/ng.permission-management": [
+        "dist/permission-management"
+      ],
+      "@abp/ng.feature-management": [
+        "dist/feature-management"
+      ],
+      "@abp/ng.feature-management/*": [
+        "dist/feature-management/*"
+      ],
+      "@fs/theme.core": [
+        "dist/themes/theme-core"
+      ],
+      "@fs/ng-alain": [
+        "dist/themes/ng-alain"
+      ],
+      "@fs/ng-alain/*": [
+        "dist/themes/ng-alain/*"
+      ],
+      "@fs/account": [
+        "dist/libs/account"
+      ],
+      "@fs/account/*": [
+        "dist/libs/account/*"
+      ],
+      "@fs/identity": [
+        "dist/libs/identity"
+      ],
+      "@fs/identity/*": [
+        "dist/libs/identity/*"
+      ],
+      "@fs/permission-management": [
+        "dist/libs/permission-management"
+      ],
+      "@fs/permission-management/*": [
+        "dist/libs/permission-management/*"
+      ],
+      "@fs/tenant-management": [
+        "dist/libs/tenant-management"
+      ],
+      "@fs/tenant-management/*": [
+        "dist/libs/tenant-management/*"
+      ],
+      "@fs/feature-management": [
+        "dist/libs/feature-management"
+      ],
+      "@fs/feature-management/*": [
+        "dist/libs/feature-management/*"
+      ],
+      "@fs/setting-management": [
+        "dist/libs/setting-management"
+      ],
+      "@fs/setting-management/*": [
+        "dist/libs/setting-management/*"
+      ]
     }
   },
   "angularCompilerOptions": {
@@ -42,5 +103,5 @@
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
     "enableResourceInlining": true
-  },  
+  }
 }
