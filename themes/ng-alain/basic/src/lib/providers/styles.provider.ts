@@ -1,10 +1,11 @@
 import { AddReplaceableComponent, CONTENT_STRATEGY, DomInsertionService } from '@abp/ng.core';
 import { APP_INITIALIZER } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { LayoutPassportComponent } from '@fs/ng-alain/layout';
+import { LayoutPassportComponent, PageBarComponent } from '@fs/ng-alain/layout';
 import { LayoutDefaultComponent } from '@fs/ng-alain/layout';
 import { LayoutFullScreenComponent } from '@fs/ng-alain/layout';
 import { eThemeBasicComponents } from '@abp/ng.theme.basic';
+import { eThemeCoreComponents } from '@fs/theme.core';
 
 export const BASIC_THEME_STYLES_PROVIDERS = [
   {
@@ -36,6 +37,10 @@ function initLayouts(store: Store) {
     new AddReplaceableComponent({
       key: eThemeBasicComponents.EmptyLayout,
       component: LayoutFullScreenComponent,
+    }),
+    new AddReplaceableComponent({
+      key: eThemeCoreComponents.PageBar,
+      component: PageBarComponent,
     }),
   ]);
 }

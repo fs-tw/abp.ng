@@ -1,18 +1,23 @@
-import { ThemeBasicModule } from '@abp/ng.theme.basic';
 import { NgAlainSharedModule } from '@fs/ng-alain/shared';
 import { LayoutModule } from '@fs/ng-alain/layout';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BASIC_THEME_STYLES_PROVIDERS } from './providers/styles.provider';
+import { FsNgAlainTreeComponent } from './components/fs-ng-alain-tree/fs-ng-alain-tree.component';
+import { ThemeCoreModule } from '@fs/theme.core';
 
 @NgModule({
+    declarations:[
+        FsNgAlainTreeComponent
+    ],
     imports: [
+        ThemeCoreModule,
         NgAlainSharedModule,
-        ThemeBasicModule,
         LayoutModule
     ],
     exports: [
+        ThemeCoreModule,
         NgAlainSharedModule,
-        ThemeBasicModule
+        FsNgAlainTreeComponent
     ]
 })
 export class NgAlainBasicModule { 

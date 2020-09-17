@@ -36,6 +36,14 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+//fs add
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+import { NzTransferModule } from 'ng-zorro-antd/transfer';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 export const SHARED_ZORRO_MODULES = [
   NzButtonModule,
@@ -76,4 +84,11 @@ export const SHARED_ZORRO_MODULES = [
   NzNotificationModule,
   NzPaginationModule,
   NzUploadModule,
+  NzTreeModule,
+  NzPageHeaderModule,
+  NzDescriptionsModule,
+  NzAutocompleteModule,
+  NzTransferModule,
+  NzCollapseModule,
+  NzEmptyModule
 ];

@@ -1,4 +1,3 @@
-import { CoreModule } from '@abp/ng.core';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,7 +26,6 @@ const DIRECTIVES = [];
 @NgModule({
   imports: [
     CommonModule,
-    CoreModule,
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
@@ -46,7 +44,6 @@ const DIRECTIVES = [];
   ],
   exports: [
     CommonModule,
-    CoreModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,

@@ -5,9 +5,9 @@ import { APP_INITIALIZER, LOCALE_ID, NgModule, ModuleWithProviders } from '@angu
 // #region default language
 // 参考：https://ng-alain.com/docs/i18n
 import { default as ngLang } from '@angular/common/locales/zh';
-import { DELON_LOCALE, zh_CN as delonLang } from '@delon/theme';
+import { DELON_LOCALE, zh_TW as delonLang } from '@delon/theme';
 import { zhCN as dateLang } from 'date-fns/locale';
-import { NZ_DATE_LOCALE, NZ_I18N, zh_CN as zorroLang } from 'ng-zorro-antd/i18n';
+import { NZ_DATE_LOCALE, NZ_I18N, zh_TW as zorroLang } from 'ng-zorro-antd/i18n';
 const LANG = {
   abbr: 'zh',
   ng: ngLang,
@@ -101,28 +101,45 @@ import { STWidgetModule } from '@fs/ng-alain/shared';
 // #endregion
 
 // #region global third module
-import { AlainConfigService } from '@delon/util';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
-import { ThemeBasicModule } from '@abp/ng.theme.basic';
 import { NgAlainSharedModule } from '@fs/ng-alain/shared';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
-import { ThemeCoreModule } from '@fs/theme.core';
+import { INITIAL_PROVIDERS, INITIAL_THEME_CORE_PROVIDERS, Options, ThemeCoreModule } from '@fs/theme.core';
+import * as _ from 'lodash';
+import { NgxValidateCoreModule } from '@ngx-validate/core';
 
 @NgModule({
   imports: [
-    ThemeSharedModule.forRoot(),
-    ThemeBasicModule.forRoot(),
+    NgxValidateCoreModule.forRoot({
+      targetSelector: '.form-group',
+      blueprints: {
+        creditCard: 'AbpValidation::ThisFieldIsNotAValidCreditCardNumber.',
+        email: 'AbpValidation::ThisFieldIsNotAValidEmailAddress.',
+        invalid: 'AbpValidation::ThisFieldIsNotValid.',
+        max: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+        maxlength:
+          'AbpValidation::ThisFieldMustBeAStringOrArrayTypeWithAMaximumLengthOf{0}[{{ requiredLength }}]',
+        min: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+        minlength:
+          'AbpValidation::ThisFieldMustBeAStringOrArrayTypeWithAMinimumLengthOf{0}[{{ requiredLength }}]',
+        ngbDate: 'AbpValidation::ThisFieldIsNotValid.',
+        passwordMismatch: 'AbpIdentity::Identity.PasswordConfirmationFailed',
+        range: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+        required: 'AbpValidation::ThisFieldIsRequired.',
+        url: 'AbpValidation::ThisFieldIsNotAValidFullyQualifiedHttpHttpsOrFtpUrl',
+      },
+      //errorTemplate: ValidationErrorComponent,
+    }),
+    //ThemeCoreModule.forRoot(),
     NgAlainSharedModule.forRoot(),
     NgAlainBasicModule.forRoot(),
-    ThemeCoreModule.forRoot({
-      layouts: []
-    }),
   ],
 })
-export class RootNgAlainModule {}
+export class RootNgAlainModule { }
 
 // #endregion
-
+import { AlainConfigService } from '@delon/util';
+import { THEMECORE_OPTIONS } from '@fs/theme.core';
 
 @NgModule({
   imports: [
@@ -140,9 +157,12 @@ export class RootNgAlainModule {}
     ...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...I18NSERVICE_PROVIDES, ...APPINIT_PROVIDES],
 })
 export class NgAlainModule {
-  static forRoot(): ModuleWithProviders<NgAlainModule> {
+  static forRoot(options: Options = { loadCodes: false }): ModuleWithProviders<NgAlainModule> {
     return {
-      ngModule: NgAlainModule
+      ngModule: NgAlainModule,
+      providers: [
+        { provide: THEMECORE_OPTIONS, useValue: options }
+      ],
     };
   }
 }
