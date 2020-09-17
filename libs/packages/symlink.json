@@ -5,14 +5,24 @@
         "packages": [
             "abp.core",
             "abp.theme-shared",
+            "abp.components",
+            "abp.theme-basic",
             "fs.theme-core"
         ]
     },
     {
+        "name": "fsBaseThemes",
+        "sync": false,
+        "ignore_packages": [
+        ],
+        "packages": [
+            "fs.ng-alain"
+        ]
+    },    
+    {
         "name": "abpCoreBasic",
         "sync": false,
         "packages": [
-            "abp.theme-basic",
             "abp.permission-management",
             "abp.feature-management"
         ]
@@ -26,26 +36,28 @@
             "abp.setting-management",
             "abp.tenant-management"
         ]
-    },
-    {
-        "name": "fsBaseThemes",
-        "sync": false,
-        "ignore_packages": [
-        ],
-        "packages": [
-            "fs.ng-alain"
-        ]
-    },   
+    }, 
     {
         "name": "fsBaseLibs",
         "sync": false,
         "ignore_packages": [
+            
         ],
         "packages": [
             "fs.permission-management",
-            "fs.feature-management"
+            "fs.feature-management",
+            "fs.setting-management"
         ]
-    },        
+    },   
+    {
+        "name": "fsCodingLib",
+        "sync": false,
+        "ignore_packages": [
+            
+        ],
+        "packages": [
+        ]
+    },      
     {
         "name": "fsLibs",
         "sync": false,
@@ -54,8 +66,7 @@
         "packages": [
             "fs.account",
             "fs.identity",
-            "fs.tenant-management",
-            "fs.setting-management"
+            "fs.tenant-management"
         ]
     },         
     {

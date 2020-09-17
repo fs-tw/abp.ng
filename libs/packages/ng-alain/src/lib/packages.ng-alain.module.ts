@@ -6,5 +6,5 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ]
 })
-export class PackagesNgAlainAbpModule {
+export class PackagesNgAlainModule {
 }
