@@ -1,0 +1,4 @@
+
+<fs-page-bar></fs-page-bar>
+
+<router-outlet></router-outlet>

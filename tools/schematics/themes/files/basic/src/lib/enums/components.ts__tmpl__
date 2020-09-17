@@ -1,0 +1,5 @@
+export const enum e<%= projectName %>BasicComponents {
+    Header = '<%= projectName %>Theme.Header',
+    Footer = '<%= projectName %>Theme.Footer',
+  }
+  

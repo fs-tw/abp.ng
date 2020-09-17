@@ -1,0 +1,2 @@
+export * from './enums/index';
+export * from './<%= fileName %>-basic.module';

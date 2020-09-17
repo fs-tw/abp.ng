@@ -1,0 +1,25 @@
+import { NgModule } from '@angular/core';
+import { <%= projectName %>CoreModule } from '@fs/<%= fileName %>/core';
+import { NgAlainBasicModule } from '@fs/ng-alain/basic';
+import { NgxsModule } from '@ngxs/store';
+
+
+
+
+const COMPONENT = [
+]
+
+@NgModule({
+  declarations: [...COMPONENT],
+  imports: [
+    <%= projectName %>CoreModule,
+    NgAlainBasicModule,
+    NgxsModule.forFeature([])
+  ],
+  exports: [
+    NgAlainBasicModule,
+    ...COMPONENT
+  ],
+  providers: []
+})
+export class SharedModule { }

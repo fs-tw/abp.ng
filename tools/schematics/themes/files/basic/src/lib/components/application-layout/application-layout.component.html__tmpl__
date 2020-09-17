@@ -1,0 +1,9 @@
+<div class="wrapper">
+    <!-- header -->
+    <fs-college-green-header *abpReplaceableTemplate="{ componentKey: '/<%= projectName %>Theme.Header' }">
+    </fs-/<%= fileName %>-header>
+    <router-outlet></router-outlet>
+</div>
+
+<fs-/<%= fileName %>-footer *abpReplaceableTemplate="{ componentKey: '<%= projectName %>Theme.Footer' }">
+</fs-/<%= fileName %>-footer>
