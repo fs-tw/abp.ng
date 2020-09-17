@@ -8,12 +8,12 @@ const routes: Routes = [
     path: '',
     component: DynamicLayoutComponent,
     canActivate: [AuthGuard, PermissionGuard],
-    children: [
-      {
-        path: 'settings',
-        loadChildren: SettingsModule.forEarly
-      },
-    ],
+    // children: [
+    //   {
+    //     path: 'settings',
+    //     loadChildren: SettingsModule.forEarly
+    //   },
+    // ],
   }
 ];
 // @dynamic

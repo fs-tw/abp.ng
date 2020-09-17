@@ -16,12 +16,12 @@ function configureRoutes(routes: RoutesService) {
         parentName:AbpeSettingManagementRouteNames.Settings,
         order: 1,
       },
-      {
-        path: '/setting-management/settings',
-        name:eSettingManagementRouteNames.DevelopPage,
-        parentName:AbpeSettingManagementRouteNames.Settings,
-        order: 2,
-      }      
+      // {
+      //   path: '/setting-management/settings',
+      //   name:eSettingManagementRouteNames.DevelopPage,
+      //   parentName:AbpeSettingManagementRouteNames.Settings,
+      //   order: 2,
+      // }      
     ]);
   };
 }

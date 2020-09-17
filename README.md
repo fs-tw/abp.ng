@@ -1,8 +1,45 @@
-# Fs
+# [Abp](https://github.com/abpframework/abp)+[ng-alain](https://ng-alain.github.io/ng-alain/#/dashboard/v1)+[ngx-admin](https://github.com/akveo/ngx-admin) by [Nx](https://nx.dev)
+# abp's ng-packs sourcecode import
+- git submodule update --init --recursive
+# Backend prepare
+Make sure abp cli  already updated.
+``` cmd
+abp new MyCompanyName.MyProjectName -t app --ui none
+Execute DbMigrator to generate Database (Set as statup porject at visual studio)
+Execute HttpApi.Host to host web (Set as statup porject at visual studio)
+```
+# Frontend build
+``` javascript
+npm i
+ng build abp.core
+ng build abp.theme-shared
+ng serve dev-app (for [abp](https://github.com/abpframework/abp) theme)
+ng serve ng-alain-app (for [ng-alain](https://ng-alain.github.io/ng-alain/#/dashboard/v1) theme)
+ng serve ngx-admin-app (for [ngx-admin](https://github.com/akveo/ngx-admin) theme)
+```
+
+
+# How to work with abp'sourcecode
+in this repository , i try to create monorepo by [Nx](https://nx.dev) for debug all sourcecode together  , include:
+- packages folder put abp's all [libary](https://github.com/yinchang0626/abp.ng.packages) 
+- themes folder put dev default(abp) theme and other customization themes(ng-alain ngx-admin..) 
+- apps folder put angular application projectType for every theme
+- libs folder put extend abp's packages or other libray, you can create alternative component or router for abp's package
+- tsconfig.json i set all package path to sourcecode unless  @abp/ng.theme.shared,if not will get error from @abp/ng.theme.shared
+
+# Application
+- ngx-admin-app
+<p align="center"><img src="https://raw.githubusercontent.com/yinchang0626/abp.ng/develop/docs/ngx-admin-app.png" width="900"></p>
+- ng-alain-app
+<p align="center"><img src="https://raw.githubusercontent.com/yinchang0626/abp.ng/develop/docs/ng-alain-app.png" width="900"></p>
+
 
 This project was generated using [Nx](https://nx.dev).
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
+
+
+
 
 🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
 
@@ -20,7 +57,7 @@ Nx supports many plugins which add capabilities for developing different types o
 
 These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
 
-Below are our core plugins:
+Below are some plugins which you can add to your workspace:
 
 - [Angular](https://angular.io)
   - `ng add @nrwl/angular`
@@ -34,8 +71,6 @@ Below are our core plugins:
   - `ng add @nrwl/express`
 - [Node](https://nodejs.org)
   - `ng add @nrwl/node`
-
-There are also many [community plugins](https://nx.dev/nx-community) you could add.
 
 ## Generate an application
 
@@ -51,7 +86,7 @@ Run `ng g @nrwl/angular:lib my-lib` to generate a library.
 
 > You can also use any of the plugins above to generate libraries as well.
 
-Libraries are sharable across libraries and applications. They can be imported from `@fs/mylib`.
+Libraries are sharable across libraries and applications. They can be imported from `@abp/mylib`.
 
 ## Development server
 
@@ -84,15 +119,3 @@ Run `nx dep-graph` to see a diagram of the dependencies of your projects.
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
-
-## ☁ Nx Cloud
-
-### Computation Memoization in the Cloud
-
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
