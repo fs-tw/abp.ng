@@ -1,26 +1,27 @@
 export const environment = {
-  production: false,
-  hmr: false,
+  SERVER_URL: `./`,
+  production: true,
+  useHash: true,
   application: {
-    name: 'MyProjectName',
+    name: 'FS',
     logoUrl: '',
   },
   oAuthConfig: {
-    issuer: '',
-    clientId: 'MyProjectName_App',
+    issuer: 'https://localhost:44356',
+    clientId: 'WebSite_App',
     dummyClientSecret: '1q2w3e*',
-    scope: 'MyProjectName',
+    scope: 'WebSite',
     showDebugInformation: false,
     oidc: false,
     requireHttps: false,
-    skipIssuerCheck:true
+    skipIsserCheck:true
   },
   apis: {
     default: {
-      url: '',
+      url: 'https://localhost:44356',
     },
   },
   localization: {
-    defaultResourceName: 'MyProjectName',
+    defaultResourceName: 'WebSite',
   },
 };

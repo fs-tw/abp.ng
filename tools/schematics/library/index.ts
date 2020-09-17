@@ -34,6 +34,24 @@ function updateTsConfig(options: NormalizedSchema): Rule {
     }
   ]);
 }
+function updateProdConfig(options: NormalizedSchema): Rule {
+  return chain([
+    (host: Tree, context: any) => {
+      const nxJson = readJsonInTree<NxJson>(host, 'nx.json');
+      return updateJsonInTree('tsconfig.prod.json', json => {
+        const c = json.compilerOptions;
+        delete c.paths[options.name];
+        c.paths[`@${nxJson.npmScope}/${options.projectDirectory}`] = [
+          `dist/libs/${options.projectDirectory}`
+        ];
+        c.paths[`@${nxJson.npmScope}/${options.projectDirectory}/*`] = [
+          `dist/libs/${options.projectDirectory}/*`
+        ];
+        return json;
+      })(host, context) as any;
+    }
+  ]);
+}
 
 function updateProject(options: NormalizedSchema): Rule {
   return (host: Tree) => {
@@ -51,6 +69,16 @@ function updateProject(options: NormalizedSchema): Rule {
         json.projects[`${nxJson.npmScope}.${options.name}`]=project;
         delete json.projects[options.name];
         return json;
+      }) as any,
+      updateJsonInTree(getWorkspacePath(host),json=>{
+        const nxJson = readJsonInTree<NxJson>(host, 'nx.json');
+        json.projects[`${nxJson.npmScope}.${options.name}`]
+        .architect.build.builder = "@angular-devkit/build-ng-packagr:build";
+        json.projects[`${nxJson.npmScope}.${options.name}`]
+        .architect.build.options.tsConfig  = "tsconfig.lib.json";
+        json.projects[`${nxJson.npmScope}.${options.name}`]
+        .architect.build.configurations.production.tsConfig  = "tsconfig.lib.prod.json";
+        return json;
       }) as any
     ]);
   };
@@ -63,15 +91,18 @@ export default function(schema: any): Rule {
       externalSchematic('@nrwl/angular', 'lib', {
         name: schema.name,
         publishable:true,
-        routing:true
+        routing:false
       }),
       updateTsConfig(options),
+      updateProdConfig(options),
       updateProject(options),
       mergeWith(
         apply(url('./files'), [
           template({
             fileName:options.fileName,
+            lowcaseFileName:options.fileName.toLowerCase(),
             projectName:options.moduleName,
+            lowcaseProjectName:options.moduleName.toLowerCase(),
             tmpl:''
           }),
           move(options.projectRoot)

@@ -1,2 +1,1 @@
-export * from './<%= projectName %>-ng-alain.module';
-export * from './shared';
+export * from './<%= fileName %>-ng-alain.module';
