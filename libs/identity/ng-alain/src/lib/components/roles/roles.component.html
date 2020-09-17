@@ -1,5 +1,4 @@
-<!-- <nz-page-header class="site-page-header" [nzTitle]="'AbpIdentity::Roles' | abpLocalization">
-</nz-page-header> -->
+<fs-page-bar></fs-page-bar>  
 <nz-card [nzBordered]="false">
   <button nz-button [abpPermission]="'AbpIdentity.Roles.Create'" (click)="add()" [nzType]="'primary'">
     <i nz-icon nzType="plus"></i>
@@ -86,7 +85,7 @@
   </ng-template>
 
   <ng-template #modalFooter>
-    <button nz-button nzType="default" (click)="isModalVisible=false">
+    <button nz-button nzType="default" (click)="isModalVisible=false;this.form = null">
       {{ 'AbpIdentity::Cancel' | abpLocalization }}
     </button>
     <button nz-button nzType="primary" (click)="save()" [disabled]="form?.invalid">

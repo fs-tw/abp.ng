@@ -1,20 +1,21 @@
 import { APP_INITIALIZER } from '@angular/core';
 import { eIdentityRouteNames } from '@abp/ng.identity/config';
-import { WrapRoutesService } from '@fs/theme.core';
+import { eThemeSharedRouteNames } from '@abp/ng.theme.shared';
+import { RoutesService } from '@abp/ng.core';
 
 export const ROUTE_PROVIDERS = [
-  { provide: APP_INITIALIZER, useFactory: configureRoutes, deps: [WrapRoutesService], multi: true },
+  { provide: APP_INITIALIZER, useFactory: configureRoutes, deps: [RoutesService], multi: true },
 ];
 
-function configureRoutes(_routes: WrapRoutesService) {
+export function configureRoutes(_routes: RoutesService) {
   return () => {
-    let routes = _routes.Proxy;
-    routes.patch(eIdentityRouteNames.Users, {
+    _routes.patch(eThemeSharedRouteNames.Administration, {
+      path: 'identity/users',
       profile: {
-        title: 'users title',
+        title: 'Administrator',
         doc: 'user doc',
-        nav: { routeName: 'user sub ' }
+        nav: { routeName: eThemeSharedRouteNames.Administration }
       }
-    })
+    } as any);
   };
 }

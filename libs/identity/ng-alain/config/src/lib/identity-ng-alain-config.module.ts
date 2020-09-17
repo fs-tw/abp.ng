@@ -1,18 +1,14 @@
 import { NgModule, APP_INITIALIZER, ModuleWithProviders } from '@angular/core';
-import { IdentityConfigModule } from '@abp/ng.identity/config';
+import { IdentityConfigModule, IDENTITY_ROUTE_PROVIDERS } from '@abp/ng.identity/config';
 import { ROUTE_PROVIDERS } from './providers/route.provider';
 import { STYLES_PROVIDERS } from './providers/styles.provider';
 
-@NgModule({
-  imports: [
-    IdentityConfigModule.forRoot()
-  ]
-})
+@NgModule()
 export class IdentityNgAlainConfigModule {
   static forRoot(): ModuleWithProviders<IdentityNgAlainConfigModule> {
     return {
       ngModule: IdentityNgAlainConfigModule,
-      providers: [ROUTE_PROVIDERS, STYLES_PROVIDERS],
+      providers: [IDENTITY_ROUTE_PROVIDERS,ROUTE_PROVIDERS, STYLES_PROVIDERS],
     };
   }
 
