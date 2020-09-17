@@ -1,2 +1,2 @@
-export declare class PackagesNgAlainAbpModule {
+export declare class PackagesNgAlainModule {
 }

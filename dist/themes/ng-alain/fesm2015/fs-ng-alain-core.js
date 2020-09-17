@@ -15,10 +15,10 @@ import { HttpErrorResponse, HttpResponseBase, HttpClient } from '@angular/common
 import { Router } from '@angular/router';
 import { DA_SERVICE_TOKEN } from '@delon/auth';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { ACLService } from '@delon/acl';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { InfoOutline, BulbOutline, ProfileOutline, ExceptionOutline, LinkOutline, AlipayCircleOutline, ApiOutline, AppstoreOutline, ArrowDownOutline, BookOutline, CloudOutline, CopyrightOutline, CustomerServiceOutline, DashboardOutline, DatabaseOutline, DingdingOutline, DislikeOutline, DownloadOutline, ForkOutline, FrownOutline, FullscreenExitOutline, FullscreenOutline, GithubOutline, GlobalOutline, HddOutline, LaptopOutline, LikeOutline, LockOutline, LogoutOutline, MailOutline, MenuFoldOutline, MenuUnfoldOutline, MessageOutline, PayCircleOutline, PieChartOutline, PrinterOutline, RocketOutline, ScanOutline, SettingOutline, ShareAltOutline, ShoppingCartOutline, SoundOutline, StarOutline, TaobaoCircleOutline, TaobaoOutline, TeamOutline, ToolOutline, TrophyOutline, UsbOutline, UserOutline, WeiboCircleOutline } from '@ant-design/icons-angular/icons';
-import { NzModalService } from 'ng-zorro-antd/modal';
 
 const DEFAULT = 'zh-CN';
 const LANGS = {
@@ -122,13 +122,6 @@ I18NService = __decorate([
         TranslateService,
         Platform])
 ], I18NService);
-
-// https://angular.io/guide/styleguide#style-04-12
-function throwIfAlreadyLoaded(parentModule, moduleName) {
-    if (parentModule) {
-        throw new Error(`${moduleName} has already been loaded. Import Core modules in the AppModule only.`);
-    }
-}
 
 const CODEMESSAGE = {
     200: '服务器成功返回请求的数据。',
@@ -241,6 +234,97 @@ DefaultInterceptor = __decorate([
     Injectable(),
     __metadata("design:paramtypes", [Injector])
 ], DefaultInterceptor);
+
+let MessagesService = class MessagesService {
+    constructor(modalSrv) {
+        this.modalSrv = modalSrv;
+    }
+    info(message, title = "訊息") {
+        this.modalSrv.info({
+            nzTitle: title,
+            nzContent: message
+        });
+    }
+    success(message, title = "成功訊息") {
+        this.modalSrv.success({
+            nzTitle: title,
+            nzContent: message
+        });
+    }
+    warn(message, title = "警告訊息") {
+        this.modalSrv.warning({
+            nzTitle: title,
+            nzContent: message
+        });
+    }
+    error(message, title = "錯誤訊息") {
+        this.modalSrv.error({
+            nzTitle: title,
+            nzContent: message
+        });
+    }
+    confirm(message, titleOrCallBack, callback) {
+        if (typeof titleOrCallBack == 'string') {
+            this.modalSrv.confirm({
+                nzTitle: titleOrCallBack,
+                nzContent: message,
+                nzOnOk() {
+                    if (callback)
+                        callback(true);
+                },
+                nzOnCancel() {
+                    if (callback)
+                        callback(false);
+                }
+            });
+        }
+        else {
+            this.modalSrv.confirm({
+                nzTitle: "請確認",
+                nzContent: message,
+                nzOnOk() {
+                    if (titleOrCallBack)
+                        titleOrCallBack(true);
+                },
+                nzOnCancel() {
+                    if (titleOrCallBack)
+                        titleOrCallBack(false);
+                }
+            });
+        }
+    }
+};
+MessagesService.ɵprov = ɵɵdefineInjectable({ factory: function MessagesService_Factory() { return new MessagesService(ɵɵinject(NzModalService)); }, token: MessagesService, providedIn: "root" });
+MessagesService = __decorate([
+    Injectable({ providedIn: 'root' }),
+    __metadata("design:paramtypes", [NzModalService])
+], MessagesService);
+
+let NotifyService = class NotifyService {
+    constructor(notification) {
+        this.notification = notification;
+    }
+    showNotify(type, title, content) {
+        this.notification.create(type, title, content);
+    }
+    success(content = '', title = "成功") {
+        this.showNotify('success', title, content);
+    }
+    info(content = '', title = "訊息") {
+        this.showNotify('info', title, content);
+    }
+    warning(content = '', title = "警告") {
+        this.showNotify('warning', title, content);
+    }
+    error(content = '', title = "錯誤") {
+        this.showNotify('error', title, content);
+    }
+};
+NotifyService.ɵprov = ɵɵdefineInjectable({ factory: function NotifyService_Factory() { return new NotifyService(ɵɵinject(NzNotificationService)); }, token: NotifyService, providedIn: "root" });
+NotifyService = __decorate([
+    Injectable({ providedIn: 'root' }),
+    __metadata("design:paramtypes", [NzNotificationService])
+], NotifyService);
 
 // Custom icon static resources
 const ICONS = [InfoOutline, BulbOutline, ProfileOutline, ExceptionOutline, LinkOutline];
@@ -361,6 +445,13 @@ StartupService = __decorate([
         HttpClient])
 ], StartupService);
 
+// https://angular.io/guide/styleguide#style-04-12
+function throwIfAlreadyLoaded(parentModule, moduleName) {
+    if (parentModule) {
+        throw new Error(`${moduleName} has already been loaded. Import Core modules in the AppModule only.`);
+    }
+}
+
 let CoreModule = class CoreModule {
     constructor(parentModule) {
         throwIfAlreadyLoaded(parentModule, 'CoreModule');
@@ -373,97 +464,6 @@ CoreModule = __decorate([
     __param(0, Optional()), __param(0, SkipSelf()),
     __metadata("design:paramtypes", [CoreModule])
 ], CoreModule);
-
-let MessagesService = class MessagesService {
-    constructor(modalSrv) {
-        this.modalSrv = modalSrv;
-    }
-    info(message, title = "訊息") {
-        this.modalSrv.info({
-            nzTitle: title,
-            nzContent: message
-        });
-    }
-    success(message, title = "成功訊息") {
-        this.modalSrv.success({
-            nzTitle: title,
-            nzContent: message
-        });
-    }
-    warn(message, title = "警告訊息") {
-        this.modalSrv.warning({
-            nzTitle: title,
-            nzContent: message
-        });
-    }
-    error(message, title = "錯誤訊息") {
-        this.modalSrv.error({
-            nzTitle: title,
-            nzContent: message
-        });
-    }
-    confirm(message, titleOrCallBack, callback) {
-        if (typeof titleOrCallBack == 'string') {
-            this.modalSrv.confirm({
-                nzTitle: titleOrCallBack,
-                nzContent: message,
-                nzOnOk() {
-                    if (callback)
-                        callback(true);
-                },
-                nzOnCancel() {
-                    if (callback)
-                        callback(false);
-                }
-            });
-        }
-        else {
-            this.modalSrv.confirm({
-                nzTitle: "請確認",
-                nzContent: message,
-                nzOnOk() {
-                    if (titleOrCallBack)
-                        titleOrCallBack(true);
-                },
-                nzOnCancel() {
-                    if (titleOrCallBack)
-                        titleOrCallBack(false);
-                }
-            });
-        }
-    }
-};
-MessagesService.ɵprov = ɵɵdefineInjectable({ factory: function MessagesService_Factory() { return new MessagesService(ɵɵinject(NzModalService)); }, token: MessagesService, providedIn: "root" });
-MessagesService = __decorate([
-    Injectable({ providedIn: 'root' }),
-    __metadata("design:paramtypes", [NzModalService])
-], MessagesService);
-
-let NotifyService = class NotifyService {
-    constructor(notification) {
-        this.notification = notification;
-    }
-    showNotify(type, title, content) {
-        this.notification.create(type, title, content);
-    }
-    success(content = '', title = "成功") {
-        this.showNotify('success', title, content);
-    }
-    info(content = '', title = "訊息") {
-        this.showNotify('info', title, content);
-    }
-    warning(content = '', title = "警告") {
-        this.showNotify('warning', title, content);
-    }
-    error(content = '', title = "錯誤") {
-        this.showNotify('error', title, content);
-    }
-};
-NotifyService.ɵprov = ɵɵdefineInjectable({ factory: function NotifyService_Factory() { return new NotifyService(ɵɵinject(NzNotificationService)); }, token: NotifyService, providedIn: "root" });
-NotifyService = __decorate([
-    Injectable({ providedIn: 'root' }),
-    __metadata("design:paramtypes", [NzNotificationService])
-], NotifyService);
 
 /**
  * Generated bundle index. Do not edit.

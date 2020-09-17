@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@fs/ng-alain/basic'), require('@abp/ng.permission-management'), require('@ngxs/store'), require('rxjs/operators'), require('@abp/ng.core'), require('@fs/permission-management/wrap')) :
-    typeof define === 'function' && define.amd ? define('@fs/permission-management/ng-alain', ['exports', '@angular/core', '@fs/ng-alain/basic', '@abp/ng.permission-management', '@ngxs/store', 'rxjs/operators', '@abp/ng.core', '@fs/permission-management/wrap'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['permission-management'] = global.fs['permission-management'] || {}, global.fs['permission-management']['ng-alain'] = {}), global.ng.core, global.basic, global.ng_permissionManagement, global.store, global.rxjs.operators, global.ng_core, global.fs['permission-management'].wrap));
-}(this, (function (exports, core, basic, ng_permissionManagement, store, operators, ng_core, wrap) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@fs/ng-alain/basic'), require('@abp/ng.permission-management'), require('@ngxs/store'), require('rxjs/operators'), require('@abp/ng.core')) :
+    typeof define === 'function' && define.amd ? define('@fs/permission-management/ng-alain', ['exports', '@angular/core', '@fs/ng-alain/basic', '@abp/ng.permission-management', '@ngxs/store', 'rxjs/operators', '@abp/ng.core'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs['permission-management'] = global.fs['permission-management'] || {}, global.fs['permission-management']['ng-alain'] = {}), global.ng.core, global.basic, global.ng_permissionManagement, global.store, global.rxjs.operators, global.ng_core));
+}(this, (function (exports, core, basic, ng_permissionManagement, store, operators, ng_core) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -307,7 +307,6 @@
             _this.visibleChange = new core.EventEmitter();
             _this.selectAllIndeterminate = false;
             _this.selectAllThisTabIndeterminate = false;
-            console.log('yc');
             return _this;
         }
         Object.defineProperty(PermissionManagementComponent.prototype, "visible", {
@@ -452,16 +451,16 @@
     }());
     exports.PermissionManagementNgAlainModule = __decorate([
         core.NgModule({
-            declarations: [exports.PermissionManagementComponent],
-            entryComponents: [exports.PermissionManagementComponent],
             imports: [
                 ng_core.CoreModule,
                 basic.NgAlainBasicModule,
-                wrap.PermissionManagementWrapModule
+                ng_permissionManagement.PermissionManagementModule
             ],
             exports: [
                 exports.PermissionManagementComponent
-            ]
+            ],
+            declarations: [exports.PermissionManagementComponent],
+            entryComponents: [exports.PermissionManagementComponent]
         })
     ], exports.PermissionManagementNgAlainModule);
 

@@ -1,14 +1,13 @@
-<nz-card [nzCover]="coverTemplate">
-  <nz-card-meta nzTitle="歡迎使用本系統" [nzDescription]="descTemplate"></nz-card-meta>
+
+
+<nz-card [nzTitle]="(title$ | async)">
+  <img src="http://furthersoftware.com.tw/Content/images/logo.png">
+  <p>  <a
+    *ngIf="!hasLoggedIn"
+    routerLink="/account/login"
+    [state]="{ redirectUrl: '/' }"
+    class="px-4 btn btn-primary ml-1"
+    role="button"
+    ><i class="fa fa-sign-in"></i> {{ 'AbpIdentity::Login' | abpLocalization }}</a
+  ></p>
 </nz-card>
-<ng-template #coverTemplate>
-  <img src="http://furthersoftware.com.tw/Content/images/main-logo.png">
-</ng-template>
-<ng-template #descTemplate>
-  <p>您目前狀態:<span *ngIf="hasLoggedIn">
-      <nz-tag [nzColor]="'green'">已登入</nz-tag>
-    </span><span *ngIf="!hasLoggedIn">連結至<a routerLink="/account/login" [state]="{ redirectUrl: '/' }"
-        class="btn btn-primary" role="button"><i
-          class="fa fa-sign-in"></i>{{ 'AbpIdentity::Login' | abpLocalization }}</a></span>
-  </p>
-</ng-template>

@@ -4,7 +4,7 @@ export declare class NavItemsService {
     private _items$;
     get items(): NavItem[];
     get items$(): Observable<NavItem[]>;
-    addItems(items: NavItem[]): void;
+    addItems(newItems: NavItem[]): void;
     removeItem(id: string | number): void;
     patchItem(id: string | number, item: Partial<Omit<NavItem, 'id'>>): void;
 }

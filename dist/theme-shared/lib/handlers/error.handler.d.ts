@@ -25,6 +25,28 @@ export declare const DEFAULT_ERROR_MESSAGES: {
         details: string;
     };
 };
+export declare const DEFAULT_ERROR_LOCALIZATIONS: {
+    defaultError: {
+        title: string;
+        details: string;
+    };
+    defaultError401: {
+        title: string;
+        details: string;
+    };
+    defaultError403: {
+        title: string;
+        details: string;
+    };
+    defaultError404: {
+        title: string;
+        details: string;
+    };
+    defaultError500: {
+        title: string;
+        details: string;
+    };
+};
 export declare class ErrorHandler {
     private actions;
     private store;

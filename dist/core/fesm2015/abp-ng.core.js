@@ -1,18 +1,18 @@
 import { __decorate, __metadata, __rest, __param, __awaiter } from 'tslib';
-import { ChangeDetectorRef, Input, Component, Injector, Injectable, ɵɵdefineInjectable, ɵɵinject, Optional, SkipSelf, Directive, ElementRef, EventEmitter, Output, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, NgModuleFactory, Compiler, InjectionToken, Self, Inject, Renderer2, ComponentFactoryResolver, Pipe, NgModule, INJECTOR, NgZone, LOCALE_ID, APP_INITIALIZER, ApplicationRef } from '@angular/core';
-import { PRIMARY_OUTLET, ActivatedRoute, Router, NavigationEnd, RouterModule } from '@angular/router';
+import { ChangeDetectorRef, Input, Component, Injector, Injectable, InjectionToken, ɵɵdefineInjectable, ɵɵinject, Inject, INJECTOR, Optional, NgZone, SkipSelf, Directive, ElementRef, EventEmitter, Output, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, Self, Renderer2, ComponentFactoryResolver, Pipe, NgModule, LOCALE_ID, APP_INITIALIZER, NgModuleFactory, Compiler, ApplicationRef } from '@angular/core';
+import { Router, PRIMARY_OUTLET, ActivatedRoute, NavigationEnd, RouterModule } from '@angular/router';
 import { ofActionSuccessful, Action, Selector, State, Store, Actions, createSelector, actionMatcher, InitState, UpdateState, setValue, NgxsModule, NGXS_PLUGINS } from '@ngxs/store';
-import { fromEvent, of, throwError, Subject, BehaviorSubject, Observable, noop as noop$1, from, concat, ReplaySubject } from 'rxjs';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS, HttpHeaders } from '@angular/common/http';
-import { take, tap, switchMap, catchError, takeUntil, distinctUntilChanged, debounceTime, filter, finalize, map, retryWhen, delay, shareReplay } from 'rxjs/operators';
+import { fromEvent, of, throwError, from, noop as noop$1, BehaviorSubject, Subscription, Subject, Observable, concat, ReplaySubject } from 'rxjs';
+import { take, tap, switchMap, catchError, map, distinctUntilChanged, debounceTime, filter, finalize, takeUntil, retryWhen, delay, shareReplay } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import snq from 'snq';
 import { OAuthService, OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { registerLocaleData, CommonModule, APP_BASE_HREF } from '@angular/common';
-import { FormGroupDirective, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgxsRouterPluginModule, Navigate } from '@ngxs/router-plugin';
-import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
-import compare from 'just-compare';
+import { Navigate, NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import clone from 'just-clone';
+import { FormGroupDirective, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgxsStoragePluginModule, NGXS_STORAGE_PLUGIN_OPTIONS } from '@ngxs/storage-plugin';
+import compare from 'just-compare';
 
 // Not an abstract class on purpose. Do not change!
 // tslint:disable-next-line: use-component-selector
@@ -125,8 +125,9 @@ ChangePassword.type = '[Profile] Change Password';
  * @see usage: https://github.com/abpframework/abp/pull/2522#issue-358333183
  */
 class AddReplaceableComponent {
-    constructor(payload) {
+    constructor(payload, reload) {
         this.payload = payload;
+        this.reload = reload;
     }
 }
 AddReplaceableComponent.type = '[ReplaceableComponents] Add';
@@ -164,6 +165,27 @@ class SetRemember {
 }
 SetRemember.type = '[Session] Set Remember';
 
+function createTokenParser(format) {
+    return (string) => {
+        const tokens = [];
+        const regex = format.replace(/\./g, '\\.').replace(/\{\s?([0-9a-zA-Z]+)\s?\}/g, (_, token) => {
+            tokens.push(token);
+            return '(.+)';
+        });
+        const matches = (string.match(regex) || []).slice(1);
+        return matches.reduce((acc, v, i) => {
+            const key = tokens[i];
+            acc[key] = [...(acc[key] || []), v].filter(Boolean);
+            return acc;
+        }, {});
+    };
+}
+function interpolate(text, params) {
+    return text
+        .replace(/(['"]?\{\s*(\d+)\s*\}['"]?)/g, (_, match, digit) => { var _a; return (_a = params[digit]) !== null && _a !== void 0 ? _a : match; })
+        .replace(/\s+/g, ' ');
+}
+
 var SessionState_1;
 let SessionState = SessionState_1 = class SessionState {
     constructor(oAuthService, store, actions) {
@@ -174,7 +196,8 @@ let SessionState = SessionState_1 = class SessionState {
             .pipe(ofActionSuccessful(GetAppConfiguration))
             .pipe(take(1))
             .subscribe(() => {
-            const { sessionDetail } = this.store.selectSnapshot(SessionState_1) || { sessionDetail: {} };
+            var _a;
+            const sessionDetail = ((_a = this.store.selectSnapshot(SessionState_1)) === null || _a === void 0 ? void 0 : _a.sessionDetail) || {};
             const fiveMinutesBefore = new Date().valueOf() - 5 * 60 * 1000;
             if (sessionDetail.lastExitTime &&
                 sessionDetail.openedTabCount === 0 &&
@@ -327,6 +350,12 @@ let ConfigState = ConfigState_1 = class ConfigState {
         });
         return selector;
     }
+    static getFeature(key) {
+        const selector = createSelector([ConfigState_1], (state) => {
+            return snq(() => state.features.values[key]);
+        });
+        return selector;
+    }
     static getSetting(key) {
         const selector = createSelector([ConfigState_1], (state) => {
             return snq(() => state.setting.values[key]);
@@ -410,12 +439,10 @@ let ConfigState = ConfigState_1 = class ConfigState {
             if (typeof localization === 'undefined') {
                 return defaultValue || sourceKey;
             }
+            // [TODO]: next line should be removed in v3.2, breaking change!!!
             interpolateParams = interpolateParams.filter(params => params != null);
-            if (localization && interpolateParams && interpolateParams.length) {
-                interpolateParams.forEach(param => {
-                    localization = localization.replace(/[\'\"]?\{[\d]+\}[\'\"]?/, param);
-                });
-            }
+            if (localization)
+                localization = interpolate(localization, interpolateParams);
             if (typeof localization !== 'string')
                 localization = '';
             return localization || defaultValue || key;
@@ -442,9 +469,7 @@ let ConfigState = ConfigState_1 = class ConfigState {
         }));
     }
     setEnvironment({ patchState }, { environment }) {
-        return patchState({
-            environment,
-        });
+        return patchState({ environment });
     }
 };
 __decorate([
@@ -480,25 +505,591 @@ ConfigState = ConfigState_1 = __decorate([
     __metadata("design:paramtypes", [HttpClient, Store])
 ], ConfigState);
 
-function isFunction(value) {
-    return typeof value === 'function';
+function noop() {
+    // tslint:disable-next-line: only-arrow-functions
+    const fn = function () { };
+    return fn;
 }
-const takeUntilDestroy = (componentInstance, destroyMethodName = 'ngOnDestroy') => (source) => {
-    const originalDestroy = componentInstance[destroyMethodName];
-    if (isFunction(originalDestroy) === false) {
-        throw new Error(`${componentInstance.constructor.name} is using untilDestroyed but doesn't implement ${destroyMethodName}`);
-    }
-    if (!componentInstance['__takeUntilDestroy']) {
-        componentInstance['__takeUntilDestroy'] = new Subject();
-        componentInstance[destroyMethodName] = function () {
-            // tslint:disable-next-line: no-unused-expression
-            isFunction(originalDestroy) && originalDestroy.apply(this, arguments);
-            componentInstance['__takeUntilDestroy'].next(true);
-            componentInstance['__takeUntilDestroy'].complete();
-        };
-    }
-    return source.pipe(takeUntil(componentInstance['__takeUntilDestroy']));
+function isUndefinedOrEmptyString(value) {
+    return value === undefined || value === '';
+}
+function isNullOrUndefined(obj) {
+    return obj === null || obj === undefined;
+}
+function exists(obj) {
+    return !isNullOrUndefined(obj);
+}
+function isObject(obj) {
+    return obj instanceof Object;
+}
+function isArray(obj) {
+    return Array.isArray(obj);
+}
+function isObjectAndNotArray(obj) {
+    return isObject(obj) && !isArray(obj);
+}
+
+// Different locales from .NET
+// Key is .NET locale, value is Angular locale
+var localesMapping = {
+    'ar-sa': 'ar-SA',
+    'ca-ES-valencia': 'ca-ES-VALENCIA',
+    'de-de': 'de',
+    'es-ES': 'es',
+    'en-US': 'en',
+    'fil-Latn': 'en',
+    'ku-Arab': 'en',
+    'ky-Cyrl': 'en',
+    'mi-Latn': 'en',
+    'prs-Arab': 'en',
+    'qut-Latn': 'en',
+    nso: 'en',
+    quz: 'en',
+    'fr-FR': 'fr',
+    'gd-Latn': 'gd',
+    'ha-Latn': 'ha',
+    'ig-Latn': 'ig',
+    'it-it': 'it',
+    'mn-Cyrl': 'mn',
+    'pt-BR': 'pt',
+    'sd-Arab': 'pa-Arab',
+    'sr-Cyrl-RS': 'sr-Cyrl',
+    'sr-Latn-RS': 'sr-Latn',
+    'tg-Cyrl': 'tg',
+    'tk-Latn': 'tk',
+    'tt-Cyrl': 'tt',
+    'ug-Arab': 'ug',
+    'yo-Latn': 'yo',
 };
+
+const CORE_OPTIONS = new InjectionToken('CORE_OPTIONS');
+function coreOptionsFactory(_a) {
+    var { cultureNameLocaleFileMap = {} } = _a, options = __rest(_a, ["cultureNameLocaleFileMap"]);
+    return Object.assign(Object.assign({}, options), { cultureNameLocaleFileMap: Object.assign(Object.assign({}, localesMapping), cultureNameLocaleFileMap) });
+}
+
+let RestService = class RestService {
+    constructor(options, http, store) {
+        this.options = options;
+        this.http = http;
+        this.store = store;
+    }
+    getApiFromStore(apiName) {
+        return this.store.selectSnapshot(ConfigState.getApiUrl(apiName));
+    }
+    handleError(err) {
+        this.store.dispatch(new RestOccurError(err));
+        return throwError(err);
+    }
+    // TODO: Deprecate service or improve interface in v3.0
+    request(request, config, api) {
+        config = config || {};
+        api = api || this.getApiFromStore(config.apiName);
+        const { method, params } = request, options = __rest(request, ["method", "params"]);
+        const { observe = "body" /* Body */, skipHandleError } = config;
+        return this.http
+            .request(method, api + request.url, Object.assign(Object.assign({ observe }, (params && {
+            params: Object.keys(params).reduce((acc, key) => {
+                const value = params[key];
+                if (isUndefinedOrEmptyString(value))
+                    return acc;
+                if (value === null && !this.options.sendNullsAsQueryParam)
+                    return acc;
+                acc[key] = value;
+                return acc;
+            }, {}),
+        })), options))
+            .pipe(catchError(err => (skipHandleError ? throwError(err) : this.handleError(err))));
+    }
+};
+RestService.ɵprov = ɵɵdefineInjectable({ factory: function RestService_Factory() { return new RestService(ɵɵinject(CORE_OPTIONS), ɵɵinject(HttpClient), ɵɵinject(Store)); }, token: RestService, providedIn: "root" });
+RestService = __decorate([
+    Injectable({
+        providedIn: 'root',
+    }),
+    __param(0, Inject(CORE_OPTIONS)),
+    __metadata("design:paramtypes", [Object, HttpClient,
+        Store])
+], RestService);
+
+const oAuthStorage = localStorage;
+class AuthFlowStrategy {
+    constructor(injector) {
+        this.injector = injector;
+        this.catchError = err => this.store.dispatch(new RestOccurError(err));
+        this.store = injector.get(Store);
+        this.oAuthService = injector.get(OAuthService);
+        this.oAuthConfig = this.store.selectSnapshot(ConfigState.getDeep('environment.oAuthConfig'));
+    }
+    init() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const shouldClear = shouldStorageClear(this.store.selectSnapshot(ConfigState.getDeep('environment.oAuthConfig.clientId')), oAuthStorage);
+            if (shouldClear)
+                clearOAuthStorage(oAuthStorage);
+            this.oAuthService.configure(this.oAuthConfig);
+            return this.oAuthService.loadDiscoveryDocument().catch(this.catchError);
+        });
+    }
+}
+class AuthCodeFlowStrategy extends AuthFlowStrategy {
+    constructor() {
+        super(...arguments);
+        this.isInternalAuth = false;
+    }
+    init() {
+        const _super = Object.create(null, {
+            init: { get: () => super.init }
+        });
+        return __awaiter(this, void 0, void 0, function* () {
+            return _super.init.call(this)
+                .then(() => this.oAuthService.tryLogin())
+                .then(() => {
+                if (this.oAuthService.hasValidAccessToken() || !this.oAuthService.getRefreshToken()) {
+                    return Promise.resolve();
+                }
+                return this.oAuthService.refreshToken();
+            })
+                .then(() => this.oAuthService.setupAutomaticSilentRefresh({}, 'access_token'));
+        });
+    }
+    login() {
+        this.oAuthService.initCodeFlow();
+    }
+    checkIfInternalAuth() {
+        this.oAuthService.initCodeFlow();
+        return false;
+    }
+    logout() {
+        this.oAuthService.logOut();
+        return of(null);
+    }
+    destroy() { }
+}
+class AuthPasswordFlowStrategy extends AuthFlowStrategy {
+    constructor() {
+        super(...arguments);
+        this.isInternalAuth = true;
+    }
+    login() {
+        const router = this.injector.get(Router);
+        router.navigateByUrl('/account/login');
+    }
+    checkIfInternalAuth() {
+        return true;
+    }
+    logout() {
+        const rest = this.injector.get(RestService);
+        const issuer = this.store.selectSnapshot(ConfigState.getDeep('environment.oAuthConfig.issuer'));
+        return rest
+            .request({
+            method: 'GET',
+            url: '/api/account/logout',
+        }, null, issuer)
+            .pipe(tap(() => this.oAuthService.logOut()), switchMap(() => this.store.dispatch(new GetAppConfiguration())));
+    }
+    destroy() { }
+}
+const AUTH_FLOW_STRATEGY = {
+    Code(injector) {
+        return new AuthCodeFlowStrategy(injector);
+    },
+    Password(injector) {
+        return new AuthPasswordFlowStrategy(injector);
+    },
+};
+function clearOAuthStorage(storage) {
+    const keys = [
+        'access_token',
+        'id_token',
+        'refresh_token',
+        'nonce',
+        'PKCE_verifier',
+        'expires_at',
+        'id_token_claims_obj',
+        'id_token_expires_at',
+        'id_token_stored_at',
+        'access_token_stored_at',
+        'granted_scopes',
+        'session_state',
+    ];
+    keys.forEach(key => storage.removeItem(key));
+}
+function shouldStorageClear(clientId, storage) {
+    const key = 'abpOAuthClientId';
+    if (!storage.getItem(key)) {
+        storage.setItem(key, clientId);
+        return false;
+    }
+    const shouldClear = storage.getItem(key) !== clientId;
+    if (shouldClear)
+        storage.setItem(key, clientId);
+    return shouldClear;
+}
+
+let AuthService = class AuthService {
+    constructor(actions, injector, rest, oAuthService, store, options) {
+        this.actions = actions;
+        this.injector = injector;
+        this.rest = rest;
+        this.oAuthService = oAuthService;
+        this.store = store;
+        this.options = options;
+        this.setStrategy = () => {
+            const flow = this.store.selectSnapshot(ConfigState.getDeep('environment.oAuthConfig.responseType')) ||
+                'password';
+            if (this.flow === flow)
+                return;
+            if (this.strategy)
+                this.strategy.destroy();
+            this.flow = flow;
+            this.strategy =
+                this.flow === 'code'
+                    ? AUTH_FLOW_STRATEGY.Code(this.injector)
+                    : AUTH_FLOW_STRATEGY.Password(this.injector);
+        };
+        this.setStrategy();
+        this.listenToSetEnvironment();
+    }
+    get isInternalAuth() {
+        return this.strategy.isInternalAuth;
+    }
+    listenToSetEnvironment() {
+        this.actions.pipe(ofActionSuccessful(SetEnvironment)).subscribe(this.setStrategy);
+    }
+    login(username, password) {
+        const tenant = this.store.selectSnapshot(SessionState.getTenant);
+        return from(this.oAuthService.fetchTokenUsingPasswordFlow(username, password, new HttpHeaders(Object.assign({}, (tenant && tenant.id && { __tenant: tenant.id }))))).pipe(switchMap(() => this.store.dispatch(new GetAppConfiguration())), tap(() => {
+            const redirectUrl = snq(() => window.history.state.redirectUrl) || (this.options || {}).redirectUrl || '/';
+            this.store.dispatch(new Navigate([redirectUrl]));
+        }), take(1));
+    }
+    init() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.strategy.init();
+        });
+    }
+    logout() {
+        return this.strategy.logout();
+    }
+    initLogin() {
+        this.strategy.login();
+    }
+};
+AuthService.ɵprov = ɵɵdefineInjectable({ factory: function AuthService_Factory() { return new AuthService(ɵɵinject(Actions), ɵɵinject(INJECTOR), ɵɵinject(RestService), ɵɵinject(OAuthService), ɵɵinject(Store), ɵɵinject("ACCOUNT_OPTIONS", 8)); }, token: AuthService, providedIn: "root" });
+AuthService = __decorate([
+    Injectable({
+        providedIn: 'root',
+    }),
+    __param(5, Optional()), __param(5, Inject('ACCOUNT_OPTIONS')),
+    __metadata("design:paramtypes", [Actions,
+        Injector,
+        RestService,
+        OAuthService,
+        Store, Object])
+], AuthService);
+
+function deepMerge(target, source) {
+    if (isObjectAndNotArray(target) && isObjectAndNotArray(source)) {
+        return deepMergeRecursively(target, source);
+    }
+    else if (isNullOrUndefined(target) && isNullOrUndefined(source)) {
+        return {};
+    }
+    else {
+        return exists(source) ? source : target;
+    }
+}
+function deepMergeRecursively(target, source) {
+    const shouldNotRecurse = isNullOrUndefined(target) ||
+        isNullOrUndefined(source) || // at least one not defined
+        isArray(target) ||
+        isArray(source) || // at least one array
+        !isObject(target) ||
+        !isObject(source); // at least one not an object
+    /**
+     * if we will not recurse any further,
+     * we will prioritize source if it is a defined value.
+     */
+    if (shouldNotRecurse) {
+        return exists(source) ? source : target;
+    }
+    const keysOfTarget = Object.keys(target);
+    const keysOfSource = Object.keys(source);
+    const uniqueKeys = new Set(keysOfTarget.concat(keysOfSource));
+    return [...uniqueKeys].reduce((retVal, key) => {
+        retVal[key] = deepMergeRecursively(target[key], source[key]);
+        return retVal;
+    }, {});
+}
+
+function getRemoteEnv(injector, environment) {
+    const { remoteEnv } = environment;
+    const { headers = {}, method = 'GET', url } = remoteEnv || {};
+    if (!url)
+        return Promise.resolve();
+    const http = injector.get(HttpClient);
+    const store = injector.get(Store);
+    return http
+        .request(method, url, { headers })
+        .pipe(catchError(err => store.dispatch(new RestOccurError(err))), // TODO: Condiser get handle function from a provider
+    switchMap(env => store.dispatch(mergeEnvironments(environment, env, remoteEnv))))
+        .toPromise();
+}
+function mergeEnvironments(local, remote, config) {
+    switch (config.mergeStrategy) {
+        case 'deepmerge':
+            return new SetEnvironment(deepMerge(local, remote));
+        case 'overwrite':
+        case null:
+        case undefined:
+            return new SetEnvironment(remote);
+        default:
+            return new SetEnvironment(config.mergeStrategy(local, remote));
+    }
+}
+
+let MultiTenancyService = class MultiTenancyService {
+    constructor(restService, store) {
+        this.restService = restService;
+        this.store = store;
+        this._domainTenant = null;
+        this.isTenantBoxVisible = true;
+        this.apiName = 'abp';
+    }
+    set domainTenant(value) {
+        this._domainTenant = value;
+        this.store.dispatch(new SetTenant(value));
+    }
+    get domainTenant() {
+        return this._domainTenant;
+    }
+    findTenantByName(name, headers) {
+        return this.restService.request({
+            url: `/api/abp/multi-tenancy/tenants/by-name/${name}`,
+            method: 'GET',
+            headers,
+        }, { apiName: this.apiName });
+    }
+    findTenantById(id, headers) {
+        return this.restService.request({ url: `/api/abp/multi-tenancy/tenants/by-id/${id}`, method: 'GET', headers }, { apiName: this.apiName });
+    }
+};
+MultiTenancyService.ɵprov = ɵɵdefineInjectable({ factory: function MultiTenancyService_Factory() { return new MultiTenancyService(ɵɵinject(RestService), ɵɵinject(Store)); }, token: MultiTenancyService, providedIn: "root" });
+MultiTenancyService = __decorate([
+    Injectable({ providedIn: 'root' }),
+    __metadata("design:paramtypes", [RestService, Store])
+], MultiTenancyService);
+
+const tenancyPlaceholder = '{0}';
+function getCurrentTenancyName(appBaseUrl) {
+    var _a;
+    if (appBaseUrl.charAt(appBaseUrl.length - 1) !== '/')
+        appBaseUrl += '/';
+    const parseTokens = createTokenParser(appBaseUrl);
+    const token = tenancyPlaceholder.replace(/[}{]/g, '');
+    return (_a = parseTokens(window.location.href)[token]) === null || _a === void 0 ? void 0 : _a[0];
+}
+function parseTenantFromUrl(injector) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const store = injector.get(Store);
+        const multiTenancyService = injector.get(MultiTenancyService);
+        const environment = store.selectSnapshot(ConfigState.getOne('environment'));
+        const { baseUrl = '' } = environment.application;
+        const tenancyName = getCurrentTenancyName(baseUrl);
+        if (tenancyName) {
+            multiTenancyService.isTenantBoxVisible = false;
+            return setEnvironment(store, tenancyName)
+                .pipe(switchMap(() => multiTenancyService.findTenantByName(tenancyName, { __tenant: '' })), tap(res => {
+                multiTenancyService.domainTenant = res.success
+                    ? { id: res.tenantId, name: res.name }
+                    : null;
+            }))
+                .toPromise();
+        }
+        return Promise.resolve();
+    });
+}
+function setEnvironment(store, tenancyName) {
+    const environment = clone(store.selectSnapshot(ConfigState.getOne('environment')));
+    if (environment.application.baseUrl) {
+        environment.application.baseUrl = environment.application.baseUrl.replace(tenancyPlaceholder, tenancyName);
+    }
+    environment.oAuthConfig.issuer = environment.oAuthConfig.issuer.replace(tenancyPlaceholder, tenancyName);
+    Object.keys(environment.apis).forEach(api => {
+        Object.keys(environment.apis[api]).forEach(key => {
+            environment.apis[api][key] = environment.apis[api][key].replace(tenancyPlaceholder, tenancyName);
+        });
+    });
+    return store.dispatch(new SetEnvironment(environment));
+}
+
+function getInitialData(injector) {
+    const fn = () => __awaiter(this, void 0, void 0, function* () {
+        const store = injector.get(Store);
+        const options = injector.get(CORE_OPTIONS);
+        yield getRemoteEnv(injector, options.environment);
+        yield parseTenantFromUrl(injector);
+        yield injector.get(AuthService).init();
+        if (options.skipGetAppConfiguration)
+            return;
+        return store
+            .dispatch(new GetAppConfiguration())
+            .pipe(tap(res => checkAccessToken(store, injector)))
+            .toPromise();
+    });
+    return fn;
+}
+function checkAccessToken(store, injector) {
+    const oAuth = injector.get(OAuthService);
+    if (oAuth.hasValidAccessToken() && !store.selectSnapshot(ConfigState.getDeep('currentUser.id'))) {
+        oAuth.logOut();
+    }
+}
+function localeInitializer(injector) {
+    const fn = () => {
+        const store = injector.get(Store);
+        const options = injector.get(CORE_OPTIONS);
+        const lang = store.selectSnapshot(state => state.SessionState.language) || 'en';
+        return new Promise((resolve, reject) => {
+            registerLocale(lang, options.cultureNameLocaleFileMap).then(() => resolve('resolved'), reject);
+        });
+    };
+    return fn;
+}
+function registerLocale(locale, localeNameMap) {
+    return import(
+    /* webpackChunkName: "_locale-[request]"*/
+    `@angular/common/locales/${localeNameMap[locale] || locale}.js`).then(module => {
+        registerLocaleData(module.default);
+    });
+}
+
+// This will not be necessary when only Angukar 9.1+ is supported
+function getLocaleDirection(locale) {
+    return /^(ar(-[A-Z]{2})?|ckb(-IR)?|fa(-AF)?|he|ks|lrc(-IQ)?|mzn|pa-Arab|ps(-PK)?|sd|ug|ur(-IN)?|uz-Arab|yi)$/.test(locale)
+        ? 'rtl'
+        : 'ltr';
+}
+function createLocalizer(localization) {
+    return (resourceName, key, defaultValue) => {
+        if (resourceName === '_')
+            return key;
+        const resource = localization.values[resourceName];
+        if (!resource)
+            return defaultValue;
+        return resource[key] || defaultValue;
+    };
+}
+function createLocalizerWithFallback(localization) {
+    const findLocalization = createLocalizationFinder(localization);
+    return (resourceNames, keys, defaultValue) => {
+        const { localized } = findLocalization(resourceNames, keys);
+        return localized || defaultValue;
+    };
+}
+function createLocalizationPipeKeyGenerator(localization) {
+    const findLocalization = createLocalizationFinder(localization);
+    return (resourceNames, keys, defaultKey) => {
+        const { resourceName, key } = findLocalization(resourceNames, keys);
+        return !resourceName ? defaultKey : resourceName === '_' ? key : `${resourceName}::${key}`;
+    };
+}
+function createLocalizationFinder(localization) {
+    const localize = createLocalizer(localization);
+    return (resourceNames, keys) => {
+        resourceNames = resourceNames.concat(localization.defaultResourceName).filter(Boolean);
+        const resourceCount = resourceNames.length;
+        const keyCount = keys.length;
+        for (let i = 0; i < resourceCount; i++) {
+            const resourceName = resourceNames[i];
+            for (let j = 0; j < keyCount; j++) {
+                const key = keys[j];
+                const localized = localize(resourceName, key, null);
+                if (localized)
+                    return { resourceName, key, localized };
+            }
+        }
+        return { resourceName: undefined, key: undefined, localized: undefined };
+    };
+}
+
+let LocalizationService = class LocalizationService {
+    constructor(actions, store, injector, ngZone, otherInstance) {
+        this.actions = actions;
+        this.store = store;
+        this.injector = injector;
+        this.ngZone = ngZone;
+        if (otherInstance)
+            throw new Error('LocalizationService should have only one instance.');
+        this.listenToSetLanguage();
+    }
+    /**
+     * Returns currently selected language
+     */
+    get currentLang() {
+        return this.store.selectSnapshot(state => state.SessionState.language);
+    }
+    get languageChange() {
+        return this.actions.pipe(ofActionSuccessful(SetLanguage));
+    }
+    listenToSetLanguage() {
+        this.languageChange.subscribe(({ payload }) => this.registerLocale(payload));
+    }
+    registerLocale(locale) {
+        const router = this.injector.get(Router);
+        const { cultureNameLocaleFileMap } = this.injector.get(CORE_OPTIONS);
+        const { shouldReuseRoute } = router.routeReuseStrategy;
+        router.routeReuseStrategy.shouldReuseRoute = () => false;
+        router.navigated = false;
+        return registerLocale(locale, cultureNameLocaleFileMap).then(() => {
+            this.ngZone.run(() => __awaiter(this, void 0, void 0, function* () {
+                yield router.navigateByUrl(router.url).catch(noop$1);
+                router.routeReuseStrategy.shouldReuseRoute = shouldReuseRoute;
+            }));
+        });
+    }
+    /**
+     * Returns an observable localized text with the given interpolation parameters in current language.
+     * @param key Localizaton key to replace with localized text
+     * @param interpolateParams Values to interpolate
+     */
+    get(key, ...interpolateParams) {
+        return this.store.select(ConfigState.getLocalization(key, ...interpolateParams));
+    }
+    /**
+     * Returns localized text with the given interpolation parameters in current language.
+     * @param key Localization key to replace with localized text
+     * @param interpolateParams Values to intepolate.
+     */
+    instant(key, ...interpolateParams) {
+        return this.store.selectSnapshot(ConfigState.getLocalization(key, ...interpolateParams));
+    }
+    localize(resourceName, key, defaultValue) {
+        return this.store.select(ConfigState.getOne('localization')).pipe(map(createLocalizer), map(localize => localize(resourceName, key, defaultValue)));
+    }
+    localizeSync(resourceName, key, defaultValue) {
+        const localization = this.store.selectSnapshot(ConfigState.getOne('localization'));
+        return createLocalizer(localization)(resourceName, key, defaultValue);
+    }
+    localizeWithFallback(resourceNames, keys, defaultValue) {
+        return this.store.select(ConfigState.getOne('localization')).pipe(map(createLocalizerWithFallback), map(localizeWithFallback => localizeWithFallback(resourceNames, keys, defaultValue)));
+    }
+    localizeWithFallbackSync(resourceNames, keys, defaultValue) {
+        const localization = this.store.selectSnapshot(ConfigState.getOne('localization'));
+        return createLocalizerWithFallback(localization)(resourceNames, keys, defaultValue);
+    }
+};
+LocalizationService.ɵprov = ɵɵdefineInjectable({ factory: function LocalizationService_Factory() { return new LocalizationService(ɵɵinject(Actions), ɵɵinject(Store), ɵɵinject(INJECTOR), ɵɵinject(NgZone), ɵɵinject(LocalizationService, 12)); }, token: LocalizationService, providedIn: "root" });
+LocalizationService = __decorate([
+    Injectable({ providedIn: 'root' }),
+    __param(4, Optional()),
+    __param(4, SkipSelf()),
+    __metadata("design:paramtypes", [Actions,
+        Store,
+        Injector,
+        NgZone,
+        LocalizationService])
+], LocalizationService);
 
 function pushValueTo(array) {
     return (element) => {
@@ -630,14 +1221,14 @@ let AbstractNavTreeService = class AbstractNavTreeService extends AbstractTreeSe
         this.parentId = 'parentName';
         this.hide = (item) => item.invisible || !this.isGranted(item);
         this.sort = (a, b) => {
-            if (!a.order)
+            if (!Number.isInteger(a.order))
                 return 1;
-            if (!b.order)
+            if (!Number.isInteger(b.order))
                 return -1;
             return a.order - b.order;
         };
-        this.actions
-            .pipe(takeUntilDestroy(this), ofActionSuccessful(GetAppConfiguration))
+        this.subscription = this.actions
+            .pipe(ofActionSuccessful(GetAppConfiguration))
             .subscribe(() => this.refresh());
     }
     isGranted({ requiredPolicy }) {
@@ -654,7 +1245,9 @@ let AbstractNavTreeService = class AbstractNavTreeService extends AbstractTreeSe
         return (_a = node === null || node === void 0 ? void 0 : node.children) === null || _a === void 0 ? void 0 : _a.some(child => child.invisible);
     }
     /* istanbul ignore next */
-    ngOnDestroy() { }
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
 };
 AbstractNavTreeService = __decorate([
     Injectable(),
@@ -673,8 +1266,48 @@ SettingTabsService = __decorate([
     Injectable({ providedIn: 'root' })
 ], SettingTabsService);
 
+let SubscriptionService = class SubscriptionService {
+    constructor() {
+        this.subscription = new Subscription();
+    }
+    get isClosed() {
+        return this.subscription.closed;
+    }
+    addOne(source$, nextOrObserver, error) {
+        const subscription = source$.subscribe(nextOrObserver, error);
+        this.subscription.add(subscription);
+        return subscription;
+    }
+    closeAll() {
+        this.subscription.unsubscribe();
+    }
+    closeOne(subscription) {
+        this.removeOne(subscription);
+        subscription.unsubscribe();
+    }
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
+    removeOne(subscription) {
+        if (!subscription)
+            return;
+        this.subscription.remove(subscription);
+    }
+    reset() {
+        this.subscription.unsubscribe();
+        this.subscription = new Subscription();
+    }
+};
+SubscriptionService = __decorate([
+    Injectable()
+], SubscriptionService);
+
 var ReplaceableComponentsState_1;
 let ReplaceableComponentsState = ReplaceableComponentsState_1 = class ReplaceableComponentsState {
+    constructor(ngZone, router) {
+        this.ngZone = ngZone;
+        this.router = router;
+    }
     static getAll({ replaceableComponents, }) {
         return replaceableComponents || [];
     }
@@ -684,7 +1317,20 @@ let ReplaceableComponentsState = ReplaceableComponentsState_1 = class Replaceabl
         });
         return selector;
     }
-    replaceableComponentsAction({ getState, patchState }, { payload }) {
+    // TODO: Create a shared service for route reload and more
+    reloadRoute() {
+        const { shouldReuseRoute } = this.router.routeReuseStrategy;
+        const setRouteReuse = (reuse) => {
+            this.router.routeReuseStrategy.shouldReuseRoute = reuse;
+        };
+        setRouteReuse(() => false);
+        this.router.navigated = false;
+        this.ngZone.run(() => __awaiter(this, void 0, void 0, function* () {
+            yield this.router.navigateByUrl(this.router.url).catch(noop);
+            setRouteReuse(shouldReuseRoute);
+        }));
+    }
+    replaceableComponentsAction({ getState, patchState }, { payload, reload }) {
         let { replaceableComponents } = getState();
         const index = snq(() => replaceableComponents.findIndex(component => component.key === payload.key), -1);
         if (index > -1) {
@@ -696,6 +1342,8 @@ let ReplaceableComponentsState = ReplaceableComponentsState_1 = class Replaceabl
         patchState({
             replaceableComponents,
         });
+        if (reload)
+            this.reloadRoute();
     }
 };
 __decorate([
@@ -715,7 +1363,8 @@ ReplaceableComponentsState = ReplaceableComponentsState_1 = __decorate([
         name: 'ReplaceableComponentsState',
         defaults: { replaceableComponents: [] },
     }),
-    Injectable()
+    Injectable(),
+    __metadata("design:paramtypes", [NgZone, Router])
 ], ReplaceableComponentsState);
 
 function findRoute(routes, path) {
@@ -727,26 +1376,30 @@ function findRoute(routes, path) {
             .slice(0, -1)
             .join('/'));
 }
-function getRoutePath(router) {
+function getRoutePath(router, url = router.url) {
     const emptyGroup = { segments: [] };
-    const primaryGroup = router.parseUrl(router.url).root.children[PRIMARY_OUTLET];
+    const primaryGroup = router.parseUrl(url).root.children[PRIMARY_OUTLET];
     return '/' + (primaryGroup || emptyGroup).segments.map(({ path }) => path).join('/');
 }
 
 let DynamicLayoutComponent = class DynamicLayoutComponent {
-    constructor(injector, store, dynamicLayoutComponent) {
+    constructor(injector, localizationService, store, subscription, dynamicLayoutComponent) {
+        this.localizationService = localizationService;
         this.store = store;
+        this.subscription = subscription;
+        // TODO: Consider a shared enum (eThemeSharedComponents) for known layouts
+        this.layouts = new Map([
+            ['application', 'Theme.ApplicationLayoutComponent'],
+            ['account', 'Theme.AccountLayoutComponent'],
+            ['empty', 'Theme.EmptyLayoutComponent'],
+        ]);
+        this.isLayoutVisible = true;
         if (dynamicLayoutComponent)
             return;
         const route = injector.get(ActivatedRoute);
         const router = injector.get(Router);
         const routes = injector.get(RoutesService);
-        const layouts = {
-            application: this.getComponent('Theme.ApplicationLayoutComponent'),
-            account: this.getComponent('Theme.AccountLayoutComponent'),
-            empty: this.getComponent('Theme.EmptyLayoutComponent'),
-        };
-        router.events.pipe(takeUntilDestroy(this)).subscribe(event => {
+        this.subscription.addOne(router.events, event => {
             if (event instanceof NavigationEnd) {
                 let expectedLayout = (route.snapshot.data || {}).layout;
                 if (!expectedLayout) {
@@ -762,14 +1415,21 @@ let DynamicLayoutComponent = class DynamicLayoutComponent {
                 }
                 if (!expectedLayout)
                     expectedLayout = "empty" /* empty */;
-                this.layout = layouts[expectedLayout].component;
+                const key = this.layouts.get(expectedLayout);
+                this.layout = this.getComponent(key).component;
             }
+        });
+        this.listenToLanguageChange();
+    }
+    listenToLanguageChange() {
+        this.subscription.addOne(this.localizationService.languageChange, () => {
+            this.isLayoutVisible = false;
+            setTimeout(() => (this.isLayoutVisible = true), 0);
         });
     }
     getComponent(key) {
         return this.store.selectSnapshot(ReplaceableComponentsState.getComponent(key));
     }
-    ngOnDestroy() { }
 };
 DynamicLayoutComponent = __decorate([
     Component({
@@ -778,42 +1438,48 @@ DynamicLayoutComponent = __decorate([
     <ng-container *ngTemplateOutlet="layout ? componentOutlet : routerOutlet"></ng-container>
     <ng-template #routerOutlet><router-outlet></router-outlet></ng-template>
     <ng-template #componentOutlet
-      ><ng-container *ngComponentOutlet="layout"></ng-container
+      ><ng-container *ngIf="isLayoutVisible" [ngComponentOutlet]="layout"></ng-container
     ></ng-template>
-  `
+  `,
+        providers: [SubscriptionService]
     }),
-    __param(2, Optional()), __param(2, SkipSelf()),
+    __param(4, Optional()), __param(4, SkipSelf()),
     __metadata("design:paramtypes", [Injector,
+        LocalizationService,
         Store,
+        SubscriptionService,
         DynamicLayoutComponent])
 ], DynamicLayoutComponent);
 
 let ReplaceableRouteContainerComponent = class ReplaceableRouteContainerComponent {
-    constructor(route, store) {
+    constructor(route, store, subscription) {
         this.route = route;
         this.store = store;
+        this.subscription = subscription;
     }
     ngOnInit() {
         this.defaultComponent = this.route.snapshot.data.replaceableComponent.defaultComponent;
         this.componentKey = this.route.snapshot.data
             .replaceableComponent.key;
-        this.store
+        const component$ = this.store
             .select(ReplaceableComponentsState.getComponent(this.componentKey))
-            .pipe(takeUntilDestroy(this), distinctUntilChanged())
-            .subscribe((res = {}) => {
+            .pipe(distinctUntilChanged());
+        this.subscription.addOne(component$, (res = {}) => {
             this.externalComponent = res.component;
         });
     }
-    ngOnDestroy() { }
 };
 ReplaceableRouteContainerComponent = __decorate([
     Component({
         selector: 'abp-replaceable-route-container',
         template: `
     <ng-container *ngComponentOutlet="externalComponent || defaultComponent"></ng-container>
-  `
+  `,
+        providers: [SubscriptionService]
     }),
-    __metadata("design:paramtypes", [ActivatedRoute, Store])
+    __metadata("design:paramtypes", [ActivatedRoute,
+        Store,
+        SubscriptionService])
 ], ReplaceableRouteContainerComponent);
 
 let RouterOutletComponent = class RouterOutletComponent {
@@ -849,19 +1515,18 @@ AutofocusDirective = __decorate([
 ], AutofocusDirective);
 
 let InputEventDebounceDirective = class InputEventDebounceDirective {
-    constructor(el) {
+    constructor(el, subscription) {
         this.el = el;
+        this.subscription = subscription;
         this.debounce = 300;
         this.debounceEvent = new EventEmitter();
     }
     ngOnInit() {
-        fromEvent(this.el.nativeElement, 'input')
-            .pipe(debounceTime(this.debounce), takeUntilDestroy(this))
-            .subscribe((event) => {
+        const input$ = fromEvent(this.el.nativeElement, 'input').pipe(debounceTime(this.debounce));
+        this.subscription.addOne(input$, (event) => {
             this.debounceEvent.emit(event);
         });
     }
-    ngOnDestroy() { }
 };
 __decorate([
     Input(),
@@ -875,8 +1540,9 @@ InputEventDebounceDirective = __decorate([
     Directive({
         // tslint:disable-next-line: directive-selector
         selector: '[input.debounce]',
+        providers: [SubscriptionService],
     }),
-    __metadata("design:paramtypes", [ElementRef])
+    __metadata("design:paramtypes", [ElementRef, SubscriptionService])
 ], InputEventDebounceDirective);
 
 let EllipsisDirective = class EllipsisDirective {
@@ -1088,315 +1754,29 @@ ForDirective = __decorate([
         IterableDiffers])
 ], ForDirective);
 
-function noop() {
-    // tslint:disable-next-line: only-arrow-functions
-    const fn = function () { };
-    return fn;
-}
-function isUndefinedOrEmptyString(value) {
-    return value === undefined || value === '';
-}
-
-class LazyModuleFactory extends NgModuleFactory {
-    constructor(moduleWithProviders) {
-        super();
-        this.moduleWithProviders = moduleWithProviders;
-    }
-    get moduleType() {
-        return this.moduleWithProviders.ngModule;
-    }
-    create(parentInjector) {
-        const injector = Injector.create({
-            parent: parentInjector,
-            providers: this.moduleWithProviders.providers,
-        });
-        const compiler = injector.get(Compiler);
-        const factory = compiler.compileModuleSync(this.moduleType);
-        return factory.create(injector);
-    }
-}
-
-function isNumber(value) {
-    /* tslint:disable-next-line:triple-equals */
-    return value == Number(value);
-}
-
-function mapEnumToOptions(_enum) {
-    const options = [];
-    for (const member in _enum)
-        if (!isNumber(member))
-            options.push({
-                key: member,
-                value: _enum[member],
-            });
-    return options;
-}
-
-// tslint:disable: no-bitwise
-function uuid(a) {
-    return a
-        ? (a ^ ((Math.random() * 16) >> (a / 4))).toString(16)
-        : ('' + 1e7 + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, uuid);
-}
-function generateHash(value) {
-    let hashed = 0;
-    let charCode;
-    for (let i = 0; i < value.length; i++) {
-        charCode = value.charCodeAt(i);
-        hashed = (hashed << 5) - hashed + charCode;
-        hashed |= 0;
-    }
-    return hashed;
-}
-function generatePassword(length = 8) {
-    length = Math.min(Math.max(4, length), 128);
-    const lowers = 'abcdefghijklmnopqrstuvwxyz';
-    const uppers = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const numbers = '0123456789';
-    const specials = '!@#$%&*()_+{}<>?[]./';
-    const all = lowers + uppers + numbers + specials;
-    const getRandom = (chrSet) => chrSet[Math.floor(Math.random() * chrSet.length)];
-    const password = Array({ length });
-    password[0] = getRandom(lowers);
-    password[1] = getRandom(uppers);
-    password[2] = getRandom(numbers);
-    password[3] = getRandom(specials);
-    for (let i = 4; i < length; i++) {
-        password[i] = getRandom(all);
-    }
-    return password.sort(() => 0.5 - Math.random()).join('');
-}
-
-// Different locales from .NET
-// Key is .NET locale, value is Angular locale
-var localesMapping = {
-    'ar-sa': 'ar-SA',
-    'ca-ES-valencia': 'ca-ES-VALENCIA',
-    'de-de': 'de',
-    'es-ES': 'es',
-    'en-US': 'en',
-    'fil-Latn': 'en',
-    'ku-Arab': 'en',
-    'ky-Cyrl': 'en',
-    'mi-Latn': 'en',
-    'prs-Arab': 'en',
-    'qut-Latn': 'en',
-    nso: 'en',
-    quz: 'en',
-    'fr-FR': 'fr',
-    'gd-Latn': 'gd',
-    'ha-Latn': 'ha',
-    'ig-Latn': 'ig',
-    'it-it': 'it',
-    'mn-Cyrl': 'mn',
-    'pt-BR': 'pt',
-    'sd-Arab': 'pa-Arab',
-    'sr-Cyrl-RS': 'sr-Cyrl',
-    'sr-Latn-RS': 'sr-Latn',
-    'tg-Cyrl': 'tg',
-    'tk-Latn': 'tk',
-    'tt-Cyrl': 'tt',
-    'ug-Arab': 'ug',
-    'yo-Latn': 'yo',
-};
-
-const CORE_OPTIONS = new InjectionToken('CORE_OPTIONS');
-
-function getInitialData(injector) {
-    const fn = () => {
-        const store = injector.get(Store);
-        const { skipGetAppConfiguration } = injector.get(CORE_OPTIONS);
-        if (skipGetAppConfiguration)
-            return;
-        return store
-            .dispatch(new GetAppConfiguration())
-            .pipe(tap(res => checkAccessToken(store, injector)))
-            .toPromise();
-    };
-    return fn;
-}
-function checkAccessToken(store, injector) {
-    const oAuth = injector.get(OAuthService);
-    if (oAuth.hasValidAccessToken() && !store.selectSnapshot(ConfigState.getDeep('currentUser.id'))) {
-        oAuth.logOut();
-    }
-}
-function localeInitializer(injector) {
-    const fn = () => {
-        const store = injector.get(Store);
-        const lang = store.selectSnapshot(state => state.SessionState.language) || 'en';
-        return new Promise((resolve, reject) => {
-            registerLocale(lang).then(() => resolve('resolved'), reject);
-        });
-    };
-    return fn;
-}
-function registerLocale(locale) {
-    return import(
-    /* webpackInclude: /(af|am|ar-SA|as|az-Latn|be|bg|bn-BD|bn-IN|bs|ca|ca-ES-VALENCIA|cs|cy|da|de|de|el|en-GB|en|es|en|es-US|es-MX|et|eu|fa|fi|en|fr|fr|fr-CA|ga|gd|gl|gu|ha|he|hi|hr|hu|hy|id|ig|is|it|it|ja|ka|kk|km|kn|ko|kok|en|en|lb|lt|lv|en|mk|ml|mn|mr|ms|mt|nb|ne|nl|nl-BE|nn|en|or|pa|pa-Arab|pl|en|pt|pt-PT|en|en|ro|ru|rw|pa-Arab|si|sk|sl|sq|sr-Cyrl-BA|sr-Cyrl|sr-Latn|sv|sw|ta|te|tg|th|ti|tk|tn|tr|tt|ug|uk|ur|uz-Latn|vi|wo|xh|yo|zh-Hans|zh-Hant|zu)\.js$/ */
-    `@angular/common/locales/${localesMapping[locale] || locale}.js`).then(module => {
-        registerLocaleData(module.default);
-    });
-}
-
-class CrossOriginStrategy {
-    constructor(crossorigin, integrity) {
-        this.crossorigin = crossorigin;
-        this.integrity = integrity;
-    }
-    setCrossOrigin(element) {
-        if (this.integrity)
-            element.setAttribute('integrity', this.integrity);
-        element.setAttribute('crossorigin', this.crossorigin);
-    }
-}
-const CROSS_ORIGIN_STRATEGY = {
-    Anonymous(integrity) {
-        return new CrossOriginStrategy('anonymous', integrity);
-    },
-    UseCredentials(integrity) {
-        return new CrossOriginStrategy('use-credentials', integrity);
-    },
-};
-
-class DomStrategy {
-    constructor(target = document.head, position = 'beforeend') {
-        this.target = target;
-        this.position = position;
-    }
-    insertElement(element) {
-        this.target.insertAdjacentElement(this.position, element);
-    }
-}
-const DOM_STRATEGY = {
-    AfterElement(element) {
-        return new DomStrategy(element, 'afterend');
-    },
-    AppendToBody() {
-        return new DomStrategy(document.body, 'beforeend');
-    },
-    AppendToHead() {
-        return new DomStrategy(document.head, 'beforeend');
-    },
-    BeforeElement(element) {
-        return new DomStrategy(element, 'beforebegin');
-    },
-    PrependToHead() {
-        return new DomStrategy(document.head, 'afterbegin');
-    },
-};
-
-function fromLazyLoad(element, domStrategy = DOM_STRATEGY.AppendToHead(), crossOriginStrategy = CROSS_ORIGIN_STRATEGY.Anonymous()) {
-    crossOriginStrategy.setCrossOrigin(element);
-    domStrategy.insertElement(element);
-    return new Observable((observer) => {
-        element.onload = (event) => {
-            clearCallbacks(element);
-            observer.next(event);
-            observer.complete();
-        };
-        const handleError = createErrorHandler(observer, element);
-        element.onerror = handleError;
-        element.onabort = handleError;
-        element.onemptied = handleError;
-        element.onstalled = handleError;
-        element.onsuspend = handleError;
-        return () => {
-            clearCallbacks(element);
-            observer.complete();
-        };
-    });
-}
-function createErrorHandler(observer, element) {
-    /* tslint:disable-next-line:only-arrow-functions */
-    return function (event) {
-        clearCallbacks(element);
-        element.parentNode.removeChild(element);
-        observer.error(event);
-    };
-}
-function clearCallbacks(element) {
-    element.onload = null;
-    element.onerror = null;
-    element.onabort = null;
-    element.onemptied = null;
-    element.onstalled = null;
-    element.onsuspend = null;
-}
-
-// This will not be necessary when only Angukar 9.1+ is supported
-function getLocaleDirection(locale) {
-    return /^(ar(-[A-Z]{2})?|ckb(-IR)?|fa(-AF)?|he|ks|lrc(-IQ)?|mzn|pa-Arab|ps(-PK)?|sd|ug|ur(-IN)?|uz-Arab|yi)$/.test(locale)
-        ? 'rtl'
-        : 'ltr';
-}
-function createLocalizer(localization) {
-    return (resourceName, key, defaultValue) => {
-        if (resourceName === '_')
-            return key;
-        const resource = localization.values[resourceName];
-        if (!resource)
-            return defaultValue;
-        return resource[key] || defaultValue;
-    };
-}
-function createLocalizerWithFallback(localization) {
-    const findLocalization = createLocalizationFinder(localization);
-    return (resourceNames, keys, defaultValue) => {
-        const { localized } = findLocalization(resourceNames, keys);
-        return localized || defaultValue;
-    };
-}
-function createLocalizationPipeKeyGenerator(localization) {
-    const findLocalization = createLocalizationFinder(localization);
-    return (resourceNames, keys, defaultKey) => {
-        const { resourceName, key } = findLocalization(resourceNames, keys);
-        return !resourceName ? defaultKey : resourceName === '_' ? key : `${resourceName}::${key}`;
-    };
-}
-function createLocalizationFinder(localization) {
-    const localize = createLocalizer(localization);
-    return (resourceNames, keys) => {
-        resourceNames = resourceNames.concat(localization.defaultResourceName).filter(Boolean);
-        const resourceCount = resourceNames.length;
-        const keyCount = keys.length;
-        for (let i = 0; i < resourceCount; i++) {
-            const resourceName = resourceNames[i];
-            for (let j = 0; j < keyCount; j++) {
-                const key = keys[j];
-                const localized = localize(resourceName, key, null);
-                if (localized)
-                    return { resourceName, key, localized };
-            }
-        }
-        return { resourceName: undefined, key: undefined, localized: undefined };
-    };
-}
-
 let FormSubmitDirective = class FormSubmitDirective {
-    constructor(formGroupDirective, host, cdRef) {
+    constructor(formGroupDirective, host, cdRef, subscription) {
         this.formGroupDirective = formGroupDirective;
         this.host = host;
         this.cdRef = cdRef;
+        this.subscription = subscription;
         this.debounce = 200;
         this.ngSubmit = new EventEmitter();
         this.executedNgSubmit = false;
     }
     ngOnInit() {
-        this.formGroupDirective.ngSubmit.pipe(takeUntilDestroy(this)).subscribe(() => {
+        this.subscription.addOne(this.formGroupDirective.ngSubmit, () => {
             this.markAsDirty();
             this.executedNgSubmit = true;
         });
-        fromEvent(this.host.nativeElement, 'keyup')
-            .pipe(debounceTime(this.debounce), filter((key) => key && key.key === 'Enter'), takeUntilDestroy(this))
-            .subscribe(() => {
+        const keyup$ = fromEvent(this.host.nativeElement, 'keyup').pipe(debounceTime(this.debounce), filter((key) => key && key.key === 'Enter'));
+        this.subscription.addOne(keyup$, () => {
             if (!this.executedNgSubmit) {
                 this.host.nativeElement.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
             }
             this.executedNgSubmit = false;
         });
     }
-    ngOnDestroy() { }
     markAsDirty() {
         const { form } = this.formGroupDirective;
         setDirty(form.controls);
@@ -1420,11 +1800,13 @@ FormSubmitDirective = __decorate([
     Directive({
         // tslint:disable-next-line: directive-selector
         selector: 'form[ngSubmit][formGroup]',
+        providers: [SubscriptionService],
     }),
     __param(0, Self()),
     __metadata("design:paramtypes", [FormGroupDirective,
         ElementRef,
-        ChangeDetectorRef])
+        ChangeDetectorRef,
+        SubscriptionService])
 ], FormSubmitDirective);
 function setDirty(controls) {
     if (Array.isArray(controls)) {
@@ -1456,50 +1838,6 @@ InitDirective = __decorate([
     Directive({ selector: '[abpInit]' }),
     __metadata("design:paramtypes", [ElementRef])
 ], InitDirective);
-
-let RestService = class RestService {
-    constructor(options, http, store) {
-        this.options = options;
-        this.http = http;
-        this.store = store;
-    }
-    getApiFromStore(apiName) {
-        return this.store.selectSnapshot(ConfigState.getApiUrl(apiName));
-    }
-    handleError(err) {
-        this.store.dispatch(new RestOccurError(err));
-        return throwError(err);
-    }
-    // TODO: Deprecate service or improve interface in v3.0
-    request(request, config, api) {
-        config = config || {};
-        api = api || this.getApiFromStore(config.apiName);
-        const { method, params } = request, options = __rest(request, ["method", "params"]);
-        const { observe = "body" /* Body */, skipHandleError } = config;
-        return this.http
-            .request(method, api + request.url, Object.assign(Object.assign({ observe }, (params && {
-            params: Object.keys(params).reduce((acc, key) => {
-                const value = params[key];
-                if (isUndefinedOrEmptyString(value))
-                    return acc;
-                if (value === null && !this.options.sendNullsAsQueryParam)
-                    return acc;
-                acc[key] = value;
-                return acc;
-            }, {}),
-        })), options))
-            .pipe(catchError(err => (skipHandleError ? throwError(err) : this.handleError(err))));
-    }
-};
-RestService.ɵprov = ɵɵdefineInjectable({ factory: function RestService_Factory() { return new RestService(ɵɵinject(CORE_OPTIONS), ɵɵinject(HttpClient), ɵɵinject(Store)); }, token: RestService, providedIn: "root" });
-RestService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __param(0, Inject(CORE_OPTIONS)),
-    __metadata("design:paramtypes", [Object, HttpClient,
-        Store])
-], RestService);
 
 let ProfileService = class ProfileService {
     constructor(rest) {
@@ -1611,7 +1949,6 @@ let PermissionDirective = class PermissionDirective {
         }
         this.subscription = this.store
             .select(ConfigState.getGrantedPolicy(this.condition))
-            .pipe(takeUntilDestroy(this))
             .subscribe(isGranted => {
             if (this.templateRef && isGranted) {
                 this.vcRef.clear();
@@ -1630,7 +1967,10 @@ let PermissionDirective = class PermissionDirective {
             this.vcRef.createEmbeddedView(this.templateRef);
         }
     }
-    ngOnDestroy() { }
+    ngOnDestroy() {
+        if (this.subscription)
+            this.subscription.unsubscribe();
+    }
     ngOnChanges({ condition }) {
         if ((condition || { currentValue: null }).currentValue) {
             this.check();
@@ -1654,12 +1994,13 @@ PermissionDirective = __decorate([
 ], PermissionDirective);
 
 let ReplaceableTemplateDirective = class ReplaceableTemplateDirective {
-    constructor(injector, templateRef, cfRes, vcRef, store) {
+    constructor(injector, templateRef, cfRes, vcRef, store, subscription) {
         this.injector = injector;
         this.templateRef = templateRef;
         this.cfRes = cfRes;
         this.vcRef = vcRef;
         this.store = store;
+        this.subscription = subscription;
         this.providedData = { inputs: {}, outputs: {} };
         this.context = {};
         this.defaultComponentSubscriptions = {};
@@ -1673,10 +2014,10 @@ let ReplaceableTemplateDirective = class ReplaceableTemplateDirective {
         };
     }
     ngOnInit() {
-        this.store
+        const component$ = this.store
             .select(ReplaceableComponentsState.getComponent(this.data.componentKey))
-            .pipe(filter((res = {}) => !this.initialized || !compare(res.component, this.externalComponent)), takeUntilDestroy(this))
-            .subscribe((res = {}) => {
+            .pipe(filter((res = {}) => !this.initialized || !compare(res.component, this.externalComponent)));
+        this.subscription.addOne(component$, (res = {}) => {
             this.vcRef.clear();
             this.externalComponent = res.component;
             if (this.defaultComponentRef) {
@@ -1701,7 +2042,6 @@ let ReplaceableTemplateDirective = class ReplaceableTemplateDirective {
             this.setDefaultComponentInputs();
         }
     }
-    ngOnDestroy() { }
     setDefaultComponentInputs() {
         if (!this.defaultComponentRef || (!this.data.inputs && !this.data.outputs))
             return;
@@ -1750,28 +2090,27 @@ __decorate([
     __metadata("design:type", Object)
 ], ReplaceableTemplateDirective.prototype, "data", void 0);
 ReplaceableTemplateDirective = __decorate([
-    Directive({ selector: '[abpReplaceableTemplate]' }),
+    Directive({ selector: '[abpReplaceableTemplate]', providers: [SubscriptionService] }),
     __metadata("design:paramtypes", [Injector,
         TemplateRef,
         ComponentFactoryResolver,
         ViewContainerRef,
-        Store])
+        Store,
+        SubscriptionService])
 ], ReplaceableTemplateDirective);
 
 let StopPropagationDirective = class StopPropagationDirective {
-    constructor(el) {
+    constructor(el, subscription) {
         this.el = el;
+        this.subscription = subscription;
         this.stopPropEvent = new EventEmitter();
     }
     ngOnInit() {
-        fromEvent(this.el.nativeElement, 'click')
-            .pipe(takeUntilDestroy(this))
-            .subscribe((event) => {
+        this.subscription.addOne(fromEvent(this.el.nativeElement, 'click'), (event) => {
             event.stopPropagation();
             this.stopPropEvent.emit(event);
         });
     }
-    ngOnDestroy() { }
 };
 __decorate([
     Output('click.stop'),
@@ -1781,8 +2120,9 @@ StopPropagationDirective = __decorate([
     Directive({
         // tslint:disable-next-line: directive-selector
         selector: '[click.stop]',
+        providers: [SubscriptionService],
     }),
-    __metadata("design:paramtypes", [ElementRef])
+    __metadata("design:paramtypes", [ElementRef, SubscriptionService])
 ], StopPropagationDirective);
 
 /**
@@ -1842,6 +2182,32 @@ VisibilityDirective = __decorate([
     __param(0, Optional()),
     __metadata("design:paramtypes", [ElementRef, Renderer2])
 ], VisibilityDirective);
+
+let OAuthConfigurationHandler = class OAuthConfigurationHandler {
+    constructor(actions, oAuthService, options) {
+        this.actions = actions;
+        this.oAuthService = oAuthService;
+        this.options = options;
+        this.listenToSetEnvironment();
+    }
+    listenToSetEnvironment() {
+        this.actions
+            .pipe(ofActionSuccessful(SetEnvironment))
+            .pipe(map(({ environment }) => environment.oAuthConfig), filter(config => !compare(config, this.options.environment.oAuthConfig)))
+            .subscribe(config => {
+            this.oAuthService.configure(config);
+        });
+    }
+};
+OAuthConfigurationHandler.ɵprov = ɵɵdefineInjectable({ factory: function OAuthConfigurationHandler_Factory() { return new OAuthConfigurationHandler(ɵɵinject(Actions), ɵɵinject(OAuthService), ɵɵinject(CORE_OPTIONS)); }, token: OAuthConfigurationHandler, providedIn: "root" });
+OAuthConfigurationHandler = __decorate([
+    Injectable({
+        providedIn: 'root',
+    }),
+    __param(2, Inject(CORE_OPTIONS)),
+    __metadata("design:paramtypes", [Actions,
+        OAuthService, Object])
+], OAuthConfigurationHandler);
 
 let RoutesHandler = class RoutesHandler {
     constructor(routes, router) {
@@ -2013,83 +2379,6 @@ ConfigPlugin = __decorate([
     __metadata("design:paramtypes", [Object])
 ], ConfigPlugin);
 
-let LocalizationService = class LocalizationService {
-    constructor(actions, store, injector, ngZone, otherInstance) {
-        this.actions = actions;
-        this.store = store;
-        this.injector = injector;
-        this.ngZone = ngZone;
-        if (otherInstance)
-            throw new Error('LocalizationService should have only one instance.');
-        this.listenToSetLanguage();
-    }
-    /**
-     * Returns currently selected language
-     */
-    get currentLang() {
-        return this.store.selectSnapshot(state => state.SessionState.language);
-    }
-    get languageChange() {
-        return this.actions.pipe(ofActionSuccessful(SetLanguage));
-    }
-    listenToSetLanguage() {
-        this.languageChange.subscribe(({ payload }) => this.registerLocale(payload));
-    }
-    registerLocale(locale) {
-        const router = this.injector.get(Router);
-        const { shouldReuseRoute } = router.routeReuseStrategy;
-        router.routeReuseStrategy.shouldReuseRoute = () => false;
-        router.navigated = false;
-        return registerLocale(locale).then(() => {
-            this.ngZone.run(() => __awaiter(this, void 0, void 0, function* () {
-                yield router.navigateByUrl(router.url).catch(noop$1);
-                router.routeReuseStrategy.shouldReuseRoute = shouldReuseRoute;
-            }));
-        });
-    }
-    /**
-     * Returns an observable localized text with the given interpolation parameters in current language.
-     * @param key Localizaton key to replace with localized text
-     * @param interpolateParams Values to interpolate
-     */
-    get(key, ...interpolateParams) {
-        return this.store.select(ConfigState.getLocalization(key, ...interpolateParams));
-    }
-    /**
-     * Returns localized text with the given interpolation parameters in current language.
-     * @param key Localization key to replace with localized text
-     * @param interpolateParams Values to intepolate.
-     */
-    instant(key, ...interpolateParams) {
-        return this.store.selectSnapshot(ConfigState.getLocalization(key, ...interpolateParams));
-    }
-    localize(resourceName, key, defaultValue) {
-        return this.store.select(ConfigState.getOne('localization')).pipe(map(createLocalizer), map(localize => localize(resourceName, key, defaultValue)));
-    }
-    localizeSync(resourceName, key, defaultValue) {
-        const localization = this.store.selectSnapshot(ConfigState.getOne('localization'));
-        return createLocalizer(localization)(resourceName, key, defaultValue);
-    }
-    localizeWithFallback(resourceNames, keys, defaultValue) {
-        return this.store.select(ConfigState.getOne('localization')).pipe(map(createLocalizerWithFallback), map(localizeWithFallback => localizeWithFallback(resourceNames, keys, defaultValue)));
-    }
-    localizeWithFallbackSync(resourceNames, keys, defaultValue) {
-        const localization = this.store.selectSnapshot(ConfigState.getOne('localization'));
-        return createLocalizerWithFallback(localization)(resourceNames, keys, defaultValue);
-    }
-};
-LocalizationService.ɵprov = ɵɵdefineInjectable({ factory: function LocalizationService_Factory() { return new LocalizationService(ɵɵinject(Actions), ɵɵinject(Store), ɵɵinject(INJECTOR), ɵɵinject(NgZone), ɵɵinject(LocalizationService, 12)); }, token: LocalizationService, providedIn: "root" });
-LocalizationService = __decorate([
-    Injectable({ providedIn: 'root' }),
-    __param(4, Optional()),
-    __param(4, SkipSelf()),
-    __metadata("design:paramtypes", [Actions,
-        Store,
-        Injector,
-        NgZone,
-        LocalizationService])
-], LocalizationService);
-
 class LocaleId extends String {
     constructor(localizationService) {
         super();
@@ -2115,7 +2404,7 @@ Date.prototype.toLocalISOString = function () {
 };
 
 function storageFactory() {
-    return localStorage;
+    return oAuthStorage;
 }
 /**
  * BaseCoreModule is the module that holds
@@ -2195,7 +2484,7 @@ RootCoreModule = __decorate([
             LocalizationModule,
             NgxsModule.forFeature([ReplaceableComponentsState, ProfileState, SessionState, ConfigState]),
             NgxsRouterPluginModule.forRoot(),
-            NgxsStoragePluginModule.forRoot({ key: ['SessionState'] }),
+            NgxsStoragePluginModule.forRoot(),
             OAuthModule.forRoot(),
         ],
     })
@@ -2230,6 +2519,7 @@ let CoreModule = class CoreModule {
         };
     }
     static forRoot(options = {}) {
+        var _a;
         return {
             ngModule: RootCoreModule,
             providers: [
@@ -2244,13 +2534,24 @@ let CoreModule = class CoreModule {
                     useValue: { environment: options.environment },
                 },
                 {
-                    provide: CORE_OPTIONS,
+                    provide: 'CORE_OPTIONS',
                     useValue: options,
+                },
+                {
+                    provide: CORE_OPTIONS,
+                    useFactory: coreOptionsFactory,
+                    deps: ['CORE_OPTIONS'],
                 },
                 {
                     provide: HTTP_INTERCEPTORS,
                     useClass: ApiInterceptor,
                     multi: true,
+                },
+                {
+                    provide: APP_INITIALIZER,
+                    multi: true,
+                    deps: [OAuthConfigurationHandler],
+                    useFactory: noop,
                 },
                 {
                     provide: APP_INITIALIZER,
@@ -2277,6 +2578,10 @@ let CoreModule = class CoreModule {
                     useFactory: noop,
                 },
                 { provide: OAuthStorage, useFactory: storageFactory },
+                {
+                    provide: NGXS_STORAGE_PLUGIN_OPTIONS,
+                    useValue: Object.assign(Object.assign({ storage: 0 /* LocalStorage */, serialize: JSON.stringify, deserialize: JSON.parse, beforeSerialize: ngxsStoragePluginSerialize, afterDeserialize: ngxsStoragePluginSerialize }, options.ngxsStoragePluginOptions), { key: [...(((_a = options.ngxsStoragePluginOptions) === null || _a === void 0 ? void 0 : _a.key) || []), 'SessionState'] }),
+                },
             ],
         };
     }
@@ -2288,6 +2593,9 @@ CoreModule = __decorate([
         providers: [LocalizationPipe],
     })
 ], CoreModule);
+function ngxsStoragePluginSerialize(data) {
+    return data;
+}
 
 let AuthGuard = class AuthGuard {
     constructor(oauthService, injector) {
@@ -2313,31 +2621,32 @@ AuthGuard = __decorate([
 ], AuthGuard);
 
 let PermissionGuard = class PermissionGuard {
-    constructor(store) {
+    constructor(router, routes, store) {
+        this.router = router;
+        this.routes = routes;
         this.store = store;
     }
     canActivate(route, state) {
-        let resource = snq(() => route.data.routes.requiredPolicy) || snq(() => route.data.requiredPolicy);
-        if (!resource) {
-            resource = snq(() => route.routeConfig.children.find(child => state.url.indexOf(child.path) > -1).data
-                .requiredPolicy);
-            if (!resource) {
-                return of(true);
-            }
+        let { requiredPolicy } = route.data || {};
+        if (!requiredPolicy) {
+            const routeFound = findRoute(this.routes, getRoutePath(this.router, state.url));
+            requiredPolicy = routeFound === null || routeFound === void 0 ? void 0 : routeFound.requiredPolicy;
         }
-        return this.store.select(ConfigState.getGrantedPolicy(resource)).pipe(tap(access => {
+        if (!requiredPolicy)
+            return of(true);
+        return this.store.select(ConfigState.getGrantedPolicy(requiredPolicy)).pipe(tap(access => {
             if (!access) {
                 this.store.dispatch(new RestOccurError({ status: 403 }));
             }
         }));
     }
 };
-PermissionGuard.ɵprov = ɵɵdefineInjectable({ factory: function PermissionGuard_Factory() { return new PermissionGuard(ɵɵinject(Store)); }, token: PermissionGuard, providedIn: "root" });
+PermissionGuard.ɵprov = ɵɵdefineInjectable({ factory: function PermissionGuard_Factory() { return new PermissionGuard(ɵɵinject(Router), ɵɵinject(RoutesService), ɵɵinject(Store)); }, token: PermissionGuard, providedIn: "root" });
 PermissionGuard = __decorate([
     Injectable({
         providedIn: 'root',
     }),
-    __metadata("design:paramtypes", [Store])
+    __metadata("design:paramtypes", [Router, RoutesService, Store])
 ], PermissionGuard);
 
 class ListResultDto {
@@ -2458,6 +2767,16 @@ class ExtensibleFullAuditedEntityWithUserDto extends ExtensibleFullAuditedEntity
     }
 }
 
+class FindTenantResultDto {
+    constructor(initialValues = {}) {
+        for (const key in initialValues) {
+            if (initialValues.hasOwnProperty(key)) {
+                this[key] = initialValues[key];
+            }
+        }
+    }
+}
+
 let ApplicationConfigurationService = class ApplicationConfigurationService {
     constructor(rest, store) {
         this.rest = rest;
@@ -2484,45 +2803,6 @@ ApplicationConfigurationService = __decorate([
     __metadata("design:paramtypes", [RestService, Store])
 ], ApplicationConfigurationService);
 
-let AuthService = class AuthService {
-    constructor(rest, oAuthService, store, options) {
-        this.rest = rest;
-        this.oAuthService = oAuthService;
-        this.store = store;
-        this.options = options;
-        this.oAuthService.configure(this.store.selectSnapshot(ConfigState.getOne('environment')).oAuthConfig);
-    }
-    login(username, password) {
-        const tenant = this.store.selectSnapshot(SessionState.getTenant);
-        return from(this.oAuthService.loadDiscoveryDocument()).pipe(switchMap(() => from(this.oAuthService.fetchTokenUsingPasswordFlow(username, password, new HttpHeaders(Object.assign({}, (tenant && tenant.id && { __tenant: tenant.id })))))), switchMap(() => this.store.dispatch(new GetAppConfiguration())), tap(() => {
-            const redirectUrl = snq(() => window.history.state.redirectUrl) || (this.options || {}).redirectUrl || '/';
-            this.store.dispatch(new Navigate([redirectUrl]));
-        }), take(1));
-    }
-    logout() {
-        const issuer = this.store.selectSnapshot(ConfigState.getDeep('environment.oAuthConfig.issuer'));
-        return this.rest
-            .request({
-            method: 'GET',
-            url: '/api/account/logout',
-        }, null, issuer)
-            .pipe(switchMap(() => {
-            this.oAuthService.logOut(true);
-            return this.store.dispatch(new GetAppConfiguration());
-        }));
-    }
-};
-AuthService.ɵprov = ɵɵdefineInjectable({ factory: function AuthService_Factory() { return new AuthService(ɵɵinject(RestService), ɵɵinject(OAuthService), ɵɵinject(Store), ɵɵinject("ACCOUNT_OPTIONS", 8)); }, token: AuthService, providedIn: "root" });
-AuthService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __param(3, Optional()), __param(3, Inject('ACCOUNT_OPTIONS')),
-    __metadata("design:paramtypes", [RestService,
-        OAuthService,
-        Store, Object])
-], AuthService);
-
 let ConfigStateService = class ConfigStateService {
     constructor(store) {
         this.store = store;
@@ -2541,6 +2821,9 @@ let ConfigStateService = class ConfigStateService {
     }
     getApiUrl(...args) {
         return this.store.selectSnapshot(ConfigState.getApiUrl(...args));
+    }
+    getFeature(...args) {
+        return this.store.selectSnapshot(ConfigState.getFeature(...args));
     }
     getSetting(...args) {
         return this.store.selectSnapshot(ConfigState.getSetting(...args));
@@ -2582,6 +2865,198 @@ ContentProjectionService = __decorate([
     Injectable({ providedIn: 'root' }),
     __metadata("design:paramtypes", [Injector])
 ], ContentProjectionService);
+
+function getShortDateFormat(configStateService) {
+    const dateTimeFormat = configStateService.getDeep('localization.currentCulture.dateTimeFormat');
+    return dateTimeFormat.shortDatePattern;
+}
+function getShortTimeFormat(configStateService) {
+    const dateTimeFormat = configStateService.getDeep('localization.currentCulture.dateTimeFormat');
+    return dateTimeFormat.shortTimePattern.replace('tt', 'a');
+}
+function getShortDateShortTimeFormat(configStateService) {
+    const dateTimeFormat = configStateService.getDeep('localization.currentCulture.dateTimeFormat');
+    return `${dateTimeFormat.shortDatePattern} ${dateTimeFormat.shortTimePattern.replace('tt', 'a')}`;
+}
+
+class LazyModuleFactory extends NgModuleFactory {
+    constructor(moduleWithProviders) {
+        super();
+        this.moduleWithProviders = moduleWithProviders;
+    }
+    get moduleType() {
+        return this.moduleWithProviders.ngModule;
+    }
+    create(parentInjector) {
+        const injector = Injector.create({
+            parent: parentInjector,
+            providers: this.moduleWithProviders.providers,
+        });
+        const compiler = injector.get(Compiler);
+        const factory = compiler.compileModuleSync(this.moduleType);
+        return factory.create(injector);
+    }
+}
+
+function isNumber(value) {
+    /* tslint:disable-next-line:triple-equals */
+    return value == Number(value);
+}
+
+function mapEnumToOptions(_enum) {
+    const options = [];
+    for (const member in _enum)
+        if (!isNumber(member))
+            options.push({
+                key: member,
+                value: _enum[member],
+            });
+    return options;
+}
+
+// tslint:disable: no-bitwise
+function uuid(a) {
+    return a
+        ? (a ^ ((Math.random() * 16) >> (a / 4))).toString(16)
+        : ('' + 1e7 + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, uuid);
+}
+function generateHash(value) {
+    let hashed = 0;
+    let charCode;
+    for (let i = 0; i < value.length; i++) {
+        charCode = value.charCodeAt(i);
+        hashed = (hashed << 5) - hashed + charCode;
+        hashed |= 0;
+    }
+    return hashed;
+}
+function generatePassword(length = 8) {
+    length = Math.min(Math.max(4, length), 128);
+    const lowers = 'abcdefghijklmnopqrstuvwxyz';
+    const uppers = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const numbers = '0123456789';
+    const specials = '!@#$%&*()_+{}<>?[]./';
+    const all = lowers + uppers + numbers + specials;
+    const getRandom = (chrSet) => chrSet[Math.floor(Math.random() * chrSet.length)];
+    const password = Array({ length });
+    password[0] = getRandom(lowers);
+    password[1] = getRandom(uppers);
+    password[2] = getRandom(numbers);
+    password[3] = getRandom(specials);
+    for (let i = 4; i < length; i++) {
+        password[i] = getRandom(all);
+    }
+    return password.sort(() => 0.5 - Math.random()).join('');
+}
+
+class CrossOriginStrategy {
+    constructor(crossorigin, integrity) {
+        this.crossorigin = crossorigin;
+        this.integrity = integrity;
+    }
+    setCrossOrigin(element) {
+        if (this.integrity)
+            element.setAttribute('integrity', this.integrity);
+        element.setAttribute('crossorigin', this.crossorigin);
+    }
+}
+const CROSS_ORIGIN_STRATEGY = {
+    Anonymous(integrity) {
+        return new CrossOriginStrategy('anonymous', integrity);
+    },
+    UseCredentials(integrity) {
+        return new CrossOriginStrategy('use-credentials', integrity);
+    },
+};
+
+class DomStrategy {
+    constructor(target = document.head, position = 'beforeend') {
+        this.target = target;
+        this.position = position;
+    }
+    insertElement(element) {
+        this.target.insertAdjacentElement(this.position, element);
+    }
+}
+const DOM_STRATEGY = {
+    AfterElement(element) {
+        return new DomStrategy(element, 'afterend');
+    },
+    AppendToBody() {
+        return new DomStrategy(document.body, 'beforeend');
+    },
+    AppendToHead() {
+        return new DomStrategy(document.head, 'beforeend');
+    },
+    BeforeElement(element) {
+        return new DomStrategy(element, 'beforebegin');
+    },
+    PrependToHead() {
+        return new DomStrategy(document.head, 'afterbegin');
+    },
+};
+
+function fromLazyLoad(element, domStrategy = DOM_STRATEGY.AppendToHead(), crossOriginStrategy = CROSS_ORIGIN_STRATEGY.Anonymous()) {
+    crossOriginStrategy.setCrossOrigin(element);
+    domStrategy.insertElement(element);
+    return new Observable((observer) => {
+        element.onload = (event) => {
+            clearCallbacks(element);
+            observer.next(event);
+            observer.complete();
+        };
+        const handleError = createErrorHandler(observer, element);
+        element.onerror = handleError;
+        element.onabort = handleError;
+        element.onemptied = handleError;
+        element.onstalled = handleError;
+        element.onsuspend = handleError;
+        return () => {
+            clearCallbacks(element);
+            observer.complete();
+        };
+    });
+}
+function createErrorHandler(observer, element) {
+    /* tslint:disable-next-line:only-arrow-functions */
+    return function (event) {
+        clearCallbacks(element);
+        element.parentNode.removeChild(element);
+        observer.error(event);
+    };
+}
+function clearCallbacks(element) {
+    element.onload = null;
+    element.onerror = null;
+    element.onabort = null;
+    element.onemptied = null;
+    element.onstalled = null;
+    element.onsuspend = null;
+}
+
+// tslint:disable: max-line-length
+function isFunction(value) {
+    return typeof value === 'function';
+}
+/**
+ * @deprecated no longer working, please use SubscriptionService (https://docs.abp.io/en/abp/latest/UI/Angular/Subscription-Service) instead.
+ */
+const takeUntilDestroy = (componentInstance, destroyMethodName = 'ngOnDestroy') => (source) => {
+    const originalDestroy = componentInstance[destroyMethodName];
+    if (isFunction(originalDestroy) === false) {
+        throw new Error(`${componentInstance.constructor.name} is using untilDestroyed but doesn't implement ${destroyMethodName}`);
+    }
+    if (!componentInstance['__takeUntilDestroy']) {
+        componentInstance['__takeUntilDestroy'] = new Subject();
+        componentInstance[destroyMethodName] = function () {
+            // tslint:disable-next-line: no-unused-expression
+            isFunction(originalDestroy) && originalDestroy.apply(this, arguments);
+            componentInstance['__takeUntilDestroy'].next(true);
+            componentInstance['__takeUntilDestroy'].complete();
+        };
+    }
+    return source.pipe(takeUntil(componentInstance['__takeUntilDestroy']));
+};
 
 let DomInsertionService = class DomInsertionService {
     constructor() {
@@ -2647,6 +3122,7 @@ let ListService = class ListService {
         this._sortOrder = '';
         this._query$ = new ReplaySubject(1);
         this._isLoading$ = new BehaviorSubject(false);
+        this.destroy$ = new Subject();
         this.get = () => {
             this._query$.next({
                 filter: this._filter || undefined,
@@ -2704,9 +3180,11 @@ let ListService = class ListService {
     }
     hookToQuery(streamCreatorCallback) {
         this._isLoading$.next(true);
-        return this.query$.pipe(switchMap(query => streamCreatorCallback(query).pipe(catchError(() => of(null)))), filter(Boolean), tap(() => this._isLoading$.next(false)), shareReplay({ bufferSize: 1, refCount: true }), takeUntilDestroy(this));
+        return this.query$.pipe(switchMap(query => streamCreatorCallback(query).pipe(catchError(() => of(null)))), filter(Boolean), tap(() => this._isLoading$.next(false)), shareReplay({ bufferSize: 1, refCount: true }), takeUntil(this.destroy$));
     }
-    ngOnDestroy() { }
+    ngOnDestroy() {
+        this.destroy$.next();
+    }
 };
 ListService = __decorate([
     Injectable(),
@@ -3186,5 +3664,5 @@ const AbpValidators = {
  * Generated bundle index. Do not edit.
  */
 
-export { AbpValidators, AbstractNavTreeService, AbstractNgModelComponent, AbstractTreeService, AddReplaceableComponent, ApiInterceptor, ApplicationConfigurationService, AuditedEntityDto, AuditedEntityWithUserDto, AuthGuard, AuthService, AutofocusDirective, BaseCoreModule, BaseTreeNode, CONTAINER_STRATEGY, CONTENT_SECURITY_STRATEGY, CONTENT_STRATEGY, CONTEXT_STRATEGY, CORE_OPTIONS, CROSS_ORIGIN_STRATEGY, ChangePassword, ClearContainerStrategy, ComponentContextStrategy, ComponentProjectionStrategy, ConfigPlugin, ConfigState, ConfigStateService, ContainerStrategy, ContentProjectionService, ContentSecurityStrategy, ContentStrategy, ContextStrategy, CoreModule, CreationAuditedEntityDto, CreationAuditedEntityWithUserDto, CrossOriginStrategy, DOM_STRATEGY, DomInsertionService, DomStrategy, DynamicLayoutComponent, EllipsisDirective, EntityDto, ExtensibleAuditedEntityDto, ExtensibleAuditedEntityWithUserDto, ExtensibleCreationAuditedEntityDto, ExtensibleCreationAuditedEntityWithUserDto, ExtensibleEntityDto, ExtensibleFullAuditedEntityDto, ExtensibleFullAuditedEntityWithUserDto, ExtensibleObject, ForDirective, FormSubmitDirective, FullAuditedEntityDto, FullAuditedEntityWithUserDto, GetAppConfiguration, GetProfile, InitDirective, InputEventDebounceDirective, InsertIntoContainerStrategy, LIST_QUERY_DEBOUNCE_TIME, LOADING_STRATEGY, LazyLoadService, LazyModuleFactory, LimitedResultRequestDto, ListResultDto, ListService, LoadingStrategy, LocalizationModule, LocalizationPipe, LocalizationService, LooseContentSecurityStrategy, MockLocalizationPipe, ModifyOpenedTabCount, NGXS_CONFIG_PLUGIN_OPTIONS, NoContentSecurityStrategy, NoContextStrategy, PROJECTION_STRATEGY, PagedAndSortedResultRequestDto, PagedResultDto, PagedResultRequestDto, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ProjectionStrategy, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, RestOccurError, RestService, RootComponentProjectionStrategy, RootCoreModule, RouterOutletComponent, RoutesService, ScriptContentStrategy, ScriptLoadingStrategy, SessionState, SessionStateService, SetEnvironment, SetLanguage, SetRemember, SetTenant, SettingTabsService, SortPipe, StartLoader, StopLoader, StopPropagationDirective, StyleContentStrategy, StyleLoadingStrategy, TemplateContextStrategy, TemplateProjectionStrategy, TestCoreModule, TrackByService, UpdateProfile, VisibilityDirective, createLocalizationPipeKeyGenerator, createLocalizer, createLocalizerWithFallback, createMapFromList, createTreeFromList, findRoute, fromLazyLoad, generateHash, generatePassword, getInitialData, getLocaleDirection, getRoutePath, isNumber, isUndefinedOrEmptyString, localeInitializer, mapEnumToOptions, noop, pushValueTo, registerLocale, storageFactory, takeUntilDestroy, trackBy, trackByDeep, uuid, validateCreditCard, validateMinAge, validateRange, validateRequired, validateStringLength, validateUrl, ɵ0, AbstractNgModelComponent as ɵa, AutofocusDirective as ɵb, UpdateProfile as ɵba, ChangePassword as ɵbb, SessionState as ɵbd, SetLanguage as ɵbe, SetTenant as ɵbf, ModifyOpenedTabCount as ɵbg, SetRemember as ɵbh, ConfigState as ɵbj, GetAppConfiguration as ɵbk, SetEnvironment as ɵbl, LocaleId as ɵbn, LocaleProvider as ɵbo, LocalizationService as ɵbp, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbq, ConfigPlugin as ɵbr, ApiInterceptor as ɵbs, getInitialData as ɵbt, localeInitializer as ɵbu, noop as ɵbv, RoutesHandler as ɵbw, AbstractTreeService as ɵbx, AbstractNavTreeService as ɵby, RoutesService as ɵbz, DynamicLayoutComponent as ɵc, EllipsisDirective as ɵd, ForDirective as ɵe, FormSubmitDirective as ɵf, InitDirective as ɵg, InputEventDebounceDirective as ɵh, PermissionDirective as ɵi, ReplaceableRouteContainerComponent as ɵj, ReplaceableTemplateDirective as ɵk, RouterOutletComponent as ɵl, SortPipe as ɵm, StopPropagationDirective as ɵn, VisibilityDirective as ɵo, LocalizationPipe as ɵp, MockLocalizationPipe as ɵq, ReplaceableComponentsState as ɵr, AddReplaceableComponent as ɵs, ProfileState as ɵu, ProfileService as ɵv, RestService as ɵw, CORE_OPTIONS as ɵx, GetProfile as ɵz };
+export { AUTH_FLOW_STRATEGY, AbpValidators, AbstractNavTreeService, AbstractNgModelComponent, AbstractTreeService, AddReplaceableComponent, ApiInterceptor, ApplicationConfigurationService, AuditedEntityDto, AuditedEntityWithUserDto, AuthCodeFlowStrategy, AuthFlowStrategy, AuthGuard, AuthPasswordFlowStrategy, AuthService, AutofocusDirective, BaseCoreModule, BaseTreeNode, CONTAINER_STRATEGY, CONTENT_SECURITY_STRATEGY, CONTENT_STRATEGY, CONTEXT_STRATEGY, CORE_OPTIONS, CROSS_ORIGIN_STRATEGY, ChangePassword, ClearContainerStrategy, ComponentContextStrategy, ComponentProjectionStrategy, ConfigPlugin, ConfigState, ConfigStateService, ContainerStrategy, ContentProjectionService, ContentSecurityStrategy, ContentStrategy, ContextStrategy, CoreModule, CreationAuditedEntityDto, CreationAuditedEntityWithUserDto, CrossOriginStrategy, DOM_STRATEGY, DomInsertionService, DomStrategy, DynamicLayoutComponent, EllipsisDirective, EntityDto, ExtensibleAuditedEntityDto, ExtensibleAuditedEntityWithUserDto, ExtensibleCreationAuditedEntityDto, ExtensibleCreationAuditedEntityWithUserDto, ExtensibleEntityDto, ExtensibleFullAuditedEntityDto, ExtensibleFullAuditedEntityWithUserDto, ExtensibleObject, FindTenantResultDto, ForDirective, FormSubmitDirective, FullAuditedEntityDto, FullAuditedEntityWithUserDto, GetAppConfiguration, GetProfile, InitDirective, InputEventDebounceDirective, InsertIntoContainerStrategy, LIST_QUERY_DEBOUNCE_TIME, LOADING_STRATEGY, LazyLoadService, LazyModuleFactory, LimitedResultRequestDto, ListResultDto, ListService, LoadingStrategy, LocalizationModule, LocalizationPipe, LocalizationService, LooseContentSecurityStrategy, MockLocalizationPipe, ModifyOpenedTabCount, MultiTenancyService, NGXS_CONFIG_PLUGIN_OPTIONS, NoContentSecurityStrategy, NoContextStrategy, PROJECTION_STRATEGY, PagedAndSortedResultRequestDto, PagedResultDto, PagedResultRequestDto, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ProjectionStrategy, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, RestOccurError, RestService, RootComponentProjectionStrategy, RootCoreModule, RouterOutletComponent, RoutesService, ScriptContentStrategy, ScriptLoadingStrategy, SessionState, SessionStateService, SetEnvironment, SetLanguage, SetRemember, SetTenant, SettingTabsService, SortPipe, StartLoader, StopLoader, StopPropagationDirective, StyleContentStrategy, StyleLoadingStrategy, SubscriptionService, TemplateContextStrategy, TemplateProjectionStrategy, TestCoreModule, TrackByService, UpdateProfile, VisibilityDirective, checkAccessToken, coreOptionsFactory, createLocalizationPipeKeyGenerator, createLocalizer, createLocalizerWithFallback, createMapFromList, createTokenParser, createTreeFromList, deepMerge, exists, findRoute, fromLazyLoad, generateHash, generatePassword, getInitialData, getLocaleDirection, getRemoteEnv, getRoutePath, getShortDateFormat, getShortDateShortTimeFormat, getShortTimeFormat, interpolate, isArray, isNullOrUndefined, isNumber, isObject, isObjectAndNotArray, isUndefinedOrEmptyString, localeInitializer, mapEnumToOptions, ngxsStoragePluginSerialize, noop, oAuthStorage, parseTenantFromUrl, pushValueTo, registerLocale, storageFactory, takeUntilDestroy, trackBy, trackByDeep, uuid, validateCreditCard, validateMinAge, validateRange, validateRequired, validateStringLength, validateUrl, ɵ0, oAuthStorage as ɵa, AbstractNgModelComponent as ɵb, CORE_OPTIONS as ɵba, coreOptionsFactory as ɵbb, GetProfile as ɵbd, UpdateProfile as ɵbe, ChangePassword as ɵbf, SessionState as ɵbh, SetLanguage as ɵbi, SetTenant as ɵbj, ModifyOpenedTabCount as ɵbk, SetRemember as ɵbl, ConfigState as ɵbn, GetAppConfiguration as ɵbo, SetEnvironment as ɵbp, LocaleId as ɵbr, LocaleProvider as ɵbs, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbt, ConfigPlugin as ɵbu, ApiInterceptor as ɵbv, OAuthConfigurationHandler as ɵbw, noop as ɵbx, getInitialData as ɵby, localeInitializer as ɵbz, AutofocusDirective as ɵc, RoutesHandler as ɵca, AbstractTreeService as ɵcb, AbstractNavTreeService as ɵcc, RoutesService as ɵcd, DynamicLayoutComponent as ɵd, SubscriptionService as ɵe, LocalizationService as ɵf, EllipsisDirective as ɵg, ForDirective as ɵh, FormSubmitDirective as ɵi, InitDirective as ɵj, InputEventDebounceDirective as ɵk, PermissionDirective as ɵl, ReplaceableRouteContainerComponent as ɵm, ReplaceableTemplateDirective as ɵn, RouterOutletComponent as ɵo, SortPipe as ɵp, StopPropagationDirective as ɵq, VisibilityDirective as ɵr, LocalizationPipe as ɵs, MockLocalizationPipe as ɵt, ReplaceableComponentsState as ɵu, AddReplaceableComponent as ɵv, ProfileState as ɵx, ProfileService as ɵy, RestService as ɵz };
 //# sourceMappingURL=abp-ng.core.js.map

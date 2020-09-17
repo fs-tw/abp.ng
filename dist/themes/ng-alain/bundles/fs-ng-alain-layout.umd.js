@@ -1,13 +1,37 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@fs/ng-alain/shared'), require('@angular/common'), require('@angular/router'), require('@delon/theme'), require('@delon/util'), require('ng-zorro-antd/message'), require('rxjs'), require('rxjs/operators'), require('screenfull'), require('@fs/ng-alain/core'), require('@abp/ng.core'), require('@ngxs/store'), require('snq'), require('date-fns/add'), require('date-fns/formatDistanceToNow'), require('date-fns/parse'), require('ng-zorro-antd/i18n'), require('ng-zorro-antd/modal'), require('@delon/auth'), require('@angular/cdk/platform')) :
-    typeof define === 'function' && define.amd ? define('@fs/ng-alain/layout', ['exports', '@angular/core', '@fs/ng-alain/shared', '@angular/common', '@angular/router', '@delon/theme', '@delon/util', 'ng-zorro-antd/message', 'rxjs', 'rxjs/operators', 'screenfull', '@fs/ng-alain/core', '@abp/ng.core', '@ngxs/store', 'snq', 'date-fns/add', 'date-fns/formatDistanceToNow', 'date-fns/parse', 'ng-zorro-antd/i18n', 'ng-zorro-antd/modal', '@delon/auth', '@angular/cdk/platform'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].layout = {}), global.ng.core, global.fs['ng-alain'].shared, global.ng.common, global.ng.router, global.theme, global.util, global.message, global.rxjs, global.rxjs.operators, global.screenfull, global.fs['ng-alain'].core, global.ng_core, global.store, global.snq, global.add, global.formatDistanceToNow, global.parse, global.i18n, global.modal, global.auth, global.ng.cdk.platform));
-}(this, (function (exports, core, shared, common, router, theme, util, message, rxjs, operators, screenfull, core$1, ng_core, store, snq, add, formatDistanceToNow, parse, i18n, modal, auth, platform) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@fs/ng-alain/shared'), require('@angular/common'), require('@angular/router'), require('@delon/theme'), require('@delon/util'), require('ng-zorro-antd/message'), require('rxjs'), require('rxjs/operators'), require('screenfull'), require('@fs/ng-alain/core'), require('@abp/ng.core'), require('@ngxs/store'), require('snq'), require('date-fns/add'), require('date-fns/formatDistanceToNow'), require('date-fns/parse'), require('ng-zorro-antd/i18n'), require('ng-zorro-antd/modal'), require('@delon/auth'), require('@angular/cdk/platform'), require('@fs/theme.core')) :
+    typeof define === 'function' && define.amd ? define('@fs/ng-alain/layout', ['exports', '@angular/core', '@fs/ng-alain/shared', '@angular/common', '@angular/router', '@delon/theme', '@delon/util', 'ng-zorro-antd/message', 'rxjs', 'rxjs/operators', 'screenfull', '@fs/ng-alain/core', '@abp/ng.core', '@ngxs/store', 'snq', 'date-fns/add', 'date-fns/formatDistanceToNow', 'date-fns/parse', 'ng-zorro-antd/i18n', 'ng-zorro-antd/modal', '@delon/auth', '@angular/cdk/platform', '@fs/theme.core'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].layout = {}), global.ng.core, global.fs['ng-alain'].shared, global.ng.common, global.ng.router, global.theme, global.util, global.message, global.rxjs, global.rxjs.operators, global.screenfull, global.fs['ng-alain'].core, global.ng_core, global.store, global.snq, global.add, global.formatDistanceToNow, global.parse, global.i18n, global.modal, global.auth, global.ng.cdk.platform, global.theme_core));
+}(this, (function (exports, core, shared, common, router, theme, util, message, rxjs, operators, screenfull, core$1, ng_core, store, snq, add, formatDistanceToNow, parse, i18n, modal, auth, platform, theme_core) { 'use strict';
 
-    snq = snq && Object.prototype.hasOwnProperty.call(snq, 'default') ? snq['default'] : snq;
-    add = add && Object.prototype.hasOwnProperty.call(add, 'default') ? add['default'] : add;
-    formatDistanceToNow = formatDistanceToNow && Object.prototype.hasOwnProperty.call(formatDistanceToNow, 'default') ? formatDistanceToNow['default'] : formatDistanceToNow;
-    parse = parse && Object.prototype.hasOwnProperty.call(parse, 'default') ? parse['default'] : parse;
+    function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+    function _interopNamespace(e) {
+        if (e && e.__esModule) { return e; } else {
+            var n = Object.create(null);
+            if (e) {
+                Object.keys(e).forEach(function (k) {
+                    if (k !== 'default') {
+                        var d = Object.getOwnPropertyDescriptor(e, k);
+                        Object.defineProperty(n, k, d.get ? d : {
+                            enumerable: true,
+                            get: function () {
+                                return e[k];
+                            }
+                        });
+                    }
+                });
+            }
+            n['default'] = e;
+            return Object.freeze(n);
+        }
+    }
+
+    var screenfull__namespace = /*#__PURE__*/_interopNamespace(screenfull);
+    var snq__default = /*#__PURE__*/_interopDefaultLegacy(snq);
+    var add__default = /*#__PURE__*/_interopDefaultLegacy(add);
+    var formatDistanceToNow__default = /*#__PURE__*/_interopDefaultLegacy(formatDistanceToNow);
+    var parse__default = /*#__PURE__*/_interopDefaultLegacy(parse);
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -664,7 +688,7 @@
                 if (evt instanceof router.NavigationError || evt instanceof router.NavigationCancel) {
                     _this.isFetching = false;
                     if (evt instanceof router.NavigationError) {
-                        msgSrv.error("\u65E0\u6CD5\u52A0\u8F7D" + evt.url + "\u8DEF\u7531", { nzDuration: 1000 * 3 });
+                        msgSrv.error("Can not load: " + evt.url + " Route", { nzDuration: 1000 * 3 });
                     }
                     return;
                 }
@@ -692,7 +716,7 @@
         LayoutDefaultComponent.prototype.ngAfterViewInit = function () {
             var _this = this;
             // Setting componet for only developer
-            if (true) {
+            if (false) {
                 setTimeout(function () {
                     var settingFactory = _this.resolver.resolveComponentFactory(exports.SettingDrawerComponent);
                     _this.settingHost.createComponent(settingFactory);
@@ -719,7 +743,7 @@
     exports.LayoutDefaultComponent = __decorate([
         core.Component({
             selector: 'layout-default',
-            template: "<div class=\"alain-default__progress-bar\" *ngIf=\"isFetching\"></div>\r\n<layout-header class=\"alain-default__header\"></layout-header>\r\n<layout-sidebar class=\"alain-default__aside\"></layout-sidebar>\r\n<section class=\"alain-default__content\">\r\n  <router-outlet></router-outlet>\r\n</section>\r\n<ng-template #settingHost></ng-template>\r\n<layout-theme-btn></layout-theme-btn>\r\n"
+            template: "<div class=\"alain-default__progress-bar\" *ngIf=\"isFetching\"></div>\r\n<layout-header class=\"alain-default__header\"></layout-header>\r\n<layout-sidebar class=\"alain-default__aside\"></layout-sidebar>\r\n<section class=\"alain-default__content\">\r\n  <router-outlet></router-outlet>\r\n</section>\r\n<!-- <ng-template #settingHost></ng-template> -->\r\n<!-- <layout-theme-btn></layout-theme-btn> -->\r\n"
         }),
         __param(6, core.Inject(common.DOCUMENT)),
         __metadata("design:paramtypes", [router.Router,
@@ -736,7 +760,7 @@
         }
         Object.defineProperty(HeaderFullScreenComponent.prototype, "sf", {
             get: function () {
-                return screenfull;
+                return screenfull__namespace;
             },
             enumerable: true,
             configurable: true
@@ -775,6 +799,7 @@
         })
     ], exports.ɵe);
 
+    //todo:refresh menu
     exports.ɵf = /** @class */ (function () {
         function HeaderI18nComponent(settings, i18n, doc, store) {
             this.settings = settings;
@@ -787,7 +812,7 @@
         Object.defineProperty(HeaderI18nComponent.prototype, "defaultLanguage$", {
             get: function () {
                 var _this = this;
-                return this.languages$.pipe(operators.map(function (languages) { return snq(function () { return languages.find(function (lang) { return lang.cultureName === _this.selectedLangCulture; }).displayName; }); }, ''));
+                return this.languages$.pipe(operators.map(function (languages) { return snq__default['default'](function () { return languages.find(function (lang) { return lang.cultureName === _this.selectedLangCulture; }).displayName; }); }, ''));
             },
             enumerable: true,
             configurable: true
@@ -795,7 +820,7 @@
         Object.defineProperty(HeaderI18nComponent.prototype, "dropdownLanguages$", {
             get: function () {
                 var _this = this;
-                return this.languages$.pipe(operators.map(function (languages) { return snq(function () { return languages.filter(function (lang) { return lang.cultureName !== _this.selectedLangCulture; }); }); }, []));
+                return this.languages$.pipe(operators.map(function (languages) { return snq__default['default'](function () { return languages.filter(function (lang) { return lang.cultureName !== _this.selectedLangCulture; }); }); }, []));
             },
             enumerable: true,
             configurable: true
@@ -909,10 +934,10 @@
             notices.forEach(function (item) {
                 var newItem = Object.assign({}, item);
                 if (typeof newItem.datetime === 'string') {
-                    newItem.datetime = parse(newItem.datetime, 'yyyy-MM-dd', new Date());
+                    newItem.datetime = parse__default['default'](newItem.datetime, 'yyyy-MM-dd', new Date());
                 }
                 if (newItem.datetime) {
-                    newItem.datetime = formatDistanceToNow(newItem.datetime, { locale: _this.nzI18n.getDateLocale() });
+                    newItem.datetime = formatDistanceToNow__default['default'](newItem.datetime, { locale: _this.nzI18n.getDateLocale() });
                 }
                 if (newItem.extra && newItem.status) {
                     newItem.color = {
@@ -939,21 +964,21 @@
                         id: '000000001',
                         avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png',
                         title: '你收到了 14 份新周报',
-                        datetime: add(now, { days: 10 }),
+                        datetime: add__default['default'](now, { days: 10 }),
                         type: '通知',
                     },
                     {
                         id: '000000002',
                         avatar: 'https://gw.alipayobjects.com/zos/rmsportal/OKJXDXrmkNshAMvwtvhu.png',
                         title: '你推荐的 曲妮妮 已通过第三轮面试',
-                        datetime: add(now, { days: -3 }),
+                        datetime: add__default['default'](now, { days: -3 }),
                         type: '通知',
                     },
                     {
                         id: '000000003',
                         avatar: 'https://gw.alipayobjects.com/zos/rmsportal/kISTdvpyTAhtGxpovNWd.png',
                         title: '这种模板可以区分多种通知类型',
-                        datetime: add(now, { months: -3 }),
+                        datetime: add__default['default'](now, { months: -3 }),
                         read: true,
                         type: '通知',
                     },
@@ -961,7 +986,7 @@
                         id: '000000004',
                         avatar: 'https://gw.alipayobjects.com/zos/rmsportal/GvqBnKhFgObvnSGkDsje.png',
                         title: '左侧图标用于区分不同的类型',
-                        datetime: add(now, { years: -1 }),
+                        datetime: add__default['default'](now, { years: -1 }),
                         type: '通知',
                     },
                     {
@@ -1213,10 +1238,14 @@
         };
         return HeaderComponent;
     }());
+    __decorate([
+        store.Select(ng_core.ConfigState.getSetting('FS.Abp.Themes.Core.WebsiteOptions.Title')),
+        __metadata("design:type", Object)
+    ], exports.HeaderComponent.prototype, "title$", void 0);
     exports.HeaderComponent = __decorate([
         core.Component({
             selector: 'layout-header',
-            template: "<div class=\"alain-default__header-logo\">\r\n  <a [routerLink]=\"['/']\" class=\"alain-default__header-logo-link\">\r\n    <!-- <img\r\n    *ngIf=\"appInfo.logoUrl; else appName\"\r\n    [src]=\"appInfo.logoUrl\"\r\n    [alt]=\"appInfo.name\"\r\n    style=\"max-height:40px;\"\r\n    />     -->\r\n    <img\r\n      class=\"alain-default__header-logo-expanded\"\r\n      src=\"./assets/logo-full.svg\"\r\n      alt=\"{{ appInfo.name }}\"\r\n      style=\"max-height:40px;\"\r\n    />\r\n    <img\r\n      class=\"alain-default__header-logo-collapsed\"\r\n      src=\"./assets/logo.svg\"\r\n      alt=\"{{ appInfo.name }}\"\r\n      style=\"max-height:30px;\"\r\n    />\r\n  </a>\r\n  <ng-template #appName>\r\n    {{ appInfo.name }}\r\n  </ng-template>  \r\n</div>\r\n<div class=\"alain-default__nav-wrap\">\r\n  <ul class=\"alain-default__nav\">\r\n    <!-- Menu -->\r\n    <li>\r\n      <div class=\"alain-default__nav-item\" (click)=\"toggleCollapsedSidebar()\">\r\n        <i nz-icon nzType=\"menu-{{ settings.layout.collapsed ? 'unfold' : 'fold' }}\"></i>\r\n      </div>\r\n    </li>\r\n    <!-- Github Page -->\r\n    <!-- <li>\r\n      <a class=\"alain-default__nav-item\" href=\"//github.com/ng-alain/ng-alain\" target=\"_blank\">\r\n        <i nz-icon nzType=\"github\"></i>\r\n      </a>\r\n    </li> -->\r\n    <!-- Lock Page -->\r\n    <!-- <li class=\"hidden-mobile\">\r\n      <div class=\"alain-default__nav-item\" routerLink=\"/passport/lock\">\r\n        <i nz-icon nzType=\"lock\"></i>\r\n      </div>\r\n    </li> -->\r\n    <!-- Search Button -->\r\n    <!-- <li class=\"hidden-pc\" (click)=\"searchToggleChange()\">\r\n      <div class=\"alain-default__nav-item\">\r\n        <i nz-icon nzType=\"search\"></i>\r\n      </div>\r\n    </li> -->\r\n  </ul>\r\n  <!-- <header-search class=\"alain-default__search\" [toggleChange]=\"searchToggleStatus\"></header-search> -->\r\n  <ul class=\"alain-default__nav\">\r\n    <!-- Notify -->\r\n    <!-- <li>\r\n      <header-notify></header-notify>\r\n    </li> -->\r\n    <!-- Task -->\r\n    <!-- <li class=\"hidden-mobile\">\r\n      <header-task></header-task>\r\n    </li> -->\r\n    <!-- App Icons -->\r\n    <!-- <li class=\"hidden-mobile\">\r\n      <header-icon></header-icon>\r\n    </li> -->\r\n    <!-- Settings -->\r\n    <li>\r\n      <div\r\n        class=\"alain-default__nav-item\"\r\n        nz-dropdown\r\n        [nzDropdownMenu]=\"settingsMenu\"\r\n        nzTrigger=\"click\"\r\n        nzPlacement=\"bottomRight\"\r\n      >\r\n        <i nz-icon nzType=\"setting\"></i>\r\n      </div>\r\n      <nz-dropdown-menu #settingsMenu=\"nzDropdownMenu\">\r\n        <div nz-menu style=\"width:200px;\">\r\n          <!-- <div nz-menu-item>\r\n            <header-fullscreen></header-fullscreen>\r\n          </div>\r\n          <div nz-menu-item>\r\n            <header-storage></header-storage>\r\n          </div> -->\r\n          <div nz-menu-item>\r\n            <header-i18n></header-i18n>\r\n          </div>\r\n        </div>\r\n      </nz-dropdown-menu>\r\n    </li>\r\n    <li>\r\n      <header-user></header-user>\r\n    </li>\r\n  </ul>\r\n</div>\r\n",
+            template: "<div class=\"alain-default__header-logo\">\r\n  <a [routerLink]=\"['/']\" class=\"alain-default__header-logo-link\" style=\"color: #fff\">\r\n    {{title$| async}}\r\n  </a>\r\n</div>\r\n\r\n\r\n<div class=\"alain-default__nav-wrap\">\r\n  <ul class=\"alain-default__nav\">\r\n    <!-- Menu -->\r\n    <li>\r\n      <div class=\"alain-default__nav-item\" (click)=\"toggleCollapsedSidebar()\">\r\n        <i nz-icon nzType=\"menu-{{ settings.layout.collapsed ? 'unfold' : 'fold' }}\"></i>\r\n      </div>\r\n    </li>\r\n    <!-- TODO://  https://docs.abp.io/en/abp/latest/UI/Angular/Component-Replacement -->\r\n    <!-- Github Page -->\r\n    <!-- <li>\r\n      <a class=\"alain-default__nav-item\" href=\"//github.com/ng-alain/ng-alain\" target=\"_blank\">\r\n        <i nz-icon nzType=\"github\"></i>\r\n      </a>\r\n    </li> -->\r\n    <!-- Lock Page -->\r\n    <!-- <li class=\"hidden-mobile\">\r\n      <div class=\"alain-default__nav-item\" routerLink=\"/passport/lock\">\r\n        <i nz-icon nzType=\"lock\"></i>\r\n      </div>\r\n    </li> -->\r\n    <!-- Search Button -->\r\n    <!-- <li class=\"hidden-pc\" (click)=\"searchToggleChange()\">\r\n      <div class=\"alain-default__nav-item\">\r\n        <i nz-icon nzType=\"search\"></i>\r\n      </div>\r\n    </li> -->\r\n  </ul>\r\n  <!-- <header-search class=\"alain-default__search\" [toggleChange]=\"searchToggleStatus\"></header-search> -->\r\n  <ul class=\"alain-default__nav\">\r\n    <!-- Notify -->\r\n    <!-- <li>\r\n      <header-notify></header-notify>\r\n    </li> -->\r\n    <!-- Task -->\r\n    <!-- <li class=\"hidden-mobile\">\r\n      <header-task></header-task>\r\n    </li> -->\r\n    <!-- App Icons -->\r\n    <!-- <li class=\"hidden-mobile\">\r\n      <header-icon></header-icon>\r\n    </li> -->\r\n    <!-- Settings -->\r\n    <li>\r\n      <div\r\n        class=\"alain-default__nav-item\"\r\n        nz-dropdown\r\n        [nzDropdownMenu]=\"settingsMenu\"\r\n        nzTrigger=\"click\"\r\n        nzPlacement=\"bottomRight\"\r\n      >\r\n        <i nz-icon nzType=\"setting\"></i>\r\n      </div>\r\n      <nz-dropdown-menu #settingsMenu=\"nzDropdownMenu\">\r\n        <div nz-menu style=\"width:200px;\">\r\n          <!-- <div nz-menu-item>\r\n            <header-fullscreen></header-fullscreen>\r\n          </div>\r\n          <div nz-menu-item>\r\n            <header-storage></header-storage>\r\n          </div> -->\r\n          <div nz-menu-item>\r\n            <header-i18n></header-i18n>\r\n          </div>\r\n        </div>\r\n      </nz-dropdown-menu>\r\n    </li>\r\n    <li>\r\n      <header-user></header-user>\r\n    </li>\r\n  </ul>\r\n</div>\r\n",
             changeDetection: core.ChangeDetectionStrategy.OnPush
         }),
         __metadata("design:paramtypes", [theme.SettingsService,
@@ -1231,17 +1260,21 @@
             this.routes = routes;
             this.configStateService = configStateService;
             this.localizationPipe = localizationPipe;
-            this.routes.visible$.subscribe(function (x) {
+            this.routes.tree$
+                .pipe(ng_core.takeUntilDestroy(this))
+                .subscribe(function (x) {
                 _this.setMenu(x);
             });
         }
+        SidebarComponent.prototype.ngOnDestroy = function () {
+        };
         SidebarComponent.prototype.setMenu = function (routes) {
             var _this = this;
             var result = [];
             var condition = function (x) { return !!!x.invisible && _this.isGrantedPolicy(x.requiredPolicy); };
             routes.filter(condition).forEach(function (first) {
                 var group = {
-                    text: _this.localizationPipe.transform(first.name),
+                    text: first.displayName || _this.localizationPipe.transform(first.name),
                     group: true,
                     hideInBreadcrumb: true,
                     children: []
@@ -1250,23 +1283,23 @@
                 first.children.filter(condition).forEach(function (second) {
                     if (second.children.length === 0) {
                         var left = {
-                            text: _this.localizationPipe.transform(second.name),
+                            text: second.displayName || _this.localizationPipe.transform(second.name),
                             link: second.path,
                             icon: second.iconClass
                         };
-                        if (left.link.split('/').length > 2)
+                        if (left.link.split('/').length > 1)
                             group.children.push(left);
                     }
                     if (second.children.length != 0) {
                         var node_1 = {
-                            text: _this.localizationPipe.transform(second.name),
+                            text: second.displayName || _this.localizationPipe.transform(second.name),
                             icon: second.iconClass,
                             children: []
                         };
                         group.children.push(node_1);
                         second.children.filter(condition).forEach(function (third) {
                             var left = {
-                                text: _this.localizationPipe.transform(third.name),
+                                text: third.displayName || _this.localizationPipe.transform(third.name),
                                 link: third.path,
                                 icon: third.iconClass
                             };
@@ -1414,31 +1447,65 @@
 
     exports.LayoutPassportComponent = /** @class */ (function () {
         function LayoutPassportComponent() {
-            this.links = [
-                {
-                    title: '帮助',
-                    href: '',
-                },
-                {
-                    title: '隐私',
-                    href: '',
-                },
-                {
-                    title: '条款',
-                    href: '',
-                },
-            ];
+            this.links = [];
         }
         return LayoutPassportComponent;
     }());
     exports.LayoutPassportComponent.type = "account" /* account */;
+    __decorate([
+        store.Select(ng_core.ConfigState.getSetting('FS.Abp.Themes.Core.LoginPageOptions.Footer')),
+        __metadata("design:type", rxjs.Observable)
+    ], exports.LayoutPassportComponent.prototype, "footer$", void 0);
+    __decorate([
+        store.Select(ng_core.ConfigState.getSetting('FS.Abp.Themes.Core.LoginPageOptions.Title')),
+        __metadata("design:type", rxjs.Observable)
+    ], exports.LayoutPassportComponent.prototype, "title$", void 0);
+    __decorate([
+        store.Select(ng_core.ConfigState.getSetting('FS.Abp.Themes.Core.LoginPageOptions.Description')),
+        __metadata("design:type", rxjs.Observable)
+    ], exports.LayoutPassportComponent.prototype, "description$", void 0);
     exports.LayoutPassportComponent = __decorate([
         core.Component({
             selector: 'layout-passport',
-            template: "<div class=\"container\">\r\n  <header-i18n showLangText=\"false\" class=\"langs\"></header-i18n>\r\n  <div class=\"wrap\">\r\n    <div class=\"top\">\r\n      <div class=\"head\">\r\n        <img class=\"logo\" src=\"./assets/logo-color.svg\" />\r\n        <span class=\"title\">ng-alain</span>\r\n      </div>\r\n      <div class=\"desc\">\u6B66\u6797\u4E2D\u6700\u6709\u5F71\u54CD\u529B\u7684\u300A\u8475\u82B1\u5B9D\u5178\u300B\uFF1B\u6B32\u7EC3\u795E\u529F\uFF0C\u6325\u5200\u81EA\u5BAB</div>\r\n    </div>\r\n    <router-outlet></router-outlet>\r\n    <global-footer [links]=\"links\">\r\n      Copyright\r\n      <i nz-icon nzType=\"copyright\"></i> 2017 <a href=\"//github.com/cipchk\" target=\"_blank\">\u5361\u8272</a>\u51FA\u54C1\r\n    </global-footer>\r\n  </div>\r\n</div>\r\n<layout-theme-btn></layout-theme-btn>\r\n",
+            template: "<div class=\"container\">\r\n  <header-i18n showLangText=\"false\" class=\"langs\"></header-i18n>\r\n  <div class=\"wrap\">\r\n    <div class=\"top\">\r\n      <div class=\"head\">\r\n        <!-- <img class=\"logo\" src=\"./assets/logo-color.svg\" /> -->\r\n        <span class=\"title\">{{title$ | async}}</span>\r\n      </div>\r\n      <div class=\"desc\">{{description$ | async}}</div>\r\n    </div>\r\n    <router-outlet></router-outlet>\r\n    <global-footer [links]=\"links\">\r\n      <ng-container>\r\n          {{footer$ | async}}\r\n      </ng-container>\r\n      <!-- Copyright -->\r\n      <!-- <i nz-icon nzType=\"copyright\"></i> 2017 <a href=\"//github.com/cipchk\" target=\"_blank\">\u5361\u8272</a>\u51FA\u54C1 -->\r\n    </global-footer>\r\n  </div>\r\n</div>\r\n<!-- <layout-theme-btn></layout-theme-btn> -->\r\n",
             styles: [":host ::ng-deep .container{background:#f0f2f5;display:flex;flex-direction:column;min-height:100%}:host ::ng-deep .langs{height:40px;line-height:44px;text-align:right;width:100%}:host ::ng-deep .langs .anticon{cursor:pointer;font-size:14px;margin-right:24px;margin-top:24px;vertical-align:top}:host ::ng-deep .wrap{flex:1;padding:32px 0}:host ::ng-deep .ant-form-item{display:flex;justify-content:space-between;margin-bottom:24px}@media (min-width:768px){:host ::ng-deep .container{background-image:url(https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg);background-position:center 110px;background-repeat:no-repeat;background-size:100%}:host ::ng-deep .wrap{padding:32px 0 24px}}:host ::ng-deep .top{text-align:center}:host ::ng-deep .header{height:44px;line-height:44px}:host ::ng-deep .header a{text-decoration:none}:host ::ng-deep .logo{height:44px;margin-right:16px}:host ::ng-deep .title{color:rgba(0,0,0,.85);font-family:Myriad Pro,Helvetica Neue,Arial,Helvetica,sans-serif;font-size:33px;font-weight:600;position:relative;vertical-align:middle}:host ::ng-deep .desc{color:rgba(0,0,0,.45);font-size:14px;margin-bottom:40px;margin-top:12px}[data-theme=dark] :host ::ng-deep .container{background:#141414}[data-theme=dark] :host ::ng-deep .title{color:hsla(0,0%,100%,.85)}[data-theme=dark] :host ::ng-deep .desc{color:hsla(0,0%,100%,.45)}@media (min-width:768px){[data-theme=dark] :host ::ng-deep .container{background-image:none}}[data-theme=compact] :host ::ng-deep .ant-form-item{margin-bottom:16px}"]
         })
     ], exports.LayoutPassportComponent);
+
+    exports.PageBarComponent = /** @class */ (function () {
+        function PageBarComponent(router, route, titleService) {
+            this.router = router;
+            this.route = route;
+            this.titleService = titleService;
+        }
+        Object.defineProperty(PageBarComponent.prototype, "isCurrentPath", {
+            get: function () {
+                return this.router.createUrlTree(['./'], { relativeTo: this.route }).toString() === this.router.routerState.snapshot.url.toString();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        PageBarComponent.prototype.ngOnInit = function () {
+            // this.profile$.subscribe(x=>{
+            //   this.titleService.setTitle(x.title);
+            // });
+        };
+        PageBarComponent.prototype.ngOnDestroy = function () {
+        };
+        return PageBarComponent;
+    }());
+    __decorate([
+        store.Select(theme_core.RouterState.getProfile),
+        __metadata("design:type", rxjs.Observable)
+    ], exports.PageBarComponent.prototype, "profile$", void 0);
+    exports.PageBarComponent = __decorate([
+        core.Component({
+            template: "<page-header [autoBreadcrumb]=\"false\"></page-header>"
+        }),
+        __metadata("design:paramtypes", [router.Router,
+            router.ActivatedRoute,
+            theme.TitleService])
+    ], exports.PageBarComponent);
 
     var SETTINGDRAWER = [exports.SettingDrawerComponent, exports.SettingDrawerItemComponent];
     var COMPONENTS = __spread([
@@ -1467,10 +1534,10 @@
     }());
     exports.LayoutModule = __decorate([
         core.NgModule({
-            imports: [shared.SharedModule],
+            imports: [shared.NgAlainSharedModule],
             entryComponents: COMPONENTS,
-            declarations: __spread(COMPONENTS, HEADERCOMPONENTS, PASSPORT),
-            exports: __spread(COMPONENTS, PASSPORT),
+            declarations: __spread(COMPONENTS, HEADERCOMPONENTS, PASSPORT, [exports.PageBarComponent]),
+            exports: __spread(COMPONENTS, PASSPORT, [exports.PageBarComponent]),
         })
     ], exports.LayoutModule);
 

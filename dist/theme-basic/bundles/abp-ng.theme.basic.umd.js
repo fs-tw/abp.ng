@@ -1,10 +1,12 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@abp/ng.core'), require('@abp/ng.theme.shared'), require('rxjs'), require('rxjs/operators'), require('@ngxs/store'), require('@angular/router'), require('snq'), require('@ngx-validate/core'), require('@ng-bootstrap/ng-bootstrap')) :
     typeof define === 'function' && define.amd ? define('@abp/ng.theme.basic', ['exports', '@angular/core', '@abp/ng.core', '@abp/ng.theme.shared', 'rxjs', 'rxjs/operators', '@ngxs/store', '@angular/router', 'snq', '@ngx-validate/core', '@ng-bootstrap/ng-bootstrap'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.theme = global.abp.ng.theme || {}, global.abp.ng.theme.basic = {}), global.ng.core, global.ng_core, global.ng_theme_shared, global.rxjs, global.rxjs.operators, global.store, global.ng.router, global.snq, global.core$1, global.ngBootstrap));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.theme = global.abp.ng.theme || {}, global.abp.ng.theme.basic = {}), global.ng.core, global.ng_core, global.ng_theme_shared, global.rxjs, global.rxjs.operators, global.store, global.ng.router, global.snq, global.core$1, global.ngBootstrap));
 }(this, (function (exports, core, ng_core, ng_theme_shared, rxjs, operators, store, router, snq, core$1, ngBootstrap) { 'use strict';
 
-    snq = snq && Object.prototype.hasOwnProperty.call(snq, 'default') ? snq['default'] : snq;
+    function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+    var snq__default = /*#__PURE__*/_interopDefaultLegacy(snq);
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -313,7 +315,8 @@
     ], exports.ɵb);
 
     exports.ɵa = /** @class */ (function () {
-        function ApplicationLayoutComponent() {
+        function ApplicationLayoutComponent(subscription) {
+            this.subscription = subscription;
             this.isCollapsed = true;
             this.logoComponentKey = "Theme.LogoComponent" /* Logo */;
             this.routesComponentKey = "Theme.RoutesComponent" /* Routes */;
@@ -339,11 +342,8 @@
         ApplicationLayoutComponent.prototype.ngAfterViewInit = function () {
             var _this = this;
             this.checkWindowWidth();
-            rxjs.fromEvent(window, 'resize')
-                .pipe(ng_core.takeUntilDestroy(this), operators.debounceTime(150))
-                .subscribe(function () {
-                _this.checkWindowWidth();
-            });
+            var resize$ = rxjs.fromEvent(window, 'resize').pipe(operators.debounceTime(150));
+            this.subscription.addOne(resize$, function () { return _this.checkWindowWidth(); });
         };
         ApplicationLayoutComponent.prototype.ngOnDestroy = function () { };
         return ApplicationLayoutComponent;
@@ -354,8 +354,10 @@
         core.Component({
             selector: 'abp-layout-application',
             template: "<nav\r\n  class=\"navbar navbar-expand-lg navbar-dark bg-dark shadow-sm flex-column flex-md-row mb-4\"\r\n  id=\"main-navbar\"\r\n  style=\"min-height: 4rem;\"\r\n>\r\n  <div class=\"container\">\r\n    <abp-logo *abpReplaceableTemplate=\"{ componentKey: logoComponentKey }\"></abp-logo>\r\n    <button\r\n      class=\"navbar-toggler\"\r\n      type=\"button\"\r\n      [attr.aria-expanded]=\"!isCollapsed\"\r\n      (click)=\"isCollapsed = !isCollapsed\"\r\n    >\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n    <div class=\"navbar-collapse\" [class.overflow-hidden]=\"smallScreen\" id=\"main-navbar-collapse\">\r\n      <ng-container *ngTemplateOutlet=\"!smallScreen ? navigations : null\"></ng-container>\r\n\r\n      <div *ngIf=\"smallScreen\" [@collapseWithMargin]=\"isCollapsed ? 'collapsed' : 'expanded'\">\r\n        <ng-container *ngTemplateOutlet=\"navigations\"></ng-container>\r\n      </div>\r\n\r\n      <ng-template #navigations>\r\n        <abp-routes\r\n          *abpReplaceableTemplate=\"{\r\n            componentKey: routesComponentKey,\r\n            inputs: {\r\n              smallScreen: { value: smallScreen }\r\n            }\r\n          }\"\r\n          class=\"mx-auto\"\r\n          [smallScreen]=\"smallScreen\"\r\n        ></abp-routes>\r\n\r\n        <abp-nav-items\r\n          *abpReplaceableTemplate=\"{\r\n            componentKey: navItemsComponentKey\r\n          }\"\r\n        ></abp-nav-items>\r\n      </ng-template>\r\n    </div>\r\n  </div>\r\n</nav>\r\n\r\n<!-- [@slideFromBottom]=\"outlet.isActivated && outlet.activatedRoute?.routeConfig?.path\" TODO: throws ExpressionChangedAfterItHasBeenCheck when animation is active. It should be fixed -->\r\n<div class=\"container\">\r\n  <router-outlet #outlet=\"outlet\"></router-outlet>\r\n</div>\r\n",
-            animations: [ng_theme_shared.slideFromBottom, ng_theme_shared.collapseWithMargin]
-        })
+            animations: [ng_theme_shared.slideFromBottom, ng_theme_shared.collapseWithMargin],
+            providers: [ng_core.SubscriptionService]
+        }),
+        __metadata("design:paramtypes", [ng_core.SubscriptionService])
     ], exports.ɵa);
 
     exports.ɵc = /** @class */ (function () {
@@ -440,7 +442,7 @@
         Object.defineProperty(LanguagesComponent.prototype, "defaultLanguage$", {
             get: function () {
                 var _this = this;
-                return this.languages$.pipe(operators.map(function (languages) { return snq(function () { return languages.find(function (lang) { return lang.cultureName === _this.selectedLangCulture; }).displayName; }); }, ''));
+                return this.languages$.pipe(operators.map(function (languages) { return snq__default['default'](function () { return languages.find(function (lang) { return lang.cultureName === _this.selectedLangCulture; }).displayName; }); }, ''));
             },
             enumerable: true,
             configurable: true
@@ -448,7 +450,7 @@
         Object.defineProperty(LanguagesComponent.prototype, "dropdownLanguages$", {
             get: function () {
                 var _this = this;
-                return this.languages$.pipe(operators.map(function (languages) { return snq(function () { return languages.filter(function (lang) { return lang.cultureName !== _this.selectedLangCulture; }); }); }, []));
+                return this.languages$.pipe(operators.map(function (languages) { return snq__default['default'](function () { return languages.filter(function (lang) { return lang.cultureName !== _this.selectedLangCulture; }); }); }, []));
             },
             enumerable: true,
             configurable: true
@@ -489,7 +491,7 @@
     exports.ɵf = __decorate([
         core.Component({
             selector: 'abp-nav-items',
-            template: "<ul class=\"navbar-nav\">\r\n  <li\r\n    class=\"nav-item d-flex align-items-center\"\r\n    *ngFor=\"let item of navItems.items$ | async; trackBy: trackByFn\"\r\n    [abpPermission]=\"item.requiredPolicy\"\r\n  >\r\n    <ng-container\r\n      *ngIf=\"item.component; else htmlTemplate\"\r\n      [ngComponentOutlet]=\"item.component\"\r\n    ></ng-container>\r\n\r\n    <ng-template #htmlTemplate>\r\n      <div [innerHTML]=\"item.html\" (click)=\"item.action ? item.action() : null\"></div>\r\n    </ng-template>\r\n  </li>\r\n</ul>\r\n"
+            template: "<ul class=\"navbar-nav\">\r\n  <ng-container *ngFor=\"let item of navItems.items$ | async; trackBy: trackByFn\">\r\n    <li\r\n      class=\"nav-item d-flex align-items-center\"\r\n      *ngIf=\"item.visible()\"\r\n      [abpPermission]=\"item.requiredPolicy\"\r\n    >\r\n      <ng-container\r\n        *ngIf=\"item.component; else htmlTemplate\"\r\n        [ngComponentOutlet]=\"item.component\"\r\n      ></ng-container>\r\n\r\n      <ng-template #htmlTemplate>\r\n        <div [innerHTML]=\"item.html\" (click)=\"item.action ? item.action() : null\"></div>\r\n      </ng-template>\r\n    </li>\r\n  </ng-container>\r\n</ul>\r\n"
         }),
         __metadata("design:paramtypes", [ng_theme_shared.NavItemsService])
     ], exports.ɵf);
@@ -500,7 +502,7 @@
             this.trackByFn = function (_, item) { return item.name; };
         }
         RoutesComponent.prototype.isDropdown = function (node) {
-            return !node.isLeaf || this.routes.hasChildren(node.name);
+            return !(node === null || node === void 0 ? void 0 : node.isLeaf) || this.routes.hasChildren(node.name);
         };
         return RoutesComponent;
     }());
@@ -567,14 +569,14 @@
                 },
                 {
                     id: "Theme.CurrentUserComponent" /* CurrentUser */,
-                    order: 101,
+                    order: 100,
                     component: exports.ɵh,
                 },
             ]);
         };
     }
 
-    var styles = "\n.content-header-title {\n    font-size: 24px;\n}\n.entry-row {\n    margin-bottom: 15px;\n}\n#main-navbar-tools a.dropdown-toggle {\n    text-decoration: none;\n    color: #fff;\n}\n.navbar .dropdown-submenu {\n    position: relative;\n}\n.navbar .dropdown-menu {\n    margin: 0;\n    padding: 0;\n}\n.navbar .dropdown-menu a {\n    font-size: .9em;\n    padding: 10px 15px;\n    display: block;\n    min-width: 210px;\n    text-align: left;\n    border-radius: 0.25rem;\n    min-height: 44px;\n}\n[dir=rtl] .navbar .dropdown-menu a {\n    text-align: right!important;\n}\n.navbar .dropdown-submenu a::after {\n    transform: rotate(-90deg);\n    position: absolute;\n    right: 16px;\n    top: 18px;\n}\n[dir=rtl] .navbar .dropdown-submenu a::after {\n    transform: rotate(90deg);\n    left: 16px;\n    right: auto;\n    top: 20px;\n}\n.navbar .dropdown-submenu .dropdown-menu {\n    top: 0;\n    left: 100%;\n}\n.card-header .btn {\n    padding: 2px 6px;\n}\n.card-header h5 {\n    margin: 0;\n}\n.container > .card {\n    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;\n}\n@media screen and (min-width: 992px) {\n    .navbar .dropdown:hover > .dropdown-menu {\n        display: block;\n    }\n\n    .navbar .dropdown-submenu:hover > .dropdown-menu {\n        display: block;\n    }\n}\n.input-validation-error {\n    border-color: #dc3545;\n}\n.field-validation-error {\n    font-size: 0.8em;\n}\n.ui-table .ui-table-tbody > tr.empty-row > div.empty-row-content {\n    border: 1px solid #c8c8c8;\n  }\n.abp-loading {\n    background: rgba(0, 0, 0, 0.1);\n}\n.modal-backdrop {\nbackground-color: rgba(0, 0, 0, 0.6);\n}\n\n.confirmation .confirmation-backdrop {\n\t background: rgba(0, 0, 0, 0.7) !important;\n}\n .confirmation .confirmation-dialog {\n\t border: none;\n\t border-radius: 10px;\n\t background-color: #fff;\n\t box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.5);\n}\n .confirmation .confirmation-dialog .icon-container .icon {\n\t stroke: #fff;\n\t color: #fff;\n}\n .confirmation .confirmation-dialog .icon-container.info .icon {\n\t stroke: #2f96b4;\n\t color: #2f96b4;\n}\n .confirmation .confirmation-dialog .icon-container.success .icon {\n\t stroke: #51a351;\n\t color: #51a351;\n}\n .confirmation .confirmation-dialog .icon-container.warning .icon {\n\t stroke: #f89406;\n\t color: #f89406;\n}\n .confirmation .confirmation-dialog .icon-container.error .icon {\n\t stroke: #bd362f;\n\t color: #bd362f;\n}\n .confirmation .confirmation-dialog .content .title {\n\t color: #222;\n}\n .confirmation .confirmation-dialog .content .message {\n\t color: #777;\n}\n .confirmation .confirmation-dialog .footer {\n\t background: transparent;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button {\n\t background-color: #eee;\n\t color: #777;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button:hover, .confirmation .confirmation-dialog .footer .confirmation-button:focus, .confirmation .confirmation-dialog .footer .confirmation-button:active {\n\t background-color: #bbb;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button--confirm {\n\t background-color: #2f96b4;\n\t color: #fff;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button--confirm:hover {\n\t background-color: #2e819b;\n}\n.ui-table .pagination-wrapper {\n    background-color: #f4f4f4;\n    border: 1px solid #c8c8c8;\n}\n.bordered .datatable-body-row {\n    border-top: 1px solid #eee;\n    margin-top: -1px;\n}\n";
+    var styles = "\n.content-header-title {\n    font-size: 24px;\n}\n.entry-row {\n    margin-bottom: 15px;\n}\n#main-navbar-tools a.dropdown-toggle {\n    text-decoration: none;\n    color: #fff;\n}\n.navbar .dropdown-submenu {\n    position: relative;\n}\n.navbar .dropdown-menu {\n    margin: 0;\n    padding: 0;\n}\n.navbar .dropdown-menu a {\n    font-size: .9em;\n    padding: 10px 15px;\n    display: block;\n    min-width: 210px;\n    text-align: left;\n    border-radius: 0.25rem;\n    min-height: 44px;\n}\n[dir=rtl] .navbar .dropdown-menu a {\n    text-align: right!important;\n}\n.navbar .dropdown-submenu a::after {\n    transform: rotate(-90deg);\n    position: absolute;\n    right: 16px;\n    top: 18px;\n}\n[dir=rtl] .navbar .dropdown-submenu a::after {\n    transform: rotate(90deg);\n    left: 16px;\n    right: auto;\n    top: 20px;\n}\n.navbar .dropdown-submenu .dropdown-menu {\n    top: 0;\n    left: 100%;\n}\n.card-header .btn {\n    padding: 2px 6px;\n}\n.card-header h5 {\n    margin: 0;\n}\n.container > .card {\n    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;\n}\n@media screen and (min-width: 992px) {\n    .navbar .dropdown:hover > .dropdown-menu {\n        display: block;\n    }\n\n    .navbar .dropdown-submenu:hover > .dropdown-menu {\n        display: block;\n    }\n}\n.input-validation-error {\n    border-color: #dc3545;\n}\n.field-validation-error {\n    font-size: 0.8em;\n}\n.ui-table .ui-table-tbody > tr.empty-row > div.empty-row-content {\n    border: 1px solid #c8c8c8;\n  }\n.abp-loading {\n    background: rgba(0, 0, 0, 0.05);\n}\n.modal-backdrop {\nbackground-color: rgba(0, 0, 0, 0.6);\n}\n\n.confirmation .confirmation-backdrop {\n\t background: rgba(0, 0, 0, 0.7) !important;\n}\n .confirmation .confirmation-dialog {\n\t border: none;\n\t border-radius: 10px;\n\t background-color: #fff;\n\t box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.5);\n}\n .confirmation .confirmation-dialog .icon-container .icon {\n\t stroke: #fff;\n\t color: #fff;\n}\n .confirmation .confirmation-dialog .icon-container.info .icon {\n\t stroke: #2f96b4;\n\t color: #2f96b4;\n}\n .confirmation .confirmation-dialog .icon-container.success .icon {\n\t stroke: #51a351;\n\t color: #51a351;\n}\n .confirmation .confirmation-dialog .icon-container.warning .icon {\n\t stroke: #f89406;\n\t color: #f89406;\n}\n .confirmation .confirmation-dialog .icon-container.error .icon {\n\t stroke: #bd362f;\n\t color: #bd362f;\n}\n .confirmation .confirmation-dialog .content .title {\n\t color: #222;\n}\n .confirmation .confirmation-dialog .content .message {\n\t color: #777;\n}\n .confirmation .confirmation-dialog .footer {\n\t background: transparent;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button {\n\t background-color: #eee;\n\t color: #777;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button:hover, .confirmation .confirmation-dialog .footer .confirmation-button:focus, .confirmation .confirmation-dialog .footer .confirmation-button:active {\n\t background-color: #bbb;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button--confirm {\n\t background-color: #2f96b4;\n\t color: #fff;\n}\n .confirmation .confirmation-dialog .footer .confirmation-button--confirm:hover {\n\t background-color: #2e819b;\n}\n.ui-table .pagination-wrapper {\n    background-color: #f4f4f4;\n    border: 1px solid #c8c8c8;\n}\n.bordered .datatable-body-row {\n    border-top: 1px solid #eee;\n    margin-top: -1px;\n}\n";
 
     var BASIC_THEME_STYLES_PROVIDERS = [
         {
@@ -607,20 +609,19 @@
         ]);
     }
 
-    var ThemeBasicModule_1;
     var LAYOUTS = [exports.ɵa, exports.ɵb, exports.ɵc];
-    exports.ThemeBasicModule = ThemeBasicModule_1 = /** @class */ (function () {
+    exports.ThemeBasicModule = /** @class */ (function () {
         function ThemeBasicModule() {
         }
         ThemeBasicModule.forRoot = function () {
             return {
-                ngModule: ThemeBasicModule_1,
+                ngModule: exports.RootThemeBasicModule,
                 providers: [BASIC_THEME_NAV_ITEM_PROVIDERS, BASIC_THEME_STYLES_PROVIDERS],
             };
         };
         return ThemeBasicModule;
     }());
-    exports.ThemeBasicModule = ThemeBasicModule_1 = __decorate([
+    exports.ThemeBasicModule = __decorate([
         core.NgModule({
             declarations: __spread(LAYOUTS, [
                 exports.ɵd,
@@ -644,6 +645,18 @@
                 ngBootstrap.NgbCollapseModule,
                 ngBootstrap.NgbDropdownModule,
                 core$1.NgxValidateCoreModule,
+            ],
+            entryComponents: __spread(LAYOUTS, [exports.ɵd, exports.ɵh, exports.ɵi]),
+        })
+    ], exports.ThemeBasicModule);
+    exports.RootThemeBasicModule = /** @class */ (function () {
+        function RootThemeBasicModule() {
+        }
+        return RootThemeBasicModule;
+    }());
+    exports.RootThemeBasicModule = __decorate([
+        core.NgModule({
+            imports: [
                 core$1.NgxValidateCoreModule.forRoot({
                     targetSelector: '.form-group',
                     blueprints: {
@@ -663,9 +676,8 @@
                     errorTemplate: exports.ɵd,
                 }),
             ],
-            entryComponents: __spread(LAYOUTS, [exports.ɵd, exports.ɵh, exports.ɵi]),
         })
-    ], exports.ThemeBasicModule);
+    ], exports.RootThemeBasicModule);
 
     /*
      * Public API Surface of theme-basic

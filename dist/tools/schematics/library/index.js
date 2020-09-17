@@ -18,6 +18,24 @@ function updateTsConfig(options) {
         }
     ]);
 }
+function updateProdConfig(options) {
+    return schematics_1.chain([
+        function (host, context) {
+            var nxJson = workspace_1.readJsonInTree(host, 'nx.json');
+            return workspace_1.updateJsonInTree('tsconfig.prod.json', function (json) {
+                var c = json.compilerOptions;
+                delete c.paths[options.name];
+                c.paths["@" + nxJson.npmScope + "/" + options.projectDirectory] = [
+                    "dist/libs/" + options.projectDirectory
+                ];
+                c.paths["@" + nxJson.npmScope + "/" + options.projectDirectory + "/*"] = [
+                    "dist/libs/" + options.projectDirectory + "/*"
+                ];
+                return json;
+            })(host, context);
+        }
+    ]);
+}
 function updateProject(options) {
     return function (host) {
         return schematics_1.chain([
@@ -34,6 +52,16 @@ function updateProject(options) {
                 json.projects[nxJson.npmScope + "." + options.name] = project;
                 delete json.projects[options.name];
                 return json;
+            }),
+            workspace_1.updateJsonInTree(workspace_1.getWorkspacePath(host), function (json) {
+                var nxJson = workspace_1.readJsonInTree(host, 'nx.json');
+                json.projects[nxJson.npmScope + "." + options.name]
+                    .architect.build.builder = "@angular-devkit/build-ng-packagr:build";
+                json.projects[nxJson.npmScope + "." + options.name]
+                    .architect.build.options.tsConfig = "tsconfig.lib.json";
+                json.projects[nxJson.npmScope + "." + options.name]
+                    .architect.build.configurations.production.tsConfig = "tsconfig.lib.prod.json";
+                return json;
             })
         ]);
     };
@@ -45,14 +73,17 @@ function default_1(schema) {
             schematics_1.externalSchematic('@nrwl/angular', 'lib', {
                 name: schema.name,
                 publishable: true,
-                routing: true
+                routing: false
             }),
             updateTsConfig(options),
+            updateProdConfig(options),
             updateProject(options),
             schematics_1.mergeWith(schematics_1.apply(schematics_1.url('./files'), [
                 schematics_1.template({
                     fileName: options.fileName,
+                    lowcaseFileName: options.fileName.toLowerCase(),
                     projectName: options.moduleName,
+                    lowcaseProjectName: options.moduleName.toLowerCase(),
                     tmpl: ''
                 }),
                 schematics_1.move(options.projectRoot)

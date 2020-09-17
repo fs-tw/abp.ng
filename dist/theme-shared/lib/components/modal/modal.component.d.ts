@@ -1,3 +1,4 @@
+import { SubscriptionService } from '@abp/ng.core';
 import { ElementRef, EventEmitter, OnDestroy, Renderer2, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ConfirmationService } from '../../services/confirmation.service';
@@ -8,6 +9,7 @@ export declare class ModalComponent implements OnDestroy {
     private renderer;
     private confirmationService;
     private modalService;
+    private subscription;
     get visible(): boolean;
     set visible(value: boolean);
     get busy(): boolean;
@@ -34,7 +36,7 @@ export declare class ModalComponent implements OnDestroy {
     destroy$: Subject<void>;
     private toggle$;
     get isFormDirty(): boolean;
-    constructor(renderer: Renderer2, confirmationService: ConfirmationService, modalService: ModalService);
+    constructor(renderer: Renderer2, confirmationService: ConfirmationService, modalService: ModalService, subscription: SubscriptionService);
     private initToggleStream;
     private toggle;
     ngOnDestroy(): void;

@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@ng-bootstrap/ng-bootstrap'), require('@angular/forms'), require('@abp/utils'), require('@abp/ng.core'), require('rxjs'), require('rxjs/operators'), require('@abp/ng.theme.shared'), require('@ngx-validate/core'), require('@ngxs/store')) :
     typeof define === 'function' && define.amd ? define('@abp/ng.theme.shared/extensions', ['exports', '@angular/core', '@angular/common', '@ng-bootstrap/ng-bootstrap', '@angular/forms', '@abp/utils', '@abp/ng.core', 'rxjs', 'rxjs/operators', '@abp/ng.theme.shared', '@ngx-validate/core', '@ngxs/store'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.theme = global.abp.ng.theme || {}, global.abp.ng.theme.shared = global.abp.ng.theme.shared || {}, global.abp.ng.theme.shared.extensions = {}), global.ng.core, global.ng.common, global.ngBootstrap, global.ng.forms, global.utils, global.ng_core, global.rxjs, global.rxjs.operators, global.abp.ng.theme.shared, global.core, global.store));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.theme = global.abp.ng.theme || {}, global.abp.ng.theme.shared = global.abp.ng.theme.shared || {}, global.abp.ng.theme.shared.extensions = {}), global.ng.core, global.ng.common, global.ngBootstrap, global.ng.forms, global.utils, global.ng_core, global.rxjs, global.rxjs.operators, global.abp.ng.theme.shared, global.core, global.store));
 }(this, (function (exports, i0, common, ngBootstrap, forms, utils, ng_core, rxjs, operators, ng_theme_shared, core, store) { 'use strict';
 
     /*! *****************************************************************************
@@ -594,10 +594,16 @@
         function ExtensibleFormPropComponent(cdRef, track) {
             this.cdRef = cdRef;
             this.track = track;
+            this.options$ = rxjs.of([]);
+            this.validators = [];
         }
-        ExtensibleFormPropComponent.prototype.getAsterisk = function (prop, data) {
-            return prop.validators(data).some(function (validator) { return validator === forms.Validators.required; }) ? '*' : '';
-        };
+        Object.defineProperty(ExtensibleFormPropComponent.prototype, "asterisk", {
+            get: function () {
+                return this.validators.some(function (validator) { return validator === forms.Validators.required; }) ? '*' : '';
+            },
+            enumerable: true,
+            configurable: true
+        });
         ExtensibleFormPropComponent.prototype.getComponent = function (prop) {
             if (prop.options)
                 return 'select';
@@ -633,6 +639,21 @@
                     return 'hidden';
             }
         };
+        ExtensibleFormPropComponent.prototype.ngOnChanges = function (_a) {
+            var prop = _a.prop;
+            var options = prop.currentValue.options;
+            var readonly = prop.currentValue.readonly;
+            var disabled = prop.currentValue.disabled;
+            var validators = prop.currentValue.validators;
+            if (options)
+                this.options$ = options(this.data);
+            if (readonly)
+                this.readonly = readonly(this.data);
+            if (disabled)
+                this.disabled = disabled(this.data);
+            if (validators)
+                this.validators = validators(this.data);
+        };
         return ExtensibleFormPropComponent;
     }());
     __decorate([
@@ -646,7 +667,7 @@
     exports.ExtensibleFormPropComponent = __decorate([
         i0.Component({
             selector: 'abp-extensible-form-prop',
-            template: "<div class=\"form-group\" [abpPermission]=\"prop.permission\" [ngSwitch]=\"getComponent(prop)\">\r\n  <ng-template ngSwitchCase=\"input\">\r\n    <label [htmlFor]=\"prop.id\"\r\n      >{{ prop.displayName | abpLocalization }} {{ getAsterisk(prop, data) }}</label\r\n    >\r\n    <input\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [autocomplete]=\"prop.autocomplete\"\r\n      [type]=\"getType(prop)\"\r\n      [abpDisabled]=\"prop.disabled(data)\"\r\n      [readonly]=\"prop.readonly(data)\"\r\n      class=\"form-control\"\r\n    />\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"checkbox\">\r\n    <div class=\"custom-checkbox custom-control\" validationTarget>\r\n      <input\r\n        [id]=\"prop.id\"\r\n        [formControlName]=\"prop.name\"\r\n        [abpDisabled]=\"prop.disabled(data)\"\r\n        type=\"checkbox\"\r\n        class=\"custom-control-input\"\r\n      />\r\n      <label [htmlFor]=\"prop.id\" class=\"custom-control-label\"\r\n        >{{ prop.displayName | abpLocalization }} {{ getAsterisk(prop, data) }}</label\r\n      >\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"select\">\r\n    <label [htmlFor]=\"prop.id\"\r\n      >{{ prop.displayName | abpLocalization }} {{ getAsterisk(prop, data) }}</label\r\n    >\r\n    <select\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [abpDisabled]=\"prop.disabled(data)\"\r\n      class=\"custom-select form-control\"\r\n    >\r\n      <option\r\n        *ngFor=\"let option of prop.options(data) | async; trackBy: track.by('value')\"\r\n        [ngValue]=\"option.value\"\r\n        >{{ option.key }}</option\r\n      >\r\n    </select>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"date\">\r\n    <label [htmlFor]=\"prop.id\"\r\n      >{{ prop.displayName | abpLocalization }} {{ getAsterisk(prop, data) }}</label\r\n    >\r\n    <input\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      (click)=\"datepicker.open()\"\r\n      (keyup.space)=\"datepicker.open()\"\r\n      ngbDatepicker\r\n      #datepicker=\"ngbDatepicker\"\r\n      type=\"text\"\r\n      class=\"form-control\"\r\n    />\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"time\">\r\n    <label [htmlFor]=\"prop.id\"\r\n      >{{ prop.displayName | abpLocalization }} {{ getAsterisk(prop, data) }}</label\r\n    >\r\n    <ngb-timepicker [formControlName]=\"prop.name\"></ngb-timepicker>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"dateTime\">\r\n    <label [htmlFor]=\"prop.id\"\r\n      >{{ prop.displayName | abpLocalization }} {{ getAsterisk(prop, data) }}</label\r\n    >\r\n    <abp-date-time-picker [prop]=\"prop\"></abp-date-time-picker>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"textarea\">\r\n    <label [htmlFor]=\"prop.id\"\r\n      >{{ prop.displayName | abpLocalization }} {{ getAsterisk(prop, data) }}</label\r\n    >\r\n    <textarea\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [abpDisabled]=\"prop.disabled(data)\"\r\n      [readonly]=\"prop.readonly(data)\"\r\n      class=\"form-control\"\r\n    ></textarea>\r\n  </ng-template>\r\n</div>\r\n",
+            template: "<div class=\"form-group\" [abpPermission]=\"prop.permission\" [ngSwitch]=\"getComponent(prop)\">\r\n  <ng-template ngSwitchCase=\"input\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <input\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [autocomplete]=\"prop.autocomplete\"\r\n      [type]=\"getType(prop)\"\r\n      [abpDisabled]=\"disabled\"\r\n      [readonly]=\"readonly\"\r\n      class=\"form-control\"\r\n    />\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"checkbox\">\r\n    <div class=\"custom-checkbox custom-control\" validationTarget>\r\n      <input\r\n        [id]=\"prop.id\"\r\n        [formControlName]=\"prop.name\"\r\n        [abpDisabled]=\"disabled\"\r\n        type=\"checkbox\"\r\n        class=\"custom-control-input\"\r\n      />\r\n      <label [htmlFor]=\"prop.id\" class=\"custom-control-label\"\r\n        >{{ prop.displayName | abpLocalization }} {{ asterisk }}</label\r\n      >\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"select\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <select\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [abpDisabled]=\"disabled\"\r\n      class=\"custom-select form-control\"\r\n    >\r\n      <option\r\n        *ngFor=\"let option of options$ | async; trackBy: track.by('value')\"\r\n        [ngValue]=\"option.value\"\r\n        >{{ option.key }}</option\r\n      >\r\n    </select>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"date\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <input\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      (click)=\"datepicker.open()\"\r\n      (keyup.space)=\"datepicker.open()\"\r\n      ngbDatepicker\r\n      #datepicker=\"ngbDatepicker\"\r\n      type=\"text\"\r\n      class=\"form-control\"\r\n    />\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"time\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <ngb-timepicker [formControlName]=\"prop.name\"></ngb-timepicker>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"dateTime\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <abp-date-time-picker [prop]=\"prop\"></abp-date-time-picker>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"textarea\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <textarea\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [abpDisabled]=\"disabled\"\r\n      [readonly]=\"readonly\"\r\n      class=\"form-control\"\r\n    ></textarea>\r\n  </ng-template>\r\n</div>\r\n",
             changeDetection: i0.ChangeDetectionStrategy.OnPush,
             viewProviders: [
                 {
@@ -803,6 +824,7 @@
             _this.columnWidth = options.columnWidth;
             _this.sortable = options.sortable || false;
             _this.valueResolver = options.valueResolver || (function (data) { return rxjs.of(data.record[_this.name]); });
+            _this.action = options.action || (function (_) { });
             return _this;
         }
         EntityProp.create = function (options) {
@@ -901,7 +923,6 @@
             this.container = container;
             this.extensions = extensions;
             this.identifier = identifier;
-            this.subscription = new rxjs.Subscription();
             this.extraPropertiesKey = EXTRA_PROPERTIES_KEY;
         }
         Object.defineProperty(ExtensibleFormComponent.prototype, "selectedRecord", {
@@ -927,16 +948,6 @@
             enumerable: true,
             configurable: true
         });
-        ExtensibleFormComponent.prototype.ngAfterViewInit = function () {
-            var _this = this;
-            this.subscription.add(this.form.statusChanges.pipe(operators.debounceTime(0)).subscribe(function () {
-                _this.formProps.forEach(function (prop) { return prop.cdRef.markForCheck(); });
-                _this.cdRef.detectChanges();
-            }));
-        };
-        ExtensibleFormComponent.prototype.ngOnDestroy = function () {
-            this.subscription.unsubscribe();
-        };
         return ExtensibleFormComponent;
     }());
     __decorate([
@@ -971,14 +982,30 @@
 
     var DEFAULT_ACTIONS_COLUMN_WIDTH = 150;
     exports.ExtensibleTableComponent = /** @class */ (function () {
-        function ExtensibleTableComponent(locale, injector) {
+        function ExtensibleTableComponent(locale, config, injector) {
             this.locale = locale;
+            this.config = config;
             this.trackByFn = function (_, item) { return item.name; };
+            // tslint:disable-next-line
+            this.getInjected = injector.get.bind(injector);
             var extensions = injector.get(exports.ExtensionsService);
             var name = injector.get(EXTENSIONS_IDENTIFIER);
             this.propList = extensions.entityProps.get(name).props;
+            this.actionList = extensions['entityActions'].get(name)
+                .actions;
             this.setColumnWidths(DEFAULT_ACTIONS_COLUMN_WIDTH);
         }
+        Object.defineProperty(ExtensibleTableComponent.prototype, "actionsText", {
+            get: function () {
+                var _a;
+                return (_a = this._actionsText) !== null && _a !== void 0 ? _a : (this.actionList.length > 1 ? 'AbpUi::Actions' : '');
+            },
+            set: function (value) {
+                this._actionsText = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(ExtensibleTableComponent.prototype, "actionsColumnWidth", {
             set: function (width) {
                 this.setColumnWidths(width ? Number(width) : undefined);
@@ -988,8 +1015,8 @@
         });
         ExtensibleTableComponent.prototype.setColumnWidths = function (actionsColumn) {
             var widths = [actionsColumn];
-            this.propList.forEach(function (_a) {
-                var prop = _a.value;
+            this.propList.forEach(function (_b) {
+                var prop = _b.value;
                 widths.push(prop.columnWidth);
             });
             this.columnWidths = widths;
@@ -1009,23 +1036,40 @@
                     case "boolean" /* Boolean */:
                         return _this.getIcon(value);
                     case "date" /* Date */:
-                        return _this.getDate(value, 'yyyy-MM-dd');
+                        return _this.getDate(value, ng_core.getShortDateFormat(_this.config));
                     case "time" /* Time */:
-                        return _this.getDate(value, 'HH:mm');
+                        return _this.getDate(value, ng_core.getShortTimeFormat(_this.config));
                     case "dateTime" /* DateTime */:
-                        return _this.getDate(value, 'yyyy-MM-dd HH:mm:ss Z');
+                        return _this.getDate(value, ng_core.getShortDateShortTimeFormat(_this.config));
                     default:
                         return value;
                     // More types can be handled in the future
                 }
             }));
         };
+        ExtensibleTableComponent.prototype.ngOnChanges = function (_b) {
+            var _this = this;
+            var data = _b.data;
+            if (!(data === null || data === void 0 ? void 0 : data.currentValue))
+                return;
+            this.data = data.currentValue.map(function (record, index) {
+                _this.propList.forEach(function (prop) {
+                    var propData = { getInjected: _this.getInjected, record: record, index: index };
+                    record["_" + prop.value.name] = {
+                        visible: prop.value.visible(propData),
+                        value: _this.getContent(prop.value, propData),
+                    };
+                });
+                return record;
+            });
+        };
         return ExtensibleTableComponent;
     }());
     __decorate([
         i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ExtensibleTableComponent.prototype, "actionsText", void 0);
+        __metadata("design:type", String),
+        __metadata("design:paramtypes", [String])
+    ], exports.ExtensibleTableComponent.prototype, "actionsText", null);
     __decorate([
         i0.Input(),
         __metadata("design:type", Array)
@@ -1051,11 +1095,12 @@
         i0.Component({
             exportAs: 'abpExtensibleTable',
             selector: 'abp-extensible-table',
-            template: "<ngx-datatable default [rows]=\"data\" [count]=\"recordsTotal\" [list]=\"list\">\r\n  <ngx-datatable-column\r\n    [name]=\"actionsText | abpLocalization\"\r\n    [maxWidth]=\"columnWidths[0]\"\r\n    [width]=\"columnWidths[0]\"\r\n    [sortable]=\"false\"\r\n  >\r\n    <ng-template let-row=\"row\" let-i=\"rowIndex\" ngx-datatable-cell-template>\r\n      <ng-container\r\n        *ngTemplateOutlet=\"actionsTemplate || gridActions; context: { $implicit: row, index: i }\"\r\n      ></ng-container>\r\n      <ng-template #gridActions>\r\n        <abp-grid-actions\r\n          [index]=\"i\"\r\n          [record]=\"row\"\r\n          text=\"LanguageManagement::Actions\"\r\n        ></abp-grid-actions>\r\n      </ng-template>\r\n    </ng-template>\r\n  </ngx-datatable-column>\r\n\r\n  <ng-container *ngFor=\"let prop of propList; let i = index; trackBy: trackByFn\">\r\n    <ngx-datatable-column\r\n      [width]=\"columnWidths[i + 1] || 200\"\r\n      [name]=\"prop.displayName | abpLocalization\"\r\n      [prop]=\"prop.name\"\r\n      [sortable]=\"prop.sortable\"\r\n    >\r\n      <ng-template let-row=\"row\" let-i=\"index\" ngx-datatable-cell-template>\r\n        <ng-container\r\n          *abpPropData=\"let data; fromList: propList; withRecord: row; atIndex: i\"\r\n          [abpPermission]=\"prop.permission\"\r\n        >\r\n          <div *ngIf=\"prop.visible(data)\" [innerHTML]=\"getContent(prop, data) | async\"></div>\r\n        </ng-container>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n  </ng-container>\r\n</ngx-datatable>\r\n",
+            template: "<ngx-datatable default [rows]=\"data\" [count]=\"recordsTotal\" [list]=\"list\">\r\n  <ngx-datatable-column\r\n    *ngIf=\"actionsTemplate || actionList.length\"\r\n    [name]=\"actionsText | abpLocalization\"\r\n    [maxWidth]=\"columnWidths[0]\"\r\n    [width]=\"columnWidths[0]\"\r\n    [sortable]=\"false\"\r\n  >\r\n    <ng-template let-row=\"row\" let-i=\"rowIndex\" ngx-datatable-cell-template>\r\n      <ng-container\r\n        *ngTemplateOutlet=\"actionsTemplate || gridActions; context: { $implicit: row, index: i }\"\r\n      ></ng-container>\r\n      <ng-template #gridActions>\r\n        <abp-grid-actions\r\n          [index]=\"i\"\r\n          [record]=\"row\"\r\n          text=\"LanguageManagement::Actions\"\r\n        ></abp-grid-actions>\r\n      </ng-template>\r\n    </ng-template>\r\n  </ngx-datatable-column>\r\n\r\n  <ng-container *ngFor=\"let prop of propList; let i = index; trackBy: trackByFn\">\r\n    <ngx-datatable-column\r\n      [width]=\"columnWidths[i + 1] || 200\"\r\n      [name]=\"prop.displayName | abpLocalization\"\r\n      [prop]=\"prop.name\"\r\n      [sortable]=\"prop.sortable\"\r\n    >\r\n      <ng-template let-row=\"row\" let-i=\"index\" ngx-datatable-cell-template>\r\n        <ng-container [abpPermission]=\"prop.permission\">\r\n          <div\r\n            *ngIf=\"row['_' + prop.name].visible\"\r\n            [innerHTML]=\"row['_' + prop.name].value | async\"\r\n            (click)=\"prop.action({ getInjected: getInjected, record: row, index: i })\"\r\n          ></div>\r\n        </ng-container>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n  </ng-container>\r\n</ngx-datatable>\r\n",
             changeDetection: i0.ChangeDetectionStrategy.OnPush
         }),
         __param(0, i0.Inject(i0.LOCALE_ID)),
-        __metadata("design:paramtypes", [String, i0.Injector])
+        __metadata("design:paramtypes", [String, ng_core.ConfigStateService,
+            i0.Injector])
     ], exports.ExtensibleTableComponent);
 
     // tslint:disable: directive-class-suffix
@@ -1111,7 +1156,7 @@
         i0.Component({
             exportAs: 'abpGridActions',
             selector: 'abp-grid-actions',
-            template: "<div ngbDropdown container=\"body\" class=\"d-inline-block\">\r\n  <button\r\n    class=\"btn btn-primary btn-sm dropdown-toggle\"\r\n    data-toggle=\"dropdown\"\r\n    aria-haspopup=\"true\"\r\n    ngbDropdownToggle\r\n  >\r\n    <i [ngClass]=\"icon\" [class.mr-1]=\"icon\"></i>{{ text | abpLocalization }}\r\n  </button>\r\n  <div ngbDropdownMenu>\r\n    <ng-container *ngFor=\"let action of actionList; trackBy: trackByFn\">\r\n      <button\r\n        *ngIf=\"action.visible(data)\"\r\n        ngbDropdownItem\r\n        [abpPermission]=\"action.permission\"\r\n        (click)=\"action.action(data)\"\r\n        type=\"button\"\r\n      >\r\n        <i [ngClass]=\"action.icon\" [class.mr-1]=\"action.icon\"></i>\r\n        {{ action.text | abpLocalization }}\r\n      </button>\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n",
+            template: "<div *ngIf=\"actionList.length > 1\" ngbDropdown container=\"body\" class=\"d-inline-block\">\r\n  <button\r\n    class=\"btn btn-primary btn-sm dropdown-toggle\"\r\n    data-toggle=\"dropdown\"\r\n    aria-haspopup=\"true\"\r\n    ngbDropdownToggle\r\n  >\r\n    <i [ngClass]=\"icon\" [class.mr-1]=\"icon\"></i>{{ text | abpLocalization }}\r\n  </button>\r\n  <div ngbDropdownMenu>\r\n    <ng-container\r\n      *ngFor=\"let action of actionList; trackBy: trackByFn\"\r\n      [ngTemplateOutlet]=\"btnItem\"\r\n      [ngTemplateOutletContext]=\"{ $implicit: action }\"\r\n    >\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n\r\n<ng-container\r\n  *ngIf=\"actionList.length === 1\"\r\n  [ngTemplateOutlet]=\"btnItem\"\r\n  [ngTemplateOutletContext]=\"{ $implicit: actionList.get(0).value }\"\r\n></ng-container>\r\n\r\n<ng-template #btnItem let-action>\r\n  <button\r\n    *ngIf=\"action.visible(data)\"\r\n    ngbDropdownItem\r\n    [abpPermission]=\"action.permission\"\r\n    (click)=\"action.action(data)\"\r\n    type=\"button\"\r\n    class=\"{{ actionList.length === 1 ? 'btn btn-primary' : '' }}\"\r\n    [class.text-center]=\"actionList.length === 1\"\r\n  >\r\n    <i [ngClass]=\"action.icon\" [class.mr-1]=\"action.icon\"></i>\r\n    <span *ngIf=\"action.icon; else ellipsis\">{{ action.text | abpLocalization }}</span>\r\n    <ng-template #ellipsis>\r\n      <div abpEllipsis>{{ action.text | abpLocalization }}</div>\r\n    </ng-template>\r\n  </button>\r\n</ng-template>\r\n",
             providers: [
                 {
                     provide: EXTENSIONS_ACTION_TYPE,

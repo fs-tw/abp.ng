@@ -7,25 +7,36 @@
       "description": "Specifies the theme to create application.",
       "enum": [
         "ng-alain",
+        "ng-alain-ms",
         "college-green",
-	      "ace"
+        "the-project"
       ],
       "type": "string"
     },    
     "name": {
       "type": "string",
-      "description": "Library name",
+      "description": "Application name(ex:NgAlainApp or NgAlainMs)",
       "$default": {
         "$source": "argv",
         "index": 0
       }
     },
     "directory": {
-      "description": "The directory of the new application.",
+      "description": "The directory of the new application.(apps/{yourDir}/{yourAppName})",
       "type": "string"
-    }  
+    },
+    "css"  :{
+      "description": "Specifies css framework",
+      "enum": [
+        "css",
+        "less",
+        "scss",
+        "sass"
+      ],
+      "type": "string"
+    }
   },
   "required": [
-    "theme","name"
+    "theme","name","css"
   ]
 }

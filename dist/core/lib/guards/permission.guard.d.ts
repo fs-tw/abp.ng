@@ -1,8 +1,11 @@
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { RoutesService } from '../services/routes.service';
 export declare class PermissionGuard implements CanActivate {
+    private router;
+    private routes;
     private store;
-    constructor(store: Store);
+    constructor(router: Router, routes: RoutesService, store: Store);
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>;
 }

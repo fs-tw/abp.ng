@@ -1,16 +1,18 @@
-import { OnDestroy, OnInit, TemplateRef } from '@angular/core';
+import { SubscriptionService, MultiTenancyService } from '@abp/ng.core';
+import { OnInit, TemplateRef } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Account } from '../../models/account';
 import { eAccountComponents } from '../../enums/components';
-export declare class AuthWrapperComponent implements Account.AuthWrapperComponentInputs, Account.AuthWrapperComponentOutputs, OnInit, OnDestroy {
+import { Account } from '../../models/account';
+export declare class AuthWrapperComponent implements Account.AuthWrapperComponentInputs, Account.AuthWrapperComponentOutputs, OnInit {
+    readonly multiTenancy: MultiTenancyService;
     private store;
+    private subscription;
     readonly mainContentRef: TemplateRef<any>;
     readonly cancelContentRef: TemplateRef<any>;
     isMultiTenancyEnabled$: Observable<boolean>;
     enableLocalLogin: boolean;
     tenantBoxKey: eAccountComponents;
-    constructor(store: Store);
+    constructor(multiTenancy: MultiTenancyService, store: Store, subscription: SubscriptionService);
     ngOnInit(): void;
-    ngOnDestroy(): void;
 }

@@ -5,5 +5,4 @@ export declare const ROUTE_PROVIDERS: {
     deps: (typeof RoutesService)[];
     multi: boolean;
 }[];
-declare function configureRoutes(routes: RoutesService): () => void;
-export {};
+export declare function configureRoutes(_routes: RoutesService): () => void;

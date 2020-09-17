@@ -1,5 +1,5 @@
 import { __decorate, __metadata } from 'tslib';
-import { RestService, ListService, DynamicLayoutComponent, AuthGuard, PermissionGuard, ReplaceableRouteContainerComponent, CoreModule, LazyModuleFactory } from '@abp/ng.core';
+import { RestService, ListService, DynamicLayoutComponent, AuthGuard, PermissionGuard, ReplaceableRouteContainerComponent, LazyModuleFactory, CoreModule } from '@abp/ng.core';
 import { PermissionManagementModule } from '@abp/ng.permission-management';
 import { Confirmation, ConfirmationService, getPasswordValidators, ThemeSharedModule } from '@abp/ng.theme.shared';
 import { ɵɵdefineInjectable, ɵɵinject, Injectable, ViewChild, ElementRef, Component, TemplateRef, NgModule } from '@angular/core';
@@ -645,7 +645,7 @@ let IdentityRoutingModule = class IdentityRoutingModule {
 };
 IdentityRoutingModule = __decorate([
     NgModule({
-        imports: [RouterModule.forChild(routes), CoreModule],
+        imports: [RouterModule.forChild(routes)],
         exports: [RouterModule],
     })
 ], IdentityRoutingModule);

@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@abp/ng.account'), require('@abp/ng.theme.shared'), require('@angular/forms'), require('@ngxs/store'), require('angular-oauth2-oidc'), require('@angular/animations'), require('rxjs'), require('@fs/account/wrap')) :
-    typeof define === 'function' && define.amd ? define('@fs/account/ng-alain', ['exports', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@abp/ng.account', '@abp/ng.theme.shared', '@angular/forms', '@ngxs/store', 'angular-oauth2-oidc', '@angular/animations', 'rxjs', '@fs/account/wrap'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs.account = global.fs.account || {}, global.fs.account['ng-alain'] = {}), global.ng_core, global.ng.core, global.basic, global.ng_account, global.ng_theme_shared, global.ng.forms, global.store, global.angularOauth2Oidc, global.ng.animations, global.rxjs, global.fs.account.wrap));
-}(this, (function (exports, ng_core, core, basic, ng_account, ng_theme_shared, forms, store, angularOauth2Oidc, animations, rxjs, wrap) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@abp/ng.account'), require('@abp/ng.theme.shared'), require('@angular/forms'), require('@ngxs/store'), require('angular-oauth2-oidc'), require('@angular/animations'), require('rxjs'), require('@ngx-validate/core')) :
+    typeof define === 'function' && define.amd ? define('@fs/account/ng-alain', ['exports', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@abp/ng.account', '@abp/ng.theme.shared', '@angular/forms', '@ngxs/store', 'angular-oauth2-oidc', '@angular/animations', 'rxjs', '@ngx-validate/core'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs.account = global.fs.account || {}, global.fs.account['ng-alain'] = {}), global.ng_core, global.ng.core, global.basic, global.ng_account, global.ng_theme_shared, global.ng.forms, global.store, global.angularOauth2Oidc, global.ng.animations, global.rxjs, global.core$1));
+}(this, (function (exports, ng_core, core, basic, ng_account, ng_theme_shared, forms, store, angularOauth2Oidc, animations, rxjs, core$1) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -296,10 +296,48 @@
         return value;
     }
 
+    var LoginDto = /** @class */ (function () {
+        function LoginDto() {
+        }
+        return LoginDto;
+    }());
+    exports.ɵc = /** @class */ (function () {
+        function LoginService(restService, store) {
+            this.restService = restService;
+            this.store = store;
+        }
+        LoginService.prototype.login = function (body) {
+            var tenant = this.store.selectSnapshot(ng_core.SessionState.getTenant);
+            return this.restService.request({
+                url: '/api/token/authenticate',
+                method: 'POST',
+                body: body,
+                headers: Object.assign({}, (tenant && tenant.id && { __tenant: tenant.id }))
+            });
+        };
+        return LoginService;
+    }());
+    exports.ɵc = __decorate([
+        core.Injectable(),
+        __metadata("design:paramtypes", [ng_core.RestService,
+            store.Store])
+    ], exports.ɵc);
+    // {
+    //   "userNameOrEmailAddress": "string",
+    //   "password": "string",
+    //   "rememberClient": true,
+    //   "tenanId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    // }
+
     exports.UserLoginComponent = /** @class */ (function (_super) {
         __extends(UserLoginComponent, _super);
-        function UserLoginComponent(_fb, _oauthService, _store, _toasterService, _authService) {
-            return _super.call(this, _fb, _oauthService, _store, _toasterService, _authService) || this;
+        function UserLoginComponent(loginService, options, _fb, _oauthService, _store, _toasterService, _authService) {
+            var _this = _super.call(this, _fb, _oauthService, _store, _toasterService, _authService) || this;
+            _this.loginService = loginService;
+            _this.options = options;
+            _this._store = _store;
+            _this._toasterService = _toasterService;
+            return _this;
         }
         return UserLoginComponent;
     }(ng_account.LoginComponent));
@@ -309,7 +347,8 @@
             template: "<ng-alain-auth-wrapper [mainContentRef]=\"mainContentRef\">\r\n  <ng-template #mainContentRef>\r\n    <form nz-form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\" role=\"form\">\r\n      <nz-tabset [nzAnimated]=\"false\" class=\"tabs\">\r\n        <nz-tab [nzTitle]=\"'AbpAccount::Login' | abpLocalization\">\r\n          <nz-form-item>\r\n            <nz-form-control [nzErrorTip]=\"'Please enter mobile number!' | abpLocalization\">\r\n              <nz-input-group nzSize=\"large\" nzPrefixIcon=\"user\">\r\n                <input nz-input formControlName=\"username\" placeholder=\"{{'AbpAccount::UserNameOrEmailAddress' | abpLocalization}}\" />\r\n              </nz-input-group>\r\n            </nz-form-control>\r\n          </nz-form-item>\r\n          <nz-form-item>\r\n            <nz-form-control [nzErrorTip]=\"'Please enter password!' | abpLocalization\">\r\n              <nz-input-group nzSize=\"large\" nzPrefixIcon=\"lock\">\r\n                <input nz-input type=\"password\" formControlName=\"password\" placeholder=\"{{ 'AbpAccount::Password' | abpLocalization }}\" />\r\n              </nz-input-group>\r\n            </nz-form-control>\r\n          </nz-form-item>\r\n        </nz-tab>\r\n      </nz-tabset>\r\n      <nz-form-item>\r\n        <nz-col [nzSpan]=\"12\">\r\n          <label nz-checkbox formControlName=\"remember\">{{ 'AbpAccount::RememberMe' | abpLocalization }}</label>\r\n        </nz-col>\r\n      </nz-form-item>\r\n      <nz-form-item>\r\n        <button nz-button type=\"submit\" nzType=\"primary\" nzSize=\"large\" [nzLoading]=\"inProgress\" nzBlock>\r\n          {{ 'AbpAccount::Login' | abpLocalization }}\r\n        </button>\r\n      </nz-form-item>\r\n    </form>\r\n    <div class=\"other\">\r\n      <a class=\"register\" routerLink=\"/account/register\">{{ 'AbpAccount::Register' | abpLocalization }}</a>\r\n    </div>\r\n  </ng-template>\r\n</ng-alain-auth-wrapper>\r\n\r\n",
             styles: [":host{display:block;margin:0 auto;width:368px}:host ::ng-deep .ant-tabs .ant-tabs-bar{border-bottom:0;margin-bottom:24px;text-align:center}:host ::ng-deep .ant-tabs-tab{font-size:16px;line-height:24px}:host ::ng-deep .ant-input-affix-wrapper .ant-input:not(:first-child){padding-left:34px}:host ::ng-deep .icon{color:rgba(0,0,0,.2);cursor:pointer;font-size:24px;margin-left:16px;transition:color .3s;vertical-align:middle}:host ::ng-deep .icon:hover{color:#1890ff}:host ::ng-deep .other{line-height:22px;margin-top:24px;text-align:left}:host ::ng-deep .other nz-tooltip{vertical-align:middle}:host ::ng-deep .other .register{float:right}"]
         }),
-        __metadata("design:paramtypes", [forms.FormBuilder,
+        __param(1, core.Optional()), __param(1, core.Inject('ACCOUNT_OPTIONS')),
+        __metadata("design:paramtypes", [exports.ɵc, Object, forms.FormBuilder,
             angularOauth2Oidc.OAuthService,
             store.Store,
             ng_theme_shared.ToasterService,
@@ -359,7 +398,7 @@
         })
     ], exports.ManageProfileComponent);
 
-    exports.ɵc = /** @class */ (function (_super) {
+    exports.ɵd = /** @class */ (function (_super) {
         __extends(PersonalSettingsComponent, _super);
         function PersonalSettingsComponent(_fb, _store, _toasterService) {
             var _this = _super.call(this, _fb, _store, _toasterService) || this;
@@ -370,16 +409,16 @@
         }
         return PersonalSettingsComponent;
     }(ng_account.PersonalSettingsComponent));
-    exports.ɵc = __decorate([
+    exports.ɵd = __decorate([
         core.Component({
             selector: 'ng-alain-personal-settings-form',
             template: "<form novalidate *ngIf=\"form\" [formGroup]=\"form\" (ngSubmit)=\"submit()\">\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"username\">{{ 'AbpIdentity::DisplayName:UserName' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"userName\" id=\"username\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"name\">{{ 'AbpIdentity::DisplayName:Name' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"name\" id=\"name\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"surname\">{{ 'AbpIdentity::DisplayName:Surname' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"surname\" id=\"surname\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"email-address\">{{ 'AbpIdentity::DisplayName:Email' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"email\" id=\"email-address\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"phone-number\">{{ 'AbpIdentity::DisplayName:PhoneNumber' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"phoneNumber\" id=\"phone-number\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <button nz-button nzType=\"primary\">\r\n    {{\r\n      'AbpIdentity::Save' | abpLocalization\r\n    }}\r\n  </button>\r\n</form>\r\n\r\n\r\n",
-            styles: ["nz-form-item{margin-bottom:0}"]
+            styles: [""]
         }),
         __metadata("design:paramtypes", [forms.FormBuilder, store.Store, ng_theme_shared.ToasterService])
-    ], exports.ɵc);
+    ], exports.ɵd);
 
-    exports.ɵd = /** @class */ (function (_super) {
+    exports.ɵe = /** @class */ (function (_super) {
         __extends(ChangePasswordComponent, _super);
         function ChangePasswordComponent(_fb, _store, _toasterService) {
             var _this = _super.call(this, _fb, _store, _toasterService) || this;
@@ -390,14 +429,14 @@
         }
         return ChangePasswordComponent;
     }(ng_account.ChangePasswordComponent));
-    exports.ɵd = __decorate([
+    exports.ɵe = __decorate([
         core.Component({
             selector: 'ng-alain-change-password-form',
             template: "<form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\" [mapErrorsFn]=\"mapErrorsFn\">\r\n  <nz-form-item>\r\n    <!--<nz-form-label nzRequired nzFor=\"current-password\">{{ 'AbpIdentity::DisplayName:CurrentPassword' | abpLocalization }}</nz-form-label>-->\r\n    <nz-form-control>\r\n      <input nz-input type=\"password\" formControlName=\"password\" id=\"current-password\" placeholder=\"{{'AbpIdentity::DisplayName:CurrentPassword' | abpLocalization}}\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <nz-form-item>\r\n    <!--<nz-form-label nzRequired nzFor=\"new-password\">{{ 'AbpIdentity::DisplayName:NewPassword' | abpLocalization }}</nz-form-label>-->\r\n    <nz-form-control>\r\n      <input nz-input type=\"password\" formControlName=\"newPassword\" id=\"new-password\" placeholder=\"{{ 'AbpIdentity::DisplayName:NewPassword' | abpLocalization }}\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <nz-form-item>\r\n    <!--<nz-form-label nzRequired nzFor=\"confirm-new-password\">{{ 'AbpIdentity::DisplayName:NewPasswordConfirm' | abpLocalization }}</nz-form-label>-->\r\n    <nz-form-control>\r\n      <input nz-input type=\"password\" formControlName=\"repeatNewPassword\" id=\"confirm-new-password\" placeholder=\"{{ 'AbpIdentity::DisplayName:NewPasswordConfirm' | abpLocalization }}\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <button nz-button nzType=\"primary\">\r\n    {{\r\n      'AbpIdentity::Save' | abpLocalization\r\n    }}\r\n  </button>\r\n\r\n</form>\r\n\r\n\r\n",
             styles: [""]
         }),
         __metadata("design:paramtypes", [forms.FormBuilder, store.Store, ng_theme_shared.ToasterService])
-    ], exports.ɵd);
+    ], exports.ɵe);
 
     exports.ɵa = /** @class */ (function () {
         function AuthWrapperComponent() {
@@ -459,6 +498,7 @@
             return {
                 ngModule: AccountNgAlainModule_1,
                 providers: [
+                    ng_account.AuthenticationFlowGuard,
                     { provide: ng_account.ACCOUNT_OPTIONS, useValue: options },
                     {
                         provide: 'ACCOUNT_OPTIONS',
@@ -475,24 +515,28 @@
     }());
     exports.AccountNgAlainModule = AccountNgAlainModule_1 = __decorate([
         core.NgModule({
+            imports: [
+                ng_core.CoreModule,
+                basic.NgAlainBasicModule,
+                core$1.NgxValidateCoreModule,
+                ng_account.AccountModule
+            ],
             declarations: [
                 exports.ɵa,
                 exports.ɵb,
                 exports.UserLoginComponent,
                 exports.UserRegisterComponent,
                 exports.ManageProfileComponent,
-                exports.ɵc,
-                exports.ɵd
+                exports.ɵd,
+                exports.ɵe
             ],
             entryComponents: [
                 exports.UserLoginComponent,
                 exports.UserRegisterComponent,
                 exports.ManageProfileComponent
             ],
-            imports: [
-                ng_core.CoreModule,
-                basic.NgAlainBasicModule,
-                wrap.AccountWrapModule
+            providers: [
+                exports.ɵc
             ]
         })
     ], exports.AccountNgAlainModule);

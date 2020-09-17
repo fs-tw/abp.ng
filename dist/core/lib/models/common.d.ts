@@ -3,11 +3,16 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { eLayoutType } from '../enums/common';
 import { Config } from './config';
+import { NgxsStoragePluginOptions } from '@ngxs/storage-plugin';
 export declare namespace ABP {
     interface Root {
         environment: Partial<Config.Environment>;
         skipGetAppConfiguration?: boolean;
         sendNullsAsQueryParam?: boolean;
+        cultureNameLocaleFileMap?: Dictionary<string>;
+        ngxsStoragePluginOptions?: NgxsStoragePluginOptions & {
+            key?: string[];
+        };
     }
     interface Test {
         baseHref?: Router;
@@ -23,6 +28,10 @@ export declare namespace ABP {
         sorting?: string;
         skipCount?: number;
         maxResultCount?: number;
+    }
+    interface Lookup {
+        id: string;
+        displayName: string;
     }
     interface Nav {
         name: string;

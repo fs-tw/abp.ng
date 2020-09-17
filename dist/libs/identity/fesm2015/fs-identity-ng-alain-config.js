@@ -1,6 +1,6 @@
 import { __decorate } from 'tslib';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { IdentityConfigModule } from '@abp/ng.identity/config';
+import { IDENTITY_ROUTE_PROVIDERS } from '@abp/ng.identity/config';
 import { RoutesService, AddReplaceableComponent } from '@abp/ng.core';
 import { Store } from '@ngxs/store';
 import { UsersComponent, RolesComponent } from '@fs/identity/ng-alain';
@@ -8,8 +8,16 @@ import { UsersComponent, RolesComponent } from '@fs/identity/ng-alain';
 const ROUTE_PROVIDERS = [
     { provide: APP_INITIALIZER, useFactory: configureRoutes, deps: [RoutesService], multi: true },
 ];
-function configureRoutes(routes) {
+function configureRoutes(_routes) {
     return () => {
+        _routes.patch("AbpUiNavigation::Menu:Administration" /* Administration */, {
+            path: 'identity/users',
+            profile: {
+                title: 'Administrator',
+                doc: 'user doc',
+                nav: { routeName: "AbpUiNavigation::Menu:Administration" /* Administration */ }
+            }
+        });
     };
 }
 
@@ -44,21 +52,17 @@ let IdentityNgAlainConfigModule = IdentityNgAlainConfigModule_1 = class Identity
     static forRoot() {
         return {
             ngModule: IdentityNgAlainConfigModule_1,
-            providers: [ROUTE_PROVIDERS, STYLES_PROVIDERS],
+            providers: [IDENTITY_ROUTE_PROVIDERS, ROUTE_PROVIDERS, STYLES_PROVIDERS],
         };
     }
 };
 IdentityNgAlainConfigModule = IdentityNgAlainConfigModule_1 = __decorate([
-    NgModule({
-        imports: [
-            IdentityConfigModule.forRoot()
-        ]
-    })
+    NgModule()
 ], IdentityNgAlainConfigModule);
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { IdentityNgAlainConfigModule, ROUTE_PROVIDERS as ɵa, STYLES_PROVIDERS as ɵb, configureStyles as ɵc };
+export { IdentityNgAlainConfigModule, ROUTE_PROVIDERS as ɵa, configureRoutes as ɵb, STYLES_PROVIDERS as ɵc, configureStyles as ɵd };
 //# sourceMappingURL=fs-identity-ng-alain-config.js.map

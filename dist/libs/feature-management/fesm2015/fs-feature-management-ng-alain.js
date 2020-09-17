@@ -1,10 +1,9 @@
 import { __decorate, __metadata } from 'tslib';
-import { FeatureManagementWrapModule } from '@fs/feature-management/wrap';
+import { FeatureManagementComponent as FeatureManagementComponent$1, FeatureManagementModule } from '@abp/ng.feature-management';
 import { CoreModule } from '@abp/ng.core';
 import { Input, Component, NgModule } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
 import { Store } from '@ngxs/store';
-import { FeatureManagementComponent as FeatureManagementComponent$1 } from '@abp/ng.feature-management';
 
 let FeatureManagementComponent = class FeatureManagementComponent extends FeatureManagementComponent$1 {
     constructor(_store) {
@@ -46,13 +45,13 @@ let FeatureManagementNgAlainModule = class FeatureManagementNgAlainModule {
 };
 FeatureManagementNgAlainModule = __decorate([
     NgModule({
-        declarations: [FeatureManagementComponent],
         imports: [
             CoreModule,
             NgAlainBasicModule,
-            FeatureManagementWrapModule
+            FeatureManagementModule
         ],
-        exports: [FeatureManagementComponent]
+        exports: [FeatureManagementComponent],
+        declarations: [FeatureManagementComponent]
     })
 ], FeatureManagementNgAlainModule);
 

@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/tenant-management/wrap'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@abp/ng.tenant-management'), require('@abp/ng.theme.shared'), require('@angular/forms'), require('@ngxs/store'), require('@fs/feature-management/ng-alain')) :
-    typeof define === 'function' && define.amd ? define('@fs/tenant-management/ng-alain', ['exports', '@fs/tenant-management/wrap', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@abp/ng.tenant-management', '@abp/ng.theme.shared', '@angular/forms', '@ngxs/store', '@fs/feature-management/ng-alain'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['tenant-management'] = global.fs['tenant-management'] || {}, global.fs['tenant-management']['ng-alain'] = {}), global.fs['tenant-management'].wrap, global.ng_core, global.ng.core, global.basic, global.ng_tenantManagement, global.ng_theme_shared, global.ng.forms, global.store, global.ngAlain));
-}(this, (function (exports, wrap, ng_core, core, basic, ng_tenantManagement, ng_theme_shared, forms, store, ngAlain) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.tenant-management'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@abp/ng.theme.shared'), require('@angular/forms'), require('@ngxs/store'), require('@fs/feature-management/ng-alain'), require('@ngx-validate/core')) :
+    typeof define === 'function' && define.amd ? define('@fs/tenant-management/ng-alain', ['exports', '@abp/ng.tenant-management', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@abp/ng.theme.shared', '@angular/forms', '@ngxs/store', '@fs/feature-management/ng-alain', '@ngx-validate/core'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs['tenant-management'] = global.fs['tenant-management'] || {}, global.fs['tenant-management']['ng-alain'] = {}), global.ng_tenantManagement, global.ng_core, global.ng.core, global.basic, global.ng_theme_shared, global.ng.forms, global.store, global.ngAlain, global.core$1));
+}(this, (function (exports, ng_tenantManagement, ng_core, core, basic, ng_theme_shared, forms, store, ngAlain, core$1) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -339,14 +339,15 @@
     }());
     exports.TenantManagementNgAlainModule = TenantManagementNgAlainModule_1 = __decorate([
         core.NgModule({
-            declarations: [exports.TenantsComponent],
-            entryComponents: [exports.TenantsComponent],
-            exports: [exports.TenantsComponent],
             imports: [
                 basic.NgAlainBasicModule,
                 ngAlain.FeatureManagementNgAlainModule,
-                wrap.TenantManagementWrapModule
-            ]
+                core$1.NgxValidateCoreModule,
+                ng_tenantManagement.TenantManagementModule
+            ],
+            exports: [exports.TenantsComponent],
+            declarations: [exports.TenantsComponent],
+            entryComponents: [exports.TenantsComponent]
         })
     ], exports.TenantManagementNgAlainModule);
 

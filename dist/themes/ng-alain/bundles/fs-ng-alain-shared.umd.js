@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@angular/common'), require('@angular/core'), require('@angular/forms'), require('@angular/router'), require('@delon/acl'), require('@delon/form'), require('@delon/theme'), require('@ngx-translate/core'), require('@delon/abc/avatar-list'), require('@delon/abc/count-down'), require('@delon/abc/date-picker'), require('@delon/abc/down-file'), require('@delon/abc/ellipsis'), require('@delon/abc/error-collect'), require('@delon/abc/exception'), require('@delon/abc/footer-toolbar'), require('@delon/abc/full-content'), require('@delon/abc/global-footer'), require('@delon/abc/notice-icon'), require('@delon/abc/number-to-chinese'), require('@delon/abc/page-header'), require('@delon/abc/qr'), require('@delon/abc/quick-menu'), require('@delon/abc/result'), require('@delon/abc/se'), require('@delon/abc/sidebar-nav'), require('@delon/abc/st'), require('@delon/abc/sv'), require('@delon/abc/tag-select'), require('@delon/chart/bar'), require('@delon/chart/card'), require('@delon/chart/gauge'), require('@delon/chart/mini-area'), require('@delon/chart/mini-bar'), require('@delon/chart/mini-progress'), require('@delon/chart/number-info'), require('@delon/chart/pie'), require('@delon/chart/radar'), require('@delon/chart/single-bar'), require('@delon/chart/tag-cloud'), require('@delon/chart/timeline'), require('@delon/chart/trend'), require('@delon/chart/water-wave'), require('ng-zorro-antd/affix'), require('ng-zorro-antd/alert'), require('ng-zorro-antd/avatar'), require('ng-zorro-antd/back-top'), require('ng-zorro-antd/badge'), require('ng-zorro-antd/breadcrumb'), require('ng-zorro-antd/button'), require('ng-zorro-antd/card'), require('ng-zorro-antd/carousel'), require('ng-zorro-antd/checkbox'), require('ng-zorro-antd/date-picker'), require('ng-zorro-antd/divider'), require('ng-zorro-antd/drawer'), require('ng-zorro-antd/dropdown'), require('ng-zorro-antd/form'), require('ng-zorro-antd/grid'), require('ng-zorro-antd/icon'), require('ng-zorro-antd/input'), require('ng-zorro-antd/input-number'), require('ng-zorro-antd/list'), require('ng-zorro-antd/message'), require('ng-zorro-antd/modal'), require('ng-zorro-antd/notification'), require('ng-zorro-antd/pagination'), require('ng-zorro-antd/popconfirm'), require('ng-zorro-antd/popover'), require('ng-zorro-antd/progress'), require('ng-zorro-antd/radio'), require('ng-zorro-antd/select'), require('ng-zorro-antd/spin'), require('ng-zorro-antd/steps'), require('ng-zorro-antd/switch'), require('ng-zorro-antd/table'), require('ng-zorro-antd/tabs'), require('ng-zorro-antd/tag'), require('ng-zorro-antd/time-picker'), require('ng-zorro-antd/tooltip'), require('ng-zorro-antd/upload'), require('ngx-countdown'), require('ngx-tinymce'), require('ngx-ueditor'), require('@abp/ng.theme.shared')) :
-    typeof define === 'function' && define.amd ? define('@fs/ng-alain/shared', ['exports', '@abp/ng.core', '@angular/common', '@angular/core', '@angular/forms', '@angular/router', '@delon/acl', '@delon/form', '@delon/theme', '@ngx-translate/core', '@delon/abc/avatar-list', '@delon/abc/count-down', '@delon/abc/date-picker', '@delon/abc/down-file', '@delon/abc/ellipsis', '@delon/abc/error-collect', '@delon/abc/exception', '@delon/abc/footer-toolbar', '@delon/abc/full-content', '@delon/abc/global-footer', '@delon/abc/notice-icon', '@delon/abc/number-to-chinese', '@delon/abc/page-header', '@delon/abc/qr', '@delon/abc/quick-menu', '@delon/abc/result', '@delon/abc/se', '@delon/abc/sidebar-nav', '@delon/abc/st', '@delon/abc/sv', '@delon/abc/tag-select', '@delon/chart/bar', '@delon/chart/card', '@delon/chart/gauge', '@delon/chart/mini-area', '@delon/chart/mini-bar', '@delon/chart/mini-progress', '@delon/chart/number-info', '@delon/chart/pie', '@delon/chart/radar', '@delon/chart/single-bar', '@delon/chart/tag-cloud', '@delon/chart/timeline', '@delon/chart/trend', '@delon/chart/water-wave', 'ng-zorro-antd/affix', 'ng-zorro-antd/alert', 'ng-zorro-antd/avatar', 'ng-zorro-antd/back-top', 'ng-zorro-antd/badge', 'ng-zorro-antd/breadcrumb', 'ng-zorro-antd/button', 'ng-zorro-antd/card', 'ng-zorro-antd/carousel', 'ng-zorro-antd/checkbox', 'ng-zorro-antd/date-picker', 'ng-zorro-antd/divider', 'ng-zorro-antd/drawer', 'ng-zorro-antd/dropdown', 'ng-zorro-antd/form', 'ng-zorro-antd/grid', 'ng-zorro-antd/icon', 'ng-zorro-antd/input', 'ng-zorro-antd/input-number', 'ng-zorro-antd/list', 'ng-zorro-antd/message', 'ng-zorro-antd/modal', 'ng-zorro-antd/notification', 'ng-zorro-antd/pagination', 'ng-zorro-antd/popconfirm', 'ng-zorro-antd/popover', 'ng-zorro-antd/progress', 'ng-zorro-antd/radio', 'ng-zorro-antd/select', 'ng-zorro-antd/spin', 'ng-zorro-antd/steps', 'ng-zorro-antd/switch', 'ng-zorro-antd/table', 'ng-zorro-antd/tabs', 'ng-zorro-antd/tag', 'ng-zorro-antd/time-picker', 'ng-zorro-antd/tooltip', 'ng-zorro-antd/upload', 'ngx-countdown', 'ngx-tinymce', 'ngx-ueditor', '@abp/ng.theme.shared'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].shared = {}), global.ng_core, global.ng.common, global.ng.core, global.ng.forms, global.ng.router, global.acl, global.form, global.theme, global.core$1, global.avatarList, global.countDown, global.datePicker, global.downFile, global.ellipsis, global.errorCollect, global.exception, global.footerToolbar, global.fullContent, global.globalFooter, global.noticeIcon, global.numberToChinese, global.pageHeader, global.qr, global.quickMenu, global.result, global.se, global.sidebarNav, global.st, global.sv, global.tagSelect, global.bar, global.card, global.gauge, global.miniArea, global.miniBar, global.miniProgress, global.numberInfo, global.pie, global.radar, global.singleBar, global.tagCloud, global.timeline, global.trend, global.waterWave, global.affix, global.alert, global.avatar, global.backTop, global.badge, global.breadcrumb, global.button, global.card$1, global.carousel, global.checkbox, global.datePicker$1, global.divider, global.drawer, global.dropdown, global.form$1, global.grid, global.icon, global.input, global.inputNumber, global.list, global.message, global.modal, global.notification, global.pagination, global.popconfirm, global.popover, global.progress, global.radio, global.select, global.spin, global.steps, global._switch, global.table, global.tabs, global.tag, global.timePicker, global.tooltip, global.upload, global.ngxCountdown, global.ngxTinymce, global.ngxUeditor, global.ng_theme_shared));
-}(this, (function (exports, ng_core, common, core, forms, router, acl, form, theme, core$1, avatarList, countDown, datePicker, downFile, ellipsis, errorCollect, exception, footerToolbar, fullContent, globalFooter, noticeIcon, numberToChinese, pageHeader, qr, quickMenu, result, se, sidebarNav, st, sv, tagSelect, bar, card, gauge, miniArea, miniBar, miniProgress, numberInfo, pie, radar, singleBar, tagCloud, timeline, trend, waterWave, affix, alert, avatar, backTop, badge, breadcrumb, button, card$1, carousel, checkbox, datePicker$1, divider, drawer, dropdown, form$1, grid, icon, input, inputNumber, list, message, modal, notification, pagination, popconfirm, popover, progress, radio, select, spin, steps, _switch, table, tabs, tag, timePicker, tooltip, upload, ngxCountdown, ngxTinymce, ngxUeditor, ng_theme_shared) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/forms'), require('@angular/router'), require('@delon/acl'), require('@delon/form'), require('@delon/theme'), require('@ngx-translate/core'), require('@delon/abc/avatar-list'), require('@delon/abc/count-down'), require('@delon/abc/date-picker'), require('@delon/abc/down-file'), require('@delon/abc/ellipsis'), require('@delon/abc/error-collect'), require('@delon/abc/exception'), require('@delon/abc/footer-toolbar'), require('@delon/abc/full-content'), require('@delon/abc/global-footer'), require('@delon/abc/notice-icon'), require('@delon/abc/number-to-chinese'), require('@delon/abc/page-header'), require('@delon/abc/qr'), require('@delon/abc/quick-menu'), require('@delon/abc/result'), require('@delon/abc/se'), require('@delon/abc/sidebar-nav'), require('@delon/abc/st'), require('@delon/abc/sv'), require('@delon/abc/tag-select'), require('@delon/chart/bar'), require('@delon/chart/card'), require('@delon/chart/gauge'), require('@delon/chart/mini-area'), require('@delon/chart/mini-bar'), require('@delon/chart/mini-progress'), require('@delon/chart/number-info'), require('@delon/chart/pie'), require('@delon/chart/radar'), require('@delon/chart/single-bar'), require('@delon/chart/tag-cloud'), require('@delon/chart/timeline'), require('@delon/chart/trend'), require('@delon/chart/water-wave'), require('ng-zorro-antd/affix'), require('ng-zorro-antd/alert'), require('ng-zorro-antd/avatar'), require('ng-zorro-antd/back-top'), require('ng-zorro-antd/badge'), require('ng-zorro-antd/breadcrumb'), require('ng-zorro-antd/button'), require('ng-zorro-antd/card'), require('ng-zorro-antd/carousel'), require('ng-zorro-antd/checkbox'), require('ng-zorro-antd/date-picker'), require('ng-zorro-antd/divider'), require('ng-zorro-antd/drawer'), require('ng-zorro-antd/dropdown'), require('ng-zorro-antd/form'), require('ng-zorro-antd/grid'), require('ng-zorro-antd/icon'), require('ng-zorro-antd/input'), require('ng-zorro-antd/input-number'), require('ng-zorro-antd/list'), require('ng-zorro-antd/message'), require('ng-zorro-antd/modal'), require('ng-zorro-antd/notification'), require('ng-zorro-antd/pagination'), require('ng-zorro-antd/popconfirm'), require('ng-zorro-antd/popover'), require('ng-zorro-antd/progress'), require('ng-zorro-antd/radio'), require('ng-zorro-antd/select'), require('ng-zorro-antd/spin'), require('ng-zorro-antd/steps'), require('ng-zorro-antd/switch'), require('ng-zorro-antd/table'), require('ng-zorro-antd/tabs'), require('ng-zorro-antd/tag'), require('ng-zorro-antd/time-picker'), require('ng-zorro-antd/tooltip'), require('ng-zorro-antd/upload'), require('ng-zorro-antd/tree'), require('ng-zorro-antd/page-header'), require('ng-zorro-antd/descriptions'), require('ng-zorro-antd/auto-complete'), require('ng-zorro-antd/transfer'), require('ng-zorro-antd/collapse'), require('ng-zorro-antd/empty'), require('ngx-countdown'), require('ngx-tinymce'), require('ngx-ueditor'), require('@abp/ng.theme.shared'), require('@abp/ng.core')) :
+    typeof define === 'function' && define.amd ? define('@fs/ng-alain/shared', ['exports', '@angular/common', '@angular/core', '@angular/forms', '@angular/router', '@delon/acl', '@delon/form', '@delon/theme', '@ngx-translate/core', '@delon/abc/avatar-list', '@delon/abc/count-down', '@delon/abc/date-picker', '@delon/abc/down-file', '@delon/abc/ellipsis', '@delon/abc/error-collect', '@delon/abc/exception', '@delon/abc/footer-toolbar', '@delon/abc/full-content', '@delon/abc/global-footer', '@delon/abc/notice-icon', '@delon/abc/number-to-chinese', '@delon/abc/page-header', '@delon/abc/qr', '@delon/abc/quick-menu', '@delon/abc/result', '@delon/abc/se', '@delon/abc/sidebar-nav', '@delon/abc/st', '@delon/abc/sv', '@delon/abc/tag-select', '@delon/chart/bar', '@delon/chart/card', '@delon/chart/gauge', '@delon/chart/mini-area', '@delon/chart/mini-bar', '@delon/chart/mini-progress', '@delon/chart/number-info', '@delon/chart/pie', '@delon/chart/radar', '@delon/chart/single-bar', '@delon/chart/tag-cloud', '@delon/chart/timeline', '@delon/chart/trend', '@delon/chart/water-wave', 'ng-zorro-antd/affix', 'ng-zorro-antd/alert', 'ng-zorro-antd/avatar', 'ng-zorro-antd/back-top', 'ng-zorro-antd/badge', 'ng-zorro-antd/breadcrumb', 'ng-zorro-antd/button', 'ng-zorro-antd/card', 'ng-zorro-antd/carousel', 'ng-zorro-antd/checkbox', 'ng-zorro-antd/date-picker', 'ng-zorro-antd/divider', 'ng-zorro-antd/drawer', 'ng-zorro-antd/dropdown', 'ng-zorro-antd/form', 'ng-zorro-antd/grid', 'ng-zorro-antd/icon', 'ng-zorro-antd/input', 'ng-zorro-antd/input-number', 'ng-zorro-antd/list', 'ng-zorro-antd/message', 'ng-zorro-antd/modal', 'ng-zorro-antd/notification', 'ng-zorro-antd/pagination', 'ng-zorro-antd/popconfirm', 'ng-zorro-antd/popover', 'ng-zorro-antd/progress', 'ng-zorro-antd/radio', 'ng-zorro-antd/select', 'ng-zorro-antd/spin', 'ng-zorro-antd/steps', 'ng-zorro-antd/switch', 'ng-zorro-antd/table', 'ng-zorro-antd/tabs', 'ng-zorro-antd/tag', 'ng-zorro-antd/time-picker', 'ng-zorro-antd/tooltip', 'ng-zorro-antd/upload', 'ng-zorro-antd/tree', 'ng-zorro-antd/page-header', 'ng-zorro-antd/descriptions', 'ng-zorro-antd/auto-complete', 'ng-zorro-antd/transfer', 'ng-zorro-antd/collapse', 'ng-zorro-antd/empty', 'ngx-countdown', 'ngx-tinymce', 'ngx-ueditor', '@abp/ng.theme.shared', '@abp/ng.core'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].shared = {}), global.ng.common, global.ng.core, global.ng.forms, global.ng.router, global.acl, global.form$1, global.theme, global.core$1, global.avatarList, global.countDown, global.datePicker, global.downFile, global.ellipsis, global.errorCollect, global.exception, global.footerToolbar, global.fullContent, global.globalFooter, global.noticeIcon, global.numberToChinese, global.pageHeader, global.qr, global.quickMenu, global.result, global.se, global.sidebarNav, global.st, global.sv, global.tagSelect, global.bar, global.card, global.gauge, global.miniArea, global.miniBar, global.miniProgress, global.numberInfo, global.pie, global.radar, global.singleBar, global.tagCloud, global.timeline, global.trend, global.waterWave, global.affix, global.alert, global.avatar, global.backTop, global.badge, global.breadcrumb, global.button, global.card$1, global.carousel, global.checkbox, global.datePicker$1, global.divider, global.drawer, global.dropdown, global.form, global.grid, global.icon, global.input, global.inputNumber, global.list, global.message, global.modal, global.notification, global.pagination, global.popconfirm, global.popover, global.progress, global.radio, global.select, global.spin, global.steps, global._switch, global.table, global.tabs, global.tag, global.timePicker, global.tooltip, global.upload, global.tree, global.pageHeader$1, global.descriptions, global.autoComplete, global.transfer, global.collapse, global.empty, global.ngxCountdown, global.ngxTinymce, global.ngxUeditor, global.ng_theme_shared, global.ng_core));
+}(this, (function (exports, common, core, forms, router, acl, form$1, theme, core$1, avatarList, countDown, datePicker, downFile, ellipsis, errorCollect, exception, footerToolbar, fullContent, globalFooter, noticeIcon, numberToChinese, pageHeader, qr, quickMenu, result, se, sidebarNav, st, sv, tagSelect, bar, card, gauge, miniArea, miniBar, miniProgress, numberInfo, pie, radar, singleBar, tagCloud, timeline, trend, waterWave, affix, alert, avatar, backTop, badge, breadcrumb, button, card$1, carousel, checkbox, datePicker$1, divider, drawer, dropdown, form, grid, icon, input, inputNumber, list, message, modal, notification, pagination, popconfirm, popover, progress, radio, select, spin, steps, _switch, table, tabs, tag, timePicker, tooltip, upload, tree, pageHeader$1, descriptions, autoComplete, transfer, collapse, empty, ngxCountdown, ngxTinymce, ngxUeditor, ng_theme_shared, ng_core) { 'use strict';
 
     /**
      * 转化成RMB元字符串
@@ -377,7 +377,7 @@
         list.NzListModule,
         _switch.NzSwitchModule,
         radio.NzRadioModule,
-        form$1.NzFormModule,
+        form.NzFormModule,
         avatar.NzAvatarModule,
         spin.NzSpinModule,
         card$1.NzCardModule,
@@ -387,6 +387,13 @@
         notification.NzNotificationModule,
         pagination.NzPaginationModule,
         upload.NzUploadModule,
+        tree.NzTreeModule,
+        pageHeader$1.NzPageHeaderModule,
+        descriptions.NzDescriptionsModule,
+        autoComplete.NzAutocompleteModule,
+        transfer.NzTransferModule,
+        collapse.NzCollapseModule,
+        empty.NzEmptyModule
     ];
 
     var THIRDMODULES = [ngxCountdown.CountdownModule, ngxUeditor.UEditorModule, ngxTinymce.NgxTinymceModule];
@@ -404,24 +411,22 @@
         core.NgModule({
             imports: __spread([
                 common.CommonModule,
-                ng_core.CoreModule,
                 forms.FormsModule,
                 router.RouterModule,
                 forms.ReactiveFormsModule,
                 theme.AlainThemeModule.forChild(),
                 acl.DelonACLModule,
-                form.DelonFormModule
+                form$1.DelonFormModule
             ], SHARED_DELON_MODULES, SHARED_ZORRO_MODULES, THIRDMODULES),
             declarations: __spread(COMPONENTS, DIRECTIVES),
             exports: __spread([
                 common.CommonModule,
-                ng_core.CoreModule,
                 forms.FormsModule,
                 forms.ReactiveFormsModule,
                 router.RouterModule,
                 theme.AlainThemeModule,
                 acl.DelonACLModule,
-                form.DelonFormModule,
+                form$1.DelonFormModule,
                 core$1.TranslateModule
             ], SHARED_DELON_MODULES, SHARED_ZORRO_MODULES, THIRDMODULES, COMPONENTS, DIRECTIVES),
         })
@@ -444,10 +449,10 @@
         core.NgModule({
             declarations: SCHEMA_THIRDS_COMPONENTS,
             entryComponents: SCHEMA_THIRDS_COMPONENTS,
-            imports: [exports.SharedModule, form.DelonFormModule.forRoot()],
+            imports: [exports.SharedModule, form$1.DelonFormModule.forRoot()],
             exports: __spread(SCHEMA_THIRDS_COMPONENTS),
         }),
-        __metadata("design:paramtypes", [form.WidgetRegistry])
+        __metadata("design:paramtypes", [form$1.WidgetRegistry])
     ], exports.JsonSchemaModule);
 
     var STWIDGET_COMPONENTS = [];
@@ -464,18 +469,26 @@
         })
     ], exports.STWidgetModule);
 
-    exports.NgAlainSharedModule = /** @class */ (function () {
+    var NgAlainSharedModule_1;
+    exports.NgAlainSharedModule = NgAlainSharedModule_1 = /** @class */ (function () {
         function NgAlainSharedModule() {
         }
+        NgAlainSharedModule.forRoot = function () {
+            return {
+                ngModule: NgAlainSharedModule_1
+            };
+        };
         return NgAlainSharedModule;
     }());
-    exports.NgAlainSharedModule = __decorate([
+    exports.NgAlainSharedModule = NgAlainSharedModule_1 = __decorate([
         core.NgModule({
             imports: [
+                ng_core.CoreModule,
                 ng_theme_shared.ThemeSharedModule,
                 exports.SharedModule
             ],
             exports: [
+                ng_core.CoreModule,
                 ng_theme_shared.ThemeSharedModule,
                 exports.SharedModule
             ]

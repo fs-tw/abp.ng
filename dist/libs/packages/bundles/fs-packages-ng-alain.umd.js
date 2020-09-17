@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@fs/packages/ng-alain', ['exports', '@angular/core', '@angular/common'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs.packages = global.fs.packages || {}, global.fs.packages['ng-alain'] = {}), global.ng.core, global.ng.common));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs.packages = global.fs.packages || {}, global.fs.packages['ng-alain'] = {}), global.ng.core, global.ng.common));
 }(this, (function (exports, core, common) { 'use strict';
 
     /*! *****************************************************************************
@@ -296,18 +296,18 @@
         return value;
     }
 
-    exports.PackagesNgAlainAbpModule = /** @class */ (function () {
-        function PackagesNgAlainAbpModule() {
+    exports.PackagesNgAlainModule = /** @class */ (function () {
+        function PackagesNgAlainModule() {
         }
-        return PackagesNgAlainAbpModule;
+        return PackagesNgAlainModule;
     }());
-    exports.PackagesNgAlainAbpModule = __decorate([
+    exports.PackagesNgAlainModule = __decorate([
         core.NgModule({
             imports: [
                 common.CommonModule
             ]
         })
-    ], exports.PackagesNgAlainAbpModule);
+    ], exports.PackagesNgAlainModule);
 
     /**
      * Generated bundle index. Do not edit.

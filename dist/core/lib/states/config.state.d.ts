@@ -10,6 +10,7 @@ export declare class ConfigState {
     static getOne(key: string): (state: Config.State) => any;
     static getDeep(keys: string[] | string): (state: Config.State) => any;
     static getApiUrl(key?: string): (state: Config.State) => string;
+    static getFeature(key: string): (state: Config.State) => string;
     static getSetting(key: string): (state: Config.State) => string;
     static getSettings(keyword?: string): (state: Config.State) => import("../models").ABP.Dictionary<string>;
     static getGrantedPolicy(key: string): (state: Config.State) => boolean;

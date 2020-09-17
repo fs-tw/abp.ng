@@ -7,23 +7,27 @@ export declare namespace Config {
         environment: Environment;
     };
     interface Environment {
-        application: Application;
-        production: boolean;
-        hmr?: boolean;
-        oAuthConfig: AuthConfig;
         apis: Apis;
+        application: Application;
+        hmr?: boolean;
         localization?: {
             defaultResourceName?: string;
         };
+        oAuthConfig: AuthConfig;
+        production: boolean;
+        remoteEnv?: RemoteEnv;
     }
     interface Application {
         name: string;
+        baseUrl?: string;
         logoUrl?: string;
     }
-    interface ApiConfig {
+    type ApiConfig = {
         [key: string]: string;
         url: string;
-    }
+    } & Partial<{
+        rootNamespace: string;
+    }>;
     interface Apis {
         [key: string]: ApiConfig;
         default: ApiConfig;
@@ -36,4 +40,11 @@ export declare namespace Config {
         defaultValue: string;
     }
     type LocalizationParam = string | LocalizationWithDefault;
+    type customMergeFn = (localEnv: Partial<Config.Environment>, remoteEnv: any) => Config.Environment;
+    interface RemoteEnv {
+        url: string;
+        mergeStrategy: 'deepmerge' | 'overwrite' | customMergeFn;
+        method?: string;
+        headers?: ABP.Dictionary<string>;
+    }
 }

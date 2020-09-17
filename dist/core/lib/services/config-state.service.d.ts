@@ -9,6 +9,7 @@ export declare class ConfigStateService {
     getOne(...args: Parameters<typeof ConfigState.getOne>): any;
     getDeep(...args: Parameters<typeof ConfigState.getDeep>): any;
     getApiUrl(...args: Parameters<typeof ConfigState.getApiUrl>): string;
+    getFeature(...args: Parameters<typeof ConfigState.getFeature>): string;
     getSetting(...args: Parameters<typeof ConfigState.getSetting>): string;
     getSettings(...args: Parameters<typeof ConfigState.getSettings>): import("../models").ABP.Dictionary<string>;
     getGrantedPolicy(...args: Parameters<typeof ConfigState.getGrantedPolicy>): boolean;

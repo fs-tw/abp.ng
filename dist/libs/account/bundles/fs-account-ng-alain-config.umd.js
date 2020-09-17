@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@abp/ng.core'), require('@ngxs/store'), require('@fs/account/ng-alain'), require('@abp/ng.account/config')) :
     typeof define === 'function' && define.amd ? define('@fs/account/ng-alain/config', ['exports', '@angular/core', '@abp/ng.core', '@ngxs/store', '@fs/account/ng-alain', '@abp/ng.account/config'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs.account = global.fs.account || {}, global.fs.account['ng-alain'] = global.fs.account['ng-alain'] || {}, global.fs.account['ng-alain'].config = {}), global.ng.core, global.ng_core, global.store, global.fs.account['ng-alain'], global.config));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs.account = global.fs.account || {}, global.fs.account['ng-alain'] = global.fs.account['ng-alain'] || {}, global.fs.account['ng-alain'].config = {}), global.ng.core, global.ng_core, global.store, global.fs.account['ng-alain'], global.config));
 }(this, (function (exports, core, ng_core, store, ngAlain, config) { 'use strict';
 
     /*! *****************************************************************************
@@ -332,17 +332,13 @@
         AccountNgAlainConfigModule.forRoot = function () {
             return {
                 ngModule: AccountNgAlainConfigModule_1,
-                providers: [ROUTE_PROVIDERS, STYLES_PROVIDERS],
+                providers: [config.ACCOUNT_ROUTE_PROVIDERS, ROUTE_PROVIDERS, STYLES_PROVIDERS],
             };
         };
         return AccountNgAlainConfigModule;
     }());
     exports.AccountNgAlainConfigModule = AccountNgAlainConfigModule_1 = __decorate([
-        core.NgModule({
-            imports: [
-                config.AccountConfigModule.forRoot()
-            ]
-        })
+        core.NgModule()
     ], exports.AccountNgAlainConfigModule);
 
     /**
@@ -350,8 +346,9 @@
      */
 
     exports.ɵa = ROUTE_PROVIDERS;
-    exports.ɵb = STYLES_PROVIDERS;
-    exports.ɵc = configureStyles;
+    exports.ɵb = configureRoutes;
+    exports.ɵc = STYLES_PROVIDERS;
+    exports.ɵd = configureStyles;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

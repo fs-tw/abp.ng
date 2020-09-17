@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@abp/ng.setting-management/config'), require('@abp/ng.core'), require('@ngxs/store')) :
-    typeof define === 'function' && define.amd ? define('@fs/setting-management/ng-alain/config', ['exports', '@angular/core', '@abp/ng.setting-management/config', '@abp/ng.core', '@ngxs/store'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['setting-management'] = global.fs['setting-management'] || {}, global.fs['setting-management']['ng-alain'] = global.fs['setting-management']['ng-alain'] || {}, global.fs['setting-management']['ng-alain'].config = {}), global.ng.core, global.config, global.ng_core, global.store));
-}(this, (function (exports, core, config, ng_core, store) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@abp/ng.setting-management/config'), require('@abp/ng.core'), require('@ngxs/store'), require('@fs/setting-management/ng-alain')) :
+    typeof define === 'function' && define.amd ? define('@fs/setting-management/ng-alain/config', ['exports', '@angular/core', '@abp/ng.setting-management/config', '@abp/ng.core', '@ngxs/store', '@fs/setting-management/ng-alain'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs['setting-management'] = global.fs['setting-management'] || {}, global.fs['setting-management']['ng-alain'] = global.fs['setting-management']['ng-alain'] || {}, global.fs['setting-management']['ng-alain'].config = {}), global.ng.core, global.config, global.ng_core, global.store, global.fs['setting-management']['ng-alain']));
+}(this, (function (exports, core, config, ng_core, store, ngAlain) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -301,6 +301,20 @@
     ];
     function configureRoutes(routes) {
         return function () {
+            routes.add([
+                {
+                    path: '/setting-management',
+                    name: "SettingManagement::Menu:SettingManagement.MySettings" /* MySettings */,
+                    parentName: "AbpSettingManagement::Settings" /* Settings */,
+                    order: 1,
+                },
+                {
+                    path: '/setting-management/settings',
+                    name: "SettingManagement::Menu:SettingManagement.DevelopPage" /* DevelopPage */,
+                    parentName: "AbpSettingManagement::Settings" /* Settings */,
+                    order: 2,
+                }
+            ]);
         };
     }
 
@@ -318,6 +332,32 @@
         };
     }
     function initLayouts(store) {
+        store.dispatch([
+            new ng_core.AddReplaceableComponent({
+                key: "SettingManagement.SettingManagementComponent" /* SettingManagement */,
+                component: ngAlain.SettingManagementComponent,
+            })
+        ]);
+    }
+
+    var SETTINGS_PROVIDERS = [
+        { provide: core.APP_INITIALIZER, useFactory: configureSettings, deps: [ng_core.SettingTabsService], multi: true },
+    ];
+    function configureSettings(settingTabs) {
+        return function () {
+            settingTabs.add([
+                {
+                    name: 'MySettings',
+                    order: 1,
+                    component: ngAlain.MySettingsComponent,
+                },
+                {
+                    name: 'MySettings2',
+                    order: 2,
+                    component: ngAlain.MySettings2Component,
+                },
+            ]);
+        };
     }
 
     var SettingManagementNgAlainConfigModule_1;
@@ -327,17 +367,13 @@
         SettingManagementNgAlainConfigModule.forRoot = function () {
             return {
                 ngModule: SettingManagementNgAlainConfigModule_1,
-                providers: [ROUTE_PROVIDERS, STYLES_PROVIDERS],
+                providers: [config.SETTING_MANAGEMENT_ROUTE_PROVIDERS, ROUTE_PROVIDERS, STYLES_PROVIDERS, SETTINGS_PROVIDERS],
             };
         };
         return SettingManagementNgAlainConfigModule;
     }());
     exports.SettingManagementNgAlainConfigModule = SettingManagementNgAlainConfigModule_1 = __decorate([
-        core.NgModule({
-            imports: [
-                config.SettingManagementConfigModule.forRoot()
-            ]
-        })
+        core.NgModule()
     ], exports.SettingManagementNgAlainConfigModule);
 
     /**
@@ -347,6 +383,7 @@
     exports.ɵa = ROUTE_PROVIDERS;
     exports.ɵb = STYLES_PROVIDERS;
     exports.ɵc = configureStyles;
+    exports.ɵd = SETTINGS_PROVIDERS;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

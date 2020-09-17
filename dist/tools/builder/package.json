@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/execa": "^2.0.0",
     "@types/jasmine": "^3.3.12",
     "@types/node": "^11.13.4",
     "jasmine": "^3.4.0",

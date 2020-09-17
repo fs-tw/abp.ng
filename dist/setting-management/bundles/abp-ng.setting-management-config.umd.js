@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@angular/core'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@abp/ng.setting-management/config', ['exports', '@abp/ng.core', '@angular/core', 'rxjs/operators'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng['setting-management'] = global.abp.ng['setting-management'] || {}, global.abp.ng['setting-management'].config = {}), global.ng_core, global.ng.core, global.rxjs.operators));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng['setting-management'] = global.abp.ng['setting-management'] || {}, global.abp.ng['setting-management'].config = {}), global.ng_core, global.ng.core, global.rxjs.operators));
 }(this, (function (exports, ng_core, core, operators) { 'use strict';
 
     var SETTING_MANAGEMENT_ROUTE_PROVIDERS = [

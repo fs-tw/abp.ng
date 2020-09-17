@@ -30,3 +30,4 @@ export declare class CoreModule {
     static forTest({ baseHref }?: ABP.Test): ModuleWithProviders<TestCoreModule>;
     static forRoot(options?: ABP.Root): ModuleWithProviders<RootCoreModule>;
 }
+export declare function ngxsStoragePluginSerialize(data: any): any;

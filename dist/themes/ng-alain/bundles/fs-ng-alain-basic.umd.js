@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.theme.basic'), require('@fs/ng-alain/shared'), require('@fs/ng-alain/layout'), require('@angular/core'), require('@abp/ng.core'), require('@ngxs/store')) :
-    typeof define === 'function' && define.amd ? define('@fs/ng-alain/basic', ['exports', '@abp/ng.theme.basic', '@fs/ng-alain/shared', '@fs/ng-alain/layout', '@angular/core', '@abp/ng.core', '@ngxs/store'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].basic = {}), global.ng_theme_basic, global.fs['ng-alain'].shared, global.fs['ng-alain'].layout, global.ng.core, global.ng_core, global.store));
-}(this, (function (exports, ng_theme_basic, shared, layout, core, ng_core, store) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/ng-alain/shared'), require('@fs/ng-alain/layout'), require('@angular/core'), require('@abp/ng.core'), require('@ngxs/store'), require('ng-zorro-antd'), require('lodash'), require('@fs/theme.core')) :
+    typeof define === 'function' && define.amd ? define('@fs/ng-alain/basic', ['exports', '@fs/ng-alain/shared', '@fs/ng-alain/layout', '@angular/core', '@abp/ng.core', '@ngxs/store', 'ng-zorro-antd', 'lodash', '@fs/theme.core'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].basic = {}), global.fs['ng-alain'].shared, global.fs['ng-alain'].layout, global.ng.core, global.ng_core, global.store, global.ngZorroAntd, global._, global.theme_core));
+}(this, (function (exports, shared, layout, core, ng_core, store, ngZorroAntd, _, theme_core) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -324,8 +324,442 @@
                 key: "Theme.EmptyLayoutComponent" /* EmptyLayout */,
                 component: layout.LayoutFullScreenComponent,
             }),
+            new ng_core.AddReplaceableComponent({
+                key: "ThemeCore.PageBarComponent" /* PageBar */,
+                component: layout.PageBarComponent,
+            }),
         ]);
     }
+
+    exports.FsNgAlainTreeComponent = /** @class */ (function () {
+        function FsNgAlainTreeComponent() {
+            /** 佔據一行(藍底) */
+            this.blockNode = true;
+            /** 顯示節點狀態
+             * 0: 不顯示
+             * 1: 顯示子節點數
+             * 2: 顯示子節點總數
+             * 3: 顯示此節點物件數
+             * 4: 顯示此節點及所有子節點物件數
+             */
+            this.showCountType = 0;
+            /** 欲轉為樹狀的陣列
+             * Array<any> = [{
+             *   id: id 傳回值,
+             *   displayName: 節點顯示文字,
+             *   parentId: 父節點id (根節點設為null),
+             *   code: 樹結構代碼
+             * }]
+             */
+            this.tree = [];
+            /** 樹物件
+             * 僅計算節點數
+             */
+            this.treeItem = [];
+            /** 節點全部展開 */
+            this.nzDefaultExpandAll = false;
+            /** 預設展開之節點
+             * Key Array
+             */
+            this.defaultExpandedKeys = [];
+            /** 顯示連結線 */
+            this.nzShowLine = false;
+            /** 預設選取(藍底)
+             * Key Array
+             */
+            this.defaultSelectedKeys = [];
+            /** 是否可勾選 */
+            this.nzCheckable = false;
+            /** 預設勾選
+             * Key Array
+             */
+            this.defaultCheckedKeys = [];
+            /** 是否產生全選框 */
+            this.showCheckAll = false;
+            /** 全選框文字 */
+            this.checkAllText = "全部";
+            /** 拖拽 */
+            this.nzDraggable = false;
+            /** 葉節點
+             * 最後一層節點設為葉節點，不可拖拽至葉節點內，不顯示子節點數量
+             */
+            this.leafNodes = false;
+            /** 預設搜尋框 */
+            this.nzDefaultSearch = false;
+            /** 搜尋字串 */
+            this.searchValue = "";
+            /** 是否展開時讀取
+             * 讀取後，顯示的節點數不會更新
+             */
+            this.nzAsyncData = false;
+            /** 拖拽後傳回 */
+            this.onDropAction = new core.EventEmitter();
+            /** 點擊 */
+            this.onNodeClick = new core.EventEmitter();
+            /** 雙擊 */
+            this.onNodeDblClick = new core.EventEmitter();
+            /** CheckBox 狀態變更 */
+            this.onCheckBoxChange = new core.EventEmitter();
+            /** 搜尋後 */
+            this.onSearch = new core.EventEmitter();
+            /** 展開狀態改變 */
+            this.onExpandChange = new core.EventEmitter();
+            /** 樹狀陣列 */
+            this.treeOptions = [];
+        }
+        FsNgAlainTreeComponent.prototype.ngOnInit = function () {
+            this.init();
+        };
+        /** 初始化參數 */
+        FsNgAlainTreeComponent.prototype.init = function () {
+            var _this = this;
+            var tree = this.initTreeDatas(_.cloneDeep(this.tree));
+            var treeItem = this.initTreeDatas(_.cloneDeep(this.treeItem));
+            if (this.showCheckAll)
+                tree = this.createCheckAll(tree);
+            if (this.leafNodes)
+                tree = this.setLeaf(tree);
+            tree = this.calcNodeNum(tree);
+            var option = this.array2Nodes(tree);
+            if (this.showCountType != 0)
+                option = this.showCount(option);
+            this.treeOptions = [];
+            option.forEach(function (item) {
+                _this.treeOptions.push(new ngZorroAntd.NzTreeNode(item));
+            });
+        };
+        /** 初始化 Tree 所需要的資料 */
+        FsNgAlainTreeComponent.prototype.initTreeDatas = function (tree) {
+            tree = tree.map(function (x) {
+                x.title = x.displayName;
+                x.key = x.id;
+                delete x.children;
+                return x;
+            });
+            return tree;
+        };
+        /** 產生全選框 */
+        FsNgAlainTreeComponent.prototype.createCheckAll = function (datas) {
+            datas = datas.map(function (x) {
+                if (x.parentId == null)
+                    x.parentId = 0;
+                x.code = "0." + x.code;
+                return x;
+            });
+            datas.push({
+                id: 0, key: 0, parentId: null, title: this.checkAllText, code: "0"
+            });
+            return datas;
+        };
+        /** 計算節點顯示數字 */
+        FsNgAlainTreeComponent.prototype.calcNodeNum = function (datas) {
+            var vm = this;
+            switch (this.showCountType) {
+                case 1:
+                    datas = datas.map(function (x, i, arr) {
+                        x.childNum = arr.filter(function (y) { return x.id == y.parentId && x.id != y.id; }).length;
+                        return x;
+                    });
+                    break;
+                case 2:
+                    datas = datas.map(function (x, i, arr) {
+                        x.childNum = arr.filter(function (y) { return y.code.startsWith(x.code) && x.id != y.id; }).length;
+                        return x;
+                    });
+                    break;
+                case 3:
+                    datas = datas.map(function (x) {
+                        x.childNum = vm.treeItem.filter(function (y) { return y.parentId == x.id; }).length;
+                        return x;
+                    });
+                    break;
+                case 4:
+                    datas = datas.map(function (x) {
+                        // x.childNum = vm.treeItem.filter(y => "0." + y.code.startsWith(x.code) && x.id != y.id).length;
+                        x.childNum = vm.treeItem.filter(function (y) {
+                            var code = "0." + y.code;
+                            return code.startsWith(x.code);
+                        }).length;
+                        return x;
+                    });
+                    break;
+            }
+            return datas;
+        };
+        /** 設置節點為葉節點
+         * 葉節點無法拖拽、不顯示展開按鈕
+         */
+        FsNgAlainTreeComponent.prototype.setLeaf = function (datas) {
+            datas = datas.map(function (x, i, arr) {
+                if (arr.findIndex(function (y) { return y.parentId == x.id; }) == -1)
+                    x.isLeaf = true;
+                return x;
+            });
+            return datas;
+        };
+        /** 顯示節點數字 */
+        FsNgAlainTreeComponent.prototype.showCount = function (nodes) {
+            var _this = this;
+            nodes.forEach(function (node) {
+                if (node.children)
+                    node.children = _this.showCount(node.children);
+                if (!node.isLeaf || _this.showCountType > 2)
+                    node.title += "(" + node.childNum + ")";
+            });
+            return nodes;
+        };
+        /** 點擊節點 */
+        FsNgAlainTreeComponent.prototype.nodeClick = function (data) {
+            // this.treeStatusChange("isSelected");
+            // data.node.isSelected = true;
+            this.onNodeClick.emit(data);
+        };
+        /** 展開狀態改變 */
+        FsNgAlainTreeComponent.prototype.expandChange = function (event) {
+            this.onExpandChange.emit(event);
+        };
+        /** 雙擊節點 */
+        FsNgAlainTreeComponent.prototype.nodeDblClick = function (data) {
+            //展開/收合 節點
+            if (data instanceof ngZorroAntd.NzTreeNode) {
+                data.isExpanded = !data.isExpanded;
+            }
+            else {
+                data.node.isExpanded = !data.node.isExpanded;
+            }
+            this.onNodeDblClick.emit(data);
+        };
+        /** CheckBox 狀態變更 */
+        FsNgAlainTreeComponent.prototype.nodeCheckBoxChange = function (data) {
+            this.onCheckBoxChange.emit(data);
+        };
+        /** 取得勾選的節點
+         * type: 欄位名稱, 預設 'id'
+         * type == '*all', 傳回完整物件
+         */
+        FsNgAlainTreeComponent.prototype.getChecked = function (type) {
+            if (type === void 0) { type = 'id'; }
+            var checkedDatas = this.nodes2Array(_.cloneDeep(this.treeOptions))
+                .filter(function (x) { return x.isChecked && x.key != 0; })
+                .map(function (x) { return x.key; });
+            var checkedTreeDatas = _.cloneDeep(this.tree).filter(function (x) { return checkedDatas.includes(x.id); });
+            if (type.toLowerCase() == '*all')
+                return checkedTreeDatas;
+            return checkedTreeDatas.map(function (x) { return x[type]; });
+        };
+        /** 樹狀態修改，預設關閉
+         * type == isSelected(選擇狀態，藍底)
+         * type == isChecked(勾選狀態)
+         * type == isExpanded(折疊狀態)
+         * type == isLeaf(葉節點狀態)
+         */
+        FsNgAlainTreeComponent.prototype.treeStatusChange = function (type, status) {
+            if (status === void 0) { status = false; }
+            this.statusChange(this.treeOptions, type, status);
+        };
+        FsNgAlainTreeComponent.prototype.statusChange = function (nodes, type, status) {
+            if (status === void 0) { status = false; }
+            var childKey = "children";
+            if (nodes instanceof Array) {
+                for (var i = 0, l = nodes.length; i < l; i++) {
+                    nodes[i][type] = status;
+                    if (type == 'isChecked' && status == false)
+                        nodes[i]['isHalfChecked'] = false;
+                    if (nodes[i][childKey])
+                        this.statusChange(nodes[i][childKey], type, status);
+                }
+            }
+            else {
+                nodes[type] = status;
+                if (type == 'isChecked' && status == false)
+                    nodes['isHalfChecked'] = false;
+                if (nodes[childKey])
+                    this.statusChange(nodes[childKey], type, status);
+            }
+        };
+        /** 拖曳後動作 */
+        FsNgAlainTreeComponent.prototype.dropAction = function (event) {
+            var drag = {
+                node: event.dragNode.key,
+                parent: 0
+            };
+            if (event.dragNode.parentNode && event.dragNode.parentNode.key)
+                drag.parent = event.dragNode.parentNode.key;
+            event.dragNode.origin.parentId = drag.parent;
+            var datas = this.nodes2Array(_.cloneDeep(this.treeOptions))
+                .filter(function (x) { return x.origin.id; })
+                .map(function (x, i, arr) {
+                var parentId = x.origin.parentId ? x.origin.parentId : null;
+                var order = arr.filter(function (y) { return y.origin.parentId == x.origin.parentId; })
+                    .findIndex(function (y) { return y.key == x.key; });
+                var temp = {
+                    id: x.origin.id,
+                    parentId: parentId,
+                    order: order
+                };
+                return temp;
+            });
+            this.onDropAction.emit({
+                drag: drag,
+                datas: datas
+            });
+        };
+        /** 搜尋樹 */
+        FsNgAlainTreeComponent.prototype.nzOnSearch = function (event) {
+            this.onSearch.emit(event);
+        };
+        /**  陣列轉樹狀 */
+        FsNgAlainTreeComponent.prototype.array2Nodes = function (nodesArray) {
+            var i, l, key = "id", parentKey = "parentId", childKey = "children";
+            if (!key || key == "" || !nodesArray)
+                return [];
+            if (nodesArray instanceof Array) {
+                var r = [];
+                var tmpMap = {};
+                for (i = 0, l = nodesArray.length; i < l; i++) {
+                    tmpMap[nodesArray[i][key]] = nodesArray[i];
+                }
+                for (i = 0, l = nodesArray.length; i < l; i++) {
+                    if (tmpMap[nodesArray[i][parentKey]] && nodesArray[i][key] != nodesArray[i][parentKey]) {
+                        if (!tmpMap[nodesArray[i][parentKey]][childKey])
+                            tmpMap[nodesArray[i][parentKey]][childKey] = [];
+                        tmpMap[nodesArray[i][parentKey]][childKey].push(nodesArray[i]);
+                    }
+                    else {
+                        r.push(nodesArray[i]);
+                    }
+                }
+                return r;
+            }
+            else {
+                return [nodesArray];
+            }
+        };
+        /** 樹狀轉陣列 */
+        FsNgAlainTreeComponent.prototype.nodes2Array = function (nodes) {
+            if (!nodes)
+                return [];
+            var childKey = "children", r = [];
+            if (nodes instanceof Array) {
+                for (var i = 0, l = nodes.length; i < l; i++) {
+                    r.push(nodes[i]);
+                    if (nodes[i][childKey])
+                        r = r.concat(this.nodes2Array(nodes[i][childKey]));
+                }
+            }
+            else {
+                r.push(nodes);
+                if (nodes[childKey])
+                    r = r.concat(this.nodes2Array(nodes[childKey]));
+            }
+            return r;
+        };
+        return FsNgAlainTreeComponent;
+    }());
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Boolean)
+    ], exports.FsNgAlainTreeComponent.prototype, "blockNode", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Number)
+    ], exports.FsNgAlainTreeComponent.prototype, "showCountType", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Array)
+    ], exports.FsNgAlainTreeComponent.prototype, "tree", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Array)
+    ], exports.FsNgAlainTreeComponent.prototype, "treeItem", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Boolean)
+    ], exports.FsNgAlainTreeComponent.prototype, "nzDefaultExpandAll", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Array)
+    ], exports.FsNgAlainTreeComponent.prototype, "defaultExpandedKeys", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Boolean)
+    ], exports.FsNgAlainTreeComponent.prototype, "nzShowLine", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Array)
+    ], exports.FsNgAlainTreeComponent.prototype, "defaultSelectedKeys", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Boolean)
+    ], exports.FsNgAlainTreeComponent.prototype, "nzCheckable", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Array)
+    ], exports.FsNgAlainTreeComponent.prototype, "defaultCheckedKeys", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Boolean)
+    ], exports.FsNgAlainTreeComponent.prototype, "showCheckAll", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", String)
+    ], exports.FsNgAlainTreeComponent.prototype, "checkAllText", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Boolean)
+    ], exports.FsNgAlainTreeComponent.prototype, "nzDraggable", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Boolean)
+    ], exports.FsNgAlainTreeComponent.prototype, "leafNodes", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", core.TemplateRef)
+    ], exports.FsNgAlainTreeComponent.prototype, "nzTreeTemplate", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Boolean)
+    ], exports.FsNgAlainTreeComponent.prototype, "nzDefaultSearch", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", String)
+    ], exports.FsNgAlainTreeComponent.prototype, "searchValue", void 0);
+    __decorate([
+        core.Input(),
+        __metadata("design:type", Boolean)
+    ], exports.FsNgAlainTreeComponent.prototype, "nzAsyncData", void 0);
+    __decorate([
+        core.Output(),
+        __metadata("design:type", core.EventEmitter)
+    ], exports.FsNgAlainTreeComponent.prototype, "onDropAction", void 0);
+    __decorate([
+        core.Output(),
+        __metadata("design:type", core.EventEmitter)
+    ], exports.FsNgAlainTreeComponent.prototype, "onNodeClick", void 0);
+    __decorate([
+        core.Output(),
+        __metadata("design:type", core.EventEmitter)
+    ], exports.FsNgAlainTreeComponent.prototype, "onNodeDblClick", void 0);
+    __decorate([
+        core.Output(),
+        __metadata("design:type", core.EventEmitter)
+    ], exports.FsNgAlainTreeComponent.prototype, "onCheckBoxChange", void 0);
+    __decorate([
+        core.Output(),
+        __metadata("design:type", core.EventEmitter)
+    ], exports.FsNgAlainTreeComponent.prototype, "onSearch", void 0);
+    __decorate([
+        core.Output(),
+        __metadata("design:type", core.EventEmitter)
+    ], exports.FsNgAlainTreeComponent.prototype, "onExpandChange", void 0);
+    exports.FsNgAlainTreeComponent = __decorate([
+        core.Component({
+            selector: 'fs-ng-alain-tree',
+            template: "<nz-input-group [nzSuffix]=\"suffixIcon\" *ngIf=\"nzDefaultSearch\">\r\n    <input type=\"text\" nz-input placeholder=\"Search\" [(ngModel)]=\"searchValue\" />\r\n</nz-input-group>\r\n<ng-template #suffixIcon>\r\n    <i nz-icon nzType=\"search\"></i>\r\n</ng-template>\r\n<nz-tree\r\n    [nzBlockNode]=\"blockNode\"\r\n    [nzData]=\"treeOptions\"\r\n    [nzExpandAll]=\"nzDefaultExpandAll\"\r\n    [nzExpandedKeys]=\"defaultExpandedKeys\"\r\n    [nzShowLine]=\"nzShowLine\"\r\n    [nzSelectedKeys]=\"defaultSelectedKeys\"\r\n    [nzCheckable]=\"nzCheckable\"\r\n    [nzCheckedKeys]=\"defaultCheckedKeys\"\r\n    [nzDraggable]=\"nzDraggable\"\r\n    (nzOnDrop)=\"dropAction($event)\"\r\n    (nzClick)=\"nodeClick($event)\"\r\n    (nzDblClick)=\"nodeDblClick($event)\"\r\n    (nzCheckBoxChange)=\"nodeCheckBoxChange($event)\"\r\n    [nzTreeTemplate]=\"nzTreeTemplate\"\r\n    [nzSearchValue]=\"searchValue\"\r\n    (nzSearchValueChange)=\"nzOnSearch($event)\"\r\n    [nzAsyncData]=\"nzAsyncData\"\r\n    (nzExpandChange)=\"expandChange($event)\">\r\n</nz-tree>\r\n",
+            styles: ["::ng-deep .ant-tree-node-content-wrapper{width:100%}::ng-deep .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected{background-color:#f5f5f5}"]
+        }),
+        __metadata("design:paramtypes", [])
+    ], exports.FsNgAlainTreeComponent);
 
     var NgAlainBasicModule_1;
     exports.NgAlainBasicModule = NgAlainBasicModule_1 = /** @class */ (function () {
@@ -341,14 +775,18 @@
     }());
     exports.NgAlainBasicModule = NgAlainBasicModule_1 = __decorate([
         core.NgModule({
+            declarations: [
+                exports.FsNgAlainTreeComponent
+            ],
             imports: [
+                theme_core.ThemeCoreModule,
                 shared.NgAlainSharedModule,
-                ng_theme_basic.ThemeBasicModule,
                 layout.LayoutModule
             ],
             exports: [
+                theme_core.ThemeCoreModule,
                 shared.NgAlainSharedModule,
-                ng_theme_basic.ThemeBasicModule
+                exports.FsNgAlainTreeComponent
             ]
         })
     ], exports.NgAlainBasicModule);
@@ -357,8 +795,8 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.BASIC_THEME_STYLES_PROVIDERS = BASIC_THEME_STYLES_PROVIDERS;
-    exports.configureStyles = configureStyles;
+    exports.ɵa = BASIC_THEME_STYLES_PROVIDERS;
+    exports.ɵb = configureStyles;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

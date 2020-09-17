@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@abp/ng.core')) :
     typeof define === 'function' && define.amd ? define('@abp/ng.account/config', ['exports', '@angular/core', '@abp/ng.core'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.account = global.abp.ng.account || {}, global.abp.ng.account.config = {}), global.ng.core, global.ng_core));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.account = global.abp.ng.account || {}, global.abp.ng.account.config = {}), global.ng.core, global.ng_core));
 }(this, (function (exports, core, ng_core) { 'use strict';
 
     /*! *****************************************************************************

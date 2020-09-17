@@ -1,13 +1,13 @@
 import { __decorate, __metadata } from 'tslib';
-import { TenantManagementWrapModule } from '@fs/tenant-management/wrap';
+import { TenantsComponent as TenantsComponent$1, TenantManagementService, TenantManagementModule } from '@abp/ng.tenant-management';
 import { ListService, LazyModuleFactory } from '@abp/ng.core';
 import { Component, NgModule } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
-import { TenantsComponent as TenantsComponent$1, TenantManagementService } from '@abp/ng.tenant-management';
 import { ConfirmationService } from '@abp/ng.theme.shared';
 import { FormBuilder } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { FeatureManagementNgAlainModule } from '@fs/feature-management/ng-alain';
+import { NgxValidateCoreModule } from '@ngx-validate/core';
 
 let TenantsComponent = class TenantsComponent extends TenantsComponent$1 {
     constructor(_list, _confirmationService, _tenantService, _fb, _store) {
@@ -46,14 +46,15 @@ let TenantManagementNgAlainModule = TenantManagementNgAlainModule_1 = class Tena
 };
 TenantManagementNgAlainModule = TenantManagementNgAlainModule_1 = __decorate([
     NgModule({
-        declarations: [TenantsComponent],
-        entryComponents: [TenantsComponent],
-        exports: [TenantsComponent],
         imports: [
             NgAlainBasicModule,
             FeatureManagementNgAlainModule,
-            TenantManagementWrapModule
-        ]
+            NgxValidateCoreModule,
+            TenantManagementModule
+        ],
+        exports: [TenantsComponent],
+        declarations: [TenantsComponent],
+        entryComponents: [TenantsComponent]
     })
 ], TenantManagementNgAlainModule);
 

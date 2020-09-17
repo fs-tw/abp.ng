@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@abp/ng.feature-management'), require('@abp/ng.theme.shared'), require('@angular/core'), require('@ng-bootstrap/ng-bootstrap'), require('@ngx-validate/core'), require('@ngxs/store'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('@angular/router')) :
     typeof define === 'function' && define.amd ? define('@abp/ng.tenant-management', ['exports', '@abp/ng.core', '@abp/ng.feature-management', '@abp/ng.theme.shared', '@angular/core', '@ng-bootstrap/ng-bootstrap', '@ngx-validate/core', '@ngxs/store', '@angular/forms', 'rxjs', 'rxjs/operators', '@angular/router'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng['tenant-management'] = {}), global.i1, global.ng_featureManagement, global.ng_theme_shared, global.ng.core, global.ngBootstrap, global.core, global.i1$1, global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.router));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng['tenant-management'] = {}), global.i1, global.ng_featureManagement, global.ng_theme_shared, global.ng.core, global.ngBootstrap, global.core, global.i1$1, global.ng.forms, global.rxjs, global.rxjs.operators, global.ng.router));
 }(this, (function (exports, i1, ng_featureManagement, ng_theme_shared, i0, ngBootstrap, core, i1$1, forms, rxjs, operators, router) { 'use strict';
 
     /*! *****************************************************************************

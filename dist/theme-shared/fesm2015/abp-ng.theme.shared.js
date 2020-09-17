@@ -1,19 +1,19 @@
 import { animation, style, animate, keyframes, trigger, state, transition, useAnimation, query } from '@angular/animations';
 import { __rest, __decorate, __metadata, __param } from 'tslib';
-import { takeUntilDestroy, getRoutePath, RoutesService, StartLoader, StopLoader, PROJECTION_STRATEGY, ContentProjectionService, LocalizationService, ListService, SortPipe, RestOccurError, getLocaleDirection, LazyLoadService, LOADING_STRATEGY, DomInsertionService, CONTENT_STRATEGY, noop, CoreModule, ConfigState } from '@abp/ng.core';
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Input, Output, ViewChild, ElementRef, Renderer2, ViewEncapsulation, ɵɵdefineInjectable, ɵɵinject, Injectable, ViewContainerRef, ContentChild, TemplateRef, ViewChildren, HostBinding, Directive, ComponentFactoryResolver, Injector, Host, Optional, Self, ApplicationRef, RendererFactory2, INJECTOR, Inject, InjectionToken, APP_INITIALIZER, inject, NgModule } from '@angular/core';
+import { getRoutePath, SubscriptionService, RoutesService, StartLoader, StopLoader, PROJECTION_STRATEGY, ContentProjectionService, LocalizationService, ListService, SortPipe, RestOccurError, getLocaleDirection, LazyLoadService, LOADING_STRATEGY, DomInsertionService, CONTENT_STRATEGY, ConfigState, noop, CoreModule } from '@abp/ng.core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Input, Output, ViewChild, ElementRef, Renderer2, ViewEncapsulation, ɵɵdefineInjectable, ɵɵinject, Injectable, ViewContainerRef, ContentChild, TemplateRef, ViewChildren, HostBinding, Directive, ComponentFactoryResolver, Injector, Inject, Host, Optional, Self, ApplicationRef, RendererFactory2, INJECTOR, InjectionToken, APP_INITIALIZER, inject, NgModule } from '@angular/core';
 import { NavigationEnd, Router, NavigationStart, NavigationError } from '@angular/router';
 import { filter, startWith, map, takeUntil, debounceTime, distinctUntilChanged, take } from 'rxjs/operators';
 import { ReplaySubject, BehaviorSubject, timer, Subject, fromEvent, Subscription } from 'rxjs';
-import { takeUntilDestroy as takeUntilDestroy$1, NgxValidateCoreModule, validatePassword } from '@ngx-validate/core';
 import { ofActionSuccessful, Actions, Store } from '@ngxs/store';
 import snq from 'snq';
+import { DOCUMENT, DatePipe } from '@angular/common';
 import { ColumnMode, DatatableComponent, NgxDatatableModule } from '@swimlane/ngx-datatable';
 import clone from 'just-clone';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterError, RouterDataResolved, Navigate, RouterState } from '@ngxs/router-plugin';
-import { DatePipe } from '@angular/common';
 import { NgbDateParserFormatter, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxValidateCoreModule, validatePassword } from '@ngx-validate/core';
 import { Validators } from '@angular/forms';
 
 const bounceIn = animation([
@@ -147,19 +147,17 @@ const toastInOut = trigger('toastInOut', [
 ]);
 
 let BreadcrumbComponent = class BreadcrumbComponent {
-    constructor(cdRef, router, routes) {
+    constructor(cdRef, router, routes, subscription) {
         this.cdRef = cdRef;
         this.router = router;
         this.routes = routes;
+        this.subscription = subscription;
         this.segments = [];
     }
-    ngOnDestroy() { }
     ngOnInit() {
-        this.router.events
-            .pipe(takeUntilDestroy(this), filter(event => event instanceof NavigationEnd), 
+        this.subscription.addOne(this.router.events.pipe(filter(event => event instanceof NavigationEnd), 
         // tslint:disable-next-line:deprecation
-        startWith(null), map(() => this.routes.search({ path: getRoutePath(this.router) })))
-            .subscribe(route => {
+        startWith(null), map(() => this.routes.search({ path: getRoutePath(this.router) }))), route => {
             this.segments = [];
             if (route) {
                 let node = { parent: route };
@@ -178,11 +176,13 @@ BreadcrumbComponent = __decorate([
     Component({
         selector: 'abp-breadcrumb',
         template: "<ol class=\"breadcrumb\" *ngIf=\"segments.length\">\r\n  <li class=\"breadcrumb-item\">\r\n    <a routerLink=\"/\"><i class=\"fa fa-home\"></i> </a>\r\n  </li>\r\n  <li\r\n    *ngFor=\"let segment of segments; let last = last\"\r\n    class=\"breadcrumb-item\"\r\n    [class.active]=\"last\"\r\n    aria-current=\"page\"\r\n  >\r\n    {{ segment.name | abpLocalization }}\r\n  </li>\r\n</ol>\r\n",
-        changeDetection: ChangeDetectionStrategy.OnPush
+        changeDetection: ChangeDetectionStrategy.OnPush,
+        providers: [SubscriptionService]
     }),
     __metadata("design:paramtypes", [ChangeDetectorRef,
         Router,
-        RoutesService])
+        RoutesService,
+        SubscriptionService])
 ], BreadcrumbComponent);
 function isAdministration(route) {
     return route.name === "AbpUiNavigation::Menu:Administration" /* Administration */;
@@ -527,13 +527,13 @@ LoadingComponent = __decorate([
 ], LoadingComponent);
 
 let LoaderBarComponent = class LoaderBarComponent {
-    constructor(actions, router, cdRef) {
+    constructor(actions, router, cdRef, subscription) {
         this.actions = actions;
         this.router = router;
         this.cdRef = cdRef;
+        this.subscription = subscription;
         this.containerClass = 'abp-loader-bar';
         this.color = '#77b6ff';
-        this.isLoading = false;
         this.progressLevel = 0;
         this.intervalPeriod = 350;
         this.stopDelay = 800;
@@ -558,13 +558,18 @@ let LoaderBarComponent = class LoaderBarComponent {
             this.cdRef.detectChanges();
         };
     }
+    set isLoading(value) {
+        this._isLoading = value;
+        this.cdRef.detectChanges();
+    }
+    get isLoading() {
+        return this._isLoading;
+    }
     get boxShadow() {
         return `0 0 10px rgba(${this.color}, 0.5)`;
     }
     subscribeToLoadActions() {
-        this.actions
-            .pipe(ofActionSuccessful(StartLoader, StopLoader), filter(this.filter), takeUntilDestroy$1(this))
-            .subscribe(action => {
+        this.subscription.addOne(this.actions.pipe(ofActionSuccessful(StartLoader, StopLoader), filter(this.filter)), action => {
             if (action instanceof StartLoader)
                 this.startLoading();
             else
@@ -572,11 +577,9 @@ let LoaderBarComponent = class LoaderBarComponent {
         });
     }
     subscribeToRouterEvents() {
-        this.router.events
-            .pipe(filter(event => event instanceof NavigationStart ||
+        this.subscription.addOne(this.router.events.pipe(filter(event => event instanceof NavigationStart ||
             event instanceof NavigationEnd ||
-            event instanceof NavigationError), takeUntilDestroy$1(this))
-            .subscribe(event => {
+            event instanceof NavigationError)), event => {
             if (event instanceof NavigationStart)
                 this.startLoading();
             else
@@ -609,16 +612,17 @@ let LoaderBarComponent = class LoaderBarComponent {
 };
 __decorate([
     Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Boolean])
+], LoaderBarComponent.prototype, "isLoading", null);
+__decorate([
+    Input(),
     __metadata("design:type", Object)
 ], LoaderBarComponent.prototype, "containerClass", void 0);
 __decorate([
     Input(),
     __metadata("design:type", Object)
 ], LoaderBarComponent.prototype, "color", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], LoaderBarComponent.prototype, "isLoading", void 0);
 __decorate([
     Input(),
     __metadata("design:type", Object)
@@ -639,9 +643,13 @@ LoaderBarComponent = __decorate([
       ></div>
     </div>
   `,
+        providers: [SubscriptionService],
         styles: [".abp-loader-bar{left:0;opacity:0;position:fixed;top:0;transition:opacity .4s linear .4s;z-index:99999}.abp-loader-bar.is-loading{opacity:1;transition:none}.abp-loader-bar .abp-progress{height:3px;left:0;position:fixed;top:0}.abp-loader-bar .abp-progress.progressing{transition:width .4s ease}"]
     }),
-    __metadata("design:paramtypes", [Actions, Router, ChangeDetectorRef])
+    __metadata("design:paramtypes", [Actions,
+        Router,
+        ChangeDetectorRef,
+        SubscriptionService])
 ], LoaderBarComponent);
 
 let ConfirmationService = class ConfirmationService {
@@ -755,10 +763,11 @@ ModalService = __decorate([
 ], ModalService);
 
 let ModalComponent = class ModalComponent {
-    constructor(renderer, confirmationService, modalService) {
+    constructor(renderer, confirmationService, modalService, subscription) {
         this.renderer = renderer;
         this.confirmationService = confirmationService;
         this.modalService = modalService;
+        this.subscription = subscription;
         this.centered = false;
         this.modalClass = '';
         this.size = 'lg';
@@ -795,9 +804,7 @@ let ModalComponent = class ModalComponent {
         return Boolean(document.querySelector('.modal-dialog .ng-dirty'));
     }
     initToggleStream() {
-        this.toggle$
-            .pipe(takeUntilDestroy(this), debounceTime(0), distinctUntilChanged())
-            .subscribe(value => this.toggle(value));
+        this.subscription.addOne(this.toggle$.pipe(debounceTime(0), distinctUntilChanged()), value => this.toggle(value));
     }
     toggle(value) {
         this.isModalOpen = value;
@@ -939,12 +946,13 @@ ModalComponent = __decorate([
         selector: 'abp-modal',
         template: "<ng-template #template>\r\n  <div\r\n    *ngIf=\"visible\"\r\n    [@fade]=\"isModalOpen\"\r\n    id=\"modal-container\"\r\n    class=\"modal show {{ modalClass }}\"\r\n    tabindex=\"-1\"\r\n    role=\"dialog\"\r\n  >\r\n    <div class=\"modal-backdrop\" (click)=\"close()\"></div>\r\n    <div\r\n      id=\"abp-modal-dialog\"\r\n      class=\"modal-dialog modal-{{ size }}\"\r\n      role=\"document\"\r\n      [class.modal-dialog-centered]=\"centered\"\r\n      #abpModalContent\r\n    >\r\n      <div id=\"abp-modal-content\" class=\"modal-content\">\r\n        <div id=\"abp-modal-header\" class=\"modal-header\">\r\n          <ng-container *ngTemplateOutlet=\"abpHeader\"></ng-container>\r\n          \u200B\r\n          <button\r\n            id=\"abp-modal-close-button\"\r\n            type=\"button\"\r\n            class=\"close\"\r\n            aria-label=\"Close\"\r\n            (click)=\"close()\"\r\n          >\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div id=\"abp-modal-body\" class=\"modal-body\">\r\n          <ng-container *ngTemplateOutlet=\"abpBody\"></ng-container>\r\n        </div>\r\n        <div id=\"abp-modal-footer\" class=\"modal-footer\">\r\n          <ng-container *ngTemplateOutlet=\"abpFooter\"></ng-container>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-content></ng-content>\r\n",
         animations: [fadeAnimation],
-        providers: [ModalService],
+        providers: [ModalService, SubscriptionService],
         styles: [".modal.show{display:block!important}.modal-backdrop{opacity:.8}.modal::-webkit-scrollbar{width:7px}.modal::-webkit-scrollbar-track{background:#ddd}.modal::-webkit-scrollbar-thumb{background:#8a8686}.modal-dialog{z-index:1050}"]
     }),
     __metadata("design:paramtypes", [Renderer2,
         ConfirmationService,
-        ModalService])
+        ModalService,
+        SubscriptionService])
 ], ModalComponent);
 
 let SortOrderIconComponent = class SortOrderIconComponent {
@@ -1159,7 +1167,7 @@ TableComponent = __decorate([
         selector: 'abp-table',
         template: "<div #wrapper class=\"ui-table ui-widget\">\r\n  <div class=\"ui-table-wrapper\">\r\n    <ng-container\r\n      *ngTemplateOutlet=\"scrollable ? scrollableTemplate : defaultTemplate\"\r\n    ></ng-container>\r\n    <div class=\"pagination-wrapper\">\r\n      <ngb-pagination\r\n        [class.op-0]=\"!totalPages\"\r\n        [collectionSize]=\"totalPages\"\r\n        [pageSize]=\"1\"\r\n        [page]=\"page\"\r\n        (pageChange)=\"pageChange.emit($event)\"\r\n        [maxSize]=\"3\"\r\n        [rotate]=\"true\"\r\n      ></ngb-pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #scrollableTemplate>\r\n  <div class=\"ui-table-scrollable-wrapper\">\r\n    <div class=\"ui-table-scrollable-view\"></div>\r\n    <div class=\"ui-table-scrollable-header ui-widget-header\">\r\n      <div #header class=\"ui-table-scrollable-header-box\">\r\n        <table class=\"ui-table-scrollable-header-table\">\r\n          <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n          <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n          <tbody></tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <div\r\n      #scrollableBody\r\n      (scroll)=\"header.style.margin = marginCalculator(scrollableBody)\"\r\n      class=\"ui-table-scrollable-body\"\r\n      [style.max-height]=\"scrollHeight\"\r\n    >\r\n      <table class=\"ui-table-scrollable-body-table\">\r\n        <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n        <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n      </table>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-template #defaultTemplate>\r\n  <table>\r\n    <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n  </table>\r\n</ng-template>\r\n\r\n<ng-template #colGroup>\r\n  <ng-container *ngTemplateOutlet=\"colgroupTemplate\"></ng-container>\r\n</ng-template>\r\n\r\n<ng-template #head>\r\n  <thead class=\"ui-table-thead\">\r\n    <ng-container *ngTemplateOutlet=\"headerTemplate\"></ng-container>\r\n  </thead>\r\n</ng-template>\r\n\r\n<ng-template #body>\r\n  <tbody class=\"ui-table-tbody\" *ngIf=\"value && value.length; else emptyTemplate\">\r\n    <ng-template\r\n      #bodyTemplateWrapper\r\n      *ngFor=\"let val of slicedValue; let index = index; trackBy: trackByFn\"\r\n      [ngTemplateOutlet]=\"bodyTemplate\"\r\n      [ngTemplateOutletContext]=\"{ $implicit: val, rowIndex: index }\"\r\n    ></ng-template>\r\n  </tbody>\r\n</ng-template>\r\n\r\n<ng-template #emptyTemplate>\r\n  <caption class=\"ui-table-empty\">\r\n    {{\r\n      emptyMessage | abpLocalization\r\n    }}\r\n  </caption>\r\n</ng-template>\r\n",
         encapsulation: ViewEncapsulation.None,
-        styles: [".ui-table{position:relative}.ui-table .ui-table-tbody>tr:hover,.ui-table .ui-table-tbody>tr:nth-child(2n):hover{-webkit-filter:brightness(90%);filter:brightness(90%)}.ui-table .ui-table-empty{border:1px solid #e0e0e0;border-top:0 solid #e0e0e0;padding:20px 0;text-align:center}.ui-table .ui-table-caption,.ui-table .ui-table-summary{background-color:#f4f4f4;border:1px solid #c8c8c8;color:#333;padding:.571em 1em}.ui-table .ui-table-caption,.ui-table .ui-table-summary{font-weight:700}.ui-table .ui-table-thead>tr>th{background-color:#f4f4f4;border:1px solid #c8c8c8;color:#333;font-weight:700;padding:.571em .857em}.ui-table .ui-table-tbody>tr>td{padding:.571em .857em}.ui-table .ui-table-tfoot>tr>td{background-color:#fff;border:1px solid #c8c8c8;color:#333;font-weight:700;padding:.571em .857em}.ui-table .ui-sortable-column{transition:box-shadow .2s}.ui-table .ui-sortable-column:focus{box-shadow:inset 0 0 0 .2em #8dcdff;outline:0 none;outline-offset:0}.ui-table .ui-sortable-column .ui-sortable-column-icon{color:#848484}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover{background-color:#e0e0e0;color:#333}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover .ui-sortable-column-icon{color:#333}.ui-table .ui-sortable-column.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon{color:#fff}.ui-table .ui-editable-column input{font-family:Open Sans,Helvetica Neue,sans-serif;font-size:14px}.ui-table .ui-editable-column input:focus{outline:1px solid #007ad9;outline-offset:2px}.ui-table .ui-table-tbody>tr{background-color:#fff;color:#333}.ui-table .ui-table-tbody>tr>td{background-color:inherit;border:1px solid #c8c8c8}.ui-table .ui-table-tbody>tr.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr.ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-top>td{box-shadow:inset 0 2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-bottom>td{box-shadow:inset 0 -2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr:nth-child(2n){background-color:#f9f9f9}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table.ui-table-hoverable-rows .ui-table-tbody>tr.ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover{background-color:#eaeaea;color:#333;cursor:pointer}.ui-table .ui-column-resizer-helper{background-color:#007ad9}@media screen and (max-width:40em){.ui-table.ui-table-responsive .ui-table-tbody>tr>td{border:0}}.ui-table table{border-collapse:collapse;table-layout:fixed;width:100%}.ui-table .ui-table-tbody>tr>td,.ui-table .ui-table-tfoot>tr>td,.ui-table .ui-table-thead>tr>th{padding:.571em .857em}.ui-table .ui-sortable-column{cursor:pointer}.ui-table p-sorticon{vertical-align:middle}.ui-table .ui-table-auto-layout>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-auto-layout>.ui-table-wrapper>table{table-layout:auto}.ui-table .ui-table-caption,.ui-table .ui-table-summary{font-weight:700;padding:.25em .5em;text-align:center}.ui-table .ui-table-caption{border-bottom:0}.ui-table .ui-table-summary{border-top:0}.ui-table .ui-table-scrollable-wrapper{position:relative}.ui-table .ui-table-scrollable-footer,.ui-table .ui-table-scrollable-header{border:0;overflow:hidden}.ui-table .ui-table-scrollable-body{overflow:auto;position:relative}.ui-table .ui-table-virtual-table{position:absolute}.ui-table .ui-table-loading-virtual-table{display:none}.ui-table .ui-table-frozen-view .ui-table-scrollable-body{overflow:hidden}.ui-table .ui-table-frozen-view>.ui-table-scrollable-body>table>.ui-table-tbody>tr>td:last-child{border-right:0}.ui-table .ui-table-unfrozen-view{position:absolute;top:0}.ui-table .ui-table-resizable>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-resizable .ui-table-tbody>tr>td,.ui-table .ui-table-resizable .ui-table-tfoot>tr>td,.ui-table .ui-table-resizable .ui-table-thead>tr>th{overflow:hidden}.ui-table .ui-table-resizable .ui-resizable-column{background-clip:padding-box;position:relative}.ui-table .ui-table-resizable-fit .ui-resizable-column:last-child .ui-column-resizer{display:none}.ui-table .ui-column-resizer{border:1px solid transparent;cursor:col-resize;display:block;height:100%;margin:0;padding:0;position:absolute!important;right:0;top:0;width:.5em}.ui-table .ui-column-resizer-helper{display:none;position:absolute;width:1px;z-index:10}.ui-table .ui-table-tbody>tr>td.ui-editing-cell{padding:0}.ui-table .ui-table-tbody>tr>td.ui-editing-cell p-celleditor>*{width:100%}.ui-table .ui-table-reorder-indicator-down,.ui-table .ui-table-reorder-indicator-up{display:none;position:absolute}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:none}@media screen and (max-width:40em){.ui-table .ui-table-responsive .ui-table-tfoot>tr>td,.ui-table .ui-table-responsive .ui-table-thead>tr>th,.ui-table .ui-table-responsive colgroup{display:none!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td{border:0;box-sizing:border-box;clear:left;display:block;float:left;text-align:left;width:100%!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:inline-block;font-weight:700;margin:-.4em 1em -.4em -.4em;min-width:30%;padding:.4em}}.ui-table .ui-widget{font-family:Open Sans,Helvetica Neue,sans-serif;font-size:14px;text-decoration:none}.ui-table .page-item.disabled .page-link,.ui-table .page-link{background-color:transparent;border:none}.ui-table .page-item.disabled .page-link{box-shadow:none}.ui-table .pagination{margin-bottom:0}.ui-table .pagination-wrapper{border-top:0;display:flex;justify-content:center;padding:0}.ui-table .op-0{opacity:0}"]
+        styles: [".ui-table{position:relative}.ui-table .ui-table-tbody>tr:hover,.ui-table .ui-table-tbody>tr:nth-child(2n):hover{filter:brightness(90%)}.ui-table .ui-table-empty{border:1px solid #e0e0e0;border-top:0 solid #e0e0e0;padding:20px 0;text-align:center}.ui-table .ui-table-caption,.ui-table .ui-table-summary{background-color:#f4f4f4;border:1px solid #c8c8c8;color:#333;padding:.571em 1em}.ui-table .ui-table-caption,.ui-table .ui-table-summary{font-weight:700}.ui-table .ui-table-thead>tr>th{background-color:#f4f4f4;border:1px solid #c8c8c8;color:#333;font-weight:700;padding:.571em .857em}.ui-table .ui-table-tbody>tr>td{padding:.571em .857em}.ui-table .ui-table-tfoot>tr>td{background-color:#fff;border:1px solid #c8c8c8;color:#333;font-weight:700;padding:.571em .857em}.ui-table .ui-sortable-column{transition:box-shadow .2s}.ui-table .ui-sortable-column:focus{box-shadow:inset 0 0 0 .2em #8dcdff;outline:0 none;outline-offset:0}.ui-table .ui-sortable-column .ui-sortable-column-icon{color:#848484}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover{background-color:#e0e0e0;color:#333}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover .ui-sortable-column-icon{color:#333}.ui-table .ui-sortable-column.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon{color:#fff}.ui-table .ui-editable-column input{font-family:Open Sans,Helvetica Neue,sans-serif;font-size:14px}.ui-table .ui-editable-column input:focus{outline:1px solid #007ad9;outline-offset:2px}.ui-table .ui-table-tbody>tr{background-color:#fff;color:#333}.ui-table .ui-table-tbody>tr>td{background-color:inherit;border:1px solid #c8c8c8}.ui-table .ui-table-tbody>tr.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr.ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-top>td{box-shadow:inset 0 2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-bottom>td{box-shadow:inset 0 -2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr:nth-child(2n){background-color:#f9f9f9}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table.ui-table-hoverable-rows .ui-table-tbody>tr.ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover{background-color:#eaeaea;color:#333;cursor:pointer}.ui-table .ui-column-resizer-helper{background-color:#007ad9}@media screen and (max-width:40em){.ui-table.ui-table-responsive .ui-table-tbody>tr>td{border:0}}.ui-table table{border-collapse:collapse;table-layout:fixed;width:100%}.ui-table .ui-table-tbody>tr>td,.ui-table .ui-table-tfoot>tr>td,.ui-table .ui-table-thead>tr>th{padding:.571em .857em}.ui-table .ui-sortable-column{cursor:pointer}.ui-table p-sorticon{vertical-align:middle}.ui-table .ui-table-auto-layout>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-auto-layout>.ui-table-wrapper>table{table-layout:auto}.ui-table .ui-table-caption,.ui-table .ui-table-summary{font-weight:700;padding:.25em .5em;text-align:center}.ui-table .ui-table-caption{border-bottom:0}.ui-table .ui-table-summary{border-top:0}.ui-table .ui-table-scrollable-wrapper{position:relative}.ui-table .ui-table-scrollable-footer,.ui-table .ui-table-scrollable-header{border:0;overflow:hidden}.ui-table .ui-table-scrollable-body{overflow:auto;position:relative}.ui-table .ui-table-virtual-table{position:absolute}.ui-table .ui-table-loading-virtual-table{display:none}.ui-table .ui-table-frozen-view .ui-table-scrollable-body{overflow:hidden}.ui-table .ui-table-frozen-view>.ui-table-scrollable-body>table>.ui-table-tbody>tr>td:last-child{border-right:0}.ui-table .ui-table-unfrozen-view{position:absolute;top:0}.ui-table .ui-table-resizable>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-resizable .ui-table-tbody>tr>td,.ui-table .ui-table-resizable .ui-table-tfoot>tr>td,.ui-table .ui-table-resizable .ui-table-thead>tr>th{overflow:hidden}.ui-table .ui-table-resizable .ui-resizable-column{background-clip:padding-box;position:relative}.ui-table .ui-table-resizable-fit .ui-resizable-column:last-child .ui-column-resizer{display:none}.ui-table .ui-column-resizer{border:1px solid transparent;cursor:col-resize;display:block;height:100%;margin:0;padding:0;position:absolute!important;right:0;top:0;width:.5em}.ui-table .ui-column-resizer-helper{display:none;position:absolute;width:1px;z-index:10}.ui-table .ui-table-tbody>tr>td.ui-editing-cell{padding:0}.ui-table .ui-table-tbody>tr>td.ui-editing-cell p-celleditor>*{width:100%}.ui-table .ui-table-reorder-indicator-down,.ui-table .ui-table-reorder-indicator-up{display:none;position:absolute}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:none}@media screen and (max-width:40em){.ui-table .ui-table-responsive .ui-table-tfoot>tr>td,.ui-table .ui-table-responsive .ui-table-thead>tr>th,.ui-table .ui-table-responsive colgroup{display:none!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td{border:0;box-sizing:border-box;clear:left;display:block;float:left;text-align:left;width:100%!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:inline-block;font-weight:700;margin:-.4em 1em -.4em -.4em;min-width:30%;padding:.4em}}.ui-table .ui-widget{font-family:Open Sans,Helvetica Neue,sans-serif;font-size:14px;text-decoration:none}.ui-table .page-item.disabled .page-link,.ui-table .page-link{background-color:transparent;border:none}.ui-table .page-item.disabled .page-link{box-shadow:none}.ui-table .pagination{margin-bottom:0}.ui-table .pagination-wrapper{border-top:0;display:flex;justify-content:center;padding:0}.ui-table .op-0{opacity:0}"]
     })
 ], TableComponent);
 function ltrCalculator(div) {
@@ -1400,6 +1408,11 @@ var styles = `
   min-width: 215px;
 }
 
+.datatable-scroll {
+  margin-bottom: 5px !important;
+  width: unset !important;
+}
+
 .ui-table-scrollable-body::-webkit-scrollbar {
   height: 5px !important;
   width: 5px !important;
@@ -1622,8 +1635,11 @@ LoadingDirective = __decorate([
 ], LoadingDirective);
 
 let NgxDatatableDefaultDirective = class NgxDatatableDefaultDirective {
-    constructor(table) {
+    constructor(table, document) {
         this.table = table;
+        this.document = document;
+        this.subscription = new Subscription();
+        this.resizeDiff = 0;
         this.class = 'material bordered';
         this.table.columnMode = ColumnMode.force;
         this.table.footerHeight = 50;
@@ -1634,6 +1650,37 @@ let NgxDatatableDefaultDirective = class NgxDatatableDefaultDirective {
     }
     get classes() {
         return `ngx-datatable ${this.class}`;
+    }
+    fixHorizontalGap(scroller) {
+        const { body, documentElement } = this.document;
+        if (documentElement.scrollHeight !== documentElement.clientHeight) {
+            if (this.resizeDiff === 0) {
+                this.resizeDiff = window.innerWidth - body.offsetWidth;
+                scroller.scrollWidth -= this.resizeDiff;
+            }
+        }
+        else {
+            scroller.scrollWidth += this.resizeDiff;
+            this.resizeDiff = 0;
+        }
+    }
+    fixStyleOnWindowResize() {
+        // avoided @HostListener('window:resize') in favor of performance
+        const subscription = fromEvent(window, 'resize')
+            .pipe(debounceTime(500))
+            .subscribe(() => {
+            const { scroller } = this.table.bodyComponent;
+            if (!scroller)
+                return;
+            this.fixHorizontalGap(scroller);
+        });
+        this.subscription.add(subscription);
+    }
+    ngAfterViewInit() {
+        this.fixStyleOnWindowResize();
+    }
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 };
 __decorate([
@@ -1651,7 +1698,8 @@ NgxDatatableDefaultDirective = __decorate([
         selector: 'ngx-datatable[default]',
         exportAs: 'ngxDatatableDefault',
     }),
-    __metadata("design:paramtypes", [DatatableComponent])
+    __param(1, Inject(DOCUMENT)),
+    __metadata("design:paramtypes", [DatatableComponent, Object])
 ], NgxDatatableDefaultDirective);
 
 let NgxDatatableListDirective = class NgxDatatableListDirective {
@@ -1693,13 +1741,6 @@ let NgxDatatableListDirective = class NgxDatatableListDirective {
         });
         this.subscription.add(sub);
     }
-    subscribeToIsLoading() {
-        const sub = this.list.isLoading$.subscribe(loading => {
-            this.table.loadingIndicator = loading;
-            this.cdRef.detectChanges();
-        });
-        this.subscription.add(sub);
-    }
     ngOnChanges({ list }) {
         if (!list.firstChange)
             return;
@@ -1713,7 +1754,6 @@ let NgxDatatableListDirective = class NgxDatatableListDirective {
     ngOnInit() {
         this.subscribeToPage();
         this.subscribeToSort();
-        this.subscribeToIsLoading();
     }
 };
 __decorate([
@@ -1773,7 +1813,8 @@ TableSortDirective = __decorate([
 ], TableSortDirective);
 
 let HttpErrorWrapperComponent = class HttpErrorWrapperComponent {
-    constructor() {
+    constructor(subscription) {
+        this.subscription = subscription;
         this.status = 0;
         this.title = 'Oops!';
         this.details = 'Sorry, an error has occured.';
@@ -1800,11 +1841,8 @@ let HttpErrorWrapperComponent = class HttpErrorWrapperComponent {
             this.containerRef.nativeElement.appendChild(customComponentRef.hostView.rootNodes[0]);
             customComponentRef.changeDetectorRef.detectChanges();
         }
-        fromEvent(document, 'keyup')
-            .pipe(takeUntilDestroy(this), debounceTime(150), filter((key) => key && key.key === 'Escape'))
-            .subscribe(() => {
-            this.destroy();
-        });
+        const keyup$ = fromEvent(document, 'keyup').pipe(debounceTime(150), filter((key) => key && key.key === 'Escape'));
+        this.subscription.addOne(keyup$, () => this.destroy());
     }
     ngOnDestroy() { }
     destroy() {
@@ -1820,8 +1858,10 @@ HttpErrorWrapperComponent = __decorate([
     Component({
         selector: 'abp-http-error-wrapper',
         template: "<div\r\n  #container\r\n  id=\"abp-http-error-container\"\r\n  class=\"error\"\r\n  [style.backgroundColor]=\"backgroundColor\"\r\n>\r\n  <button\r\n    *ngIf=\"!hideCloseIcon\"\r\n    id=\"abp-close-button\"\r\n    type=\"button\"\r\n    class=\"close mr-2\"\r\n    (click)=\"destroy()\"\r\n  >\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n\r\n  <div *ngIf=\"!customComponent\" class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>{{ statusText }} {{ title | abpLocalization }}</h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a\r\n            *ngIf=\"isHomeShow\"\r\n            (click)=\"destroy()\"\r\n            routerLink=\"/\"\r\n            class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+        providers: [SubscriptionService],
         styles: [".error{height:100vh;position:fixed;top:0;width:100vw;z-index:999999}.centered{left:50%;position:fixed;top:50%;transform:translate(-50%,-50%)}"]
-    })
+    }),
+    __metadata("design:paramtypes", [SubscriptionService])
 ], HttpErrorWrapperComponent);
 
 const DEFAULT_ERROR_MESSAGES = {
@@ -1844,6 +1884,28 @@ const DEFAULT_ERROR_MESSAGES = {
     defaultError500: {
         title: 'Internal server error',
         details: 'Error detail not sent by server.',
+    },
+};
+const DEFAULT_ERROR_LOCALIZATIONS = {
+    defaultError: {
+        title: 'AbpUi::DefaultErrorMessage',
+        details: 'AbpUi::DefaultErrorMessageDetail',
+    },
+    defaultError401: {
+        title: 'AbpUi::DefaultErrorMessage401',
+        details: 'AbpUi::DefaultErrorMessage401Detail',
+    },
+    defaultError403: {
+        title: 'AbpUi::DefaultErrorMessage403',
+        details: 'AbpUi::DefaultErrorMessage403Detail',
+    },
+    defaultError404: {
+        title: 'AbpUi::DefaultErrorMessage404',
+        details: 'AbpUi::DefaultErrorMessage404Detail',
+    },
+    defaultError500: {
+        title: 'AbpUi::500Message',
+        details: 'AbpUi::DefaultErrorMessage',
     },
 };
 let ErrorHandler = class ErrorHandler {
@@ -1886,7 +1948,10 @@ let ErrorHandler = class ErrorHandler {
         this.actions
             .pipe(ofActionSuccessful(RestOccurError), map(action => action.payload), filter(this.filterRestErrors))
             .subscribe(err => {
-            const body = snq(() => err.error.error, DEFAULT_ERROR_MESSAGES.defaultError.title);
+            const body = snq(() => err.error.error, {
+                key: DEFAULT_ERROR_LOCALIZATIONS.defaultError.title,
+                defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.title,
+            });
             if (err instanceof HttpErrorResponse && err.headers.get('_AbpErrorFormat')) {
                 const confirmation$ = this.showError(null, null, body);
                 if (err.status === 401) {
@@ -1901,21 +1966,21 @@ let ErrorHandler = class ErrorHandler {
                         this.canCreateCustomError(401)
                             ? this.show401Page()
                             : this.showError({
-                                key: 'AbpAccount::DefaultErrorMessage401',
+                                key: DEFAULT_ERROR_LOCALIZATIONS.defaultError401.title,
                                 defaultValue: DEFAULT_ERROR_MESSAGES.defaultError401.title,
                             }, {
-                                key: 'AbpAccount::DefaultErrorMessage401Detail',
+                                key: DEFAULT_ERROR_LOCALIZATIONS.defaultError401.details,
                                 defaultValue: DEFAULT_ERROR_MESSAGES.defaultError401.details,
                             }).subscribe(() => this.navigateToLogin());
                         break;
                     case 403:
                         this.createErrorComponent({
                             title: {
-                                key: 'AbpAccount::DefaultErrorMessage403',
+                                key: DEFAULT_ERROR_LOCALIZATIONS.defaultError403.title,
                                 defaultValue: DEFAULT_ERROR_MESSAGES.defaultError403.title,
                             },
                             details: {
-                                key: 'AbpAccount::DefaultErrorMessage403Detail',
+                                key: DEFAULT_ERROR_LOCALIZATIONS.defaultError403.details,
                                 defaultValue: DEFAULT_ERROR_MESSAGES.defaultError403.details,
                             },
                             status: 403,
@@ -1925,21 +1990,21 @@ let ErrorHandler = class ErrorHandler {
                         this.canCreateCustomError(404)
                             ? this.show404Page()
                             : this.showError({
-                                key: 'AbpAccount::DefaultErrorMessage404',
+                                key: DEFAULT_ERROR_LOCALIZATIONS.defaultError404.details,
                                 defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.details,
                             }, {
-                                key: 'AbpAccount::DefaultErrorMessage404Detail',
+                                key: DEFAULT_ERROR_LOCALIZATIONS.defaultError404.title,
                                 defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.title,
                             });
                         break;
                     case 500:
                         this.createErrorComponent({
                             title: {
-                                key: 'AbpAccount::500Message',
+                                key: DEFAULT_ERROR_LOCALIZATIONS.defaultError500.title,
                                 defaultValue: DEFAULT_ERROR_MESSAGES.defaultError500.title,
                             },
                             details: {
-                                key: 'AbpAccount::InternalServerErrorMessage',
+                                key: DEFAULT_ERROR_LOCALIZATIONS.defaultError500.details,
                                 defaultValue: DEFAULT_ERROR_MESSAGES.defaultError500.details,
                             },
                             status: 500,
@@ -1949,7 +2014,7 @@ let ErrorHandler = class ErrorHandler {
                         if (err.statusText === 'Unknown Error') {
                             this.createErrorComponent({
                                 title: {
-                                    key: 'AbpAccount::DefaultErrorMessage',
+                                    key: DEFAULT_ERROR_LOCALIZATIONS.defaultError.title,
                                     defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.title,
                                 },
                                 details: err.message,
@@ -1958,7 +2023,13 @@ let ErrorHandler = class ErrorHandler {
                         }
                         break;
                     default:
-                        this.showError(DEFAULT_ERROR_MESSAGES.defaultError.details, DEFAULT_ERROR_MESSAGES.defaultError.title);
+                        this.showError({
+                            key: DEFAULT_ERROR_LOCALIZATIONS.defaultError.details,
+                            defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.details,
+                        }, {
+                            key: DEFAULT_ERROR_LOCALIZATIONS.defaultError.title,
+                            defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.title,
+                        });
                         break;
                 }
             }
@@ -1967,7 +2038,7 @@ let ErrorHandler = class ErrorHandler {
     show401Page() {
         this.createErrorComponent({
             title: {
-                key: 'AbpAccount::401Message',
+                key: DEFAULT_ERROR_LOCALIZATIONS.defaultError401.title,
                 defaultValue: DEFAULT_ERROR_MESSAGES.defaultError401.title,
             },
             status: 401,
@@ -1976,7 +2047,7 @@ let ErrorHandler = class ErrorHandler {
     show404Page() {
         this.createErrorComponent({
             title: {
-                key: 'AbpAccount::404Message',
+                key: DEFAULT_ERROR_LOCALIZATIONS.defaultError404.title,
                 defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.title,
             },
             status: 404,
@@ -1989,11 +2060,17 @@ let ErrorHandler = class ErrorHandler {
                 title = body.message;
             }
             else if (body.message) {
-                title = DEFAULT_ERROR_MESSAGES.defaultError.title;
+                title = {
+                    key: DEFAULT_ERROR_LOCALIZATIONS.defaultError.title,
+                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.title,
+                };
                 message = body.message;
             }
             else {
-                message = body.message || DEFAULT_ERROR_MESSAGES.defaultError.title;
+                message = body.message || {
+                    key: DEFAULT_ERROR_LOCALIZATIONS.defaultError.title,
+                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.title,
+                };
             }
         }
         return this.confirmationService.error(message, title, {
@@ -2138,6 +2215,13 @@ function initLazyStyleHandler(injector) {
     return () => new LazyStyleHandler(injector);
 }
 
+class NavItem {
+    constructor(props) {
+        props = Object.assign(Object.assign({}, props), { visible: props.visible || (() => true) });
+        Object.assign(this, props);
+    }
+}
+
 const THEME_SHARED_ROUTE_PROVIDERS = [
     { provide: APP_INITIALIZER, useFactory: configureRoutes, deps: [RoutesService], multi: true },
 ];
@@ -2164,24 +2248,27 @@ let NavItemsService = class NavItemsService {
     get items$() {
         return this._items$.asObservable();
     }
-    addItems(items) {
-        this._items$.next([...this.items, ...items].sort(sortItems));
+    addItems(newItems) {
+        const items = [...this.items];
+        newItems.forEach(item => items.push(new NavItem(item)));
+        items.sort(sortItems);
+        this._items$.next(items);
     }
     removeItem(id) {
         const index = this.items.findIndex(item => item.id === id);
-        if (index > -1) {
-            this._items$.next([...this.items.slice(0, index), ...this.items.slice(index + 1)]);
-        }
+        if (index < 0)
+            return;
+        const items = [...this.items.slice(0, index), ...this.items.slice(index + 1)];
+        this._items$.next(items);
     }
     patchItem(id, item) {
         const index = this.items.findIndex(i => i.id === id);
-        if (index > -1) {
-            this._items$.next([
-                ...this.items.slice(0, index),
-                Object.assign(Object.assign({}, this.items[index]), item),
-                ...this.items.slice(index + 1),
-            ].sort(sortItems));
-        }
+        if (index < 0)
+            return;
+        const items = [...this.items];
+        items[index] = new NavItem(Object.assign(Object.assign({}, items[index]), item));
+        items.sort(sortItems);
+        this._items$.next(items);
     }
 };
 NavItemsService.ɵprov = ɵɵdefineInjectable({ factory: function NavItemsService_Factory() { return new NavItemsService(); }, token: NavItemsService, providedIn: "root" });
@@ -2228,9 +2315,10 @@ function toInteger(value) {
     return parseInt(`${value}`, 10);
 }
 let DateParserFormatter = class DateParserFormatter extends NgbDateParserFormatter {
-    constructor(datePipe) {
+    constructor(datePipe, store) {
         super();
         this.datePipe = datePipe;
+        this.store = store;
     }
     parse(value) {
         if (value) {
@@ -2255,8 +2343,9 @@ let DateParserFormatter = class DateParserFormatter extends NgbDateParserFormatt
         return null;
     }
     format(date) {
+        const { shortDatePattern } = this.store.selectSnapshot(ConfigState.getOne('localization')).currentCulture.dateTimeFormat;
         if (date && this.datePipe) {
-            return this.datePipe.transform(new Date(date.year, date.month - 1, date.day), 'shortDate');
+            return this.datePipe.transform(new Date(date.year, date.month - 1, date.day), shortDatePattern);
         }
         else {
             return date
@@ -2268,7 +2357,7 @@ let DateParserFormatter = class DateParserFormatter extends NgbDateParserFormatt
 DateParserFormatter = __decorate([
     Injectable(),
     __param(0, Optional()),
-    __metadata("design:paramtypes", [DatePipe])
+    __metadata("design:paramtypes", [DatePipe, Store])
 ], DateParserFormatter);
 
 var ThemeSharedModule_1;
@@ -2395,5 +2484,5 @@ function getRuleFn(store) {
  * Generated bundle index. Do not edit.
  */
 
-export { BOOTSTRAP, BreadcrumbComponent, ButtonComponent, ChartComponent, Confirmation, ConfirmationComponent, ConfirmationService, DateParserFormatter, ErrorHandler, HTTP_ERROR_CONFIG, LAZY_STYLES, LoaderBarComponent, LoadingComponent, LoadingDirective, ModalComponent, ModalService, NavItemsService, NgxDatatableDefaultDirective, NgxDatatableListDirective, SortOrderIconComponent, THEME_SHARED_APPEND_CONTENT, THEME_SHARED_ROUTE_PROVIDERS, TableComponent, TableEmptyMessageComponent, TableSortDirective, ThemeSharedModule, ToastComponent, ToastContainerComponent, ToasterService, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, configureRoutes, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getPasswordValidators, getRandomBackgroundColor, httpErrorConfigFactory, slideFromBottom, toastInOut, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, THEME_SHARED_ROUTE_PROVIDERS as ɵbb, configureRoutes as ɵbc, THEME_SHARED_APPEND_CONTENT as ɵbd, initLazyStyleHandler as ɵbe, httpErrorConfigFactory as ɵbf, HTTP_ERROR_CONFIG as ɵbg, DateParserFormatter as ɵbh, ChartComponent as ɵc, ConfirmationComponent as ɵd, HttpErrorWrapperComponent as ɵe, LoaderBarComponent as ɵf, LoadingComponent as ɵg, ModalComponent as ɵh, fadeAnimation as ɵi, fadeIn as ɵj, fadeOut as ɵk, ModalService as ɵl, ConfirmationService as ɵm, ModalContainerComponent as ɵn, TableComponent as ɵo, TableEmptyMessageComponent as ɵp, ToastComponent as ɵq, ToasterService as ɵr, ToastContainerComponent as ɵs, toastInOut as ɵt, SortOrderIconComponent as ɵu, NgxDatatableDefaultDirective as ɵv, NgxDatatableListDirective as ɵw, LoadingDirective as ɵx, TableSortDirective as ɵy, ErrorHandler as ɵz };
+export { BOOTSTRAP, BreadcrumbComponent, ButtonComponent, ChartComponent, Confirmation, ConfirmationComponent, ConfirmationService, DateParserFormatter, ErrorHandler, HTTP_ERROR_CONFIG, LAZY_STYLES, LoaderBarComponent, LoadingComponent, LoadingDirective, ModalComponent, ModalService, NavItem, NavItemsService, NgxDatatableDefaultDirective, NgxDatatableListDirective, SortOrderIconComponent, THEME_SHARED_APPEND_CONTENT, THEME_SHARED_ROUTE_PROVIDERS, TableComponent, TableEmptyMessageComponent, TableSortDirective, ThemeSharedModule, ToastComponent, ToastContainerComponent, ToasterService, bounceIn, chartJsLoaded$, collapse, collapseLinearWithMargin, collapseWithMargin, collapseX, collapseY, collapseYWithMargin, configureRoutes, dialogAnimation, expandX, expandY, expandYWithMargin, fadeAnimation, fadeIn, fadeInDown, fadeInLeft, fadeInRight, fadeInUp, fadeOut, fadeOutDown, fadeOutLeft, fadeOutRight, fadeOutUp, getPasswordValidators, getRandomBackgroundColor, httpErrorConfigFactory, slideFromBottom, toastInOut, BreadcrumbComponent as ɵa, ButtonComponent as ɵb, THEME_SHARED_ROUTE_PROVIDERS as ɵbb, configureRoutes as ɵbc, THEME_SHARED_APPEND_CONTENT as ɵbd, initLazyStyleHandler as ɵbe, httpErrorConfigFactory as ɵbf, HTTP_ERROR_CONFIG as ɵbg, DateParserFormatter as ɵbh, ChartComponent as ɵc, ConfirmationComponent as ɵd, HttpErrorWrapperComponent as ɵe, LoaderBarComponent as ɵf, LoadingComponent as ɵg, ModalComponent as ɵh, fadeAnimation as ɵi, fadeIn as ɵj, fadeOut as ɵk, ModalService as ɵl, ConfirmationService as ɵm, ModalContainerComponent as ɵn, TableComponent as ɵo, TableEmptyMessageComponent as ɵp, ToastComponent as ɵq, ToasterService as ɵr, ToastContainerComponent as ɵs, toastInOut as ɵt, SortOrderIconComponent as ɵu, NgxDatatableDefaultDirective as ɵv, NgxDatatableListDirective as ɵw, LoadingDirective as ɵx, TableSortDirective as ɵy, ErrorHandler as ɵz };
 //# sourceMappingURL=abp-ng.theme.shared.js.map

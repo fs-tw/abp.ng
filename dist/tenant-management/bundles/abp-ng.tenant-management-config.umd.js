@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@angular/core')) :
     typeof define === 'function' && define.amd ? define('@abp/ng.tenant-management/config', ['exports', '@abp/ng.core', '@angular/core'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng['tenant-management'] = global.abp.ng['tenant-management'] || {}, global.abp.ng['tenant-management'].config = {}), global.ng_core, global.ng.core));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng['tenant-management'] = global.abp.ng['tenant-management'] || {}, global.abp.ng['tenant-management'].config = {}), global.ng_core, global.ng.core));
 }(this, (function (exports, ng_core, core) { 'use strict';
 
     var TENANT_MANAGEMENT_ROUTE_PROVIDERS = [

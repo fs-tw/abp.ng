@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@abp/ng.identity/config'), require('@abp/ng.core'), require('@ngxs/store'), require('@fs/identity/ng-alain')) :
     typeof define === 'function' && define.amd ? define('@fs/identity/ng-alain/config', ['exports', '@angular/core', '@abp/ng.identity/config', '@abp/ng.core', '@ngxs/store', '@fs/identity/ng-alain'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs.identity = global.fs.identity || {}, global.fs.identity['ng-alain'] = global.fs.identity['ng-alain'] || {}, global.fs.identity['ng-alain'].config = {}), global.ng.core, global.config, global.ng_core, global.store, global.fs.identity['ng-alain']));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs.identity = global.fs.identity || {}, global.fs.identity['ng-alain'] = global.fs.identity['ng-alain'] || {}, global.fs.identity['ng-alain'].config = {}), global.ng.core, global.config, global.ng_core, global.store, global.fs.identity['ng-alain']));
 }(this, (function (exports, core, config, ng_core, store, ngAlain) { 'use strict';
 
     /*! *****************************************************************************
@@ -299,8 +299,16 @@
     var ROUTE_PROVIDERS = [
         { provide: core.APP_INITIALIZER, useFactory: configureRoutes, deps: [ng_core.RoutesService], multi: true },
     ];
-    function configureRoutes(routes) {
+    function configureRoutes(_routes) {
         return function () {
+            _routes.patch("AbpUiNavigation::Menu:Administration" /* Administration */, {
+                path: 'identity/users',
+                profile: {
+                    title: 'Administrator',
+                    doc: 'user doc',
+                    nav: { routeName: "AbpUiNavigation::Menu:Administration" /* Administration */ }
+                }
+            });
         };
     }
 
@@ -337,17 +345,13 @@
         IdentityNgAlainConfigModule.forRoot = function () {
             return {
                 ngModule: IdentityNgAlainConfigModule_1,
-                providers: [ROUTE_PROVIDERS, STYLES_PROVIDERS],
+                providers: [config.IDENTITY_ROUTE_PROVIDERS, ROUTE_PROVIDERS, STYLES_PROVIDERS],
             };
         };
         return IdentityNgAlainConfigModule;
     }());
     exports.IdentityNgAlainConfigModule = IdentityNgAlainConfigModule_1 = __decorate([
-        core.NgModule({
-            imports: [
-                config.IdentityConfigModule.forRoot()
-            ]
-        })
+        core.NgModule()
     ], exports.IdentityNgAlainConfigModule);
 
     /**
@@ -355,8 +359,9 @@
      */
 
     exports.ɵa = ROUTE_PROVIDERS;
-    exports.ɵb = STYLES_PROVIDERS;
-    exports.ɵc = configureStyles;
+    exports.ɵb = configureRoutes;
+    exports.ɵc = STYLES_PROVIDERS;
+    exports.ɵd = configureStyles;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

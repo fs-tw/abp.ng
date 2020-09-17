@@ -1,11 +1,10 @@
 import { __decorate, __metadata } from 'tslib';
 import { EventEmitter, Input, Output, Component, Renderer2, NgModule } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
-import { PermissionManagementComponent as PermissionManagementComponent$1 } from '@abp/ng.permission-management';
+import { PermissionManagementComponent as PermissionManagementComponent$1, PermissionManagementModule } from '@abp/ng.permission-management';
 import { Store } from '@ngxs/store';
 import { take } from 'rxjs/operators';
 import { CoreModule } from '@abp/ng.core';
-import { PermissionManagementWrapModule } from '@fs/permission-management/wrap';
 
 let PermissionManagementComponent = class PermissionManagementComponent extends PermissionManagementComponent$1 {
     constructor(_store, _renderer) {
@@ -17,7 +16,6 @@ let PermissionManagementComponent = class PermissionManagementComponent extends 
         this.visibleChange = new EventEmitter();
         this.selectAllIndeterminate = false;
         this.selectAllThisTabIndeterminate = false;
-        console.log('yc');
     }
     get visible() {
         return this._visible;
@@ -149,16 +147,16 @@ let PermissionManagementNgAlainModule = class PermissionManagementNgAlainModule 
 };
 PermissionManagementNgAlainModule = __decorate([
     NgModule({
-        declarations: [PermissionManagementComponent],
-        entryComponents: [PermissionManagementComponent],
         imports: [
             CoreModule,
             NgAlainBasicModule,
-            PermissionManagementWrapModule
+            PermissionManagementModule
         ],
         exports: [
             PermissionManagementComponent
-        ]
+        ],
+        declarations: [PermissionManagementComponent],
+        entryComponents: [PermissionManagementComponent]
     })
 ], PermissionManagementNgAlainModule);
 

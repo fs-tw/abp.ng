@@ -2,23 +2,23 @@ import { __decorate, __param, __metadata } from 'tslib';
 import { HttpClient } from '@angular/common/http';
 import { NgModule, Optional, SkipSelf, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
 import ngLang from '@angular/common/locales/zh';
-import { AlainThemeModule, zh_CN as zh_CN$1, DELON_LOCALE, ALAIN_I18N_TOKEN } from '@delon/theme';
+import { AlainThemeModule, zh_TW as zh_TW$1, DELON_LOCALE, ALAIN_I18N_TOKEN } from '@delon/theme';
 import { zhCN } from 'date-fns/locale';
-import { zh_CN, NZ_I18N, NZ_DATE_LOCALE } from 'ng-zorro-antd/i18n';
+import { zh_TW, NZ_I18N, NZ_DATE_LOCALE } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import { throwIfAlreadyLoaded as throwIfAlreadyLoaded$1, I18NService, StartupService, CoreModule } from '@fs/ng-alain/core';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { JsonSchemaModule, STWidgetModule } from '@fs/ng-alain/shared';
+import { JsonSchemaModule, NgAlainSharedModule, STWidgetModule } from '@fs/ng-alain/shared';
 import { MockStatusError, DelonMockModule } from '@delon/mock';
 import { ALAIN_CONFIG, AlainConfigService } from '@delon/util';
 import { DelonACLModule } from '@delon/acl';
 import format from 'date-fns/format';
 import { mock } from 'mockjs';
 import { NZ_CONFIG } from 'ng-zorro-antd/core/config';
-import { ThemeSharedModule } from '@abp/ng.theme.shared';
-import { ThemeBasicModule } from '@abp/ng.theme.basic';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
+import { NgxValidateCoreModule } from '@ngx-validate/core';
+import { THEMECORE_OPTIONS } from '@fs/theme.core';
 
 const basicGoods = [
     {
@@ -1014,9 +1014,9 @@ var NgAlainModule_1;
 const LANG = {
     abbr: 'zh',
     ng: ngLang,
-    zorro: zh_CN,
+    zorro: zh_TW,
     date: zhCN,
-    delon: zh_CN$1,
+    delon: zh_TW$1,
 };
 registerLocaleData(LANG.ng, LANG.abbr);
 const ɵ0$5 = LANG.abbr, ɵ1$5 = LANG.zorro, ɵ2$3 = LANG.date, ɵ3$2 = LANG.delon;
@@ -1068,16 +1068,41 @@ const APPINIT_PROVIDES = [
         multi: true,
     },
 ];
-const ABP_MODULES = [
-    ThemeSharedModule.forRoot(),
-    ThemeBasicModule.forRoot(),
-    NgAlainBasicModule.forRoot()
-];
-// #endregion
+let RootNgAlainModule = class RootNgAlainModule {
+};
+RootNgAlainModule = __decorate([
+    NgModule({
+        imports: [
+            NgxValidateCoreModule.forRoot({
+                targetSelector: '.form-group',
+                blueprints: {
+                    creditCard: 'AbpValidation::ThisFieldIsNotAValidCreditCardNumber.',
+                    email: 'AbpValidation::ThisFieldIsNotAValidEmailAddress.',
+                    invalid: 'AbpValidation::ThisFieldIsNotValid.',
+                    max: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+                    maxlength: 'AbpValidation::ThisFieldMustBeAStringOrArrayTypeWithAMaximumLengthOf{0}[{{ requiredLength }}]',
+                    min: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+                    minlength: 'AbpValidation::ThisFieldMustBeAStringOrArrayTypeWithAMinimumLengthOf{0}[{{ requiredLength }}]',
+                    ngbDate: 'AbpValidation::ThisFieldIsNotValid.',
+                    passwordMismatch: 'AbpIdentity::Identity.PasswordConfirmationFailed',
+                    range: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+                    required: 'AbpValidation::ThisFieldIsRequired.',
+                    url: 'AbpValidation::ThisFieldIsNotAValidFullyQualifiedHttpHttpsOrFtpUrl',
+                },
+            }),
+            //ThemeCoreModule.forRoot(),
+            NgAlainSharedModule.forRoot(),
+            NgAlainBasicModule.forRoot(),
+        ],
+    })
+], RootNgAlainModule);
 let NgAlainModule = NgAlainModule_1 = class NgAlainModule {
-    static forRoot() {
+    static forRoot(options = { loadCodes: false }) {
         return {
-            ngModule: NgAlainModule_1
+            ngModule: NgAlainModule_1,
+            providers: [
+                { provide: THEMECORE_OPTIONS, useValue: options }
+            ],
         };
     }
 };
@@ -1088,8 +1113,8 @@ NgAlainModule = NgAlainModule_1 = __decorate([
             CoreModule,
             //LayoutModule,
             STWidgetModule,
+            RootNgAlainModule,
             ...I18NSERVICE_MODULES,
-            ...ABP_MODULES,
             ...GLOBAL_THIRD_MODULES,
             ...FORM_MODULES,
         ],
@@ -1111,5 +1136,5 @@ function throwIfAlreadyLoaded(parentModule, moduleName) {
  * Generated bundle index. Do not edit.
  */
 
-export { GlobalConfigModule, I18nHttpLoaderFactory, NgAlainModule, StartupServiceFactory, throwIfAlreadyLoaded, ɵ0$5 as ɵ0, ɵ1$5 as ɵ1, ɵ2$3 as ɵ2, ɵ3$2 as ɵ3 };
+export { GlobalConfigModule, I18nHttpLoaderFactory, NgAlainModule, RootNgAlainModule, StartupServiceFactory, throwIfAlreadyLoaded, ɵ0$5 as ɵ0, ɵ1$5 as ɵ1, ɵ2$3 as ɵ2, ɵ3$2 as ɵ3 };
 //# sourceMappingURL=fs-ng-alain.js.map

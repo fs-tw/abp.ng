@@ -1,6 +1,6 @@
 import { __decorate } from 'tslib';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { TenantManagementConfigModule } from '@abp/ng.tenant-management/config';
+import { TENANT_MANAGEMENT_ROUTE_PROVIDERS } from '@abp/ng.tenant-management/config';
 import { RoutesService, AddReplaceableComponent } from '@abp/ng.core';
 import { Store } from '@ngxs/store';
 import { TenantsComponent } from '@fs/tenant-management/ng-alain';
@@ -40,16 +40,12 @@ let TenantManagementNgAlainConfigModule = TenantManagementNgAlainConfigModule_1 
     static forRoot() {
         return {
             ngModule: TenantManagementNgAlainConfigModule_1,
-            providers: [ROUTE_PROVIDERS, STYLES_PROVIDERS],
+            providers: [TENANT_MANAGEMENT_ROUTE_PROVIDERS, ROUTE_PROVIDERS, STYLES_PROVIDERS],
         };
     }
 };
 TenantManagementNgAlainConfigModule = TenantManagementNgAlainConfigModule_1 = __decorate([
-    NgModule({
-        imports: [
-            TenantManagementConfigModule.forRoot()
-        ]
-    })
+    NgModule()
 ], TenantManagementNgAlainConfigModule);
 
 /**

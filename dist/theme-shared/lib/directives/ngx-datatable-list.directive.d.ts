@@ -11,7 +11,6 @@ export declare class NgxDatatableListDirective implements OnChanges, OnDestroy, 
     private setInitialValues;
     private subscribeToPage;
     private subscribeToSort;
-    private subscribeToIsLoading;
     ngOnChanges({ list }: SimpleChanges): void;
     ngOnDestroy(): void;
     ngOnInit(): void;

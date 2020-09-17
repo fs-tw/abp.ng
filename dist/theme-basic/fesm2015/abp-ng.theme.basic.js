@@ -1,6 +1,6 @@
 import { __decorate, __metadata } from 'tslib';
 import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation, APP_INITIALIZER, NgModule } from '@angular/core';
-import { takeUntilDestroy, ConfigState, AuthService, SessionState, SetLanguage, RoutesService, DomInsertionService, CONTENT_STRATEGY, AddReplaceableComponent, CoreModule } from '@abp/ng.core';
+import { SubscriptionService, ConfigState, AuthService, SessionState, SetLanguage, RoutesService, DomInsertionService, CONTENT_STRATEGY, AddReplaceableComponent, CoreModule } from '@abp/ng.core';
 import { slideFromBottom, collapseWithMargin, NavItemsService, ThemeSharedModule } from '@abp/ng.theme.shared';
 import { fromEvent, Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
@@ -26,7 +26,8 @@ AccountLayoutComponent = __decorate([
 ], AccountLayoutComponent);
 
 let ApplicationLayoutComponent = class ApplicationLayoutComponent {
-    constructor() {
+    constructor(subscription) {
+        this.subscription = subscription;
         this.isCollapsed = true;
         this.logoComponentKey = "Theme.LogoComponent" /* Logo */;
         this.routesComponentKey = "Theme.RoutesComponent" /* Routes */;
@@ -50,11 +51,8 @@ let ApplicationLayoutComponent = class ApplicationLayoutComponent {
     }
     ngAfterViewInit() {
         this.checkWindowWidth();
-        fromEvent(window, 'resize')
-            .pipe(takeUntilDestroy(this), debounceTime(150))
-            .subscribe(() => {
-            this.checkWindowWidth();
-        });
+        const resize$ = fromEvent(window, 'resize').pipe(debounceTime(150));
+        this.subscription.addOne(resize$, () => this.checkWindowWidth());
     }
     ngOnDestroy() { }
 };
@@ -64,8 +62,10 @@ ApplicationLayoutComponent = __decorate([
     Component({
         selector: 'abp-layout-application',
         template: "<nav\r\n  class=\"navbar navbar-expand-lg navbar-dark bg-dark shadow-sm flex-column flex-md-row mb-4\"\r\n  id=\"main-navbar\"\r\n  style=\"min-height: 4rem;\"\r\n>\r\n  <div class=\"container\">\r\n    <abp-logo *abpReplaceableTemplate=\"{ componentKey: logoComponentKey }\"></abp-logo>\r\n    <button\r\n      class=\"navbar-toggler\"\r\n      type=\"button\"\r\n      [attr.aria-expanded]=\"!isCollapsed\"\r\n      (click)=\"isCollapsed = !isCollapsed\"\r\n    >\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n    <div class=\"navbar-collapse\" [class.overflow-hidden]=\"smallScreen\" id=\"main-navbar-collapse\">\r\n      <ng-container *ngTemplateOutlet=\"!smallScreen ? navigations : null\"></ng-container>\r\n\r\n      <div *ngIf=\"smallScreen\" [@collapseWithMargin]=\"isCollapsed ? 'collapsed' : 'expanded'\">\r\n        <ng-container *ngTemplateOutlet=\"navigations\"></ng-container>\r\n      </div>\r\n\r\n      <ng-template #navigations>\r\n        <abp-routes\r\n          *abpReplaceableTemplate=\"{\r\n            componentKey: routesComponentKey,\r\n            inputs: {\r\n              smallScreen: { value: smallScreen }\r\n            }\r\n          }\"\r\n          class=\"mx-auto\"\r\n          [smallScreen]=\"smallScreen\"\r\n        ></abp-routes>\r\n\r\n        <abp-nav-items\r\n          *abpReplaceableTemplate=\"{\r\n            componentKey: navItemsComponentKey\r\n          }\"\r\n        ></abp-nav-items>\r\n      </ng-template>\r\n    </div>\r\n  </div>\r\n</nav>\r\n\r\n<!-- [@slideFromBottom]=\"outlet.isActivated && outlet.activatedRoute?.routeConfig?.path\" TODO: throws ExpressionChangedAfterItHasBeenCheck when animation is active. It should be fixed -->\r\n<div class=\"container\">\r\n  <router-outlet #outlet=\"outlet\"></router-outlet>\r\n</div>\r\n",
-        animations: [slideFromBottom, collapseWithMargin]
-    })
+        animations: [slideFromBottom, collapseWithMargin],
+        providers: [SubscriptionService]
+    }),
+    __metadata("design:paramtypes", [SubscriptionService])
 ], ApplicationLayoutComponent);
 
 let EmptyLayoutComponent = class EmptyLayoutComponent {
@@ -255,7 +255,7 @@ let NavItemsComponent = class NavItemsComponent {
 NavItemsComponent = __decorate([
     Component({
         selector: 'abp-nav-items',
-        template: "<ul class=\"navbar-nav\">\r\n  <li\r\n    class=\"nav-item d-flex align-items-center\"\r\n    *ngFor=\"let item of navItems.items$ | async; trackBy: trackByFn\"\r\n    [abpPermission]=\"item.requiredPolicy\"\r\n  >\r\n    <ng-container\r\n      *ngIf=\"item.component; else htmlTemplate\"\r\n      [ngComponentOutlet]=\"item.component\"\r\n    ></ng-container>\r\n\r\n    <ng-template #htmlTemplate>\r\n      <div [innerHTML]=\"item.html\" (click)=\"item.action ? item.action() : null\"></div>\r\n    </ng-template>\r\n  </li>\r\n</ul>\r\n"
+        template: "<ul class=\"navbar-nav\">\r\n  <ng-container *ngFor=\"let item of navItems.items$ | async; trackBy: trackByFn\">\r\n    <li\r\n      class=\"nav-item d-flex align-items-center\"\r\n      *ngIf=\"item.visible()\"\r\n      [abpPermission]=\"item.requiredPolicy\"\r\n    >\r\n      <ng-container\r\n        *ngIf=\"item.component; else htmlTemplate\"\r\n        [ngComponentOutlet]=\"item.component\"\r\n      ></ng-container>\r\n\r\n      <ng-template #htmlTemplate>\r\n        <div [innerHTML]=\"item.html\" (click)=\"item.action ? item.action() : null\"></div>\r\n      </ng-template>\r\n    </li>\r\n  </ng-container>\r\n</ul>\r\n"
     }),
     __metadata("design:paramtypes", [NavItemsService])
 ], NavItemsComponent);
@@ -266,7 +266,7 @@ let RoutesComponent = class RoutesComponent {
         this.trackByFn = (_, item) => item.name;
     }
     isDropdown(node) {
-        return !node.isLeaf || this.routes.hasChildren(node.name);
+        return !(node === null || node === void 0 ? void 0 : node.isLeaf) || this.routes.hasChildren(node.name);
     }
 };
 __decorate([
@@ -327,7 +327,7 @@ function configureNavItems(navItems) {
             },
             {
                 id: "Theme.CurrentUserComponent" /* CurrentUser */,
-                order: 101,
+                order: 100,
                 component: CurrentUserComponent,
             },
         ]);
@@ -408,7 +408,7 @@ var styles = `
     border: 1px solid #c8c8c8;
   }
 .abp-loading {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.05);
 }
 .modal-backdrop {
 background-color: rgba(0, 0, 0, 0.6);
@@ -507,17 +507,16 @@ function initLayouts(store) {
     ]);
 }
 
-var ThemeBasicModule_1;
 const LAYOUTS = [ApplicationLayoutComponent, AccountLayoutComponent, EmptyLayoutComponent];
-let ThemeBasicModule = ThemeBasicModule_1 = class ThemeBasicModule {
+let ThemeBasicModule = class ThemeBasicModule {
     static forRoot() {
         return {
-            ngModule: ThemeBasicModule_1,
+            ngModule: RootThemeBasicModule,
             providers: [BASIC_THEME_NAV_ITEM_PROVIDERS, BASIC_THEME_STYLES_PROVIDERS],
         };
     }
 };
-ThemeBasicModule = ThemeBasicModule_1 = __decorate([
+ThemeBasicModule = __decorate([
     NgModule({
         declarations: [
             ...LAYOUTS,
@@ -543,6 +542,15 @@ ThemeBasicModule = ThemeBasicModule_1 = __decorate([
             NgbCollapseModule,
             NgbDropdownModule,
             NgxValidateCoreModule,
+        ],
+        entryComponents: [...LAYOUTS, ValidationErrorComponent, CurrentUserComponent, LanguagesComponent],
+    })
+], ThemeBasicModule);
+let RootThemeBasicModule = class RootThemeBasicModule {
+};
+RootThemeBasicModule = __decorate([
+    NgModule({
+        imports: [
             NgxValidateCoreModule.forRoot({
                 targetSelector: '.form-group',
                 blueprints: {
@@ -562,9 +570,8 @@ ThemeBasicModule = ThemeBasicModule_1 = __decorate([
                 errorTemplate: ValidationErrorComponent,
             }),
         ],
-        entryComponents: [...LAYOUTS, ValidationErrorComponent, CurrentUserComponent, LanguagesComponent],
     })
-], ThemeBasicModule);
+], RootThemeBasicModule);
 
 /*
  * Public API Surface of theme-basic
@@ -574,5 +581,5 @@ ThemeBasicModule = ThemeBasicModule_1 = __decorate([
  * Generated bundle index. Do not edit.
  */
 
-export { AccountLayoutComponent, ApplicationLayoutComponent, BASIC_THEME_NAV_ITEM_PROVIDERS, BASIC_THEME_STYLES_PROVIDERS, CurrentUserComponent, EmptyLayoutComponent, LAYOUTS, LanguagesComponent, LogoComponent, NavItemsComponent, RoutesComponent, ThemeBasicModule, ValidationErrorComponent, configureNavItems, configureStyles, ApplicationLayoutComponent as ɵa, AccountLayoutComponent as ɵb, EmptyLayoutComponent as ɵc, ValidationErrorComponent as ɵd, LogoComponent as ɵe, NavItemsComponent as ɵf, RoutesComponent as ɵg, CurrentUserComponent as ɵh, LanguagesComponent as ɵi, BASIC_THEME_NAV_ITEM_PROVIDERS as ɵj, configureNavItems as ɵk, BASIC_THEME_STYLES_PROVIDERS as ɵl, configureStyles as ɵm };
+export { AccountLayoutComponent, ApplicationLayoutComponent, BASIC_THEME_NAV_ITEM_PROVIDERS, BASIC_THEME_STYLES_PROVIDERS, CurrentUserComponent, EmptyLayoutComponent, LAYOUTS, LanguagesComponent, LogoComponent, NavItemsComponent, RootThemeBasicModule, RoutesComponent, ThemeBasicModule, ValidationErrorComponent, configureNavItems, configureStyles, ApplicationLayoutComponent as ɵa, AccountLayoutComponent as ɵb, EmptyLayoutComponent as ɵc, ValidationErrorComponent as ɵd, LogoComponent as ɵe, NavItemsComponent as ɵf, RoutesComponent as ɵg, CurrentUserComponent as ɵh, LanguagesComponent as ɵi, BASIC_THEME_NAV_ITEM_PROVIDERS as ɵj, configureNavItems as ɵk, BASIC_THEME_STYLES_PROVIDERS as ɵl, configureStyles as ɵm };
 //# sourceMappingURL=abp-ng.theme.basic.js.map

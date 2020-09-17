@@ -10,6 +10,7 @@ export declare namespace FeatureManagement {
     }
     interface Feature {
         name: string;
+        displayName: string;
         value: string;
         description?: string;
         valueType?: ValueType;

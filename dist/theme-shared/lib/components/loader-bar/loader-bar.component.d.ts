@@ -1,4 +1,4 @@
-import { StartLoader, StopLoader } from '@abp/ng.core';
+import { StartLoader, StopLoader, SubscriptionService } from '@abp/ng.core';
 import { ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions } from '@ngxs/store';
@@ -7,9 +7,12 @@ export declare class LoaderBarComponent implements OnDestroy, OnInit {
     private actions;
     private router;
     private cdRef;
+    private subscription;
+    protected _isLoading: boolean;
+    set isLoading(value: boolean);
+    get isLoading(): boolean;
     containerClass: string;
     color: string;
-    isLoading: boolean;
     progressLevel: number;
     interval: Subscription;
     timer: Subscription;
@@ -19,7 +22,7 @@ export declare class LoaderBarComponent implements OnDestroy, OnInit {
     private readonly clearProgress;
     private readonly reportProgress;
     get boxShadow(): string;
-    constructor(actions: Actions, router: Router, cdRef: ChangeDetectorRef);
+    constructor(actions: Actions, router: Router, cdRef: ChangeDetectorRef, subscription: SubscriptionService);
     private subscribeToLoadActions;
     private subscribeToRouterEvents;
     ngOnInit(): void;

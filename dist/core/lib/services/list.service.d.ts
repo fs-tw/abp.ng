@@ -22,6 +22,7 @@ export declare class ListService<QueryParamsType = ABP.PageQueryParams> implemen
     private _query$;
     get query$(): Observable<QueryParamsType>;
     private _isLoading$;
+    private destroy$;
     get isLoading$(): Observable<boolean>;
     get: () => void;
     constructor(delay: number);

@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fs/feature-management/wrap'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@ngxs/store'), require('@abp/ng.feature-management')) :
-    typeof define === 'function' && define.amd ? define('@fs/feature-management/ng-alain', ['exports', '@fs/feature-management/wrap', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@ngxs/store', '@abp/ng.feature-management'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['feature-management'] = global.fs['feature-management'] || {}, global.fs['feature-management']['ng-alain'] = {}), global.fs['feature-management'].wrap, global.ng_core, global.ng.core, global.basic, global.store, global.ng_featureManagement));
-}(this, (function (exports, wrap, ng_core, core, basic, store, ng_featureManagement) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.feature-management'), require('@abp/ng.core'), require('@angular/core'), require('@fs/ng-alain/basic'), require('@ngxs/store')) :
+    typeof define === 'function' && define.amd ? define('@fs/feature-management/ng-alain', ['exports', '@abp/ng.feature-management', '@abp/ng.core', '@angular/core', '@fs/ng-alain/basic', '@ngxs/store'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs['feature-management'] = global.fs['feature-management'] || {}, global.fs['feature-management']['ng-alain'] = {}), global.ng_featureManagement, global.ng_core, global.ng.core, global.basic, global.store));
+}(this, (function (exports, ng_featureManagement, ng_core, core, basic, store) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -346,13 +346,13 @@
     }());
     exports.FeatureManagementNgAlainModule = __decorate([
         core.NgModule({
-            declarations: [exports.FeatureManagementComponent],
             imports: [
                 ng_core.CoreModule,
                 basic.NgAlainBasicModule,
-                wrap.FeatureManagementWrapModule
+                ng_featureManagement.FeatureManagementModule
             ],
-            exports: [exports.FeatureManagementComponent]
+            exports: [exports.FeatureManagementComponent],
+            declarations: [exports.FeatureManagementComponent]
         })
     ], exports.FeatureManagementNgAlainModule);
 

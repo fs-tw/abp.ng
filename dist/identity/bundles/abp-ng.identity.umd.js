@@ -1,10 +1,12 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@abp/ng.permission-management'), require('@abp/ng.theme.shared'), require('@angular/core'), require('@ng-bootstrap/ng-bootstrap'), require('@ngx-validate/core'), require('@ngxs/store'), require('@angular/forms'), require('rxjs'), require('rxjs/operators'), require('snq'), require('@angular/router')) :
     typeof define === 'function' && define.amd ? define('@abp/ng.identity', ['exports', '@abp/ng.core', '@abp/ng.permission-management', '@abp/ng.theme.shared', '@angular/core', '@ng-bootstrap/ng-bootstrap', '@ngx-validate/core', '@ngxs/store', '@angular/forms', 'rxjs', 'rxjs/operators', 'snq', '@angular/router'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.identity = {}), global.i1, global.ng_permissionManagement, global.ng_theme_shared, global.ng.core, global.ngBootstrap, global.core, global.i1$1, global.ng.forms, global.rxjs, global.rxjs.operators, global.snq, global.ng.router));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.identity = {}), global.i1, global.ng_permissionManagement, global.ng_theme_shared, global.ng.core, global.ngBootstrap, global.core, global.i1$1, global.ng.forms, global.rxjs, global.rxjs.operators, global.snq, global.ng.router));
 }(this, (function (exports, i1, ng_permissionManagement, ng_theme_shared, i0, ngBootstrap, core, i1$1, forms, rxjs, operators, snq, router) { 'use strict';
 
-    snq = snq && Object.prototype.hasOwnProperty.call(snq, 'default') ? snq['default'] : snq;
+    function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+    var snq__default = /*#__PURE__*/_interopDefaultLegacy(snq);
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -820,7 +822,7 @@
         Object.defineProperty(UsersComponent.prototype, "roleGroups", {
             get: function () {
                 var _this = this;
-                return snq(function () { return _this.form.get('roleNames').controls; }, []);
+                return snq__default['default'](function () { return _this.form.get('roleNames').controls; }, []);
             },
             enumerable: true,
             configurable: true
@@ -849,7 +851,7 @@
                         return _this.fb.group((_a = {},
                             _a[role.name] = [
                                 _this.selected.id
-                                    ? !!snq(function () { return _this.selectedUserRoles.find(function (userRole) { return userRole.id === role.id; }); })
+                                    ? !!snq__default['default'](function () { return _this.selectedUserRoles.find(function (userRole) { return userRole.id === role.id; }); })
                                     : role.isDefault,
                             ],
                             _a));
@@ -889,7 +891,7 @@
                 return;
             this.modalBusy = true;
             var roleNames = this.form.value.roleNames;
-            var mappedRoleNames = snq(function () { return roleNames.filter(function (role) { return !!role[Object.keys(role)[0]]; }).map(function (role) { return Object.keys(role)[0]; }); }, []);
+            var mappedRoleNames = snq__default['default'](function () { return roleNames.filter(function (role) { return !!role[Object.keys(role)[0]]; }).map(function (role) { return Object.keys(role)[0]; }); }, []);
             this.store
                 .dispatch(this.selected.id
                 ? new UpdateUser(Object.assign(Object.assign(Object.assign({}, this.selected), this.form.value), { id: this.selected.id, roleNames: mappedRoleNames }))
@@ -995,7 +997,7 @@
     }());
     exports.ɵe = __decorate([
         i0.NgModule({
-            imports: [router.RouterModule.forChild(routes), i1.CoreModule],
+            imports: [router.RouterModule.forChild(routes)],
             exports: [router.RouterModule],
         })
     ], exports.ɵe);

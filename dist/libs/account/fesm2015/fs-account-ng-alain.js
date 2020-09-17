@@ -1,19 +1,52 @@
-import { __decorate, __metadata } from 'tslib';
-import { AuthService, ConfigState, LazyModuleFactory, CoreModule } from '@abp/ng.core';
-import { Component, Input, TemplateRef, NgModule } from '@angular/core';
+import { __decorate, __metadata, __param } from 'tslib';
+import { SessionState, RestService, AuthService, ConfigState, LazyModuleFactory, CoreModule } from '@abp/ng.core';
+import { Injectable, Component, Optional, Inject, Input, TemplateRef, NgModule } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/ng-alain/basic';
-import { LoginComponent, RegisterComponent, AccountService, PersonalSettingsComponent as PersonalSettingsComponent$1, ChangePasswordComponent as ChangePasswordComponent$1, TenantBoxComponent as TenantBoxComponent$1, ACCOUNT_OPTIONS } from '@abp/ng.account';
+import { LoginComponent, RegisterComponent, AccountService, PersonalSettingsComponent as PersonalSettingsComponent$1, ChangePasswordComponent as ChangePasswordComponent$1, TenantBoxComponent as TenantBoxComponent$1, AuthenticationFlowGuard, ACCOUNT_OPTIONS, AccountModule } from '@abp/ng.account';
 import { ToasterService, fadeIn } from '@abp/ng.theme.shared';
 import { FormBuilder } from '@angular/forms';
 import { Store, Select } from '@ngxs/store';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { Observable } from 'rxjs';
-import { AccountWrapModule } from '@fs/account/wrap';
+import { NgxValidateCoreModule } from '@ngx-validate/core';
+
+class LoginDto {
+}
+let LoginService = class LoginService {
+    constructor(restService, store) {
+        this.restService = restService;
+        this.store = store;
+    }
+    login(body) {
+        const tenant = this.store.selectSnapshot(SessionState.getTenant);
+        return this.restService.request({
+            url: '/api/token/authenticate',
+            method: 'POST',
+            body,
+            headers: Object.assign({}, (tenant && tenant.id && { __tenant: tenant.id }))
+        });
+    }
+};
+LoginService = __decorate([
+    Injectable(),
+    __metadata("design:paramtypes", [RestService,
+        Store])
+], LoginService);
+// {
+//   "userNameOrEmailAddress": "string",
+//   "password": "string",
+//   "rememberClient": true,
+//   "tenanId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+// }
 
 let UserLoginComponent = class UserLoginComponent extends LoginComponent {
-    constructor(_fb, _oauthService, _store, _toasterService, _authService) {
+    constructor(loginService, options, _fb, _oauthService, _store, _toasterService, _authService) {
         super(_fb, _oauthService, _store, _toasterService, _authService);
+        this.loginService = loginService;
+        this.options = options;
+        this._store = _store;
+        this._toasterService = _toasterService;
     }
 };
 UserLoginComponent = __decorate([
@@ -22,7 +55,8 @@ UserLoginComponent = __decorate([
         template: "<ng-alain-auth-wrapper [mainContentRef]=\"mainContentRef\">\r\n  <ng-template #mainContentRef>\r\n    <form nz-form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\" role=\"form\">\r\n      <nz-tabset [nzAnimated]=\"false\" class=\"tabs\">\r\n        <nz-tab [nzTitle]=\"'AbpAccount::Login' | abpLocalization\">\r\n          <nz-form-item>\r\n            <nz-form-control [nzErrorTip]=\"'Please enter mobile number!' | abpLocalization\">\r\n              <nz-input-group nzSize=\"large\" nzPrefixIcon=\"user\">\r\n                <input nz-input formControlName=\"username\" placeholder=\"{{'AbpAccount::UserNameOrEmailAddress' | abpLocalization}}\" />\r\n              </nz-input-group>\r\n            </nz-form-control>\r\n          </nz-form-item>\r\n          <nz-form-item>\r\n            <nz-form-control [nzErrorTip]=\"'Please enter password!' | abpLocalization\">\r\n              <nz-input-group nzSize=\"large\" nzPrefixIcon=\"lock\">\r\n                <input nz-input type=\"password\" formControlName=\"password\" placeholder=\"{{ 'AbpAccount::Password' | abpLocalization }}\" />\r\n              </nz-input-group>\r\n            </nz-form-control>\r\n          </nz-form-item>\r\n        </nz-tab>\r\n      </nz-tabset>\r\n      <nz-form-item>\r\n        <nz-col [nzSpan]=\"12\">\r\n          <label nz-checkbox formControlName=\"remember\">{{ 'AbpAccount::RememberMe' | abpLocalization }}</label>\r\n        </nz-col>\r\n      </nz-form-item>\r\n      <nz-form-item>\r\n        <button nz-button type=\"submit\" nzType=\"primary\" nzSize=\"large\" [nzLoading]=\"inProgress\" nzBlock>\r\n          {{ 'AbpAccount::Login' | abpLocalization }}\r\n        </button>\r\n      </nz-form-item>\r\n    </form>\r\n    <div class=\"other\">\r\n      <a class=\"register\" routerLink=\"/account/register\">{{ 'AbpAccount::Register' | abpLocalization }}</a>\r\n    </div>\r\n  </ng-template>\r\n</ng-alain-auth-wrapper>\r\n\r\n",
         styles: [":host{display:block;margin:0 auto;width:368px}:host ::ng-deep .ant-tabs .ant-tabs-bar{border-bottom:0;margin-bottom:24px;text-align:center}:host ::ng-deep .ant-tabs-tab{font-size:16px;line-height:24px}:host ::ng-deep .ant-input-affix-wrapper .ant-input:not(:first-child){padding-left:34px}:host ::ng-deep .icon{color:rgba(0,0,0,.2);cursor:pointer;font-size:24px;margin-left:16px;transition:color .3s;vertical-align:middle}:host ::ng-deep .icon:hover{color:#1890ff}:host ::ng-deep .other{line-height:22px;margin-top:24px;text-align:left}:host ::ng-deep .other nz-tooltip{vertical-align:middle}:host ::ng-deep .other .register{float:right}"]
     }),
-    __metadata("design:paramtypes", [FormBuilder,
+    __param(1, Optional()), __param(1, Inject('ACCOUNT_OPTIONS')),
+    __metadata("design:paramtypes", [LoginService, Object, FormBuilder,
         OAuthService,
         Store,
         ToasterService,
@@ -80,7 +114,7 @@ PersonalSettingsComponent = __decorate([
     Component({
         selector: 'ng-alain-personal-settings-form',
         template: "<form novalidate *ngIf=\"form\" [formGroup]=\"form\" (ngSubmit)=\"submit()\">\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"username\">{{ 'AbpIdentity::DisplayName:UserName' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"userName\" id=\"username\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"name\">{{ 'AbpIdentity::DisplayName:Name' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"name\" id=\"name\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"surname\">{{ 'AbpIdentity::DisplayName:Surname' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"surname\" id=\"surname\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"email-address\">{{ 'AbpIdentity::DisplayName:Email' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"email\" id=\"email-address\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <nz-form-item>\r\n    <nz-form-label nzRequired nzFor=\"phone-number\">{{ 'AbpIdentity::DisplayName:PhoneNumber' | abpLocalization }}</nz-form-label>\r\n    <nz-form-control>\r\n      <input nz-input formControlName=\"phoneNumber\" id=\"phone-number\" />\r\n    </nz-form-control>\r\n  </nz-form-item>\r\n  <button nz-button nzType=\"primary\">\r\n    {{\r\n      'AbpIdentity::Save' | abpLocalization\r\n    }}\r\n  </button>\r\n</form>\r\n\r\n\r\n",
-        styles: ["nz-form-item{margin-bottom:0}"]
+        styles: [""]
     }),
     __metadata("design:paramtypes", [FormBuilder, Store, ToasterService])
 ], PersonalSettingsComponent);
@@ -154,6 +188,7 @@ let AccountNgAlainModule = AccountNgAlainModule_1 = class AccountNgAlainModule {
         return {
             ngModule: AccountNgAlainModule_1,
             providers: [
+                AuthenticationFlowGuard,
                 { provide: ACCOUNT_OPTIONS, useValue: options },
                 {
                     provide: 'ACCOUNT_OPTIONS',
@@ -169,6 +204,12 @@ let AccountNgAlainModule = AccountNgAlainModule_1 = class AccountNgAlainModule {
 };
 AccountNgAlainModule = AccountNgAlainModule_1 = __decorate([
     NgModule({
+        imports: [
+            CoreModule,
+            NgAlainBasicModule,
+            NgxValidateCoreModule,
+            AccountModule
+        ],
         declarations: [
             AuthWrapperComponent,
             TenantBoxComponent,
@@ -183,10 +224,8 @@ AccountNgAlainModule = AccountNgAlainModule_1 = __decorate([
             UserRegisterComponent,
             ManageProfileComponent
         ],
-        imports: [
-            CoreModule,
-            NgAlainBasicModule,
-            AccountWrapModule
+        providers: [
+            LoginService
         ]
     })
 ], AccountNgAlainModule);
@@ -195,5 +234,5 @@ AccountNgAlainModule = AccountNgAlainModule_1 = __decorate([
  * Generated bundle index. Do not edit.
  */
 
-export { AccountNgAlainModule, ManageProfileComponent, UserLoginComponent, UserRegisterComponent, accountOptionsFactory, AuthWrapperComponent as ɵa, TenantBoxComponent as ɵb, PersonalSettingsComponent as ɵc, ChangePasswordComponent as ɵd };
+export { AccountNgAlainModule, ManageProfileComponent, UserLoginComponent, UserRegisterComponent, accountOptionsFactory, AuthWrapperComponent as ɵa, TenantBoxComponent as ɵb, LoginService as ɵc, PersonalSettingsComponent as ɵd, ChangePasswordComponent as ɵe };
 //# sourceMappingURL=fs-account-ng-alain.js.map

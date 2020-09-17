@@ -3,7 +3,7 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { RoutesService, AddReplaceableComponent } from '@abp/ng.core';
 import { Store } from '@ngxs/store';
 import { UserLoginComponent, UserRegisterComponent, ManageProfileComponent } from '@fs/account/ng-alain';
-import { AccountConfigModule } from '@abp/ng.account/config';
+import { ACCOUNT_ROUTE_PROVIDERS } from '@abp/ng.account/config';
 
 const ROUTE_PROVIDERS = [
     { provide: APP_INITIALIZER, useFactory: configureRoutes, deps: [RoutesService], multi: true },
@@ -39,21 +39,17 @@ let AccountNgAlainConfigModule = AccountNgAlainConfigModule_1 = class AccountNgA
     static forRoot() {
         return {
             ngModule: AccountNgAlainConfigModule_1,
-            providers: [ROUTE_PROVIDERS, STYLES_PROVIDERS],
+            providers: [ACCOUNT_ROUTE_PROVIDERS, ROUTE_PROVIDERS, STYLES_PROVIDERS],
         };
     }
 };
 AccountNgAlainConfigModule = AccountNgAlainConfigModule_1 = __decorate([
-    NgModule({
-        imports: [
-            AccountConfigModule.forRoot()
-        ]
-    })
+    NgModule()
 ], AccountNgAlainConfigModule);
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { AccountNgAlainConfigModule, ROUTE_PROVIDERS as ɵa, STYLES_PROVIDERS as ɵb, configureStyles as ɵc };
+export { AccountNgAlainConfigModule, ROUTE_PROVIDERS as ɵa, configureRoutes as ɵb, STYLES_PROVIDERS as ɵc, configureStyles as ɵd };
 //# sourceMappingURL=fs-account-ng-alain-config.js.map

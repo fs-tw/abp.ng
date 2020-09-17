@@ -30,6 +30,7 @@ export declare abstract class AbstractTreeService<T extends object> {
 export declare abstract class AbstractNavTreeService<T extends ABP.Nav> extends AbstractTreeService<T> implements OnDestroy {
     protected actions: Actions;
     protected store: Store;
+    private subscription;
     readonly id = "name";
     readonly parentId = "parentName";
     readonly hide: (item: T) => boolean;

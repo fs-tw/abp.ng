@@ -2,19 +2,19 @@ import { __decorate } from 'tslib';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-let PackagesNgAlainAbpModule = class PackagesNgAlainAbpModule {
+let PackagesNgAlainModule = class PackagesNgAlainModule {
 };
-PackagesNgAlainAbpModule = __decorate([
+PackagesNgAlainModule = __decorate([
     NgModule({
         imports: [
             CommonModule
         ]
     })
-], PackagesNgAlainAbpModule);
+], PackagesNgAlainModule);
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { PackagesNgAlainAbpModule };
+export { PackagesNgAlainModule };
 //# sourceMappingURL=fs-packages-ng-alain.js.map

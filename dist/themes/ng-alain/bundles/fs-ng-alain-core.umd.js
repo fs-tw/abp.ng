@@ -1,12 +1,14 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/platform'), require('@angular/common'), require('@angular/common/locales/en'), require('@angular/common/locales/zh'), require('@angular/common/locales/zh-Hant'), require('@angular/core'), require('@delon/theme'), require('@ngx-translate/core'), require('date-fns/locale'), require('ng-zorro-antd/i18n'), require('rxjs'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/router'), require('@delon/auth'), require('ng-zorro-antd/notification'), require('@delon/acl'), require('ng-zorro-antd/icon'), require('@ant-design/icons-angular/icons'), require('ng-zorro-antd/modal')) :
-    typeof define === 'function' && define.amd ? define('@fs/ng-alain/core', ['exports', '@angular/cdk/platform', '@angular/common', '@angular/common/locales/en', '@angular/common/locales/zh', '@angular/common/locales/zh-Hant', '@angular/core', '@delon/theme', '@ngx-translate/core', 'date-fns/locale', 'ng-zorro-antd/i18n', 'rxjs', 'rxjs/operators', '@angular/common/http', '@angular/router', '@delon/auth', 'ng-zorro-antd/notification', '@delon/acl', 'ng-zorro-antd/icon', '@ant-design/icons-angular/icons', 'ng-zorro-antd/modal'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].core = {}), global.ng.cdk.platform, global.ng.common, global.ng.common.locales.en, global.ng.common.locales.zh, global.ng.common.locales.zhHant, global.ng.core, global.i1, global.i3, global.locale, global.i2, global.rxjs, global.rxjs.operators, global.ng.common.http, global.ng.router, global.auth, global.i1$1, global.acl, global.icon, global.icons, global.i1$2));
-}(this, (function (exports, i4, common, ngEn, ngZh, ngZhTw, i0, i1, i3, locale, i2, rxjs, operators, http, router, auth, i1$1, acl, icon, icons, i1$2) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/platform'), require('@angular/common'), require('@angular/common/locales/en'), require('@angular/common/locales/zh'), require('@angular/common/locales/zh-Hant'), require('@angular/core'), require('@delon/theme'), require('@ngx-translate/core'), require('date-fns/locale'), require('ng-zorro-antd/i18n'), require('rxjs'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/router'), require('@delon/auth'), require('ng-zorro-antd/notification'), require('ng-zorro-antd/modal'), require('@delon/acl'), require('ng-zorro-antd/icon'), require('@ant-design/icons-angular/icons')) :
+    typeof define === 'function' && define.amd ? define('@fs/ng-alain/core', ['exports', '@angular/cdk/platform', '@angular/common', '@angular/common/locales/en', '@angular/common/locales/zh', '@angular/common/locales/zh-Hant', '@angular/core', '@delon/theme', '@ngx-translate/core', 'date-fns/locale', 'ng-zorro-antd/i18n', 'rxjs', 'rxjs/operators', '@angular/common/http', '@angular/router', '@delon/auth', 'ng-zorro-antd/notification', 'ng-zorro-antd/modal', '@delon/acl', 'ng-zorro-antd/icon', '@ant-design/icons-angular/icons'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = global.fs['ng-alain'] || {}, global.fs['ng-alain'].core = {}), global.ng.cdk.platform, global.ng.common, global.ng.common.locales.en, global.ng.common.locales.zh, global.ng.common.locales.zhHant, global.ng.core, global.i1, global.i3, global.locale, global.i2, global.rxjs, global.rxjs.operators, global.ng.common.http, global.ng.router, global.auth, global.i1$1, global.i1$2, global.acl, global.icon, global.icons));
+}(this, (function (exports, i4, common, ngEn, ngZh, ngZhTw, i0, i1, i3, locale, i2, rxjs, operators, http, router, auth, i1$1, i1$2, acl, icon, icons) { 'use strict';
 
-    ngEn = ngEn && Object.prototype.hasOwnProperty.call(ngEn, 'default') ? ngEn['default'] : ngEn;
-    ngZh = ngZh && Object.prototype.hasOwnProperty.call(ngZh, 'default') ? ngZh['default'] : ngZh;
-    ngZhTw = ngZhTw && Object.prototype.hasOwnProperty.call(ngZhTw, 'default') ? ngZhTw['default'] : ngZhTw;
+    function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+    var ngEn__default = /*#__PURE__*/_interopDefaultLegacy(ngEn);
+    var ngZh__default = /*#__PURE__*/_interopDefaultLegacy(ngZh);
+    var ngZhTw__default = /*#__PURE__*/_interopDefaultLegacy(ngZhTw);
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -304,7 +306,7 @@
     var LANGS = {
         'zh-CN': {
             text: '简体中文',
-            ng: ngZh,
+            ng: ngZh__default['default'],
             zorro: i2.zh_CN,
             date: locale.zhCN,
             delon: i1.zh_CN,
@@ -312,7 +314,7 @@
         },
         'zh-TW': {
             text: '繁体中文',
-            ng: ngZhTw,
+            ng: ngZhTw__default['default'],
             zorro: i2.zh_TW,
             date: locale.zhTW,
             delon: i1.zh_TW,
@@ -320,7 +322,7 @@
         },
         'en-US': {
             text: 'English',
-            ng: ngEn,
+            ng: ngEn__default['default'],
             zorro: i2.en_US,
             date: locale.enUS,
             delon: i1.en_US,
@@ -416,13 +418,6 @@
             i3.TranslateService,
             i4.Platform])
     ], exports.I18NService);
-
-    // https://angular.io/guide/styleguide#style-04-12
-    function throwIfAlreadyLoaded(parentModule, moduleName) {
-        if (parentModule) {
-            throw new Error(moduleName + " has already been loaded. Import Core modules in the AppModule only.");
-        }
-    }
 
     var CODEMESSAGE = {
         200: '服务器成功返回请求的数据。',
@@ -542,6 +537,111 @@
         i0.Injectable(),
         __metadata("design:paramtypes", [i0.Injector])
     ], exports.DefaultInterceptor);
+
+    exports.MessagesService = /** @class */ (function () {
+        function MessagesService(modalSrv) {
+            this.modalSrv = modalSrv;
+        }
+        MessagesService.prototype.info = function (message, title) {
+            if (title === void 0) { title = "訊息"; }
+            this.modalSrv.info({
+                nzTitle: title,
+                nzContent: message
+            });
+        };
+        MessagesService.prototype.success = function (message, title) {
+            if (title === void 0) { title = "成功訊息"; }
+            this.modalSrv.success({
+                nzTitle: title,
+                nzContent: message
+            });
+        };
+        MessagesService.prototype.warn = function (message, title) {
+            if (title === void 0) { title = "警告訊息"; }
+            this.modalSrv.warning({
+                nzTitle: title,
+                nzContent: message
+            });
+        };
+        MessagesService.prototype.error = function (message, title) {
+            if (title === void 0) { title = "錯誤訊息"; }
+            this.modalSrv.error({
+                nzTitle: title,
+                nzContent: message
+            });
+        };
+        MessagesService.prototype.confirm = function (message, titleOrCallBack, callback) {
+            if (typeof titleOrCallBack == 'string') {
+                this.modalSrv.confirm({
+                    nzTitle: titleOrCallBack,
+                    nzContent: message,
+                    nzOnOk: function () {
+                        if (callback)
+                            callback(true);
+                    },
+                    nzOnCancel: function () {
+                        if (callback)
+                            callback(false);
+                    }
+                });
+            }
+            else {
+                this.modalSrv.confirm({
+                    nzTitle: "請確認",
+                    nzContent: message,
+                    nzOnOk: function () {
+                        if (titleOrCallBack)
+                            titleOrCallBack(true);
+                    },
+                    nzOnCancel: function () {
+                        if (titleOrCallBack)
+                            titleOrCallBack(false);
+                    }
+                });
+            }
+        };
+        return MessagesService;
+    }());
+    exports.MessagesService.ɵprov = i0.ɵɵdefineInjectable({ factory: function MessagesService_Factory() { return new exports.MessagesService(i0.ɵɵinject(i1$2.NzModalService)); }, token: exports.MessagesService, providedIn: "root" });
+    exports.MessagesService = __decorate([
+        i0.Injectable({ providedIn: 'root' }),
+        __metadata("design:paramtypes", [i1$2.NzModalService])
+    ], exports.MessagesService);
+
+    exports.NotifyService = /** @class */ (function () {
+        function NotifyService(notification) {
+            this.notification = notification;
+        }
+        NotifyService.prototype.showNotify = function (type, title, content) {
+            this.notification.create(type, title, content);
+        };
+        NotifyService.prototype.success = function (content, title) {
+            if (content === void 0) { content = ''; }
+            if (title === void 0) { title = "成功"; }
+            this.showNotify('success', title, content);
+        };
+        NotifyService.prototype.info = function (content, title) {
+            if (content === void 0) { content = ''; }
+            if (title === void 0) { title = "訊息"; }
+            this.showNotify('info', title, content);
+        };
+        NotifyService.prototype.warning = function (content, title) {
+            if (content === void 0) { content = ''; }
+            if (title === void 0) { title = "警告"; }
+            this.showNotify('warning', title, content);
+        };
+        NotifyService.prototype.error = function (content, title) {
+            if (content === void 0) { content = ''; }
+            if (title === void 0) { title = "錯誤"; }
+            this.showNotify('error', title, content);
+        };
+        return NotifyService;
+    }());
+    exports.NotifyService.ɵprov = i0.ɵɵdefineInjectable({ factory: function NotifyService_Factory() { return new exports.NotifyService(i0.ɵɵinject(i1$1.NzNotificationService)); }, token: exports.NotifyService, providedIn: "root" });
+    exports.NotifyService = __decorate([
+        i0.Injectable({ providedIn: 'root' }),
+        __metadata("design:paramtypes", [i1$1.NzNotificationService])
+    ], exports.NotifyService);
 
     // Custom icon static resources
     var ICONS = [icons.InfoOutline, icons.BulbOutline, icons.ProfileOutline, icons.ExceptionOutline, icons.LinkOutline];
@@ -665,6 +765,13 @@
             http.HttpClient])
     ], exports.StartupService);
 
+    // https://angular.io/guide/styleguide#style-04-12
+    function throwIfAlreadyLoaded(parentModule, moduleName) {
+        if (parentModule) {
+            throw new Error(moduleName + " has already been loaded. Import Core modules in the AppModule only.");
+        }
+    }
+
     exports.CoreModule = /** @class */ (function () {
         function CoreModule(parentModule) {
             throwIfAlreadyLoaded(parentModule, 'CoreModule');
@@ -678,111 +785,6 @@
         __param(0, i0.Optional()), __param(0, i0.SkipSelf()),
         __metadata("design:paramtypes", [exports.CoreModule])
     ], exports.CoreModule);
-
-    exports.MessagesService = /** @class */ (function () {
-        function MessagesService(modalSrv) {
-            this.modalSrv = modalSrv;
-        }
-        MessagesService.prototype.info = function (message, title) {
-            if (title === void 0) { title = "訊息"; }
-            this.modalSrv.info({
-                nzTitle: title,
-                nzContent: message
-            });
-        };
-        MessagesService.prototype.success = function (message, title) {
-            if (title === void 0) { title = "成功訊息"; }
-            this.modalSrv.success({
-                nzTitle: title,
-                nzContent: message
-            });
-        };
-        MessagesService.prototype.warn = function (message, title) {
-            if (title === void 0) { title = "警告訊息"; }
-            this.modalSrv.warning({
-                nzTitle: title,
-                nzContent: message
-            });
-        };
-        MessagesService.prototype.error = function (message, title) {
-            if (title === void 0) { title = "錯誤訊息"; }
-            this.modalSrv.error({
-                nzTitle: title,
-                nzContent: message
-            });
-        };
-        MessagesService.prototype.confirm = function (message, titleOrCallBack, callback) {
-            if (typeof titleOrCallBack == 'string') {
-                this.modalSrv.confirm({
-                    nzTitle: titleOrCallBack,
-                    nzContent: message,
-                    nzOnOk: function () {
-                        if (callback)
-                            callback(true);
-                    },
-                    nzOnCancel: function () {
-                        if (callback)
-                            callback(false);
-                    }
-                });
-            }
-            else {
-                this.modalSrv.confirm({
-                    nzTitle: "請確認",
-                    nzContent: message,
-                    nzOnOk: function () {
-                        if (titleOrCallBack)
-                            titleOrCallBack(true);
-                    },
-                    nzOnCancel: function () {
-                        if (titleOrCallBack)
-                            titleOrCallBack(false);
-                    }
-                });
-            }
-        };
-        return MessagesService;
-    }());
-    exports.MessagesService.ɵprov = i0.ɵɵdefineInjectable({ factory: function MessagesService_Factory() { return new exports.MessagesService(i0.ɵɵinject(i1$2.NzModalService)); }, token: exports.MessagesService, providedIn: "root" });
-    exports.MessagesService = __decorate([
-        i0.Injectable({ providedIn: 'root' }),
-        __metadata("design:paramtypes", [i1$2.NzModalService])
-    ], exports.MessagesService);
-
-    exports.NotifyService = /** @class */ (function () {
-        function NotifyService(notification) {
-            this.notification = notification;
-        }
-        NotifyService.prototype.showNotify = function (type, title, content) {
-            this.notification.create(type, title, content);
-        };
-        NotifyService.prototype.success = function (content, title) {
-            if (content === void 0) { content = ''; }
-            if (title === void 0) { title = "成功"; }
-            this.showNotify('success', title, content);
-        };
-        NotifyService.prototype.info = function (content, title) {
-            if (content === void 0) { content = ''; }
-            if (title === void 0) { title = "訊息"; }
-            this.showNotify('info', title, content);
-        };
-        NotifyService.prototype.warning = function (content, title) {
-            if (content === void 0) { content = ''; }
-            if (title === void 0) { title = "警告"; }
-            this.showNotify('warning', title, content);
-        };
-        NotifyService.prototype.error = function (content, title) {
-            if (content === void 0) { content = ''; }
-            if (title === void 0) { title = "錯誤"; }
-            this.showNotify('error', title, content);
-        };
-        return NotifyService;
-    }());
-    exports.NotifyService.ɵprov = i0.ɵɵdefineInjectable({ factory: function NotifyService_Factory() { return new exports.NotifyService(i0.ɵɵinject(i1$1.NzNotificationService)); }, token: exports.NotifyService, providedIn: "root" });
-    exports.NotifyService = __decorate([
-        i0.Injectable({ providedIn: 'root' }),
-        __metadata("design:paramtypes", [i1$1.NzNotificationService])
-    ], exports.NotifyService);
 
     /**
      * Generated bundle index. Do not edit.

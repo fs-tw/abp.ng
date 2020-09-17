@@ -1,11 +1,13 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@abp/ng.core'), require('@angular/core'), require('@angular/router'), require('rxjs/operators'), require('rxjs'), require('@ngx-validate/core'), require('@ngxs/store'), require('snq'), require('@swimlane/ngx-datatable'), require('just-clone'), require('@angular/common/http'), require('@ngxs/router-plugin'), require('@angular/common'), require('@ng-bootstrap/ng-bootstrap'), require('@angular/forms')) :
-    typeof define === 'function' && define.amd ? define('@abp/ng.theme.shared', ['exports', '@angular/animations', '@abp/ng.core', '@angular/core', '@angular/router', 'rxjs/operators', 'rxjs', '@ngx-validate/core', '@ngxs/store', 'snq', '@swimlane/ngx-datatable', 'just-clone', '@angular/common/http', '@ngxs/router-plugin', '@angular/common', '@ng-bootstrap/ng-bootstrap', '@angular/forms'], factory) :
-    (global = global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.theme = global.abp.ng.theme || {}, global.abp.ng.theme.shared = {}), global.ng.animations, global.i1, global.ng.core, global.ng.router, global.rxjs.operators, global.rxjs, global.core, global.i1$1, global.snq, global.ngxDatatable, global.clone, global.ng.common.http, global.routerPlugin, global.ng.common, global.ngBootstrap, global.ng.forms));
-}(this, (function (exports, animations, i1, i0, router, operators, rxjs, core, i1$1, snq, ngxDatatable, clone, http, routerPlugin, common, ngBootstrap, forms) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@abp/ng.core'), require('@angular/core'), require('@angular/router'), require('rxjs/operators'), require('rxjs'), require('@ngxs/store'), require('snq'), require('@angular/common'), require('@swimlane/ngx-datatable'), require('just-clone'), require('@angular/common/http'), require('@ngxs/router-plugin'), require('@ng-bootstrap/ng-bootstrap'), require('@ngx-validate/core'), require('@angular/forms')) :
+    typeof define === 'function' && define.amd ? define('@abp/ng.theme.shared', ['exports', '@angular/animations', '@abp/ng.core', '@angular/core', '@angular/router', 'rxjs/operators', 'rxjs', '@ngxs/store', 'snq', '@angular/common', '@swimlane/ngx-datatable', 'just-clone', '@angular/common/http', '@ngxs/router-plugin', '@ng-bootstrap/ng-bootstrap', '@ngx-validate/core', '@angular/forms'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.theme = global.abp.ng.theme || {}, global.abp.ng.theme.shared = {}), global.ng.animations, global.i1, global.ng.core, global.ng.router, global.rxjs.operators, global.rxjs, global.i1$1, global.snq, global.ng.common, global.ngxDatatable, global.clone, global.ng.common.http, global.routerPlugin, global.ngBootstrap, global.core, global.ng.forms));
+}(this, (function (exports, animations, i1, i0, router, operators, rxjs, i1$1, snq, common, ngxDatatable, clone, http, routerPlugin, ngBootstrap, core, forms) { 'use strict';
 
-    snq = snq && Object.prototype.hasOwnProperty.call(snq, 'default') ? snq['default'] : snq;
-    clone = clone && Object.prototype.hasOwnProperty.call(clone, 'default') ? clone['default'] : clone;
+    function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+    var snq__default = /*#__PURE__*/_interopDefaultLegacy(snq);
+    var clone__default = /*#__PURE__*/_interopDefaultLegacy(clone);
 
     var bounceIn = animations.animation([
         animations.style({ opacity: '0', display: '{{ display }}' }),
@@ -430,20 +432,18 @@
     }
 
     exports.ɵa = /** @class */ (function () {
-        function BreadcrumbComponent(cdRef, router, routes) {
+        function BreadcrumbComponent(cdRef, router, routes, subscription) {
             this.cdRef = cdRef;
             this.router = router;
             this.routes = routes;
+            this.subscription = subscription;
             this.segments = [];
         }
-        BreadcrumbComponent.prototype.ngOnDestroy = function () { };
         BreadcrumbComponent.prototype.ngOnInit = function () {
             var _this = this;
-            this.router.events
-                .pipe(i1.takeUntilDestroy(this), operators.filter(function (event) { return event instanceof router.NavigationEnd; }), 
+            this.subscription.addOne(this.router.events.pipe(operators.filter(function (event) { return event instanceof router.NavigationEnd; }), 
             // tslint:disable-next-line:deprecation
-            operators.startWith(null), operators.map(function () { return _this.routes.search({ path: i1.getRoutePath(_this.router) }); }))
-                .subscribe(function (route) {
+            operators.startWith(null), operators.map(function () { return _this.routes.search({ path: i1.getRoutePath(_this.router) }); })), function (route) {
                 _this.segments = [];
                 if (route) {
                     var node = { parent: route };
@@ -463,11 +463,13 @@
         i0.Component({
             selector: 'abp-breadcrumb',
             template: "<ol class=\"breadcrumb\" *ngIf=\"segments.length\">\r\n  <li class=\"breadcrumb-item\">\r\n    <a routerLink=\"/\"><i class=\"fa fa-home\"></i> </a>\r\n  </li>\r\n  <li\r\n    *ngFor=\"let segment of segments; let last = last\"\r\n    class=\"breadcrumb-item\"\r\n    [class.active]=\"last\"\r\n    aria-current=\"page\"\r\n  >\r\n    {{ segment.name | abpLocalization }}\r\n  </li>\r\n</ol>\r\n",
-            changeDetection: i0.ChangeDetectionStrategy.OnPush
+            changeDetection: i0.ChangeDetectionStrategy.OnPush,
+            providers: [i1.SubscriptionService]
         }),
         __metadata("design:paramtypes", [i0.ChangeDetectorRef,
             router.Router,
-            i1.RoutesService])
+            i1.RoutesService,
+            i1.SubscriptionService])
     ], exports.ɵa);
     function isAdministration(route) {
         return route.name === "AbpUiNavigation::Menu:Administration" /* Administration */;
@@ -796,14 +798,14 @@
     ], exports.ɵg);
 
     exports.ɵf = /** @class */ (function () {
-        function LoaderBarComponent(actions, router, cdRef) {
+        function LoaderBarComponent(actions, router, cdRef, subscription) {
             var _this = this;
             this.actions = actions;
             this.router = router;
             this.cdRef = cdRef;
+            this.subscription = subscription;
             this.containerClass = 'abp-loader-bar';
             this.color = '#77b6ff';
-            this.isLoading = false;
             this.progressLevel = 0;
             this.intervalPeriod = 350;
             this.stopDelay = 800;
@@ -828,6 +830,17 @@
                 _this.cdRef.detectChanges();
             };
         }
+        Object.defineProperty(LoaderBarComponent.prototype, "isLoading", {
+            get: function () {
+                return this._isLoading;
+            },
+            set: function (value) {
+                this._isLoading = value;
+                this.cdRef.detectChanges();
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(LoaderBarComponent.prototype, "boxShadow", {
             get: function () {
                 return "0 0 10px rgba(" + this.color + ", 0.5)";
@@ -837,9 +850,7 @@
         });
         LoaderBarComponent.prototype.subscribeToLoadActions = function () {
             var _this = this;
-            this.actions
-                .pipe(i1$1.ofActionSuccessful(i1.StartLoader, i1.StopLoader), operators.filter(this.filter), core.takeUntilDestroy(this))
-                .subscribe(function (action) {
+            this.subscription.addOne(this.actions.pipe(i1$1.ofActionSuccessful(i1.StartLoader, i1.StopLoader), operators.filter(this.filter)), function (action) {
                 if (action instanceof i1.StartLoader)
                     _this.startLoading();
                 else
@@ -848,11 +859,9 @@
         };
         LoaderBarComponent.prototype.subscribeToRouterEvents = function () {
             var _this = this;
-            this.router.events
-                .pipe(operators.filter(function (event) { return event instanceof router.NavigationStart ||
+            this.subscription.addOne(this.router.events.pipe(operators.filter(function (event) { return event instanceof router.NavigationStart ||
                 event instanceof router.NavigationEnd ||
-                event instanceof router.NavigationError; }), core.takeUntilDestroy(this))
-                .subscribe(function (event) {
+                event instanceof router.NavigationError; })), function (event) {
                 if (event instanceof router.NavigationStart)
                     _this.startLoading();
                 else
@@ -886,6 +895,11 @@
     }());
     __decorate([
         i0.Input(),
+        __metadata("design:type", Boolean),
+        __metadata("design:paramtypes", [Boolean])
+    ], exports.ɵf.prototype, "isLoading", null);
+    __decorate([
+        i0.Input(),
         __metadata("design:type", Object)
     ], exports.ɵf.prototype, "containerClass", void 0);
     __decorate([
@@ -895,18 +909,18 @@
     __decorate([
         i0.Input(),
         __metadata("design:type", Object)
-    ], exports.ɵf.prototype, "isLoading", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
     ], exports.ɵf.prototype, "filter", void 0);
     exports.ɵf = __decorate([
         i0.Component({
             selector: 'abp-loader-bar',
             template: "\n    <div id=\"abp-loader-bar\" [ngClass]=\"containerClass\" [class.is-loading]=\"isLoading\">\n      <div\n        class=\"abp-progress\"\n        [class.progressing]=\"progressLevel\"\n        [style.width.vw]=\"progressLevel\"\n        [ngStyle]=\"{\n          'background-color': color,\n          'box-shadow': boxShadow\n        }\"\n      ></div>\n    </div>\n  ",
+            providers: [i1.SubscriptionService],
             styles: [".abp-loader-bar{left:0;opacity:0;position:fixed;top:0;transition:opacity .4s linear .4s;z-index:99999}.abp-loader-bar.is-loading{opacity:1;transition:none}.abp-loader-bar .abp-progress{height:3px;left:0;position:fixed;top:0}.abp-loader-bar .abp-progress.progressing{transition:width .4s ease}"]
         }),
-        __metadata("design:paramtypes", [i1$1.Actions, router.Router, i0.ChangeDetectorRef])
+        __metadata("design:paramtypes", [i1$1.Actions,
+            router.Router,
+            i0.ChangeDetectorRef,
+            i1.SubscriptionService])
     ], exports.ɵf);
 
     exports.ɵm = /** @class */ (function () {
@@ -1028,10 +1042,11 @@
     ], exports.ɵl);
 
     exports.ɵh = /** @class */ (function () {
-        function ModalComponent(renderer, confirmationService, modalService) {
+        function ModalComponent(renderer, confirmationService, modalService, subscription) {
             this.renderer = renderer;
             this.confirmationService = confirmationService;
             this.modalService = modalService;
+            this.subscription = subscription;
             this.centered = false;
             this.modalClass = '';
             this.size = 'lg';
@@ -1081,9 +1096,7 @@
         });
         ModalComponent.prototype.initToggleStream = function () {
             var _this = this;
-            this.toggle$
-                .pipe(i1.takeUntilDestroy(this), operators.debounceTime(0), operators.distinctUntilChanged())
-                .subscribe(function (value) { return _this.toggle(value); });
+            this.subscription.addOne(this.toggle$.pipe(operators.debounceTime(0), operators.distinctUntilChanged()), function (value) { return _this.toggle(value); });
         };
         ModalComponent.prototype.toggle = function (value) {
             var _this = this;
@@ -1229,12 +1242,13 @@
             selector: 'abp-modal',
             template: "<ng-template #template>\r\n  <div\r\n    *ngIf=\"visible\"\r\n    [@fade]=\"isModalOpen\"\r\n    id=\"modal-container\"\r\n    class=\"modal show {{ modalClass }}\"\r\n    tabindex=\"-1\"\r\n    role=\"dialog\"\r\n  >\r\n    <div class=\"modal-backdrop\" (click)=\"close()\"></div>\r\n    <div\r\n      id=\"abp-modal-dialog\"\r\n      class=\"modal-dialog modal-{{ size }}\"\r\n      role=\"document\"\r\n      [class.modal-dialog-centered]=\"centered\"\r\n      #abpModalContent\r\n    >\r\n      <div id=\"abp-modal-content\" class=\"modal-content\">\r\n        <div id=\"abp-modal-header\" class=\"modal-header\">\r\n          <ng-container *ngTemplateOutlet=\"abpHeader\"></ng-container>\r\n          \u200B\r\n          <button\r\n            id=\"abp-modal-close-button\"\r\n            type=\"button\"\r\n            class=\"close\"\r\n            aria-label=\"Close\"\r\n            (click)=\"close()\"\r\n          >\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div id=\"abp-modal-body\" class=\"modal-body\">\r\n          <ng-container *ngTemplateOutlet=\"abpBody\"></ng-container>\r\n        </div>\r\n        <div id=\"abp-modal-footer\" class=\"modal-footer\">\r\n          <ng-container *ngTemplateOutlet=\"abpFooter\"></ng-container>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-content></ng-content>\r\n",
             animations: [fadeAnimation],
-            providers: [exports.ɵl],
+            providers: [exports.ɵl, i1.SubscriptionService],
             styles: [".modal.show{display:block!important}.modal-backdrop{opacity:.8}.modal::-webkit-scrollbar{width:7px}.modal::-webkit-scrollbar-track{background:#ddd}.modal::-webkit-scrollbar-thumb{background:#8a8686}.modal-dialog{z-index:1050}"]
         }),
         __metadata("design:paramtypes", [i0.Renderer2,
             exports.ɵm,
-            exports.ɵl])
+            exports.ɵl,
+            i1.SubscriptionService])
     ], exports.ɵh);
 
     exports.ɵu = /** @class */ (function () {
@@ -1477,7 +1491,7 @@
             selector: 'abp-table',
             template: "<div #wrapper class=\"ui-table ui-widget\">\r\n  <div class=\"ui-table-wrapper\">\r\n    <ng-container\r\n      *ngTemplateOutlet=\"scrollable ? scrollableTemplate : defaultTemplate\"\r\n    ></ng-container>\r\n    <div class=\"pagination-wrapper\">\r\n      <ngb-pagination\r\n        [class.op-0]=\"!totalPages\"\r\n        [collectionSize]=\"totalPages\"\r\n        [pageSize]=\"1\"\r\n        [page]=\"page\"\r\n        (pageChange)=\"pageChange.emit($event)\"\r\n        [maxSize]=\"3\"\r\n        [rotate]=\"true\"\r\n      ></ngb-pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #scrollableTemplate>\r\n  <div class=\"ui-table-scrollable-wrapper\">\r\n    <div class=\"ui-table-scrollable-view\"></div>\r\n    <div class=\"ui-table-scrollable-header ui-widget-header\">\r\n      <div #header class=\"ui-table-scrollable-header-box\">\r\n        <table class=\"ui-table-scrollable-header-table\">\r\n          <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n          <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n          <tbody></tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <div\r\n      #scrollableBody\r\n      (scroll)=\"header.style.margin = marginCalculator(scrollableBody)\"\r\n      class=\"ui-table-scrollable-body\"\r\n      [style.max-height]=\"scrollHeight\"\r\n    >\r\n      <table class=\"ui-table-scrollable-body-table\">\r\n        <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n        <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n      </table>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-template #defaultTemplate>\r\n  <table>\r\n    <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n  </table>\r\n</ng-template>\r\n\r\n<ng-template #colGroup>\r\n  <ng-container *ngTemplateOutlet=\"colgroupTemplate\"></ng-container>\r\n</ng-template>\r\n\r\n<ng-template #head>\r\n  <thead class=\"ui-table-thead\">\r\n    <ng-container *ngTemplateOutlet=\"headerTemplate\"></ng-container>\r\n  </thead>\r\n</ng-template>\r\n\r\n<ng-template #body>\r\n  <tbody class=\"ui-table-tbody\" *ngIf=\"value && value.length; else emptyTemplate\">\r\n    <ng-template\r\n      #bodyTemplateWrapper\r\n      *ngFor=\"let val of slicedValue; let index = index; trackBy: trackByFn\"\r\n      [ngTemplateOutlet]=\"bodyTemplate\"\r\n      [ngTemplateOutletContext]=\"{ $implicit: val, rowIndex: index }\"\r\n    ></ng-template>\r\n  </tbody>\r\n</ng-template>\r\n\r\n<ng-template #emptyTemplate>\r\n  <caption class=\"ui-table-empty\">\r\n    {{\r\n      emptyMessage | abpLocalization\r\n    }}\r\n  </caption>\r\n</ng-template>\r\n",
             encapsulation: i0.ViewEncapsulation.None,
-            styles: [".ui-table{position:relative}.ui-table .ui-table-tbody>tr:hover,.ui-table .ui-table-tbody>tr:nth-child(2n):hover{-webkit-filter:brightness(90%);filter:brightness(90%)}.ui-table .ui-table-empty{border:1px solid #e0e0e0;border-top:0 solid #e0e0e0;padding:20px 0;text-align:center}.ui-table .ui-table-caption,.ui-table .ui-table-summary{background-color:#f4f4f4;border:1px solid #c8c8c8;color:#333;padding:.571em 1em}.ui-table .ui-table-caption,.ui-table .ui-table-summary{font-weight:700}.ui-table .ui-table-thead>tr>th{background-color:#f4f4f4;border:1px solid #c8c8c8;color:#333;font-weight:700;padding:.571em .857em}.ui-table .ui-table-tbody>tr>td{padding:.571em .857em}.ui-table .ui-table-tfoot>tr>td{background-color:#fff;border:1px solid #c8c8c8;color:#333;font-weight:700;padding:.571em .857em}.ui-table .ui-sortable-column{transition:box-shadow .2s}.ui-table .ui-sortable-column:focus{box-shadow:inset 0 0 0 .2em #8dcdff;outline:0 none;outline-offset:0}.ui-table .ui-sortable-column .ui-sortable-column-icon{color:#848484}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover{background-color:#e0e0e0;color:#333}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover .ui-sortable-column-icon{color:#333}.ui-table .ui-sortable-column.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon{color:#fff}.ui-table .ui-editable-column input{font-family:Open Sans,Helvetica Neue,sans-serif;font-size:14px}.ui-table .ui-editable-column input:focus{outline:1px solid #007ad9;outline-offset:2px}.ui-table .ui-table-tbody>tr{background-color:#fff;color:#333}.ui-table .ui-table-tbody>tr>td{background-color:inherit;border:1px solid #c8c8c8}.ui-table .ui-table-tbody>tr.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr.ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-top>td{box-shadow:inset 0 2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-bottom>td{box-shadow:inset 0 -2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr:nth-child(2n){background-color:#f9f9f9}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table.ui-table-hoverable-rows .ui-table-tbody>tr.ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover{background-color:#eaeaea;color:#333;cursor:pointer}.ui-table .ui-column-resizer-helper{background-color:#007ad9}@media screen and (max-width:40em){.ui-table.ui-table-responsive .ui-table-tbody>tr>td{border:0}}.ui-table table{border-collapse:collapse;table-layout:fixed;width:100%}.ui-table .ui-table-tbody>tr>td,.ui-table .ui-table-tfoot>tr>td,.ui-table .ui-table-thead>tr>th{padding:.571em .857em}.ui-table .ui-sortable-column{cursor:pointer}.ui-table p-sorticon{vertical-align:middle}.ui-table .ui-table-auto-layout>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-auto-layout>.ui-table-wrapper>table{table-layout:auto}.ui-table .ui-table-caption,.ui-table .ui-table-summary{font-weight:700;padding:.25em .5em;text-align:center}.ui-table .ui-table-caption{border-bottom:0}.ui-table .ui-table-summary{border-top:0}.ui-table .ui-table-scrollable-wrapper{position:relative}.ui-table .ui-table-scrollable-footer,.ui-table .ui-table-scrollable-header{border:0;overflow:hidden}.ui-table .ui-table-scrollable-body{overflow:auto;position:relative}.ui-table .ui-table-virtual-table{position:absolute}.ui-table .ui-table-loading-virtual-table{display:none}.ui-table .ui-table-frozen-view .ui-table-scrollable-body{overflow:hidden}.ui-table .ui-table-frozen-view>.ui-table-scrollable-body>table>.ui-table-tbody>tr>td:last-child{border-right:0}.ui-table .ui-table-unfrozen-view{position:absolute;top:0}.ui-table .ui-table-resizable>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-resizable .ui-table-tbody>tr>td,.ui-table .ui-table-resizable .ui-table-tfoot>tr>td,.ui-table .ui-table-resizable .ui-table-thead>tr>th{overflow:hidden}.ui-table .ui-table-resizable .ui-resizable-column{background-clip:padding-box;position:relative}.ui-table .ui-table-resizable-fit .ui-resizable-column:last-child .ui-column-resizer{display:none}.ui-table .ui-column-resizer{border:1px solid transparent;cursor:col-resize;display:block;height:100%;margin:0;padding:0;position:absolute!important;right:0;top:0;width:.5em}.ui-table .ui-column-resizer-helper{display:none;position:absolute;width:1px;z-index:10}.ui-table .ui-table-tbody>tr>td.ui-editing-cell{padding:0}.ui-table .ui-table-tbody>tr>td.ui-editing-cell p-celleditor>*{width:100%}.ui-table .ui-table-reorder-indicator-down,.ui-table .ui-table-reorder-indicator-up{display:none;position:absolute}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:none}@media screen and (max-width:40em){.ui-table .ui-table-responsive .ui-table-tfoot>tr>td,.ui-table .ui-table-responsive .ui-table-thead>tr>th,.ui-table .ui-table-responsive colgroup{display:none!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td{border:0;box-sizing:border-box;clear:left;display:block;float:left;text-align:left;width:100%!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:inline-block;font-weight:700;margin:-.4em 1em -.4em -.4em;min-width:30%;padding:.4em}}.ui-table .ui-widget{font-family:Open Sans,Helvetica Neue,sans-serif;font-size:14px;text-decoration:none}.ui-table .page-item.disabled .page-link,.ui-table .page-link{background-color:transparent;border:none}.ui-table .page-item.disabled .page-link{box-shadow:none}.ui-table .pagination{margin-bottom:0}.ui-table .pagination-wrapper{border-top:0;display:flex;justify-content:center;padding:0}.ui-table .op-0{opacity:0}"]
+            styles: [".ui-table{position:relative}.ui-table .ui-table-tbody>tr:hover,.ui-table .ui-table-tbody>tr:nth-child(2n):hover{filter:brightness(90%)}.ui-table .ui-table-empty{border:1px solid #e0e0e0;border-top:0 solid #e0e0e0;padding:20px 0;text-align:center}.ui-table .ui-table-caption,.ui-table .ui-table-summary{background-color:#f4f4f4;border:1px solid #c8c8c8;color:#333;padding:.571em 1em}.ui-table .ui-table-caption,.ui-table .ui-table-summary{font-weight:700}.ui-table .ui-table-thead>tr>th{background-color:#f4f4f4;border:1px solid #c8c8c8;color:#333;font-weight:700;padding:.571em .857em}.ui-table .ui-table-tbody>tr>td{padding:.571em .857em}.ui-table .ui-table-tfoot>tr>td{background-color:#fff;border:1px solid #c8c8c8;color:#333;font-weight:700;padding:.571em .857em}.ui-table .ui-sortable-column{transition:box-shadow .2s}.ui-table .ui-sortable-column:focus{box-shadow:inset 0 0 0 .2em #8dcdff;outline:0 none;outline-offset:0}.ui-table .ui-sortable-column .ui-sortable-column-icon{color:#848484}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover{background-color:#e0e0e0;color:#333}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover .ui-sortable-column-icon{color:#333}.ui-table .ui-sortable-column.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon{color:#fff}.ui-table .ui-editable-column input{font-family:Open Sans,Helvetica Neue,sans-serif;font-size:14px}.ui-table .ui-editable-column input:focus{outline:1px solid #007ad9;outline-offset:2px}.ui-table .ui-table-tbody>tr{background-color:#fff;color:#333}.ui-table .ui-table-tbody>tr>td{background-color:inherit;border:1px solid #c8c8c8}.ui-table .ui-table-tbody>tr.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr.ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-top>td{box-shadow:inset 0 2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-bottom>td{box-shadow:inset 0 -2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr:nth-child(2n){background-color:#f9f9f9}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table.ui-table-hoverable-rows .ui-table-tbody>tr.ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover{background-color:#eaeaea;color:#333;cursor:pointer}.ui-table .ui-column-resizer-helper{background-color:#007ad9}@media screen and (max-width:40em){.ui-table.ui-table-responsive .ui-table-tbody>tr>td{border:0}}.ui-table table{border-collapse:collapse;table-layout:fixed;width:100%}.ui-table .ui-table-tbody>tr>td,.ui-table .ui-table-tfoot>tr>td,.ui-table .ui-table-thead>tr>th{padding:.571em .857em}.ui-table .ui-sortable-column{cursor:pointer}.ui-table p-sorticon{vertical-align:middle}.ui-table .ui-table-auto-layout>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-auto-layout>.ui-table-wrapper>table{table-layout:auto}.ui-table .ui-table-caption,.ui-table .ui-table-summary{font-weight:700;padding:.25em .5em;text-align:center}.ui-table .ui-table-caption{border-bottom:0}.ui-table .ui-table-summary{border-top:0}.ui-table .ui-table-scrollable-wrapper{position:relative}.ui-table .ui-table-scrollable-footer,.ui-table .ui-table-scrollable-header{border:0;overflow:hidden}.ui-table .ui-table-scrollable-body{overflow:auto;position:relative}.ui-table .ui-table-virtual-table{position:absolute}.ui-table .ui-table-loading-virtual-table{display:none}.ui-table .ui-table-frozen-view .ui-table-scrollable-body{overflow:hidden}.ui-table .ui-table-frozen-view>.ui-table-scrollable-body>table>.ui-table-tbody>tr>td:last-child{border-right:0}.ui-table .ui-table-unfrozen-view{position:absolute;top:0}.ui-table .ui-table-resizable>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-resizable .ui-table-tbody>tr>td,.ui-table .ui-table-resizable .ui-table-tfoot>tr>td,.ui-table .ui-table-resizable .ui-table-thead>tr>th{overflow:hidden}.ui-table .ui-table-resizable .ui-resizable-column{background-clip:padding-box;position:relative}.ui-table .ui-table-resizable-fit .ui-resizable-column:last-child .ui-column-resizer{display:none}.ui-table .ui-column-resizer{border:1px solid transparent;cursor:col-resize;display:block;height:100%;margin:0;padding:0;position:absolute!important;right:0;top:0;width:.5em}.ui-table .ui-column-resizer-helper{display:none;position:absolute;width:1px;z-index:10}.ui-table .ui-table-tbody>tr>td.ui-editing-cell{padding:0}.ui-table .ui-table-tbody>tr>td.ui-editing-cell p-celleditor>*{width:100%}.ui-table .ui-table-reorder-indicator-down,.ui-table .ui-table-reorder-indicator-up{display:none;position:absolute}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:none}@media screen and (max-width:40em){.ui-table .ui-table-responsive .ui-table-tfoot>tr>td,.ui-table .ui-table-responsive .ui-table-thead>tr>th,.ui-table .ui-table-responsive colgroup{display:none!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td{border:0;box-sizing:border-box;clear:left;display:block;float:left;text-align:left;width:100%!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:inline-block;font-weight:700;margin:-.4em 1em -.4em -.4em;min-width:30%;padding:.4em}}.ui-table .ui-widget{font-family:Open Sans,Helvetica Neue,sans-serif;font-size:14px;text-decoration:none}.ui-table .page-item.disabled .page-link,.ui-table .page-link{background-color:transparent;border:none}.ui-table .page-item.disabled .page-link{box-shadow:none}.ui-table .pagination{margin-bottom:0}.ui-table .pagination-wrapper{border-top:0;display:flex;justify-content:center;padding:0}.ui-table .op-0{opacity:0}"]
         })
     ], exports.ɵo);
     function ltrCalculator(div) {
@@ -1614,7 +1628,7 @@
          * @param id ID of the toast to be removed.
          */
         ToasterService.prototype.remove = function (id) {
-            this.toasts = this.toasts.filter(function (toast) { return snq(function () { return toast.options.id; }) !== id; });
+            this.toasts = this.toasts.filter(function (toast) { return snq__default['default'](function () { return toast.options.id; }) !== id; });
             this.toasts$.next(this.toasts);
         };
         /**
@@ -1623,7 +1637,7 @@
         ToasterService.prototype.clear = function (key) {
             this.toasts = !key
                 ? []
-                : this.toasts.filter(function (toast) { return snq(function () { return toast.options.containerKey; }) !== key; });
+                : this.toasts.filter(function (toast) { return snq__default['default'](function () { return toast.options.containerKey; }) !== key; });
             this.toasts$.next(this.toasts);
         };
         return ToasterService;
@@ -1670,9 +1684,9 @@
         });
         ToastComponent.prototype.ngOnInit = function () {
             var _this = this;
-            if (snq(function () { return _this.toast.options.sticky; }))
+            if (snq__default['default'](function () { return _this.toast.options.sticky; }))
                 return;
-            var timeout = snq(function () { return _this.toast.options.life; }) || 5000;
+            var timeout = snq__default['default'](function () { return _this.toast.options.life; }) || 5000;
             setTimeout(function () {
                 _this.close();
             }, timeout);
@@ -1700,7 +1714,7 @@
             i1.LocalizationService])
     ], exports.ɵq);
 
-    var styles = "\n.is-invalid .form-control {\n  border-color: #dc3545;\n  border-style: solid !important;\n}\n\n.is-invalid .invalid-feedback,\n.is-invalid + * .invalid-feedback {\n  display: block;\n}\n\n.data-tables-filter {\n  text-align: right;\n}\n\n[dir=rtl] .data-tables-filter {\n  text-align: left;\n}\n\n.pointer {\n  cursor: pointer;\n}\n\n.navbar .dropdown-submenu a::after {\n  transform: rotate(-90deg);\n  position: absolute;\n  right: 16px;\n  top: 18px;\n}\n\n.navbar .dropdown-menu {\n  min-width: 215px;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar {\n  height: 5px !important;\n  width: 5px !important;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.abp-ellipsis-inline {\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-ellipsis {\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.ui-widget-overlay {\n  z-index: 1000;\n}\n\n.color-white {\n  color: #FFF !important;\n}\n\n.custom-checkbox > label {\n  cursor: pointer;\n}\n\n/* <animations */\n\n.fade-in-top {\n  animation: fadeInTop 0.2s ease-in-out;\n}\n\n.fade-out-top {\n  animation: fadeOutTop 0.2s ease-in-out;\n}\n\n.abp-collapsed-height {\n  -moz-transition: max-height linear 0.35s;\n  -ms-transition: max-height linear 0.35s;\n  -o-transition: max-height linear 0.35s;\n  -webkit-transition: max-height linear 0.35s;\n  overflow:hidden;\n  transition:max-height 0.35s linear;\n  height:auto;\n  max-height: 0;\n}\n\n.abp-mh-25 {\n  max-height: 25vh;\n}\n\n.abp-mh-50 {\n  transition:max-height 0.65s linear;\n  max-height: 50vh;\n}\n\n.abp-mh-75 {\n  transition:max-height 0.85s linear;\n  max-height: 75vh;\n}\n\n.abp-mh-100 {\n  transition:max-height 1s linear;\n  max-height: 100vh;\n}\n\n[class^=\"sorting\"] {\n  opacity: .3;\n  cursor: pointer;\n}\n[class^=\"sorting\"]:before {\n  right: 0.5rem;\n  content: \"\u2191\";\n}\n[class^=\"sorting\"]:after {\n  right: 0.5rem;\n  content: \"\u2193\";\n}\n\n.sorting_desc {\n  opacity: 1;\n}\n.sorting_desc:before {\n  opacity: .3;\n}\n\n.sorting_asc {\n  opacity: 1;\n}\n.sorting_asc:after {\n  opacity: .3;\n}\n.ngx-datatable.material {\n  box-shadow: none;\n}\n\n@keyframes fadeInTop {\n  from {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n\n  to {\n    transform: translateY(0px);\n    opacity: 1;\n  }\n}\n\n@keyframes fadeOutTop {\n  to {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n}\n\n/* </animations */\n\n";
+    var styles = "\n.is-invalid .form-control {\n  border-color: #dc3545;\n  border-style: solid !important;\n}\n\n.is-invalid .invalid-feedback,\n.is-invalid + * .invalid-feedback {\n  display: block;\n}\n\n.data-tables-filter {\n  text-align: right;\n}\n\n[dir=rtl] .data-tables-filter {\n  text-align: left;\n}\n\n.pointer {\n  cursor: pointer;\n}\n\n.navbar .dropdown-submenu a::after {\n  transform: rotate(-90deg);\n  position: absolute;\n  right: 16px;\n  top: 18px;\n}\n\n.navbar .dropdown-menu {\n  min-width: 215px;\n}\n\n.datatable-scroll {\n  margin-bottom: 5px !important;\n  width: unset !important;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar {\n  height: 5px !important;\n  width: 5px !important;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.abp-ellipsis-inline {\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-ellipsis {\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.ui-widget-overlay {\n  z-index: 1000;\n}\n\n.color-white {\n  color: #FFF !important;\n}\n\n.custom-checkbox > label {\n  cursor: pointer;\n}\n\n/* <animations */\n\n.fade-in-top {\n  animation: fadeInTop 0.2s ease-in-out;\n}\n\n.fade-out-top {\n  animation: fadeOutTop 0.2s ease-in-out;\n}\n\n.abp-collapsed-height {\n  -moz-transition: max-height linear 0.35s;\n  -ms-transition: max-height linear 0.35s;\n  -o-transition: max-height linear 0.35s;\n  -webkit-transition: max-height linear 0.35s;\n  overflow:hidden;\n  transition:max-height 0.35s linear;\n  height:auto;\n  max-height: 0;\n}\n\n.abp-mh-25 {\n  max-height: 25vh;\n}\n\n.abp-mh-50 {\n  transition:max-height 0.65s linear;\n  max-height: 50vh;\n}\n\n.abp-mh-75 {\n  transition:max-height 0.85s linear;\n  max-height: 75vh;\n}\n\n.abp-mh-100 {\n  transition:max-height 1s linear;\n  max-height: 100vh;\n}\n\n[class^=\"sorting\"] {\n  opacity: .3;\n  cursor: pointer;\n}\n[class^=\"sorting\"]:before {\n  right: 0.5rem;\n  content: \"\u2191\";\n}\n[class^=\"sorting\"]:after {\n  right: 0.5rem;\n  content: \"\u2193\";\n}\n\n.sorting_desc {\n  opacity: 1;\n}\n.sorting_desc:before {\n  opacity: .3;\n}\n\n.sorting_asc {\n  opacity: 1;\n}\n.sorting_asc:after {\n  opacity: .3;\n}\n.ngx-datatable.material {\n  box-shadow: none;\n}\n\n@keyframes fadeInTop {\n  from {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n\n  to {\n    transform: translateY(0px);\n    opacity: 1;\n  }\n}\n\n@keyframes fadeOutTop {\n  to {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n}\n\n/* </animations */\n\n";
     var BOOTSTRAP = 'bootstrap-{{dir}}.min.css';
 
     exports.ɵx = /** @class */ (function () {
@@ -1799,8 +1813,11 @@
     ], exports.ɵx);
 
     exports.ɵv = /** @class */ (function () {
-        function NgxDatatableDefaultDirective(table) {
+        function NgxDatatableDefaultDirective(table, document) {
             this.table = table;
+            this.document = document;
+            this.subscription = new rxjs.Subscription();
+            this.resizeDiff = 0;
             this.class = 'material bordered';
             this.table.columnMode = ngxDatatable.ColumnMode.force;
             this.table.footerHeight = 50;
@@ -1816,6 +1833,38 @@
             enumerable: true,
             configurable: true
         });
+        NgxDatatableDefaultDirective.prototype.fixHorizontalGap = function (scroller) {
+            var _a = this.document, body = _a.body, documentElement = _a.documentElement;
+            if (documentElement.scrollHeight !== documentElement.clientHeight) {
+                if (this.resizeDiff === 0) {
+                    this.resizeDiff = window.innerWidth - body.offsetWidth;
+                    scroller.scrollWidth -= this.resizeDiff;
+                }
+            }
+            else {
+                scroller.scrollWidth += this.resizeDiff;
+                this.resizeDiff = 0;
+            }
+        };
+        NgxDatatableDefaultDirective.prototype.fixStyleOnWindowResize = function () {
+            var _this = this;
+            // avoided @HostListener('window:resize') in favor of performance
+            var subscription = rxjs.fromEvent(window, 'resize')
+                .pipe(operators.debounceTime(500))
+                .subscribe(function () {
+                var scroller = _this.table.bodyComponent.scroller;
+                if (!scroller)
+                    return;
+                _this.fixHorizontalGap(scroller);
+            });
+            this.subscription.add(subscription);
+        };
+        NgxDatatableDefaultDirective.prototype.ngAfterViewInit = function () {
+            this.fixStyleOnWindowResize();
+        };
+        NgxDatatableDefaultDirective.prototype.ngOnDestroy = function () {
+            this.subscription.unsubscribe();
+        };
         return NgxDatatableDefaultDirective;
     }());
     __decorate([
@@ -1833,7 +1882,8 @@
             selector: 'ngx-datatable[default]',
             exportAs: 'ngxDatatableDefault',
         }),
-        __metadata("design:paramtypes", [ngxDatatable.DatatableComponent])
+        __param(1, i0.Inject(common.DOCUMENT)),
+        __metadata("design:paramtypes", [ngxDatatable.DatatableComponent, Object])
     ], exports.ɵv);
 
     exports.ɵw = /** @class */ (function () {
@@ -1879,14 +1929,6 @@
             });
             this.subscription.add(sub);
         };
-        NgxDatatableListDirective.prototype.subscribeToIsLoading = function () {
-            var _this = this;
-            var sub = this.list.isLoading$.subscribe(function (loading) {
-                _this.table.loadingIndicator = loading;
-                _this.cdRef.detectChanges();
-            });
-            this.subscription.add(sub);
-        };
         NgxDatatableListDirective.prototype.ngOnChanges = function (_a) {
             var list = _a.list;
             if (!list.firstChange)
@@ -1901,7 +1943,6 @@
         NgxDatatableListDirective.prototype.ngOnInit = function () {
             this.subscribeToPage();
             this.subscribeToSort();
-            this.subscribeToIsLoading();
         };
         return NgxDatatableListDirective;
     }());
@@ -1934,7 +1975,7 @@
         Object.defineProperty(TableSortDirective.prototype, "table", {
             get: function () {
                 var _this = this;
-                return (this.abpTable || snq(function () { return _this.cdRef['_view'].component; }) || snq(function () { return _this.cdRef['context']; }) // 'context' for ivy
+                return (this.abpTable || snq__default['default'](function () { return _this.cdRef['_view'].component; }) || snq__default['default'](function () { return _this.cdRef['context']; }) // 'context' for ivy
                 );
             },
             enumerable: true,
@@ -1944,7 +1985,7 @@
             var value = _a.value, abpTableSort = _a.abpTableSort;
             if (this.table && (value || abpTableSort)) {
                 this.abpTableSort = this.abpTableSort || {};
-                this.table.value = this.sortPipe.transform(clone(this.value), this.abpTableSort.order, this.abpTableSort.key);
+                this.table.value = this.sortPipe.transform(clone__default['default'](this.value), this.abpTableSort.order, this.abpTableSort.key);
             }
         };
         return TableSortDirective;
@@ -1969,7 +2010,8 @@
     ], exports.ɵy);
 
     exports.ɵe = /** @class */ (function () {
-        function HttpErrorWrapperComponent() {
+        function HttpErrorWrapperComponent(subscription) {
+            this.subscription = subscription;
             this.status = 0;
             this.title = 'Oops!';
             this.details = 'Sorry, an error has occured.';
@@ -1986,7 +2028,7 @@
         });
         HttpErrorWrapperComponent.prototype.ngOnInit = function () {
             this.backgroundColor =
-                snq(function () { return window.getComputedStyle(document.body).getPropertyValue('background-color'); }) ||
+                snq__default['default'](function () { return window.getComputedStyle(document.body).getPropertyValue('background-color'); }) ||
                     '#fff';
         };
         HttpErrorWrapperComponent.prototype.ngAfterViewInit = function () {
@@ -2001,11 +2043,8 @@
                 this.containerRef.nativeElement.appendChild(customComponentRef.hostView.rootNodes[0]);
                 customComponentRef.changeDetectorRef.detectChanges();
             }
-            rxjs.fromEvent(document, 'keyup')
-                .pipe(i1.takeUntilDestroy(this), operators.debounceTime(150), operators.filter(function (key) { return key && key.key === 'Escape'; }))
-                .subscribe(function () {
-                _this.destroy();
-            });
+            var keyup$ = rxjs.fromEvent(document, 'keyup').pipe(operators.debounceTime(150), operators.filter(function (key) { return key && key.key === 'Escape'; }));
+            this.subscription.addOne(keyup$, function () { return _this.destroy(); });
         };
         HttpErrorWrapperComponent.prototype.ngOnDestroy = function () { };
         HttpErrorWrapperComponent.prototype.destroy = function () {
@@ -2022,8 +2061,10 @@
         i0.Component({
             selector: 'abp-http-error-wrapper',
             template: "<div\r\n  #container\r\n  id=\"abp-http-error-container\"\r\n  class=\"error\"\r\n  [style.backgroundColor]=\"backgroundColor\"\r\n>\r\n  <button\r\n    *ngIf=\"!hideCloseIcon\"\r\n    id=\"abp-close-button\"\r\n    type=\"button\"\r\n    class=\"close mr-2\"\r\n    (click)=\"destroy()\"\r\n  >\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n\r\n  <div *ngIf=\"!customComponent\" class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>{{ statusText }} {{ title | abpLocalization }}</h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a\r\n            *ngIf=\"isHomeShow\"\r\n            (click)=\"destroy()\"\r\n            routerLink=\"/\"\r\n            class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+            providers: [i1.SubscriptionService],
             styles: [".error{height:100vh;position:fixed;top:0;width:100vw;z-index:999999}.centered{left:50%;position:fixed;top:50%;transform:translate(-50%,-50%)}"]
-        })
+        }),
+        __metadata("design:paramtypes", [i1.SubscriptionService])
     ], exports.ɵe);
 
     var DEFAULT_ERROR_MESSAGES = {
@@ -2048,6 +2089,28 @@
             details: 'Error detail not sent by server.',
         },
     };
+    var DEFAULT_ERROR_LOCALIZATIONS = {
+        defaultError: {
+            title: 'AbpUi::DefaultErrorMessage',
+            details: 'AbpUi::DefaultErrorMessageDetail',
+        },
+        defaultError401: {
+            title: 'AbpUi::DefaultErrorMessage401',
+            details: 'AbpUi::DefaultErrorMessage401Detail',
+        },
+        defaultError403: {
+            title: 'AbpUi::DefaultErrorMessage403',
+            details: 'AbpUi::DefaultErrorMessage403Detail',
+        },
+        defaultError404: {
+            title: 'AbpUi::DefaultErrorMessage404',
+            details: 'AbpUi::DefaultErrorMessage404Detail',
+        },
+        defaultError500: {
+            title: 'AbpUi::500Message',
+            details: 'AbpUi::DefaultErrorMessage',
+        },
+    };
     exports.ɵz = /** @class */ (function () {
         function ErrorHandler(actions, store, confirmationService, appRef, cfRes, rendererFactory, injector, httpErrorConfig) {
             var _this = this;
@@ -2066,7 +2129,7 @@
                 return _this.httpErrorConfig.skipHandledErrorCodes.findIndex(function (code) { return code === status; }) < 0;
             };
             this.filterRouteErrors = function (instance) {
-                return (snq(function () { return instance.event.error.indexOf('Cannot match') > -1; }) &&
+                return (snq__default['default'](function () { return instance.event.error.indexOf('Cannot match') > -1; }) &&
                     _this.httpErrorConfig.skipHandledErrorCodes.findIndex(function (code) { return code === 404; }) < 0);
             };
             this.listenToRestError();
@@ -2093,7 +2156,10 @@
             this.actions
                 .pipe(i1$1.ofActionSuccessful(i1.RestOccurError), operators.map(function (action) { return action.payload; }), operators.filter(this.filterRestErrors))
                 .subscribe(function (err) {
-                var body = snq(function () { return err.error.error; }, DEFAULT_ERROR_MESSAGES.defaultError.title);
+                var body = snq__default['default'](function () { return err.error.error; }, {
+                    key: DEFAULT_ERROR_LOCALIZATIONS.defaultError.title,
+                    defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.title,
+                });
                 if (err instanceof http.HttpErrorResponse && err.headers.get('_AbpErrorFormat')) {
                     var confirmation$ = _this.showError(null, null, body);
                     if (err.status === 401) {
@@ -2108,21 +2174,21 @@
                             _this.canCreateCustomError(401)
                                 ? _this.show401Page()
                                 : _this.showError({
-                                    key: 'AbpAccount::DefaultErrorMessage401',
+                                    key: DEFAULT_ERROR_LOCALIZATIONS.defaultError401.title,
                                     defaultValue: DEFAULT_ERROR_MESSAGES.defaultError401.title,
                                 }, {
-                                    key: 'AbpAccount::DefaultErrorMessage401Detail',
+                                    key: DEFAULT_ERROR_LOCALIZATIONS.defaultError401.details,
                                     defaultValue: DEFAULT_ERROR_MESSAGES.defaultError401.details,
                                 }).subscribe(function () { return _this.navigateToLogin(); });
                             break;
                         case 403:
                             _this.createErrorComponent({
                                 title: {
-                                    key: 'AbpAccount::DefaultErrorMessage403',
+                                    key: DEFAULT_ERROR_LOCALIZATIONS.defaultError403.title,
                                     defaultValue: DEFAULT_ERROR_MESSAGES.defaultError403.title,
                                 },
                                 details: {
-                                    key: 'AbpAccount::DefaultErrorMessage403Detail',
+                                    key: DEFAULT_ERROR_LOCALIZATIONS.defaultError403.details,
                                     defaultValue: DEFAULT_ERROR_MESSAGES.defaultError403.details,
                                 },
                                 status: 403,
@@ -2132,21 +2198,21 @@
                             _this.canCreateCustomError(404)
                                 ? _this.show404Page()
                                 : _this.showError({
-                                    key: 'AbpAccount::DefaultErrorMessage404',
+                                    key: DEFAULT_ERROR_LOCALIZATIONS.defaultError404.details,
                                     defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.details,
                                 }, {
-                                    key: 'AbpAccount::DefaultErrorMessage404Detail',
+                                    key: DEFAULT_ERROR_LOCALIZATIONS.defaultError404.title,
                                     defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.title,
                                 });
                             break;
                         case 500:
                             _this.createErrorComponent({
                                 title: {
-                                    key: 'AbpAccount::500Message',
+                                    key: DEFAULT_ERROR_LOCALIZATIONS.defaultError500.title,
                                     defaultValue: DEFAULT_ERROR_MESSAGES.defaultError500.title,
                                 },
                                 details: {
-                                    key: 'AbpAccount::InternalServerErrorMessage',
+                                    key: DEFAULT_ERROR_LOCALIZATIONS.defaultError500.details,
                                     defaultValue: DEFAULT_ERROR_MESSAGES.defaultError500.details,
                                 },
                                 status: 500,
@@ -2156,7 +2222,7 @@
                             if (err.statusText === 'Unknown Error') {
                                 _this.createErrorComponent({
                                     title: {
-                                        key: 'AbpAccount::DefaultErrorMessage',
+                                        key: DEFAULT_ERROR_LOCALIZATIONS.defaultError.title,
                                         defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.title,
                                     },
                                     details: err.message,
@@ -2165,7 +2231,13 @@
                             }
                             break;
                         default:
-                            _this.showError(DEFAULT_ERROR_MESSAGES.defaultError.details, DEFAULT_ERROR_MESSAGES.defaultError.title);
+                            _this.showError({
+                                key: DEFAULT_ERROR_LOCALIZATIONS.defaultError.details,
+                                defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.details,
+                            }, {
+                                key: DEFAULT_ERROR_LOCALIZATIONS.defaultError.title,
+                                defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.title,
+                            });
                             break;
                     }
                 }
@@ -2174,7 +2246,7 @@
         ErrorHandler.prototype.show401Page = function () {
             this.createErrorComponent({
                 title: {
-                    key: 'AbpAccount::401Message',
+                    key: DEFAULT_ERROR_LOCALIZATIONS.defaultError401.title,
                     defaultValue: DEFAULT_ERROR_MESSAGES.defaultError401.title,
                 },
                 status: 401,
@@ -2183,7 +2255,7 @@
         ErrorHandler.prototype.show404Page = function () {
             this.createErrorComponent({
                 title: {
-                    key: 'AbpAccount::404Message',
+                    key: DEFAULT_ERROR_LOCALIZATIONS.defaultError404.title,
                     defaultValue: DEFAULT_ERROR_MESSAGES.defaultError404.title,
                 },
                 status: 404,
@@ -2196,11 +2268,17 @@
                     title = body.message;
                 }
                 else if (body.message) {
-                    title = DEFAULT_ERROR_MESSAGES.defaultError.title;
+                    title = {
+                        key: DEFAULT_ERROR_LOCALIZATIONS.defaultError.title,
+                        defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.title,
+                    };
                     message = body.message;
                 }
                 else {
-                    message = body.message || DEFAULT_ERROR_MESSAGES.defaultError.title;
+                    message = body.message || {
+                        key: DEFAULT_ERROR_LOCALIZATIONS.defaultError.title,
+                        defaultValue: DEFAULT_ERROR_MESSAGES.defaultError.title,
+                    };
                 }
             }
             return this.confirmationService.error(message, title, {
@@ -2244,7 +2322,7 @@
         };
         ErrorHandler.prototype.canCreateCustomError = function (status) {
             var _this = this;
-            return snq(function () { return _this.httpErrorConfig.errorScreen.component &&
+            return snq__default['default'](function () { return _this.httpErrorConfig.errorScreen.component &&
                 _this.httpErrorConfig.errorScreen.forWhichErrors.indexOf(status) > -1; });
         };
         return ErrorHandler;
@@ -2358,6 +2436,14 @@
         return function () { return new LazyStyleHandler(injector); };
     }
 
+    var NavItem = /** @class */ (function () {
+        function NavItem(props) {
+            props = Object.assign(Object.assign({}, props), { visible: props.visible || (function () { return true; }) });
+            Object.assign(this, props);
+        }
+        return NavItem;
+    }());
+
     var THEME_SHARED_ROUTE_PROVIDERS = [
         { provide: i0.APP_INITIALIZER, useFactory: configureRoutes, deps: [i1.RoutesService], multi: true },
     ];
@@ -2392,22 +2478,27 @@
             enumerable: true,
             configurable: true
         });
-        NavItemsService.prototype.addItems = function (items) {
-            this._items$.next(__spread(this.items, items).sort(sortItems));
+        NavItemsService.prototype.addItems = function (newItems) {
+            var items = __spread(this.items);
+            newItems.forEach(function (item) { return items.push(new NavItem(item)); });
+            items.sort(sortItems);
+            this._items$.next(items);
         };
         NavItemsService.prototype.removeItem = function (id) {
             var index = this.items.findIndex(function (item) { return item.id === id; });
-            if (index > -1) {
-                this._items$.next(__spread(this.items.slice(0, index), this.items.slice(index + 1)));
-            }
+            if (index < 0)
+                return;
+            var items = __spread(this.items.slice(0, index), this.items.slice(index + 1));
+            this._items$.next(items);
         };
         NavItemsService.prototype.patchItem = function (id, item) {
             var index = this.items.findIndex(function (i) { return i.id === id; });
-            if (index > -1) {
-                this._items$.next(__spread(this.items.slice(0, index), [
-                    Object.assign(Object.assign({}, this.items[index]), item)
-                ], this.items.slice(index + 1)).sort(sortItems));
-            }
+            if (index < 0)
+                return;
+            var items = __spread(this.items);
+            items[index] = new NavItem(Object.assign(Object.assign({}, items[index]), item));
+            items.sort(sortItems);
+            this._items$.next(items);
         };
         return NavItemsService;
     }());
@@ -2457,9 +2548,10 @@
     }
     exports.ɵbh = /** @class */ (function (_super) {
         __extends(DateParserFormatter, _super);
-        function DateParserFormatter(datePipe) {
+        function DateParserFormatter(datePipe, store) {
             var _this = _super.call(this) || this;
             _this.datePipe = datePipe;
+            _this.store = store;
             return _this;
         }
         DateParserFormatter.prototype.parse = function (value) {
@@ -2485,8 +2577,9 @@
             return null;
         };
         DateParserFormatter.prototype.format = function (date) {
+            var shortDatePattern = this.store.selectSnapshot(i1.ConfigState.getOne('localization')).currentCulture.dateTimeFormat.shortDatePattern;
             if (date && this.datePipe) {
-                return this.datePipe.transform(new Date(date.year, date.month - 1, date.day), 'shortDate');
+                return this.datePipe.transform(new Date(date.year, date.month - 1, date.day), shortDatePattern);
             }
             else {
                 return date
@@ -2499,7 +2592,7 @@
     exports.ɵbh = __decorate([
         i0.Injectable(),
         __param(0, i0.Optional()),
-        __metadata("design:paramtypes", [common.DatePipe])
+        __metadata("design:paramtypes", [common.DatePipe, i1$1.Store])
     ], exports.ɵbh);
 
     var ThemeSharedModule_1;
@@ -2643,6 +2736,7 @@
     exports.LoadingDirective = exports.ɵx;
     exports.ModalComponent = exports.ɵh;
     exports.ModalService = exports.ɵl;
+    exports.NavItem = NavItem;
     exports.NgxDatatableDefaultDirective = exports.ɵv;
     exports.NgxDatatableListDirective = exports.ɵw;
     exports.SortOrderIconComponent = exports.ɵu;

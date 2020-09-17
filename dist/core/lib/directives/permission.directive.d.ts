@@ -1,4 +1,4 @@
-import { ElementRef, OnDestroy, OnInit, Renderer2, ViewContainerRef, TemplateRef, SimpleChanges, OnChanges } from '@angular/core';
+import { ElementRef, OnChanges, OnDestroy, OnInit, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Subscription } from 'rxjs';
 export declare class PermissionDirective implements OnInit, OnDestroy, OnChanges {

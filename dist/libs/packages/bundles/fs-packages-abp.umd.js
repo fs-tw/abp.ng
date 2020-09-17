@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@fs/packages/abp', ['exports', '@angular/core', '@angular/common'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs.packages = global.fs.packages || {}, global.fs.packages.abp = {}), global.ng.core, global.ng.common));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs.packages = global.fs.packages || {}, global.fs.packages.abp = {}), global.ng.core, global.ng.common));
 }(this, (function (exports, core, common) { 'use strict';
 
     /*! *****************************************************************************

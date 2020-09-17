@@ -1,9 +1,10 @@
-import { ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
-export declare class InputEventDebounceDirective implements OnInit, OnDestroy {
+import { ElementRef, EventEmitter, OnInit } from '@angular/core';
+import { SubscriptionService } from '../services/subscription.service';
+export declare class InputEventDebounceDirective implements OnInit {
     private el;
+    private subscription;
     debounce: number;
     readonly debounceEvent: EventEmitter<Event>;
-    constructor(el: ElementRef);
+    constructor(el: ElementRef, subscription: SubscriptionService);
     ngOnInit(): void;
-    ngOnDestroy(): void;
 }

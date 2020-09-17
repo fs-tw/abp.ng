@@ -1,15 +1,15 @@
 import { __decorate, __metadata } from 'tslib';
-import { ConfigState, SetRemember, AuthService, RestService, DynamicLayoutComponent, ReplaceableRouteContainerComponent, AuthGuard, takeUntilDestroy, ChangePassword, GetProfile, UpdateProfile, ProfileState, SessionState, SetTenant, GetAppConfiguration, LazyModuleFactory, CoreModule } from '@abp/ng.core';
+import { ConfigState, SetRemember, AuthService, GetProfile, ProfileState, RestService, DynamicLayoutComponent, ReplaceableRouteContainerComponent, AuthGuard, SubscriptionService, MultiTenancyService, ChangePassword, UpdateProfile, SessionState, SetTenant, GetAppConfiguration, LazyModuleFactory, CoreModule } from '@abp/ng.core';
 import { ToasterService, fadeIn, getPasswordValidators, ThemeSharedModule } from '@abp/ng.theme.shared';
 import { Component, ɵɵdefineInjectable, ɵɵinject, Injectable, NgModule, Input, TemplateRef, InjectionToken } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { comparePasswords, NgxValidateCoreModule } from '@ngx-validate/core';
 import { RouterModule } from '@angular/router';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Store, Select } from '@ngxs/store';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { throwError, Observable } from 'rxjs';
-import { catchError, finalize, switchMap, withLatestFrom, take } from 'rxjs/operators';
+import { catchError, finalize, switchMap } from 'rxjs/operators';
 import snq from 'snq';
 import { trigger, transition, useAnimation } from '@angular/animations';
 
@@ -62,18 +62,34 @@ LoginComponent = __decorate([
 ], LoginComponent);
 
 let ManageProfileComponent = class ManageProfileComponent {
-    constructor() {
+    constructor(store) {
+        this.store = store;
         this.selectedTab = 0;
         this.changePasswordKey = "Account.ChangePasswordComponent" /* ChangePassword */;
         this.personalSettingsKey = "Account.PersonalSettingsComponent" /* PersonalSettings */;
+    }
+    ngOnInit() {
+        this.store.dispatch(new GetProfile()).subscribe(() => {
+            this.isProfileLoaded = true;
+            if (this.store.selectSnapshot(ProfileState.getProfile).isExternal) {
+                this.hideChangePasswordTab = true;
+                this.selectedTab = 1;
+            }
+        });
     }
 };
 ManageProfileComponent = __decorate([
     Component({
         selector: 'abp-manage-profile',
-        template: "<div id=\"AbpContentToolbar\"></div>\r\n\r\n<div class=\"card border-0 shadow-sm\">\r\n  <div class=\"card-body\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12 col-md-3\">\r\n        <ul class=\"nav flex-column nav-pills\" id=\"nav-tab\" role=\"tablist\">\r\n          <li class=\"nav-item\" (click)=\"selectedTab = 0\">\r\n            <a\r\n              class=\"nav-link\"\r\n              [ngClass]=\"{ active: selectedTab === 0 }\"\r\n              role=\"tab\"\r\n              href=\"javascript:void(0)\"\r\n              >{{ 'AbpUi::ChangePassword' | abpLocalization }}</a\r\n            >\r\n          </li>\r\n          <li class=\"nav-item mb-2\" (click)=\"selectedTab = 1\">\r\n            <a\r\n              class=\"nav-link\"\r\n              [ngClass]=\"{ active: selectedTab === 1 }\"\r\n              role=\"tab\"\r\n              href=\"javascript:void(0)\"\r\n              >{{ 'AbpAccount::PersonalSettings' | abpLocalization }}</a\r\n            >\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div class=\"col-12 col-md-9\">\r\n        <div class=\"tab-content\" *ngIf=\"selectedTab === 0\" [@fadeIn]>\r\n          <div class=\"tab-pane active\" role=\"tabpanel\">\r\n            <h4>\r\n              {{ 'AbpIdentity::ChangePassword' | abpLocalization }}\r\n              <hr />\r\n            </h4>\r\n            <abp-change-password-form\r\n              *abpReplaceableTemplate=\"{ componentKey: changePasswordKey }\"\r\n            ></abp-change-password-form>\r\n          </div>\r\n        </div>\r\n        <div class=\"tab-content\" *ngIf=\"selectedTab === 1\" [@fadeIn]>\r\n          <div class=\"tab-pane active\" role=\"tabpanel\">\r\n            <h4>\r\n              {{ 'AbpIdentity::PersonalSettings' | abpLocalization }}\r\n              <hr />\r\n            </h4>\r\n            <abp-personal-settings-form\r\n              *abpReplaceableTemplate=\"{ componentKey: personalSettingsKey }\"\r\n            ></abp-personal-settings-form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
-        animations: [trigger('fadeIn', [transition(':enter', useAnimation(fadeIn))])]
-    })
+        template: "<div id=\"AbpContentToolbar\"></div>\r\n\r\n<div class=\"card border-0 shadow-sm min-h-400\" [abpLoading]=\"!isProfileLoaded\">\r\n  <div class=\"card-body\">\r\n    <div class=\"row\">\r\n      <div class=\"col-12 col-md-3\">\r\n        <ul class=\"nav flex-column nav-pills\" id=\"nav-tab\" role=\"tablist\">\r\n          <li\r\n            *ngIf=\"!hideChangePasswordTab && isProfileLoaded\"\r\n            class=\"nav-item\"\r\n            (click)=\"selectedTab = 0\"\r\n          >\r\n            <a\r\n              class=\"nav-link\"\r\n              [ngClass]=\"{ active: selectedTab === 0 }\"\r\n              role=\"tab\"\r\n              href=\"javascript:void(0)\"\r\n              >{{ 'AbpUi::ChangePassword' | abpLocalization }}</a\r\n            >\r\n          </li>\r\n          <li class=\"nav-item mb-2\" (click)=\"selectedTab = 1\">\r\n            <a\r\n              class=\"nav-link\"\r\n              [ngClass]=\"{ active: selectedTab === 1 }\"\r\n              role=\"tab\"\r\n              href=\"javascript:void(0)\"\r\n              >{{ 'AbpAccount::PersonalSettings' | abpLocalization }}</a\r\n            >\r\n          </li>\r\n        </ul>\r\n      </div>\r\n      <div *ngIf=\"isProfileLoaded\" class=\"col-12 col-md-9\">\r\n        <div class=\"tab-content\" *ngIf=\"selectedTab === 0\" [@fadeIn]>\r\n          <div class=\"tab-pane active\" role=\"tabpanel\">\r\n            <h4>\r\n              {{ 'AbpIdentity::ChangePassword' | abpLocalization }}\r\n              <hr />\r\n            </h4>\r\n            <abp-change-password-form\r\n              *abpReplaceableTemplate=\"{ componentKey: changePasswordKey }\"\r\n            ></abp-change-password-form>\r\n          </div>\r\n        </div>\r\n        <div class=\"tab-content\" *ngIf=\"selectedTab === 1\" [@fadeIn]>\r\n          <div class=\"tab-pane active\" role=\"tabpanel\">\r\n            <h4>\r\n              {{ 'AbpIdentity::PersonalSettings' | abpLocalization }}\r\n              <hr />\r\n            </h4>\r\n            <abp-personal-settings-form\r\n              *abpReplaceableTemplate=\"{ componentKey: personalSettingsKey }\"\r\n            ></abp-personal-settings-form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+        animations: [trigger('fadeIn', [transition(':enter', useAnimation(fadeIn))])],
+        styles: [`
+      .min-h-400 {
+        min-height: 400px;
+      }
+    `]
+    }),
+    __metadata("design:paramtypes", [Store])
 ], ManageProfileComponent);
 
 let AccountService = class AccountService {
@@ -169,6 +185,22 @@ RegisterComponent = __decorate([
         AuthService])
 ], RegisterComponent);
 
+let AuthenticationFlowGuard = class AuthenticationFlowGuard {
+    constructor(authService) {
+        this.authService = authService;
+    }
+    canActivate() {
+        if (this.authService.isInternalAuth)
+            return true;
+        this.authService.initLogin();
+        return false;
+    }
+};
+AuthenticationFlowGuard = __decorate([
+    Injectable(),
+    __metadata("design:paramtypes", [AuthService])
+], AuthenticationFlowGuard);
+
 const ɵ0 = {
     replaceableComponent: {
         key: "Account.LoginComponent" /* Login */,
@@ -194,11 +226,13 @@ const routes = [
             {
                 path: 'login',
                 component: ReplaceableRouteContainerComponent,
+                canActivate: [AuthenticationFlowGuard],
                 data: ɵ0,
             },
             {
                 path: 'register',
                 component: ReplaceableRouteContainerComponent,
+                canActivate: [AuthenticationFlowGuard],
                 data: ɵ1,
             },
             {
@@ -220,22 +254,20 @@ AccountRoutingModule = __decorate([
 ], AccountRoutingModule);
 
 let AuthWrapperComponent = class AuthWrapperComponent {
-    constructor(store) {
+    constructor(multiTenancy, store, subscription) {
+        this.multiTenancy = multiTenancy;
         this.store = store;
+        this.subscription = subscription;
         this.enableLocalLogin = true;
         this.tenantBoxKey = "Account.TenantBoxComponent" /* TenantBox */;
     }
     ngOnInit() {
-        this.store
-            .select(ConfigState.getSetting('Abp.Account.EnableLocalLogin'))
-            .pipe(takeUntilDestroy(this))
-            .subscribe(value => {
+        this.subscription.addOne(this.store.select(ConfigState.getSetting('Abp.Account.EnableLocalLogin')), value => {
             if (value) {
                 this.enableLocalLogin = value.toLowerCase() !== 'false';
             }
         });
     }
-    ngOnDestroy() { }
 };
 __decorate([
     Input(),
@@ -252,10 +284,13 @@ __decorate([
 AuthWrapperComponent = __decorate([
     Component({
         selector: 'abp-auth-wrapper',
-        template: "<div class=\"row\">\r\n  <div class=\"mx-auto col col-md-5\">\r\n    <ng-container *ngIf=\"isMultiTenancyEnabled$ | async\">\r\n      <abp-tenant-box *abpReplaceableTemplate=\"{ componentKey: tenantBoxKey }\"></abp-tenant-box>\r\n    </ng-container>\r\n\r\n    <div class=\"abp-account-container\">\r\n      <div\r\n        *ngIf=\"enableLocalLogin; else disableLocalLoginTemplate\"\r\n        class=\"card mt-3 shadow-sm rounded\"\r\n      >\r\n        <div class=\"card-body p-5\">\r\n          <ng-content *ngTemplateOutlet=\"mainContentRef\"></ng-content>\r\n        </div>\r\n        <ng-content *ngTemplateOutlet=\"cancelContentRef\"></ng-content>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #disableLocalLoginTemplate>\r\n  <div class=\"alert alert-warning\">\r\n    <strong>{{ 'AbpAccount::InvalidLoginRequest' | abpLocalization }}</strong>\r\n    {{ 'AbpAccount::ThereAreNoLoginSchemesConfiguredForThisClient' | abpLocalization }}\r\n  </div>\r\n</ng-template>\r\n",
-        exportAs: 'abpAuthWrapper'
+        template: "<div class=\"row\">\r\n  <div class=\"mx-auto col col-md-5\">\r\n    <ng-container *ngIf=\"(isMultiTenancyEnabled$ | async) && multiTenancy.isTenantBoxVisible\">\r\n      <abp-tenant-box *abpReplaceableTemplate=\"{ componentKey: tenantBoxKey }\"></abp-tenant-box>\r\n    </ng-container>\r\n\r\n    <div class=\"abp-account-container\">\r\n      <div\r\n        *ngIf=\"enableLocalLogin; else disableLocalLoginTemplate\"\r\n        class=\"card mt-3 shadow-sm rounded\"\r\n      >\r\n        <div class=\"card-body p-5\">\r\n          <ng-content *ngTemplateOutlet=\"mainContentRef\"></ng-content>\r\n        </div>\r\n        <ng-content *ngTemplateOutlet=\"cancelContentRef\"></ng-content>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #disableLocalLoginTemplate>\r\n  <div class=\"alert alert-warning\">\r\n    <strong>{{ 'AbpAccount::InvalidLoginRequest' | abpLocalization }}</strong>\r\n    {{ 'AbpAccount::ThereAreNoLoginSchemesConfiguredForThisClient' | abpLocalization }}\r\n  </div>\r\n</ng-template>\r\n",
+        exportAs: 'abpAuthWrapper',
+        providers: [SubscriptionService]
     }),
-    __metadata("design:paramtypes", [Store])
+    __metadata("design:paramtypes", [MultiTenancyService,
+        Store,
+        SubscriptionService])
 ], AuthWrapperComponent);
 
 const { required: required$2 } = Validators;
@@ -272,6 +307,7 @@ let ChangePasswordComponent = class ChangePasswordComponent {
         };
     }
     ngOnInit() {
+        this.hideCurrentPassword = !this.store.selectSnapshot(ProfileState.getProfile).hasPassword;
         const passwordValidations = getPasswordValidators(this.store);
         this.form = this.fb.group({
             password: ['', required$2],
@@ -290,28 +326,29 @@ let ChangePasswordComponent = class ChangePasswordComponent {
         }, {
             validators: [comparePasswords(PASSWORD_FIELDS)],
         });
+        if (this.hideCurrentPassword)
+            this.form.removeControl('password');
     }
     onSubmit() {
         if (this.form.invalid)
             return;
         this.inProgress = true;
         this.store
-            .dispatch(new ChangePassword({
-            currentPassword: this.form.get('password').value,
-            newPassword: this.form.get('newPassword').value,
-        }))
+            .dispatch(new ChangePassword(Object.assign(Object.assign({}, (!this.hideCurrentPassword && { currentPassword: this.form.get('password').value })), { newPassword: this.form.get('newPassword').value })))
             .pipe(finalize(() => (this.inProgress = false)))
             .subscribe({
             next: () => {
                 this.form.reset();
-                this.toasterService.success('AbpAccount::PasswordChangedMessage', 'Success', {
+                this.toasterService.success('AbpAccount::PasswordChangedMessage', '', {
                     life: 5000,
                 });
+                if (this.hideCurrentPassword) {
+                    this.hideCurrentPassword = false;
+                    this.form.addControl('password', new FormControl('', [required$2]));
+                }
             },
             error: err => {
-                this.toasterService.error(snq(() => err.error.error.message, 'AbpAccount::DefaultErrorMessage'), 'Error', {
-                    life: 7000,
-                });
+                this.toasterService.error(snq(() => err.error.error.message, 'AbpAccount::DefaultErrorMessage'));
             },
         });
     }
@@ -319,7 +356,7 @@ let ChangePasswordComponent = class ChangePasswordComponent {
 ChangePasswordComponent = __decorate([
     Component({
         selector: 'abp-change-password-form',
-        template: "<form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\" [mapErrorsFn]=\"mapErrorsFn\" validateOnSubmit>\r\n  <div class=\"form-group\">\r\n    <label for=\"current-password\">{{\r\n      'AbpIdentity::DisplayName:CurrentPassword' | abpLocalization\r\n    }}</label\r\n    ><span> * </span\r\n    ><input\r\n      type=\"password\"\r\n      id=\"current-password\"\r\n      class=\"form-control\"\r\n      formControlName=\"password\"\r\n      autofocus\r\n      autocomplete=\"current-password\"\r\n    />\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label for=\"new-password\">{{ 'AbpIdentity::DisplayName:NewPassword' | abpLocalization }}</label\r\n    ><span> * </span\r\n    ><input\r\n      type=\"password\"\r\n      id=\"new-password\"\r\n      class=\"form-control\"\r\n      formControlName=\"newPassword\"\r\n      autocomplete=\"new-password\"\r\n    />\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label for=\"confirm-new-password\">{{\r\n      'AbpIdentity::DisplayName:NewPasswordConfirm' | abpLocalization\r\n    }}</label\r\n    ><span> * </span\r\n    ><input\r\n      type=\"password\"\r\n      id=\"confirm-new-password\"\r\n      class=\"form-control\"\r\n      formControlName=\"repeatNewPassword\"\r\n      autocomplete=\"new-password\"\r\n    />\r\n  </div>\r\n  <abp-button\r\n    iconClass=\"fa fa-check\"\r\n    buttonClass=\"btn btn-primary color-white\"\r\n    buttonType=\"submit\"\r\n    [loading]=\"inProgress\"\r\n    [disabled]=\"form?.invalid\"\r\n    >{{ 'AbpIdentity::Save' | abpLocalization }}</abp-button\r\n  >\r\n</form>\r\n",
+        template: "<form [formGroup]=\"form\" (ngSubmit)=\"onSubmit()\" [mapErrorsFn]=\"mapErrorsFn\" validateOnSubmit>\r\n  <div *ngIf=\"!hideCurrentPassword\" class=\"form-group\">\r\n    <label for=\"current-password\">{{\r\n      'AbpIdentity::DisplayName:CurrentPassword' | abpLocalization\r\n    }}</label\r\n    ><span> * </span\r\n    ><input\r\n      type=\"password\"\r\n      id=\"current-password\"\r\n      class=\"form-control\"\r\n      formControlName=\"password\"\r\n      autofocus\r\n      autocomplete=\"current-password\"\r\n    />\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label for=\"new-password\">{{ 'AbpIdentity::DisplayName:NewPassword' | abpLocalization }}</label\r\n    ><span> * </span\r\n    ><input\r\n      type=\"password\"\r\n      id=\"new-password\"\r\n      class=\"form-control\"\r\n      formControlName=\"newPassword\"\r\n      autocomplete=\"new-password\"\r\n    />\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label for=\"confirm-new-password\">{{\r\n      'AbpIdentity::DisplayName:NewPasswordConfirm' | abpLocalization\r\n    }}</label\r\n    ><span> * </span\r\n    ><input\r\n      type=\"password\"\r\n      id=\"confirm-new-password\"\r\n      class=\"form-control\"\r\n      formControlName=\"repeatNewPassword\"\r\n      autocomplete=\"new-password\"\r\n    />\r\n  </div>\r\n  <abp-button\r\n    iconClass=\"fa fa-check\"\r\n    buttonClass=\"btn btn-primary color-white\"\r\n    buttonType=\"submit\"\r\n    [loading]=\"inProgress\"\r\n    [disabled]=\"form?.invalid\"\r\n    >{{ 'AbpIdentity::Save' | abpLocalization }}</abp-button\r\n  >\r\n</form>\r\n",
         exportAs: 'abpChangePasswordForm'
     }),
     __metadata("design:paramtypes", [FormBuilder,
@@ -338,17 +375,13 @@ let PersonalSettingsComponent = class PersonalSettingsComponent {
         this.buildForm();
     }
     buildForm() {
-        this.store
-            .dispatch(new GetProfile())
-            .pipe(withLatestFrom(this.profile$), take(1))
-            .subscribe(([, profile]) => {
-            this.form = this.fb.group({
-                userName: [profile.userName, [required$3, maxLength$2(256)]],
-                email: [profile.email, [required$3, email$1, maxLength$2(256)]],
-                name: [profile.name || '', [maxLength$2(64)]],
-                surname: [profile.surname || '', [maxLength$2(64)]],
-                phoneNumber: [profile.phoneNumber || '', [maxLength$2(16)]],
-            });
+        const profile = this.store.selectSnapshot(ProfileState.getProfile);
+        this.form = this.fb.group({
+            userName: [profile.userName, [required$3, maxLength$2(256)]],
+            email: [profile.email, [required$3, email$1, maxLength$2(256)]],
+            name: [profile.name || '', [maxLength$2(64)]],
+            surname: [profile.surname || '', [maxLength$2(64)]],
+            phoneNumber: [profile.phoneNumber || '', [maxLength$2(16)]],
         });
     }
     submit() {
@@ -363,10 +396,6 @@ let PersonalSettingsComponent = class PersonalSettingsComponent {
         });
     }
 };
-__decorate([
-    Select(ProfileState.getProfile),
-    __metadata("design:type", Observable)
-], PersonalSettingsComponent.prototype, "profile$", void 0);
 PersonalSettingsComponent = __decorate([
     Component({
         selector: 'abp-personal-settings-form',
@@ -443,6 +472,7 @@ let AccountModule = AccountModule_1 = class AccountModule {
         return {
             ngModule: AccountModule_1,
             providers: [
+                AuthenticationFlowGuard,
                 { provide: ACCOUNT_OPTIONS, useValue: options },
                 {
                     provide: 'ACCOUNT_OPTIONS',
@@ -482,5 +512,5 @@ AccountModule = AccountModule_1 = __decorate([
  * Generated bundle index. Do not edit.
  */
 
-export { ACCOUNT_OPTIONS, AccountModule, AccountService, ChangePasswordComponent, LoginComponent, ManageProfileComponent, PersonalSettingsComponent, RegisterComponent, TenantBoxComponent, AuthWrapperComponent as ɵa, LoginComponent as ɵb, RegisterComponent as ɵc, AccountService as ɵd, TenantBoxComponent as ɵe, ChangePasswordComponent as ɵf, ManageProfileComponent as ɵg, PersonalSettingsComponent as ɵh, AccountRoutingModule as ɵi, ACCOUNT_OPTIONS as ɵk, accountOptionsFactory as ɵl };
+export { ACCOUNT_OPTIONS, AccountModule, AccountService, AuthenticationFlowGuard, ChangePasswordComponent, LoginComponent, ManageProfileComponent, PersonalSettingsComponent, RegisterComponent, TenantBoxComponent, AuthWrapperComponent as ɵa, LoginComponent as ɵb, RegisterComponent as ɵc, AccountService as ɵd, TenantBoxComponent as ɵe, ChangePasswordComponent as ɵf, ManageProfileComponent as ɵg, PersonalSettingsComponent as ɵh, AccountRoutingModule as ɵi, AuthenticationFlowGuard as ɵj, ACCOUNT_OPTIONS as ɵl, accountOptionsFactory as ɵm };
 //# sourceMappingURL=abp-ng.account.js.map

@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@abp/ng.tenant-management/config'), require('@abp/ng.core'), require('@ngxs/store'), require('@fs/tenant-management/ng-alain')) :
     typeof define === 'function' && define.amd ? define('@fs/tenant-management/ng-alain/config', ['exports', '@angular/core', '@abp/ng.tenant-management/config', '@abp/ng.core', '@ngxs/store', '@fs/tenant-management/ng-alain'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['tenant-management'] = global.fs['tenant-management'] || {}, global.fs['tenant-management']['ng-alain'] = global.fs['tenant-management']['ng-alain'] || {}, global.fs['tenant-management']['ng-alain'].config = {}), global.ng.core, global.config, global.ng_core, global.store, global.fs['tenant-management']['ng-alain']));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs['tenant-management'] = global.fs['tenant-management'] || {}, global.fs['tenant-management']['ng-alain'] = global.fs['tenant-management']['ng-alain'] || {}, global.fs['tenant-management']['ng-alain'].config = {}), global.ng.core, global.config, global.ng_core, global.store, global.fs['tenant-management']['ng-alain']));
 }(this, (function (exports, core, config, ng_core, store, ngAlain) { 'use strict';
 
     /*! *****************************************************************************
@@ -333,17 +333,13 @@
         TenantManagementNgAlainConfigModule.forRoot = function () {
             return {
                 ngModule: TenantManagementNgAlainConfigModule_1,
-                providers: [ROUTE_PROVIDERS, STYLES_PROVIDERS],
+                providers: [config.TENANT_MANAGEMENT_ROUTE_PROVIDERS, ROUTE_PROVIDERS, STYLES_PROVIDERS],
             };
         };
         return TenantManagementNgAlainConfigModule;
     }());
     exports.TenantManagementNgAlainConfigModule = TenantManagementNgAlainConfigModule_1 = __decorate([
-        core.NgModule({
-            imports: [
-                config.TenantManagementConfigModule.forRoot()
-            ]
-        })
+        core.NgModule()
     ], exports.TenantManagementNgAlainConfigModule);
 
     /**

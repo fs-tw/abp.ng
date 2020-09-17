@@ -1,11 +1,13 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common/http'), require('@angular/core'), require('@angular/common/locales/zh'), require('@delon/theme'), require('date-fns/locale'), require('ng-zorro-antd/i18n'), require('@angular/common'), require('@fs/ng-alain/core'), require('@ngx-translate/core'), require('@ngx-translate/http-loader'), require('@fs/ng-alain/shared'), require('@delon/mock'), require('@delon/util'), require('@delon/acl'), require('date-fns/format'), require('mockjs'), require('ng-zorro-antd/core/config'), require('@abp/ng.theme.shared'), require('@abp/ng.theme.basic'), require('@fs/ng-alain/basic')) :
-    typeof define === 'function' && define.amd ? define('@fs/ng-alain', ['exports', '@angular/common/http', '@angular/core', '@angular/common/locales/zh', '@delon/theme', 'date-fns/locale', 'ng-zorro-antd/i18n', '@angular/common', '@fs/ng-alain/core', '@ngx-translate/core', '@ngx-translate/http-loader', '@fs/ng-alain/shared', '@delon/mock', '@delon/util', '@delon/acl', 'date-fns/format', 'mockjs', 'ng-zorro-antd/core/config', '@abp/ng.theme.shared', '@abp/ng.theme.basic', '@fs/ng-alain/basic'], factory) :
-    (global = global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = {}), global.ng.common.http, global.ng.core, global.ng.common.locales.zh, global.theme, global.locale, global.i18n, global.ng.common, global.fs['ng-alain'].core, global.core$2, global.httpLoader, global.fs['ng-alain'].shared, global.mock, global.util, global.acl, global.format, global.Mock, global.config, global.ng_theme_shared, global.ng_theme_basic, global.fs['ng-alain'].basic));
-}(this, (function (exports, http, core, ngLang, theme, locale, i18n, common, core$1, core$2, httpLoader, shared, mock, util, acl, format, Mock, config, ng_theme_shared, ng_theme_basic, basic) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common/http'), require('@angular/core'), require('@angular/common/locales/zh'), require('@delon/theme'), require('date-fns/locale'), require('ng-zorro-antd/i18n'), require('@angular/common'), require('@fs/ng-alain/core'), require('@ngx-translate/core'), require('@ngx-translate/http-loader'), require('@fs/ng-alain/shared'), require('@delon/mock'), require('@delon/util'), require('@delon/acl'), require('date-fns/format'), require('mockjs'), require('ng-zorro-antd/core/config'), require('@fs/ng-alain/basic'), require('@ngx-validate/core'), require('@fs/theme.core')) :
+    typeof define === 'function' && define.amd ? define('@fs/ng-alain', ['exports', '@angular/common/http', '@angular/core', '@angular/common/locales/zh', '@delon/theme', 'date-fns/locale', 'ng-zorro-antd/i18n', '@angular/common', '@fs/ng-alain/core', '@ngx-translate/core', '@ngx-translate/http-loader', '@fs/ng-alain/shared', '@delon/mock', '@delon/util', '@delon/acl', 'date-fns/format', 'mockjs', 'ng-zorro-antd/core/config', '@fs/ng-alain/basic', '@ngx-validate/core', '@fs/theme.core'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.fs = global.fs || {}, global.fs['ng-alain'] = {}), global.ng.common.http, global.ng.core, global.ng.common.locales.zh, global.theme, global.locale, global.i18n, global.ng.common, global.fs['ng-alain'].core, global.core$2, global.httpLoader, global.fs['ng-alain'].shared, global.mock, global.util, global.acl, global.format, global.Mock, global.config, global.fs['ng-alain'].basic, global.core$3, global.theme_core));
+}(this, (function (exports, http, core$1, ngLang, theme, locale, i18n, common, core, core$2, httpLoader, shared, mock, util, acl, format, Mock, config, basic, core$3, theme_core) { 'use strict';
 
-    ngLang = ngLang && Object.prototype.hasOwnProperty.call(ngLang, 'default') ? ngLang['default'] : ngLang;
-    format = format && Object.prototype.hasOwnProperty.call(format, 'default') ? format['default'] : format;
+    function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+    var ngLang__default = /*#__PURE__*/_interopDefaultLegacy(ngLang);
+    var format__default = /*#__PURE__*/_interopDefaultLegacy(format);
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -796,7 +798,7 @@
     var fakeY = [7, 5, 4, 2, 4, 7, 5, 6, 5, 9, 6, 3, 1, 5, 3, 6, 5];
     for (var i$1 = 0; i$1 < fakeY.length; i$1 += 1) {
         visitData.push({
-            x: format(new Date(beginDay + 1000 * 60 * 60 * 24 * i$1), 'yyyy-MM-dd'),
+            x: format__default['default'](new Date(beginDay + 1000 * 60 * 60 * 24 * i$1), 'yyyy-MM-dd'),
             y: fakeY[i$1],
         });
     }
@@ -804,7 +806,7 @@
     var fakeY2 = [1, 6, 4, 8, 3, 7, 2];
     for (var i$1 = 0; i$1 < fakeY2.length; i$1 += 1) {
         visitData2.push({
-            x: format(new Date(beginDay + 1000 * 60 * 60 * 24 * i$1), 'yyyy-MM-dd'),
+            x: format__default['default'](new Date(beginDay + 1000 * 60 * 60 * 24 * i$1), 'yyyy-MM-dd'),
             y: fakeY2[i$1],
         });
     }
@@ -1273,7 +1275,7 @@
     // #endregion
     exports.GlobalConfigModule = GlobalConfigModule_1 = /** @class */ (function () {
         function GlobalConfigModule(parentModule) {
-            core$1.throwIfAlreadyLoaded(parentModule, 'GlobalConfigModule');
+            core.throwIfAlreadyLoaded(parentModule, 'GlobalConfigModule');
         }
         GlobalConfigModule.forRoot = function () {
             return {
@@ -1284,25 +1286,25 @@
         return GlobalConfigModule;
     }());
     exports.GlobalConfigModule = GlobalConfigModule_1 = __decorate([
-        core.NgModule({
+        core$1.NgModule({
             imports: __spread(alainModules),
         }),
-        __param(0, core.Optional()), __param(0, core.SkipSelf()),
+        __param(0, core$1.Optional()), __param(0, core$1.SkipSelf()),
         __metadata("design:paramtypes", [exports.GlobalConfigModule])
     ], exports.GlobalConfigModule);
 
     var NgAlainModule_1;
     var LANG = {
         abbr: 'zh',
-        ng: ngLang,
-        zorro: i18n.zh_CN,
+        ng: ngLang__default['default'],
+        zorro: i18n.zh_TW,
         date: locale.zhCN,
-        delon: theme.zh_CN,
+        delon: theme.zh_TW,
     };
     common.registerLocaleData(LANG.ng, LANG.abbr);
     var ɵ0$5 = LANG.abbr, ɵ1$5 = LANG.zorro, ɵ2$3 = LANG.date, ɵ3$2 = LANG.delon;
     var LANG_PROVIDES = [
-        { provide: core.LOCALE_ID, useValue: ɵ0$5 },
+        { provide: core$1.LOCALE_ID, useValue: ɵ0$5 },
         { provide: i18n.NZ_I18N, useValue: ɵ1$5 },
         { provide: i18n.NZ_DATE_LOCALE, useValue: ɵ2$3 },
         { provide: theme.DELON_LOCALE, useValue: ɵ3$2 },
@@ -1321,7 +1323,7 @@
         }),
     ];
     var I18NSERVICE_PROVIDES = [
-        { provide: theme.ALAIN_I18N_TOKEN, useClass: core$1.I18NService, multi: false }
+        { provide: theme.ALAIN_I18N_TOKEN, useClass: core.I18NService, multi: false }
     ];
     // #endregion
     // #region global third module
@@ -1341,38 +1343,68 @@
         return fun;
     }
     var APPINIT_PROVIDES = [
-        core$1.StartupService,
+        core.StartupService,
         {
-            provide: core.APP_INITIALIZER,
+            provide: core$1.APP_INITIALIZER,
             useFactory: StartupServiceFactory,
-            deps: [core$1.StartupService],
+            deps: [core.StartupService],
             multi: true,
         },
     ];
-    var ABP_MODULES = [
-        ng_theme_shared.ThemeSharedModule.forRoot(),
-        ng_theme_basic.ThemeBasicModule.forRoot(),
-        basic.NgAlainBasicModule.forRoot()
-    ];
-    // #endregion
+    exports.RootNgAlainModule = /** @class */ (function () {
+        function RootNgAlainModule() {
+        }
+        return RootNgAlainModule;
+    }());
+    exports.RootNgAlainModule = __decorate([
+        core$1.NgModule({
+            imports: [
+                core$3.NgxValidateCoreModule.forRoot({
+                    targetSelector: '.form-group',
+                    blueprints: {
+                        creditCard: 'AbpValidation::ThisFieldIsNotAValidCreditCardNumber.',
+                        email: 'AbpValidation::ThisFieldIsNotAValidEmailAddress.',
+                        invalid: 'AbpValidation::ThisFieldIsNotValid.',
+                        max: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+                        maxlength: 'AbpValidation::ThisFieldMustBeAStringOrArrayTypeWithAMaximumLengthOf{0}[{{ requiredLength }}]',
+                        min: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+                        minlength: 'AbpValidation::ThisFieldMustBeAStringOrArrayTypeWithAMinimumLengthOf{0}[{{ requiredLength }}]',
+                        ngbDate: 'AbpValidation::ThisFieldIsNotValid.',
+                        passwordMismatch: 'AbpIdentity::Identity.PasswordConfirmationFailed',
+                        range: 'AbpValidation::ThisFieldMustBeBetween{0}And{1}[{{ min }},{{ max }}]',
+                        required: 'AbpValidation::ThisFieldIsRequired.',
+                        url: 'AbpValidation::ThisFieldIsNotAValidFullyQualifiedHttpHttpsOrFtpUrl',
+                    },
+                }),
+                //ThemeCoreModule.forRoot(),
+                shared.NgAlainSharedModule.forRoot(),
+                basic.NgAlainBasicModule.forRoot(),
+            ],
+        })
+    ], exports.RootNgAlainModule);
     exports.NgAlainModule = NgAlainModule_1 = /** @class */ (function () {
         function NgAlainModule() {
         }
-        NgAlainModule.forRoot = function () {
+        NgAlainModule.forRoot = function (options) {
+            if (options === void 0) { options = { loadCodes: false }; }
             return {
-                ngModule: NgAlainModule_1
+                ngModule: NgAlainModule_1,
+                providers: [
+                    { provide: theme_core.THEMECORE_OPTIONS, useValue: options }
+                ],
             };
         };
         return NgAlainModule;
     }());
     exports.NgAlainModule = NgAlainModule_1 = __decorate([
-        core.NgModule({
+        core$1.NgModule({
             imports: __spread([
                 exports.GlobalConfigModule.forRoot(),
-                core$1.CoreModule,
+                core.CoreModule,
                 //LayoutModule,
-                shared.STWidgetModule
-            ], I18NSERVICE_MODULES, ABP_MODULES, GLOBAL_THIRD_MODULES, FORM_MODULES),
+                shared.STWidgetModule,
+                exports.RootNgAlainModule
+            ], I18NSERVICE_MODULES, GLOBAL_THIRD_MODULES, FORM_MODULES),
             providers: __spread([
                 util.AlainConfigService
             ], LANG_PROVIDES, INTERCEPTOR_PROVIDES, I18NSERVICE_PROVIDES, APPINIT_PROVIDES),
