@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SettingsModule } from './settings/settings.module';
+import { DynamicLayoutComponent, AuthGuard, PermissionGuard } from '@abp/ng.core';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'settings' },
   {
     path: '',
-    // component: DynamicLayoutComponent,
-    // canActivate: [AuthGuard, PermissionGuard],
+    component: DynamicLayoutComponent,
+    canActivate: [AuthGuard, PermissionGuard],
     children: [
       {
         path: 'settings',
-        //loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule.forLazy())
+        loadChildren: SettingsModule.forEarly
       },
     ],
   }
