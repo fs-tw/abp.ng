@@ -1,0 +1,19 @@
+<nz-spin [nzSpinning]="loading">
+    <nz-tabset>
+        <nz-tab
+            *ngFor="let item of settingGroups" nzPlacement="right"
+            [nzTitle]="titleTemplate">
+            <ng-template #titleTemplate><span [class.textColor]="setTextColor(item)">{{ 'Themes::'+item | abpLocalization }}</span></ng-template>
+            <nz-page-header-content *ngIf="visible && settingValue">
+                    <fs-ng-alain-setting-management-detail
+                        [providerName]="providerName"
+                        [providerKey]="providerKey"
+                        [rawData]="settingValue[item]"
+                        [(visible)]="visible"
+                        [(isEdited)]="isEdited"
+                        [(editedData)]="editedData">
+                    </fs-ng-alain-setting-management-detail>
+            </nz-page-header-content>
+        </nz-tab>
+    </nz-tabset>
+</nz-spin>
