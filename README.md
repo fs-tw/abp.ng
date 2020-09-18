@@ -1,7 +1,4 @@
-# Reference
-### [Abp GitHub](https://github.com/abpframework/abp)   
-### [ng-alain GitHub](https://ng-alain.github.io/ng-alain/#/dashboard/v1)  
-### [Nx document](https://nx.dev)
+
 
 
 # 1.Create Backend Project
@@ -16,12 +13,10 @@ Execute HttpApi.Host to host web (Set as statup porject at visual studio)
 
 ``` javascript
 //prepare package
-npm i
-nx workspace-schematic merge-config
-
+npm install
 //start up angular
 ng serve tmpl.ng-alain-app
-//PS.environment.ts url must match your backend url.
+//Remember:  check environment.ts url must match your backend url.
  
 ```
 
@@ -31,26 +26,25 @@ in this repository , i try to create monorepo by [Nx](https://nx.dev) for debug 
 - themes folder put dev default(abp) theme and other customization themes(ng-alain) 
 - apps folder put angular application projectType for every theme
 - libs folder put extend abp's packages or other libray, you can create alternative component or router for abp's package
-- tsconfig.json:set all package path to sourcecode unless  @abp/ng.theme.shared,if not will get error from @abp/ng.theme.shared
 
 # Application
 
-- Origin Source:[https://github.com/ng-alain/ng-alain](<https://github.com/ng-alain/ng-alain>)
+- Origin Source:[https://github.com/ng-alain/ng-alain](<https://github.com/ng-alain/ng-alain>)  
 - ng-alain-app  
 <p align="center"><img src="https://raw.githubusercontent.com/yinchang0626/abp.ng/develop/docs/ng-alain-app.png" width="900"></p>  
 
 
-- Origin Source:[https://github.com/abpframework/abp](<https://github.com/abpframework/abp>)
-- dev-app:  
-[abp angular application](<https://docs.abp.io/en/abp/latest>)
+- Origin Source:[https://github.com/abpframework/abp](<https://github.com/abpframework/abp>)  
+- dev-app
+<p align="center"><img src="https://raw.githubusercontent.com/abpframework/abp/rel-3.1/docs/en/images/bookstore-login.png"></p>  
 
 
-# Note
+# CLI
  
 ``` cmd
 nx workspace-schematic merge-config
 ```
-this command will read all `config folder`'s json and Create/Update `angular.json`,`tsconfig.json`,`tsconfig.prod.json`,`nx.json`.
+this command will read all `config folder`'s json file and Create or Update `angular.json`,`tsconfig.json`,`tsconfig.prod.json`,`nx.json`.
 
 ##  Generate an application
 
@@ -81,3 +75,8 @@ TODO
 ## Running end-to-end tests
 
 TODO
+
+# Reference
+### [Abp GitHub](https://github.com/abpframework/abp)   
+### [ng-alain GitHub](https://ng-alain.github.io/ng-alain/#/dashboard/v1)  
+### [Nx document](https://nx.dev)
