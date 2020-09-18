@@ -52,6 +52,15 @@
     "abp.schematics": {
       "tags": []
     },
+    "fs.theme-core": {
+      "tags": []
+    },
+    "fs.dev": {
+      "tags": []
+    },
+    "fs.ng-alain": {
+      "tags": []
+    },
     "fs.packages": {
       "tags": []
     },
@@ -71,15 +80,6 @@
       "tags": []
     },
     "fs.setting-management": {
-      "tags": []
-    },
-    "fs.theme-core": {
-      "tags": []
-    },
-    "fs.dev": {
-      "tags": []
-    },
-    "fs.ng-alain": {
       "tags": []
     },
     "tmpl.dev-app": {

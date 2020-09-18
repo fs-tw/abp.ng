@@ -1,5 +1,5 @@
 {
-  "order": 21,
+  "order": 20,
   "nx": {
     "fs.theme-core": {
       "tags": []
@@ -11,8 +11,7 @@
       "tags": []
     }
   },
-  "angular":{
-
+  "angular": {
     "fs.theme-core": {
       "projectType": "library",
       "root": "themes/theme-core",
@@ -141,9 +140,9 @@
         }
       },
       "schematics": {}
-    }      
+    }
   },
-  "tsconfig":{
+  "tsconfig": {
     "@fs/theme.core": [
       "themes/theme-core/src/index.ts"
     ],
@@ -152,9 +151,9 @@
     ],
     "@fs/ng-alain/*": [
       "themes/ng-alain/*/src/index.ts"
-    ]    
+    ]
   },
-  "tsconfigProd":{
+  "tsconfigProd": {
     "@fs/theme.core": [
       "dist/themes/theme-core"
     ],
@@ -163,6 +162,23 @@
     ],
     "@fs/ng-alain/*": [
       "dist/themes/ng-alain/*"
-    ]    
-  }
+    ]
+  },
+  "symlink": [
+    {
+      "name": "fsCore",
+      "sync": true,
+      "packages": [
+        "fs.theme-core"
+      ]
+    },
+    {
+      "name": "fsBaseThemes",
+      "sync": false,
+      "ignore_packages": [],
+      "packages": [
+        "fs.ng-alain"
+      ]
+    }
+  ]
 }

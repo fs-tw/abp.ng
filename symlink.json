@@ -1,0 +1,72 @@
+[
+  {
+    "name": "abpCore",
+    "sync": true,
+    "packages": [
+      "abp.core",
+      "abp.theme-shared",
+      "abp.components",
+      "abp.theme-basic"
+    ]
+  },
+  {
+    "name": "abpCoreBasic",
+    "sync": false,
+    "packages": [
+      "abp.permission-management",
+      "abp.feature-management"
+    ]
+  },
+  {
+    "name": "abpLibs",
+    "sync": false,
+    "packages": [
+      "abp.account",
+      "abp.identity",
+      "abp.setting-management",
+      "abp.tenant-management"
+    ]
+  },
+  {
+    "name": "fsCore",
+    "sync": true,
+    "packages": [
+      "fs.theme-core"
+    ]
+  },
+  {
+    "name": "fsBaseThemes",
+    "sync": false,
+    "ignore_packages": [],
+    "packages": [
+      "fs.ng-alain"
+    ]
+  },
+  {
+    "name": "fsBaseLibs",
+    "sync": false,
+    "ignore_packages": [],
+    "packages": [
+      "fs.permission-management",
+      "fs.feature-management",
+      "fs.setting-management"
+    ]
+  },
+  {
+    "name": "fsLibs",
+    "sync": false,
+    "ignore_packages": [],
+    "packages": [
+      "fs.account",
+      "fs.identity",
+      "fs.tenant-management"
+    ]
+  },
+  {
+    "name": "fsPackages",
+    "sync": false,
+    "packages": [
+      "fs.packages"
+    ]
+  }
+]

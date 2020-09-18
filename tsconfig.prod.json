@@ -50,6 +50,15 @@
       "@abp/ng.feature-management/*": [
         "dist/feature-management/*"
       ],
+      "@fs/theme.core": [
+        "dist/themes/theme-core"
+      ],
+      "@fs/ng-alain": [
+        "dist/themes/ng-alain"
+      ],
+      "@fs/ng-alain/*": [
+        "dist/themes/ng-alain/*"
+      ],
       "@fs/account": [
         "dist/libs/account"
       ],
@@ -85,15 +94,6 @@
       ],
       "@fs/setting-management/*": [
         "dist/libs/setting-management/*"
-      ],
-      "@fs/theme.core": [
-        "dist/themes/theme-core"
-      ],
-      "@fs/ng-alain": [
-        "dist/themes/ng-alain"
-      ],
-      "@fs/ng-alain/*": [
-        "dist/themes/ng-alain/*"
       ]
     }
   },

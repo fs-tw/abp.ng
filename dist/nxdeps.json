@@ -7391,7 +7391,7 @@
             "symlink": {
               "builder": "./dist/tools/builder:symlink",
               "options": {
-                "symlinkConfig": "libs/packages/symlink.json",
+                "symlinkConfig": "symlink.json",
                 "args": []
               }
             },
@@ -7547,11 +7547,6 @@
               "file": "libs/packages/src/test-setup.ts",
               "ext": ".ts",
               "mtime": 1595126331510.0227
-            },
-            {
-              "file": "libs/packages/symlink.json",
-              "ext": ".json",
-              "mtime": 1600327463840.4353
             },
             {
               "file": "libs/packages/tsconfig.json",
@@ -15901,11 +15896,6 @@
         "file": "libs/packages/src/test-setup.ts",
         "ext": ".ts",
         "mtime": 1595126331510.0227
-      },
-      {
-        "file": "libs/packages/symlink.json",
-        "ext": ".json",
-        "mtime": 1600327463840.4353
       },
       {
         "file": "libs/packages/tsconfig.json",

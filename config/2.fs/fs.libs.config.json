@@ -1,5 +1,5 @@
 {
-  "order": 20,
+  "order": 21,
   "nx": {
     "fs.packages": {
       "tags": []
@@ -33,7 +33,7 @@
         "symlink": {
           "builder": "./dist/tools/builder:symlink",
           "options": {
-            "symlinkConfig": "libs/packages/symlink.json",
+            "symlinkConfig": "symlink.json",
             "args": []
           }
         },
@@ -408,5 +408,34 @@
     "@fs/setting-management/*": [
       "dist/libs/setting-management/*"
     ]
-  }
+  },
+  "symlink": [
+    {
+      "name": "fsBaseLibs",
+      "sync": false,
+      "ignore_packages": [],
+      "packages": [
+        "fs.permission-management",
+        "fs.feature-management",
+        "fs.setting-management"
+      ]
+    },
+    {
+      "name": "fsLibs",
+      "sync": false,
+      "ignore_packages": [],
+      "packages": [
+        "fs.account",
+        "fs.identity",
+        "fs.tenant-management"
+      ]
+    },
+    {
+      "name": "fsPackages",
+      "sync": false,
+      "packages": [
+        "fs.packages"
+      ]
+    }
+  ]
 }

@@ -12,10 +12,11 @@ function configureRoutes(routes: RoutesService) {
     routes.add([
       {
         path: '/setting-management',
-        name:eSettingManagementRouteNames.MySettings,
-        parentName:AbpeSettingManagementRouteNames.Settings,
+        name: eSettingManagementRouteNames.MySettings,
+        parentName: AbpeSettingManagementRouteNames.Settings,
         order: 1,
-      },
+        displayName:'Settings'
+      } as any,
       // {
       //   path: '/setting-management/settings',
       //   name:eSettingManagementRouteNames.DevelopPage,

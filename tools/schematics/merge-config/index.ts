@@ -1,11 +1,9 @@
 import { SchematicContext, Tree, chain, Rule } from '@angular-devkit/schematics';
-//import * as glob from 'glob';
-//import { ProjectConfigFile, indexObj } from './commons';
 import { updateJsonInTree, readJsonInTree, NxJson } from '@nrwl/workspace';
 import { ProjectConfigFile } from './commons';
-import { map } from 'rxjs/operators';
-let configs: Array<ProjectConfigFile> = [];
+import { symlink } from 'fs';
 
+let configs: Array<ProjectConfigFile> = [];
 export default function (schema: any): Rule {
   return (host: Tree, context: SchematicContext) => {
     let files: Array<string> = [];
@@ -14,22 +12,17 @@ export default function (schema: any): Rule {
       .filter(p => p.endsWith('config.json'))
       .map(p => readJsonInTree<ProjectConfigFile>(host, p))
       .sort((a, b) => { return a.order - b.order; });
-    
 
     return chain([
       updateNx,
       updateNg,
       updateTs,
-      updateTsProd
-      // updateJsonInTree(`/nx.json`, json => {
-
-      //   return json;
-      // }) as any,
+      updateTsProd,
+      updateSymLink
     ])(host, context);
   }
 
 }
-
 
 const updateNx = (host: Tree, context: SchematicContext) => {
   let nxs = configs
@@ -64,11 +57,11 @@ const updateTsProd = (host: Tree, context: SchematicContext) => {
   return updateJsonInTree('/tsconfig.prod.json', json => tsProdJson);
 }
 
-// function updateProject(host: Tree, context: SchematicContext) {
-//   return (host: Tree) => {
-//     return chain([
-//       updateJsonInTree(`/nx.json`, json => json)
-//     ]);
-//   };
-// }
+const updateSymLink = (host: Tree, context: SchematicContext) => {
+  let symLinks = configs
+    .map(j => j.symlink)
+    .reduce((a, b) => { return !b ? a : a.concat(b) });
+  console.log(symLinks);
+  return updateJsonInTree('/symlink.json', json => symLinks);
+}
 

@@ -1,5 +1,5 @@
 {
-  "order":10,
+  "order": 10,
   "nx": {
     "abp.core": {
       "tags": []
@@ -35,7 +35,7 @@
       "tags": []
     }
   },
-  "angular":{
+  "angular": {
     "abp.core": {
       "projectType": "library",
       "root": "packages/core",
@@ -437,14 +437,18 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["packages/schematics/tsconfig.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "packages/schematics/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
-    }    
+    }
   },
-  "tsconfig":{
+  "tsconfig": {
     "@abp/ng.core": [
       "packages/core/src/public-api.ts"
     ],
@@ -491,7 +495,7 @@
       "packages/feature-management/src/public-api.ts"
     ]
   },
-  "tsconfigProd":{
+  "tsconfigProd": {
     "@abp/ng.core": [
       "dist/core"
     ],
@@ -503,7 +507,7 @@
     ],
     "@abp/ng.components/tree": [
       "dist/components/tree/src/public-api.ts"
-    ],      
+    ],
     "@abp/ng.theme.basic": [
       "dist/theme-basic"
     ],
@@ -540,5 +544,35 @@
     "@abp/ng.feature-management/*": [
       "dist/feature-management/*"
     ]
-  }
+  },
+  "symlink": [
+    {
+      "name": "abpCore",
+      "sync": true,
+      "packages": [
+        "abp.core",
+        "abp.theme-shared",
+        "abp.components",
+        "abp.theme-basic"
+      ]
+    },
+    {
+      "name": "abpCoreBasic",
+      "sync": false,
+      "packages": [
+        "abp.permission-management",
+        "abp.feature-management"
+      ]
+    },
+    {
+      "name": "abpLibs",
+      "sync": false,
+      "packages": [
+        "abp.account",
+        "abp.identity",
+        "abp.setting-management",
+        "abp.tenant-management"
+      ]
+    }
+  ]
 }
