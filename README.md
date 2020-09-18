@@ -1,4 +1,4 @@
-# [Abp](https://github.com/abpframework/abp)+[ng-alain](https://ng-alain.github.io/ng-alain/#/dashboard/v1)+[ngx-admin](https://github.com/akveo/ngx-admin) by [Nx](https://nx.dev)
+# [Abp](https://github.com/abpframework/abp)+[ng-alain](https://ng-alain.github.io/ng-alain/#/dashboard/v1) by [Nx](https://nx.dev)
 # abp's ng-packs sourcecode import
 - git submodule update --init --recursive
 # Backend prepare
