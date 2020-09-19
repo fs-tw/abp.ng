@@ -7107,68 +7107,7 @@
           },
           "schematics": {},
           "tags": [],
-          "files": [
-            {
-              "file": "themes/tmpl/dev/jest.config.js",
-              "ext": ".js",
-              "mtime": 1600393952226.293
-            },
-            {
-              "file": "themes/tmpl/dev/ng-package.json",
-              "ext": ".json",
-              "mtime": 1600477338317.4668
-            },
-            {
-              "file": "themes/tmpl/dev/package.json",
-              "ext": ".json",
-              "mtime": 1600393952228.2869
-            },
-            {
-              "file": "themes/tmpl/dev/README.md",
-              "ext": ".md",
-              "mtime": 1595126331575.2744
-            },
-            {
-              "file": "themes/tmpl/dev/src/index.ts",
-              "ext": ".ts",
-              "mtime": 1595126331576.5193
-            },
-            {
-              "file": "themes/tmpl/dev/src/lib/dev.module.ts",
-              "ext": ".ts",
-              "mtime": 1600393952228.2869
-            },
-            {
-              "file": "themes/tmpl/dev/src/test-setup.ts",
-              "ext": ".ts",
-              "mtime": 1595126331576.5193
-            },
-            {
-              "file": "themes/tmpl/dev/tsconfig.json",
-              "ext": ".json",
-              "mtime": 1595126331576.5193
-            },
-            {
-              "file": "themes/tmpl/dev/tsconfig.lib.json",
-              "ext": ".json",
-              "mtime": 1600393952229.284
-            },
-            {
-              "file": "themes/tmpl/dev/tsconfig.lib.prod.json",
-              "ext": ".json",
-              "mtime": 1600393952230.2817
-            },
-            {
-              "file": "themes/tmpl/dev/tsconfig.spec.json",
-              "ext": ".json",
-              "mtime": 1595126331577.5183
-            },
-            {
-              "file": "themes/tmpl/dev/tslint.json",
-              "ext": ".json",
-              "mtime": 1600393952231.2793
-            }
-          ]
+          "files": []
         }
       },
       "abp.core": {
@@ -9341,23 +9280,7 @@
           "target": "npm:@angular/animations"
         }
       ],
-      "fs.dev": [
-        {
-          "type": "static",
-          "source": "fs.dev",
-          "target": "npm:@angular/core"
-        },
-        {
-          "type": "static",
-          "source": "fs.dev",
-          "target": "npm:@angular/common"
-        },
-        {
-          "type": "static",
-          "source": "fs.dev",
-          "target": "npm:jest-preset-angular"
-        }
-      ],
+      "fs.dev": [],
       "abp.core": [
         {
           "type": "static",
@@ -15360,68 +15283,7 @@
         "mtime": 1600322428137.4468
       }
     ],
-    "fs.dev": [
-      {
-        "file": "themes/tmpl/dev/jest.config.js",
-        "ext": ".js",
-        "mtime": 1600393952226.293
-      },
-      {
-        "file": "themes/tmpl/dev/ng-package.json",
-        "ext": ".json",
-        "mtime": 1600477338317.4668
-      },
-      {
-        "file": "themes/tmpl/dev/package.json",
-        "ext": ".json",
-        "mtime": 1600393952228.2869
-      },
-      {
-        "file": "themes/tmpl/dev/README.md",
-        "ext": ".md",
-        "mtime": 1595126331575.2744
-      },
-      {
-        "file": "themes/tmpl/dev/src/index.ts",
-        "ext": ".ts",
-        "mtime": 1595126331576.5193
-      },
-      {
-        "file": "themes/tmpl/dev/src/lib/dev.module.ts",
-        "ext": ".ts",
-        "mtime": 1600393952228.2869
-      },
-      {
-        "file": "themes/tmpl/dev/src/test-setup.ts",
-        "ext": ".ts",
-        "mtime": 1595126331576.5193
-      },
-      {
-        "file": "themes/tmpl/dev/tsconfig.json",
-        "ext": ".json",
-        "mtime": 1595126331576.5193
-      },
-      {
-        "file": "themes/tmpl/dev/tsconfig.lib.json",
-        "ext": ".json",
-        "mtime": 1600393952229.284
-      },
-      {
-        "file": "themes/tmpl/dev/tsconfig.lib.prod.json",
-        "ext": ".json",
-        "mtime": 1600393952230.2817
-      },
-      {
-        "file": "themes/tmpl/dev/tsconfig.spec.json",
-        "ext": ".json",
-        "mtime": 1595126331577.5183
-      },
-      {
-        "file": "themes/tmpl/dev/tslint.json",
-        "ext": ".json",
-        "mtime": 1600393952231.2793
-      }
-    ],
+    "fs.dev": [],
     "abp.core": [
       {
         "file": "packages/core/jest.config.js",

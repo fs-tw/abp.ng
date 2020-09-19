@@ -61,7 +61,6 @@ const updateSymLink = (host: Tree, context: SchematicContext) => {
   let symLinks = configs
     .map(j => j.symlink)
     .reduce((a, b) => { return !b ? a : a.concat(b) });
-  console.log(symLinks);
   return updateJsonInTree('/symlink.json', json => symLinks);
 }
 
