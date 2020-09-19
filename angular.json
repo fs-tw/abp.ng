@@ -414,15 +414,15 @@
     },
     "fs.theme-core": {
       "projectType": "library",
-      "root": "themes/tmpl/theme-core",
-      "sourceRoot": "themes/tmpl/theme-core/src",
+      "root": "libs/tmpl/theme-core",
+      "sourceRoot": "libs/tmpl/theme-core/src",
       "prefix": "fs",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
             "tsConfig": "tsconfig.lib.json",
-            "project": "themes/tmpl/theme-core/ng-package.json"
+            "project": "libs/tmpl/theme-core/ng-package.json"
           },
           "configurations": {
             "production": {
@@ -434,66 +434,22 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "themes/tmpl/theme-core/tsconfig.lib.json",
-              "themes/tmpl/theme-core/tsconfig.spec.json"
+              "libs/tmpl/theme-core/tsconfig.lib.json",
+              "libs/tmpl/theme-core/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!themes/tmpl/theme-core/**/*"
+              "!libs/tmpl/theme-core/**/*"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "themes/tmpl/theme-core/jest.config.js",
-            "tsConfig": "themes/tmpl/theme-core/tsconfig.spec.json",
+            "jestConfig": "libs/tmpl/theme-core/jest.config.js",
+            "tsConfig": "libs/tmpl/theme-core/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "themes/tmpl/theme-core/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {}
-    },
-    "fs.dev": {
-      "projectType": "library",
-      "root": "themes/tmpl/dev",
-      "sourceRoot": "themes/tmpl/dev/src",
-      "prefix": "fs",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "outputPath": "dist/apps/dev-app",
-            "tsConfig": "tsconfig.lib.json",
-            "project": "themes/tmpl/dev/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "themes/tmpl/dev/tsconfig.lib.json",
-              "themes/tmpl/dev/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!themes/tmpl/dev/**/*"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "themes/tmpl/dev/jest.config.js",
-            "tsConfig": "themes/tmpl/dev/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "themes/tmpl/dev/src/test-setup.ts"
+            "setupFile": "libs/tmpl/theme-core/src/test-setup.ts"
           }
         }
       },
@@ -501,15 +457,15 @@
     },
     "fs.theme-ng-alain": {
       "projectType": "library",
-      "root": "themes/tmpl/ng-alain",
-      "sourceRoot": "themes/tmpl/ng-alain/src",
+      "root": "libs/tmpl/ng-alain",
+      "sourceRoot": "libs/tmpl/theme-ng-alain/src",
       "prefix": "fs",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
             "tsConfig": "tsconfig.lib.json",
-            "project": "themes/tmpl/ng-alain/ng-package.json"
+            "project": "libs/tmpl/theme-ng-alain/ng-package.json"
           },
           "configurations": {
             "production": {
@@ -521,21 +477,21 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "themes/tmpl/ng-alain/tsconfig.lib.json",
-              "themes/tmpl/ng-alain/tsconfig.spec.json"
+              "libs/tmpl/theme-ng-alain/tsconfig.lib.json",
+              "libs/tmpl/theme-ng-alain/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!themes/tmpl/ng-alain/**"
+              "!libs/tmpl/theme-ng-alain/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "themes/tmpl/ng-alain/jest.config.js",
-            "tsConfig": "themes/tmpl/ng-alain/tsconfig.spec.json",
-            "setupFile": "themes/tmpl/ng-alain/src/test-setup.ts"
+            "jestConfig": "libs/tmpl/theme-ng-alain/jest.config.js",
+            "tsConfig": "libs/tmpl/theme-ng-alain/tsconfig.spec.json",
+            "setupFile": "libs/tmpl/theme-ng-alain/src/test-setup.ts"
           }
         }
       },

@@ -92,7 +92,7 @@
             {
               "file": "libs/tmpl/permission-management/ng-package.json",
               "ext": ".json",
-              "mtime": 1600477421293.3508
+              "mtime": 1600486740998.5735
             },
             {
               "file": "libs/tmpl/permission-management/package.json",
@@ -380,7 +380,7 @@
             {
               "file": "libs/tmpl/feature-management/ng-package.json",
               "ext": ".json",
-              "mtime": 1600477393559.7324
+              "mtime": 1600486724817.692
             },
             {
               "file": "libs/tmpl/feature-management/package.json",
@@ -765,7 +765,7 @@
             {
               "file": "libs/tmpl/setting-management/ng-package.json",
               "ext": ".json",
-              "mtime": 1600477432578.6199
+              "mtime": 1600486745891.6855
             },
             {
               "file": "libs/tmpl/setting-management/package.json",
@@ -1281,7 +1281,7 @@
             {
               "file": "libs/tmpl/tenant-management/ng-package.json",
               "ext": ".json",
-              "mtime": 1600477439617.867
+              "mtime": 1600486750494.5952
             },
             {
               "file": "libs/tmpl/tenant-management/package.json",
@@ -1534,486 +1534,6 @@
           ]
         }
       },
-      "fs.theme-core": {
-        "name": "fs.theme-core",
-        "type": "lib",
-        "data": {
-          "projectType": "library",
-          "root": "themes/tmpl/theme-core",
-          "sourceRoot": "themes/tmpl/theme-core/src",
-          "prefix": "fs",
-          "architect": {
-            "build": {
-              "builder": "@angular-devkit/build-ng-packagr:build",
-              "options": {
-                "tsConfig": "tsconfig.lib.json",
-                "project": "themes/tmpl/theme-core/ng-package.json"
-              },
-              "configurations": {
-                "production": {
-                  "tsConfig": "tsconfig.lib.prod.json"
-                }
-              }
-            },
-            "lint": {
-              "builder": "@angular-devkit/build-angular:tslint",
-              "options": {
-                "tsConfig": [
-                  "themes/tmpl/theme-core/tsconfig.lib.json",
-                  "themes/tmpl/theme-core/tsconfig.spec.json"
-                ],
-                "exclude": [
-                  "**/node_modules/**",
-                  "!themes/tmpl/theme-core/**/*"
-                ]
-              }
-            },
-            "test": {
-              "builder": "@nrwl/jest:jest",
-              "options": {
-                "jestConfig": "themes/tmpl/theme-core/jest.config.js",
-                "tsConfig": "themes/tmpl/theme-core/tsconfig.spec.json",
-                "passWithNoTests": true,
-                "setupFile": "themes/tmpl/theme-core/src/test-setup.ts"
-              }
-            }
-          },
-          "schematics": {},
-          "tags": [],
-          "files": [
-            {
-              "file": "themes/tmpl/theme-core/ng-package.json",
-              "ext": ".json",
-              "mtime": 1600477371765.239
-            },
-            {
-              "file": "themes/tmpl/theme-core/package.json",
-              "ext": ".json",
-              "mtime": 1600393952297.1028
-            },
-            {
-              "file": "themes/tmpl/theme-core/README.md",
-              "ext": ".md",
-              "mtime": 1600393952295.1086
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952298.1018
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/actions/.gitkeep",
-              "ext": "",
-              "mtime": 1600393952299.0977
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/actions/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952299.0977
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/actions/router.actions.ts",
-              "ext": ".ts",
-              "mtime": 1600393952300.0952
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/actions/theme-core.actions.ts",
-              "ext": ".ts",
-              "mtime": 1600393952300.0952
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/components/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952301.0923
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/components/page-bar.component.html",
-              "ext": ".html",
-              "mtime": 1600393952302.09
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/components/page-bar.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952302.09
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/enums/components.ts",
-              "ext": ".ts",
-              "mtime": 1600393952303.0872
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/enums/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952303.0872
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952304.0847
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/common.ts",
-              "ext": ".ts",
-              "mtime": 1600393952305.0815
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/config.ts",
-              "ext": ".ts",
-              "mtime": 1600393952305.0815
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952306.0793
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/options.ts",
-              "ext": ".ts",
-              "mtime": 1600393952306.0793
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/router/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952307.077
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/router/router.ts",
-              "ext": ".ts",
-              "mtime": 1600393952307.077
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/theme-core/codes-dictionary-model.ts",
-              "ext": ".ts",
-              "mtime": 1600393952313.06
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/theme-core/codes-model.ts",
-              "ext": ".ts",
-              "mtime": 1600393952314.058
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/theme-core/codes-with-settings-output-model.ts",
-              "ext": ".ts",
-              "mtime": 1600393952314.058
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/theme-core/CodeSetting/create-codes-dto-model.ts",
-              "ext": ".ts",
-              "mtime": 1600393952308.0737
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/theme-core/CodeSetting/edit-codes-dto-model.ts",
-              "ext": ".ts",
-              "mtime": 1600393952309.0715
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/theme-core/CodeSetting/patch-codes-input-model.ts",
-              "ext": ".ts",
-              "mtime": 1600393952310.0688
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/create-definitions-dto-model.ts",
-              "ext": ".ts",
-              "mtime": 1600393952310.0688
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/create-definitions-input-model.ts",
-              "ext": ".ts",
-              "mtime": 1600393952311.066
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/edit-definitions-dto-model.ts",
-              "ext": ".ts",
-              "mtime": 1600393952312.0632
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/patch-definitions-input-model.ts",
-              "ext": ".ts",
-              "mtime": 1600393952312.0632
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/theme-core/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952315.0554
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/theme-core/setting-value-model.ts",
-              "ext": ".ts",
-              "mtime": 1600393952316.052
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/models/theme-core/theme-core.models.ts",
-              "ext": ".ts",
-              "mtime": 1600393952316.052
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/module-import-guard.ts",
-              "ext": ".ts",
-              "mtime": 1600393952317.0498
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/pipe/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952318.047
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/pipe/mapper.pipe.ts",
-              "ext": ".ts",
-              "mtime": 1600393952318.047
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/providers/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952319.0442
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/providers/initial-theme-core.provider.ts",
-              "ext": ".ts",
-              "mtime": 1600393952319.0442
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/providers/initial.provider.ts",
-              "ext": ".ts",
-              "mtime": 1600393952320.0415
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/CodeSettingApp.service.ts",
-              "ext": ".ts",
-              "mtime": 1600393952321.0388
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/create-codes.ts",
-              "ext": ".ts",
-              "mtime": 1600393952324.0308
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/create-codes-dto.ts",
-              "ext": ".ts",
-              "mtime": 1600393952322.036
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/create-codes-with-childten-dto.ts",
-              "ext": ".ts",
-              "mtime": 1600393952322.036
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/edit-codes-dto.ts",
-              "ext": ".ts",
-              "mtime": 1600393952323.0334
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952324.0308
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952325.0283
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/list-by.ts",
-              "ext": ".ts",
-              "mtime": 1600393952325.0283
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/patch-codes.ts",
-              "ext": ".ts",
-              "mtime": 1600393952326.0254
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Coding/.gitkeep",
-              "ext": "",
-              "mtime": 1600393952326.0254
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Coding/codes-with-settings.ts",
-              "ext": ".ts",
-              "mtime": 1600393952329.0176
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Coding/Dtos/codes-dto.ts",
-              "ext": ".ts",
-              "mtime": 1600393952327.025
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Coding/Dtos/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952328.0205
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Coding/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952329.0176
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/DefinitionSetting/create-definitions.ts",
-              "ext": ".ts",
-              "mtime": 1600393952333.007
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/DefinitionSetting/DefinitionSettingApp.service.ts",
-              "ext": ".ts",
-              "mtime": 1600393952330.015
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/DefinitionSetting/Dtos/create-definitions-dto.ts",
-              "ext": ".ts",
-              "mtime": 1600393952331.0122
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/DefinitionSetting/Dtos/edit-definitions-dto.ts",
-              "ext": ".ts",
-              "mtime": 1600393952332.01
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/DefinitionSetting/Dtos/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952332.01
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/DefinitionSetting/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952334.0042
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/DefinitionSetting/patch-definitions.ts",
-              "ext": ".ts",
-              "mtime": 1600393952335.0012
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Files/Dtos/file-put-input.ts",
-              "ext": ".ts",
-              "mtime": 1600393952335.9993
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Files/Dtos/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952335.9993
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Files/FileApp.service.ts",
-              "ext": ".ts",
-              "mtime": 1600393952336.9966
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Files/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952337.9934
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952342.9812
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/routes.service.ts",
-              "ext": ".ts",
-              "mtime": 1600393952343.9773
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Setting/Dtos/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952337.9934
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Setting/Dtos/setting-definition-dto.ts",
-              "ext": ".ts",
-              "mtime": 1600393952338.9905
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Setting/Dtos/setting-name-and-key-dto.ts",
-              "ext": ".ts",
-              "mtime": 1600393952339.989
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Setting/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952340.986
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Setting/setting.ts",
-              "ext": ".ts",
-              "mtime": 1600393952341.9834
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Setting/SettingApp.service.ts",
-              "ext": ".ts",
-              "mtime": 1600393952339.989
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/Setting/update-settings.ts",
-              "ext": ".ts",
-              "mtime": 1600393952341.9834
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/theme-core-state.service.ts",
-              "ext": ".ts",
-              "mtime": 1600393952343.9773
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/services/theme-core.service.ts",
-              "ext": ".ts",
-              "mtime": 1600393952344.9753
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/states/.gitkeep",
-              "ext": "",
-              "mtime": 1600393952344.9753
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/states/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952345.9722
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/states/router.state.ts",
-              "ext": ".ts",
-              "mtime": 1600393952345.9722
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/states/theme-core.state.ts",
-              "ext": ".ts",
-              "mtime": 1600393952346.9695
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/test-setup.ts",
-              "ext": ".ts",
-              "mtime": 1600393952347.9673
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/theme-core.module.ts",
-              "ext": ".ts",
-              "mtime": 1600393952347.9673
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/tokens/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952348.9646
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/tokens/options.token.ts",
-              "ext": ".ts",
-              "mtime": 1600393952349.961
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/utils/factory-utils.ts",
-              "ext": ".ts",
-              "mtime": 1600393952349.961
-            },
-            {
-              "file": "themes/tmpl/theme-core/src/lib/utils/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952350.959
-            },
-            {
-              "file": "themes/tmpl/theme-core/tsconfig.json",
-              "ext": ".json",
-              "mtime": 1600478713899.284
-            }
-          ]
-        }
-      },
       "tmpl.ng-alain-app": {
         "name": "tmpl.ng-alain-app",
         "type": "app",
@@ -2146,7 +1666,7 @@
             {
               "file": "apps/tmpl/ng-alain-app/src/app/app.module.ts",
               "ext": ".ts",
-              "mtime": 1600472733830.0737
+              "mtime": 1600486271664.4507
             },
             {
               "file": "apps/tmpl/ng-alain-app/src/app/home/home-routing.module.ts",
@@ -4268,20 +3788,20 @@
           ]
         }
       },
-      "fs.theme-ng-alain": {
-        "name": "fs.theme-ng-alain",
+      "fs.theme-core": {
+        "name": "fs.theme-core",
         "type": "lib",
         "data": {
           "projectType": "library",
-          "root": "themes/tmpl/ng-alain",
-          "sourceRoot": "themes/tmpl/ng-alain/src",
+          "root": "libs/tmpl/theme-core",
+          "sourceRoot": "libs/tmpl/theme-core/src",
           "prefix": "fs",
           "architect": {
             "build": {
               "builder": "@angular-devkit/build-ng-packagr:build",
               "options": {
                 "tsConfig": "tsconfig.lib.json",
-                "project": "themes/tmpl/ng-alain/ng-package.json"
+                "project": "libs/tmpl/theme-core/ng-package.json"
               },
               "configurations": {
                 "production": {
@@ -4293,21 +3813,22 @@
               "builder": "@angular-devkit/build-angular:tslint",
               "options": {
                 "tsConfig": [
-                  "themes/tmpl/ng-alain/tsconfig.lib.json",
-                  "themes/tmpl/ng-alain/tsconfig.spec.json"
+                  "libs/tmpl/theme-core/tsconfig.lib.json",
+                  "libs/tmpl/theme-core/tsconfig.spec.json"
                 ],
                 "exclude": [
                   "**/node_modules/**",
-                  "!themes/tmpl/ng-alain/**"
+                  "!libs/tmpl/theme-core/**/*"
                 ]
               }
             },
             "test": {
               "builder": "@nrwl/jest:jest",
               "options": {
-                "jestConfig": "themes/tmpl/ng-alain/jest.config.js",
-                "tsConfig": "themes/tmpl/ng-alain/tsconfig.spec.json",
-                "setupFile": "themes/tmpl/ng-alain/src/test-setup.ts"
+                "jestConfig": "libs/tmpl/theme-core/jest.config.js",
+                "tsConfig": "libs/tmpl/theme-core/tsconfig.spec.json",
+                "passWithNoTests": true,
+                "setupFile": "libs/tmpl/theme-core/src/test-setup.ts"
               }
             }
           },
@@ -4315,559 +3836,434 @@
           "tags": [],
           "files": [
             {
-              "file": "themes/tmpl/ng-alain/.gitignore",
+              "file": "libs/tmpl/theme-core/ng-package.json",
+              "ext": ".json",
+              "mtime": 1600486578792.3904
+            },
+            {
+              "file": "libs/tmpl/theme-core/package.json",
+              "ext": ".json",
+              "mtime": 1600393952297.1028
+            },
+            {
+              "file": "libs/tmpl/theme-core/README.md",
+              "ext": ".md",
+              "mtime": 1600393952295.1086
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952298.1018
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/actions/.gitkeep",
               "ext": "",
-              "mtime": 1600393952231.2793
+              "mtime": 1600393952299.0977
             },
             {
-              "file": "themes/tmpl/ng-alain/basic/index.ts",
+              "file": "libs/tmpl/theme-core/src/lib/actions/index.ts",
               "ext": ".ts",
-              "mtime": 1600393952232.276
+              "mtime": 1600393952299.0977
             },
             {
-              "file": "themes/tmpl/ng-alain/basic/package.json",
+              "file": "libs/tmpl/theme-core/src/lib/actions/router.actions.ts",
+              "ext": ".ts",
+              "mtime": 1600393952300.0952
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/actions/theme-core.actions.ts",
+              "ext": ".ts",
+              "mtime": 1600393952300.0952
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/components/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952301.0923
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/components/page-bar.component.html",
+              "ext": ".html",
+              "mtime": 1600393952302.09
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/components/page-bar.component.ts",
+              "ext": ".ts",
+              "mtime": 1600393952302.09
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/enums/components.ts",
+              "ext": ".ts",
+              "mtime": 1600393952303.0872
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/enums/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952303.0872
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952304.0847
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/common.ts",
+              "ext": ".ts",
+              "mtime": 1600393952305.0815
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/config.ts",
+              "ext": ".ts",
+              "mtime": 1600393952305.0815
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952306.0793
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/options.ts",
+              "ext": ".ts",
+              "mtime": 1600393952306.0793
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/router/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952307.077
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/router/router.ts",
+              "ext": ".ts",
+              "mtime": 1600393952307.077
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/theme-core/codes-dictionary-model.ts",
+              "ext": ".ts",
+              "mtime": 1600393952313.06
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/theme-core/codes-model.ts",
+              "ext": ".ts",
+              "mtime": 1600393952314.058
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/theme-core/codes-with-settings-output-model.ts",
+              "ext": ".ts",
+              "mtime": 1600393952314.058
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/theme-core/CodeSetting/create-codes-dto-model.ts",
+              "ext": ".ts",
+              "mtime": 1600393952308.0737
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/theme-core/CodeSetting/edit-codes-dto-model.ts",
+              "ext": ".ts",
+              "mtime": 1600393952309.0715
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/theme-core/CodeSetting/patch-codes-input-model.ts",
+              "ext": ".ts",
+              "mtime": 1600393952310.0688
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/create-definitions-dto-model.ts",
+              "ext": ".ts",
+              "mtime": 1600393952310.0688
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/create-definitions-input-model.ts",
+              "ext": ".ts",
+              "mtime": 1600393952311.066
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/edit-definitions-dto-model.ts",
+              "ext": ".ts",
+              "mtime": 1600393952312.0632
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/patch-definitions-input-model.ts",
+              "ext": ".ts",
+              "mtime": 1600393952312.0632
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/theme-core/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952315.0554
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/theme-core/setting-value-model.ts",
+              "ext": ".ts",
+              "mtime": 1600393952316.052
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/models/theme-core/theme-core.models.ts",
+              "ext": ".ts",
+              "mtime": 1600393952316.052
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/module-import-guard.ts",
+              "ext": ".ts",
+              "mtime": 1600393952317.0498
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/pipe/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952318.047
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/pipe/mapper.pipe.ts",
+              "ext": ".ts",
+              "mtime": 1600393952318.047
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/providers/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952319.0442
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/providers/initial-theme-core.provider.ts",
+              "ext": ".ts",
+              "mtime": 1600393952319.0442
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/providers/initial.provider.ts",
+              "ext": ".ts",
+              "mtime": 1600393952320.0415
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/CodeSettingApp.service.ts",
+              "ext": ".ts",
+              "mtime": 1600393952321.0388
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/create-codes.ts",
+              "ext": ".ts",
+              "mtime": 1600393952324.0308
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/create-codes-dto.ts",
+              "ext": ".ts",
+              "mtime": 1600393952322.036
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/create-codes-with-childten-dto.ts",
+              "ext": ".ts",
+              "mtime": 1600393952322.036
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/edit-codes-dto.ts",
+              "ext": ".ts",
+              "mtime": 1600393952323.0334
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952324.0308
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952325.0283
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/list-by.ts",
+              "ext": ".ts",
+              "mtime": 1600393952325.0283
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/patch-codes.ts",
+              "ext": ".ts",
+              "mtime": 1600393952326.0254
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Coding/.gitkeep",
+              "ext": "",
+              "mtime": 1600393952326.0254
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Coding/codes-with-settings.ts",
+              "ext": ".ts",
+              "mtime": 1600393952329.0176
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Coding/Dtos/codes-dto.ts",
+              "ext": ".ts",
+              "mtime": 1600393952327.025
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Coding/Dtos/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952328.0205
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Coding/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952329.0176
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/DefinitionSetting/create-definitions.ts",
+              "ext": ".ts",
+              "mtime": 1600393952333.007
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/DefinitionSetting/DefinitionSettingApp.service.ts",
+              "ext": ".ts",
+              "mtime": 1600393952330.015
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/DefinitionSetting/Dtos/create-definitions-dto.ts",
+              "ext": ".ts",
+              "mtime": 1600393952331.0122
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/DefinitionSetting/Dtos/edit-definitions-dto.ts",
+              "ext": ".ts",
+              "mtime": 1600393952332.01
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/DefinitionSetting/Dtos/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952332.01
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/DefinitionSetting/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952334.0042
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/DefinitionSetting/patch-definitions.ts",
+              "ext": ".ts",
+              "mtime": 1600393952335.0012
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Files/Dtos/file-put-input.ts",
+              "ext": ".ts",
+              "mtime": 1600393952335.9993
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Files/Dtos/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952335.9993
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Files/FileApp.service.ts",
+              "ext": ".ts",
+              "mtime": 1600393952336.9966
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Files/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952337.9934
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952342.9812
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/routes.service.ts",
+              "ext": ".ts",
+              "mtime": 1600393952343.9773
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Setting/Dtos/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952337.9934
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Setting/Dtos/setting-definition-dto.ts",
+              "ext": ".ts",
+              "mtime": 1600393952338.9905
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Setting/Dtos/setting-name-and-key-dto.ts",
+              "ext": ".ts",
+              "mtime": 1600393952339.989
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Setting/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952340.986
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Setting/setting.ts",
+              "ext": ".ts",
+              "mtime": 1600393952341.9834
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Setting/SettingApp.service.ts",
+              "ext": ".ts",
+              "mtime": 1600393952339.989
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/Setting/update-settings.ts",
+              "ext": ".ts",
+              "mtime": 1600393952341.9834
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/theme-core-state.service.ts",
+              "ext": ".ts",
+              "mtime": 1600393952343.9773
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/services/theme-core.service.ts",
+              "ext": ".ts",
+              "mtime": 1600393952344.9753
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/states/.gitkeep",
+              "ext": "",
+              "mtime": 1600393952344.9753
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/states/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952345.9722
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/states/router.state.ts",
+              "ext": ".ts",
+              "mtime": 1600393952345.9722
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/states/theme-core.state.ts",
+              "ext": ".ts",
+              "mtime": 1600393952346.9695
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/test-setup.ts",
+              "ext": ".ts",
+              "mtime": 1600393952347.9673
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/theme-core.module.ts",
+              "ext": ".ts",
+              "mtime": 1600393952347.9673
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/tokens/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952348.9646
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/tokens/options.token.ts",
+              "ext": ".ts",
+              "mtime": 1600393952349.961
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/utils/factory-utils.ts",
+              "ext": ".ts",
+              "mtime": 1600393952349.961
+            },
+            {
+              "file": "libs/tmpl/theme-core/src/lib/utils/index.ts",
+              "ext": ".ts",
+              "mtime": 1600393952350.959
+            },
+            {
+              "file": "libs/tmpl/theme-core/tsconfig.json",
               "ext": ".json",
-              "mtime": 1595126331620.6562
-            },
-            {
-              "file": "themes/tmpl/ng-alain/basic/README.md",
-              "ext": ".md",
-              "mtime": 1595126331619.6584
-            },
-            {
-              "file": "themes/tmpl/ng-alain/basic/src/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952233.2734
-            },
-            {
-              "file": "themes/tmpl/ng-alain/basic/src/lib/components/fs-ng-alain-tree/fs-ng-alain-tree.component.html",
-              "ext": ".html",
-              "mtime": 1600393952234.271
-            },
-            {
-              "file": "themes/tmpl/ng-alain/basic/src/lib/components/fs-ng-alain-tree/fs-ng-alain-tree.component.less",
-              "ext": ".less",
-              "mtime": 1600393952234.271
-            },
-            {
-              "file": "themes/tmpl/ng-alain/basic/src/lib/components/fs-ng-alain-tree/fs-ng-alain-tree.component.spec.ts",
-              "ext": ".ts",
-              "mtime": 1600393952235.2683
-            },
-            {
-              "file": "themes/tmpl/ng-alain/basic/src/lib/components/fs-ng-alain-tree/fs-ng-alain-tree.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952236.2656
-            },
-            {
-              "file": "themes/tmpl/ng-alain/basic/src/lib/components/fs-ng-alain-tree/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952236.2656
-            },
-            {
-              "file": "themes/tmpl/ng-alain/basic/src/lib/components/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952237.2646
-            },
-            {
-              "file": "themes/tmpl/ng-alain/basic/src/lib/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952237.2646
-            },
-            {
-              "file": "themes/tmpl/ng-alain/basic/src/lib/ng-alain-basic.module.ts",
-              "ext": ".ts",
-              "mtime": 1600479558931.5906
-            },
-            {
-              "file": "themes/tmpl/ng-alain/basic/src/lib/providers/styles.provider.ts",
-              "ext": ".ts",
-              "mtime": 1600479558934.5823
-            },
-            {
-              "file": "themes/tmpl/ng-alain/basic/src/test-setup.ts",
-              "ext": ".ts",
-              "mtime": 1595126331621.6284
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/package.json",
-              "ext": ".json",
-              "mtime": 1600393952240.255
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952240.255
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/core.module.ts",
-              "ext": ".ts",
-              "mtime": 1600393952241.252
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/i18n/i18n.service.spec.ts",
-              "ext": ".ts",
-              "mtime": 1600393952242.2495
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/i18n/i18n.service.ts",
-              "ext": ".ts",
-              "mtime": 1600393952243.2466
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/i18n/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952243.2466
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952244.244
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/module-import-guard.ts",
-              "ext": ".ts",
-              "mtime": 1600393952244.244
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/net/default.interceptor.ts",
-              "ext": ".ts",
-              "mtime": 1600393952245.2412
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/net/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952246.2385
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/README.md",
-              "ext": ".md",
-              "mtime": 1600393952241.252
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/services/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952247.2358
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/services/messages/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952248.2334
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/services/messages/messages.service.ts",
-              "ext": ".ts",
-              "mtime": 1600393952248.2334
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/services/notify/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952249.231
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/services/notify/notify.service.ts",
-              "ext": ".ts",
-              "mtime": 1600393952250.228
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/startup/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952250.228
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/startup/startup.service.ts",
-              "ext": ".ts",
-              "mtime": 1600393952251.2253
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/style-icons-auto.ts",
-              "ext": ".ts",
-              "mtime": 1600393952251.2253
-            },
-            {
-              "file": "themes/tmpl/ng-alain/core/src/lib/style-icons.ts",
-              "ext": ".ts",
-              "mtime": 1600393952252.2224
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952253.22
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/package.json",
-              "ext": ".json",
-              "mtime": 1600393952253.22
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952254.2173
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/default.component.html",
-              "ext": ".html",
-              "mtime": 1600393952255.2146
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/default.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952255.2146
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/fullscreen.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952256.212
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/i18n.component.ts",
-              "ext": ".ts",
-              "mtime": 1600479558936.5764
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/icon.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952257.2092
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/notify.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952257.2092
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/search.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952258.2065
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/storage.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952258.2065
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/task.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952259.2039
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/user.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952259.2039
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/header.component.html",
-              "ext": ".html",
-              "mtime": 1600393952259.2039
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/header.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952260.2014
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/index.md",
-              "ext": ".md",
-              "mtime": 1600393952260.2014
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952261.1985
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952261.1985
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/setting-drawer/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952262.1958
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/setting-drawer/setting-drawer-item.component.html",
-              "ext": ".html",
-              "mtime": 1600393952262.1958
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/setting-drawer/setting-drawer-item.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952263.193
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/setting-drawer/setting-drawer.component.html",
-              "ext": ".html",
-              "mtime": 1600393952264.191
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/setting-drawer/setting-drawer.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952265.1885
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/sidebar/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952266.1855
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/sidebar/sidebar.component.html",
-              "ext": ".html",
-              "mtime": 1600393952267.1826
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/sidebar/sidebar.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952267.1826
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/theme-btn/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952268.18
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/theme-btn/theme-btn.component.html",
-              "ext": ".html",
-              "mtime": 1600393952269.1772
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/theme-btn/theme-btn.component.less",
-              "ext": ".less",
-              "mtime": 1600393952269.1772
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/default/theme-btn/theme-btn.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952270.1746
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/fullscreen/fullscreen.component.html",
-              "ext": ".html",
-              "mtime": 1600393952270.1746
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/fullscreen/fullscreen.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952271.1719
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/fullscreen/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952271.1719
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952272.1694
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/layout.module.ts",
-              "ext": ".ts",
-              "mtime": 1600479558930.5935
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/page-bar/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952273.1665
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/page-bar/page-bar.component.html",
-              "ext": ".html",
-              "mtime": 1600393952274.1638
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/page-bar/page-bar.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952274.1638
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/passport/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952275.1624
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/passport/passport.component.html",
-              "ext": ".html",
-              "mtime": 1600393952276.1587
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/passport/passport.component.less",
-              "ext": ".less",
-              "mtime": 1600393952276.1587
-            },
-            {
-              "file": "themes/tmpl/ng-alain/layout/src/lib/passport/passport.component.ts",
-              "ext": ".ts",
-              "mtime": 1600393952277.156
-            },
-            {
-              "file": "themes/tmpl/ng-alain/ng-package.json",
-              "ext": ".json",
-              "mtime": 1600477360893.4485
-            },
-            {
-              "file": "themes/tmpl/ng-alain/package.json",
-              "ext": ".json",
-              "mtime": 1600393952278.1533
-            },
-            {
-              "file": "themes/tmpl/ng-alain/README.md",
-              "ext": ".md",
-              "mtime": 1595126331619.6584
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/package.json",
-              "ext": ".json",
-              "mtime": 1595126331633.0515
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/README.md",
-              "ext": ".md",
-              "mtime": 1595126331633.0515
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/src/index.ts",
-              "ext": ".ts",
-              "mtime": 1595126331633.0515
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/src/lib/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952279.151
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/src/lib/json-schema/index.md",
-              "ext": ".md",
-              "mtime": 1600393952280.148
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/src/lib/json-schema/json-schema.module.ts",
-              "ext": ".ts",
-              "mtime": 1600393952280.148
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/src/lib/ng-alain-shared.module.ts",
-              "ext": ".ts",
-              "mtime": 1600393952282.1426
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/src/lib/README.md",
-              "ext": ".md",
-              "mtime": 1600393952278.1533
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/src/lib/shared-delon.module.ts",
-              "ext": ".ts",
-              "mtime": 1600393952283.14
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/src/lib/shared-zorro.module.ts",
-              "ext": ".ts",
-              "mtime": 1600393952284.1375
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/src/lib/shared.module.ts",
-              "ext": ".ts",
-              "mtime": 1600393952285.1355
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/src/lib/st-widget/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952286.1328
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/src/lib/st-widget/st-widget.module.ts",
-              "ext": ".ts",
-              "mtime": 1600393952286.1328
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/src/lib/utils/yuan.ts",
-              "ext": ".ts",
-              "mtime": 1600393952287.1294
-            },
-            {
-              "file": "themes/tmpl/ng-alain/shared/src/test-setup.ts",
-              "ext": ".ts",
-              "mtime": 1595126331635.0466
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952291.1194
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/lib/global-config.module.ts",
-              "ext": ".ts",
-              "mtime": 1600479558928.5996
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/lib/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393952292.1162
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/lib/module-import-guard.ts",
-              "ext": ".ts",
-              "mtime": 1600393952292.1162
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/lib/ng-alain.module.ts",
-              "ext": ".ts",
-              "mtime": 1600479558921.618
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/test-setup.ts",
-              "ext": ".ts",
-              "mtime": 1595126331637.8684
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/_mock/index.ts",
-              "ext": ".ts",
-              "mtime": 1600393937181.0532
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/_mock/README.md",
-              "ext": ".md",
-              "mtime": 1600393937174.072
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/_mock/_api.ts",
-              "ext": ".ts",
-              "mtime": 1600393937176.0667
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/_mock/_chart.ts",
-              "ext": ".ts",
-              "mtime": 1600393952288.1277
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/_mock/_geo.ts",
-              "ext": ".ts",
-              "mtime": 1600393937177.0637
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/_mock/_pois.ts",
-              "ext": ".ts",
-              "mtime": 1600393937178.0618
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/_mock/_profile.ts",
-              "ext": ".ts",
-              "mtime": 1600393937179.0583
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/_mock/_rule.ts",
-              "ext": ".ts",
-              "mtime": 1600393952289.1248
-            },
-            {
-              "file": "themes/tmpl/ng-alain/src/_mock/_user.ts",
-              "ext": ".ts",
-              "mtime": 1600393952290.1228
-            },
-            {
-              "file": "themes/tmpl/ng-alain/tsconfig.json",
-              "ext": ".json",
-              "mtime": 1600478780779.4192
+              "mtime": 1600478713899.284
             }
           ]
         }
@@ -5458,6 +4854,54 @@
           ]
         }
       },
+      "fs.theme-ng-alain": {
+        "name": "fs.theme-ng-alain",
+        "type": "lib",
+        "data": {
+          "projectType": "library",
+          "root": "libs/tmpl/ng-alain",
+          "sourceRoot": "libs/tmpl/theme-ng-alain/src",
+          "prefix": "fs",
+          "architect": {
+            "build": {
+              "builder": "@angular-devkit/build-ng-packagr:build",
+              "options": {
+                "tsConfig": "tsconfig.lib.json",
+                "project": "libs/tmpl/theme-ng-alain/ng-package.json"
+              },
+              "configurations": {
+                "production": {
+                  "tsConfig": "tsconfig.lib.prod.json"
+                }
+              }
+            },
+            "lint": {
+              "builder": "@angular-devkit/build-angular:tslint",
+              "options": {
+                "tsConfig": [
+                  "libs/tmpl/theme-ng-alain/tsconfig.lib.json",
+                  "libs/tmpl/theme-ng-alain/tsconfig.spec.json"
+                ],
+                "exclude": [
+                  "**/node_modules/**",
+                  "!libs/tmpl/theme-ng-alain/**"
+                ]
+              }
+            },
+            "test": {
+              "builder": "@nrwl/jest:jest",
+              "options": {
+                "jestConfig": "libs/tmpl/theme-ng-alain/jest.config.js",
+                "tsConfig": "libs/tmpl/theme-ng-alain/tsconfig.spec.json",
+                "setupFile": "libs/tmpl/theme-ng-alain/src/test-setup.ts"
+              }
+            }
+          },
+          "schematics": {},
+          "tags": [],
+          "files": []
+        }
+      },
       "fs.packages": {
         "name": "fs.packages",
         "type": "lib",
@@ -5565,7 +5009,7 @@
             {
               "file": "libs/tmpl/packages/ng-package.json",
               "ext": ".json",
-              "mtime": 1600477411932.7866
+              "mtime": 1600486735494.3489
             },
             {
               "file": "libs/tmpl/packages/package.json",
@@ -5765,7 +5209,7 @@
             {
               "file": "libs/tmpl/identity/ng-package.json",
               "ext": ".json",
-              "mtime": 1600477401687.9128
+              "mtime": 1600486729952.6277
             },
             {
               "file": "libs/tmpl/identity/package.json",
@@ -6246,7 +5690,7 @@
             {
               "file": "libs/tmpl/account/ng-package.json",
               "ext": ".json",
-              "mtime": 1600477384038.8389
+              "mtime": 1600486700300.3293
             },
             {
               "file": "libs/tmpl/account/package.json",
@@ -6838,56 +6282,6 @@
               "mtime": 1600322428137.4468
             }
           ]
-        }
-      },
-      "fs.dev": {
-        "name": "fs.dev",
-        "type": "lib",
-        "data": {
-          "projectType": "library",
-          "root": "themes/tmpl/dev",
-          "sourceRoot": "themes/tmpl/dev/src",
-          "prefix": "fs",
-          "architect": {
-            "build": {
-              "builder": "@angular-devkit/build-ng-packagr:build",
-              "options": {
-                "outputPath": "dist/apps/dev-app",
-                "tsConfig": "tsconfig.lib.json",
-                "project": "themes/tmpl/dev/ng-package.json"
-              },
-              "configurations": {
-                "production": {
-                  "tsConfig": "tsconfig.lib.prod.json"
-                }
-              }
-            },
-            "lint": {
-              "builder": "@angular-devkit/build-angular:tslint",
-              "options": {
-                "tsConfig": [
-                  "themes/tmpl/dev/tsconfig.lib.json",
-                  "themes/tmpl/dev/tsconfig.spec.json"
-                ],
-                "exclude": [
-                  "**/node_modules/**",
-                  "!themes/tmpl/dev/**/*"
-                ]
-              }
-            },
-            "test": {
-              "builder": "@nrwl/jest:jest",
-              "options": {
-                "jestConfig": "themes/tmpl/dev/jest.config.js",
-                "tsConfig": "themes/tmpl/dev/tsconfig.spec.json",
-                "passWithNoTests": true,
-                "setupFile": "themes/tmpl/dev/src/test-setup.ts"
-              }
-            }
-          },
-          "schematics": {},
-          "tags": [],
-          "files": []
         }
       },
       "abp.core": {
@@ -8262,11 +7656,6 @@
         {
           "type": "static",
           "source": "fs.permission-management",
-          "target": "fs.theme-ng-alain"
-        },
-        {
-          "type": "static",
-          "source": "fs.permission-management",
           "target": "abp.core"
         },
         {
@@ -8326,11 +7715,6 @@
         {
           "type": "static",
           "source": "fs.feature-management",
-          "target": "fs.theme-ng-alain"
-        },
-        {
-          "type": "static",
-          "source": "fs.feature-management",
           "target": "npm:@angular/core"
         },
         {
@@ -8354,11 +7738,6 @@
           "type": "static",
           "source": "fs.setting-management",
           "target": "abp.core"
-        },
-        {
-          "type": "static",
-          "source": "fs.setting-management",
-          "target": "fs.theme-ng-alain"
         },
         {
           "type": "static",
@@ -8469,11 +7848,6 @@
         {
           "type": "static",
           "source": "fs.tenant-management",
-          "target": "fs.theme-ng-alain"
-        },
-        {
-          "type": "static",
-          "source": "fs.tenant-management",
           "target": "fs.feature-management"
         },
         {
@@ -8534,33 +7908,6 @@
           "target": "npm:@angular/router"
         }
       ],
-      "fs.theme-core": [
-        {
-          "type": "static",
-          "source": "fs.theme-core",
-          "target": "abp.core"
-        },
-        {
-          "type": "static",
-          "source": "fs.theme-core",
-          "target": "npm:@angular/core"
-        },
-        {
-          "type": "static",
-          "source": "fs.theme-core",
-          "target": "npm:rxjs"
-        },
-        {
-          "type": "static",
-          "source": "fs.theme-core",
-          "target": "npm:@angular/router"
-        },
-        {
-          "type": "static",
-          "source": "fs.theme-core",
-          "target": "npm:jest-preset-angular"
-        }
-      ],
       "tmpl.ng-alain-app": [
         {
           "type": "static",
@@ -8596,11 +7943,6 @@
           "type": "static",
           "source": "tmpl.ng-alain-app",
           "target": "abp.setting-management"
-        },
-        {
-          "type": "static",
-          "source": "tmpl.ng-alain-app",
-          "target": "fs.theme-ng-alain"
         },
         {
           "type": "static",
@@ -8722,56 +8064,31 @@
           "target": "npm:@angular/router"
         }
       ],
-      "fs.theme-ng-alain": [
+      "fs.theme-core": [
         {
           "type": "static",
-          "source": "fs.theme-ng-alain",
-          "target": "fs.theme-core"
-        },
-        {
-          "type": "static",
-          "source": "fs.theme-ng-alain",
+          "source": "fs.theme-core",
           "target": "abp.core"
         },
         {
           "type": "static",
-          "source": "fs.theme-ng-alain",
-          "target": "abp.theme-basic"
-        },
-        {
-          "type": "static",
-          "source": "fs.theme-ng-alain",
-          "target": "abp.theme-shared"
-        },
-        {
-          "type": "static",
-          "source": "fs.theme-ng-alain",
+          "source": "fs.theme-core",
           "target": "npm:@angular/core"
         },
         {
           "type": "static",
-          "source": "fs.theme-ng-alain",
-          "target": "npm:jest-preset-angular"
-        },
-        {
-          "type": "static",
-          "source": "fs.theme-ng-alain",
+          "source": "fs.theme-core",
           "target": "npm:rxjs"
         },
         {
           "type": "static",
-          "source": "fs.theme-ng-alain",
-          "target": "npm:@angular/common"
-        },
-        {
-          "type": "static",
-          "source": "fs.theme-ng-alain",
+          "source": "fs.theme-core",
           "target": "npm:@angular/router"
         },
         {
           "type": "static",
-          "source": "fs.theme-ng-alain",
-          "target": "npm:@angular/forms"
+          "source": "fs.theme-core",
+          "target": "npm:jest-preset-angular"
         }
       ],
       "abp.components": [
@@ -8798,6 +8115,7 @@
           "target": "npm:typescript"
         }
       ],
+      "fs.theme-ng-alain": [],
       "fs.packages": [
         {
           "type": "static",
@@ -8830,11 +8148,6 @@
           "type": "static",
           "source": "fs.identity",
           "target": "abp.core"
-        },
-        {
-          "type": "static",
-          "source": "fs.identity",
-          "target": "fs.theme-ng-alain"
         },
         {
           "type": "static",
@@ -8909,11 +8222,6 @@
           "type": "static",
           "source": "fs.account",
           "target": "abp.core"
-        },
-        {
-          "type": "static",
-          "source": "fs.account",
-          "target": "fs.theme-ng-alain"
         },
         {
           "type": "static",
@@ -9060,7 +8368,6 @@
           "target": "npm:@angular/animations"
         }
       ],
-      "fs.dev": [],
       "abp.core": [
         {
           "type": "static",
@@ -9175,7 +8482,7 @@
       {
         "file": "libs/tmpl/permission-management/ng-package.json",
         "ext": ".json",
-        "mtime": 1600477421293.3508
+        "mtime": 1600486740998.5735
       },
       {
         "file": "libs/tmpl/permission-management/package.json",
@@ -9374,7 +8681,7 @@
       {
         "file": "libs/tmpl/feature-management/ng-package.json",
         "ext": ".json",
-        "mtime": 1600477393559.7324
+        "mtime": 1600486724817.692
       },
       {
         "file": "libs/tmpl/feature-management/package.json",
@@ -9711,7 +9018,7 @@
       {
         "file": "libs/tmpl/setting-management/ng-package.json",
         "ext": ".json",
-        "mtime": 1600477432578.6199
+        "mtime": 1600486745891.6855
       },
       {
         "file": "libs/tmpl/setting-management/package.json",
@@ -10097,7 +9404,7 @@
       {
         "file": "libs/tmpl/tenant-management/ng-package.json",
         "ext": ".json",
-        "mtime": 1600477439617.867
+        "mtime": 1600486750494.5952
       },
       {
         "file": "libs/tmpl/tenant-management/package.json",
@@ -10307,438 +9614,6 @@
         "mtime": 1600322428398.7488
       }
     ],
-    "fs.theme-core": [
-      {
-        "file": "themes/tmpl/theme-core/ng-package.json",
-        "ext": ".json",
-        "mtime": 1600477371765.239
-      },
-      {
-        "file": "themes/tmpl/theme-core/package.json",
-        "ext": ".json",
-        "mtime": 1600393952297.1028
-      },
-      {
-        "file": "themes/tmpl/theme-core/README.md",
-        "ext": ".md",
-        "mtime": 1600393952295.1086
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952298.1018
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/actions/.gitkeep",
-        "ext": "",
-        "mtime": 1600393952299.0977
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/actions/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952299.0977
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/actions/router.actions.ts",
-        "ext": ".ts",
-        "mtime": 1600393952300.0952
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/actions/theme-core.actions.ts",
-        "ext": ".ts",
-        "mtime": 1600393952300.0952
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/components/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952301.0923
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/components/page-bar.component.html",
-        "ext": ".html",
-        "mtime": 1600393952302.09
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/components/page-bar.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952302.09
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/enums/components.ts",
-        "ext": ".ts",
-        "mtime": 1600393952303.0872
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/enums/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952303.0872
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952304.0847
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/common.ts",
-        "ext": ".ts",
-        "mtime": 1600393952305.0815
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/config.ts",
-        "ext": ".ts",
-        "mtime": 1600393952305.0815
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952306.0793
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/options.ts",
-        "ext": ".ts",
-        "mtime": 1600393952306.0793
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/router/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952307.077
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/router/router.ts",
-        "ext": ".ts",
-        "mtime": 1600393952307.077
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/theme-core/codes-dictionary-model.ts",
-        "ext": ".ts",
-        "mtime": 1600393952313.06
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/theme-core/codes-model.ts",
-        "ext": ".ts",
-        "mtime": 1600393952314.058
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/theme-core/codes-with-settings-output-model.ts",
-        "ext": ".ts",
-        "mtime": 1600393952314.058
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/theme-core/CodeSetting/create-codes-dto-model.ts",
-        "ext": ".ts",
-        "mtime": 1600393952308.0737
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/theme-core/CodeSetting/edit-codes-dto-model.ts",
-        "ext": ".ts",
-        "mtime": 1600393952309.0715
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/theme-core/CodeSetting/patch-codes-input-model.ts",
-        "ext": ".ts",
-        "mtime": 1600393952310.0688
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/create-definitions-dto-model.ts",
-        "ext": ".ts",
-        "mtime": 1600393952310.0688
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/create-definitions-input-model.ts",
-        "ext": ".ts",
-        "mtime": 1600393952311.066
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/edit-definitions-dto-model.ts",
-        "ext": ".ts",
-        "mtime": 1600393952312.0632
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/patch-definitions-input-model.ts",
-        "ext": ".ts",
-        "mtime": 1600393952312.0632
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/theme-core/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952315.0554
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/theme-core/setting-value-model.ts",
-        "ext": ".ts",
-        "mtime": 1600393952316.052
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/models/theme-core/theme-core.models.ts",
-        "ext": ".ts",
-        "mtime": 1600393952316.052
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/module-import-guard.ts",
-        "ext": ".ts",
-        "mtime": 1600393952317.0498
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/pipe/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952318.047
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/pipe/mapper.pipe.ts",
-        "ext": ".ts",
-        "mtime": 1600393952318.047
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/providers/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952319.0442
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/providers/initial-theme-core.provider.ts",
-        "ext": ".ts",
-        "mtime": 1600393952319.0442
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/providers/initial.provider.ts",
-        "ext": ".ts",
-        "mtime": 1600393952320.0415
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/CodeSettingApp.service.ts",
-        "ext": ".ts",
-        "mtime": 1600393952321.0388
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/create-codes.ts",
-        "ext": ".ts",
-        "mtime": 1600393952324.0308
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/create-codes-dto.ts",
-        "ext": ".ts",
-        "mtime": 1600393952322.036
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/create-codes-with-childten-dto.ts",
-        "ext": ".ts",
-        "mtime": 1600393952322.036
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/edit-codes-dto.ts",
-        "ext": ".ts",
-        "mtime": 1600393952323.0334
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952324.0308
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952325.0283
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/list-by.ts",
-        "ext": ".ts",
-        "mtime": 1600393952325.0283
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/CodeSetting/patch-codes.ts",
-        "ext": ".ts",
-        "mtime": 1600393952326.0254
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Coding/.gitkeep",
-        "ext": "",
-        "mtime": 1600393952326.0254
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Coding/codes-with-settings.ts",
-        "ext": ".ts",
-        "mtime": 1600393952329.0176
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Coding/Dtos/codes-dto.ts",
-        "ext": ".ts",
-        "mtime": 1600393952327.025
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Coding/Dtos/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952328.0205
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Coding/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952329.0176
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/DefinitionSetting/create-definitions.ts",
-        "ext": ".ts",
-        "mtime": 1600393952333.007
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/DefinitionSetting/DefinitionSettingApp.service.ts",
-        "ext": ".ts",
-        "mtime": 1600393952330.015
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/DefinitionSetting/Dtos/create-definitions-dto.ts",
-        "ext": ".ts",
-        "mtime": 1600393952331.0122
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/DefinitionSetting/Dtos/edit-definitions-dto.ts",
-        "ext": ".ts",
-        "mtime": 1600393952332.01
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/DefinitionSetting/Dtos/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952332.01
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/DefinitionSetting/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952334.0042
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/DefinitionSetting/patch-definitions.ts",
-        "ext": ".ts",
-        "mtime": 1600393952335.0012
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Files/Dtos/file-put-input.ts",
-        "ext": ".ts",
-        "mtime": 1600393952335.9993
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Files/Dtos/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952335.9993
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Files/FileApp.service.ts",
-        "ext": ".ts",
-        "mtime": 1600393952336.9966
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Files/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952337.9934
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952342.9812
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/routes.service.ts",
-        "ext": ".ts",
-        "mtime": 1600393952343.9773
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Setting/Dtos/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952337.9934
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Setting/Dtos/setting-definition-dto.ts",
-        "ext": ".ts",
-        "mtime": 1600393952338.9905
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Setting/Dtos/setting-name-and-key-dto.ts",
-        "ext": ".ts",
-        "mtime": 1600393952339.989
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Setting/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952340.986
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Setting/setting.ts",
-        "ext": ".ts",
-        "mtime": 1600393952341.9834
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Setting/SettingApp.service.ts",
-        "ext": ".ts",
-        "mtime": 1600393952339.989
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/Setting/update-settings.ts",
-        "ext": ".ts",
-        "mtime": 1600393952341.9834
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/theme-core-state.service.ts",
-        "ext": ".ts",
-        "mtime": 1600393952343.9773
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/services/theme-core.service.ts",
-        "ext": ".ts",
-        "mtime": 1600393952344.9753
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/states/.gitkeep",
-        "ext": "",
-        "mtime": 1600393952344.9753
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/states/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952345.9722
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/states/router.state.ts",
-        "ext": ".ts",
-        "mtime": 1600393952345.9722
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/states/theme-core.state.ts",
-        "ext": ".ts",
-        "mtime": 1600393952346.9695
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/test-setup.ts",
-        "ext": ".ts",
-        "mtime": 1600393952347.9673
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/theme-core.module.ts",
-        "ext": ".ts",
-        "mtime": 1600393952347.9673
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/tokens/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952348.9646
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/tokens/options.token.ts",
-        "ext": ".ts",
-        "mtime": 1600393952349.961
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/utils/factory-utils.ts",
-        "ext": ".ts",
-        "mtime": 1600393952349.961
-      },
-      {
-        "file": "themes/tmpl/theme-core/src/lib/utils/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952350.959
-      },
-      {
-        "file": "themes/tmpl/theme-core/tsconfig.json",
-        "ext": ".json",
-        "mtime": 1600478713899.284
-      }
-    ],
     "tmpl.ng-alain-app": [
       {
         "file": "apps/tmpl/ng-alain-app/src/app/app-routing.module.ts",
@@ -10753,7 +9628,7 @@
       {
         "file": "apps/tmpl/ng-alain-app/src/app/app.module.ts",
         "ext": ".ts",
-        "mtime": 1600472733830.0737
+        "mtime": 1600486271664.4507
       },
       {
         "file": "apps/tmpl/ng-alain-app/src/app/home/home-routing.module.ts",
@@ -12785,561 +11660,436 @@
         "mtime": 1600322428417.6987
       }
     ],
-    "fs.theme-ng-alain": [
+    "fs.theme-core": [
       {
-        "file": "themes/tmpl/ng-alain/.gitignore",
+        "file": "libs/tmpl/theme-core/ng-package.json",
+        "ext": ".json",
+        "mtime": 1600486578792.3904
+      },
+      {
+        "file": "libs/tmpl/theme-core/package.json",
+        "ext": ".json",
+        "mtime": 1600393952297.1028
+      },
+      {
+        "file": "libs/tmpl/theme-core/README.md",
+        "ext": ".md",
+        "mtime": 1600393952295.1086
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952298.1018
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/actions/.gitkeep",
         "ext": "",
-        "mtime": 1600393952231.2793
+        "mtime": 1600393952299.0977
       },
       {
-        "file": "themes/tmpl/ng-alain/basic/index.ts",
+        "file": "libs/tmpl/theme-core/src/lib/actions/index.ts",
         "ext": ".ts",
-        "mtime": 1600393952232.276
+        "mtime": 1600393952299.0977
       },
       {
-        "file": "themes/tmpl/ng-alain/basic/package.json",
+        "file": "libs/tmpl/theme-core/src/lib/actions/router.actions.ts",
+        "ext": ".ts",
+        "mtime": 1600393952300.0952
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/actions/theme-core.actions.ts",
+        "ext": ".ts",
+        "mtime": 1600393952300.0952
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/components/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952301.0923
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/components/page-bar.component.html",
+        "ext": ".html",
+        "mtime": 1600393952302.09
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/components/page-bar.component.ts",
+        "ext": ".ts",
+        "mtime": 1600393952302.09
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/enums/components.ts",
+        "ext": ".ts",
+        "mtime": 1600393952303.0872
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/enums/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952303.0872
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952304.0847
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/common.ts",
+        "ext": ".ts",
+        "mtime": 1600393952305.0815
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/config.ts",
+        "ext": ".ts",
+        "mtime": 1600393952305.0815
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952306.0793
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/options.ts",
+        "ext": ".ts",
+        "mtime": 1600393952306.0793
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/router/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952307.077
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/router/router.ts",
+        "ext": ".ts",
+        "mtime": 1600393952307.077
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/theme-core/codes-dictionary-model.ts",
+        "ext": ".ts",
+        "mtime": 1600393952313.06
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/theme-core/codes-model.ts",
+        "ext": ".ts",
+        "mtime": 1600393952314.058
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/theme-core/codes-with-settings-output-model.ts",
+        "ext": ".ts",
+        "mtime": 1600393952314.058
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/theme-core/CodeSetting/create-codes-dto-model.ts",
+        "ext": ".ts",
+        "mtime": 1600393952308.0737
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/theme-core/CodeSetting/edit-codes-dto-model.ts",
+        "ext": ".ts",
+        "mtime": 1600393952309.0715
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/theme-core/CodeSetting/patch-codes-input-model.ts",
+        "ext": ".ts",
+        "mtime": 1600393952310.0688
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/create-definitions-dto-model.ts",
+        "ext": ".ts",
+        "mtime": 1600393952310.0688
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/create-definitions-input-model.ts",
+        "ext": ".ts",
+        "mtime": 1600393952311.066
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/edit-definitions-dto-model.ts",
+        "ext": ".ts",
+        "mtime": 1600393952312.0632
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/theme-core/DefinitionSetting/patch-definitions-input-model.ts",
+        "ext": ".ts",
+        "mtime": 1600393952312.0632
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/theme-core/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952315.0554
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/theme-core/setting-value-model.ts",
+        "ext": ".ts",
+        "mtime": 1600393952316.052
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/models/theme-core/theme-core.models.ts",
+        "ext": ".ts",
+        "mtime": 1600393952316.052
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/module-import-guard.ts",
+        "ext": ".ts",
+        "mtime": 1600393952317.0498
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/pipe/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952318.047
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/pipe/mapper.pipe.ts",
+        "ext": ".ts",
+        "mtime": 1600393952318.047
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/providers/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952319.0442
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/providers/initial-theme-core.provider.ts",
+        "ext": ".ts",
+        "mtime": 1600393952319.0442
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/providers/initial.provider.ts",
+        "ext": ".ts",
+        "mtime": 1600393952320.0415
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/CodeSettingApp.service.ts",
+        "ext": ".ts",
+        "mtime": 1600393952321.0388
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/create-codes.ts",
+        "ext": ".ts",
+        "mtime": 1600393952324.0308
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/create-codes-dto.ts",
+        "ext": ".ts",
+        "mtime": 1600393952322.036
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/create-codes-with-childten-dto.ts",
+        "ext": ".ts",
+        "mtime": 1600393952322.036
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/edit-codes-dto.ts",
+        "ext": ".ts",
+        "mtime": 1600393952323.0334
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/Dtos/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952324.0308
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952325.0283
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/list-by.ts",
+        "ext": ".ts",
+        "mtime": 1600393952325.0283
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/CodeSetting/patch-codes.ts",
+        "ext": ".ts",
+        "mtime": 1600393952326.0254
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Coding/.gitkeep",
+        "ext": "",
+        "mtime": 1600393952326.0254
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Coding/codes-with-settings.ts",
+        "ext": ".ts",
+        "mtime": 1600393952329.0176
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Coding/Dtos/codes-dto.ts",
+        "ext": ".ts",
+        "mtime": 1600393952327.025
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Coding/Dtos/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952328.0205
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Coding/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952329.0176
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/DefinitionSetting/create-definitions.ts",
+        "ext": ".ts",
+        "mtime": 1600393952333.007
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/DefinitionSetting/DefinitionSettingApp.service.ts",
+        "ext": ".ts",
+        "mtime": 1600393952330.015
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/DefinitionSetting/Dtos/create-definitions-dto.ts",
+        "ext": ".ts",
+        "mtime": 1600393952331.0122
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/DefinitionSetting/Dtos/edit-definitions-dto.ts",
+        "ext": ".ts",
+        "mtime": 1600393952332.01
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/DefinitionSetting/Dtos/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952332.01
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/DefinitionSetting/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952334.0042
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/DefinitionSetting/patch-definitions.ts",
+        "ext": ".ts",
+        "mtime": 1600393952335.0012
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Files/Dtos/file-put-input.ts",
+        "ext": ".ts",
+        "mtime": 1600393952335.9993
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Files/Dtos/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952335.9993
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Files/FileApp.service.ts",
+        "ext": ".ts",
+        "mtime": 1600393952336.9966
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Files/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952337.9934
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952342.9812
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/routes.service.ts",
+        "ext": ".ts",
+        "mtime": 1600393952343.9773
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Setting/Dtos/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952337.9934
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Setting/Dtos/setting-definition-dto.ts",
+        "ext": ".ts",
+        "mtime": 1600393952338.9905
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Setting/Dtos/setting-name-and-key-dto.ts",
+        "ext": ".ts",
+        "mtime": 1600393952339.989
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Setting/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952340.986
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Setting/setting.ts",
+        "ext": ".ts",
+        "mtime": 1600393952341.9834
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Setting/SettingApp.service.ts",
+        "ext": ".ts",
+        "mtime": 1600393952339.989
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/Setting/update-settings.ts",
+        "ext": ".ts",
+        "mtime": 1600393952341.9834
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/theme-core-state.service.ts",
+        "ext": ".ts",
+        "mtime": 1600393952343.9773
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/services/theme-core.service.ts",
+        "ext": ".ts",
+        "mtime": 1600393952344.9753
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/states/.gitkeep",
+        "ext": "",
+        "mtime": 1600393952344.9753
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/states/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952345.9722
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/states/router.state.ts",
+        "ext": ".ts",
+        "mtime": 1600393952345.9722
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/states/theme-core.state.ts",
+        "ext": ".ts",
+        "mtime": 1600393952346.9695
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/test-setup.ts",
+        "ext": ".ts",
+        "mtime": 1600393952347.9673
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/theme-core.module.ts",
+        "ext": ".ts",
+        "mtime": 1600393952347.9673
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/tokens/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952348.9646
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/tokens/options.token.ts",
+        "ext": ".ts",
+        "mtime": 1600393952349.961
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/utils/factory-utils.ts",
+        "ext": ".ts",
+        "mtime": 1600393952349.961
+      },
+      {
+        "file": "libs/tmpl/theme-core/src/lib/utils/index.ts",
+        "ext": ".ts",
+        "mtime": 1600393952350.959
+      },
+      {
+        "file": "libs/tmpl/theme-core/tsconfig.json",
         "ext": ".json",
-        "mtime": 1595126331620.6562
-      },
-      {
-        "file": "themes/tmpl/ng-alain/basic/README.md",
-        "ext": ".md",
-        "mtime": 1595126331619.6584
-      },
-      {
-        "file": "themes/tmpl/ng-alain/basic/src/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952233.2734
-      },
-      {
-        "file": "themes/tmpl/ng-alain/basic/src/lib/components/fs-ng-alain-tree/fs-ng-alain-tree.component.html",
-        "ext": ".html",
-        "mtime": 1600393952234.271
-      },
-      {
-        "file": "themes/tmpl/ng-alain/basic/src/lib/components/fs-ng-alain-tree/fs-ng-alain-tree.component.less",
-        "ext": ".less",
-        "mtime": 1600393952234.271
-      },
-      {
-        "file": "themes/tmpl/ng-alain/basic/src/lib/components/fs-ng-alain-tree/fs-ng-alain-tree.component.spec.ts",
-        "ext": ".ts",
-        "mtime": 1600393952235.2683
-      },
-      {
-        "file": "themes/tmpl/ng-alain/basic/src/lib/components/fs-ng-alain-tree/fs-ng-alain-tree.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952236.2656
-      },
-      {
-        "file": "themes/tmpl/ng-alain/basic/src/lib/components/fs-ng-alain-tree/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952236.2656
-      },
-      {
-        "file": "themes/tmpl/ng-alain/basic/src/lib/components/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952237.2646
-      },
-      {
-        "file": "themes/tmpl/ng-alain/basic/src/lib/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952237.2646
-      },
-      {
-        "file": "themes/tmpl/ng-alain/basic/src/lib/ng-alain-basic.module.ts",
-        "ext": ".ts",
-        "mtime": 1600479558931.5906
-      },
-      {
-        "file": "themes/tmpl/ng-alain/basic/src/lib/providers/styles.provider.ts",
-        "ext": ".ts",
-        "mtime": 1600479558934.5823
-      },
-      {
-        "file": "themes/tmpl/ng-alain/basic/src/test-setup.ts",
-        "ext": ".ts",
-        "mtime": 1595126331621.6284
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/package.json",
-        "ext": ".json",
-        "mtime": 1600393952240.255
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952240.255
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/core.module.ts",
-        "ext": ".ts",
-        "mtime": 1600393952241.252
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/i18n/i18n.service.spec.ts",
-        "ext": ".ts",
-        "mtime": 1600393952242.2495
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/i18n/i18n.service.ts",
-        "ext": ".ts",
-        "mtime": 1600393952243.2466
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/i18n/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952243.2466
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952244.244
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/module-import-guard.ts",
-        "ext": ".ts",
-        "mtime": 1600393952244.244
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/net/default.interceptor.ts",
-        "ext": ".ts",
-        "mtime": 1600393952245.2412
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/net/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952246.2385
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/README.md",
-        "ext": ".md",
-        "mtime": 1600393952241.252
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/services/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952247.2358
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/services/messages/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952248.2334
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/services/messages/messages.service.ts",
-        "ext": ".ts",
-        "mtime": 1600393952248.2334
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/services/notify/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952249.231
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/services/notify/notify.service.ts",
-        "ext": ".ts",
-        "mtime": 1600393952250.228
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/startup/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952250.228
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/startup/startup.service.ts",
-        "ext": ".ts",
-        "mtime": 1600393952251.2253
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/style-icons-auto.ts",
-        "ext": ".ts",
-        "mtime": 1600393952251.2253
-      },
-      {
-        "file": "themes/tmpl/ng-alain/core/src/lib/style-icons.ts",
-        "ext": ".ts",
-        "mtime": 1600393952252.2224
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952253.22
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/package.json",
-        "ext": ".json",
-        "mtime": 1600393952253.22
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952254.2173
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/default.component.html",
-        "ext": ".html",
-        "mtime": 1600393952255.2146
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/default.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952255.2146
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/fullscreen.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952256.212
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/i18n.component.ts",
-        "ext": ".ts",
-        "mtime": 1600479558936.5764
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/icon.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952257.2092
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/notify.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952257.2092
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/search.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952258.2065
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/storage.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952258.2065
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/task.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952259.2039
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/user.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952259.2039
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/header.component.html",
-        "ext": ".html",
-        "mtime": 1600393952259.2039
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/header.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952260.2014
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/index.md",
-        "ext": ".md",
-        "mtime": 1600393952260.2014
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952261.1985
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952261.1985
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/setting-drawer/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952262.1958
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/setting-drawer/setting-drawer-item.component.html",
-        "ext": ".html",
-        "mtime": 1600393952262.1958
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/setting-drawer/setting-drawer-item.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952263.193
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/setting-drawer/setting-drawer.component.html",
-        "ext": ".html",
-        "mtime": 1600393952264.191
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/setting-drawer/setting-drawer.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952265.1885
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/sidebar/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952266.1855
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/sidebar/sidebar.component.html",
-        "ext": ".html",
-        "mtime": 1600393952267.1826
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/sidebar/sidebar.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952267.1826
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/theme-btn/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952268.18
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/theme-btn/theme-btn.component.html",
-        "ext": ".html",
-        "mtime": 1600393952269.1772
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/theme-btn/theme-btn.component.less",
-        "ext": ".less",
-        "mtime": 1600393952269.1772
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/default/theme-btn/theme-btn.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952270.1746
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/fullscreen/fullscreen.component.html",
-        "ext": ".html",
-        "mtime": 1600393952270.1746
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/fullscreen/fullscreen.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952271.1719
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/fullscreen/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952271.1719
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952272.1694
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/layout.module.ts",
-        "ext": ".ts",
-        "mtime": 1600479558930.5935
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/page-bar/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952273.1665
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/page-bar/page-bar.component.html",
-        "ext": ".html",
-        "mtime": 1600393952274.1638
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/page-bar/page-bar.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952274.1638
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/passport/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952275.1624
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/passport/passport.component.html",
-        "ext": ".html",
-        "mtime": 1600393952276.1587
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/passport/passport.component.less",
-        "ext": ".less",
-        "mtime": 1600393952276.1587
-      },
-      {
-        "file": "themes/tmpl/ng-alain/layout/src/lib/passport/passport.component.ts",
-        "ext": ".ts",
-        "mtime": 1600393952277.156
-      },
-      {
-        "file": "themes/tmpl/ng-alain/ng-package.json",
-        "ext": ".json",
-        "mtime": 1600477360893.4485
-      },
-      {
-        "file": "themes/tmpl/ng-alain/package.json",
-        "ext": ".json",
-        "mtime": 1600393952278.1533
-      },
-      {
-        "file": "themes/tmpl/ng-alain/README.md",
-        "ext": ".md",
-        "mtime": 1595126331619.6584
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/package.json",
-        "ext": ".json",
-        "mtime": 1595126331633.0515
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/README.md",
-        "ext": ".md",
-        "mtime": 1595126331633.0515
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/src/index.ts",
-        "ext": ".ts",
-        "mtime": 1595126331633.0515
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/src/lib/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952279.151
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/src/lib/json-schema/index.md",
-        "ext": ".md",
-        "mtime": 1600393952280.148
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/src/lib/json-schema/json-schema.module.ts",
-        "ext": ".ts",
-        "mtime": 1600393952280.148
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/src/lib/ng-alain-shared.module.ts",
-        "ext": ".ts",
-        "mtime": 1600393952282.1426
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/src/lib/README.md",
-        "ext": ".md",
-        "mtime": 1600393952278.1533
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/src/lib/shared-delon.module.ts",
-        "ext": ".ts",
-        "mtime": 1600393952283.14
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/src/lib/shared-zorro.module.ts",
-        "ext": ".ts",
-        "mtime": 1600393952284.1375
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/src/lib/shared.module.ts",
-        "ext": ".ts",
-        "mtime": 1600393952285.1355
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/src/lib/st-widget/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952286.1328
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/src/lib/st-widget/st-widget.module.ts",
-        "ext": ".ts",
-        "mtime": 1600393952286.1328
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/src/lib/utils/yuan.ts",
-        "ext": ".ts",
-        "mtime": 1600393952287.1294
-      },
-      {
-        "file": "themes/tmpl/ng-alain/shared/src/test-setup.ts",
-        "ext": ".ts",
-        "mtime": 1595126331635.0466
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952291.1194
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/lib/global-config.module.ts",
-        "ext": ".ts",
-        "mtime": 1600479558928.5996
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/lib/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393952292.1162
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/lib/module-import-guard.ts",
-        "ext": ".ts",
-        "mtime": 1600393952292.1162
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/lib/ng-alain.module.ts",
-        "ext": ".ts",
-        "mtime": 1600479558921.618
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/test-setup.ts",
-        "ext": ".ts",
-        "mtime": 1595126331637.8684
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/_mock/index.ts",
-        "ext": ".ts",
-        "mtime": 1600393937181.0532
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/_mock/README.md",
-        "ext": ".md",
-        "mtime": 1600393937174.072
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/_mock/_api.ts",
-        "ext": ".ts",
-        "mtime": 1600393937176.0667
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/_mock/_chart.ts",
-        "ext": ".ts",
-        "mtime": 1600393952288.1277
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/_mock/_geo.ts",
-        "ext": ".ts",
-        "mtime": 1600393937177.0637
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/_mock/_pois.ts",
-        "ext": ".ts",
-        "mtime": 1600393937178.0618
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/_mock/_profile.ts",
-        "ext": ".ts",
-        "mtime": 1600393937179.0583
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/_mock/_rule.ts",
-        "ext": ".ts",
-        "mtime": 1600393952289.1248
-      },
-      {
-        "file": "themes/tmpl/ng-alain/src/_mock/_user.ts",
-        "ext": ".ts",
-        "mtime": 1600393952290.1228
-      },
-      {
-        "file": "themes/tmpl/ng-alain/tsconfig.json",
-        "ext": ".json",
-        "mtime": 1600478780779.4192
+        "mtime": 1600478713899.284
       }
     ],
     "abp.components": [
@@ -13846,6 +12596,7 @@
         "mtime": 1600393954798.9312
       }
     ],
+    "fs.theme-ng-alain": [],
     "fs.packages": [
       {
         "file": "libs/tmpl/packages/abp/package.json",
@@ -13900,7 +12651,7 @@
       {
         "file": "libs/tmpl/packages/ng-package.json",
         "ext": ".json",
-        "mtime": 1600477411932.7866
+        "mtime": 1600486735494.3489
       },
       {
         "file": "libs/tmpl/packages/package.json",
@@ -14052,7 +12803,7 @@
       {
         "file": "libs/tmpl/identity/ng-package.json",
         "ext": ".json",
-        "mtime": 1600477401687.9128
+        "mtime": 1600486729952.6277
       },
       {
         "file": "libs/tmpl/identity/package.json",
@@ -14441,7 +13192,7 @@
       {
         "file": "libs/tmpl/account/ng-package.json",
         "ext": ".json",
-        "mtime": 1600477384038.8389
+        "mtime": 1600486700300.3293
       },
       {
         "file": "libs/tmpl/account/package.json",
@@ -14843,7 +13594,6 @@
         "mtime": 1600322428137.4468
       }
     ],
-    "fs.dev": [],
     "abp.core": [
       {
         "file": "packages/core/jest.config.js",

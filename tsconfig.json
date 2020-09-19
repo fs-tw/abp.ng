@@ -68,13 +68,13 @@
         "packages/feature-management/src/public-api.ts"
       ],
       "@fs/theme.core": [
-        "themes/tmpl/theme-core/src/index.ts"
+        "libs/tmpl/theme-core/src/index.ts"
       ],
       "@fs/theme.ng-alain": [
-        "themes/tmpl/ng-alain/src/index.ts"
+        "libs/tmpl/theme-ng-alain/src/index.ts"
       ],
       "@fs/theme.ng-alain/*": [
-        "themes/tmpl/ng-alain/*/src/index.ts"
+        "libs/tmpl/theme-ng-alain/*/src/index.ts"
       ],
       "@fs/account": [
         "libs/tmpl/account/src/index.ts"
