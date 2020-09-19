@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SimpleGuard } from '@delon/auth';
 // layout
-import { LayoutDefaultComponent } from '@fs/ng-alain/layout';
-import { LayoutFullScreenComponent } from '@fs/ng-alain/layout';
-import { LayoutPassportComponent } from '@fs/ng-alain/layout';
+import { LayoutDefaultComponent } from '@fs/theme.ng-alain/layout';
+import { LayoutFullScreenComponent } from '@fs/theme.ng-alain/layout';
+import { LayoutPassportComponent } from '@fs/theme.ng-alain/layout';
 // single pages
 import { CallbackComponent } from './callback/callback.component';
 import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';

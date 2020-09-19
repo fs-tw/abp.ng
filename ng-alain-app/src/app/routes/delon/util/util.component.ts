@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { copy, format } from '@delon/util';
-import { yuan } from '@fs/ng-alain/shared';
+import { yuan } from '@fs/theme.ng-alain/shared';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({

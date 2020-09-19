@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { StartupService } from '@fs/ng-alain/core';
+import { StartupService } from '@fs/theme.ng-alain/core';
 import { ReuseTabService } from '@delon/abc/reuse-tab';
 import { DA_SERVICE_TOKEN, ITokenService, SocialOpenType, SocialService } from '@delon/auth';
 import { SettingsService, _HttpClient } from '@delon/theme';
