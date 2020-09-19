@@ -1,0 +1,12 @@
+{
+  "name": "@fs/packages",
+  "version": "0.0.1",
+  "peerDependencies": {
+    
+  },
+  "dependencies": {
+    "@fs/packages-ng-alain": "file:ng-alain",
+    "@fs/packages-abp": "file:abp",
+    "@fs/packages-setting-management": "file:setting-management"
+  }
+}

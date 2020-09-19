@@ -1,0 +1,15 @@
+<nz-table #basicTable [nzData]="keys">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data }}</td>
+        <td>{{ settings[data] }}</td>
+      </tr>
+    </tbody>
+</nz-table>
+  
