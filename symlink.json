@@ -61,12 +61,5 @@
       "fs.identity",
       "fs.tenant-management"
     ]
-  },
-  {
-    "name": "fsPackages",
-    "sync": false,
-    "packages": [
-      "fs.packages"
-    ]
   }
 ]

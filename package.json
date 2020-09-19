@@ -8,7 +8,7 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main --first-only",
     "nx": "nx",
     "start": "ng serve",
-    "build": "ng run fs.packages:symlink",
+    "build": "ng run fs.theme-core:symlink",
     "build:tools": "nx workspace-schematic library --name=TestBuild --no-interactive --dry-run",
     "publish": "lerna publish",
     "test": "ng test",

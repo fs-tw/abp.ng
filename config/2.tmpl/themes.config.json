@@ -1,5 +1,5 @@
 {
-  "order": 20,
+  "order": 2001,
   "nx": {
     "fs.theme-core": {
       "tags": []
@@ -15,6 +15,13 @@
       "sourceRoot": "libs/tmpl/theme-core/src",
       "prefix": "fs",
       "architect": {
+        "symlink": {
+          "builder": "./dist/tools/builder:symlink",
+          "options": {
+            "symlinkConfig": "symlink.json",
+            "args": []
+          }
+        },        
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {

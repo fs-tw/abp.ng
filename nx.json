@@ -52,13 +52,16 @@
     "abp.schematics": {
       "tags": []
     },
+    "tmpl.dev-app": {
+      "tags": []
+    },
+    "tmpl.ng-alain-app": {
+      "tags": []
+    },
     "fs.theme-core": {
       "tags": []
     },
     "fs.theme-ng-alain": {
-      "tags": []
-    },
-    "fs.packages": {
       "tags": []
     },
     "fs.account": {
@@ -77,12 +80,6 @@
       "tags": []
     },
     "fs.setting-management": {
-      "tags": []
-    },
-    "tmpl.dev-app": {
-      "tags": []
-    },
-    "tmpl.ng-alain-app": {
       "tags": []
     }
   }

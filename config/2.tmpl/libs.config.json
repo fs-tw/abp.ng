@@ -1,9 +1,6 @@
 {
-  "order": 21,
+  "order": 3001,
   "nx": {
-    "fs.packages": {
-      "tags": []
-    },
     "fs.account": {
       "tags": []
     },
@@ -24,56 +21,6 @@
     }
   },
   "angular":{
-    "fs.packages": {
-      "projectType": "library",
-      "root": "libs/tmpl/packages",
-      "sourceRoot": "libs/tmpl/packages/src",
-      "prefix": "fs",
-      "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:symlink",
-          "options": {
-            "symlinkConfig": "symlink.json",
-            "args": []
-          }
-        },
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "tsconfig.lib.json",
-            "project": "libs/tmpl/packages/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/tmpl/packages/tsconfig.lib.json",
-              "libs/tmpl/packages/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/tmpl/packages/**/*"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/tmpl/packages/jest.config.js",
-            "tsConfig": "libs/tmpl/packages/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/tmpl/packages/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {}
-    },
     "fs.account": {
       "projectType": "library",
       "root": "libs/tmpl/account",
@@ -428,13 +375,6 @@
         "fs.account",
         "fs.identity",
         "fs.tenant-management"
-      ]
-    },
-    {
-      "name": "fsPackages",
-      "sync": false,
-      "packages": [
-        "fs.packages"
       ]
     }
   ]

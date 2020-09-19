@@ -5,8 +5,6 @@
     
   },
   "dependencies": {
-    "@fs/tmpl.packages-ng-alain": "file:../tmpl/packages/ng-alain",
-    "@fs/tmpl.packages-abp": "file:../tmpl/packages/abp",
-    "@fs/tmpl.packages-setting-management": "file:../tmpl/packages/setting-management"
+    "@fs/tmpl.packages": "file:../tmpl/packages"
   }
 }
