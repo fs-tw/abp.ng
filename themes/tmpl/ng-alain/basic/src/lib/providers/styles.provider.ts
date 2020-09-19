@@ -1,9 +1,9 @@
 import { AddReplaceableComponent, CONTENT_STRATEGY, DomInsertionService } from '@abp/ng.core';
 import { APP_INITIALIZER } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { LayoutPassportComponent, PageBarComponent } from '@fs/ng-alain/layout';
-import { LayoutDefaultComponent } from '@fs/ng-alain/layout';
-import { LayoutFullScreenComponent } from '@fs/ng-alain/layout';
+import { LayoutPassportComponent, PageBarComponent } from '@fs/theme.ng-alain/layout';
+import { LayoutDefaultComponent } from '@fs/theme.ng-alain/layout';
+import { LayoutFullScreenComponent } from '@fs/theme.ng-alain/layout';
 import { eThemeBasicComponents } from '@abp/ng.theme.basic';
 import { eThemeCoreComponents } from '@fs/theme.core';
 

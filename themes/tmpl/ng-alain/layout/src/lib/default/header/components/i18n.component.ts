@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, Inject, Input } from '@angular/core
 import { ALAIN_I18N_TOKEN, SettingsService } from '@delon/theme';
 import { InputBoolean } from '@delon/util';
 
-import { I18NService } from '@fs/ng-alain/core';
+import { I18NService } from '@fs/theme.ng-alain/core';
 import { Observable } from 'rxjs';
 import { ApplicationConfiguration, ConfigState, SessionState, SetLanguage } from '@abp/ng.core';
 import { Select } from '@ngxs/store';

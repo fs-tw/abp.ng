@@ -499,7 +499,7 @@
       },
       "schematics": {}
     },
-    "fs.ng-alain": {
+    "fs.theme-ng-alain": {
       "projectType": "library",
       "root": "themes/tmpl/ng-alain",
       "sourceRoot": "themes/tmpl/ng-alain/src",

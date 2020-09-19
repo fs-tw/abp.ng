@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { I18NService } from '@fs/ng-alain/core';
+import { I18NService } from '@fs/theme.ng-alain/core';
 import { STColumn } from '@delon/abc/st';
 import { _HttpClient } from '@delon/theme';
 import { deepCopy, getTimeDistance } from '@delon/util';
-import { yuan } from '@fs/ng-alain/shared';
+import { yuan } from '@fs/theme.ng-alain/shared';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({

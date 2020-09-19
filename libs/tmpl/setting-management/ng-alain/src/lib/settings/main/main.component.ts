@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { ThemeCoreState, SettingDefinitionDto, SettingValueModel, GetSettingByNameAndKey, ThemeCoreStateService } from '@fs/theme.core';
 import { Observable, Subject } from 'rxjs';
-import { NotifyService } from '@fs/ng-alain/core';
+import { NotifyService } from '@fs/theme.ng-alain/core';
 import { finalize, takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
 

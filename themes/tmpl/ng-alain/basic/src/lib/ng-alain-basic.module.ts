@@ -1,5 +1,5 @@
-import { NgAlainSharedModule } from '@fs/ng-alain/shared';
-import { LayoutModule } from '@fs/ng-alain/layout';
+import { NgAlainSharedModule } from '@fs/theme.ng-alain/shared';
+import { LayoutModule } from '@fs/theme.ng-alain/layout';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BASIC_THEME_STYLES_PROVIDERS } from './providers/styles.provider';
 import { FsNgAlainTreeComponent } from './components/fs-ng-alain-tree/fs-ng-alain-tree.component';

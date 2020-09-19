@@ -70,10 +70,10 @@
       "@fs/theme.core": [
         "themes/tmpl/theme-core/src/index.ts"
       ],
-      "@fs/ng-alain": [
+      "@fs/theme.ng-alain": [
         "themes/tmpl/ng-alain/src/index.ts"
       ],
-      "@fs/ng-alain/*": [
+      "@fs/theme.ng-alain/*": [
         "themes/tmpl/ng-alain/*/src/index.ts"
       ],
       "@fs/account": [

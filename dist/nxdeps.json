@@ -50,11 +50,6 @@
           "tags": [],
           "files": [
             {
-              "file": "libs/tmpl/permission-management/jest.config.js",
-              "ext": ".js",
-              "mtime": 1600393952153.4873
-            },
-            {
               "file": "libs/tmpl/permission-management/ng-alain/package.json",
               "ext": ".json",
               "mtime": 1595126331512.0173
@@ -92,7 +87,7 @@
             {
               "file": "libs/tmpl/permission-management/ng-alain/src/lib/permission-management-ng-alain.module.ts",
               "ext": ".ts",
-              "mtime": 1600393952155.4817
+              "mtime": 1600479558923.612
             },
             {
               "file": "libs/tmpl/permission-management/ng-package.json",
@@ -127,27 +122,7 @@
             {
               "file": "libs/tmpl/permission-management/tsconfig.json",
               "ext": ".json",
-              "mtime": 1600393952158.4734
-            },
-            {
-              "file": "libs/tmpl/permission-management/tsconfig.lib.json",
-              "ext": ".json",
-              "mtime": 1600393952159.4707
-            },
-            {
-              "file": "libs/tmpl/permission-management/tsconfig.lib.prod.json",
-              "ext": ".json",
-              "mtime": 1600393952160.468
-            },
-            {
-              "file": "libs/tmpl/permission-management/tsconfig.spec.json",
-              "ext": ".json",
-              "mtime": 1595126331515.0093
-            },
-            {
-              "file": "libs/tmpl/permission-management/tslint.json",
-              "ext": ".json",
-              "mtime": 1600393952160.468
+              "mtime": 1600478883984.8628
             }
           ]
         }
@@ -363,11 +338,6 @@
           "tags": [],
           "files": [
             {
-              "file": "libs/tmpl/feature-management/jest.config.js",
-              "ext": ".js",
-              "mtime": 1600393952111.5986
-            },
-            {
               "file": "libs/tmpl/feature-management/ng-alain/package.json",
               "ext": ".json",
               "mtime": 1595126331147.2268
@@ -400,7 +370,7 @@
             {
               "file": "libs/tmpl/feature-management/ng-alain/src/lib/feature-management-ng-alain.module.ts",
               "ext": ".ts",
-              "mtime": 1600393952115.5884
+              "mtime": 1600479558921.618
             },
             {
               "file": "libs/tmpl/feature-management/ng-alain/src/lib/index.ts",
@@ -440,27 +410,7 @@
             {
               "file": "libs/tmpl/feature-management/tsconfig.json",
               "ext": ".json",
-              "mtime": 1600393952120.5747
-            },
-            {
-              "file": "libs/tmpl/feature-management/tsconfig.lib.json",
-              "ext": ".json",
-              "mtime": 1600393952121.572
-            },
-            {
-              "file": "libs/tmpl/feature-management/tsconfig.lib.prod.json",
-              "ext": ".json",
-              "mtime": 1600393952121.572
-            },
-            {
-              "file": "libs/tmpl/feature-management/tsconfig.spec.json",
-              "ext": ".json",
-              "mtime": 1595126331150.208
-            },
-            {
-              "file": "libs/tmpl/feature-management/tslint.json",
-              "ext": ".json",
-              "mtime": 1600393952122.5693
+              "mtime": 1600478846233.0637
             }
           ]
         }
@@ -512,11 +462,6 @@
           "schematics": {},
           "tags": [],
           "files": [
-            {
-              "file": "libs/tmpl/setting-management/jest.config.js",
-              "ext": ".js",
-              "mtime": 1600393952161.4658
-            },
             {
               "file": "libs/tmpl/setting-management/ng-alain/config/package.json",
               "ext": ".json",
@@ -585,7 +530,7 @@
             {
               "file": "libs/tmpl/setting-management/ng-alain/src/lib/setting-management-ng-alain.module.ts",
               "ext": ".ts",
-              "mtime": 1600393952170.4417
+              "mtime": 1600479558923.612
             },
             {
               "file": "libs/tmpl/setting-management/ng-alain/src/lib/settings/layout/layout.component.html",
@@ -625,7 +570,7 @@
             {
               "file": "libs/tmpl/setting-management/ng-alain/src/lib/settings/main/main.component.ts",
               "ext": ".ts",
-              "mtime": 1600393952174.4304
+              "mtime": 1600479558927.6013
             },
             {
               "file": "libs/tmpl/setting-management/ng-alain/src/lib/settings/settings-routing.module.ts",
@@ -635,7 +580,7 @@
             {
               "file": "libs/tmpl/setting-management/ng-alain/src/lib/settings/settings.module.ts",
               "ext": ".ts",
-              "mtime": 1600393952176.433
+              "mtime": 1600479558926.6045
             },
             {
               "file": "libs/tmpl/setting-management/ng-alain/src/lib/shared/components/fs-ng-alain-json-editor/fs-ng-alain-json-editor.component.html",
@@ -670,7 +615,7 @@
             {
               "file": "libs/tmpl/setting-management/ng-alain/src/lib/shared/components/fs-ng-alain-setting-management/detail/detail.component.ts",
               "ext": ".ts",
-              "mtime": 1600393952181.4124
+              "mtime": 1600479558935.5793
             },
             {
               "file": "libs/tmpl/setting-management/ng-alain/src/lib/shared/components/fs-ng-alain-setting-management/detail/index.ts",
@@ -815,7 +760,7 @@
             {
               "file": "libs/tmpl/setting-management/ng-alain/src/lib/shared/shared.module.ts",
               "ext": ".ts",
-              "mtime": 1600393952202.3557
+              "mtime": 1600479558926.6045
             },
             {
               "file": "libs/tmpl/setting-management/ng-package.json",
@@ -855,27 +800,7 @@
             {
               "file": "libs/tmpl/setting-management/tsconfig.json",
               "ext": ".json",
-              "mtime": 1595126331526.8064
-            },
-            {
-              "file": "libs/tmpl/setting-management/tsconfig.lib.json",
-              "ext": ".json",
-              "mtime": 1600393952206.3457
-            },
-            {
-              "file": "libs/tmpl/setting-management/tsconfig.lib.prod.json",
-              "ext": ".json",
-              "mtime": 1600393952207.344
-            },
-            {
-              "file": "libs/tmpl/setting-management/tsconfig.spec.json",
-              "ext": ".json",
-              "mtime": 1595126331527.805
-            },
-            {
-              "file": "libs/tmpl/setting-management/tslint.json",
-              "ext": ".json",
-              "mtime": 1600393952208.3403
+              "mtime": 1600478899049.3184
             }
           ]
         }
@@ -1284,11 +1209,6 @@
           "tags": [],
           "files": [
             {
-              "file": "libs/tmpl/tenant-management/jest.config.js",
-              "ext": ".js",
-              "mtime": 1600393952209.338
-            },
-            {
               "file": "libs/tmpl/tenant-management/ng-alain/config/package.json",
               "ext": ".json",
               "mtime": 1600393952209.338
@@ -1356,7 +1276,7 @@
             {
               "file": "libs/tmpl/tenant-management/ng-alain/src/lib/tenant-management-ng-alain.module.ts",
               "ext": ".ts",
-              "mtime": 1600393952218.3135
+              "mtime": 1600479558924.6096
             },
             {
               "file": "libs/tmpl/tenant-management/ng-package.json",
@@ -1391,27 +1311,7 @@
             {
               "file": "libs/tmpl/tenant-management/tsconfig.json",
               "ext": ".json",
-              "mtime": 1600393952221.3052
-            },
-            {
-              "file": "libs/tmpl/tenant-management/tsconfig.lib.json",
-              "ext": ".json",
-              "mtime": 1600393952222.3027
-            },
-            {
-              "file": "libs/tmpl/tenant-management/tsconfig.lib.prod.json",
-              "ext": ".json",
-              "mtime": 1600393952222.3027
-            },
-            {
-              "file": "libs/tmpl/tenant-management/tsconfig.spec.json",
-              "ext": ".json",
-              "mtime": 1595126331531.7358
-            },
-            {
-              "file": "libs/tmpl/tenant-management/tslint.json",
-              "ext": ".json",
-              "mtime": 1600393952223.3003
+              "mtime": 1600478911645.4807
             }
           ]
         }
@@ -1681,11 +1581,6 @@
           "schematics": {},
           "tags": [],
           "files": [
-            {
-              "file": "themes/tmpl/theme-core/jest.config.js",
-              "ext": ".js",
-              "mtime": 1600393952296.106
-            },
             {
               "file": "themes/tmpl/theme-core/ng-package.json",
               "ext": ".json",
@@ -2114,27 +2009,7 @@
             {
               "file": "themes/tmpl/theme-core/tsconfig.json",
               "ext": ".json",
-              "mtime": 1600393952351.9563
-            },
-            {
-              "file": "themes/tmpl/theme-core/tsconfig.lib.json",
-              "ext": ".json",
-              "mtime": 1600393952351.9563
-            },
-            {
-              "file": "themes/tmpl/theme-core/tsconfig.lib.prod.json",
-              "ext": ".json",
-              "mtime": 1600393952352.9539
-            },
-            {
-              "file": "themes/tmpl/theme-core/tsconfig.spec.json",
-              "ext": ".json",
-              "mtime": 1600393952352.9539
-            },
-            {
-              "file": "themes/tmpl/theme-core/tslint.json",
-              "ext": ".json",
-              "mtime": 1600393952353.9514
+              "mtime": 1600478713899.284
             }
           ]
         }
@@ -2316,7 +2191,7 @@
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/dashboard/analysis/analysis.component.ts",
               "ext": ".ts",
-              "mtime": 1600472733835.0613
+              "mtime": 1600479558927.6013
             },
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/dashboard/monitor/monitor.component.html",
@@ -2366,7 +2241,7 @@
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/data-v/data-v.module.ts",
               "ext": ".ts",
-              "mtime": 1600472733840.047
+              "mtime": 1600479558920.6206
             },
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/data-v/relation/relation.component.html",
@@ -2406,7 +2281,7 @@
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/delon/delon.module.ts",
               "ext": ".ts",
-              "mtime": 1600472733843.0396
+              "mtime": 1600479558921.618
             },
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/delon/downfile/downfile.component.html",
@@ -2496,7 +2371,7 @@
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/delon/util/util.component.ts",
               "ext": ".ts",
-              "mtime": 1600472733852.015
+              "mtime": 1600479558927.6013
             },
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/delon/xlsx/xlsx.component.html",
@@ -2541,7 +2416,7 @@
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/exception/exception.module.ts",
               "ext": ".ts",
-              "mtime": 1600472733856.0051
+              "mtime": 1600479558925.6067
             },
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/exception/trigger.component.ts",
@@ -2556,7 +2431,7 @@
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/extras/extras.module.ts",
               "ext": ".ts",
-              "mtime": 1600472733857.0024
+              "mtime": 1600479558923.612
             },
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/extras/helpcenter/helpcenter.component.html",
@@ -2626,7 +2501,7 @@
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/passport/login/login.component.ts",
               "ext": ".ts",
-              "mtime": 1600472733865.9785
+              "mtime": 1600479558927.6013
             },
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/passport/register/register.component.html",
@@ -2941,7 +2816,7 @@
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/pro/pro.module.ts",
               "ext": ".ts",
-              "mtime": 1600472733896.8958
+              "mtime": 1600479558924.6096
             },
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/pro/profile/advanced/advanced.component.html",
@@ -2991,12 +2866,12 @@
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/routes-routing.module.ts",
               "ext": ".ts",
-              "mtime": 1600472733901.8818
+              "mtime": 1600479558920.6206
             },
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/routes.module.ts",
               "ext": ".ts",
-              "mtime": 1600472733902.8792
+              "mtime": 1600479558921.618
             },
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/style/color.service.ts",
@@ -3041,7 +2916,7 @@
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/style/style.module.ts",
               "ext": ".ts",
-              "mtime": 1600472733906.8792
+              "mtime": 1600479558925.6067
             },
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/style/typography/typography.component.html",
@@ -3076,12 +2951,12 @@
             {
               "file": "apps/tmpl/ng-alain-app/src/app/routes/widgets/widgets.module.ts",
               "ext": ".ts",
-              "mtime": 1600472733908.8638
+              "mtime": 1600479558923.612
             },
             {
               "file": "apps/tmpl/ng-alain-app/src/app/shared/shared.module.ts",
               "ext": ".ts",
-              "mtime": 1600472733910.8584
+              "mtime": 1600479558919.6226
             },
             {
               "file": "apps/tmpl/ng-alain-app/src/assets/.gitkeep",
@@ -4393,8 +4268,8 @@
           ]
         }
       },
-      "fs.ng-alain": {
-        "name": "fs.ng-alain",
+      "fs.theme-ng-alain": {
+        "name": "fs.theme-ng-alain",
         "type": "lib",
         "data": {
           "projectType": "library",
@@ -4502,12 +4377,12 @@
             {
               "file": "themes/tmpl/ng-alain/basic/src/lib/ng-alain-basic.module.ts",
               "ext": ".ts",
-              "mtime": 1600393952238.2605
+              "mtime": 1600479558931.5906
             },
             {
               "file": "themes/tmpl/ng-alain/basic/src/lib/providers/styles.provider.ts",
               "ext": ".ts",
-              "mtime": 1600393952239.2573
+              "mtime": 1600479558934.5823
             },
             {
               "file": "themes/tmpl/ng-alain/basic/src/test-setup.ts",
@@ -4615,11 +4490,6 @@
               "mtime": 1600393952252.2224
             },
             {
-              "file": "themes/tmpl/ng-alain/jest.config.js",
-              "ext": ".js",
-              "mtime": 1595126331625.643
-            },
-            {
               "file": "themes/tmpl/ng-alain/layout/index.ts",
               "ext": ".ts",
               "mtime": 1600393952253.22
@@ -4652,7 +4522,7 @@
             {
               "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/i18n.component.ts",
               "ext": ".ts",
-              "mtime": 1600393952257.2092
+              "mtime": 1600479558936.5764
             },
             {
               "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/icon.component.ts",
@@ -4792,7 +4662,7 @@
             {
               "file": "themes/tmpl/ng-alain/layout/src/lib/layout.module.ts",
               "ext": ".ts",
-              "mtime": 1600393952273.1665
+              "mtime": 1600479558930.5935
             },
             {
               "file": "themes/tmpl/ng-alain/layout/src/lib/page-bar/index.ts",
@@ -4927,7 +4797,7 @@
             {
               "file": "themes/tmpl/ng-alain/src/lib/global-config.module.ts",
               "ext": ".ts",
-              "mtime": 1600393952291.1194
+              "mtime": 1600479558928.5996
             },
             {
               "file": "themes/tmpl/ng-alain/src/lib/index.ts",
@@ -4942,7 +4812,7 @@
             {
               "file": "themes/tmpl/ng-alain/src/lib/ng-alain.module.ts",
               "ext": ".ts",
-              "mtime": 1600393952293.114
+              "mtime": 1600479558921.618
             },
             {
               "file": "themes/tmpl/ng-alain/src/test-setup.ts",
@@ -4997,27 +4867,7 @@
             {
               "file": "themes/tmpl/ng-alain/tsconfig.json",
               "ext": ".json",
-              "mtime": 1595126331637.8684
-            },
-            {
-              "file": "themes/tmpl/ng-alain/tsconfig.lib.json",
-              "ext": ".json",
-              "mtime": 1600393952294.1113
-            },
-            {
-              "file": "themes/tmpl/ng-alain/tsconfig.lib.prod.json",
-              "ext": ".json",
-              "mtime": 1600393952294.1113
-            },
-            {
-              "file": "themes/tmpl/ng-alain/tsconfig.spec.json",
-              "ext": ".json",
-              "mtime": 1600393952295.1086
-            },
-            {
-              "file": "themes/tmpl/ng-alain/tslint.json",
-              "ext": ".json",
-              "mtime": 1595126331637.8684
+              "mtime": 1600478780779.4192
             }
           ]
         }
@@ -5688,11 +5538,6 @@
               "mtime": 1600393952143.5142
             },
             {
-              "file": "libs/tmpl/packages/jest.config.js",
-              "ext": ".js",
-              "mtime": 1595126331507.0305
-            },
-            {
               "file": "libs/tmpl/packages/ng-alain/package.json",
               "ext": ".json",
               "mtime": 1600393952144.5112
@@ -5780,22 +5625,7 @@
             {
               "file": "libs/tmpl/packages/tsconfig.json",
               "ext": ".json",
-              "mtime": 1595126331511.0198
-            },
-            {
-              "file": "libs/tmpl/packages/tsconfig.lib.json",
-              "ext": ".json",
-              "mtime": 1600393952152.4893
-            },
-            {
-              "file": "libs/tmpl/packages/tsconfig.spec.json",
-              "ext": ".json",
-              "mtime": 1595126331511.0198
-            },
-            {
-              "file": "libs/tmpl/packages/tslint.json",
-              "ext": ".json",
-              "mtime": 1595126331512.0173
+              "mtime": 1600478872665.6138
             }
           ]
         }
@@ -5847,11 +5677,6 @@
           "schematics": {},
           "tags": [],
           "files": [
-            {
-              "file": "libs/tmpl/identity/jest.config.js",
-              "ext": ".js",
-              "mtime": 1600393952124.564
-            },
             {
               "file": "libs/tmpl/identity/ng-alain/config/package.json",
               "ext": ".json",
@@ -5930,7 +5755,7 @@
             {
               "file": "libs/tmpl/identity/ng-alain/src/lib/identity-ng-alain.module.ts",
               "ext": ".ts",
-              "mtime": 1600393952136.5322
+              "mtime": 1600479558923.612
             },
             {
               "file": "libs/tmpl/identity/ng-alain/src/lib/index.ts",
@@ -5970,27 +5795,7 @@
             {
               "file": "libs/tmpl/identity/tsconfig.json",
               "ext": ".json",
-              "mtime": 1595126331343.7058
-            },
-            {
-              "file": "libs/tmpl/identity/tsconfig.lib.json",
-              "ext": ".json",
-              "mtime": 1600393952139.5237
-            },
-            {
-              "file": "libs/tmpl/identity/tsconfig.lib.prod.json",
-              "ext": ".json",
-              "mtime": 1600393952140.5215
-            },
-            {
-              "file": "libs/tmpl/identity/tsconfig.spec.json",
-              "ext": ".json",
-              "mtime": 1595126331344.707
-            },
-            {
-              "file": "libs/tmpl/identity/tslint.json",
-              "ext": ".json",
-              "mtime": 1600393952141.519
+              "mtime": 1600478859321.8086
             }
           ]
         }
@@ -6259,11 +6064,6 @@
           "tags": [],
           "files": [
             {
-              "file": "libs/tmpl/account/jest.config.js",
-              "ext": ".js",
-              "mtime": 1600393952024.8315
-            },
-            {
               "file": "libs/tmpl/account/ng-alain/config/package.json",
               "ext": ".json",
               "mtime": 1600393952025.8286
@@ -6311,7 +6111,7 @@
             {
               "file": "libs/tmpl/account/ng-alain/src/lib/account-ng-alain.module.ts",
               "ext": ".ts",
-              "mtime": 1600393952037.796
+              "mtime": 1600479558919.6226
             },
             {
               "file": "libs/tmpl/account/ng-alain/src/lib/components/auth-wrapper/auth-wrapper.component.html",
@@ -6481,27 +6281,7 @@
             {
               "file": "libs/tmpl/account/tsconfig.json",
               "ext": ".json",
-              "mtime": 1600393952107.609
-            },
-            {
-              "file": "libs/tmpl/account/tsconfig.lib.json",
-              "ext": ".json",
-              "mtime": 1600393952108.6067
-            },
-            {
-              "file": "libs/tmpl/account/tsconfig.lib.prod.json",
-              "ext": ".json",
-              "mtime": 1600393952108.6067
-            },
-            {
-              "file": "libs/tmpl/account/tsconfig.spec.json",
-              "ext": ".json",
-              "mtime": 1600393952109.6038
-            },
-            {
-              "file": "libs/tmpl/account/tslint.json",
-              "ext": ".json",
-              "mtime": 1600393952110.6013
+              "mtime": 1600478830505.6133
             }
           ]
         }
@@ -8482,7 +8262,7 @@
         {
           "type": "static",
           "source": "fs.permission-management",
-          "target": "fs.ng-alain"
+          "target": "fs.theme-ng-alain"
         },
         {
           "type": "static",
@@ -8546,7 +8326,7 @@
         {
           "type": "static",
           "source": "fs.feature-management",
-          "target": "fs.ng-alain"
+          "target": "fs.theme-ng-alain"
         },
         {
           "type": "static",
@@ -8578,7 +8358,7 @@
         {
           "type": "static",
           "source": "fs.setting-management",
-          "target": "fs.ng-alain"
+          "target": "fs.theme-ng-alain"
         },
         {
           "type": "static",
@@ -8689,7 +8469,7 @@
         {
           "type": "static",
           "source": "fs.tenant-management",
-          "target": "fs.ng-alain"
+          "target": "fs.theme-ng-alain"
         },
         {
           "type": "static",
@@ -8810,17 +8590,17 @@
         {
           "type": "static",
           "source": "tmpl.ng-alain-app",
-          "target": "fs.ng-alain"
-        },
-        {
-          "type": "static",
-          "source": "tmpl.ng-alain-app",
           "target": "abp.theme-shared"
         },
         {
           "type": "static",
           "source": "tmpl.ng-alain-app",
           "target": "abp.setting-management"
+        },
+        {
+          "type": "static",
+          "source": "tmpl.ng-alain-app",
+          "target": "fs.theme-ng-alain"
         },
         {
           "type": "static",
@@ -8942,55 +8722,55 @@
           "target": "npm:@angular/router"
         }
       ],
-      "fs.ng-alain": [
+      "fs.theme-ng-alain": [
         {
           "type": "static",
-          "source": "fs.ng-alain",
+          "source": "fs.theme-ng-alain",
           "target": "fs.theme-core"
         },
         {
           "type": "static",
-          "source": "fs.ng-alain",
+          "source": "fs.theme-ng-alain",
           "target": "abp.core"
         },
         {
           "type": "static",
-          "source": "fs.ng-alain",
+          "source": "fs.theme-ng-alain",
           "target": "abp.theme-basic"
         },
         {
           "type": "static",
-          "source": "fs.ng-alain",
+          "source": "fs.theme-ng-alain",
           "target": "abp.theme-shared"
         },
         {
           "type": "static",
-          "source": "fs.ng-alain",
+          "source": "fs.theme-ng-alain",
           "target": "npm:@angular/core"
         },
         {
           "type": "static",
-          "source": "fs.ng-alain",
+          "source": "fs.theme-ng-alain",
           "target": "npm:jest-preset-angular"
         },
         {
           "type": "static",
-          "source": "fs.ng-alain",
+          "source": "fs.theme-ng-alain",
           "target": "npm:rxjs"
         },
         {
           "type": "static",
-          "source": "fs.ng-alain",
+          "source": "fs.theme-ng-alain",
           "target": "npm:@angular/common"
         },
         {
           "type": "static",
-          "source": "fs.ng-alain",
+          "source": "fs.theme-ng-alain",
           "target": "npm:@angular/router"
         },
         {
           "type": "static",
-          "source": "fs.ng-alain",
+          "source": "fs.theme-ng-alain",
           "target": "npm:@angular/forms"
         }
       ],
@@ -9054,7 +8834,7 @@
         {
           "type": "static",
           "source": "fs.identity",
-          "target": "fs.ng-alain"
+          "target": "fs.theme-ng-alain"
         },
         {
           "type": "static",
@@ -9133,7 +8913,7 @@
         {
           "type": "static",
           "source": "fs.account",
-          "target": "fs.ng-alain"
+          "target": "fs.theme-ng-alain"
         },
         {
           "type": "static",
@@ -9353,11 +9133,6 @@
   "fileMap": {
     "fs.permission-management": [
       {
-        "file": "libs/tmpl/permission-management/jest.config.js",
-        "ext": ".js",
-        "mtime": 1600393952153.4873
-      },
-      {
         "file": "libs/tmpl/permission-management/ng-alain/package.json",
         "ext": ".json",
         "mtime": 1595126331512.0173
@@ -9395,7 +9170,7 @@
       {
         "file": "libs/tmpl/permission-management/ng-alain/src/lib/permission-management-ng-alain.module.ts",
         "ext": ".ts",
-        "mtime": 1600393952155.4817
+        "mtime": 1600479558923.612
       },
       {
         "file": "libs/tmpl/permission-management/ng-package.json",
@@ -9430,27 +9205,7 @@
       {
         "file": "libs/tmpl/permission-management/tsconfig.json",
         "ext": ".json",
-        "mtime": 1600393952158.4734
-      },
-      {
-        "file": "libs/tmpl/permission-management/tsconfig.lib.json",
-        "ext": ".json",
-        "mtime": 1600393952159.4707
-      },
-      {
-        "file": "libs/tmpl/permission-management/tsconfig.lib.prod.json",
-        "ext": ".json",
-        "mtime": 1600393952160.468
-      },
-      {
-        "file": "libs/tmpl/permission-management/tsconfig.spec.json",
-        "ext": ".json",
-        "mtime": 1595126331515.0093
-      },
-      {
-        "file": "libs/tmpl/permission-management/tslint.json",
-        "ext": ".json",
-        "mtime": 1600393952160.468
+        "mtime": 1600478883984.8628
       }
     ],
     "abp.permission-management": [
@@ -9577,11 +9332,6 @@
     ],
     "fs.feature-management": [
       {
-        "file": "libs/tmpl/feature-management/jest.config.js",
-        "ext": ".js",
-        "mtime": 1600393952111.5986
-      },
-      {
         "file": "libs/tmpl/feature-management/ng-alain/package.json",
         "ext": ".json",
         "mtime": 1595126331147.2268
@@ -9614,7 +9364,7 @@
       {
         "file": "libs/tmpl/feature-management/ng-alain/src/lib/feature-management-ng-alain.module.ts",
         "ext": ".ts",
-        "mtime": 1600393952115.5884
+        "mtime": 1600479558921.618
       },
       {
         "file": "libs/tmpl/feature-management/ng-alain/src/lib/index.ts",
@@ -9654,35 +9404,10 @@
       {
         "file": "libs/tmpl/feature-management/tsconfig.json",
         "ext": ".json",
-        "mtime": 1600393952120.5747
-      },
-      {
-        "file": "libs/tmpl/feature-management/tsconfig.lib.json",
-        "ext": ".json",
-        "mtime": 1600393952121.572
-      },
-      {
-        "file": "libs/tmpl/feature-management/tsconfig.lib.prod.json",
-        "ext": ".json",
-        "mtime": 1600393952121.572
-      },
-      {
-        "file": "libs/tmpl/feature-management/tsconfig.spec.json",
-        "ext": ".json",
-        "mtime": 1595126331150.208
-      },
-      {
-        "file": "libs/tmpl/feature-management/tslint.json",
-        "ext": ".json",
-        "mtime": 1600393952122.5693
+        "mtime": 1600478846233.0637
       }
     ],
     "fs.setting-management": [
-      {
-        "file": "libs/tmpl/setting-management/jest.config.js",
-        "ext": ".js",
-        "mtime": 1600393952161.4658
-      },
       {
         "file": "libs/tmpl/setting-management/ng-alain/config/package.json",
         "ext": ".json",
@@ -9751,7 +9476,7 @@
       {
         "file": "libs/tmpl/setting-management/ng-alain/src/lib/setting-management-ng-alain.module.ts",
         "ext": ".ts",
-        "mtime": 1600393952170.4417
+        "mtime": 1600479558923.612
       },
       {
         "file": "libs/tmpl/setting-management/ng-alain/src/lib/settings/layout/layout.component.html",
@@ -9791,7 +9516,7 @@
       {
         "file": "libs/tmpl/setting-management/ng-alain/src/lib/settings/main/main.component.ts",
         "ext": ".ts",
-        "mtime": 1600393952174.4304
+        "mtime": 1600479558927.6013
       },
       {
         "file": "libs/tmpl/setting-management/ng-alain/src/lib/settings/settings-routing.module.ts",
@@ -9801,7 +9526,7 @@
       {
         "file": "libs/tmpl/setting-management/ng-alain/src/lib/settings/settings.module.ts",
         "ext": ".ts",
-        "mtime": 1600393952176.433
+        "mtime": 1600479558926.6045
       },
       {
         "file": "libs/tmpl/setting-management/ng-alain/src/lib/shared/components/fs-ng-alain-json-editor/fs-ng-alain-json-editor.component.html",
@@ -9836,7 +9561,7 @@
       {
         "file": "libs/tmpl/setting-management/ng-alain/src/lib/shared/components/fs-ng-alain-setting-management/detail/detail.component.ts",
         "ext": ".ts",
-        "mtime": 1600393952181.4124
+        "mtime": 1600479558935.5793
       },
       {
         "file": "libs/tmpl/setting-management/ng-alain/src/lib/shared/components/fs-ng-alain-setting-management/detail/index.ts",
@@ -9981,7 +9706,7 @@
       {
         "file": "libs/tmpl/setting-management/ng-alain/src/lib/shared/shared.module.ts",
         "ext": ".ts",
-        "mtime": 1600393952202.3557
+        "mtime": 1600479558926.6045
       },
       {
         "file": "libs/tmpl/setting-management/ng-package.json",
@@ -10021,27 +9746,7 @@
       {
         "file": "libs/tmpl/setting-management/tsconfig.json",
         "ext": ".json",
-        "mtime": 1595126331526.8064
-      },
-      {
-        "file": "libs/tmpl/setting-management/tsconfig.lib.json",
-        "ext": ".json",
-        "mtime": 1600393952206.3457
-      },
-      {
-        "file": "libs/tmpl/setting-management/tsconfig.lib.prod.json",
-        "ext": ".json",
-        "mtime": 1600393952207.344
-      },
-      {
-        "file": "libs/tmpl/setting-management/tsconfig.spec.json",
-        "ext": ".json",
-        "mtime": 1595126331527.805
-      },
-      {
-        "file": "libs/tmpl/setting-management/tslint.json",
-        "ext": ".json",
-        "mtime": 1600393952208.3403
+        "mtime": 1600478899049.3184
       }
     ],
     "abp.feature-management": [
@@ -10320,11 +10025,6 @@
     ],
     "fs.tenant-management": [
       {
-        "file": "libs/tmpl/tenant-management/jest.config.js",
-        "ext": ".js",
-        "mtime": 1600393952209.338
-      },
-      {
         "file": "libs/tmpl/tenant-management/ng-alain/config/package.json",
         "ext": ".json",
         "mtime": 1600393952209.338
@@ -10392,7 +10092,7 @@
       {
         "file": "libs/tmpl/tenant-management/ng-alain/src/lib/tenant-management-ng-alain.module.ts",
         "ext": ".ts",
-        "mtime": 1600393952218.3135
+        "mtime": 1600479558924.6096
       },
       {
         "file": "libs/tmpl/tenant-management/ng-package.json",
@@ -10427,27 +10127,7 @@
       {
         "file": "libs/tmpl/tenant-management/tsconfig.json",
         "ext": ".json",
-        "mtime": 1600393952221.3052
-      },
-      {
-        "file": "libs/tmpl/tenant-management/tsconfig.lib.json",
-        "ext": ".json",
-        "mtime": 1600393952222.3027
-      },
-      {
-        "file": "libs/tmpl/tenant-management/tsconfig.lib.prod.json",
-        "ext": ".json",
-        "mtime": 1600393952222.3027
-      },
-      {
-        "file": "libs/tmpl/tenant-management/tsconfig.spec.json",
-        "ext": ".json",
-        "mtime": 1595126331531.7358
-      },
-      {
-        "file": "libs/tmpl/tenant-management/tslint.json",
-        "ext": ".json",
-        "mtime": 1600393952223.3003
+        "mtime": 1600478911645.4807
       }
     ],
     "abp.tenant-management": [
@@ -10628,11 +10308,6 @@
       }
     ],
     "fs.theme-core": [
-      {
-        "file": "themes/tmpl/theme-core/jest.config.js",
-        "ext": ".js",
-        "mtime": 1600393952296.106
-      },
       {
         "file": "themes/tmpl/theme-core/ng-package.json",
         "ext": ".json",
@@ -11061,27 +10736,7 @@
       {
         "file": "themes/tmpl/theme-core/tsconfig.json",
         "ext": ".json",
-        "mtime": 1600393952351.9563
-      },
-      {
-        "file": "themes/tmpl/theme-core/tsconfig.lib.json",
-        "ext": ".json",
-        "mtime": 1600393952351.9563
-      },
-      {
-        "file": "themes/tmpl/theme-core/tsconfig.lib.prod.json",
-        "ext": ".json",
-        "mtime": 1600393952352.9539
-      },
-      {
-        "file": "themes/tmpl/theme-core/tsconfig.spec.json",
-        "ext": ".json",
-        "mtime": 1600393952352.9539
-      },
-      {
-        "file": "themes/tmpl/theme-core/tslint.json",
-        "ext": ".json",
-        "mtime": 1600393952353.9514
+        "mtime": 1600478713899.284
       }
     ],
     "tmpl.ng-alain-app": [
@@ -11143,7 +10798,7 @@
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/dashboard/analysis/analysis.component.ts",
         "ext": ".ts",
-        "mtime": 1600472733835.0613
+        "mtime": 1600479558927.6013
       },
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/dashboard/monitor/monitor.component.html",
@@ -11193,7 +10848,7 @@
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/data-v/data-v.module.ts",
         "ext": ".ts",
-        "mtime": 1600472733840.047
+        "mtime": 1600479558920.6206
       },
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/data-v/relation/relation.component.html",
@@ -11233,7 +10888,7 @@
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/delon/delon.module.ts",
         "ext": ".ts",
-        "mtime": 1600472733843.0396
+        "mtime": 1600479558921.618
       },
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/delon/downfile/downfile.component.html",
@@ -11323,7 +10978,7 @@
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/delon/util/util.component.ts",
         "ext": ".ts",
-        "mtime": 1600472733852.015
+        "mtime": 1600479558927.6013
       },
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/delon/xlsx/xlsx.component.html",
@@ -11368,7 +11023,7 @@
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/exception/exception.module.ts",
         "ext": ".ts",
-        "mtime": 1600472733856.0051
+        "mtime": 1600479558925.6067
       },
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/exception/trigger.component.ts",
@@ -11383,7 +11038,7 @@
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/extras/extras.module.ts",
         "ext": ".ts",
-        "mtime": 1600472733857.0024
+        "mtime": 1600479558923.612
       },
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/extras/helpcenter/helpcenter.component.html",
@@ -11453,7 +11108,7 @@
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/passport/login/login.component.ts",
         "ext": ".ts",
-        "mtime": 1600472733865.9785
+        "mtime": 1600479558927.6013
       },
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/passport/register/register.component.html",
@@ -11768,7 +11423,7 @@
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/pro/pro.module.ts",
         "ext": ".ts",
-        "mtime": 1600472733896.8958
+        "mtime": 1600479558924.6096
       },
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/pro/profile/advanced/advanced.component.html",
@@ -11818,12 +11473,12 @@
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/routes-routing.module.ts",
         "ext": ".ts",
-        "mtime": 1600472733901.8818
+        "mtime": 1600479558920.6206
       },
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/routes.module.ts",
         "ext": ".ts",
-        "mtime": 1600472733902.8792
+        "mtime": 1600479558921.618
       },
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/style/color.service.ts",
@@ -11868,7 +11523,7 @@
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/style/style.module.ts",
         "ext": ".ts",
-        "mtime": 1600472733906.8792
+        "mtime": 1600479558925.6067
       },
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/style/typography/typography.component.html",
@@ -11903,12 +11558,12 @@
       {
         "file": "apps/tmpl/ng-alain-app/src/app/routes/widgets/widgets.module.ts",
         "ext": ".ts",
-        "mtime": 1600472733908.8638
+        "mtime": 1600479558923.612
       },
       {
         "file": "apps/tmpl/ng-alain-app/src/app/shared/shared.module.ts",
         "ext": ".ts",
-        "mtime": 1600472733910.8584
+        "mtime": 1600479558919.6226
       },
       {
         "file": "apps/tmpl/ng-alain-app/src/assets/.gitkeep",
@@ -13130,7 +12785,7 @@
         "mtime": 1600322428417.6987
       }
     ],
-    "fs.ng-alain": [
+    "fs.theme-ng-alain": [
       {
         "file": "themes/tmpl/ng-alain/.gitignore",
         "ext": "",
@@ -13194,12 +12849,12 @@
       {
         "file": "themes/tmpl/ng-alain/basic/src/lib/ng-alain-basic.module.ts",
         "ext": ".ts",
-        "mtime": 1600393952238.2605
+        "mtime": 1600479558931.5906
       },
       {
         "file": "themes/tmpl/ng-alain/basic/src/lib/providers/styles.provider.ts",
         "ext": ".ts",
-        "mtime": 1600393952239.2573
+        "mtime": 1600479558934.5823
       },
       {
         "file": "themes/tmpl/ng-alain/basic/src/test-setup.ts",
@@ -13307,11 +12962,6 @@
         "mtime": 1600393952252.2224
       },
       {
-        "file": "themes/tmpl/ng-alain/jest.config.js",
-        "ext": ".js",
-        "mtime": 1595126331625.643
-      },
-      {
         "file": "themes/tmpl/ng-alain/layout/index.ts",
         "ext": ".ts",
         "mtime": 1600393952253.22
@@ -13344,7 +12994,7 @@
       {
         "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/i18n.component.ts",
         "ext": ".ts",
-        "mtime": 1600393952257.2092
+        "mtime": 1600479558936.5764
       },
       {
         "file": "themes/tmpl/ng-alain/layout/src/lib/default/header/components/icon.component.ts",
@@ -13484,7 +13134,7 @@
       {
         "file": "themes/tmpl/ng-alain/layout/src/lib/layout.module.ts",
         "ext": ".ts",
-        "mtime": 1600393952273.1665
+        "mtime": 1600479558930.5935
       },
       {
         "file": "themes/tmpl/ng-alain/layout/src/lib/page-bar/index.ts",
@@ -13619,7 +13269,7 @@
       {
         "file": "themes/tmpl/ng-alain/src/lib/global-config.module.ts",
         "ext": ".ts",
-        "mtime": 1600393952291.1194
+        "mtime": 1600479558928.5996
       },
       {
         "file": "themes/tmpl/ng-alain/src/lib/index.ts",
@@ -13634,7 +13284,7 @@
       {
         "file": "themes/tmpl/ng-alain/src/lib/ng-alain.module.ts",
         "ext": ".ts",
-        "mtime": 1600393952293.114
+        "mtime": 1600479558921.618
       },
       {
         "file": "themes/tmpl/ng-alain/src/test-setup.ts",
@@ -13689,27 +13339,7 @@
       {
         "file": "themes/tmpl/ng-alain/tsconfig.json",
         "ext": ".json",
-        "mtime": 1595126331637.8684
-      },
-      {
-        "file": "themes/tmpl/ng-alain/tsconfig.lib.json",
-        "ext": ".json",
-        "mtime": 1600393952294.1113
-      },
-      {
-        "file": "themes/tmpl/ng-alain/tsconfig.lib.prod.json",
-        "ext": ".json",
-        "mtime": 1600393952294.1113
-      },
-      {
-        "file": "themes/tmpl/ng-alain/tsconfig.spec.json",
-        "ext": ".json",
-        "mtime": 1600393952295.1086
-      },
-      {
-        "file": "themes/tmpl/ng-alain/tslint.json",
-        "ext": ".json",
-        "mtime": 1595126331637.8684
+        "mtime": 1600478780779.4192
       }
     ],
     "abp.components": [
@@ -14243,11 +13873,6 @@
         "mtime": 1600393952143.5142
       },
       {
-        "file": "libs/tmpl/packages/jest.config.js",
-        "ext": ".js",
-        "mtime": 1595126331507.0305
-      },
-      {
         "file": "libs/tmpl/packages/ng-alain/package.json",
         "ext": ".json",
         "mtime": 1600393952144.5112
@@ -14335,30 +13960,10 @@
       {
         "file": "libs/tmpl/packages/tsconfig.json",
         "ext": ".json",
-        "mtime": 1595126331511.0198
-      },
-      {
-        "file": "libs/tmpl/packages/tsconfig.lib.json",
-        "ext": ".json",
-        "mtime": 1600393952152.4893
-      },
-      {
-        "file": "libs/tmpl/packages/tsconfig.spec.json",
-        "ext": ".json",
-        "mtime": 1595126331511.0198
-      },
-      {
-        "file": "libs/tmpl/packages/tslint.json",
-        "ext": ".json",
-        "mtime": 1595126331512.0173
+        "mtime": 1600478872665.6138
       }
     ],
     "fs.identity": [
-      {
-        "file": "libs/tmpl/identity/jest.config.js",
-        "ext": ".js",
-        "mtime": 1600393952124.564
-      },
       {
         "file": "libs/tmpl/identity/ng-alain/config/package.json",
         "ext": ".json",
@@ -14437,7 +14042,7 @@
       {
         "file": "libs/tmpl/identity/ng-alain/src/lib/identity-ng-alain.module.ts",
         "ext": ".ts",
-        "mtime": 1600393952136.5322
+        "mtime": 1600479558923.612
       },
       {
         "file": "libs/tmpl/identity/ng-alain/src/lib/index.ts",
@@ -14477,27 +14082,7 @@
       {
         "file": "libs/tmpl/identity/tsconfig.json",
         "ext": ".json",
-        "mtime": 1595126331343.7058
-      },
-      {
-        "file": "libs/tmpl/identity/tsconfig.lib.json",
-        "ext": ".json",
-        "mtime": 1600393952139.5237
-      },
-      {
-        "file": "libs/tmpl/identity/tsconfig.lib.prod.json",
-        "ext": ".json",
-        "mtime": 1600393952140.5215
-      },
-      {
-        "file": "libs/tmpl/identity/tsconfig.spec.json",
-        "ext": ".json",
-        "mtime": 1595126331344.707
-      },
-      {
-        "file": "libs/tmpl/identity/tslint.json",
-        "ext": ".json",
-        "mtime": 1600393952141.519
+        "mtime": 1600478859321.8086
       }
     ],
     "abp.identity": [
@@ -14674,11 +14259,6 @@
     ],
     "fs.account": [
       {
-        "file": "libs/tmpl/account/jest.config.js",
-        "ext": ".js",
-        "mtime": 1600393952024.8315
-      },
-      {
         "file": "libs/tmpl/account/ng-alain/config/package.json",
         "ext": ".json",
         "mtime": 1600393952025.8286
@@ -14726,7 +14306,7 @@
       {
         "file": "libs/tmpl/account/ng-alain/src/lib/account-ng-alain.module.ts",
         "ext": ".ts",
-        "mtime": 1600393952037.796
+        "mtime": 1600479558919.6226
       },
       {
         "file": "libs/tmpl/account/ng-alain/src/lib/components/auth-wrapper/auth-wrapper.component.html",
@@ -14896,27 +14476,7 @@
       {
         "file": "libs/tmpl/account/tsconfig.json",
         "ext": ".json",
-        "mtime": 1600393952107.609
-      },
-      {
-        "file": "libs/tmpl/account/tsconfig.lib.json",
-        "ext": ".json",
-        "mtime": 1600393952108.6067
-      },
-      {
-        "file": "libs/tmpl/account/tsconfig.lib.prod.json",
-        "ext": ".json",
-        "mtime": 1600393952108.6067
-      },
-      {
-        "file": "libs/tmpl/account/tsconfig.spec.json",
-        "ext": ".json",
-        "mtime": 1600393952109.6038
-      },
-      {
-        "file": "libs/tmpl/account/tslint.json",
-        "ext": ".json",
-        "mtime": 1600393952110.6013
+        "mtime": 1600478830505.6133
       }
     ],
     "tmpl.dev-app": [

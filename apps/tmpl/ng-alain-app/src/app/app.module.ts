@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { NgAlainModule } from '@fs/ng-alain';
+import { ThemeNgAlainModule } from '@fs/theme.ng-alain';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsModule } from '@ngxs/store';
 import { APP_ROUTE_PROVIDER } from './route.provider';
@@ -36,7 +36,7 @@ const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
     SettingManagementNgAlainConfigModule.forRoot(),
     NgxsModule.forRoot(),
 
-    NgAlainModule.forRoot(),
+    ThemeNgAlainModule.forRoot(),
     ...(environment.production ? [] : LOGGERS)
 
   ],

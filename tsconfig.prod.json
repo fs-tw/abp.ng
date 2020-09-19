@@ -53,10 +53,10 @@
       "@fs/theme.core": [
         "dist/tmpl/themes/theme-core"
       ],
-      "@fs/ng-alain": [
+      "@fs/theme.ng-alain": [
         "dist/tmpl/themes/ng-alain"
       ],
-      "@fs/ng-alain/*": [
+      "@fs/theme.ng-alain/*": [
         "dist/tmpl/themes/ng-alain/*"
       ],
       "@fs/account": [

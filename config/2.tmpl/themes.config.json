@@ -7,7 +7,7 @@
     "fs.dev": {
       "tags": []
     },
-    "fs.ng-alain": {
+    "fs.theme-ng-alain": {
       "tags": []
     }
   },
@@ -99,7 +99,7 @@
       },
       "schematics": {}
     },
-    "fs.ng-alain": {
+    "fs.theme-ng-alain": {
       "projectType": "library",
       "root": "themes/tmpl/ng-alain",
       "sourceRoot": "themes/tmpl/ng-alain/src",
@@ -146,23 +146,23 @@
     "@fs/theme.core": [
       "themes/tmpl/theme-core/src/index.ts"
     ],
-    "@fs/ng-alain": [
+    "@fs/theme.ng-alain": [
       "themes/tmpl/ng-alain/src/index.ts"
     ],
-    "@fs/ng-alain/*": [
+    "@fs/theme.ng-alain/*": [
       "themes/tmpl/ng-alain/*/src/index.ts"
-    ]
+    ]    
   },
   "tsconfigProd": {
     "@fs/theme.core": [
       "dist/tmpl/themes/theme-core"
     ],
-    "@fs/ng-alain": [
+    "@fs/theme.ng-alain": [
       "dist/tmpl/themes/ng-alain"
     ],
-    "@fs/ng-alain/*": [
+    "@fs/theme.ng-alain/*": [
       "dist/tmpl/themes/ng-alain/*"
-    ]
+    ]    
   },
   "symlink": [
     {
@@ -177,7 +177,7 @@
       "sync": false,
       "ignore_packages": [],
       "packages": [
-        "fs.ng-alain"
+        "fs.theme-ng-alain"
       ]
     }
   ]

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NgAlainSharedModule } from '@fs/ng-alain/shared';
+import { NgAlainSharedModule } from '@fs/theme.ng-alain/shared';
 
 import { LayoutDefaultComponent } from './default/default.component';
 import { HeaderFullScreenComponent } from './default/header/components/fullscreen.component';

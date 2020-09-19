@@ -3,9 +3,9 @@ import { Store, Select } from '@ngxs/store';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import * as _ from 'lodash';
-import { NotifyService } from '@fs/ng-alain/core';
+import { NotifyService } from '@fs/theme.ng-alain/core';
 import { NzContextMenuService } from 'ng-zorro-antd';
-import { FsNgAlainTreeComponent } from '@fs/ng-alain/basic';
+import { FsNgAlainTreeComponent } from '@fs/theme.ng-alain/basic';
 import { UpdateSettingsByProviderName } from '@fs/theme.core';
 
 @Component({
