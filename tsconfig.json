@@ -68,49 +68,49 @@
         "packages/feature-management/src/public-api.ts"
       ],
       "@fs/theme.core": [
-        "themes/theme-core/src/index.ts"
+        "themes/tmpl/theme-core/src/index.ts"
       ],
       "@fs/ng-alain": [
-        "themes/ng-alain/src/index.ts"
+        "themes/tmpl/ng-alain/src/index.ts"
       ],
       "@fs/ng-alain/*": [
-        "themes/ng-alain/*/src/index.ts"
+        "themes/tmpl/ng-alain/*/src/index.ts"
       ],
       "@fs/account": [
-        "libs/account/src/index.ts"
+        "libs/tmpl/account/src/index.ts"
       ],
       "@fs/account/*": [
-        "libs/account/*/src/index.ts"
+        "libs/tmpl/account/*/src/index.ts"
       ],
       "@fs/identity": [
-        "libs/identity/src/index.ts"
+        "libs/tmpl/identity/src/index.ts"
       ],
       "@fs/identity/*": [
-        "libs/identity/*/src/index.ts"
+        "libs/tmpl/identity/*/src/index.ts"
       ],
       "@fs/permission-management": [
-        "libs/permission-management/src/index.ts"
+        "libs/tmpl/permission-management/src/index.ts"
       ],
       "@fs/permission-management/*": [
-        "libs/permission-management/*/src/index.ts"
+        "libs/tmpl/permission-management/*/src/index.ts"
       ],
       "@fs/tenant-management": [
-        "libs/tenant-management/src/index.ts"
+        "libs/tmpl/tenant-management/src/index.ts"
       ],
       "@fs/tenant-management/*": [
-        "libs/tenant-management/*/src/index.ts"
+        "libs/tmpl/tenant-management/*/src/index.ts"
       ],
       "@fs/feature-management": [
-        "libs/feature-management/src/index.ts"
+        "libs/tmpl/feature-management/src/index.ts"
       ],
       "@fs/feature-management/*": [
-        "libs/feature-management/*/src/index.ts"
+        "libs/tmpl/feature-management/*/src/index.ts"
       ],
       "@fs/setting-management": [
-        "libs/setting-management/src/index.ts"
+        "libs/tmpl/setting-management/src/index.ts"
       ],
       "@fs/setting-management/*": [
-        "libs/setting-management/*/src/index.ts"
+        "libs/tmpl/setting-management/*/src/index.ts"
       ]
     }
   },

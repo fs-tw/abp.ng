@@ -1,10 +1,9 @@
 {
   "packages": [
-    "dist/libs/*",
-    "dist/themes/*",
+    "dist/tmpl/*/*",
     "dist/tools/*/*"
   ],
-  "version": "3.0.0-alpha.3.1",
+  "version": "3.1.2",
   "command": {
     "publish": {
       "registry": "http://192.168.1.7:4873/"

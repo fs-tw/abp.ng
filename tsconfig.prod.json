@@ -51,49 +51,49 @@
         "dist/feature-management/*"
       ],
       "@fs/theme.core": [
-        "dist/themes/theme-core"
+        "dist/tmpl/themes/theme-core"
       ],
       "@fs/ng-alain": [
-        "dist/themes/ng-alain"
+        "dist/tmpl/themes/ng-alain"
       ],
       "@fs/ng-alain/*": [
-        "dist/themes/ng-alain/*"
+        "dist/tmpl/themes/ng-alain/*"
       ],
       "@fs/account": [
-        "dist/libs/account"
+        "dist/tmpl/libs/account"
       ],
       "@fs/account/*": [
-        "dist/libs/account/*"
+        "dist/tmpl/libs/account/*"
       ],
       "@fs/identity": [
-        "dist/libs/identity"
+        "dist/tmpl/libs/identity"
       ],
       "@fs/identity/*": [
-        "dist/libs/identity/*"
+        "dist/tmpl/libs/identity/*"
       ],
       "@fs/permission-management": [
-        "dist/libs/permission-management"
+        "dist/tmpl/libs/permission-management"
       ],
       "@fs/permission-management/*": [
-        "dist/libs/permission-management/*"
+        "dist/tmpl/libs/permission-management/*"
       ],
       "@fs/tenant-management": [
-        "dist/libs/tenant-management"
+        "dist/tmpl/libs/tenant-management"
       ],
       "@fs/tenant-management/*": [
-        "dist/libs/tenant-management/*"
+        "dist/tmpl/libs/tenant-management/*"
       ],
       "@fs/feature-management": [
-        "dist/libs/feature-management"
+        "dist/tmpl/libs/feature-management"
       ],
       "@fs/feature-management/*": [
-        "dist/libs/feature-management/*"
+        "dist/tmpl/libs/feature-management/*"
       ],
       "@fs/setting-management": [
-        "dist/libs/setting-management"
+        "dist/tmpl/libs/setting-management"
       ],
       "@fs/setting-management/*": [
-        "dist/libs/setting-management/*"
+        "dist/tmpl/libs/setting-management/*"
       ]
     }
   },
