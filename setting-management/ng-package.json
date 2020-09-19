@@ -1,6 +1,6 @@
 {
   "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../../dist/tmpl/libs/setting-management",
+  "dest": "../../../dist/tmpl/setting-management",
   "lib": {
     "entryFile": "src/index.ts"
   }
