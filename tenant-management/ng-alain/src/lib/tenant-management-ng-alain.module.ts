@@ -1,7 +1,7 @@
 import { TenantManagementModule } from '@abp/ng.tenant-management';
 import { LazyModuleFactory, CoreModule } from '@abp/ng.core';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders, NgModuleFactory } from '@angular/core';
-import { NgAlainBasicModule } from '@fs/ng-alain/basic';
+import { NgAlainBasicModule } from '@fs/theme.ng-alain/basic';
 import { TenantsComponent } from './components/tenants/tenants.component';
 import { FeatureManagementNgAlainModule } from '@fs/feature-management/ng-alain';
 import { NgxValidateCoreModule } from '@ngx-validate/core';

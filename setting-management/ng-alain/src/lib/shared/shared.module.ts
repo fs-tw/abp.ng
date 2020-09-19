@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NgAlainBasicModule } from '@fs/ng-alain/basic';
+import { NgAlainBasicModule } from '@fs/theme.ng-alain/basic';
 import { NgJsonEditorModule } from 'ang-jsoneditor';
 import { ModalComponent } from './components/fs-ng-alain-setting-management/modal/modal.component';
 import { MainComponent } from './components/fs-ng-alain-setting-management/main/main.component';

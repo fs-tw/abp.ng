@@ -1,5 +1,5 @@
 import { NgModule, ModuleWithProviders, NgModuleFactory } from '@angular/core';
-import { NgAlainBasicModule } from '@fs/ng-alain/basic';
+import { NgAlainBasicModule } from '@fs/theme.ng-alain/basic';
 import { UsersComponent } from './components/users/users.component';
 import { RolesComponent } from './components/roles/roles.component';
 import { LazyModuleFactory, CoreModule } from '@abp/ng.core';
