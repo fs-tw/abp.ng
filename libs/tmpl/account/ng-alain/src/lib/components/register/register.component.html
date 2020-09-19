@@ -1,0 +1,35 @@
+<ng-alain-auth-wrapper [mainContentRef]="mainContentRef">
+  <ng-template #mainContentRef>
+    <h3>{{ 'AbpAccount::Register' | abpLocalization }}</h3>
+    <form nz-form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzSize="large">
+            <input nz-input formControlName="username" placeholder="{{ 'AbpAccount::UserName' | abpLocalization }}" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzSize="large">
+            <input nz-input formControlName="email" placeholder="{{ 'AbpAccount::EmailAddress' | abpLocalization }}" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzSize="large">
+            <input nz-input type="password" formControlName="password" placeholder="{{ 'AbpAccount::Password' | abpLocalization }}" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <button nz-button nzType="primary" nzSize="large" type="submit" [nzLoading]="inProgress" class="submit">
+          {{ 'AbpAccount::Register' | abpLocalization }}
+        </button>
+        <a class="login" routerLink="/account/login">{{ 'AbpAccount::Login' | abpLocalization }}</a>
+      </nz-form-item>
+    </form>
+  </ng-template>
+</ng-alain-auth-wrapper>
+
