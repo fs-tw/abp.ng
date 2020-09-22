@@ -6,13 +6,13 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired nzFor="name">{{ 'AbpIdentity::DisplayName:Name' | abpLocalization }}</nz-form-label>
+    <nz-form-label nzFor="name">{{ 'AbpIdentity::DisplayName:Name' | abpLocalization }}</nz-form-label>
     <nz-form-control>
       <input nz-input formControlName="name" id="name" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired nzFor="surname">{{ 'AbpIdentity::DisplayName:Surname' | abpLocalization }}</nz-form-label>
+    <nz-form-label nzFor="surname">{{ 'AbpIdentity::DisplayName:Surname' | abpLocalization }}</nz-form-label>
     <nz-form-control>
       <input nz-input formControlName="surname" id="surname" />
     </nz-form-control>
@@ -24,12 +24,12 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label nzRequired nzFor="phone-number">{{ 'AbpIdentity::DisplayName:PhoneNumber' | abpLocalization }}</nz-form-label>
+    <nz-form-label nzFor="phone-number">{{ 'AbpIdentity::DisplayName:PhoneNumber' | abpLocalization }}</nz-form-label>
     <nz-form-control>
       <input nz-input formControlName="phoneNumber" id="phone-number" />
     </nz-form-control>
   </nz-form-item>
-  <button nz-button nzType="primary">
+  <button nz-button nzType="primary" [disabled]="!form.valid">
     {{
       'AbpIdentity::Save' | abpLocalization
     }}

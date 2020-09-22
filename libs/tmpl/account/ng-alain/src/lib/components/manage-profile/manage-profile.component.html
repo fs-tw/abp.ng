@@ -6,12 +6,13 @@
 <div class="main">
   <div class="menu">
     <ul nz-menu nzMode="inline">
-      <li nz-menu-item [nzSelected]="selectedTab === 0" (click)="selectedTab = 0">
+      <li nz-menu-item [nzSelected]="selectedTab === 0" (click)="selectedTab = 0"
+        *ngIf="!hideChangePasswordTab && isProfileLoaded">
         {{
             'AbpUi::ChangePassword' | abpLocalization
         }}
       </li>
-      <li nz-menu-item [nzSelected]="selectedTab === 1" (click)="selectedTab = 1">
+      <li nz-menu-item [nzSelected]="selectedTab === 1" (click)="selectedTab = 1" *ngIf="isProfileLoaded">
         {{
             'AbpAccount::PersonalSettings' | abpLocalization
         }}
@@ -20,8 +21,12 @@
   </div>
   <div class="content">
     <div class="title">{{ 'AbpAccount::ChangePassword' | abpLocalization }}</div>
-    <ng-alain-change-password-form *ngIf="selectedTab === 0"></ng-alain-change-password-form>
-    <ng-alain-personal-settings-form *ngIf="selectedTab === 1"></ng-alain-personal-settings-form>
+    <div *ngIf="!hideChangePasswordTab && isProfileLoaded">
+      <ng-alain-change-password-form *ngIf="selectedTab === 0"></ng-alain-change-password-form>
+    </div>
+    <div *ngIf="isProfileLoaded">
+      <ng-alain-personal-settings-form *ngIf="selectedTab === 1"></ng-alain-personal-settings-form>
+    </div>
   </div>
 
 </div>
