@@ -12,6 +12,7 @@ export class PersonalSettingsComponent extends AbpPersonalSettingsComponent impl
 
     constructor(private _fb: FormBuilder, private _store: Store, private _toasterService: ToasterService) {
         super(_fb, _store, _toasterService);
+
     }
 
 }
