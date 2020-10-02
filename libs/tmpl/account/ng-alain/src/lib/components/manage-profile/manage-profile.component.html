@@ -19,7 +19,10 @@
     </ul>
   </div>
   <div class="content" *ngIf="isProfileLoaded">
-    <div class="title">{{ 'AbpAccount::ChangePassword' | abpLocalization }}</div>
+    <div class="title">
+      <span *ngIf="selectedTab === 0">{{ 'AbpAccount::ChangePassword' | abpLocalization }}</span>
+      <span *ngIf="selectedTab === 1">{{ 'AbpAccount::PersonalSettings' | abpLocalization }}</span>
+    </div>
     <ng-alain-change-password-form *ngIf="selectedTab === 0"></ng-alain-change-password-form>
     <ng-alain-personal-settings-form *ngIf="selectedTab === 1"></ng-alain-personal-settings-form>
   </div>
