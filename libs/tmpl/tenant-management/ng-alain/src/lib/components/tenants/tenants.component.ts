@@ -1,4 +1,4 @@
-import { TenantManagementService, TenantsComponent as AbpTenantsComponent } from '@abp/ng.tenant-management';
+import { TenantManagementService, TenantsComponent as AbpTenantsComponent, GetTenantsInput } from '@abp/ng.tenant-management';
 import { ConfirmationService } from '@abp/ng.theme.shared';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
@@ -12,7 +12,7 @@ import { ListService } from '@abp/ng.core';
 })
 export class TenantsComponent extends AbpTenantsComponent implements OnInit {
     constructor(
-        private _list: ListService,
+        private _list: ListService<GetTenantsInput>,
         private _confirmationService: ConfirmationService,
         private _tenantService: TenantManagementService,
         private _fb: FormBuilder,
