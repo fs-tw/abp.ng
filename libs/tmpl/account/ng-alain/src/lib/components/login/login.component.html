@@ -4,14 +4,14 @@
       <nz-tabset [nzAnimated]="false" class="tabs">
         <nz-tab [nzTitle]="'AbpAccount::Login' | abpLocalization">
           <nz-form-item>
-            <nz-form-control [nzErrorTip]="'Please enter mobile number!' | abpLocalization">
+            <nz-form-control >
               <nz-input-group nzSize="large" nzPrefixIcon="user">
                 <input nz-input formControlName="username" placeholder="{{'AbpAccount::UserNameOrEmailAddress' | abpLocalization}}" />
               </nz-input-group>
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
-            <nz-form-control [nzErrorTip]="'Please enter password!' | abpLocalization">
+            <nz-form-control >
               <nz-input-group nzSize="large" nzPrefixIcon="lock">
                 <input nz-input type="password" formControlName="password" placeholder="{{ 'AbpAccount::Password' | abpLocalization }}" />
               </nz-input-group>

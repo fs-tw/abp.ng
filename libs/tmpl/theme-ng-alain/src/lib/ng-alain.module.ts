@@ -111,7 +111,7 @@ import { NgxValidateCoreModule } from '@ngx-validate/core';
 @NgModule({
   imports: [
     NgxValidateCoreModule.forRoot({
-      targetSelector: '.form-group',
+      //targetSelector: 'nz-input-group',
       blueprints: {
         creditCard: 'AbpValidation::ThisFieldIsNotAValidCreditCardNumber.',
         email: 'AbpValidation::ThisFieldIsNotAValidEmailAddress.',
@@ -128,7 +128,7 @@ import { NgxValidateCoreModule } from '@ngx-validate/core';
         required: 'AbpValidation::ThisFieldIsRequired.',
         url: 'AbpValidation::ThisFieldIsNotAValidFullyQualifiedHttpHttpsOrFtpUrl',
       },
-      //errorTemplate: ValidationErrorComponent,
+      errorTemplate: ValidationErrorComponent,
     }),
     //ThemeCoreModule.forRoot(),
     NgAlainSharedModule.forRoot(),
@@ -140,6 +140,7 @@ export class RootModule { }
 // #endregion
 import { AlainConfigService } from '@delon/util';
 import { THEMECORE_OPTIONS } from '@fs/theme.core';
+import { ValidationErrorComponent } from '@fs/theme.ng-alain/basic';
 
 @NgModule({
   imports: [
