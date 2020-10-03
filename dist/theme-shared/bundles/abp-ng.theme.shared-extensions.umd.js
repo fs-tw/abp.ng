@@ -1,8 +1,41 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@ng-bootstrap/ng-bootstrap'), require('@angular/forms'), require('@abp/utils'), require('@abp/ng.core'), require('rxjs'), require('rxjs/operators'), require('@abp/ng.theme.shared'), require('@ngx-validate/core'), require('@ngxs/store')) :
-    typeof define === 'function' && define.amd ? define('@abp/ng.theme.shared/extensions', ['exports', '@angular/core', '@angular/common', '@ng-bootstrap/ng-bootstrap', '@angular/forms', '@abp/utils', '@abp/ng.core', 'rxjs', 'rxjs/operators', '@abp/ng.theme.shared', '@ngx-validate/core', '@ngxs/store'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.theme = global.abp.ng.theme || {}, global.abp.ng.theme.shared = global.abp.ng.theme.shared || {}, global.abp.ng.theme.shared.extensions = {}), global.ng.core, global.ng.common, global.ngBootstrap, global.ng.forms, global.utils, global.ng_core, global.rxjs, global.rxjs.operators, global.abp.ng.theme.shared, global.core, global.store));
-}(this, (function (exports, i0, common, ngBootstrap, forms, utils, ng_core, rxjs, operators, ng_theme_shared, core, store) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@ng-bootstrap/ng-bootstrap'), require('@angular/forms'), require('@abp/ng.core'), require('rxjs'), require('@abp/utils'), require('rxjs/operators'), require('@abp/ng.theme.shared'), require('@ngx-validate/core'), require('@ngxs/store')) :
+    typeof define === 'function' && define.amd ? define('@abp/ng.theme.shared/extensions', ['exports', '@angular/core', '@angular/common', '@ng-bootstrap/ng-bootstrap', '@angular/forms', '@abp/ng.core', 'rxjs', '@abp/utils', 'rxjs/operators', '@abp/ng.theme.shared', '@ngx-validate/core', '@ngxs/store'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.theme = global.abp.ng.theme || {}, global.abp.ng.theme.shared = global.abp.ng.theme.shared || {}, global.abp.ng.theme.shared.extensions = {}), global.ng.core, global.ng.common, global.ngBootstrap, global.ng.forms, global.ng_core, global.rxjs, global.utils, global.rxjs.operators, global.abp.ng.theme.shared, global.core, global.store));
+}(this, (function (exports, i0, common, ngBootstrap, forms, ng_core, rxjs, utils, operators, ng_theme_shared, core, store) { 'use strict';
+
+    var DateTimeAdapter = /** @class */ (function () {
+        function DateTimeAdapter() {
+        }
+        DateTimeAdapter.prototype.fromModel = function (value) {
+            if (!value)
+                return null;
+            var date = new Date(value);
+            if (isNaN(date))
+                return null;
+            this.value = {
+                year: date.getFullYear(),
+                month: date.getMonth() + 1,
+                day: date.getDate(),
+                hour: date.getHours(),
+                minute: date.getMinutes(),
+                second: date.getSeconds(),
+            };
+            return this.value;
+        };
+        DateTimeAdapter.prototype.toModel = function (value) {
+            if (!value)
+                return '';
+            var now = new Date();
+            value = Object.assign(Object.assign({ year: now.getUTCFullYear(), month: now.getMonth() + 1, day: now.getDate(), hour: 0, minute: 0, second: 0 }, this.value), value);
+            var date = new Date(value.year, value.month - 1, value.day, value.hour, value.minute, value.second);
+            return new Date(date).toISOString();
+        };
+        return DateTimeAdapter;
+    }());
+    DateTimeAdapter.decorators = [
+        { type: i0.Injectable }
+    ];
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -23,7 +56,7 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
+                if (Object.prototype.hasOwnProperty.call(b, p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
@@ -161,15 +194,19 @@
             return { value: op[0] ? op[1] : void 0, done: true };
         }
     }
-    function __createBinding(o, m, k, k2) {
+    var __createBinding = Object.create ? (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
+    }) : (function (o, m, k, k2) {
         if (k2 === undefined)
             k2 = k;
         o[k2] = m[k];
-    }
-    function __exportStar(m, exports) {
+    });
+    function __exportStar(m, o) {
         for (var p in m)
-            if (p !== "default" && !exports.hasOwnProperty(p))
-                exports[p] = m[p];
+            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+                __createBinding(o, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -268,15 +305,20 @@
         return cooked;
     }
     ;
+    var __setModuleDefault = Object.create ? (function (o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+    }) : function (o, v) {
+        o["default"] = v;
+    };
     function __importStar(mod) {
         if (mod && mod.__esModule)
             return mod;
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (Object.hasOwnProperty.call(mod, k))
-                    result[k] = mod[k];
-        result.default = mod;
+                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+                    __createBinding(result, mod, k);
+        __setModuleDefault(result, mod);
         return result;
     }
     function __importDefault(mod) {
@@ -296,40 +338,7 @@
         return value;
     }
 
-    exports.DateTimeAdapter = /** @class */ (function () {
-        function DateTimeAdapter() {
-        }
-        DateTimeAdapter.prototype.fromModel = function (value) {
-            if (!value)
-                return null;
-            var date = new Date(value);
-            if (isNaN(date))
-                return null;
-            this.value = {
-                year: date.getFullYear(),
-                month: date.getMonth() + 1,
-                day: date.getDate(),
-                hour: date.getHours(),
-                minute: date.getMinutes(),
-                second: date.getSeconds(),
-            };
-            return this.value;
-        };
-        DateTimeAdapter.prototype.toModel = function (value) {
-            if (!value)
-                return '';
-            var now = new Date();
-            value = Object.assign(Object.assign({ year: now.getUTCFullYear(), month: now.getMonth() + 1, day: now.getDate(), hour: 0, minute: 0, second: 0 }, this.value), value);
-            var date = new Date(value.year, value.month - 1, value.day, value.hour, value.minute, value.second);
-            return new Date(date).toISOString();
-        };
-        return DateTimeAdapter;
-    }());
-    exports.DateTimeAdapter = __decorate([
-        i0.Injectable()
-    ], exports.DateTimeAdapter);
-
-    exports.DateAdapter = /** @class */ (function (_super) {
+    var DateAdapter = /** @class */ (function (_super) {
         __extends(DateAdapter, _super);
         function DateAdapter() {
             return _super !== null && _super.apply(this, arguments) || this;
@@ -355,11 +364,11 @@
         };
         return DateAdapter;
     }(ngBootstrap.NgbDateAdapter));
-    exports.DateAdapter = __decorate([
-        i0.Injectable()
-    ], exports.DateAdapter);
+    DateAdapter.decorators = [
+        { type: i0.Injectable }
+    ];
 
-    exports.TimeAdapter = /** @class */ (function (_super) {
+    var TimeAdapter = /** @class */ (function (_super) {
         __extends(TimeAdapter, _super);
         function TimeAdapter() {
             return _super !== null && _super.apply(this, arguments) || this;
@@ -386,12 +395,263 @@
         };
         return TimeAdapter;
     }(ngBootstrap.NgbTimeAdapter));
-    exports.TimeAdapter = __decorate([
-        i0.Injectable()
-    ], exports.TimeAdapter);
+    TimeAdapter.decorators = [
+        { type: i0.Injectable }
+    ];
     function isTimeStr(value) {
         return /^((2[123])|[01][0-9])(\:[0-5][0-9]){1,2}$/.test(String(value));
     }
+
+    function selfFactory(dependency) {
+        return dependency;
+    }
+
+    var ɵ0 = selfFactory;
+    var DateTimePickerComponent = /** @class */ (function () {
+        function DateTimePickerComponent(cdRef) {
+            this.cdRef = cdRef;
+        }
+        DateTimePickerComponent.prototype.setDate = function (datestr) {
+            this.date.writeValue(datestr);
+        };
+        DateTimePickerComponent.prototype.setTime = function (datestr) {
+            this.time.writeValue(datestr);
+        };
+        return DateTimePickerComponent;
+    }());
+    DateTimePickerComponent.decorators = [
+        { type: i0.Component, args: [{
+                    exportAs: 'abpDateTimePicker',
+                    selector: 'abp-date-time-picker',
+                    template: "\n    <input\n      [id]=\"prop.id\"\n      [formControlName]=\"prop.name\"\n      (ngModelChange)=\"setTime($event)\"\n      (click)=\"datepicker.open()\"\n      (keyup.space)=\"datepicker.open()\"\n      ngbDatepicker\n      #datepicker=\"ngbDatepicker\"\n      type=\"text\"\n      class=\"form-control\"\n    />\n    <ngb-timepicker\n      #timepicker\n      [formControlName]=\"prop.name\"\n      (ngModelChange)=\"setDate($event)\"\n    ></ngb-timepicker>\n  ",
+                    changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                    viewProviders: [
+                        {
+                            provide: forms.ControlContainer,
+                            useFactory: ɵ0,
+                            deps: [[new i0.Optional(), new i0.SkipSelf(), forms.ControlContainer]],
+                        },
+                        {
+                            provide: ngBootstrap.NgbDateAdapter,
+                            useClass: DateTimeAdapter,
+                        },
+                        {
+                            provide: ngBootstrap.NgbTimeAdapter,
+                            useClass: DateTimeAdapter,
+                        },
+                    ]
+                },] }
+    ];
+    DateTimePickerComponent.ctorParameters = function () { return [
+        { type: i0.ChangeDetectorRef }
+    ]; };
+    DateTimePickerComponent.propDecorators = {
+        prop: [{ type: i0.Input }],
+        date: [{ type: i0.ViewChild, args: [ngBootstrap.NgbInputDatepicker,] }],
+        time: [{ type: i0.ViewChild, args: [ngBootstrap.NgbTimepicker,] }]
+    };
+
+    var ɵ0$1 = selfFactory;
+    var ExtensibleFormPropComponent = /** @class */ (function () {
+        function ExtensibleFormPropComponent(cdRef, track) {
+            this.cdRef = cdRef;
+            this.track = track;
+            this.options$ = rxjs.of([]);
+            this.validators = [];
+        }
+        Object.defineProperty(ExtensibleFormPropComponent.prototype, "asterisk", {
+            get: function () {
+                return this.validators.some(function (validator) { return validator === forms.Validators.required; }) ? '*' : '';
+            },
+            enumerable: false,
+            configurable: true
+        });
+        ExtensibleFormPropComponent.prototype.getComponent = function (prop) {
+            if (prop.options)
+                return 'select';
+            switch (prop.type) {
+                case "boolean" /* Boolean */:
+                    return 'checkbox';
+                case "date" /* Date */:
+                    return 'date';
+                case "dateTime" /* DateTime */:
+                    return 'dateTime';
+                case "text" /* Text */:
+                    return 'textarea';
+                case "time" /* Time */:
+                    return 'time';
+                default:
+                    return 'input';
+            }
+        };
+        ExtensibleFormPropComponent.prototype.getType = function (prop) {
+            switch (prop.type) {
+                case "date" /* Date */:
+                case "string" /* String */:
+                    return 'text';
+                case "boolean" /* Boolean */:
+                    return 'checkbox';
+                case "number" /* Number */:
+                    return 'number';
+                case "email" /* Email */:
+                    return 'email';
+                case "password" /* Password */:
+                    return 'password';
+                default:
+                    return 'hidden';
+            }
+        };
+        ExtensibleFormPropComponent.prototype.ngOnChanges = function (_a) {
+            var prop = _a.prop;
+            var options = prop.currentValue.options;
+            var readonly = prop.currentValue.readonly;
+            var disabled = prop.currentValue.disabled;
+            var validators = prop.currentValue.validators;
+            if (options)
+                this.options$ = options(this.data);
+            if (readonly)
+                this.readonly = readonly(this.data);
+            if (disabled)
+                this.disabled = disabled(this.data);
+            if (validators)
+                this.validators = validators(this.data);
+        };
+        return ExtensibleFormPropComponent;
+    }());
+    ExtensibleFormPropComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-extensible-form-prop',
+                    template: "<div class=\"form-group\" [abpPermission]=\"prop.permission\" [ngSwitch]=\"getComponent(prop)\">\r\n  <ng-template ngSwitchCase=\"input\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <input\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [autocomplete]=\"prop.autocomplete\"\r\n      [type]=\"getType(prop)\"\r\n      [abpDisabled]=\"disabled\"\r\n      [readonly]=\"readonly\"\r\n      class=\"form-control\"\r\n    />\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"checkbox\">\r\n    <div class=\"custom-checkbox custom-control\" validationTarget>\r\n      <input\r\n        [id]=\"prop.id\"\r\n        [formControlName]=\"prop.name\"\r\n        [abpDisabled]=\"disabled\"\r\n        type=\"checkbox\"\r\n        class=\"custom-control-input\"\r\n      />\r\n      <label [htmlFor]=\"prop.id\" class=\"custom-control-label\"\r\n        >{{ prop.displayName | abpLocalization }} {{ asterisk }}</label\r\n      >\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"select\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <select\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [abpDisabled]=\"disabled\"\r\n      class=\"custom-select form-control\"\r\n    >\r\n      <option\r\n        *ngFor=\"let option of options$ | async; trackBy: track.by('value')\"\r\n        [ngValue]=\"option.value\"\r\n        >{{ option.key }}</option\r\n      >\r\n    </select>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"date\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <input\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      (click)=\"datepicker.open()\"\r\n      (keyup.space)=\"datepicker.open()\"\r\n      ngbDatepicker\r\n      #datepicker=\"ngbDatepicker\"\r\n      type=\"text\"\r\n      class=\"form-control\"\r\n    />\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"time\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <ngb-timepicker [formControlName]=\"prop.name\"></ngb-timepicker>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"dateTime\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <abp-date-time-picker [prop]=\"prop\"></abp-date-time-picker>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"textarea\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <textarea\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [abpDisabled]=\"disabled\"\r\n      [readonly]=\"readonly\"\r\n      class=\"form-control\"\r\n    ></textarea>\r\n  </ng-template>\r\n</div>\r\n",
+                    changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                    viewProviders: [
+                        {
+                            provide: forms.ControlContainer,
+                            useFactory: ɵ0$1,
+                            deps: [[new i0.Optional(), new i0.SkipSelf(), forms.ControlContainer]],
+                        },
+                        { provide: ngBootstrap.NgbDateAdapter, useClass: DateAdapter },
+                        { provide: ngBootstrap.NgbTimeAdapter, useClass: TimeAdapter },
+                    ]
+                },] }
+    ];
+    ExtensibleFormPropComponent.ctorParameters = function () { return [
+        { type: i0.ChangeDetectorRef },
+        { type: ng_core.TrackByService }
+    ]; };
+    ExtensibleFormPropComponent.propDecorators = {
+        data: [{ type: i0.Input }],
+        prop: [{ type: i0.Input }]
+    };
+
+    var EXTRA_PROPERTIES_KEY = 'extraProperties';
+
+    var ActionList = /** @class */ (function (_super) {
+        __extends(ActionList, _super);
+        function ActionList() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return ActionList;
+    }(utils.LinkedList));
+    var ActionData = /** @class */ (function () {
+        function ActionData() {
+        }
+        Object.defineProperty(ActionData.prototype, "data", {
+            get: function () {
+                return {
+                    getInjected: this.getInjected,
+                    index: this.index,
+                    record: this.record,
+                };
+            },
+            enumerable: false,
+            configurable: true
+        });
+        return ActionData;
+    }());
+    var Action = /** @class */ (function () {
+        function Action(permission, visible, action) {
+            if (visible === void 0) { visible = function (_) { return true; }; }
+            if (action === void 0) { action = function (_) { }; }
+            this.permission = permission;
+            this.visible = visible;
+            this.action = action;
+        }
+        return Action;
+    }());
+    var ActionsFactory = /** @class */ (function () {
+        function ActionsFactory() {
+            this.contributorCallbacks = {};
+        }
+        ActionsFactory.prototype.get = function (name) {
+            this.contributorCallbacks[name] = this.contributorCallbacks[name] || [];
+            return new this._ctor(this.contributorCallbacks[name]);
+        };
+        return ActionsFactory;
+    }());
+    var Actions = /** @class */ (function () {
+        function Actions(callbackList) {
+            this.callbackList = callbackList;
+        }
+        Object.defineProperty(Actions.prototype, "actions", {
+            get: function () {
+                var actionList = new this._ctor();
+                this.callbackList.forEach(function (callback) { return callback(actionList); });
+                return actionList;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Actions.prototype.addContributor = function (contributeCallback) {
+            this.callbackList.push(contributeCallback);
+        };
+        Actions.prototype.clearContributors = function () {
+            while (this.callbackList.length)
+                this.callbackList.pop();
+        };
+        return Actions;
+    }());
+
+    var EntityActionList = /** @class */ (function (_super) {
+        __extends(EntityActionList, _super);
+        function EntityActionList() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return EntityActionList;
+    }(ActionList));
+    var EntityActions = /** @class */ (function (_super) {
+        __extends(EntityActions, _super);
+        function EntityActions() {
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            _this._ctor = EntityActionList;
+            return _this;
+        }
+        return EntityActions;
+    }(Actions));
+    var EntityActionsFactory = /** @class */ (function (_super) {
+        __extends(EntityActionsFactory, _super);
+        function EntityActionsFactory() {
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            _this._ctor = EntityActions;
+            return _this;
+        }
+        return EntityActionsFactory;
+    }(ActionsFactory));
+    var EntityAction = /** @class */ (function (_super) {
+        __extends(EntityAction, _super);
+        function EntityAction(options) {
+            var _this = _super.call(this, options.permission, options.visible, options.action) || this;
+            _this.text = options.text;
+            _this.icon = options.icon || '';
+            return _this;
+        }
+        EntityAction.create = function (options) {
+            return new EntityAction(options);
+        };
+        EntityAction.createMany = function (arrayOfOptions) {
+            return arrayOfOptions.map(EntityAction.create);
+        };
+        return EntityAction;
+    }(Action));
 
     var PropList = /** @class */ (function (_super) {
         __extends(PropList, _super);
@@ -411,7 +671,7 @@
                     record: this.record,
                 };
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         return PropData;
@@ -450,7 +710,7 @@
                 this.callbackList.forEach(function (callback) { return callback(propList); });
                 return propList;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Props.prototype.addContributor = function (contributeCallback) {
@@ -462,6 +722,50 @@
         };
         return Props;
     }());
+
+    var EntityPropList = /** @class */ (function (_super) {
+        __extends(EntityPropList, _super);
+        function EntityPropList() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        return EntityPropList;
+    }(PropList));
+    var EntityProps = /** @class */ (function (_super) {
+        __extends(EntityProps, _super);
+        function EntityProps() {
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            _this._ctor = EntityPropList;
+            return _this;
+        }
+        return EntityProps;
+    }(Props));
+    var EntityPropsFactory = /** @class */ (function (_super) {
+        __extends(EntityPropsFactory, _super);
+        function EntityPropsFactory() {
+            var _this = _super.apply(this, __spread(arguments)) || this;
+            _this._ctor = EntityProps;
+            return _this;
+        }
+        return EntityPropsFactory;
+    }(PropsFactory));
+    var EntityProp = /** @class */ (function (_super) {
+        __extends(EntityProp, _super);
+        function EntityProp(options) {
+            var _this = _super.call(this, options.type, options.name, options.displayName, options.permission, options.visible, options.isExtra) || this;
+            _this.columnWidth = options.columnWidth;
+            _this.sortable = options.sortable || false;
+            _this.valueResolver = options.valueResolver || (function (data) { return rxjs.of(data.record[_this.name]); });
+            _this.action = options.action;
+            return _this;
+        }
+        EntityProp.create = function (options) {
+            return new EntityProp(options);
+        };
+        EntityProp.createMany = function (arrayOfOptions) {
+            return arrayOfOptions.map(EntityProp.create);
+        };
+        return EntityProp;
+    }(Prop));
 
     var FormPropList = /** @class */ (function (_super) {
         __extends(FormPropList, _super);
@@ -535,307 +839,6 @@
         return [0, '', false].indexOf(defaultValue) > -1;
     }
 
-    function selfFactory(dependency) {
-        return dependency;
-    }
-
-    var ɵ0 = selfFactory;
-    exports.DateTimePickerComponent = /** @class */ (function () {
-        function DateTimePickerComponent(cdRef) {
-            this.cdRef = cdRef;
-        }
-        DateTimePickerComponent.prototype.setDate = function (datestr) {
-            this.date.writeValue(datestr);
-        };
-        DateTimePickerComponent.prototype.setTime = function (datestr) {
-            this.time.writeValue(datestr);
-        };
-        return DateTimePickerComponent;
-    }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", FormProp)
-    ], exports.DateTimePickerComponent.prototype, "prop", void 0);
-    __decorate([
-        i0.ViewChild(ngBootstrap.NgbInputDatepicker),
-        __metadata("design:type", ngBootstrap.NgbInputDatepicker)
-    ], exports.DateTimePickerComponent.prototype, "date", void 0);
-    __decorate([
-        i0.ViewChild(ngBootstrap.NgbTimepicker),
-        __metadata("design:type", ngBootstrap.NgbTimepicker)
-    ], exports.DateTimePickerComponent.prototype, "time", void 0);
-    exports.DateTimePickerComponent = __decorate([
-        i0.Component({
-            exportAs: 'abpDateTimePicker',
-            selector: 'abp-date-time-picker',
-            template: "\n    <input\n      [id]=\"prop.id\"\n      [formControlName]=\"prop.name\"\n      (ngModelChange)=\"setTime($event)\"\n      (click)=\"datepicker.open()\"\n      (keyup.space)=\"datepicker.open()\"\n      ngbDatepicker\n      #datepicker=\"ngbDatepicker\"\n      type=\"text\"\n      class=\"form-control\"\n    />\n    <ngb-timepicker\n      #timepicker\n      [formControlName]=\"prop.name\"\n      (ngModelChange)=\"setDate($event)\"\n    ></ngb-timepicker>\n  ",
-            changeDetection: i0.ChangeDetectionStrategy.OnPush,
-            viewProviders: [
-                {
-                    provide: forms.ControlContainer,
-                    useFactory: ɵ0,
-                    deps: [[new i0.Optional(), new i0.SkipSelf(), forms.ControlContainer]],
-                },
-                {
-                    provide: ngBootstrap.NgbDateAdapter,
-                    useClass: exports.DateTimeAdapter,
-                },
-                {
-                    provide: ngBootstrap.NgbTimeAdapter,
-                    useClass: exports.DateTimeAdapter,
-                },
-            ]
-        }),
-        __metadata("design:paramtypes", [i0.ChangeDetectorRef])
-    ], exports.DateTimePickerComponent);
-
-    var ɵ0$1 = selfFactory;
-    exports.ExtensibleFormPropComponent = /** @class */ (function () {
-        function ExtensibleFormPropComponent(cdRef, track) {
-            this.cdRef = cdRef;
-            this.track = track;
-            this.options$ = rxjs.of([]);
-            this.validators = [];
-        }
-        Object.defineProperty(ExtensibleFormPropComponent.prototype, "asterisk", {
-            get: function () {
-                return this.validators.some(function (validator) { return validator === forms.Validators.required; }) ? '*' : '';
-            },
-            enumerable: true,
-            configurable: true
-        });
-        ExtensibleFormPropComponent.prototype.getComponent = function (prop) {
-            if (prop.options)
-                return 'select';
-            switch (prop.type) {
-                case "boolean" /* Boolean */:
-                    return 'checkbox';
-                case "date" /* Date */:
-                    return 'date';
-                case "dateTime" /* DateTime */:
-                    return 'dateTime';
-                case "text" /* Text */:
-                    return 'textarea';
-                case "time" /* Time */:
-                    return 'time';
-                default:
-                    return 'input';
-            }
-        };
-        ExtensibleFormPropComponent.prototype.getType = function (prop) {
-            switch (prop.type) {
-                case "date" /* Date */:
-                case "string" /* String */:
-                    return 'text';
-                case "boolean" /* Boolean */:
-                    return 'checkbox';
-                case "number" /* Number */:
-                    return 'number';
-                case "email" /* Email */:
-                    return 'email';
-                case "password" /* Password */:
-                    return 'password';
-                default:
-                    return 'hidden';
-            }
-        };
-        ExtensibleFormPropComponent.prototype.ngOnChanges = function (_a) {
-            var prop = _a.prop;
-            var options = prop.currentValue.options;
-            var readonly = prop.currentValue.readonly;
-            var disabled = prop.currentValue.disabled;
-            var validators = prop.currentValue.validators;
-            if (options)
-                this.options$ = options(this.data);
-            if (readonly)
-                this.readonly = readonly(this.data);
-            if (disabled)
-                this.disabled = disabled(this.data);
-            if (validators)
-                this.validators = validators(this.data);
-        };
-        return ExtensibleFormPropComponent;
-    }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", PropData)
-    ], exports.ExtensibleFormPropComponent.prototype, "data", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", FormProp)
-    ], exports.ExtensibleFormPropComponent.prototype, "prop", void 0);
-    exports.ExtensibleFormPropComponent = __decorate([
-        i0.Component({
-            selector: 'abp-extensible-form-prop',
-            template: "<div class=\"form-group\" [abpPermission]=\"prop.permission\" [ngSwitch]=\"getComponent(prop)\">\r\n  <ng-template ngSwitchCase=\"input\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <input\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [autocomplete]=\"prop.autocomplete\"\r\n      [type]=\"getType(prop)\"\r\n      [abpDisabled]=\"disabled\"\r\n      [readonly]=\"readonly\"\r\n      class=\"form-control\"\r\n    />\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"checkbox\">\r\n    <div class=\"custom-checkbox custom-control\" validationTarget>\r\n      <input\r\n        [id]=\"prop.id\"\r\n        [formControlName]=\"prop.name\"\r\n        [abpDisabled]=\"disabled\"\r\n        type=\"checkbox\"\r\n        class=\"custom-control-input\"\r\n      />\r\n      <label [htmlFor]=\"prop.id\" class=\"custom-control-label\"\r\n        >{{ prop.displayName | abpLocalization }} {{ asterisk }}</label\r\n      >\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"select\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <select\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [abpDisabled]=\"disabled\"\r\n      class=\"custom-select form-control\"\r\n    >\r\n      <option\r\n        *ngFor=\"let option of options$ | async; trackBy: track.by('value')\"\r\n        [ngValue]=\"option.value\"\r\n        >{{ option.key }}</option\r\n      >\r\n    </select>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"date\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <input\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      (click)=\"datepicker.open()\"\r\n      (keyup.space)=\"datepicker.open()\"\r\n      ngbDatepicker\r\n      #datepicker=\"ngbDatepicker\"\r\n      type=\"text\"\r\n      class=\"form-control\"\r\n    />\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"time\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <ngb-timepicker [formControlName]=\"prop.name\"></ngb-timepicker>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"dateTime\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <abp-date-time-picker [prop]=\"prop\"></abp-date-time-picker>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"textarea\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <textarea\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [abpDisabled]=\"disabled\"\r\n      [readonly]=\"readonly\"\r\n      class=\"form-control\"\r\n    ></textarea>\r\n  </ng-template>\r\n</div>\r\n",
-            changeDetection: i0.ChangeDetectionStrategy.OnPush,
-            viewProviders: [
-                {
-                    provide: forms.ControlContainer,
-                    useFactory: ɵ0$1,
-                    deps: [[new i0.Optional(), new i0.SkipSelf(), forms.ControlContainer]],
-                },
-                { provide: ngBootstrap.NgbDateAdapter, useClass: exports.DateAdapter },
-                { provide: ngBootstrap.NgbTimeAdapter, useClass: exports.TimeAdapter },
-            ]
-        }),
-        __metadata("design:paramtypes", [i0.ChangeDetectorRef, ng_core.TrackByService])
-    ], exports.ExtensibleFormPropComponent);
-
-    var EXTRA_PROPERTIES_KEY = 'extraProperties';
-
-    var ActionList = /** @class */ (function (_super) {
-        __extends(ActionList, _super);
-        function ActionList() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        return ActionList;
-    }(utils.LinkedList));
-    var ActionData = /** @class */ (function () {
-        function ActionData() {
-        }
-        Object.defineProperty(ActionData.prototype, "data", {
-            get: function () {
-                return {
-                    getInjected: this.getInjected,
-                    index: this.index,
-                    record: this.record,
-                };
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return ActionData;
-    }());
-    var Action = /** @class */ (function () {
-        function Action(permission, visible, action) {
-            if (visible === void 0) { visible = function (_) { return true; }; }
-            if (action === void 0) { action = function (_) { }; }
-            this.permission = permission;
-            this.visible = visible;
-            this.action = action;
-        }
-        return Action;
-    }());
-    var ActionsFactory = /** @class */ (function () {
-        function ActionsFactory() {
-            this.contributorCallbacks = {};
-        }
-        ActionsFactory.prototype.get = function (name) {
-            this.contributorCallbacks[name] = this.contributorCallbacks[name] || [];
-            return new this._ctor(this.contributorCallbacks[name]);
-        };
-        return ActionsFactory;
-    }());
-    var Actions = /** @class */ (function () {
-        function Actions(callbackList) {
-            this.callbackList = callbackList;
-        }
-        Object.defineProperty(Actions.prototype, "actions", {
-            get: function () {
-                var actionList = new this._ctor();
-                this.callbackList.forEach(function (callback) { return callback(actionList); });
-                return actionList;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Actions.prototype.addContributor = function (contributeCallback) {
-            this.callbackList.push(contributeCallback);
-        };
-        Actions.prototype.clearContributors = function () {
-            while (this.callbackList.length)
-                this.callbackList.pop();
-        };
-        return Actions;
-    }());
-
-    var EntityActionList = /** @class */ (function (_super) {
-        __extends(EntityActionList, _super);
-        function EntityActionList() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        return EntityActionList;
-    }(ActionList));
-    var EntityActions = /** @class */ (function (_super) {
-        __extends(EntityActions, _super);
-        function EntityActions() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
-            _this._ctor = EntityActionList;
-            return _this;
-        }
-        return EntityActions;
-    }(Actions));
-    var EntityActionsFactory = /** @class */ (function (_super) {
-        __extends(EntityActionsFactory, _super);
-        function EntityActionsFactory() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
-            _this._ctor = EntityActions;
-            return _this;
-        }
-        return EntityActionsFactory;
-    }(ActionsFactory));
-    var EntityAction = /** @class */ (function (_super) {
-        __extends(EntityAction, _super);
-        function EntityAction(options) {
-            var _this = _super.call(this, options.permission, options.visible, options.action) || this;
-            _this.text = options.text;
-            _this.icon = options.icon || '';
-            return _this;
-        }
-        EntityAction.create = function (options) {
-            return new EntityAction(options);
-        };
-        EntityAction.createMany = function (arrayOfOptions) {
-            return arrayOfOptions.map(EntityAction.create);
-        };
-        return EntityAction;
-    }(Action));
-
-    var EntityPropList = /** @class */ (function (_super) {
-        __extends(EntityPropList, _super);
-        function EntityPropList() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        return EntityPropList;
-    }(PropList));
-    var EntityProps = /** @class */ (function (_super) {
-        __extends(EntityProps, _super);
-        function EntityProps() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
-            _this._ctor = EntityPropList;
-            return _this;
-        }
-        return EntityProps;
-    }(Props));
-    var EntityPropsFactory = /** @class */ (function (_super) {
-        __extends(EntityPropsFactory, _super);
-        function EntityPropsFactory() {
-            var _this = _super.apply(this, __spread(arguments)) || this;
-            _this._ctor = EntityProps;
-            return _this;
-        }
-        return EntityPropsFactory;
-    }(PropsFactory));
-    var EntityProp = /** @class */ (function (_super) {
-        __extends(EntityProp, _super);
-        function EntityProp(options) {
-            var _this = _super.call(this, options.type, options.name, options.displayName, options.permission, options.visible, options.isExtra) || this;
-            _this.columnWidth = options.columnWidth;
-            _this.sortable = options.sortable || false;
-            _this.valueResolver = options.valueResolver || (function (data) { return rxjs.of(data.record[_this.name]); });
-            _this.action = options.action || (function (_) { });
-            return _this;
-        }
-        EntityProp.create = function (options) {
-            return new EntityProp(options);
-        };
-        EntityProp.createMany = function (arrayOfOptions) {
-            return arrayOfOptions.map(EntityProp.create);
-        };
-        return EntityProp;
-    }(Prop));
-
     var ToolbarActionList = /** @class */ (function (_super) {
         __extends(ToolbarActionList, _super);
         function ToolbarActionList() {
@@ -893,7 +896,7 @@
         return ToolbarComponent;
     }(Action));
 
-    exports.ExtensionsService = /** @class */ (function () {
+    var ExtensionsService = /** @class */ (function () {
         function ExtensionsService() {
             this.entityActions = new EntityActionsFactory();
             this.toolbarActions = new ToolbarActionsFactory();
@@ -903,12 +906,12 @@
         }
         return ExtensionsService;
     }());
-    exports.ExtensionsService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ExtensionsService_Factory() { return new exports.ExtensionsService(); }, token: exports.ExtensionsService, providedIn: "root" });
-    exports.ExtensionsService = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        })
-    ], exports.ExtensionsService);
+    ExtensionsService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ExtensionsService_Factory() { return new ExtensionsService(); }, token: ExtensionsService, providedIn: "root" });
+    ExtensionsService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
 
     var EXTENSIONS_IDENTIFIER = new i0.InjectionToken('EXTENSIONS_IDENTIFIER');
     var EXTENSIONS_ACTION_TYPE = new i0.InjectionToken('EXTENSIONS_ACTION_TYPE');
@@ -916,7 +919,7 @@
     var EXTENSIONS_ACTION_CALLBACK = new i0.InjectionToken('EXTENSIONS_ACTION_DATA');
 
     var ɵ0$2 = selfFactory;
-    exports.ExtensibleFormComponent = /** @class */ (function () {
+    var ExtensibleFormComponent = /** @class */ (function () {
         function ExtensibleFormComponent(cdRef, track, container, extensions, identifier) {
             this.cdRef = cdRef;
             this.track = track;
@@ -931,64 +934,61 @@
                 this.propList = this.extensions[type + "FormProps"].get(this.identifier).props;
                 this.record = record;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ExtensibleFormComponent.prototype, "form", {
             get: function () {
                 return (this.container ? this.container.control : { controls: {} });
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ExtensibleFormComponent.prototype, "extraProperties", {
             get: function () {
                 return (this.form.controls.extraProperties || { controls: {} });
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         return ExtensibleFormComponent;
     }());
-    __decorate([
-        i0.ViewChildren(exports.ExtensibleFormPropComponent),
-        __metadata("design:type", i0.QueryList)
-    ], exports.ExtensibleFormComponent.prototype, "formProps", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], exports.ExtensibleFormComponent.prototype, "selectedRecord", null);
-    exports.ExtensibleFormComponent = __decorate([
-        i0.Component({
-            exportAs: 'abpExtensibleForm',
-            selector: 'abp-extensible-form',
-            template: "<ng-container *ngIf=\"form\">\r\n  <ng-container *abpPropData=\"let data; fromList: propList; withRecord: record\">\r\n    <ng-container *ngFor=\"let prop of propList; trackBy: track.by('name')\">\r\n      <ng-container *ngIf=\"prop.visible(data)\">\r\n        <ng-container\r\n          [formGroupName]=\"extraPropertiesKey\"\r\n          *ngIf=\"extraProperties.controls[prop.name]; else tempDefault\"\r\n        >\r\n          <abp-extensible-form-prop [prop]=\"prop\" [data]=\"data\"></abp-extensible-form-prop>\r\n        </ng-container>\r\n\r\n        <ng-template #tempDefault>\r\n          <abp-extensible-form-prop\r\n            *ngIf=\"form.get(prop.name)\"\r\n            [prop]=\"prop\"\r\n            [data]=\"data\"\r\n          ></abp-extensible-form-prop>\r\n        </ng-template>\r\n      </ng-container>\r\n    </ng-container>\r\n  </ng-container>\r\n</ng-container>\r\n",
-            changeDetection: i0.ChangeDetectionStrategy.OnPush,
-            viewProviders: [
-                {
-                    provide: forms.ControlContainer,
-                    useFactory: ɵ0$2,
-                    deps: [[new i0.Optional(), new i0.SkipSelf(), forms.ControlContainer]],
-                },
-            ]
-        }),
-        __param(4, i0.Inject(EXTENSIONS_IDENTIFIER)),
-        __metadata("design:paramtypes", [i0.ChangeDetectorRef,
-            ng_core.TrackByService,
-            forms.ControlContainer,
-            exports.ExtensionsService, String])
-    ], exports.ExtensibleFormComponent);
+    ExtensibleFormComponent.decorators = [
+        { type: i0.Component, args: [{
+                    exportAs: 'abpExtensibleForm',
+                    selector: 'abp-extensible-form',
+                    template: "<ng-container *ngIf=\"form\">\r\n  <ng-container *abpPropData=\"let data; fromList: propList; withRecord: record\">\r\n    <ng-container *ngFor=\"let prop of propList; trackBy: track.by('name')\">\r\n      <ng-container *ngIf=\"prop.visible(data)\">\r\n        <ng-container\r\n          [formGroupName]=\"extraPropertiesKey\"\r\n          *ngIf=\"extraProperties.controls[prop.name]; else tempDefault\"\r\n        >\r\n          <abp-extensible-form-prop [prop]=\"prop\" [data]=\"data\"></abp-extensible-form-prop>\r\n        </ng-container>\r\n\r\n        <ng-template #tempDefault>\r\n          <abp-extensible-form-prop\r\n            *ngIf=\"form.get(prop.name)\"\r\n            [prop]=\"prop\"\r\n            [data]=\"data\"\r\n          ></abp-extensible-form-prop>\r\n        </ng-template>\r\n      </ng-container>\r\n    </ng-container>\r\n  </ng-container>\r\n</ng-container>\r\n",
+                    changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                    viewProviders: [
+                        {
+                            provide: forms.ControlContainer,
+                            useFactory: ɵ0$2,
+                            deps: [[new i0.Optional(), new i0.SkipSelf(), forms.ControlContainer]],
+                        },
+                    ]
+                },] }
+    ];
+    ExtensibleFormComponent.ctorParameters = function () { return [
+        { type: i0.ChangeDetectorRef },
+        { type: ng_core.TrackByService },
+        { type: forms.ControlContainer },
+        { type: ExtensionsService },
+        { type: String, decorators: [{ type: i0.Inject, args: [EXTENSIONS_IDENTIFIER,] }] }
+    ]; };
+    ExtensibleFormComponent.propDecorators = {
+        formProps: [{ type: i0.ViewChildren, args: [ExtensibleFormPropComponent,] }],
+        selectedRecord: [{ type: i0.Input }]
+    };
 
     var DEFAULT_ACTIONS_COLUMN_WIDTH = 150;
-    exports.ExtensibleTableComponent = /** @class */ (function () {
+    var ExtensibleTableComponent = /** @class */ (function () {
         function ExtensibleTableComponent(locale, config, injector) {
             this.locale = locale;
             this.config = config;
             this.trackByFn = function (_, item) { return item.name; };
             // tslint:disable-next-line
             this.getInjected = injector.get.bind(injector);
-            var extensions = injector.get(exports.ExtensionsService);
+            var extensions = injector.get(ExtensionsService);
             var name = injector.get(EXTENSIONS_IDENTIFIER);
             this.propList = extensions.entityProps.get(name).props;
             this.actionList = extensions['entityActions'].get(name)
@@ -1003,14 +1003,14 @@
             set: function (value) {
                 this._actionsText = value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ExtensibleTableComponent.prototype, "actionsColumnWidth", {
             set: function (width) {
                 this.setColumnWidths(width ? Number(width) : undefined);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         ExtensibleTableComponent.prototype.setColumnWidths = function (actionsColumn) {
@@ -1065,54 +1065,38 @@
         };
         return ExtensibleTableComponent;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], exports.ExtensibleTableComponent.prototype, "actionsText", null);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Array)
-    ], exports.ExtensibleTableComponent.prototype, "data", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", ng_core.ListService)
-    ], exports.ExtensibleTableComponent.prototype, "list", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Number)
-    ], exports.ExtensibleTableComponent.prototype, "recordsTotal", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Number),
-        __metadata("design:paramtypes", [Number])
-    ], exports.ExtensibleTableComponent.prototype, "actionsColumnWidth", null);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", i0.TemplateRef)
-    ], exports.ExtensibleTableComponent.prototype, "actionsTemplate", void 0);
-    exports.ExtensibleTableComponent = __decorate([
-        i0.Component({
-            exportAs: 'abpExtensibleTable',
-            selector: 'abp-extensible-table',
-            template: "<ngx-datatable default [rows]=\"data\" [count]=\"recordsTotal\" [list]=\"list\">\r\n  <ngx-datatable-column\r\n    *ngIf=\"actionsTemplate || actionList.length\"\r\n    [name]=\"actionsText | abpLocalization\"\r\n    [maxWidth]=\"columnWidths[0]\"\r\n    [width]=\"columnWidths[0]\"\r\n    [sortable]=\"false\"\r\n  >\r\n    <ng-template let-row=\"row\" let-i=\"rowIndex\" ngx-datatable-cell-template>\r\n      <ng-container\r\n        *ngTemplateOutlet=\"actionsTemplate || gridActions; context: { $implicit: row, index: i }\"\r\n      ></ng-container>\r\n      <ng-template #gridActions>\r\n        <abp-grid-actions\r\n          [index]=\"i\"\r\n          [record]=\"row\"\r\n          text=\"LanguageManagement::Actions\"\r\n        ></abp-grid-actions>\r\n      </ng-template>\r\n    </ng-template>\r\n  </ngx-datatable-column>\r\n\r\n  <ng-container *ngFor=\"let prop of propList; let i = index; trackBy: trackByFn\">\r\n    <ngx-datatable-column\r\n      [width]=\"columnWidths[i + 1] || 200\"\r\n      [name]=\"prop.displayName | abpLocalization\"\r\n      [prop]=\"prop.name\"\r\n      [sortable]=\"prop.sortable\"\r\n    >\r\n      <ng-template let-row=\"row\" let-i=\"index\" ngx-datatable-cell-template>\r\n        <ng-container [abpPermission]=\"prop.permission\">\r\n          <div\r\n            *ngIf=\"row['_' + prop.name].visible\"\r\n            [innerHTML]=\"row['_' + prop.name].value | async\"\r\n            (click)=\"prop.action({ getInjected: getInjected, record: row, index: i })\"\r\n          ></div>\r\n        </ng-container>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n  </ng-container>\r\n</ngx-datatable>\r\n",
-            changeDetection: i0.ChangeDetectionStrategy.OnPush
-        }),
-        __param(0, i0.Inject(i0.LOCALE_ID)),
-        __metadata("design:paramtypes", [String, ng_core.ConfigStateService,
-            i0.Injector])
-    ], exports.ExtensibleTableComponent);
+    ExtensibleTableComponent.decorators = [
+        { type: i0.Component, args: [{
+                    exportAs: 'abpExtensibleTable',
+                    selector: 'abp-extensible-table',
+                    template: "<ngx-datatable default [rows]=\"data\" [count]=\"recordsTotal\" [list]=\"list\">\r\n  <ngx-datatable-column\r\n    *ngIf=\"actionsTemplate || actionList.length\"\r\n    [name]=\"actionsText | abpLocalization\"\r\n    [maxWidth]=\"columnWidths[0]\"\r\n    [width]=\"columnWidths[0]\"\r\n    [sortable]=\"false\"\r\n  >\r\n    <ng-template let-row=\"row\" let-i=\"rowIndex\" ngx-datatable-cell-template>\r\n      <ng-container\r\n        *ngTemplateOutlet=\"actionsTemplate || gridActions; context: { $implicit: row, index: i }\"\r\n      ></ng-container>\r\n      <ng-template #gridActions>\r\n        <abp-grid-actions\r\n          [index]=\"i\"\r\n          [record]=\"row\"\r\n          text=\"AbpUi::Actions\"\r\n        ></abp-grid-actions>\r\n      </ng-template>\r\n    </ng-template>\r\n  </ngx-datatable-column>\r\n\r\n  <ng-container *ngFor=\"let prop of propList; let i = index; trackBy: trackByFn\">\r\n    <ngx-datatable-column\r\n      [width]=\"columnWidths[i + 1] || 200\"\r\n      [name]=\"prop.displayName | abpLocalization\"\r\n      [prop]=\"prop.name\"\r\n      [sortable]=\"prop.sortable\"\r\n    >\r\n      <ng-template let-row=\"row\" let-i=\"index\" ngx-datatable-cell-template>\r\n        <ng-container [abpPermission]=\"prop.permission\">\r\n          <div\r\n            *ngIf=\"row['_' + prop.name].visible\"\r\n            [innerHTML]=\"row['_' + prop.name].value | async\"\r\n            (click)=\"prop.action && prop.action({ getInjected: getInjected, record: row, index: i })\"\r\n            [class.pointer]=\"prop.action\"\r\n          ></div>\r\n        </ng-container>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n  </ng-container>\r\n</ngx-datatable>\r\n",
+                    changeDetection: i0.ChangeDetectionStrategy.OnPush
+                },] }
+    ];
+    ExtensibleTableComponent.ctorParameters = function () { return [
+        { type: String, decorators: [{ type: i0.Inject, args: [i0.LOCALE_ID,] }] },
+        { type: ng_core.ConfigStateService },
+        { type: i0.Injector }
+    ]; };
+    ExtensibleTableComponent.propDecorators = {
+        actionsText: [{ type: i0.Input }],
+        data: [{ type: i0.Input }],
+        list: [{ type: i0.Input }],
+        recordsTotal: [{ type: i0.Input }],
+        actionsColumnWidth: [{ type: i0.Input }],
+        actionsTemplate: [{ type: i0.Input }]
+    };
 
     // tslint:disable: directive-class-suffix
     // Fix for https://github.com/angular/angular/issues/23904
     // @dynamic
-    exports.ɵj = /** @class */ (function (_super) {
+    var AbstractActionsComponent = /** @class */ (function (_super) {
         __extends(AbstractActionsComponent, _super);
         function AbstractActionsComponent(injector) {
             var _this = _super.call(this) || this;
             // tslint:disable-next-line
             _this.getInjected = injector.get.bind(injector);
-            var extensions = injector.get(exports.ExtensionsService);
+            var extensions = injector.get(ExtensionsService);
             var name = injector.get(EXTENSIONS_IDENTIFIER);
             var type = injector.get(EXTENSIONS_ACTION_TYPE);
             _this.actionList = extensions[type].get(name).actions;
@@ -1120,16 +1104,17 @@
         }
         return AbstractActionsComponent;
     }(ActionData));
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵj.prototype, "record", void 0);
-    exports.ɵj = __decorate([
-        i0.Directive(),
-        __metadata("design:paramtypes", [i0.Injector])
-    ], exports.ɵj);
+    AbstractActionsComponent.decorators = [
+        { type: i0.Directive }
+    ];
+    AbstractActionsComponent.ctorParameters = function () { return [
+        { type: i0.Injector }
+    ]; };
+    AbstractActionsComponent.propDecorators = {
+        record: [{ type: i0.Input }]
+    };
 
-    exports.GridActionsComponent = /** @class */ (function (_super) {
+    var GridActionsComponent = /** @class */ (function (_super) {
         __extends(GridActionsComponent, _super);
         function GridActionsComponent(injector) {
             var _this = _super.call(this, injector) || this;
@@ -1139,36 +1124,31 @@
             return _this;
         }
         return GridActionsComponent;
-    }(exports.ɵj));
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.GridActionsComponent.prototype, "icon", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Number)
-    ], exports.GridActionsComponent.prototype, "index", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.GridActionsComponent.prototype, "text", void 0);
-    exports.GridActionsComponent = __decorate([
-        i0.Component({
-            exportAs: 'abpGridActions',
-            selector: 'abp-grid-actions',
-            template: "<div *ngIf=\"actionList.length > 1\" ngbDropdown container=\"body\" class=\"d-inline-block\">\r\n  <button\r\n    class=\"btn btn-primary btn-sm dropdown-toggle\"\r\n    data-toggle=\"dropdown\"\r\n    aria-haspopup=\"true\"\r\n    ngbDropdownToggle\r\n  >\r\n    <i [ngClass]=\"icon\" [class.mr-1]=\"icon\"></i>{{ text | abpLocalization }}\r\n  </button>\r\n  <div ngbDropdownMenu>\r\n    <ng-container\r\n      *ngFor=\"let action of actionList; trackBy: trackByFn\"\r\n      [ngTemplateOutlet]=\"btnItem\"\r\n      [ngTemplateOutletContext]=\"{ $implicit: action }\"\r\n    >\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n\r\n<ng-container\r\n  *ngIf=\"actionList.length === 1\"\r\n  [ngTemplateOutlet]=\"btnItem\"\r\n  [ngTemplateOutletContext]=\"{ $implicit: actionList.get(0).value }\"\r\n></ng-container>\r\n\r\n<ng-template #btnItem let-action>\r\n  <button\r\n    *ngIf=\"action.visible(data)\"\r\n    ngbDropdownItem\r\n    [abpPermission]=\"action.permission\"\r\n    (click)=\"action.action(data)\"\r\n    type=\"button\"\r\n    class=\"{{ actionList.length === 1 ? 'btn btn-primary' : '' }}\"\r\n    [class.text-center]=\"actionList.length === 1\"\r\n  >\r\n    <i [ngClass]=\"action.icon\" [class.mr-1]=\"action.icon\"></i>\r\n    <span *ngIf=\"action.icon; else ellipsis\">{{ action.text | abpLocalization }}</span>\r\n    <ng-template #ellipsis>\r\n      <div abpEllipsis>{{ action.text | abpLocalization }}</div>\r\n    </ng-template>\r\n  </button>\r\n</ng-template>\r\n",
-            providers: [
-                {
-                    provide: EXTENSIONS_ACTION_TYPE,
-                    useValue: 'entityActions',
-                },
-            ],
-            changeDetection: i0.ChangeDetectionStrategy.OnPush
-        }),
-        __metadata("design:paramtypes", [i0.Injector])
-    ], exports.GridActionsComponent);
+    }(AbstractActionsComponent));
+    GridActionsComponent.decorators = [
+        { type: i0.Component, args: [{
+                    exportAs: 'abpGridActions',
+                    selector: 'abp-grid-actions',
+                    template: "<div *ngIf=\"actionList.length > 1\" ngbDropdown container=\"body\" class=\"d-inline-block\">\r\n  <button\r\n    class=\"btn btn-primary btn-sm dropdown-toggle\"\r\n    data-toggle=\"dropdown\"\r\n    aria-haspopup=\"true\"\r\n    ngbDropdownToggle\r\n  >\r\n    <i [ngClass]=\"icon\" [class.mr-1]=\"icon\"></i>{{ text | abpLocalization }}\r\n  </button>\r\n  <div ngbDropdownMenu>\r\n    <ng-container\r\n      *ngFor=\"let action of actionList; trackBy: trackByFn\"\r\n      [ngTemplateOutlet]=\"btnItem\"\r\n      [ngTemplateOutletContext]=\"{ $implicit: action }\"\r\n    >\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n\r\n<ng-container\r\n  *ngIf=\"actionList.length === 1\"\r\n  [ngTemplateOutlet]=\"btnItem\"\r\n  [ngTemplateOutletContext]=\"{ $implicit: actionList.get(0).value }\"\r\n></ng-container>\r\n\r\n<ng-template #btnItem let-action>\r\n  <button\r\n    *ngIf=\"action.visible(data)\"\r\n    ngbDropdownItem\r\n    [abpPermission]=\"action.permission\"\r\n    (click)=\"action.action(data)\"\r\n    type=\"button\"\r\n    class=\"{{ actionList.length === 1 ? 'btn btn-primary' : '' }}\"\r\n    [class.text-center]=\"actionList.length === 1\"\r\n  >\r\n    <i [ngClass]=\"action.icon\" [class.mr-1]=\"action.icon\"></i>\r\n    <span *ngIf=\"action.icon; else ellipsis\">{{ action.text | abpLocalization }}</span>\r\n    <ng-template #ellipsis>\r\n      <div abpEllipsis>{{ action.text | abpLocalization }}</div>\r\n    </ng-template>\r\n  </button>\r\n</ng-template>\r\n",
+                    providers: [
+                        {
+                            provide: EXTENSIONS_ACTION_TYPE,
+                            useValue: 'entityActions',
+                        },
+                    ],
+                    changeDetection: i0.ChangeDetectionStrategy.OnPush
+                },] }
+    ];
+    GridActionsComponent.ctorParameters = function () { return [
+        { type: i0.Injector }
+    ]; };
+    GridActionsComponent.propDecorators = {
+        icon: [{ type: i0.Input }],
+        index: [{ type: i0.Input }],
+        text: [{ type: i0.Input }]
+    };
 
-    exports.PageToolbarComponent = /** @class */ (function (_super) {
+    var PageToolbarComponent = /** @class */ (function (_super) {
         __extends(PageToolbarComponent, _super);
         function PageToolbarComponent(injector) {
             var _this = _super.call(this, injector) || this;
@@ -1191,24 +1171,26 @@
             return { get: get };
         };
         return PageToolbarComponent;
-    }(exports.ɵj));
-    exports.PageToolbarComponent = __decorate([
-        i0.Component({
-            exportAs: 'abpPageToolbar',
-            selector: 'abp-page-toolbar',
-            template: "<div class=\"row justify-content-end mx-n1\" id=\"AbpContentToolbar\">\r\n  <div class=\"col-auto px-1 pt-2\" *ngFor=\"let action of actionList; trackBy: trackByFn\">\r\n    <ng-container *ngIf=\"action.visible(data)\" [abpPermission]=\"action.permission\">\r\n      <ng-container *ngIf=\"action.component as component; else button\">\r\n        <ng-container\r\n          *ngComponentOutlet=\"component; injector: createInjector(action)\"\r\n        ></ng-container>\r\n      </ng-container>\r\n\r\n      <ng-template #button>\r\n        <button (click)=\"action.action(data)\" type=\"button\" class=\"btn btn-primary btn-sm\">\r\n          <i [ngClass]=\"action.icon\" [class.mr-1]=\"action.icon\"></i>\r\n          {{ action.text | abpLocalization }}\r\n        </button>\r\n      </ng-template>\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n",
-            providers: [
-                {
-                    provide: EXTENSIONS_ACTION_TYPE,
-                    useValue: 'toolbarActions',
-                },
-            ],
-            changeDetection: i0.ChangeDetectionStrategy.OnPush
-        }),
-        __metadata("design:paramtypes", [i0.Injector])
-    ], exports.PageToolbarComponent);
+    }(AbstractActionsComponent));
+    PageToolbarComponent.decorators = [
+        { type: i0.Component, args: [{
+                    exportAs: 'abpPageToolbar',
+                    selector: 'abp-page-toolbar',
+                    template: "<div class=\"row justify-content-end mx-n1\" id=\"AbpContentToolbar\">\r\n  <div class=\"col-auto px-1 pt-2\" *ngFor=\"let action of actionList; trackBy: trackByFn\">\r\n    <ng-container *ngIf=\"action.visible(data)\" [abpPermission]=\"action.permission\">\r\n      <ng-container *ngIf=\"action.component as component; else button\">\r\n        <ng-container\r\n          *ngComponentOutlet=\"component; injector: createInjector(action)\"\r\n        ></ng-container>\r\n      </ng-container>\r\n\r\n      <ng-template #button>\r\n        <button (click)=\"action.action(data)\" type=\"button\" class=\"btn btn-primary btn-sm\">\r\n          <i [ngClass]=\"action.icon\" [class.mr-1]=\"action.icon\"></i>\r\n          {{ action.text | abpLocalization }}\r\n        </button>\r\n      </ng-template>\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n",
+                    providers: [
+                        {
+                            provide: EXTENSIONS_ACTION_TYPE,
+                            useValue: 'toolbarActions',
+                        },
+                    ],
+                    changeDetection: i0.ChangeDetectionStrategy.OnPush
+                },] }
+    ];
+    PageToolbarComponent.ctorParameters = function () { return [
+        { type: i0.Injector }
+    ]; };
 
-    exports.DisabledDirective = /** @class */ (function () {
+    var DisabledDirective = /** @class */ (function () {
         function DisabledDirective(ngControl) {
             this.ngControl = ngControl;
         }
@@ -1221,19 +1203,19 @@
         };
         return DisabledDirective;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Boolean)
-    ], exports.DisabledDirective.prototype, "abpDisabled", void 0);
-    exports.DisabledDirective = __decorate([
-        i0.Directive({
-            selector: '[abpDisabled]',
-        }),
-        __param(0, i0.Host()),
-        __metadata("design:paramtypes", [forms.NgControl])
-    ], exports.DisabledDirective);
+    DisabledDirective.decorators = [
+        { type: i0.Directive, args: [{
+                    selector: '[abpDisabled]',
+                },] }
+    ];
+    DisabledDirective.ctorParameters = function () { return [
+        { type: forms.NgControl, decorators: [{ type: i0.Host }] }
+    ]; };
+    DisabledDirective.propDecorators = {
+        abpDisabled: [{ type: i0.Input }]
+    };
 
-    exports.PropDataDirective = /** @class */ (function (_super) {
+    var PropDataDirective = /** @class */ (function (_super) {
         __extends(PropDataDirective, _super);
         function PropDataDirective(tempRef, vcRef, injector) {
             var _this = _super.call(this) || this;
@@ -1255,68 +1237,63 @@
         };
         return PropDataDirective;
     }(PropData));
-    __decorate([
-        i0.Input('abpPropDataFromList'),
-        __metadata("design:type", Object)
-    ], exports.PropDataDirective.prototype, "propList", void 0);
-    __decorate([
-        i0.Input('abpPropDataWithRecord'),
-        __metadata("design:type", Object)
-    ], exports.PropDataDirective.prototype, "record", void 0);
-    __decorate([
-        i0.Input('abpPropDataAtIndex'),
-        __metadata("design:type", Number)
-    ], exports.PropDataDirective.prototype, "index", void 0);
-    exports.PropDataDirective = __decorate([
-        i0.Directive({
-            exportAs: 'abpPropData',
-            selector: '[abpPropData]',
-        }),
-        __metadata("design:paramtypes", [i0.TemplateRef,
-            i0.ViewContainerRef,
-            i0.Injector])
-    ], exports.PropDataDirective);
+    PropDataDirective.decorators = [
+        { type: i0.Directive, args: [{
+                    exportAs: 'abpPropData',
+                    selector: '[abpPropData]',
+                },] }
+    ];
+    PropDataDirective.ctorParameters = function () { return [
+        { type: i0.TemplateRef },
+        { type: i0.ViewContainerRef },
+        { type: i0.Injector }
+    ]; };
+    PropDataDirective.propDecorators = {
+        propList: [{ type: i0.Input, args: ['abpPropDataFromList',] }],
+        record: [{ type: i0.Input, args: ['abpPropDataWithRecord',] }],
+        index: [{ type: i0.Input, args: ['abpPropDataAtIndex',] }]
+    };
 
     var objectExtensions = /*#__PURE__*/Object.freeze({
         __proto__: null
     });
 
-    exports.UiExtensionsModule = /** @class */ (function () {
+    var UiExtensionsModule = /** @class */ (function () {
         function UiExtensionsModule() {
         }
         return UiExtensionsModule;
     }());
-    exports.UiExtensionsModule = __decorate([
-        i0.NgModule({
-            exports: [
-                exports.DateTimePickerComponent,
-                exports.PageToolbarComponent,
-                exports.GridActionsComponent,
-                exports.ExtensibleFormComponent,
-                exports.ExtensibleTableComponent,
-                exports.PropDataDirective,
-                exports.DisabledDirective,
-            ],
-            declarations: [
-                exports.DateTimePickerComponent,
-                exports.PageToolbarComponent,
-                exports.GridActionsComponent,
-                exports.ExtensibleFormPropComponent,
-                exports.ExtensibleFormComponent,
-                exports.ExtensibleTableComponent,
-                exports.PropDataDirective,
-                exports.DisabledDirective,
-            ],
-            imports: [
-                ng_core.CoreModule,
-                ng_theme_shared.ThemeSharedModule,
-                core.NgxValidateCoreModule,
-                ngBootstrap.NgbDatepickerModule,
-                ngBootstrap.NgbDropdownModule,
-                ngBootstrap.NgbTimepickerModule,
-            ],
-        })
-    ], exports.UiExtensionsModule);
+    UiExtensionsModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    exports: [
+                        DateTimePickerComponent,
+                        PageToolbarComponent,
+                        GridActionsComponent,
+                        ExtensibleFormComponent,
+                        ExtensibleTableComponent,
+                        PropDataDirective,
+                        DisabledDirective,
+                    ],
+                    declarations: [
+                        DateTimePickerComponent,
+                        PageToolbarComponent,
+                        GridActionsComponent,
+                        ExtensibleFormPropComponent,
+                        ExtensibleFormComponent,
+                        ExtensibleTableComponent,
+                        PropDataDirective,
+                        DisabledDirective,
+                    ],
+                    imports: [
+                        ng_core.CoreModule,
+                        ng_theme_shared.ThemeSharedModule,
+                        core.NgxValidateCoreModule,
+                        ngBootstrap.NgbDatepickerModule,
+                        ngBootstrap.NgbDropdownModule,
+                        ngBootstrap.NgbTimepickerModule,
+                    ],
+                },] }
+    ];
 
     function mergeWithDefaultActions(extension, defaultActions) {
         var contributors = [];
@@ -1332,7 +1309,7 @@
     }
 
     function generateFormFromProps(data) {
-        var extensions = data.getInjected(exports.ExtensionsService);
+        var extensions = data.getInjected(ExtensionsService);
         var identifier = data.getInjected(EXTENSIONS_IDENTIFIER);
         var form = new forms.FormGroup({});
         var extraForm = new forms.FormGroup({});
@@ -1352,15 +1329,15 @@
                 var adapter = void 0;
                 switch (prop.type) {
                     case "date" /* Date */:
-                        adapter = new exports.DateAdapter();
+                        adapter = new DateAdapter();
                         value = adapter.toModel(adapter.fromModel(value));
                         break;
                     case "time" /* Time */:
-                        adapter = new exports.TimeAdapter();
+                        adapter = new TimeAdapter();
                         value = adapter.toModel(adapter.fromModel(value));
                         break;
                     case "dateTime" /* DateTime */:
-                        adapter = new exports.DateTimeAdapter();
+                        adapter = new DateTimeAdapter();
                         value = adapter.toModel(adapter.fromModel(value));
                         break;
                     default:
@@ -1568,6 +1545,10 @@
 
     exports.ActionList = ActionList;
     exports.CreateFormPropsFactory = CreateFormPropsFactory;
+    exports.DateAdapter = DateAdapter;
+    exports.DateTimeAdapter = DateTimeAdapter;
+    exports.DateTimePickerComponent = DateTimePickerComponent;
+    exports.DisabledDirective = DisabledDirective;
     exports.EXTENSIONS_ACTION_CALLBACK = EXTENSIONS_ACTION_CALLBACK;
     exports.EXTENSIONS_ACTION_DATA = EXTENSIONS_ACTION_DATA;
     exports.EXTENSIONS_ACTION_TYPE = EXTENSIONS_ACTION_TYPE;
@@ -1582,17 +1563,26 @@
     exports.EntityPropList = EntityPropList;
     exports.EntityProps = EntityProps;
     exports.EntityPropsFactory = EntityPropsFactory;
+    exports.ExtensibleFormComponent = ExtensibleFormComponent;
+    exports.ExtensibleFormPropComponent = ExtensibleFormPropComponent;
+    exports.ExtensibleTableComponent = ExtensibleTableComponent;
+    exports.ExtensionsService = ExtensionsService;
     exports.FormProp = FormProp;
     exports.FormPropData = FormPropData;
     exports.FormPropList = FormPropList;
     exports.FormProps = FormProps;
+    exports.GridActionsComponent = GridActionsComponent;
     exports.ObjectExtensions = objectExtensions;
+    exports.PageToolbarComponent = PageToolbarComponent;
+    exports.PropDataDirective = PropDataDirective;
     exports.PropList = PropList;
+    exports.TimeAdapter = TimeAdapter;
     exports.ToolbarAction = ToolbarAction;
     exports.ToolbarActionList = ToolbarActionList;
     exports.ToolbarActions = ToolbarActions;
     exports.ToolbarActionsFactory = ToolbarActionsFactory;
     exports.ToolbarComponent = ToolbarComponent;
+    exports.UiExtensionsModule = UiExtensionsModule;
     exports.createExtraPropertyValueResolver = createExtraPropertyValueResolver;
     exports.generateFormFromProps = generateFormFromProps;
     exports.getObjectExtensionEntitiesFromStore = getObjectExtensionEntitiesFromStore;
@@ -1613,6 +1603,7 @@
     exports.ɵg = PropsFactory;
     exports.ɵh = Props;
     exports.ɵi = selfFactory;
+    exports.ɵj = AbstractActionsComponent;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

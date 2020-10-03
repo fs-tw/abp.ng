@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { StateContext, Store } from '@ngxs/store';
+import { State, StateContext, Store } from '@ngxs/store';
 import { SetEnvironment } from '../actions/config.actions';
 import { Config } from '../models/config';
 export declare class ConfigState {
@@ -14,6 +14,9 @@ export declare class ConfigState {
     static getSetting(key: string): (state: Config.State) => string;
     static getSettings(keyword?: string): (state: Config.State) => import("../models").ABP.Dictionary<string>;
     static getGrantedPolicy(key: string): (state: Config.State) => boolean;
+    static getLocalizationResource(resourceName: string): (state: Config.State) => {
+        [key: string]: string;
+    };
     static getLocalization(key: string | Config.LocalizationWithDefault, ...interpolateParams: string[]): (state: Config.State) => string;
     constructor(http: HttpClient, store: Store);
     addData({ patchState, dispatch }: StateContext<Config.State>): import("rxjs").Observable<any>;

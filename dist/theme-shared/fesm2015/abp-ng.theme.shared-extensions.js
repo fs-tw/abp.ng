@@ -1,17 +1,16 @@
-import { __decorate, __metadata, __param } from 'tslib';
-import { Injectable, Input, ViewChild, Component, ChangeDetectionStrategy, Optional, SkipSelf, ChangeDetectorRef, ɵɵdefineInjectable, InjectionToken, ViewChildren, QueryList, Inject, TemplateRef, LOCALE_ID, Injector, Directive, Host, ViewContainerRef, NgModule } from '@angular/core';
+import { Injectable, Component, ChangeDetectionStrategy, Optional, SkipSelf, ChangeDetectorRef, Input, ViewChild, ɵɵdefineInjectable, InjectionToken, Inject, ViewChildren, LOCALE_ID, Injector, Directive, Host, TemplateRef, ViewContainerRef, NgModule } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { NgbDateAdapter, NgbTimeAdapter, NgbInputDatepicker, NgbTimepicker, NgbDatepickerModule, NgbDropdownModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { ControlContainer, Validators, NgControl, FormGroup, FormControl } from '@angular/forms';
 import { LinkedList } from '@abp/utils';
-import { TrackByService, getShortDateShortTimeFormat, getShortTimeFormat, getShortDateFormat, ListService, ConfigStateService, CoreModule, LocalizationService, createLocalizationPipeKeyGenerator, AbpValidators } from '@abp/ng.core';
+import { TrackByService, getShortDateShortTimeFormat, getShortTimeFormat, getShortDateFormat, ConfigStateService, CoreModule, LocalizationService, createLocalizationPipeKeyGenerator, AbpValidators } from '@abp/ng.core';
 import { of, merge, pipe, zip } from 'rxjs';
 import { map, filter, take, switchMap } from 'rxjs/operators';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { NgxValidateCoreModule } from '@ngx-validate/core';
 import { createSelector } from '@ngxs/store';
 
-let DateTimeAdapter = class DateTimeAdapter {
+class DateTimeAdapter {
     fromModel(value) {
         if (!value)
             return null;
@@ -36,12 +35,12 @@ let DateTimeAdapter = class DateTimeAdapter {
         const date = new Date(value.year, value.month - 1, value.day, value.hour, value.minute, value.second);
         return new Date(date).toISOString();
     }
-};
-DateTimeAdapter = __decorate([
-    Injectable()
-], DateTimeAdapter);
+}
+DateTimeAdapter.decorators = [
+    { type: Injectable }
+];
 
-let DateAdapter = class DateAdapter extends NgbDateAdapter {
+class DateAdapter extends NgbDateAdapter {
     fromModel(value) {
         if (!value)
             return null;
@@ -61,12 +60,12 @@ let DateAdapter = class DateAdapter extends NgbDateAdapter {
         const formattedDate = formatDate(date, 'yyyy-MM-dd', 'en');
         return formattedDate;
     }
-};
-DateAdapter = __decorate([
-    Injectable()
-], DateAdapter);
+}
+DateAdapter.decorators = [
+    { type: Injectable }
+];
 
-let TimeAdapter = class TimeAdapter extends NgbTimeAdapter {
+class TimeAdapter extends NgbTimeAdapter {
     fromModel(value) {
         if (!value)
             return null;
@@ -88,10 +87,10 @@ let TimeAdapter = class TimeAdapter extends NgbTimeAdapter {
         const formattedDate = formatDate(date, 'HH:mm', 'en');
         return formattedDate;
     }
-};
-TimeAdapter = __decorate([
-    Injectable()
-], TimeAdapter);
+}
+TimeAdapter.decorators = [
+    { type: Injectable }
+];
 function isTimeStr(value) {
     return /^((2[123])|[01][0-9])(\:[0-5][0-9]){1,2}$/.test(String(value));
 }
@@ -203,7 +202,7 @@ function selfFactory(dependency) {
 }
 
 const ɵ0 = selfFactory;
-let DateTimePickerComponent = class DateTimePickerComponent {
+class DateTimePickerComponent {
     constructor(cdRef) {
         this.cdRef = cdRef;
     }
@@ -213,24 +212,12 @@ let DateTimePickerComponent = class DateTimePickerComponent {
     setTime(datestr) {
         this.time.writeValue(datestr);
     }
-};
-__decorate([
-    Input(),
-    __metadata("design:type", FormProp)
-], DateTimePickerComponent.prototype, "prop", void 0);
-__decorate([
-    ViewChild(NgbInputDatepicker),
-    __metadata("design:type", NgbInputDatepicker)
-], DateTimePickerComponent.prototype, "date", void 0);
-__decorate([
-    ViewChild(NgbTimepicker),
-    __metadata("design:type", NgbTimepicker)
-], DateTimePickerComponent.prototype, "time", void 0);
-DateTimePickerComponent = __decorate([
-    Component({
-        exportAs: 'abpDateTimePicker',
-        selector: 'abp-date-time-picker',
-        template: `
+}
+DateTimePickerComponent.decorators = [
+    { type: Component, args: [{
+                exportAs: 'abpDateTimePicker',
+                selector: 'abp-date-time-picker',
+                template: `
     <input
       [id]="prop.id"
       [formControlName]="prop.name"
@@ -248,28 +235,35 @@ DateTimePickerComponent = __decorate([
       (ngModelChange)="setDate($event)"
     ></ngb-timepicker>
   `,
-        changeDetection: ChangeDetectionStrategy.OnPush,
-        viewProviders: [
-            {
-                provide: ControlContainer,
-                useFactory: ɵ0,
-                deps: [[new Optional(), new SkipSelf(), ControlContainer]],
-            },
-            {
-                provide: NgbDateAdapter,
-                useClass: DateTimeAdapter,
-            },
-            {
-                provide: NgbTimeAdapter,
-                useClass: DateTimeAdapter,
-            },
-        ]
-    }),
-    __metadata("design:paramtypes", [ChangeDetectorRef])
-], DateTimePickerComponent);
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                viewProviders: [
+                    {
+                        provide: ControlContainer,
+                        useFactory: ɵ0,
+                        deps: [[new Optional(), new SkipSelf(), ControlContainer]],
+                    },
+                    {
+                        provide: NgbDateAdapter,
+                        useClass: DateTimeAdapter,
+                    },
+                    {
+                        provide: NgbTimeAdapter,
+                        useClass: DateTimeAdapter,
+                    },
+                ]
+            },] }
+];
+DateTimePickerComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef }
+];
+DateTimePickerComponent.propDecorators = {
+    prop: [{ type: Input }],
+    date: [{ type: ViewChild, args: [NgbInputDatepicker,] }],
+    time: [{ type: ViewChild, args: [NgbTimepicker,] }]
+};
 
 const ɵ0$1 = selfFactory;
-let ExtensibleFormPropComponent = class ExtensibleFormPropComponent {
+class ExtensibleFormPropComponent {
     constructor(cdRef, track) {
         this.cdRef = cdRef;
         this.track = track;
@@ -328,32 +322,31 @@ let ExtensibleFormPropComponent = class ExtensibleFormPropComponent {
         if (validators)
             this.validators = validators(this.data);
     }
+}
+ExtensibleFormPropComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-extensible-form-prop',
+                template: "<div class=\"form-group\" [abpPermission]=\"prop.permission\" [ngSwitch]=\"getComponent(prop)\">\r\n  <ng-template ngSwitchCase=\"input\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <input\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [autocomplete]=\"prop.autocomplete\"\r\n      [type]=\"getType(prop)\"\r\n      [abpDisabled]=\"disabled\"\r\n      [readonly]=\"readonly\"\r\n      class=\"form-control\"\r\n    />\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"checkbox\">\r\n    <div class=\"custom-checkbox custom-control\" validationTarget>\r\n      <input\r\n        [id]=\"prop.id\"\r\n        [formControlName]=\"prop.name\"\r\n        [abpDisabled]=\"disabled\"\r\n        type=\"checkbox\"\r\n        class=\"custom-control-input\"\r\n      />\r\n      <label [htmlFor]=\"prop.id\" class=\"custom-control-label\"\r\n        >{{ prop.displayName | abpLocalization }} {{ asterisk }}</label\r\n      >\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"select\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <select\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [abpDisabled]=\"disabled\"\r\n      class=\"custom-select form-control\"\r\n    >\r\n      <option\r\n        *ngFor=\"let option of options$ | async; trackBy: track.by('value')\"\r\n        [ngValue]=\"option.value\"\r\n        >{{ option.key }}</option\r\n      >\r\n    </select>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"date\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <input\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      (click)=\"datepicker.open()\"\r\n      (keyup.space)=\"datepicker.open()\"\r\n      ngbDatepicker\r\n      #datepicker=\"ngbDatepicker\"\r\n      type=\"text\"\r\n      class=\"form-control\"\r\n    />\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"time\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <ngb-timepicker [formControlName]=\"prop.name\"></ngb-timepicker>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"dateTime\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <abp-date-time-picker [prop]=\"prop\"></abp-date-time-picker>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"textarea\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <textarea\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [abpDisabled]=\"disabled\"\r\n      [readonly]=\"readonly\"\r\n      class=\"form-control\"\r\n    ></textarea>\r\n  </ng-template>\r\n</div>\r\n",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                viewProviders: [
+                    {
+                        provide: ControlContainer,
+                        useFactory: ɵ0$1,
+                        deps: [[new Optional(), new SkipSelf(), ControlContainer]],
+                    },
+                    { provide: NgbDateAdapter, useClass: DateAdapter },
+                    { provide: NgbTimeAdapter, useClass: TimeAdapter },
+                ]
+            },] }
+];
+ExtensibleFormPropComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: TrackByService }
+];
+ExtensibleFormPropComponent.propDecorators = {
+    data: [{ type: Input }],
+    prop: [{ type: Input }]
 };
-__decorate([
-    Input(),
-    __metadata("design:type", PropData)
-], ExtensibleFormPropComponent.prototype, "data", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", FormProp)
-], ExtensibleFormPropComponent.prototype, "prop", void 0);
-ExtensibleFormPropComponent = __decorate([
-    Component({
-        selector: 'abp-extensible-form-prop',
-        template: "<div class=\"form-group\" [abpPermission]=\"prop.permission\" [ngSwitch]=\"getComponent(prop)\">\r\n  <ng-template ngSwitchCase=\"input\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <input\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [autocomplete]=\"prop.autocomplete\"\r\n      [type]=\"getType(prop)\"\r\n      [abpDisabled]=\"disabled\"\r\n      [readonly]=\"readonly\"\r\n      class=\"form-control\"\r\n    />\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"checkbox\">\r\n    <div class=\"custom-checkbox custom-control\" validationTarget>\r\n      <input\r\n        [id]=\"prop.id\"\r\n        [formControlName]=\"prop.name\"\r\n        [abpDisabled]=\"disabled\"\r\n        type=\"checkbox\"\r\n        class=\"custom-control-input\"\r\n      />\r\n      <label [htmlFor]=\"prop.id\" class=\"custom-control-label\"\r\n        >{{ prop.displayName | abpLocalization }} {{ asterisk }}</label\r\n      >\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"select\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <select\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [abpDisabled]=\"disabled\"\r\n      class=\"custom-select form-control\"\r\n    >\r\n      <option\r\n        *ngFor=\"let option of options$ | async; trackBy: track.by('value')\"\r\n        [ngValue]=\"option.value\"\r\n        >{{ option.key }}</option\r\n      >\r\n    </select>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"date\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <input\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      (click)=\"datepicker.open()\"\r\n      (keyup.space)=\"datepicker.open()\"\r\n      ngbDatepicker\r\n      #datepicker=\"ngbDatepicker\"\r\n      type=\"text\"\r\n      class=\"form-control\"\r\n    />\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"time\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <ngb-timepicker [formControlName]=\"prop.name\"></ngb-timepicker>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"dateTime\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <abp-date-time-picker [prop]=\"prop\"></abp-date-time-picker>\r\n  </ng-template>\r\n\r\n  <ng-template ngSwitchCase=\"textarea\">\r\n    <label [htmlFor]=\"prop.id\">{{ prop.displayName | abpLocalization }} {{ asterisk }}</label>\r\n    <textarea\r\n      [id]=\"prop.id\"\r\n      [formControlName]=\"prop.name\"\r\n      [abpDisabled]=\"disabled\"\r\n      [readonly]=\"readonly\"\r\n      class=\"form-control\"\r\n    ></textarea>\r\n  </ng-template>\r\n</div>\r\n",
-        changeDetection: ChangeDetectionStrategy.OnPush,
-        viewProviders: [
-            {
-                provide: ControlContainer,
-                useFactory: ɵ0$1,
-                deps: [[new Optional(), new SkipSelf(), ControlContainer]],
-            },
-            { provide: NgbDateAdapter, useClass: DateAdapter },
-            { provide: NgbTimeAdapter, useClass: TimeAdapter },
-        ]
-    }),
-    __metadata("design:paramtypes", [ChangeDetectorRef, TrackByService])
-], ExtensibleFormPropComponent);
 
 const EXTRA_PROPERTIES_KEY = 'extraProperties';
 
@@ -451,7 +444,7 @@ class EntityProp extends Prop {
         this.columnWidth = options.columnWidth;
         this.sortable = options.sortable || false;
         this.valueResolver = options.valueResolver || (data => of(data.record[this.name]));
-        this.action = options.action || (_ => { });
+        this.action = options.action;
     }
     static create(options) {
         return new EntityProp(options);
@@ -501,7 +494,7 @@ class ToolbarComponent extends Action {
     }
 }
 
-let ExtensionsService = class ExtensionsService {
+class ExtensionsService {
     constructor() {
         this.entityActions = new EntityActionsFactory();
         this.toolbarActions = new ToolbarActionsFactory();
@@ -509,13 +502,13 @@ let ExtensionsService = class ExtensionsService {
         this.createFormProps = new CreateFormPropsFactory();
         this.editFormProps = new EditFormPropsFactory();
     }
-};
+}
 ExtensionsService.ɵprov = ɵɵdefineInjectable({ factory: function ExtensionsService_Factory() { return new ExtensionsService(); }, token: ExtensionsService, providedIn: "root" });
-ExtensionsService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    })
-], ExtensionsService);
+ExtensionsService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
 
 const EXTENSIONS_IDENTIFIER = new InjectionToken('EXTENSIONS_IDENTIFIER');
 const EXTENSIONS_ACTION_TYPE = new InjectionToken('EXTENSIONS_ACTION_TYPE');
@@ -523,7 +516,7 @@ const EXTENSIONS_ACTION_DATA = new InjectionToken('EXTENSIONS_ACTION_DATA');
 const EXTENSIONS_ACTION_CALLBACK = new InjectionToken('EXTENSIONS_ACTION_DATA');
 
 const ɵ0$2 = selfFactory;
-let ExtensibleFormComponent = class ExtensibleFormComponent {
+class ExtensibleFormComponent {
     constructor(cdRef, track, container, extensions, identifier) {
         this.cdRef = cdRef;
         this.track = track;
@@ -543,39 +536,36 @@ let ExtensibleFormComponent = class ExtensibleFormComponent {
     get extraProperties() {
         return (this.form.controls.extraProperties || { controls: {} });
     }
+}
+ExtensibleFormComponent.decorators = [
+    { type: Component, args: [{
+                exportAs: 'abpExtensibleForm',
+                selector: 'abp-extensible-form',
+                template: "<ng-container *ngIf=\"form\">\r\n  <ng-container *abpPropData=\"let data; fromList: propList; withRecord: record\">\r\n    <ng-container *ngFor=\"let prop of propList; trackBy: track.by('name')\">\r\n      <ng-container *ngIf=\"prop.visible(data)\">\r\n        <ng-container\r\n          [formGroupName]=\"extraPropertiesKey\"\r\n          *ngIf=\"extraProperties.controls[prop.name]; else tempDefault\"\r\n        >\r\n          <abp-extensible-form-prop [prop]=\"prop\" [data]=\"data\"></abp-extensible-form-prop>\r\n        </ng-container>\r\n\r\n        <ng-template #tempDefault>\r\n          <abp-extensible-form-prop\r\n            *ngIf=\"form.get(prop.name)\"\r\n            [prop]=\"prop\"\r\n            [data]=\"data\"\r\n          ></abp-extensible-form-prop>\r\n        </ng-template>\r\n      </ng-container>\r\n    </ng-container>\r\n  </ng-container>\r\n</ng-container>\r\n",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                viewProviders: [
+                    {
+                        provide: ControlContainer,
+                        useFactory: ɵ0$2,
+                        deps: [[new Optional(), new SkipSelf(), ControlContainer]],
+                    },
+                ]
+            },] }
+];
+ExtensibleFormComponent.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: TrackByService },
+    { type: ControlContainer },
+    { type: ExtensionsService },
+    { type: String, decorators: [{ type: Inject, args: [EXTENSIONS_IDENTIFIER,] }] }
+];
+ExtensibleFormComponent.propDecorators = {
+    formProps: [{ type: ViewChildren, args: [ExtensibleFormPropComponent,] }],
+    selectedRecord: [{ type: Input }]
 };
-__decorate([
-    ViewChildren(ExtensibleFormPropComponent),
-    __metadata("design:type", QueryList)
-], ExtensibleFormComponent.prototype, "formProps", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Object),
-    __metadata("design:paramtypes", [Object])
-], ExtensibleFormComponent.prototype, "selectedRecord", null);
-ExtensibleFormComponent = __decorate([
-    Component({
-        exportAs: 'abpExtensibleForm',
-        selector: 'abp-extensible-form',
-        template: "<ng-container *ngIf=\"form\">\r\n  <ng-container *abpPropData=\"let data; fromList: propList; withRecord: record\">\r\n    <ng-container *ngFor=\"let prop of propList; trackBy: track.by('name')\">\r\n      <ng-container *ngIf=\"prop.visible(data)\">\r\n        <ng-container\r\n          [formGroupName]=\"extraPropertiesKey\"\r\n          *ngIf=\"extraProperties.controls[prop.name]; else tempDefault\"\r\n        >\r\n          <abp-extensible-form-prop [prop]=\"prop\" [data]=\"data\"></abp-extensible-form-prop>\r\n        </ng-container>\r\n\r\n        <ng-template #tempDefault>\r\n          <abp-extensible-form-prop\r\n            *ngIf=\"form.get(prop.name)\"\r\n            [prop]=\"prop\"\r\n            [data]=\"data\"\r\n          ></abp-extensible-form-prop>\r\n        </ng-template>\r\n      </ng-container>\r\n    </ng-container>\r\n  </ng-container>\r\n</ng-container>\r\n",
-        changeDetection: ChangeDetectionStrategy.OnPush,
-        viewProviders: [
-            {
-                provide: ControlContainer,
-                useFactory: ɵ0$2,
-                deps: [[new Optional(), new SkipSelf(), ControlContainer]],
-            },
-        ]
-    }),
-    __param(4, Inject(EXTENSIONS_IDENTIFIER)),
-    __metadata("design:paramtypes", [ChangeDetectorRef,
-        TrackByService,
-        ControlContainer,
-        ExtensionsService, String])
-], ExtensibleFormComponent);
 
 const DEFAULT_ACTIONS_COLUMN_WIDTH = 150;
-let ExtensibleTableComponent = class ExtensibleTableComponent {
+class ExtensibleTableComponent {
     constructor(locale, config, injector) {
         this.locale = locale;
         this.config = config;
@@ -645,49 +635,33 @@ let ExtensibleTableComponent = class ExtensibleTableComponent {
             return record;
         });
     }
+}
+ExtensibleTableComponent.decorators = [
+    { type: Component, args: [{
+                exportAs: 'abpExtensibleTable',
+                selector: 'abp-extensible-table',
+                template: "<ngx-datatable default [rows]=\"data\" [count]=\"recordsTotal\" [list]=\"list\">\r\n  <ngx-datatable-column\r\n    *ngIf=\"actionsTemplate || actionList.length\"\r\n    [name]=\"actionsText | abpLocalization\"\r\n    [maxWidth]=\"columnWidths[0]\"\r\n    [width]=\"columnWidths[0]\"\r\n    [sortable]=\"false\"\r\n  >\r\n    <ng-template let-row=\"row\" let-i=\"rowIndex\" ngx-datatable-cell-template>\r\n      <ng-container\r\n        *ngTemplateOutlet=\"actionsTemplate || gridActions; context: { $implicit: row, index: i }\"\r\n      ></ng-container>\r\n      <ng-template #gridActions>\r\n        <abp-grid-actions\r\n          [index]=\"i\"\r\n          [record]=\"row\"\r\n          text=\"AbpUi::Actions\"\r\n        ></abp-grid-actions>\r\n      </ng-template>\r\n    </ng-template>\r\n  </ngx-datatable-column>\r\n\r\n  <ng-container *ngFor=\"let prop of propList; let i = index; trackBy: trackByFn\">\r\n    <ngx-datatable-column\r\n      [width]=\"columnWidths[i + 1] || 200\"\r\n      [name]=\"prop.displayName | abpLocalization\"\r\n      [prop]=\"prop.name\"\r\n      [sortable]=\"prop.sortable\"\r\n    >\r\n      <ng-template let-row=\"row\" let-i=\"index\" ngx-datatable-cell-template>\r\n        <ng-container [abpPermission]=\"prop.permission\">\r\n          <div\r\n            *ngIf=\"row['_' + prop.name].visible\"\r\n            [innerHTML]=\"row['_' + prop.name].value | async\"\r\n            (click)=\"prop.action && prop.action({ getInjected: getInjected, record: row, index: i })\"\r\n            [class.pointer]=\"prop.action\"\r\n          ></div>\r\n        </ng-container>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n  </ng-container>\r\n</ngx-datatable>\r\n",
+                changeDetection: ChangeDetectionStrategy.OnPush
+            },] }
+];
+ExtensibleTableComponent.ctorParameters = () => [
+    { type: String, decorators: [{ type: Inject, args: [LOCALE_ID,] }] },
+    { type: ConfigStateService },
+    { type: Injector }
+];
+ExtensibleTableComponent.propDecorators = {
+    actionsText: [{ type: Input }],
+    data: [{ type: Input }],
+    list: [{ type: Input }],
+    recordsTotal: [{ type: Input }],
+    actionsColumnWidth: [{ type: Input }],
+    actionsTemplate: [{ type: Input }]
 };
-__decorate([
-    Input(),
-    __metadata("design:type", String),
-    __metadata("design:paramtypes", [String])
-], ExtensibleTableComponent.prototype, "actionsText", null);
-__decorate([
-    Input(),
-    __metadata("design:type", Array)
-], ExtensibleTableComponent.prototype, "data", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", ListService)
-], ExtensibleTableComponent.prototype, "list", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Number)
-], ExtensibleTableComponent.prototype, "recordsTotal", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Number),
-    __metadata("design:paramtypes", [Number])
-], ExtensibleTableComponent.prototype, "actionsColumnWidth", null);
-__decorate([
-    Input(),
-    __metadata("design:type", TemplateRef)
-], ExtensibleTableComponent.prototype, "actionsTemplate", void 0);
-ExtensibleTableComponent = __decorate([
-    Component({
-        exportAs: 'abpExtensibleTable',
-        selector: 'abp-extensible-table',
-        template: "<ngx-datatable default [rows]=\"data\" [count]=\"recordsTotal\" [list]=\"list\">\r\n  <ngx-datatable-column\r\n    *ngIf=\"actionsTemplate || actionList.length\"\r\n    [name]=\"actionsText | abpLocalization\"\r\n    [maxWidth]=\"columnWidths[0]\"\r\n    [width]=\"columnWidths[0]\"\r\n    [sortable]=\"false\"\r\n  >\r\n    <ng-template let-row=\"row\" let-i=\"rowIndex\" ngx-datatable-cell-template>\r\n      <ng-container\r\n        *ngTemplateOutlet=\"actionsTemplate || gridActions; context: { $implicit: row, index: i }\"\r\n      ></ng-container>\r\n      <ng-template #gridActions>\r\n        <abp-grid-actions\r\n          [index]=\"i\"\r\n          [record]=\"row\"\r\n          text=\"LanguageManagement::Actions\"\r\n        ></abp-grid-actions>\r\n      </ng-template>\r\n    </ng-template>\r\n  </ngx-datatable-column>\r\n\r\n  <ng-container *ngFor=\"let prop of propList; let i = index; trackBy: trackByFn\">\r\n    <ngx-datatable-column\r\n      [width]=\"columnWidths[i + 1] || 200\"\r\n      [name]=\"prop.displayName | abpLocalization\"\r\n      [prop]=\"prop.name\"\r\n      [sortable]=\"prop.sortable\"\r\n    >\r\n      <ng-template let-row=\"row\" let-i=\"index\" ngx-datatable-cell-template>\r\n        <ng-container [abpPermission]=\"prop.permission\">\r\n          <div\r\n            *ngIf=\"row['_' + prop.name].visible\"\r\n            [innerHTML]=\"row['_' + prop.name].value | async\"\r\n            (click)=\"prop.action({ getInjected: getInjected, record: row, index: i })\"\r\n          ></div>\r\n        </ng-container>\r\n      </ng-template>\r\n    </ngx-datatable-column>\r\n  </ng-container>\r\n</ngx-datatable>\r\n",
-        changeDetection: ChangeDetectionStrategy.OnPush
-    }),
-    __param(0, Inject(LOCALE_ID)),
-    __metadata("design:paramtypes", [String, ConfigStateService,
-        Injector])
-], ExtensibleTableComponent);
 
 // tslint:disable: directive-class-suffix
 // Fix for https://github.com/angular/angular/issues/23904
 // @dynamic
-let AbstractActionsComponent = class AbstractActionsComponent extends ActionData {
+class AbstractActionsComponent extends ActionData {
     constructor(injector) {
         super();
         // tslint:disable-next-line
@@ -697,53 +671,49 @@ let AbstractActionsComponent = class AbstractActionsComponent extends ActionData
         const type = injector.get(EXTENSIONS_ACTION_TYPE);
         this.actionList = extensions[type].get(name).actions;
     }
+}
+AbstractActionsComponent.decorators = [
+    { type: Directive }
+];
+AbstractActionsComponent.ctorParameters = () => [
+    { type: Injector }
+];
+AbstractActionsComponent.propDecorators = {
+    record: [{ type: Input }]
 };
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], AbstractActionsComponent.prototype, "record", void 0);
-AbstractActionsComponent = __decorate([
-    Directive(),
-    __metadata("design:paramtypes", [Injector])
-], AbstractActionsComponent);
 
-let GridActionsComponent = class GridActionsComponent extends AbstractActionsComponent {
+class GridActionsComponent extends AbstractActionsComponent {
     constructor(injector) {
         super(injector);
         this.icon = 'fa fa-cog';
         this.text = '';
         this.trackByFn = (_, item) => item.text;
     }
+}
+GridActionsComponent.decorators = [
+    { type: Component, args: [{
+                exportAs: 'abpGridActions',
+                selector: 'abp-grid-actions',
+                template: "<div *ngIf=\"actionList.length > 1\" ngbDropdown container=\"body\" class=\"d-inline-block\">\r\n  <button\r\n    class=\"btn btn-primary btn-sm dropdown-toggle\"\r\n    data-toggle=\"dropdown\"\r\n    aria-haspopup=\"true\"\r\n    ngbDropdownToggle\r\n  >\r\n    <i [ngClass]=\"icon\" [class.mr-1]=\"icon\"></i>{{ text | abpLocalization }}\r\n  </button>\r\n  <div ngbDropdownMenu>\r\n    <ng-container\r\n      *ngFor=\"let action of actionList; trackBy: trackByFn\"\r\n      [ngTemplateOutlet]=\"btnItem\"\r\n      [ngTemplateOutletContext]=\"{ $implicit: action }\"\r\n    >\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n\r\n<ng-container\r\n  *ngIf=\"actionList.length === 1\"\r\n  [ngTemplateOutlet]=\"btnItem\"\r\n  [ngTemplateOutletContext]=\"{ $implicit: actionList.get(0).value }\"\r\n></ng-container>\r\n\r\n<ng-template #btnItem let-action>\r\n  <button\r\n    *ngIf=\"action.visible(data)\"\r\n    ngbDropdownItem\r\n    [abpPermission]=\"action.permission\"\r\n    (click)=\"action.action(data)\"\r\n    type=\"button\"\r\n    class=\"{{ actionList.length === 1 ? 'btn btn-primary' : '' }}\"\r\n    [class.text-center]=\"actionList.length === 1\"\r\n  >\r\n    <i [ngClass]=\"action.icon\" [class.mr-1]=\"action.icon\"></i>\r\n    <span *ngIf=\"action.icon; else ellipsis\">{{ action.text | abpLocalization }}</span>\r\n    <ng-template #ellipsis>\r\n      <div abpEllipsis>{{ action.text | abpLocalization }}</div>\r\n    </ng-template>\r\n  </button>\r\n</ng-template>\r\n",
+                providers: [
+                    {
+                        provide: EXTENSIONS_ACTION_TYPE,
+                        useValue: 'entityActions',
+                    },
+                ],
+                changeDetection: ChangeDetectionStrategy.OnPush
+            },] }
+];
+GridActionsComponent.ctorParameters = () => [
+    { type: Injector }
+];
+GridActionsComponent.propDecorators = {
+    icon: [{ type: Input }],
+    index: [{ type: Input }],
+    text: [{ type: Input }]
 };
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], GridActionsComponent.prototype, "icon", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Number)
-], GridActionsComponent.prototype, "index", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], GridActionsComponent.prototype, "text", void 0);
-GridActionsComponent = __decorate([
-    Component({
-        exportAs: 'abpGridActions',
-        selector: 'abp-grid-actions',
-        template: "<div *ngIf=\"actionList.length > 1\" ngbDropdown container=\"body\" class=\"d-inline-block\">\r\n  <button\r\n    class=\"btn btn-primary btn-sm dropdown-toggle\"\r\n    data-toggle=\"dropdown\"\r\n    aria-haspopup=\"true\"\r\n    ngbDropdownToggle\r\n  >\r\n    <i [ngClass]=\"icon\" [class.mr-1]=\"icon\"></i>{{ text | abpLocalization }}\r\n  </button>\r\n  <div ngbDropdownMenu>\r\n    <ng-container\r\n      *ngFor=\"let action of actionList; trackBy: trackByFn\"\r\n      [ngTemplateOutlet]=\"btnItem\"\r\n      [ngTemplateOutletContext]=\"{ $implicit: action }\"\r\n    >\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n\r\n<ng-container\r\n  *ngIf=\"actionList.length === 1\"\r\n  [ngTemplateOutlet]=\"btnItem\"\r\n  [ngTemplateOutletContext]=\"{ $implicit: actionList.get(0).value }\"\r\n></ng-container>\r\n\r\n<ng-template #btnItem let-action>\r\n  <button\r\n    *ngIf=\"action.visible(data)\"\r\n    ngbDropdownItem\r\n    [abpPermission]=\"action.permission\"\r\n    (click)=\"action.action(data)\"\r\n    type=\"button\"\r\n    class=\"{{ actionList.length === 1 ? 'btn btn-primary' : '' }}\"\r\n    [class.text-center]=\"actionList.length === 1\"\r\n  >\r\n    <i [ngClass]=\"action.icon\" [class.mr-1]=\"action.icon\"></i>\r\n    <span *ngIf=\"action.icon; else ellipsis\">{{ action.text | abpLocalization }}</span>\r\n    <ng-template #ellipsis>\r\n      <div abpEllipsis>{{ action.text | abpLocalization }}</div>\r\n    </ng-template>\r\n  </button>\r\n</ng-template>\r\n",
-        providers: [
-            {
-                provide: EXTENSIONS_ACTION_TYPE,
-                useValue: 'entityActions',
-            },
-        ],
-        changeDetection: ChangeDetectionStrategy.OnPush
-    }),
-    __metadata("design:paramtypes", [Injector])
-], GridActionsComponent);
 
-let PageToolbarComponent = class PageToolbarComponent extends AbstractActionsComponent {
+class PageToolbarComponent extends AbstractActionsComponent {
     constructor(injector) {
         super(injector);
         this.injector = injector;
@@ -759,24 +729,26 @@ let PageToolbarComponent = class PageToolbarComponent extends AbstractActionsCom
         };
         return { get };
     }
-};
-PageToolbarComponent = __decorate([
-    Component({
-        exportAs: 'abpPageToolbar',
-        selector: 'abp-page-toolbar',
-        template: "<div class=\"row justify-content-end mx-n1\" id=\"AbpContentToolbar\">\r\n  <div class=\"col-auto px-1 pt-2\" *ngFor=\"let action of actionList; trackBy: trackByFn\">\r\n    <ng-container *ngIf=\"action.visible(data)\" [abpPermission]=\"action.permission\">\r\n      <ng-container *ngIf=\"action.component as component; else button\">\r\n        <ng-container\r\n          *ngComponentOutlet=\"component; injector: createInjector(action)\"\r\n        ></ng-container>\r\n      </ng-container>\r\n\r\n      <ng-template #button>\r\n        <button (click)=\"action.action(data)\" type=\"button\" class=\"btn btn-primary btn-sm\">\r\n          <i [ngClass]=\"action.icon\" [class.mr-1]=\"action.icon\"></i>\r\n          {{ action.text | abpLocalization }}\r\n        </button>\r\n      </ng-template>\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n",
-        providers: [
-            {
-                provide: EXTENSIONS_ACTION_TYPE,
-                useValue: 'toolbarActions',
-            },
-        ],
-        changeDetection: ChangeDetectionStrategy.OnPush
-    }),
-    __metadata("design:paramtypes", [Injector])
-], PageToolbarComponent);
+}
+PageToolbarComponent.decorators = [
+    { type: Component, args: [{
+                exportAs: 'abpPageToolbar',
+                selector: 'abp-page-toolbar',
+                template: "<div class=\"row justify-content-end mx-n1\" id=\"AbpContentToolbar\">\r\n  <div class=\"col-auto px-1 pt-2\" *ngFor=\"let action of actionList; trackBy: trackByFn\">\r\n    <ng-container *ngIf=\"action.visible(data)\" [abpPermission]=\"action.permission\">\r\n      <ng-container *ngIf=\"action.component as component; else button\">\r\n        <ng-container\r\n          *ngComponentOutlet=\"component; injector: createInjector(action)\"\r\n        ></ng-container>\r\n      </ng-container>\r\n\r\n      <ng-template #button>\r\n        <button (click)=\"action.action(data)\" type=\"button\" class=\"btn btn-primary btn-sm\">\r\n          <i [ngClass]=\"action.icon\" [class.mr-1]=\"action.icon\"></i>\r\n          {{ action.text | abpLocalization }}\r\n        </button>\r\n      </ng-template>\r\n    </ng-container>\r\n  </div>\r\n</div>\r\n",
+                providers: [
+                    {
+                        provide: EXTENSIONS_ACTION_TYPE,
+                        useValue: 'toolbarActions',
+                    },
+                ],
+                changeDetection: ChangeDetectionStrategy.OnPush
+            },] }
+];
+PageToolbarComponent.ctorParameters = () => [
+    { type: Injector }
+];
 
-let DisabledDirective = class DisabledDirective {
+class DisabledDirective {
     constructor(ngControl) {
         this.ngControl = ngControl;
     }
@@ -786,20 +758,20 @@ let DisabledDirective = class DisabledDirective {
             this.ngControl.control[abpDisabled.currentValue ? 'disable' : 'enable']();
         }
     }
+}
+DisabledDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[abpDisabled]',
+            },] }
+];
+DisabledDirective.ctorParameters = () => [
+    { type: NgControl, decorators: [{ type: Host }] }
+];
+DisabledDirective.propDecorators = {
+    abpDisabled: [{ type: Input }]
 };
-__decorate([
-    Input(),
-    __metadata("design:type", Boolean)
-], DisabledDirective.prototype, "abpDisabled", void 0);
-DisabledDirective = __decorate([
-    Directive({
-        selector: '[abpDisabled]',
-    }),
-    __param(0, Host()),
-    __metadata("design:paramtypes", [NgControl])
-], DisabledDirective);
 
-let PropDataDirective = class PropDataDirective extends PropData {
+class PropDataDirective extends PropData {
     constructor(tempRef, vcRef, injector) {
         super();
         this.tempRef = tempRef;
@@ -817,66 +789,61 @@ let PropDataDirective = class PropDataDirective extends PropData {
     ngOnDestroy() {
         this.vcRef.clear();
     }
+}
+PropDataDirective.decorators = [
+    { type: Directive, args: [{
+                exportAs: 'abpPropData',
+                selector: '[abpPropData]',
+            },] }
+];
+PropDataDirective.ctorParameters = () => [
+    { type: TemplateRef },
+    { type: ViewContainerRef },
+    { type: Injector }
+];
+PropDataDirective.propDecorators = {
+    propList: [{ type: Input, args: ['abpPropDataFromList',] }],
+    record: [{ type: Input, args: ['abpPropDataWithRecord',] }],
+    index: [{ type: Input, args: ['abpPropDataAtIndex',] }]
 };
-__decorate([
-    Input('abpPropDataFromList'),
-    __metadata("design:type", Object)
-], PropDataDirective.prototype, "propList", void 0);
-__decorate([
-    Input('abpPropDataWithRecord'),
-    __metadata("design:type", Object)
-], PropDataDirective.prototype, "record", void 0);
-__decorate([
-    Input('abpPropDataAtIndex'),
-    __metadata("design:type", Number)
-], PropDataDirective.prototype, "index", void 0);
-PropDataDirective = __decorate([
-    Directive({
-        exportAs: 'abpPropData',
-        selector: '[abpPropData]',
-    }),
-    __metadata("design:paramtypes", [TemplateRef,
-        ViewContainerRef,
-        Injector])
-], PropDataDirective);
 
 var objectExtensions = /*#__PURE__*/Object.freeze({
     __proto__: null
 });
 
-let UiExtensionsModule = class UiExtensionsModule {
-};
-UiExtensionsModule = __decorate([
-    NgModule({
-        exports: [
-            DateTimePickerComponent,
-            PageToolbarComponent,
-            GridActionsComponent,
-            ExtensibleFormComponent,
-            ExtensibleTableComponent,
-            PropDataDirective,
-            DisabledDirective,
-        ],
-        declarations: [
-            DateTimePickerComponent,
-            PageToolbarComponent,
-            GridActionsComponent,
-            ExtensibleFormPropComponent,
-            ExtensibleFormComponent,
-            ExtensibleTableComponent,
-            PropDataDirective,
-            DisabledDirective,
-        ],
-        imports: [
-            CoreModule,
-            ThemeSharedModule,
-            NgxValidateCoreModule,
-            NgbDatepickerModule,
-            NgbDropdownModule,
-            NgbTimepickerModule,
-        ],
-    })
-], UiExtensionsModule);
+class UiExtensionsModule {
+}
+UiExtensionsModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [
+                    DateTimePickerComponent,
+                    PageToolbarComponent,
+                    GridActionsComponent,
+                    ExtensibleFormComponent,
+                    ExtensibleTableComponent,
+                    PropDataDirective,
+                    DisabledDirective,
+                ],
+                declarations: [
+                    DateTimePickerComponent,
+                    PageToolbarComponent,
+                    GridActionsComponent,
+                    ExtensibleFormPropComponent,
+                    ExtensibleFormComponent,
+                    ExtensibleTableComponent,
+                    PropDataDirective,
+                    DisabledDirective,
+                ],
+                imports: [
+                    CoreModule,
+                    ThemeSharedModule,
+                    NgxValidateCoreModule,
+                    NgbDatepickerModule,
+                    NgbDropdownModule,
+                    NgbTimepickerModule,
+                ],
+            },] }
+];
 
 function mergeWithDefaultActions(extension, defaultActions, ...contributors) {
     Object.keys(defaultActions).forEach((name) => {

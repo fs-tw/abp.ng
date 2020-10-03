@@ -4,6 +4,14 @@
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng['setting-management'] = {}), global.ng_core, global.ng_theme_shared, global.ng.core, global.store, global.rxjs, global.ng.router));
 }(this, (function (exports, ng_core, ng_theme_shared, core, store, rxjs, router) { 'use strict';
 
+    var SetSelectedSettingTab = /** @class */ (function () {
+        function SetSelectedSettingTab(payload) {
+            this.payload = payload;
+        }
+        return SetSelectedSettingTab;
+    }());
+    SetSelectedSettingTab.type = '[SettingManagement] Set Selected Tab';
+
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
 
@@ -23,7 +31,7 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
+                if (Object.prototype.hasOwnProperty.call(b, p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
@@ -161,15 +169,19 @@
             return { value: op[0] ? op[1] : void 0, done: true };
         }
     }
-    function __createBinding(o, m, k, k2) {
+    var __createBinding = Object.create ? (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
+    }) : (function (o, m, k, k2) {
         if (k2 === undefined)
             k2 = k;
         o[k2] = m[k];
-    }
-    function __exportStar(m, exports) {
+    });
+    function __exportStar(m, o) {
         for (var p in m)
-            if (p !== "default" && !exports.hasOwnProperty(p))
-                exports[p] = m[p];
+            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+                __createBinding(o, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -268,15 +280,20 @@
         return cooked;
     }
     ;
+    var __setModuleDefault = Object.create ? (function (o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+    }) : function (o, v) {
+        o["default"] = v;
+    };
     function __importStar(mod) {
         if (mod && mod.__esModule)
             return mod;
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (Object.hasOwnProperty.call(mod, k))
-                    result[k] = mod[k];
-        result.default = mod;
+                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+                    __createBinding(result, mod, k);
+        __setModuleDefault(result, mod);
         return result;
     }
     function __importDefault(mod) {
@@ -296,14 +313,6 @@
         return value;
     }
 
-    var SetSelectedSettingTab = /** @class */ (function () {
-        function SetSelectedSettingTab(payload) {
-            this.payload = payload;
-        }
-        return SetSelectedSettingTab;
-    }());
-    SetSelectedSettingTab.type = '[SettingManagement] Set Selected Tab';
-
     exports.ɵc = /** @class */ (function () {
         function SettingManagementState() {
         }
@@ -320,6 +329,9 @@
         };
         return SettingManagementState;
     }());
+    exports.ɵc.decorators = [
+        { type: core.Injectable }
+    ];
     __decorate([
         store.Action(SetSelectedSettingTab),
         __metadata("design:type", Function),
@@ -336,11 +348,10 @@
         store.State({
             name: 'SettingManagementState',
             defaults: {},
-        }),
-        core.Injectable()
+        })
     ], exports.ɵc);
 
-    exports.SettingManagementComponent = /** @class */ (function () {
+    var SettingManagementComponent = /** @class */ (function () {
         function SettingManagementComponent(store, settingTabs) {
             this.store = store;
             this.settingTabs = settingTabs;
@@ -356,7 +367,7 @@
             set: function (value) {
                 this.store.dispatch(new SetSelectedSettingTab(value));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         SettingManagementComponent.prototype.ngOnDestroy = function () {
@@ -372,19 +383,22 @@
         };
         return SettingManagementComponent;
     }());
-    exports.SettingManagementComponent = __decorate([
-        core.Component({
-            selector: 'abp-setting-management',
-            template: "<div class=\"row entry-row\">\r\n  <div class=\"col-auto\">\r\n    <h1 class=\"content-header-title\">{{ 'AbpSettingManagement::Settings' | abpLocalization }}</h1>\r\n  </div>\r\n  <div id=\"breadcrumb\" class=\"col-lg-auto pl-lg-0\">\r\n    <abp-breadcrumb></abp-breadcrumb>\r\n  </div>\r\n  <div class=\"col\">\r\n    <div class=\"text-lg-right pt-2\" id=\"AbpContentToolbar\"></div>\r\n  </div>\r\n</div>\r\n\r\n<div id=\"SettingManagementWrapper\">\r\n  <div class=\"card\">\r\n    <div class=\"card-body\">\r\n      <div class=\"row\">\r\n        <div class=\"col-12 col-md-3\">\r\n          <ul class=\"nav flex-column nav-pills\" id=\"nav-tab\" role=\"tablist\">\r\n            <li\r\n              *abpFor=\"let setting of settings; trackBy: trackByFn\"\r\n              (click)=\"selected = setting\"\r\n              class=\"nav-item pointer\"\r\n              [abpPermission]=\"setting.requiredPolicy\"\r\n            >\r\n              <a\r\n                class=\"nav-link\"\r\n                [id]=\"setting.name + '-tab'\"\r\n                role=\"tab\"\r\n                [class.active]=\"setting.name === selected.name\"\r\n                >{{ setting.name | abpLocalization }}</a\r\n              >\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"col-12 col-md-9\">\r\n          <div *ngIf=\"settings.length\" class=\"tab-content\">\r\n            <div class=\"tab-pane fade show active\" [id]=\"selected.name + '-tab'\" role=\"tabpanel\">\r\n              <ng-container *ngComponentOutlet=\"selected.component\"></ng-container>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
-        }),
-        __metadata("design:paramtypes", [store.Store, ng_core.SettingTabsService])
-    ], exports.SettingManagementComponent);
+    SettingManagementComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'abp-setting-management',
+                    template: "<div class=\"row entry-row\">\r\n  <div class=\"col-auto\">\r\n    <h1 class=\"content-header-title\">{{ 'AbpSettingManagement::Settings' | abpLocalization }}</h1>\r\n  </div>\r\n  <div id=\"breadcrumb\" class=\"col-lg-auto pl-lg-0\">\r\n    <abp-breadcrumb></abp-breadcrumb>\r\n  </div>\r\n  <div class=\"col\">\r\n    <div class=\"text-lg-right pt-2\" id=\"AbpContentToolbar\"></div>\r\n  </div>\r\n</div>\r\n\r\n<div id=\"SettingManagementWrapper\">\r\n  <div class=\"card\">\r\n    <div class=\"card-body\">\r\n      <div class=\"row\">\r\n        <div class=\"col-12 col-md-3\">\r\n          <ul class=\"nav flex-column nav-pills\" id=\"nav-tab\" role=\"tablist\">\r\n            <li\r\n              *abpFor=\"let setting of settings; trackBy: trackByFn\"\r\n              (click)=\"selected = setting\"\r\n              class=\"nav-item pointer\"\r\n              [abpPermission]=\"setting.requiredPolicy\"\r\n            >\r\n              <a\r\n                class=\"nav-link\"\r\n                [id]=\"setting.name + '-tab'\"\r\n                role=\"tab\"\r\n                [class.active]=\"setting.name === selected.name\"\r\n                >{{ setting.name | abpLocalization }}</a\r\n              >\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"col-12 col-md-9\">\r\n          <div *ngIf=\"settings.length\" class=\"tab-content\">\r\n            <div class=\"tab-pane fade show active\" [id]=\"selected.name + '-tab'\" role=\"tabpanel\">\r\n              <ng-container *ngComponentOutlet=\"selected.component\"></ng-container>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+                },] }
+    ];
+    SettingManagementComponent.ctorParameters = function () { return [
+        { type: store.Store },
+        { type: ng_core.SettingTabsService }
+    ]; };
 
     var ɵ0 = {
         requiredPolicy: 'AbpAccount.SettingManagement',
         replaceableComponent: {
             key: "SettingManagement.SettingManagementComponent" /* SettingManagement */,
-            defaultComponent: exports.SettingManagementComponent,
+            defaultComponent: SettingManagementComponent,
         },
     };
     var routes = [
@@ -401,50 +415,52 @@
             ],
         },
     ];
-    exports.ɵa = /** @class */ (function () {
+    var SettingManagementRoutingModule = /** @class */ (function () {
         function SettingManagementRoutingModule() {
         }
         return SettingManagementRoutingModule;
     }());
-    exports.ɵa = __decorate([
-        core.NgModule({
-            imports: [router.RouterModule.forChild(routes)],
-            exports: [router.RouterModule],
-        })
-    ], exports.ɵa);
+    SettingManagementRoutingModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [router.RouterModule.forChild(routes)],
+                    exports: [router.RouterModule],
+                },] }
+    ];
 
-    var SettingManagementModule_1;
-    exports.SettingManagementModule = SettingManagementModule_1 = /** @class */ (function () {
+    var SettingManagementModule = /** @class */ (function () {
         function SettingManagementModule() {
         }
         SettingManagementModule.forChild = function () {
             return {
-                ngModule: SettingManagementModule_1,
+                ngModule: SettingManagementModule,
                 providers: [],
             };
         };
         SettingManagementModule.forLazy = function () {
-            return new ng_core.LazyModuleFactory(SettingManagementModule_1.forChild());
+            return new ng_core.LazyModuleFactory(SettingManagementModule.forChild());
         };
         return SettingManagementModule;
     }());
-    exports.SettingManagementModule = SettingManagementModule_1 = __decorate([
-        core.NgModule({
-            declarations: [exports.SettingManagementComponent],
-            exports: [exports.SettingManagementComponent],
-            imports: [
-                exports.ɵa,
-                ng_core.CoreModule,
-                ng_theme_shared.ThemeSharedModule,
-                store.NgxsModule.forFeature([exports.ɵc]),
-            ],
-        })
-    ], exports.SettingManagementModule);
+    SettingManagementModule.decorators = [
+        { type: core.NgModule, args: [{
+                    declarations: [SettingManagementComponent],
+                    exports: [SettingManagementComponent],
+                    imports: [
+                        SettingManagementRoutingModule,
+                        ng_core.CoreModule,
+                        ng_theme_shared.ThemeSharedModule,
+                        store.NgxsModule.forFeature([exports.ɵc]),
+                    ],
+                },] }
+    ];
 
     /**
      * Generated bundle index. Do not edit.
      */
 
+    exports.SettingManagementComponent = SettingManagementComponent;
+    exports.SettingManagementModule = SettingManagementModule;
+    exports.ɵa = SettingManagementRoutingModule;
     exports.ɵd = SetSelectedSettingTab;
 
     Object.defineProperty(exports, '__esModule', { value: true });

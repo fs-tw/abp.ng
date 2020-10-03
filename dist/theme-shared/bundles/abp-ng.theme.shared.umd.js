@@ -158,7 +158,7 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
+                if (Object.prototype.hasOwnProperty.call(b, p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
@@ -296,15 +296,19 @@
             return { value: op[0] ? op[1] : void 0, done: true };
         }
     }
-    function __createBinding(o, m, k, k2) {
+    var __createBinding = Object.create ? (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
+    }) : (function (o, m, k, k2) {
         if (k2 === undefined)
             k2 = k;
         o[k2] = m[k];
-    }
-    function __exportStar(m, exports) {
+    });
+    function __exportStar(m, o) {
         for (var p in m)
-            if (p !== "default" && !exports.hasOwnProperty(p))
-                exports[p] = m[p];
+            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+                __createBinding(o, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -403,15 +407,20 @@
         return cooked;
     }
     ;
+    var __setModuleDefault = Object.create ? (function (o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+    }) : function (o, v) {
+        o["default"] = v;
+    };
     function __importStar(mod) {
         if (mod && mod.__esModule)
             return mod;
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (Object.hasOwnProperty.call(mod, k))
-                    result[k] = mod[k];
-        result.default = mod;
+                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+                    __createBinding(result, mod, k);
+        __setModuleDefault(result, mod);
         return result;
     }
     function __importDefault(mod) {
@@ -431,7 +440,7 @@
         return value;
     }
 
-    exports.ɵa = /** @class */ (function () {
+    var BreadcrumbComponent = /** @class */ (function () {
         function BreadcrumbComponent(cdRef, router, routes, subscription) {
             this.cdRef = cdRef;
             this.router = router;
@@ -459,23 +468,25 @@
         };
         return BreadcrumbComponent;
     }());
-    exports.ɵa = __decorate([
-        i0.Component({
-            selector: 'abp-breadcrumb',
-            template: "<ol class=\"breadcrumb\" *ngIf=\"segments.length\">\r\n  <li class=\"breadcrumb-item\">\r\n    <a routerLink=\"/\"><i class=\"fa fa-home\"></i> </a>\r\n  </li>\r\n  <li\r\n    *ngFor=\"let segment of segments; let last = last\"\r\n    class=\"breadcrumb-item\"\r\n    [class.active]=\"last\"\r\n    aria-current=\"page\"\r\n  >\r\n    {{ segment.name | abpLocalization }}\r\n  </li>\r\n</ol>\r\n",
-            changeDetection: i0.ChangeDetectionStrategy.OnPush,
-            providers: [i1.SubscriptionService]
-        }),
-        __metadata("design:paramtypes", [i0.ChangeDetectorRef,
-            router.Router,
-            i1.RoutesService,
-            i1.SubscriptionService])
-    ], exports.ɵa);
+    BreadcrumbComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-breadcrumb',
+                    template: "<ol class=\"breadcrumb\" *ngIf=\"segments.length\">\r\n  <li class=\"breadcrumb-item\">\r\n    <a routerLink=\"/\"><i class=\"fa fa-home\"></i> </a>\r\n  </li>\r\n  <li\r\n    *ngFor=\"let segment of segments; let last = last\"\r\n    class=\"breadcrumb-item\"\r\n    [class.active]=\"last\"\r\n    aria-current=\"page\"\r\n  >\r\n    {{ segment.name | abpLocalization }}\r\n  </li>\r\n</ol>\r\n",
+                    changeDetection: i0.ChangeDetectionStrategy.OnPush,
+                    providers: [i1.SubscriptionService]
+                },] }
+    ];
+    BreadcrumbComponent.ctorParameters = function () { return [
+        { type: i0.ChangeDetectorRef },
+        { type: router.Router },
+        { type: i1.RoutesService },
+        { type: i1.SubscriptionService }
+    ]; };
     function isAdministration(route) {
         return route.name === "AbpUiNavigation::Menu:Administration" /* Administration */;
     }
 
-    exports.ɵb = /** @class */ (function () {
+    var ButtonComponent = /** @class */ (function () {
         function ButtonComponent(renderer) {
             this.renderer = renderer;
             this.buttonId = '';
@@ -496,7 +507,7 @@
             get: function () {
                 return "" + (this.loading ? 'fa fa-spinner fa-spin' : this.iconClass || 'd-none');
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         ButtonComponent.prototype.ngOnInit = function () {
@@ -509,69 +520,31 @@
         };
         return ButtonComponent;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵb.prototype, "buttonId", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵb.prototype, "buttonClass", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵb.prototype, "buttonType", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵb.prototype, "iconClass", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵb.prototype, "loading", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵb.prototype, "disabled", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵb.prototype, "attributes", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵb.prototype, "click", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵb.prototype, "focus", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵb.prototype, "blur", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵb.prototype, "abpClick", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵb.prototype, "abpFocus", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵb.prototype, "abpBlur", void 0);
-    __decorate([
-        i0.ViewChild('button', { static: true }),
-        __metadata("design:type", i0.ElementRef)
-    ], exports.ɵb.prototype, "buttonRef", void 0);
-    exports.ɵb = __decorate([
-        i0.Component({
-            selector: 'abp-button',
-            template: "\n    <button\n      #button\n      [id]=\"buttonId\"\n      [attr.type]=\"buttonType\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click.stop)=\"click.next($event); abpClick.next($event)\"\n      (focus)=\"focus.next($event); abpFocus.next($event)\"\n      (blur)=\"blur.next($event); abpBlur.next($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
-        }),
-        __metadata("design:paramtypes", [i0.Renderer2])
-    ], exports.ɵb);
+    ButtonComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-button',
+                    template: "\n    <button\n      #button\n      [id]=\"buttonId\"\n      [attr.type]=\"buttonType\"\n      [ngClass]=\"buttonClass\"\n      [disabled]=\"loading || disabled\"\n      (click.stop)=\"click.next($event); abpClick.next($event)\"\n      (focus)=\"focus.next($event); abpFocus.next($event)\"\n      (blur)=\"blur.next($event); abpBlur.next($event)\"\n    >\n      <i [ngClass]=\"icon\" class=\"mr-1\"></i><ng-content></ng-content>\n    </button>\n  "
+                },] }
+    ];
+    ButtonComponent.ctorParameters = function () { return [
+        { type: i0.Renderer2 }
+    ]; };
+    ButtonComponent.propDecorators = {
+        buttonId: [{ type: i0.Input }],
+        buttonClass: [{ type: i0.Input }],
+        buttonType: [{ type: i0.Input }],
+        iconClass: [{ type: i0.Input }],
+        loading: [{ type: i0.Input }],
+        disabled: [{ type: i0.Input }],
+        attributes: [{ type: i0.Input }],
+        click: [{ type: i0.Output }],
+        focus: [{ type: i0.Output }],
+        blur: [{ type: i0.Output }],
+        abpClick: [{ type: i0.Output }],
+        abpFocus: [{ type: i0.Output }],
+        abpBlur: [{ type: i0.Output }],
+        buttonRef: [{ type: i0.ViewChild, args: ['button', { static: true },] }]
+    };
 
     function getRandomBackgroundColor(count) {
         var colors = [];
@@ -585,7 +558,7 @@
     }
     var chartJsLoaded$ = new rxjs.ReplaySubject(1);
 
-    exports.ɵc = /** @class */ (function () {
+    var ChartComponent = /** @class */ (function () {
         function ChartComponent(el, cdRef) {
             var _this = this;
             this.el = el;
@@ -650,21 +623,21 @@
                 this._data = val;
                 this.reinit();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ChartComponent.prototype, "canvas", {
             get: function () {
                 return this.el.nativeElement.children[0].children[0];
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ChartComponent.prototype, "base64Image", {
             get: function () {
                 return this.chart.toBase64Image();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         ChartComponent.prototype.ngAfterViewInit = function () {
@@ -693,50 +666,27 @@
         };
         return ChartComponent;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵc.prototype, "type", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵc.prototype, "options", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Array)
-    ], exports.ɵc.prototype, "plugins", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵc.prototype, "width", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵc.prototype, "height", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵc.prototype, "responsive", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", i0.EventEmitter)
-    ], exports.ɵc.prototype, "onDataSelect", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵc.prototype, "initialized", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], exports.ɵc.prototype, "data", null);
-    exports.ɵc = __decorate([
-        i0.Component({
-            selector: 'abp-chart',
-            template: "<div\r\n  style=\"position:relative\"\r\n  [style.width]=\"responsive && !width ? null : width\"\r\n  [style.height]=\"responsive && !height ? null : height\"\r\n>\r\n  <canvas\r\n    [attr.width]=\"responsive && !width ? null : width\"\r\n    [attr.height]=\"responsive && !height ? null : height\"\r\n    (click)=\"onCanvasClick($event)\"\r\n  ></canvas>\r\n</div>\r\n"
-        }),
-        __metadata("design:paramtypes", [i0.ElementRef, i0.ChangeDetectorRef])
-    ], exports.ɵc);
+    ChartComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-chart',
+                    template: "<div\r\n  style=\"position:relative\"\r\n  [style.width]=\"responsive && !width ? null : width\"\r\n  [style.height]=\"responsive && !height ? null : height\"\r\n>\r\n  <canvas\r\n    [attr.width]=\"responsive && !width ? null : width\"\r\n    [attr.height]=\"responsive && !height ? null : height\"\r\n    (click)=\"onCanvasClick($event)\"\r\n  ></canvas>\r\n</div>\r\n"
+                },] }
+    ];
+    ChartComponent.ctorParameters = function () { return [
+        { type: i0.ElementRef },
+        { type: i0.ChangeDetectorRef }
+    ]; };
+    ChartComponent.propDecorators = {
+        type: [{ type: i0.Input }],
+        options: [{ type: i0.Input }],
+        plugins: [{ type: i0.Input }],
+        width: [{ type: i0.Input }],
+        height: [{ type: i0.Input }],
+        responsive: [{ type: i0.Input }],
+        onDataSelect: [{ type: i0.Output }],
+        initialized: [{ type: i0.Output }],
+        data: [{ type: i0.Input }]
+    };
 
     (function (Confirmation) {
         var Status;
@@ -747,7 +697,7 @@
         })(Status = Confirmation.Status || (Confirmation.Status = {}));
     })(exports.Confirmation || (exports.Confirmation = {}));
 
-    exports.ɵd = /** @class */ (function () {
+    var ConfirmationComponent = /** @class */ (function () {
         function ConfirmationComponent() {
             this.confirm = exports.Confirmation.Status.confirm;
             this.reject = exports.Confirmation.Status.reject;
@@ -773,31 +723,31 @@
         };
         return ConfirmationComponent;
     }());
-    exports.ɵd = __decorate([
-        i0.Component({
-            selector: 'abp-confirmation',
-            template: "<div class=\"confirmation\" *ngIf=\"confirmation$ | async as data\">\r\n  <div\r\n    class=\"confirmation-backdrop\"\r\n    (click)=\"data.options?.dismissible ? close(dismiss) : null\"\r\n  ></div>\r\n  <div class=\"confirmation-dialog\">\r\n    <div class=\"icon-container\" [ngClass]=\"data.severity\" *ngIf=\"data.severity\">\r\n      <i class=\"fa icon\" [ngClass]=\"getIconClass(data)\"></i>\r\n    </div>\r\n    <div class=\"content\">\r\n      <h1\r\n        class=\"title\"\r\n        *ngIf=\"data.title\"\r\n        [innerHTML]=\"data.title | abpLocalization: data.options?.titleLocalizationParams\"\r\n      ></h1>\r\n      <p\r\n        class=\"message\"\r\n        *ngIf=\"data.message\"\r\n        [innerHTML]=\"data.message | abpLocalization: data.options?.messageLocalizationParams\"\r\n      ></p>\r\n    </div>\r\n    <div class=\"footer\">\r\n      <button\r\n        id=\"cancel\"\r\n        class=\"confirmation-button confirmation-button--reject\"\r\n        [innerHTML]=\"data.options?.cancelText || 'AbpUi::Cancel' | abpLocalization\"\r\n        *ngIf=\"!data?.options?.hideCancelBtn\"\r\n        (click)=\"close(reject)\"\r\n      ></button>\r\n      <button\r\n        id=\"confirm\"\r\n        class=\"confirmation-button confirmation-button--approve\"\r\n        [innerHTML]=\"data.options?.yesText || 'AbpUi::Yes' | abpLocalization\"\r\n        *ngIf=\"!data?.options?.hideYesBtn\"\r\n        (click)=\"close(confirm)\"\r\n      ></button>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
-            styles: [".confirmation{align-items:center;bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1060}.confirmation .confirmation-backdrop{height:100vh;left:0;position:fixed;top:0;width:100vw;z-index:1061!important}.confirmation .confirmation-dialog{display:flex;flex-direction:column;margin:20px auto;min-height:300px;padding:0;width:450px;z-index:1062!important}@media screen and (max-width:500px){.confirmation .confirmation-dialog{width:90vw}}.confirmation .confirmation-dialog .icon-container{align-items:center;display:flex;justify-content:center;margin:0 0 10px;padding:20px}.confirmation .confirmation-dialog .icon-container .icon{font-size:80px;height:100px;stroke-width:1;text-align:center;width:100px}.confirmation .confirmation-dialog .content{display:block;flex-grow:1}.confirmation .confirmation-dialog .content .title{display:block;font-size:27px;font-weight:600;margin:0;padding:0;text-align:center}.confirmation .confirmation-dialog .content .message{display:block;font-size:16px;font-weight:400;margin:10px auto;padding:20px;text-align:center}.confirmation .confirmation-dialog .footer{align-items:center;display:flex;justify-content:flex-end;margin:10px 0 0;padding:20px;width:100%}.confirmation .confirmation-dialog .footer .confirmation-button{border:none;border-radius:6px;display:inline-block;font-size:14px;font-weight:600;margin:0 5px;padding:10px 20px}"]
-        })
-    ], exports.ɵd);
+    ConfirmationComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-confirmation',
+                    template: "<div class=\"confirmation\" *ngIf=\"confirmation$ | async as data\">\r\n  <div\r\n    class=\"confirmation-backdrop\"\r\n    (click)=\"data.options?.dismissible ? close(dismiss) : null\"\r\n  ></div>\r\n  <div class=\"confirmation-dialog\">\r\n    <div class=\"icon-container\" [ngClass]=\"data.severity\" *ngIf=\"data.severity\">\r\n      <i class=\"fa icon\" [ngClass]=\"getIconClass(data)\"></i>\r\n    </div>\r\n    <div class=\"content\">\r\n      <h1\r\n        class=\"title\"\r\n        *ngIf=\"data.title\"\r\n        [innerHTML]=\"data.title | abpLocalization: data.options?.titleLocalizationParams\"\r\n      ></h1>\r\n      <p\r\n        class=\"message\"\r\n        *ngIf=\"data.message\"\r\n        [innerHTML]=\"data.message | abpLocalization: data.options?.messageLocalizationParams\"\r\n      ></p>\r\n    </div>\r\n    <div class=\"footer\">\r\n      <button\r\n        id=\"cancel\"\r\n        class=\"confirmation-button confirmation-button--reject\"\r\n        [innerHTML]=\"data.options?.cancelText || 'AbpUi::Cancel' | abpLocalization\"\r\n        *ngIf=\"!data?.options?.hideCancelBtn\"\r\n        (click)=\"close(reject)\"\r\n      ></button>\r\n      <button\r\n        id=\"confirm\"\r\n        class=\"confirmation-button confirmation-button--approve\"\r\n        [innerHTML]=\"data.options?.yesText || 'AbpUi::Yes' | abpLocalization\"\r\n        *ngIf=\"!data?.options?.hideYesBtn\"\r\n        (click)=\"close(confirm)\"\r\n      ></button>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".confirmation{align-items:center;bottom:0;display:flex;justify-content:center;left:0;position:fixed;right:0;top:0;z-index:1060}.confirmation .confirmation-backdrop{height:100vh;left:0;position:fixed;top:0;width:100vw;z-index:1061!important}.confirmation .confirmation-dialog{display:flex;flex-direction:column;margin:20px auto;min-height:300px;padding:0;width:450px;z-index:1062!important}@media screen and (max-width:500px){.confirmation .confirmation-dialog{width:90vw}}.confirmation .confirmation-dialog .icon-container{align-items:center;display:flex;justify-content:center;margin:0 0 10px;padding:20px}.confirmation .confirmation-dialog .icon-container .icon{font-size:80px;height:100px;stroke-width:1;text-align:center;width:100px}.confirmation .confirmation-dialog .content{display:block;flex-grow:1}.confirmation .confirmation-dialog .content .title{display:block;font-size:27px;font-weight:600;margin:0;padding:0;text-align:center}.confirmation .confirmation-dialog .content .message{display:block;font-size:16px;font-weight:400;margin:10px auto;padding:20px;text-align:center}.confirmation .confirmation-dialog .footer{align-items:center;display:flex;justify-content:flex-end;margin:10px 0 0;padding:20px;width:100%}.confirmation .confirmation-dialog .footer .confirmation-button{border:none;border-radius:6px;display:inline-block;font-size:14px;font-weight:600;margin:0 5px;padding:10px 20px}"]
+                },] }
+    ];
 
-    exports.ɵg = /** @class */ (function () {
+    var LoadingComponent = /** @class */ (function () {
         function LoadingComponent() {
         }
         LoadingComponent.prototype.ngOnInit = function () { };
         return LoadingComponent;
     }());
-    exports.ɵg = __decorate([
-        i0.Component({
-            selector: 'abp-loading',
-            template: "\n    <div class=\"abp-loading\">\n      <i class=\"fa fa-spinner fa-pulse abp-spinner\"></i>\n    </div>\n  ",
-            encapsulation: i0.ViewEncapsulation.None,
-            styles: ["\n      .abp-loading {\n        position: absolute;\n        width: 100%;\n        height: 100%;\n        top: 0;\n        left: 0;\n        z-index: 1040;\n      }\n\n      .abp-loading .abp-spinner {\n        position: absolute;\n        top: 50%;\n        left: 50%;\n        font-size: 14px;\n        -moz-transform: translateX(-50%) translateY(-50%);\n        -o-transform: translateX(-50%) translateY(-50%);\n        -ms-transform: translateX(-50%) translateY(-50%);\n        -webkit-transform: translateX(-50%) translateY(-50%);\n        transform: translateX(-50%) translateY(-50%);\n      }\n    "]
-        }),
-        __metadata("design:paramtypes", [])
-    ], exports.ɵg);
+    LoadingComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-loading',
+                    template: "\n    <div class=\"abp-loading\">\n      <i class=\"fa fa-spinner fa-pulse abp-spinner\"></i>\n    </div>\n  ",
+                    encapsulation: i0.ViewEncapsulation.None,
+                    styles: ["\n      .abp-loading {\n        position: absolute;\n        width: 100%;\n        height: 100%;\n        top: 0;\n        left: 0;\n        z-index: 1040;\n      }\n\n      .abp-loading .abp-spinner {\n        position: absolute;\n        top: 50%;\n        left: 50%;\n        font-size: 14px;\n        -moz-transform: translateX(-50%) translateY(-50%);\n        -o-transform: translateX(-50%) translateY(-50%);\n        -ms-transform: translateX(-50%) translateY(-50%);\n        -webkit-transform: translateX(-50%) translateY(-50%);\n        transform: translateX(-50%) translateY(-50%);\n      }\n    "]
+                },] }
+    ];
+    LoadingComponent.ctorParameters = function () { return []; };
 
-    exports.ɵf = /** @class */ (function () {
+    var LoaderBarComponent = /** @class */ (function () {
         function LoaderBarComponent(actions, router, cdRef, subscription) {
             var _this = this;
             this.actions = actions;
@@ -838,14 +788,14 @@
                 this._isLoading = value;
                 this.cdRef.detectChanges();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(LoaderBarComponent.prototype, "boxShadow", {
             get: function () {
                 return "0 0 10px rgba(" + this.color + ", 0.5)";
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         LoaderBarComponent.prototype.subscribeToLoadActions = function () {
@@ -893,37 +843,28 @@
         };
         return LoaderBarComponent;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], exports.ɵf.prototype, "isLoading", null);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵf.prototype, "containerClass", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵf.prototype, "color", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵf.prototype, "filter", void 0);
-    exports.ɵf = __decorate([
-        i0.Component({
-            selector: 'abp-loader-bar',
-            template: "\n    <div id=\"abp-loader-bar\" [ngClass]=\"containerClass\" [class.is-loading]=\"isLoading\">\n      <div\n        class=\"abp-progress\"\n        [class.progressing]=\"progressLevel\"\n        [style.width.vw]=\"progressLevel\"\n        [ngStyle]=\"{\n          'background-color': color,\n          'box-shadow': boxShadow\n        }\"\n      ></div>\n    </div>\n  ",
-            providers: [i1.SubscriptionService],
-            styles: [".abp-loader-bar{left:0;opacity:0;position:fixed;top:0;transition:opacity .4s linear .4s;z-index:99999}.abp-loader-bar.is-loading{opacity:1;transition:none}.abp-loader-bar .abp-progress{height:3px;left:0;position:fixed;top:0}.abp-loader-bar .abp-progress.progressing{transition:width .4s ease}"]
-        }),
-        __metadata("design:paramtypes", [i1$1.Actions,
-            router.Router,
-            i0.ChangeDetectorRef,
-            i1.SubscriptionService])
-    ], exports.ɵf);
+    LoaderBarComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-loader-bar',
+                    template: "\n    <div id=\"abp-loader-bar\" [ngClass]=\"containerClass\" [class.is-loading]=\"isLoading\">\n      <div\n        class=\"abp-progress\"\n        [class.progressing]=\"progressLevel\"\n        [style.width.vw]=\"progressLevel\"\n        [ngStyle]=\"{\n          'background-color': color,\n          'box-shadow': boxShadow\n        }\"\n      ></div>\n    </div>\n  ",
+                    providers: [i1.SubscriptionService],
+                    styles: [".abp-loader-bar{left:0;opacity:0;position:fixed;top:0;transition:opacity .4s linear .4s;z-index:99999}.abp-loader-bar.is-loading{opacity:1;transition:none}.abp-loader-bar .abp-progress{height:3px;left:0;position:fixed;top:0}.abp-loader-bar .abp-progress.progressing{transition:width .4s ease}"]
+                },] }
+    ];
+    LoaderBarComponent.ctorParameters = function () { return [
+        { type: i1$1.Actions },
+        { type: router.Router },
+        { type: i0.ChangeDetectorRef },
+        { type: i1.SubscriptionService }
+    ]; };
+    LoaderBarComponent.propDecorators = {
+        isLoading: [{ type: i0.Input }],
+        containerClass: [{ type: i0.Input }],
+        color: [{ type: i0.Input }],
+        filter: [{ type: i0.Input }]
+    };
 
-    exports.ɵm = /** @class */ (function () {
+    var ConfirmationService = /** @class */ (function () {
         function ConfirmationService(contentProjectionService) {
             var _this = this;
             this.contentProjectionService = contentProjectionService;
@@ -936,7 +877,7 @@
         }
         ConfirmationService.prototype.setContainer = function () {
             var _this = this;
-            this.containerComponentRef = this.contentProjectionService.projectContent(i1.PROJECTION_STRATEGY.AppendComponentToBody(exports.ɵd, {
+            this.containerComponentRef = this.contentProjectionService.projectContent(i1.PROJECTION_STRATEGY.AppendComponentToBody(ConfirmationComponent, {
                 confirmation$: this.confirmation$,
                 clear: this.clear,
             }));
@@ -982,35 +923,36 @@
         };
         return ConfirmationService;
     }());
-    exports.ɵm.ɵprov = i0.ɵɵdefineInjectable({ factory: function ConfirmationService_Factory() { return new exports.ɵm(i0.ɵɵinject(i1.ContentProjectionService)); }, token: exports.ɵm, providedIn: "root" });
-    exports.ɵm = __decorate([
-        i0.Injectable({ providedIn: 'root' }),
-        __metadata("design:paramtypes", [i1.ContentProjectionService])
-    ], exports.ɵm);
+    ConfirmationService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ConfirmationService_Factory() { return new ConfirmationService(i0.ɵɵinject(i1.ContentProjectionService)); }, token: ConfirmationService, providedIn: "root" });
+    ConfirmationService.decorators = [
+        { type: i0.Injectable, args: [{ providedIn: 'root' },] }
+    ];
+    ConfirmationService.ctorParameters = function () { return [
+        { type: i1.ContentProjectionService }
+    ]; };
 
-    exports.ɵn = /** @class */ (function () {
+    var ModalContainerComponent = /** @class */ (function () {
         function ModalContainerComponent() {
         }
         return ModalContainerComponent;
     }());
-    __decorate([
-        i0.ViewChild('container', { static: true, read: i0.ViewContainerRef }),
-        __metadata("design:type", i0.ViewContainerRef)
-    ], exports.ɵn.prototype, "container", void 0);
-    exports.ɵn = __decorate([
-        i0.Component({
-            selector: 'abp-modal-container',
-            template: "\n    <ng-container #container></ng-container>\n  "
-        })
-    ], exports.ɵn);
+    ModalContainerComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-modal-container',
+                    template: "\n    <ng-container #container></ng-container>\n  "
+                },] }
+    ];
+    ModalContainerComponent.propDecorators = {
+        container: [{ type: i0.ViewChild, args: ['container', { static: true, read: i0.ViewContainerRef },] }]
+    };
 
-    exports.ɵl = /** @class */ (function () {
+    var ModalService = /** @class */ (function () {
         function ModalService(contentProjectionService) {
             this.contentProjectionService = contentProjectionService;
             this.setContainer();
         }
         ModalService.prototype.setContainer = function () {
-            this.containerComponentRef = this.contentProjectionService.projectContent(i1.PROJECTION_STRATEGY.AppendComponentToBody(exports.ɵn));
+            this.containerComponentRef = this.contentProjectionService.projectContent(i1.PROJECTION_STRATEGY.AppendComponentToBody(ModalContainerComponent));
             this.containerComponentRef.changeDetectorRef.detectChanges();
         };
         ModalService.prototype.clearModal = function () {
@@ -1033,15 +975,17 @@
         };
         return ModalService;
     }());
-    exports.ɵl.ɵprov = i0.ɵɵdefineInjectable({ factory: function ModalService_Factory() { return new exports.ɵl(i0.ɵɵinject(i1.ContentProjectionService)); }, token: exports.ɵl, providedIn: "root" });
-    exports.ɵl = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __metadata("design:paramtypes", [i1.ContentProjectionService])
-    ], exports.ɵl);
+    ModalService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ModalService_Factory() { return new ModalService(i0.ɵɵinject(i1.ContentProjectionService)); }, token: ModalService, providedIn: "root" });
+    ModalService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    ModalService.ctorParameters = function () { return [
+        { type: i1.ContentProjectionService }
+    ]; };
 
-    exports.ɵh = /** @class */ (function () {
+    var ModalComponent = /** @class */ (function () {
         function ModalComponent(renderer, confirmationService, modalService, subscription) {
             this.renderer = renderer;
             this.confirmationService = confirmationService;
@@ -1071,7 +1015,7 @@
                     return;
                 this.toggle$.next(value);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ModalComponent.prototype, "busy", {
@@ -1079,19 +1023,19 @@
                 return this._busy;
             },
             set: function (value) {
-                if (this.abpSubmit && this.abpSubmit instanceof exports.ɵb) {
+                if (this.abpSubmit && this.abpSubmit instanceof ButtonComponent) {
                     this.abpSubmit.loading = value;
                 }
                 this._busy = value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ModalComponent.prototype, "isFormDirty", {
             get: function () {
                 return Boolean(document.querySelector('.modal-dialog .ng-dirty'));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         ModalComponent.prototype.initToggleStream = function () {
@@ -1167,91 +1111,42 @@
         };
         return ModalComponent;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], exports.ɵh.prototype, "visible", null);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], exports.ɵh.prototype, "busy", null);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵh.prototype, "centered", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵh.prototype, "modalClass", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵh.prototype, "size", void 0);
-    __decorate([
-        i0.ContentChild(exports.ɵb, { static: false, read: exports.ɵb }),
-        __metadata("design:type", exports.ɵb)
-    ], exports.ɵh.prototype, "abpSubmit", void 0);
-    __decorate([
-        i0.ContentChild('abpHeader', { static: false }),
-        __metadata("design:type", i0.TemplateRef)
-    ], exports.ɵh.prototype, "abpHeader", void 0);
-    __decorate([
-        i0.ContentChild('abpBody', { static: false }),
-        __metadata("design:type", i0.TemplateRef)
-    ], exports.ɵh.prototype, "abpBody", void 0);
-    __decorate([
-        i0.ContentChild('abpFooter', { static: false }),
-        __metadata("design:type", i0.TemplateRef)
-    ], exports.ɵh.prototype, "abpFooter", void 0);
-    __decorate([
-        i0.ContentChild('abpClose', { static: false, read: i0.ElementRef }),
-        __metadata("design:type", i0.ElementRef)
-    ], exports.ɵh.prototype, "abpClose", void 0);
-    __decorate([
-        i0.ViewChild('template', { static: false }),
-        __metadata("design:type", i0.TemplateRef)
-    ], exports.ɵh.prototype, "template", void 0);
-    __decorate([
-        i0.ViewChild('abpModalContent', { static: false }),
-        __metadata("design:type", i0.ElementRef)
-    ], exports.ɵh.prototype, "modalContent", void 0);
-    __decorate([
-        i0.ViewChildren('abp-button'),
-        __metadata("design:type", Object)
-    ], exports.ɵh.prototype, "abpButtons", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵh.prototype, "visibleChange", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵh.prototype, "init", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵh.prototype, "appear", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵh.prototype, "disappear", void 0);
-    exports.ɵh = __decorate([
-        i0.Component({
-            selector: 'abp-modal',
-            template: "<ng-template #template>\r\n  <div\r\n    *ngIf=\"visible\"\r\n    [@fade]=\"isModalOpen\"\r\n    id=\"modal-container\"\r\n    class=\"modal show {{ modalClass }}\"\r\n    tabindex=\"-1\"\r\n    role=\"dialog\"\r\n  >\r\n    <div class=\"modal-backdrop\" (click)=\"close()\"></div>\r\n    <div\r\n      id=\"abp-modal-dialog\"\r\n      class=\"modal-dialog modal-{{ size }}\"\r\n      role=\"document\"\r\n      [class.modal-dialog-centered]=\"centered\"\r\n      #abpModalContent\r\n    >\r\n      <div id=\"abp-modal-content\" class=\"modal-content\">\r\n        <div id=\"abp-modal-header\" class=\"modal-header\">\r\n          <ng-container *ngTemplateOutlet=\"abpHeader\"></ng-container>\r\n          \u200B\r\n          <button\r\n            id=\"abp-modal-close-button\"\r\n            type=\"button\"\r\n            class=\"close\"\r\n            aria-label=\"Close\"\r\n            (click)=\"close()\"\r\n          >\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div id=\"abp-modal-body\" class=\"modal-body\">\r\n          <ng-container *ngTemplateOutlet=\"abpBody\"></ng-container>\r\n        </div>\r\n        <div id=\"abp-modal-footer\" class=\"modal-footer\">\r\n          <ng-container *ngTemplateOutlet=\"abpFooter\"></ng-container>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-content></ng-content>\r\n",
-            animations: [fadeAnimation],
-            providers: [exports.ɵl, i1.SubscriptionService],
-            styles: [".modal.show{display:block!important}.modal-backdrop{opacity:.8}.modal::-webkit-scrollbar{width:7px}.modal::-webkit-scrollbar-track{background:#ddd}.modal::-webkit-scrollbar-thumb{background:#8a8686}.modal-dialog{z-index:1050}"]
-        }),
-        __metadata("design:paramtypes", [i0.Renderer2,
-            exports.ɵm,
-            exports.ɵl,
-            i1.SubscriptionService])
-    ], exports.ɵh);
+    ModalComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-modal',
+                    template: "<ng-template #template>\r\n  <div\r\n    *ngIf=\"visible\"\r\n    [@fade]=\"isModalOpen\"\r\n    id=\"modal-container\"\r\n    class=\"modal show {{ modalClass }}\"\r\n    tabindex=\"-1\"\r\n    role=\"dialog\"\r\n  >\r\n    <div class=\"modal-backdrop\" (click)=\"close()\"></div>\r\n    <div\r\n      id=\"abp-modal-dialog\"\r\n      class=\"modal-dialog modal-{{ size }}\"\r\n      role=\"document\"\r\n      [class.modal-dialog-centered]=\"centered\"\r\n      #abpModalContent\r\n    >\r\n      <div id=\"abp-modal-content\" class=\"modal-content\">\r\n        <div id=\"abp-modal-header\" class=\"modal-header\">\r\n          <ng-container *ngTemplateOutlet=\"abpHeader\"></ng-container>\r\n          \u200B\r\n          <button\r\n            id=\"abp-modal-close-button\"\r\n            type=\"button\"\r\n            class=\"close\"\r\n            aria-label=\"Close\"\r\n            (click)=\"close()\"\r\n          >\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div id=\"abp-modal-body\" class=\"modal-body\">\r\n          <ng-container *ngTemplateOutlet=\"abpBody\"></ng-container>\r\n        </div>\r\n        <div id=\"abp-modal-footer\" class=\"modal-footer\">\r\n          <ng-container *ngTemplateOutlet=\"abpFooter\"></ng-container>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-content></ng-content>\r\n",
+                    animations: [fadeAnimation],
+                    providers: [ModalService, i1.SubscriptionService],
+                    styles: [".modal.show{display:block!important}.modal-backdrop{opacity:.8}.modal::-webkit-scrollbar{width:7px}.modal::-webkit-scrollbar-track{background:#ddd}.modal::-webkit-scrollbar-thumb{background:#8a8686}.modal-dialog{z-index:1050}"]
+                },] }
+    ];
+    ModalComponent.ctorParameters = function () { return [
+        { type: i0.Renderer2 },
+        { type: ConfirmationService },
+        { type: ModalService },
+        { type: i1.SubscriptionService }
+    ]; };
+    ModalComponent.propDecorators = {
+        visible: [{ type: i0.Input }],
+        busy: [{ type: i0.Input }],
+        centered: [{ type: i0.Input }],
+        modalClass: [{ type: i0.Input }],
+        size: [{ type: i0.Input }],
+        abpSubmit: [{ type: i0.ContentChild, args: [ButtonComponent, { static: false, read: ButtonComponent },] }],
+        abpHeader: [{ type: i0.ContentChild, args: ['abpHeader', { static: false },] }],
+        abpBody: [{ type: i0.ContentChild, args: ['abpBody', { static: false },] }],
+        abpFooter: [{ type: i0.ContentChild, args: ['abpFooter', { static: false },] }],
+        abpClose: [{ type: i0.ContentChild, args: ['abpClose', { static: false, read: i0.ElementRef },] }],
+        template: [{ type: i0.ViewChild, args: ['template', { static: false },] }],
+        modalContent: [{ type: i0.ViewChild, args: ['abpModalContent', { static: false },] }],
+        abpButtons: [{ type: i0.ViewChildren, args: ['abp-button',] }],
+        visibleChange: [{ type: i0.Output }],
+        init: [{ type: i0.Output }],
+        appear: [{ type: i0.Output }],
+        disappear: [{ type: i0.Output }]
+    };
 
-    exports.ɵu = /** @class */ (function () {
+    var SortOrderIconComponent = /** @class */ (function () {
         function SortOrderIconComponent() {
             this.orderChange = new i0.EventEmitter();
             this.selectedSortKeyChange = new i0.EventEmitter();
@@ -1264,7 +1159,7 @@
                 this._selectedSortKey = value;
                 this.selectedSortKeyChange.emit(value);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(SortOrderIconComponent.prototype, "order", {
@@ -1275,7 +1170,7 @@
                 this._order = value;
                 this.orderChange.emit(value);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(SortOrderIconComponent.prototype, "icon", {
@@ -1285,7 +1180,7 @@
                 else
                     return 'sorting';
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         SortOrderIconComponent.prototype.sort = function (key) {
@@ -1307,40 +1202,22 @@
         };
         return SortOrderIconComponent;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵu.prototype, "sortKey", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], exports.ɵu.prototype, "selectedSortKey", null);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], exports.ɵu.prototype, "order", null);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵu.prototype, "orderChange", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵu.prototype, "selectedSortKeyChange", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵu.prototype, "iconClass", void 0);
-    exports.ɵu = __decorate([
-        i0.Component({
-            selector: 'abp-sort-order-icon',
-            template: "<div class=\"float-right {{ iconClass }}\">\r\n  <span class=\"{{ icon }}\"></span>\r\n</div>\r\n"
-        })
-    ], exports.ɵu);
+    SortOrderIconComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-sort-order-icon',
+                    template: "<div class=\"float-right {{ iconClass }}\">\r\n  <span class=\"{{ icon }}\"></span>\r\n</div>\r\n"
+                },] }
+    ];
+    SortOrderIconComponent.propDecorators = {
+        sortKey: [{ type: i0.Input }],
+        selectedSortKey: [{ type: i0.Input }],
+        order: [{ type: i0.Input }],
+        orderChange: [{ type: i0.Output }],
+        selectedSortKeyChange: [{ type: i0.Output }],
+        iconClass: [{ type: i0.Input }]
+    };
 
-    exports.ɵp = /** @class */ (function () {
+    var TableEmptyMessageComponent = /** @class */ (function () {
         function TableEmptyMessageComponent() {
             this.colspan = 2;
             this.localizationResource = 'AbpAccount';
@@ -1350,40 +1227,30 @@
             get: function () {
                 return this.message || this.localizationResource + "::" + this.localizationProp;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         return TableEmptyMessageComponent;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵp.prototype, "colspan", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵp.prototype, "message", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵp.prototype, "localizationResource", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵp.prototype, "localizationProp", void 0);
-    exports.ɵp = __decorate([
-        i0.Component({
-            // tslint:disable-next-line: component-selector
-            selector: '[abp-table-empty-message]',
-            template: "\n    <td class=\"text-center\" [attr.colspan]=\"colspan\">\n      {{ emptyMessage | abpLocalization }}\n    </td>\n  "
-        })
-    ], exports.ɵp);
+    TableEmptyMessageComponent.decorators = [
+        { type: i0.Component, args: [{
+                    // tslint:disable-next-line: component-selector
+                    selector: '[abp-table-empty-message]',
+                    template: "\n    <td class=\"text-center\" [attr.colspan]=\"colspan\">\n      {{ emptyMessage | abpLocalization }}\n    </td>\n  "
+                },] }
+    ];
+    TableEmptyMessageComponent.propDecorators = {
+        colspan: [{ type: i0.Input }],
+        message: [{ type: i0.Input }],
+        localizationResource: [{ type: i0.Input }],
+        localizationProp: [{ type: i0.Input }]
+    };
 
     /**
      *
      * @deprecated use ngx-datatale instead.
      */
-    exports.ɵo = /** @class */ (function () {
+    var TableComponent = /** @class */ (function () {
         function TableComponent() {
             var _this = this;
             this.bodyScrollLeft = 0;
@@ -1404,7 +1271,7 @@
                     this._totalRecords = 0;
                 this._totalRecords = newValue;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(TableComponent.prototype, "totalPages", {
@@ -1414,7 +1281,7 @@
                 }
                 return Math.ceil(this.totalRecords / this.rows);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(TableComponent.prototype, "slicedValue", {
@@ -1425,7 +1292,7 @@
                 var start = (this.page - 1) * this.rows;
                 return this.value.slice(start, start + this.rows);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         TableComponent.prototype.ngOnInit = function () {
@@ -1433,67 +1300,29 @@
         };
         return TableComponent;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Array)
-    ], exports.ɵo.prototype, "value", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", i0.TemplateRef)
-    ], exports.ɵo.prototype, "headerTemplate", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", i0.TemplateRef)
-    ], exports.ɵo.prototype, "bodyTemplate", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", i0.TemplateRef)
-    ], exports.ɵo.prototype, "colgroupTemplate", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵo.prototype, "scrollHeight", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Boolean)
-    ], exports.ɵo.prototype, "scrollable", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Number)
-    ], exports.ɵo.prototype, "rows", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵo.prototype, "page", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵo.prototype, "trackingProp", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵo.prototype, "emptyMessage", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵo.prototype, "pageChange", void 0);
-    __decorate([
-        i0.ViewChild('wrapper', { read: i0.ElementRef }),
-        __metadata("design:type", i0.ElementRef)
-    ], exports.ɵo.prototype, "wrapperRef", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Number),
-        __metadata("design:paramtypes", [Number])
-    ], exports.ɵo.prototype, "totalRecords", null);
-    exports.ɵo = __decorate([
-        i0.Component({
-            selector: 'abp-table',
-            template: "<div #wrapper class=\"ui-table ui-widget\">\r\n  <div class=\"ui-table-wrapper\">\r\n    <ng-container\r\n      *ngTemplateOutlet=\"scrollable ? scrollableTemplate : defaultTemplate\"\r\n    ></ng-container>\r\n    <div class=\"pagination-wrapper\">\r\n      <ngb-pagination\r\n        [class.op-0]=\"!totalPages\"\r\n        [collectionSize]=\"totalPages\"\r\n        [pageSize]=\"1\"\r\n        [page]=\"page\"\r\n        (pageChange)=\"pageChange.emit($event)\"\r\n        [maxSize]=\"3\"\r\n        [rotate]=\"true\"\r\n      ></ngb-pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #scrollableTemplate>\r\n  <div class=\"ui-table-scrollable-wrapper\">\r\n    <div class=\"ui-table-scrollable-view\"></div>\r\n    <div class=\"ui-table-scrollable-header ui-widget-header\">\r\n      <div #header class=\"ui-table-scrollable-header-box\">\r\n        <table class=\"ui-table-scrollable-header-table\">\r\n          <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n          <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n          <tbody></tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <div\r\n      #scrollableBody\r\n      (scroll)=\"header.style.margin = marginCalculator(scrollableBody)\"\r\n      class=\"ui-table-scrollable-body\"\r\n      [style.max-height]=\"scrollHeight\"\r\n    >\r\n      <table class=\"ui-table-scrollable-body-table\">\r\n        <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n        <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n      </table>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-template #defaultTemplate>\r\n  <table>\r\n    <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n  </table>\r\n</ng-template>\r\n\r\n<ng-template #colGroup>\r\n  <ng-container *ngTemplateOutlet=\"colgroupTemplate\"></ng-container>\r\n</ng-template>\r\n\r\n<ng-template #head>\r\n  <thead class=\"ui-table-thead\">\r\n    <ng-container *ngTemplateOutlet=\"headerTemplate\"></ng-container>\r\n  </thead>\r\n</ng-template>\r\n\r\n<ng-template #body>\r\n  <tbody class=\"ui-table-tbody\" *ngIf=\"value && value.length; else emptyTemplate\">\r\n    <ng-template\r\n      #bodyTemplateWrapper\r\n      *ngFor=\"let val of slicedValue; let index = index; trackBy: trackByFn\"\r\n      [ngTemplateOutlet]=\"bodyTemplate\"\r\n      [ngTemplateOutletContext]=\"{ $implicit: val, rowIndex: index }\"\r\n    ></ng-template>\r\n  </tbody>\r\n</ng-template>\r\n\r\n<ng-template #emptyTemplate>\r\n  <caption class=\"ui-table-empty\">\r\n    {{\r\n      emptyMessage | abpLocalization\r\n    }}\r\n  </caption>\r\n</ng-template>\r\n",
-            encapsulation: i0.ViewEncapsulation.None,
-            styles: [".ui-table{position:relative}.ui-table .ui-table-tbody>tr:hover,.ui-table .ui-table-tbody>tr:nth-child(2n):hover{filter:brightness(90%)}.ui-table .ui-table-empty{border:1px solid #e0e0e0;border-top:0 solid #e0e0e0;padding:20px 0;text-align:center}.ui-table .ui-table-caption,.ui-table .ui-table-summary{background-color:#f4f4f4;border:1px solid #c8c8c8;color:#333;padding:.571em 1em}.ui-table .ui-table-caption,.ui-table .ui-table-summary{font-weight:700}.ui-table .ui-table-thead>tr>th{background-color:#f4f4f4;border:1px solid #c8c8c8;color:#333;font-weight:700;padding:.571em .857em}.ui-table .ui-table-tbody>tr>td{padding:.571em .857em}.ui-table .ui-table-tfoot>tr>td{background-color:#fff;border:1px solid #c8c8c8;color:#333;font-weight:700;padding:.571em .857em}.ui-table .ui-sortable-column{transition:box-shadow .2s}.ui-table .ui-sortable-column:focus{box-shadow:inset 0 0 0 .2em #8dcdff;outline:0 none;outline-offset:0}.ui-table .ui-sortable-column .ui-sortable-column-icon{color:#848484}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover{background-color:#e0e0e0;color:#333}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover .ui-sortable-column-icon{color:#333}.ui-table .ui-sortable-column.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon{color:#fff}.ui-table .ui-editable-column input{font-family:Open Sans,Helvetica Neue,sans-serif;font-size:14px}.ui-table .ui-editable-column input:focus{outline:1px solid #007ad9;outline-offset:2px}.ui-table .ui-table-tbody>tr{background-color:#fff;color:#333}.ui-table .ui-table-tbody>tr>td{background-color:inherit;border:1px solid #c8c8c8}.ui-table .ui-table-tbody>tr.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr.ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-top>td{box-shadow:inset 0 2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-bottom>td{box-shadow:inset 0 -2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr:nth-child(2n){background-color:#f9f9f9}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table.ui-table-hoverable-rows .ui-table-tbody>tr.ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover{background-color:#eaeaea;color:#333;cursor:pointer}.ui-table .ui-column-resizer-helper{background-color:#007ad9}@media screen and (max-width:40em){.ui-table.ui-table-responsive .ui-table-tbody>tr>td{border:0}}.ui-table table{border-collapse:collapse;table-layout:fixed;width:100%}.ui-table .ui-table-tbody>tr>td,.ui-table .ui-table-tfoot>tr>td,.ui-table .ui-table-thead>tr>th{padding:.571em .857em}.ui-table .ui-sortable-column{cursor:pointer}.ui-table p-sorticon{vertical-align:middle}.ui-table .ui-table-auto-layout>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-auto-layout>.ui-table-wrapper>table{table-layout:auto}.ui-table .ui-table-caption,.ui-table .ui-table-summary{font-weight:700;padding:.25em .5em;text-align:center}.ui-table .ui-table-caption{border-bottom:0}.ui-table .ui-table-summary{border-top:0}.ui-table .ui-table-scrollable-wrapper{position:relative}.ui-table .ui-table-scrollable-footer,.ui-table .ui-table-scrollable-header{border:0;overflow:hidden}.ui-table .ui-table-scrollable-body{overflow:auto;position:relative}.ui-table .ui-table-virtual-table{position:absolute}.ui-table .ui-table-loading-virtual-table{display:none}.ui-table .ui-table-frozen-view .ui-table-scrollable-body{overflow:hidden}.ui-table .ui-table-frozen-view>.ui-table-scrollable-body>table>.ui-table-tbody>tr>td:last-child{border-right:0}.ui-table .ui-table-unfrozen-view{position:absolute;top:0}.ui-table .ui-table-resizable>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-resizable .ui-table-tbody>tr>td,.ui-table .ui-table-resizable .ui-table-tfoot>tr>td,.ui-table .ui-table-resizable .ui-table-thead>tr>th{overflow:hidden}.ui-table .ui-table-resizable .ui-resizable-column{background-clip:padding-box;position:relative}.ui-table .ui-table-resizable-fit .ui-resizable-column:last-child .ui-column-resizer{display:none}.ui-table .ui-column-resizer{border:1px solid transparent;cursor:col-resize;display:block;height:100%;margin:0;padding:0;position:absolute!important;right:0;top:0;width:.5em}.ui-table .ui-column-resizer-helper{display:none;position:absolute;width:1px;z-index:10}.ui-table .ui-table-tbody>tr>td.ui-editing-cell{padding:0}.ui-table .ui-table-tbody>tr>td.ui-editing-cell p-celleditor>*{width:100%}.ui-table .ui-table-reorder-indicator-down,.ui-table .ui-table-reorder-indicator-up{display:none;position:absolute}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:none}@media screen and (max-width:40em){.ui-table .ui-table-responsive .ui-table-tfoot>tr>td,.ui-table .ui-table-responsive .ui-table-thead>tr>th,.ui-table .ui-table-responsive colgroup{display:none!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td{border:0;box-sizing:border-box;clear:left;display:block;float:left;text-align:left;width:100%!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:inline-block;font-weight:700;margin:-.4em 1em -.4em -.4em;min-width:30%;padding:.4em}}.ui-table .ui-widget{font-family:Open Sans,Helvetica Neue,sans-serif;font-size:14px;text-decoration:none}.ui-table .page-item.disabled .page-link,.ui-table .page-link{background-color:transparent;border:none}.ui-table .page-item.disabled .page-link{box-shadow:none}.ui-table .pagination{margin-bottom:0}.ui-table .pagination-wrapper{border-top:0;display:flex;justify-content:center;padding:0}.ui-table .op-0{opacity:0}"]
-        })
-    ], exports.ɵo);
+    TableComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-table',
+                    template: "<div #wrapper class=\"ui-table ui-widget\">\r\n  <div class=\"ui-table-wrapper\">\r\n    <ng-container\r\n      *ngTemplateOutlet=\"scrollable ? scrollableTemplate : defaultTemplate\"\r\n    ></ng-container>\r\n    <div class=\"pagination-wrapper\">\r\n      <ngb-pagination\r\n        [class.op-0]=\"!totalPages\"\r\n        [collectionSize]=\"totalPages\"\r\n        [pageSize]=\"1\"\r\n        [page]=\"page\"\r\n        (pageChange)=\"pageChange.emit($event)\"\r\n        [maxSize]=\"3\"\r\n        [rotate]=\"true\"\r\n      ></ngb-pagination>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<ng-template #scrollableTemplate>\r\n  <div class=\"ui-table-scrollable-wrapper\">\r\n    <div class=\"ui-table-scrollable-view\"></div>\r\n    <div class=\"ui-table-scrollable-header ui-widget-header\">\r\n      <div #header class=\"ui-table-scrollable-header-box\">\r\n        <table class=\"ui-table-scrollable-header-table\">\r\n          <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n          <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n          <tbody></tbody>\r\n        </table>\r\n      </div>\r\n    </div>\r\n    <div\r\n      #scrollableBody\r\n      (scroll)=\"header.style.margin = marginCalculator(scrollableBody)\"\r\n      class=\"ui-table-scrollable-body\"\r\n      [style.max-height]=\"scrollHeight\"\r\n    >\r\n      <table class=\"ui-table-scrollable-body-table\">\r\n        <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n        <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n      </table>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n\r\n<ng-template #defaultTemplate>\r\n  <table>\r\n    <ng-container *ngTemplateOutlet=\"colGroup\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"head\"></ng-container>\r\n    <ng-container *ngTemplateOutlet=\"body\"></ng-container>\r\n  </table>\r\n</ng-template>\r\n\r\n<ng-template #colGroup>\r\n  <ng-container *ngTemplateOutlet=\"colgroupTemplate\"></ng-container>\r\n</ng-template>\r\n\r\n<ng-template #head>\r\n  <thead class=\"ui-table-thead\">\r\n    <ng-container *ngTemplateOutlet=\"headerTemplate\"></ng-container>\r\n  </thead>\r\n</ng-template>\r\n\r\n<ng-template #body>\r\n  <tbody class=\"ui-table-tbody\" *ngIf=\"value && value.length; else emptyTemplate\">\r\n    <ng-template\r\n      #bodyTemplateWrapper\r\n      *ngFor=\"let val of slicedValue; let index = index; trackBy: trackByFn\"\r\n      [ngTemplateOutlet]=\"bodyTemplate\"\r\n      [ngTemplateOutletContext]=\"{ $implicit: val, rowIndex: index }\"\r\n    ></ng-template>\r\n  </tbody>\r\n</ng-template>\r\n\r\n<ng-template #emptyTemplate>\r\n  <caption class=\"ui-table-empty\">\r\n    {{\r\n      emptyMessage | abpLocalization\r\n    }}\r\n  </caption>\r\n</ng-template>\r\n",
+                    encapsulation: i0.ViewEncapsulation.None,
+                    styles: [".ui-table{position:relative}.ui-table .ui-table-tbody>tr:hover,.ui-table .ui-table-tbody>tr:nth-child(2n):hover{filter:brightness(90%)}.ui-table .ui-table-empty{border:1px solid #e0e0e0;border-top:0 solid #e0e0e0;padding:20px 0;text-align:center}.ui-table .ui-table-caption,.ui-table .ui-table-summary{background-color:#f4f4f4;border:1px solid #c8c8c8;color:#333;padding:.571em 1em}.ui-table .ui-table-caption,.ui-table .ui-table-summary{font-weight:700}.ui-table .ui-table-thead>tr>th{background-color:#f4f4f4;border:1px solid #c8c8c8;color:#333;font-weight:700;padding:.571em .857em}.ui-table .ui-table-tbody>tr>td{padding:.571em .857em}.ui-table .ui-table-tfoot>tr>td{background-color:#fff;border:1px solid #c8c8c8;color:#333;font-weight:700;padding:.571em .857em}.ui-table .ui-sortable-column{transition:box-shadow .2s}.ui-table .ui-sortable-column:focus{box-shadow:inset 0 0 0 .2em #8dcdff;outline:0 none;outline-offset:0}.ui-table .ui-sortable-column .ui-sortable-column-icon{color:#848484}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover{background-color:#e0e0e0;color:#333}.ui-table .ui-sortable-column:not(.ui-state-highlight):hover .ui-sortable-column-icon{color:#333}.ui-table .ui-sortable-column.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-sortable-column.ui-state-highlight .ui-sortable-column-icon{color:#fff}.ui-table .ui-editable-column input{font-family:Open Sans,Helvetica Neue,sans-serif;font-size:14px}.ui-table .ui-editable-column input:focus{outline:1px solid #007ad9;outline-offset:2px}.ui-table .ui-table-tbody>tr{background-color:#fff;color:#333}.ui-table .ui-table-tbody>tr>td{background-color:inherit;border:1px solid #c8c8c8}.ui-table .ui-table-tbody>tr.ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr.ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-top>td{box-shadow:inset 0 2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr.ui-table-dragpoint-bottom>td{box-shadow:inset 0 -2px 0 0 #007ad9}.ui-table .ui-table-tbody>tr:nth-child(2n){background-color:#f9f9f9}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-state-highlight{background-color:#007ad9;color:#fff}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-state-highlight a{color:#fff}.ui-table .ui-table-tbody>tr:nth-child(2n).ui-contextmenu-selected{background-color:#007ad9;color:#fff}.ui-table.ui-table-hoverable-rows .ui-table-tbody>tr.ui-selectable-row:not(.ui-state-highlight):not(.ui-contextmenu-selected):hover{background-color:#eaeaea;color:#333;cursor:pointer}.ui-table .ui-column-resizer-helper{background-color:#007ad9}@media screen and (max-width:40em){.ui-table.ui-table-responsive .ui-table-tbody>tr>td{border:0}}.ui-table table{border-collapse:collapse;table-layout:fixed;width:100%}.ui-table .ui-table-tbody>tr>td,.ui-table .ui-table-tfoot>tr>td,.ui-table .ui-table-thead>tr>th{padding:.571em .857em}.ui-table .ui-sortable-column{cursor:pointer}.ui-table p-sorticon{vertical-align:middle}.ui-table .ui-table-auto-layout>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-auto-layout>.ui-table-wrapper>table{table-layout:auto}.ui-table .ui-table-caption,.ui-table .ui-table-summary{font-weight:700;padding:.25em .5em;text-align:center}.ui-table .ui-table-caption{border-bottom:0}.ui-table .ui-table-summary{border-top:0}.ui-table .ui-table-scrollable-wrapper{position:relative}.ui-table .ui-table-scrollable-footer,.ui-table .ui-table-scrollable-header{border:0;overflow:hidden}.ui-table .ui-table-scrollable-body{overflow:auto;position:relative}.ui-table .ui-table-virtual-table{position:absolute}.ui-table .ui-table-loading-virtual-table{display:none}.ui-table .ui-table-frozen-view .ui-table-scrollable-body{overflow:hidden}.ui-table .ui-table-frozen-view>.ui-table-scrollable-body>table>.ui-table-tbody>tr>td:last-child{border-right:0}.ui-table .ui-table-unfrozen-view{position:absolute;top:0}.ui-table .ui-table-resizable>.ui-table-wrapper{overflow-x:auto}.ui-table .ui-table-resizable .ui-table-tbody>tr>td,.ui-table .ui-table-resizable .ui-table-tfoot>tr>td,.ui-table .ui-table-resizable .ui-table-thead>tr>th{overflow:hidden}.ui-table .ui-table-resizable .ui-resizable-column{background-clip:padding-box;position:relative}.ui-table .ui-table-resizable-fit .ui-resizable-column:last-child .ui-column-resizer{display:none}.ui-table .ui-column-resizer{border:1px solid transparent;cursor:col-resize;display:block;height:100%;margin:0;padding:0;position:absolute!important;right:0;top:0;width:.5em}.ui-table .ui-column-resizer-helper{display:none;position:absolute;width:1px;z-index:10}.ui-table .ui-table-tbody>tr>td.ui-editing-cell{padding:0}.ui-table .ui-table-tbody>tr>td.ui-editing-cell p-celleditor>*{width:100%}.ui-table .ui-table-reorder-indicator-down,.ui-table .ui-table-reorder-indicator-up{display:none;position:absolute}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:none}@media screen and (max-width:40em){.ui-table .ui-table-responsive .ui-table-tfoot>tr>td,.ui-table .ui-table-responsive .ui-table-thead>tr>th,.ui-table .ui-table-responsive colgroup{display:none!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td{border:0;box-sizing:border-box;clear:left;display:block;float:left;text-align:left;width:100%!important}.ui-table .ui-table-responsive .ui-table-tbody>tr>td .ui-column-title{display:inline-block;font-weight:700;margin:-.4em 1em -.4em -.4em;min-width:30%;padding:.4em}}.ui-table .ui-widget{font-family:Open Sans,Helvetica Neue,sans-serif;font-size:14px;text-decoration:none}.ui-table .page-item.disabled .page-link,.ui-table .page-link{background-color:transparent;border:none}.ui-table .page-item.disabled .page-link{box-shadow:none}.ui-table .pagination{margin-bottom:0}.ui-table .pagination-wrapper{border-top:0;display:flex;justify-content:center;padding:0}.ui-table .op-0{opacity:0}"]
+                },] }
+    ];
+    TableComponent.propDecorators = {
+        value: [{ type: i0.Input }],
+        headerTemplate: [{ type: i0.Input }],
+        bodyTemplate: [{ type: i0.Input }],
+        colgroupTemplate: [{ type: i0.Input }],
+        scrollHeight: [{ type: i0.Input }],
+        scrollable: [{ type: i0.Input }],
+        rows: [{ type: i0.Input }],
+        page: [{ type: i0.Input }],
+        trackingProp: [{ type: i0.Input }],
+        emptyMessage: [{ type: i0.Input }],
+        pageChange: [{ type: i0.Output }],
+        wrapperRef: [{ type: i0.ViewChild, args: ['wrapper', { read: i0.ElementRef },] }],
+        totalRecords: [{ type: i0.Input }]
+    };
     function ltrCalculator(div) {
         return "0 auto 0 -" + div.scrollLeft + "px";
     }
@@ -1501,7 +1330,7 @@
         return "0 " + -(div.scrollWidth - div.clientWidth - div.scrollLeft) + "px 0 auto";
     }
 
-    exports.ɵs = /** @class */ (function () {
+    var ToastContainerComponent = /** @class */ (function () {
         function ToastContainerComponent() {
             this.toasts = [];
             this.right = '30px';
@@ -1524,36 +1353,23 @@
         };
         return ToastContainerComponent;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵs.prototype, "top", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵs.prototype, "right", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵs.prototype, "bottom", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵs.prototype, "left", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵs.prototype, "toastKey", void 0);
-    exports.ɵs = __decorate([
-        i0.Component({
-            selector: 'abp-toast-container',
-            template: "<div\r\n  class=\"toast-container\"\r\n  [style.top]=\"top || 'auto'\"\r\n  [style.right]=\"right || 'auto'\"\r\n  [style.bottom]=\"bottom || 'auto'\"\r\n  [style.left]=\"left || 'auto'\"\r\n  [style.display]=\"toasts.length ? 'flex' : 'none'\"\r\n  [@toastInOut]=\"toasts.length\"\r\n>\r\n  <abp-toast [toast]=\"toast\" *ngFor=\"let toast of toasts; trackBy: trackByFunc\"></abp-toast>\r\n</div>\r\n",
-            animations: [toastInOut],
-            styles: [".toast-container{align-items:center;display:flex;flex-direction:column;justify-content:flex-end;min-height:80px;min-width:350px;position:fixed;z-index:1900}.toast-container.new-on-top{flex-direction:column-reverse}"]
-        })
-    ], exports.ɵs);
+    ToastContainerComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-toast-container',
+                    template: "<div\r\n  class=\"toast-container\"\r\n  [style.top]=\"top || 'auto'\"\r\n  [style.right]=\"right || 'auto'\"\r\n  [style.bottom]=\"bottom || 'auto'\"\r\n  [style.left]=\"left || 'auto'\"\r\n  [style.display]=\"toasts.length ? 'flex' : 'none'\"\r\n  [@toastInOut]=\"toasts.length\"\r\n>\r\n  <abp-toast [toast]=\"toast\" *ngFor=\"let toast of toasts; trackBy: trackByFunc\"></abp-toast>\r\n</div>\r\n",
+                    animations: [toastInOut],
+                    styles: [".toast-container{align-items:center;display:flex;flex-direction:column;justify-content:flex-end;min-height:80px;min-width:350px;position:fixed;z-index:1900}.toast-container.new-on-top{flex-direction:column-reverse}"]
+                },] }
+    ];
+    ToastContainerComponent.propDecorators = {
+        top: [{ type: i0.Input }],
+        right: [{ type: i0.Input }],
+        bottom: [{ type: i0.Input }],
+        left: [{ type: i0.Input }],
+        toastKey: [{ type: i0.Input }]
+    };
 
-    exports.ɵr = /** @class */ (function () {
+    var ToasterService = /** @class */ (function () {
         function ToasterService(contentProjectionService) {
             this.contentProjectionService = contentProjectionService;
             this.toasts$ = new rxjs.ReplaySubject(1);
@@ -1561,7 +1377,7 @@
             this.toasts = [];
         }
         ToasterService.prototype.setContainer = function () {
-            this.containerComponentRef = this.contentProjectionService.projectContent(i1.PROJECTION_STRATEGY.AppendComponentToBody(exports.ɵs, { toasts$: this.toasts$ }));
+            this.containerComponentRef = this.contentProjectionService.projectContent(i1.PROJECTION_STRATEGY.AppendComponentToBody(ToastContainerComponent, { toasts$: this.toasts$ }));
             this.containerComponentRef.changeDetectorRef.detectChanges();
         };
         /**
@@ -1642,15 +1458,17 @@
         };
         return ToasterService;
     }());
-    exports.ɵr.ɵprov = i0.ɵɵdefineInjectable({ factory: function ToasterService_Factory() { return new exports.ɵr(i0.ɵɵinject(i1.ContentProjectionService)); }, token: exports.ɵr, providedIn: "root" });
-    exports.ɵr = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __metadata("design:paramtypes", [i1.ContentProjectionService])
-    ], exports.ɵr);
+    ToasterService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ToasterService_Factory() { return new ToasterService(i0.ɵɵinject(i1.ContentProjectionService)); }, token: ToasterService, providedIn: "root" });
+    ToasterService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    ToasterService.ctorParameters = function () { return [
+        { type: i1.ContentProjectionService }
+    ]; };
 
-    exports.ɵq = /** @class */ (function () {
+    var ToastComponent = /** @class */ (function () {
         function ToastComponent(toastService, localizationService) {
             this.toastService = toastService;
             this.localizationService = localizationService;
@@ -1661,7 +1479,7 @@
                     return '';
                 return "toast-" + this.toast.severity;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ToastComponent.prototype, "iconClass", {
@@ -1679,7 +1497,7 @@
                         return 'fa-exclamation-circle';
                 }
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         ToastComponent.prototype.ngOnInit = function () {
@@ -1700,24 +1518,25 @@
         };
         return ToastComponent;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵq.prototype, "toast", void 0);
-    exports.ɵq = __decorate([
-        i0.Component({
-            selector: 'abp-toast',
-            template: "<div class=\"toast\" [ngClass]=\"severityClass\" (click)=\"tap()\">\r\n  <div class=\"toast-icon\">\r\n    <i class=\"fa icon\" [ngClass]=\"iconClass\"></i>\r\n  </div>\r\n  <div class=\"toast-content\">\r\n    <button class=\"toast-close-button\" (click)=\"close()\" *ngIf=\"toast.options.closable\">\r\n      <i class=\"fa fa-times\"></i>\r\n    </button>\r\n    <div class=\"toast-title\">\r\n      {{ toast.title | abpLocalization: toast.options?.titleLocalizationParams }}\r\n    </div>\r\n    <p class=\"toast-message\">\r\n      {{ toast.message | abpLocalization: toast.options?.messageLocalizationParams }}\r\n    </p>\r\n  </div>\r\n</div>\r\n",
-            styles: [".toast{-moz-user-select:none;-ms-grid-columns:50px 1fr;-ms-user-select:none;-webkit-user-select:none;background-color:#f0f0f0;border:2px solid #f0f0f0;border-radius:0;box-shadow:0 0 10px -5px rgba(0,0,0,.4);color:#000;display:-ms-grid;display:grid;gap:10px;grid-template-columns:50px 1fr;margin:5px 0;opacity:1;padding:10px;user-select:none;width:350px;z-index:9999}.toast:hover{background-color:#e3e3e3;border:2px solid #e3e3e3;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast.toast-success{background-color:#51a351;border:2px solid #51a351;box-shadow:0 0 10px -5px rgba(0,0,0,.4);color:#fff}.toast.toast-success:hover{background-color:#499249;border:2px solid #499249;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast.toast-info{background-color:#2f96b4;border:2px solid #2f96b4;box-shadow:0 0 10px -5px rgba(0,0,0,.4);color:#fff}.toast.toast-info:hover{background-color:#2a85a0;border:2px solid #2a85a0;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast.toast-warning{background-color:#f89406;border:2px solid #f89406;box-shadow:0 0 10px -5px rgba(0,0,0,.4);color:#fff}.toast.toast-warning:hover{background-color:#df8505;border:2px solid #df8505;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast.toast-error{background-color:#bd362f;border:2px solid #bd362f;box-shadow:0 0 10px -5px rgba(0,0,0,.4);color:#fff}.toast.toast-error:hover{background-color:#a9302a;border:2px solid #a9302a;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast .toast-icon{align-items:center;display:flex;justify-content:center}.toast .toast-icon .icon{font-size:36px}.toast .toast-content{position:relative}.toast .toast-content .toast-close-button{align-items:center;background:transparent;border:none;border-radius:50%;color:inherit;display:flex;height:25px;justify-content:center;margin:0;padding:0 5px 0 0;position:absolute;right:0;top:0;width:25px}.toast .toast-content .toast-close-button:focus{outline:none}.toast .toast-content .toast-title{font-size:1rem;font-weight:600;margin:0;padding:0}.toast .toast-content .toast-message{margin:0;max-width:240px;padding:0}"]
-        }),
-        __metadata("design:paramtypes", [exports.ɵr,
-            i1.LocalizationService])
-    ], exports.ɵq);
+    ToastComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-toast',
+                    template: "<div class=\"toast\" [ngClass]=\"severityClass\" (click)=\"tap()\">\r\n  <div class=\"toast-icon\">\r\n    <i class=\"fa icon\" [ngClass]=\"iconClass\"></i>\r\n  </div>\r\n  <div class=\"toast-content\">\r\n    <button class=\"toast-close-button\" (click)=\"close()\" *ngIf=\"toast.options.closable\">\r\n      <i class=\"fa fa-times\"></i>\r\n    </button>\r\n    <div class=\"toast-title\">\r\n      {{ toast.title | abpLocalization: toast.options?.titleLocalizationParams }}\r\n    </div>\r\n    <p class=\"toast-message\">\r\n      {{ toast.message | abpLocalization: toast.options?.messageLocalizationParams }}\r\n    </p>\r\n  </div>\r\n</div>\r\n",
+                    styles: [".toast{-moz-user-select:none;-ms-grid-columns:50px 1fr;-ms-user-select:none;-webkit-user-select:none;background-color:#f0f0f0;border:2px solid #f0f0f0;border-radius:0;box-shadow:0 0 10px -5px rgba(0,0,0,.4);color:#000;display:-ms-grid;display:grid;gap:10px;grid-template-columns:50px 1fr;margin:5px 0;opacity:1;padding:10px;user-select:none;width:350px;z-index:9999}.toast:hover{background-color:#e3e3e3;border:2px solid #e3e3e3;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast.toast-success{background-color:#51a351;border:2px solid #51a351;box-shadow:0 0 10px -5px rgba(0,0,0,.4);color:#fff}.toast.toast-success:hover{background-color:#499249;border:2px solid #499249;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast.toast-info{background-color:#2f96b4;border:2px solid #2f96b4;box-shadow:0 0 10px -5px rgba(0,0,0,.4);color:#fff}.toast.toast-info:hover{background-color:#2a85a0;border:2px solid #2a85a0;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast.toast-warning{background-color:#f89406;border:2px solid #f89406;box-shadow:0 0 10px -5px rgba(0,0,0,.4);color:#fff}.toast.toast-warning:hover{background-color:#df8505;border:2px solid #df8505;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast.toast-error{background-color:#bd362f;border:2px solid #bd362f;box-shadow:0 0 10px -5px rgba(0,0,0,.4);color:#fff}.toast.toast-error:hover{background-color:#a9302a;border:2px solid #a9302a;box-shadow:0 0 15px -5px rgba(0,0,0,.4)}.toast .toast-icon{align-items:center;display:flex;justify-content:center}.toast .toast-icon .icon{font-size:36px}.toast .toast-content{position:relative}.toast .toast-content .toast-close-button{align-items:center;background:transparent;border:none;border-radius:50%;color:inherit;display:flex;height:25px;justify-content:center;margin:0;padding:0 5px 0 0;position:absolute;right:0;top:0;width:25px}.toast .toast-content .toast-close-button:focus{outline:none}.toast .toast-content .toast-title{font-size:1rem;font-weight:600;margin:0;padding:0}.toast .toast-content .toast-message{margin:0;max-width:240px;padding:0}"]
+                },] }
+    ];
+    ToastComponent.ctorParameters = function () { return [
+        { type: ToasterService },
+        { type: i1.LocalizationService }
+    ]; };
+    ToastComponent.propDecorators = {
+        toast: [{ type: i0.Input }]
+    };
 
     var styles = "\n.is-invalid .form-control {\n  border-color: #dc3545;\n  border-style: solid !important;\n}\n\n.is-invalid .invalid-feedback,\n.is-invalid + * .invalid-feedback {\n  display: block;\n}\n\n.data-tables-filter {\n  text-align: right;\n}\n\n[dir=rtl] .data-tables-filter {\n  text-align: left;\n}\n\n.pointer {\n  cursor: pointer;\n}\n\n.navbar .dropdown-submenu a::after {\n  transform: rotate(-90deg);\n  position: absolute;\n  right: 16px;\n  top: 18px;\n}\n\n.navbar .dropdown-menu {\n  min-width: 215px;\n}\n\n.datatable-scroll {\n  margin-bottom: 5px !important;\n  width: unset !important;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar {\n  height: 5px !important;\n  width: 5px !important;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-track {\n  background: #ddd;\n}\n\n.ui-table-scrollable-body::-webkit-scrollbar-thumb {\n  background: #8a8686;\n}\n\n.abp-ellipsis-inline {\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.abp-ellipsis {\n  overflow: hidden !important;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n\n.ui-widget-overlay {\n  z-index: 1000;\n}\n\n.color-white {\n  color: #FFF !important;\n}\n\n.custom-checkbox > label {\n  cursor: pointer;\n}\n\n/* <animations */\n\n.fade-in-top {\n  animation: fadeInTop 0.2s ease-in-out;\n}\n\n.fade-out-top {\n  animation: fadeOutTop 0.2s ease-in-out;\n}\n\n.abp-collapsed-height {\n  -moz-transition: max-height linear 0.35s;\n  -ms-transition: max-height linear 0.35s;\n  -o-transition: max-height linear 0.35s;\n  -webkit-transition: max-height linear 0.35s;\n  overflow:hidden;\n  transition:max-height 0.35s linear;\n  height:auto;\n  max-height: 0;\n}\n\n.abp-mh-25 {\n  max-height: 25vh;\n}\n\n.abp-mh-50 {\n  transition:max-height 0.65s linear;\n  max-height: 50vh;\n}\n\n.abp-mh-75 {\n  transition:max-height 0.85s linear;\n  max-height: 75vh;\n}\n\n.abp-mh-100 {\n  transition:max-height 1s linear;\n  max-height: 100vh;\n}\n\n[class^=\"sorting\"] {\n  opacity: .3;\n  cursor: pointer;\n}\n[class^=\"sorting\"]:before {\n  right: 0.5rem;\n  content: \"\u2191\";\n}\n[class^=\"sorting\"]:after {\n  right: 0.5rem;\n  content: \"\u2193\";\n}\n\n.sorting_desc {\n  opacity: 1;\n}\n.sorting_desc:before {\n  opacity: .3;\n}\n\n.sorting_asc {\n  opacity: 1;\n}\n.sorting_asc:after {\n  opacity: .3;\n}\n.ngx-datatable.material {\n  box-shadow: none;\n}\n\n@keyframes fadeInTop {\n  from {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n\n  to {\n    transform: translateY(0px);\n    opacity: 1;\n  }\n}\n\n@keyframes fadeOutTop {\n  to {\n    transform: translateY(-5px);\n    opacity: 0;\n  }\n}\n\n/* </animations */\n\n";
     var BOOTSTRAP = 'bootstrap-{{dir}}.min.css';
 
-    exports.ɵx = /** @class */ (function () {
+    var LoadingDirective = /** @class */ (function () {
         function LoadingDirective(elRef, vcRef, cdRes, injector, renderer) {
             this.elRef = elRef;
             this.vcRef = vcRef;
@@ -1749,7 +1568,7 @@
                         .subscribe(function () {
                         if (!_this.componentRef) {
                             _this.componentRef = _this.cdRes
-                                .resolveComponentFactory(exports.ɵg)
+                                .resolveComponentFactory(LoadingComponent)
                                 .create(_this.injector);
                         }
                         if (newValue && !_this.rootNode) {
@@ -1765,7 +1584,7 @@
                     });
                 }, 0);
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         LoadingDirective.prototype.ngOnInit = function () {
@@ -1786,33 +1605,24 @@
         };
         return LoadingDirective;
     }());
-    __decorate([
-        i0.HostBinding('style.position'),
-        __metadata("design:type", Object)
-    ], exports.ɵx.prototype, "position", void 0);
-    __decorate([
-        i0.Input('abpLoading'),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], exports.ɵx.prototype, "loading", null);
-    __decorate([
-        i0.Input('abpLoadingTargetElement'),
-        __metadata("design:type", HTMLElement)
-    ], exports.ɵx.prototype, "targetElement", void 0);
-    __decorate([
-        i0.Input('abpLoadingDelay'),
-        __metadata("design:type", Object)
-    ], exports.ɵx.prototype, "delay", void 0);
-    exports.ɵx = __decorate([
-        i0.Directive({ selector: '[abpLoading]' }),
-        __metadata("design:paramtypes", [i0.ElementRef,
-            i0.ViewContainerRef,
-            i0.ComponentFactoryResolver,
-            i0.Injector,
-            i0.Renderer2])
-    ], exports.ɵx);
+    LoadingDirective.decorators = [
+        { type: i0.Directive, args: [{ selector: '[abpLoading]' },] }
+    ];
+    LoadingDirective.ctorParameters = function () { return [
+        { type: i0.ElementRef },
+        { type: i0.ViewContainerRef },
+        { type: i0.ComponentFactoryResolver },
+        { type: i0.Injector },
+        { type: i0.Renderer2 }
+    ]; };
+    LoadingDirective.propDecorators = {
+        position: [{ type: i0.HostBinding, args: ['style.position',] }],
+        loading: [{ type: i0.Input, args: ['abpLoading',] }],
+        targetElement: [{ type: i0.Input, args: ['abpLoadingTargetElement',] }],
+        delay: [{ type: i0.Input, args: ['abpLoadingDelay',] }]
+    };
 
-    exports.ɵv = /** @class */ (function () {
+    var NgxDatatableDefaultDirective = /** @class */ (function () {
         function NgxDatatableDefaultDirective(table, document) {
             this.table = table;
             this.document = document;
@@ -1830,7 +1640,7 @@
             get: function () {
                 return "ngx-datatable " + this.class;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         NgxDatatableDefaultDirective.prototype.fixHorizontalGap = function (scroller) {
@@ -1867,31 +1677,29 @@
         };
         return NgxDatatableDefaultDirective;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵv.prototype, "class", void 0);
-    __decorate([
-        i0.HostBinding('class'),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [])
-    ], exports.ɵv.prototype, "classes", null);
-    exports.ɵv = __decorate([
-        i0.Directive({
-            // tslint:disable-next-line
-            selector: 'ngx-datatable[default]',
-            exportAs: 'ngxDatatableDefault',
-        }),
-        __param(1, i0.Inject(common.DOCUMENT)),
-        __metadata("design:paramtypes", [ngxDatatable.DatatableComponent, Object])
-    ], exports.ɵv);
+    NgxDatatableDefaultDirective.decorators = [
+        { type: i0.Directive, args: [{
+                    // tslint:disable-next-line
+                    selector: 'ngx-datatable[default]',
+                    exportAs: 'ngxDatatableDefault',
+                },] }
+    ];
+    NgxDatatableDefaultDirective.ctorParameters = function () { return [
+        { type: ngxDatatable.DatatableComponent },
+        { type: undefined, decorators: [{ type: i0.Inject, args: [common.DOCUMENT,] }] }
+    ]; };
+    NgxDatatableDefaultDirective.propDecorators = {
+        class: [{ type: i0.Input }],
+        classes: [{ type: i0.HostBinding, args: ['class',] }]
+    };
 
-    exports.ɵw = /** @class */ (function () {
+    var NgxDatatableListDirective = /** @class */ (function () {
         function NgxDatatableListDirective(table, cdRef, localizationService) {
             this.table = table;
             this.cdRef = cdRef;
             this.localizationService = localizationService;
             this.subscription = new rxjs.Subscription();
+            this.querySubscription = new rxjs.Subscription();
             this.setInitialValues();
         }
         NgxDatatableListDirective.prototype.setInitialValues = function () {
@@ -1929,6 +1737,13 @@
             });
             this.subscription.add(sub);
         };
+        NgxDatatableListDirective.prototype.subscribeToQuery = function () {
+            var _this = this;
+            this.querySubscription.add(this.list.query$.subscribe(function () {
+                if (_this.list.page !== _this.table.offset)
+                    _this.table.offset = _this.list.page;
+            }));
+        };
         NgxDatatableListDirective.prototype.ngOnChanges = function (_a) {
             var list = _a.list;
             if (!list.firstChange)
@@ -1936,9 +1751,12 @@
             var _b = list.currentValue, maxResultCount = _b.maxResultCount, page = _b.page;
             this.table.limit = maxResultCount;
             this.table.offset = page;
+            this.querySubscription.unsubscribe();
+            this.subscribeToQuery();
         };
         NgxDatatableListDirective.prototype.ngOnDestroy = function () {
             this.subscription.unsubscribe();
+            this.querySubscription.unsubscribe();
         };
         NgxDatatableListDirective.prototype.ngOnInit = function () {
             this.subscribeToPage();
@@ -1946,26 +1764,27 @@
         };
         return NgxDatatableListDirective;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", i1.ListService)
-    ], exports.ɵw.prototype, "list", void 0);
-    exports.ɵw = __decorate([
-        i0.Directive({
-            // tslint:disable-next-line
-            selector: 'ngx-datatable[list]',
-            exportAs: 'ngxDatatableList',
-        }),
-        __metadata("design:paramtypes", [ngxDatatable.DatatableComponent,
-            i0.ChangeDetectorRef,
-            i1.LocalizationService])
-    ], exports.ɵw);
+    NgxDatatableListDirective.decorators = [
+        { type: i0.Directive, args: [{
+                    // tslint:disable-next-line
+                    selector: 'ngx-datatable[list]',
+                    exportAs: 'ngxDatatableList',
+                },] }
+    ];
+    NgxDatatableListDirective.ctorParameters = function () { return [
+        { type: ngxDatatable.DatatableComponent },
+        { type: i0.ChangeDetectorRef },
+        { type: i1.LocalizationService }
+    ]; };
+    NgxDatatableListDirective.propDecorators = {
+        list: [{ type: i0.Input }]
+    };
 
     /**
      *
      * @deprecated To be deleted in v3.3
      */
-    exports.ɵy = /** @class */ (function () {
+    var TableSortDirective = /** @class */ (function () {
         function TableSortDirective(abpTable, sortPipe, cdRef) {
             this.abpTable = abpTable;
             this.sortPipe = sortPipe;
@@ -1978,7 +1797,7 @@
                 return (this.abpTable || snq__default['default'](function () { return _this.cdRef['_view'].component; }) || snq__default['default'](function () { return _this.cdRef['context']; }) // 'context' for ivy
                 );
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         TableSortDirective.prototype.ngOnChanges = function (_a) {
@@ -1990,26 +1809,23 @@
         };
         return TableSortDirective;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵy.prototype, "abpTableSort", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Array)
-    ], exports.ɵy.prototype, "value", void 0);
-    exports.ɵy = __decorate([
-        i0.Directive({
-            selector: '[abpTableSort]',
-            providers: [i1.SortPipe],
-        }),
-        __param(0, i0.Host()), __param(0, i0.Optional()), __param(0, i0.Self()),
-        __metadata("design:paramtypes", [exports.ɵo,
-            i1.SortPipe,
-            i0.ChangeDetectorRef])
-    ], exports.ɵy);
+    TableSortDirective.decorators = [
+        { type: i0.Directive, args: [{
+                    selector: '[abpTableSort]',
+                    providers: [i1.SortPipe],
+                },] }
+    ];
+    TableSortDirective.ctorParameters = function () { return [
+        { type: TableComponent, decorators: [{ type: i0.Host }, { type: i0.Optional }, { type: i0.Self }] },
+        { type: i1.SortPipe },
+        { type: i0.ChangeDetectorRef }
+    ]; };
+    TableSortDirective.propDecorators = {
+        abpTableSort: [{ type: i0.Input }],
+        value: [{ type: i0.Input }]
+    };
 
-    exports.ɵe = /** @class */ (function () {
+    var HttpErrorWrapperComponent = /** @class */ (function () {
         function HttpErrorWrapperComponent(subscription) {
             this.subscription = subscription;
             this.status = 0;
@@ -2023,7 +1839,7 @@
             get: function () {
                 return this.status ? "[" + this.status + "]" : '';
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         HttpErrorWrapperComponent.prototype.ngOnInit = function () {
@@ -2053,19 +1869,20 @@
         };
         return HttpErrorWrapperComponent;
     }());
-    __decorate([
-        i0.ViewChild('container', { static: false }),
-        __metadata("design:type", i0.ElementRef)
-    ], exports.ɵe.prototype, "containerRef", void 0);
-    exports.ɵe = __decorate([
-        i0.Component({
-            selector: 'abp-http-error-wrapper',
-            template: "<div\r\n  #container\r\n  id=\"abp-http-error-container\"\r\n  class=\"error\"\r\n  [style.backgroundColor]=\"backgroundColor\"\r\n>\r\n  <button\r\n    *ngIf=\"!hideCloseIcon\"\r\n    id=\"abp-close-button\"\r\n    type=\"button\"\r\n    class=\"close mr-2\"\r\n    (click)=\"destroy()\"\r\n  >\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n\r\n  <div *ngIf=\"!customComponent\" class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>{{ statusText }} {{ title | abpLocalization }}</h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a\r\n            *ngIf=\"isHomeShow\"\r\n            (click)=\"destroy()\"\r\n            routerLink=\"/\"\r\n            class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
-            providers: [i1.SubscriptionService],
-            styles: [".error{height:100vh;position:fixed;top:0;width:100vw;z-index:999999}.centered{left:50%;position:fixed;top:50%;transform:translate(-50%,-50%)}"]
-        }),
-        __metadata("design:paramtypes", [i1.SubscriptionService])
-    ], exports.ɵe);
+    HttpErrorWrapperComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-http-error-wrapper',
+                    template: "<div\r\n  #container\r\n  id=\"abp-http-error-container\"\r\n  class=\"error\"\r\n  [style.backgroundColor]=\"backgroundColor\"\r\n>\r\n  <button\r\n    *ngIf=\"!hideCloseIcon\"\r\n    id=\"abp-close-button\"\r\n    type=\"button\"\r\n    class=\"close mr-2\"\r\n    (click)=\"destroy()\"\r\n  >\r\n    <span aria-hidden=\"true\">&times;</span>\r\n  </button>\r\n\r\n  <div *ngIf=\"!customComponent\" class=\"row centered\">\r\n    <div class=\"col-md-12\">\r\n      <div class=\"error-template\">\r\n        <h1>{{ statusText }} {{ title | abpLocalization }}</h1>\r\n        <div class=\"error-details\">\r\n          {{ details | abpLocalization }}\r\n        </div>\r\n        <div class=\"error-actions\">\r\n          <a\r\n            *ngIf=\"isHomeShow\"\r\n            (click)=\"destroy()\"\r\n            routerLink=\"/\"\r\n            class=\"btn btn-primary btn-md mt-2\"\r\n            ><span class=\"glyphicon glyphicon-home\"></span>\r\n            {{ { key: '::Menu:Home', defaultValue: 'Home' } | abpLocalization }}\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n",
+                    providers: [i1.SubscriptionService],
+                    styles: [".error{height:100vh;position:fixed;top:0;width:100vw;z-index:999999}.centered{left:50%;position:fixed;top:50%;transform:translate(-50%,-50%)}"]
+                },] }
+    ];
+    HttpErrorWrapperComponent.ctorParameters = function () { return [
+        { type: i1.SubscriptionService }
+    ]; };
+    HttpErrorWrapperComponent.propDecorators = {
+        containerRef: [{ type: i0.ViewChild, args: ['container', { static: false },] }]
+    };
 
     var DEFAULT_ERROR_MESSAGES = {
         defaultError: {
@@ -2111,7 +1928,7 @@
             details: 'AbpUi::DefaultErrorMessage',
         },
     };
-    exports.ɵz = /** @class */ (function () {
+    var ErrorHandler = /** @class */ (function () {
         function ErrorHandler(actions, store, confirmationService, appRef, cfRes, rendererFactory, injector, httpErrorConfig) {
             var _this = this;
             this.actions = actions;
@@ -2296,7 +2113,7 @@
             var renderer = this.rendererFactory.createRenderer(null, null);
             var host = renderer.selectRootElement(document.body, true);
             this.componentRef = this.cfRes
-                .resolveComponentFactory(exports.ɵe)
+                .resolveComponentFactory(HttpErrorWrapperComponent)
                 .create(this.injector);
             for (var key in instance) {
                 /* istanbul ignore else */
@@ -2327,18 +2144,20 @@
         };
         return ErrorHandler;
     }());
-    exports.ɵz.ɵprov = i0.ɵɵdefineInjectable({ factory: function ErrorHandler_Factory() { return new exports.ɵz(i0.ɵɵinject(i1$1.Actions), i0.ɵɵinject(i1$1.Store), i0.ɵɵinject(exports.ɵm), i0.ɵɵinject(i0.ApplicationRef), i0.ɵɵinject(i0.ComponentFactoryResolver), i0.ɵɵinject(i0.RendererFactory2), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject("HTTP_ERROR_CONFIG")); }, token: exports.ɵz, providedIn: "root" });
-    exports.ɵz = __decorate([
-        i0.Injectable({ providedIn: 'root' }),
-        __param(7, i0.Inject('HTTP_ERROR_CONFIG')),
-        __metadata("design:paramtypes", [i1$1.Actions,
-            i1$1.Store,
-            exports.ɵm,
-            i0.ApplicationRef,
-            i0.ComponentFactoryResolver,
-            i0.RendererFactory2,
-            i0.Injector, Object])
-    ], exports.ɵz);
+    ErrorHandler.ɵprov = i0.ɵɵdefineInjectable({ factory: function ErrorHandler_Factory() { return new ErrorHandler(i0.ɵɵinject(i1$1.Actions), i0.ɵɵinject(i1$1.Store), i0.ɵɵinject(ConfirmationService), i0.ɵɵinject(i0.ApplicationRef), i0.ɵɵinject(i0.ComponentFactoryResolver), i0.ɵɵinject(i0.RendererFactory2), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject("HTTP_ERROR_CONFIG")); }, token: ErrorHandler, providedIn: "root" });
+    ErrorHandler.decorators = [
+        { type: i0.Injectable, args: [{ providedIn: 'root' },] }
+    ];
+    ErrorHandler.ctorParameters = function () { return [
+        { type: i1$1.Actions },
+        { type: i1$1.Store },
+        { type: ConfirmationService },
+        { type: i0.ApplicationRef },
+        { type: i0.ComponentFactoryResolver },
+        { type: i0.RendererFactory2 },
+        { type: i0.Injector },
+        { type: undefined, decorators: [{ type: i0.Inject, args: ['HTTP_ERROR_CONFIG',] }] }
+    ]; };
 
     var LAZY_STYLES = new i0.InjectionToken('LAZY_STYLES');
 
@@ -2361,7 +2180,7 @@
                 this.setBodyDir(dir);
                 this._dir = dir;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         LazyStyleHandler.prototype.getHrefFromLink = function (link) {
@@ -2423,12 +2242,14 @@
         return LazyStyleHandler;
     }());
     LazyStyleHandler.ɵprov = i0.ɵɵdefineInjectable({ factory: function LazyStyleHandler_Factory() { return new LazyStyleHandler(i0.ɵɵinject(i0.INJECTOR)); }, token: LazyStyleHandler, providedIn: "root" });
-    LazyStyleHandler = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __metadata("design:paramtypes", [i0.Injector])
-    ], LazyStyleHandler);
+    LazyStyleHandler.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    LazyStyleHandler.ctorParameters = function () { return [
+        { type: i0.Injector }
+    ]; };
     function createLazyStyleHref(style, dir) {
         return style.replace(/{{\s*dir\s*}}/g, dir);
     }
@@ -2460,7 +2281,7 @@
         };
     }
 
-    exports.NavItemsService = /** @class */ (function () {
+    var NavItemsService = /** @class */ (function () {
         function NavItemsService() {
             this._items$ = new rxjs.BehaviorSubject([]);
         }
@@ -2468,14 +2289,14 @@
             get: function () {
                 return this._items$.value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(NavItemsService.prototype, "items$", {
             get: function () {
                 return this._items$.asObservable();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         NavItemsService.prototype.addItems = function (newItems) {
@@ -2502,10 +2323,10 @@
         };
         return NavItemsService;
     }());
-    exports.NavItemsService.ɵprov = i0.ɵɵdefineInjectable({ factory: function NavItemsService_Factory() { return new exports.NavItemsService(); }, token: exports.NavItemsService, providedIn: "root" });
-    exports.NavItemsService = __decorate([
-        i0.Injectable({ providedIn: 'root' })
-    ], exports.NavItemsService);
+    NavItemsService.ɵprov = i0.ɵɵdefineInjectable({ factory: function NavItemsService_Factory() { return new NavItemsService(); }, token: NavItemsService, providedIn: "root" });
+    NavItemsService.decorators = [
+        { type: i0.Injectable, args: [{ providedIn: 'root' },] }
+    ];
     function sortItems(a, b) {
         if (!a.order)
             return 1;
@@ -2546,7 +2367,7 @@
     function toInteger(value) {
         return parseInt("" + value, 10);
     }
-    exports.ɵbh = /** @class */ (function (_super) {
+    var DateParserFormatter = /** @class */ (function (_super) {
         __extends(DateParserFormatter, _super);
         function DateParserFormatter(datePipe, store) {
             var _this = _super.call(this) || this;
@@ -2589,21 +2410,22 @@
         };
         return DateParserFormatter;
     }(ngBootstrap.NgbDateParserFormatter));
-    exports.ɵbh = __decorate([
-        i0.Injectable(),
-        __param(0, i0.Optional()),
-        __metadata("design:paramtypes", [common.DatePipe, i1$1.Store])
-    ], exports.ɵbh);
+    DateParserFormatter.decorators = [
+        { type: i0.Injectable }
+    ];
+    DateParserFormatter.ctorParameters = function () { return [
+        { type: common.DatePipe, decorators: [{ type: i0.Optional }] },
+        { type: i1$1.Store }
+    ]; };
 
-    var ThemeSharedModule_1;
-    exports.ThemeSharedModule = ThemeSharedModule_1 = /** @class */ (function () {
+    var ThemeSharedModule = /** @class */ (function () {
         function ThemeSharedModule(errorHandler) {
             this.errorHandler = errorHandler;
         }
         ThemeSharedModule.forRoot = function (options) {
             if (options === void 0) { options = {}; }
             return {
-                ngModule: ThemeSharedModule_1,
+                ngModule: ThemeSharedModule,
                 providers: [
                     THEME_SHARED_ROUTE_PROVIDERS,
                     {
@@ -2624,65 +2446,67 @@
                         useFactory: httpErrorConfigFactory,
                         deps: [HTTP_ERROR_CONFIG],
                     },
-                    { provide: ngBootstrap.NgbDateParserFormatter, useClass: exports.ɵbh },
+                    { provide: ngBootstrap.NgbDateParserFormatter, useClass: DateParserFormatter },
                 ],
             };
         };
         return ThemeSharedModule;
     }());
-    exports.ThemeSharedModule = ThemeSharedModule_1 = __decorate([
-        i0.NgModule({
-            imports: [i1.CoreModule, ngxDatatable.NgxDatatableModule, core.NgxValidateCoreModule, ngBootstrap.NgbPaginationModule],
-            declarations: [
-                exports.ɵa,
-                exports.ɵb,
-                exports.ɵc,
-                exports.ɵd,
-                exports.ɵe,
-                exports.ɵf,
-                exports.ɵg,
-                exports.ɵh,
-                exports.ɵn,
-                exports.ɵo,
-                exports.ɵp,
-                exports.ɵq,
-                exports.ɵs,
-                exports.ɵu,
-                exports.ɵv,
-                exports.ɵw,
-                exports.ɵx,
-                exports.ɵy,
-            ],
-            exports: [
-                ngxDatatable.NgxDatatableModule,
-                exports.ɵa,
-                exports.ɵb,
-                exports.ɵc,
-                exports.ɵd,
-                exports.ɵf,
-                exports.ɵg,
-                exports.ɵh,
-                exports.ɵo,
-                exports.ɵp,
-                exports.ɵq,
-                exports.ɵs,
-                exports.ɵu,
-                exports.ɵv,
-                exports.ɵw,
-                exports.ɵx,
-                exports.ɵy,
-            ],
-            providers: [common.DatePipe],
-            entryComponents: [
-                exports.ɵe,
-                exports.ɵg,
-                exports.ɵn,
-                exports.ɵs,
-                exports.ɵd,
-            ],
-        }),
-        __metadata("design:paramtypes", [exports.ɵz])
-    ], exports.ThemeSharedModule);
+    ThemeSharedModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    imports: [i1.CoreModule, ngxDatatable.NgxDatatableModule, core.NgxValidateCoreModule, ngBootstrap.NgbPaginationModule],
+                    declarations: [
+                        BreadcrumbComponent,
+                        ButtonComponent,
+                        ChartComponent,
+                        ConfirmationComponent,
+                        HttpErrorWrapperComponent,
+                        LoaderBarComponent,
+                        LoadingComponent,
+                        ModalComponent,
+                        ModalContainerComponent,
+                        TableComponent,
+                        TableEmptyMessageComponent,
+                        ToastComponent,
+                        ToastContainerComponent,
+                        SortOrderIconComponent,
+                        NgxDatatableDefaultDirective,
+                        NgxDatatableListDirective,
+                        LoadingDirective,
+                        TableSortDirective,
+                    ],
+                    exports: [
+                        ngxDatatable.NgxDatatableModule,
+                        BreadcrumbComponent,
+                        ButtonComponent,
+                        ChartComponent,
+                        ConfirmationComponent,
+                        LoaderBarComponent,
+                        LoadingComponent,
+                        ModalComponent,
+                        TableComponent,
+                        TableEmptyMessageComponent,
+                        ToastComponent,
+                        ToastContainerComponent,
+                        SortOrderIconComponent,
+                        NgxDatatableDefaultDirective,
+                        NgxDatatableListDirective,
+                        LoadingDirective,
+                        TableSortDirective,
+                    ],
+                    providers: [common.DatePipe],
+                    entryComponents: [
+                        HttpErrorWrapperComponent,
+                        LoadingComponent,
+                        ModalContainerComponent,
+                        ToastContainerComponent,
+                        ConfirmationComponent,
+                    ],
+                },] }
+    ];
+    ThemeSharedModule.ctorParameters = function () { return [
+        { type: ErrorHandler }
+    ]; };
 
     var minLength = forms.Validators.minLength, maxLength = forms.Validators.maxLength;
     function getPasswordValidators(store) {
@@ -2722,32 +2546,34 @@
      */
 
     exports.BOOTSTRAP = BOOTSTRAP;
-    exports.BreadcrumbComponent = exports.ɵa;
-    exports.ButtonComponent = exports.ɵb;
-    exports.ChartComponent = exports.ɵc;
-    exports.ConfirmationComponent = exports.ɵd;
-    exports.ConfirmationService = exports.ɵm;
-    exports.DateParserFormatter = exports.ɵbh;
-    exports.ErrorHandler = exports.ɵz;
+    exports.BreadcrumbComponent = BreadcrumbComponent;
+    exports.ButtonComponent = ButtonComponent;
+    exports.ChartComponent = ChartComponent;
+    exports.ConfirmationComponent = ConfirmationComponent;
+    exports.ConfirmationService = ConfirmationService;
+    exports.DateParserFormatter = DateParserFormatter;
+    exports.ErrorHandler = ErrorHandler;
     exports.HTTP_ERROR_CONFIG = HTTP_ERROR_CONFIG;
     exports.LAZY_STYLES = LAZY_STYLES;
-    exports.LoaderBarComponent = exports.ɵf;
-    exports.LoadingComponent = exports.ɵg;
-    exports.LoadingDirective = exports.ɵx;
-    exports.ModalComponent = exports.ɵh;
-    exports.ModalService = exports.ɵl;
+    exports.LoaderBarComponent = LoaderBarComponent;
+    exports.LoadingComponent = LoadingComponent;
+    exports.LoadingDirective = LoadingDirective;
+    exports.ModalComponent = ModalComponent;
+    exports.ModalService = ModalService;
     exports.NavItem = NavItem;
-    exports.NgxDatatableDefaultDirective = exports.ɵv;
-    exports.NgxDatatableListDirective = exports.ɵw;
-    exports.SortOrderIconComponent = exports.ɵu;
+    exports.NavItemsService = NavItemsService;
+    exports.NgxDatatableDefaultDirective = NgxDatatableDefaultDirective;
+    exports.NgxDatatableListDirective = NgxDatatableListDirective;
+    exports.SortOrderIconComponent = SortOrderIconComponent;
     exports.THEME_SHARED_APPEND_CONTENT = THEME_SHARED_APPEND_CONTENT;
     exports.THEME_SHARED_ROUTE_PROVIDERS = THEME_SHARED_ROUTE_PROVIDERS;
-    exports.TableComponent = exports.ɵo;
-    exports.TableEmptyMessageComponent = exports.ɵp;
-    exports.TableSortDirective = exports.ɵy;
-    exports.ToastComponent = exports.ɵq;
-    exports.ToastContainerComponent = exports.ɵs;
-    exports.ToasterService = exports.ɵr;
+    exports.TableComponent = TableComponent;
+    exports.TableEmptyMessageComponent = TableEmptyMessageComponent;
+    exports.TableSortDirective = TableSortDirective;
+    exports.ThemeSharedModule = ThemeSharedModule;
+    exports.ToastComponent = ToastComponent;
+    exports.ToastContainerComponent = ToastContainerComponent;
+    exports.ToasterService = ToasterService;
     exports.bounceIn = bounceIn;
     exports.chartJsLoaded$ = chartJsLoaded$;
     exports.collapse = collapse;
@@ -2777,16 +2603,39 @@
     exports.httpErrorConfigFactory = httpErrorConfigFactory;
     exports.slideFromBottom = slideFromBottom;
     exports.toastInOut = toastInOut;
+    exports.ɵa = BreadcrumbComponent;
+    exports.ɵb = ButtonComponent;
     exports.ɵbb = THEME_SHARED_ROUTE_PROVIDERS;
     exports.ɵbc = configureRoutes;
     exports.ɵbd = THEME_SHARED_APPEND_CONTENT;
     exports.ɵbe = initLazyStyleHandler;
     exports.ɵbf = httpErrorConfigFactory;
     exports.ɵbg = HTTP_ERROR_CONFIG;
+    exports.ɵbh = DateParserFormatter;
+    exports.ɵc = ChartComponent;
+    exports.ɵd = ConfirmationComponent;
+    exports.ɵe = HttpErrorWrapperComponent;
+    exports.ɵf = LoaderBarComponent;
+    exports.ɵg = LoadingComponent;
+    exports.ɵh = ModalComponent;
     exports.ɵi = fadeAnimation;
     exports.ɵj = fadeIn;
     exports.ɵk = fadeOut;
+    exports.ɵl = ModalService;
+    exports.ɵm = ConfirmationService;
+    exports.ɵn = ModalContainerComponent;
+    exports.ɵo = TableComponent;
+    exports.ɵp = TableEmptyMessageComponent;
+    exports.ɵq = ToastComponent;
+    exports.ɵr = ToasterService;
+    exports.ɵs = ToastContainerComponent;
     exports.ɵt = toastInOut;
+    exports.ɵu = SortOrderIconComponent;
+    exports.ɵv = NgxDatatableDefaultDirective;
+    exports.ɵw = NgxDatatableListDirective;
+    exports.ɵx = LoadingDirective;
+    exports.ɵy = TableSortDirective;
+    exports.ɵz = ErrorHandler;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

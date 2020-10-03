@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@abp/ng.theme.shared'), require('@angular/core'), require('@ngxs/store'), require('rxjs'), require('rxjs/operators'), require('@angular/forms')) :
-    typeof define === 'function' && define.amd ? define('@abp/ng.feature-management', ['exports', '@abp/ng.core', '@abp/ng.theme.shared', '@angular/core', '@ngxs/store', 'rxjs', 'rxjs/operators', '@angular/forms'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng['feature-management'] = {}), global.i1, global.ng_theme_shared, global.ng.core, global.i2, global.rxjs, global.rxjs.operators, global.ng.forms));
-}(this, (function (exports, i1, ng_theme_shared, i0, i2, rxjs, operators, forms) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@abp/ng.core'), require('@abp/ng.theme.shared'), require('@angular/core'), require('@ngxs/store'), require('@ng-bootstrap/ng-bootstrap'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@abp/ng.feature-management', ['exports', '@abp/ng.core', '@abp/ng.theme.shared', '@angular/core', '@ngxs/store', '@ng-bootstrap/ng-bootstrap', 'rxjs/operators'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng['feature-management'] = {}), global.i1, global.ng_theme_shared, global.ng.core, global.i2, global.ngBootstrap, global.rxjs.operators));
+}(this, (function (exports, i1, ng_theme_shared, i0, i2, ngBootstrap, operators) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -23,7 +23,7 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
+                if (Object.prototype.hasOwnProperty.call(b, p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
@@ -161,15 +161,19 @@
             return { value: op[0] ? op[1] : void 0, done: true };
         }
     }
-    function __createBinding(o, m, k, k2) {
+    var __createBinding = Object.create ? (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
+    }) : (function (o, m, k, k2) {
         if (k2 === undefined)
             k2 = k;
         o[k2] = m[k];
-    }
-    function __exportStar(m, exports) {
+    });
+    function __exportStar(m, o) {
         for (var p in m)
-            if (p !== "default" && !exports.hasOwnProperty(p))
-                exports[p] = m[p];
+            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+                __createBinding(o, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -268,15 +272,20 @@
         return cooked;
     }
     ;
+    var __setModuleDefault = Object.create ? (function (o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+    }) : function (o, v) {
+        o["default"] = v;
+    };
     function __importStar(mod) {
         if (mod && mod.__esModule)
             return mod;
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (Object.hasOwnProperty.call(mod, k))
-                    result[k] = mod[k];
-        result.default = mod;
+                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+                    __createBinding(result, mod, k);
+        __setModuleDefault(result, mod);
         return result;
     }
     function __importDefault(mod) {
@@ -296,6 +305,233 @@
         return value;
     }
 
+    var INPUT_TYPES = {
+        numeric: 'number',
+        default: 'text',
+    };
+    var FreeTextInputDirective = /** @class */ (function () {
+        function FreeTextInputDirective() {
+        }
+        Object.defineProperty(FreeTextInputDirective.prototype, "feature", {
+            get: function () {
+                return this._feature;
+            },
+            set: function (val) {
+                this._feature = val;
+                this.setInputType();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        FreeTextInputDirective.prototype.setInputType = function () {
+            var _a, _b, _c, _d;
+            var validatorType = (_c = (_b = (_a = this.feature) === null || _a === void 0 ? void 0 : _a.valueType) === null || _b === void 0 ? void 0 : _b.validator) === null || _c === void 0 ? void 0 : _c.name.toLowerCase();
+            this.type = (_d = INPUT_TYPES[validatorType]) !== null && _d !== void 0 ? _d : INPUT_TYPES.default;
+        };
+        return FreeTextInputDirective;
+    }());
+    FreeTextInputDirective.decorators = [
+        { type: i0.Directive, args: [{
+                    selector: 'input[abpFeatureManagementFreeText]',
+                    exportAs: 'inputAbpFeatureManagementFreeText',
+                },] }
+    ];
+    FreeTextInputDirective.propDecorators = {
+        feature: [{ type: i0.Input, args: ['abpFeatureManagementFreeText',] }],
+        type: [{ type: i0.HostBinding, args: ['type',] }]
+    };
+
+    var FeaturesService = /** @class */ (function () {
+        function FeaturesService(restService) {
+            var _this = this;
+            this.restService = restService;
+            this.apiName = 'AbpFeatureManagement';
+            this.get = function (providerName, providerKey) { return _this.restService.request({
+                method: 'GET',
+                url: '/api/feature-management/features',
+                params: { providerName: providerName, providerKey: providerKey },
+            }, { apiName: _this.apiName }); };
+            this.update = function (providerName, providerKey, input) { return _this.restService.request({
+                method: 'PUT',
+                url: '/api/feature-management/features',
+                params: { providerName: providerName, providerKey: providerKey },
+                body: input,
+            }, { apiName: _this.apiName }); };
+        }
+        return FeaturesService;
+    }());
+    FeaturesService.ɵprov = i0.ɵɵdefineInjectable({ factory: function FeaturesService_Factory() { return new FeaturesService(i0.ɵɵinject(i1.RestService)); }, token: FeaturesService, providedIn: "root" });
+    FeaturesService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    FeaturesService.ctorParameters = function () { return [
+        { type: i1.RestService }
+    ]; };
+
+    var ValueTypes;
+    (function (ValueTypes) {
+        ValueTypes["ToggleStringValueType"] = "ToggleStringValueType";
+        ValueTypes["FreeTextStringValueType"] = "FreeTextStringValueType";
+        ValueTypes["SelectionStringValueType"] = "SelectionStringValueType";
+    })(ValueTypes || (ValueTypes = {}));
+    var FeatureManagementComponent = /** @class */ (function () {
+        function FeatureManagementComponent(track, service, store) {
+            this.track = track;
+            this.service = service;
+            this.store = store;
+            this.groups = [];
+            this.valueTypes = ValueTypes;
+            this.visibleChange = new i0.EventEmitter();
+            this.modalBusy = false;
+        }
+        Object.defineProperty(FeatureManagementComponent.prototype, "visible", {
+            get: function () {
+                return this._visible;
+            },
+            set: function (value) {
+                if (this._visible === value)
+                    return;
+                this._visible = value;
+                this.visibleChange.emit(value);
+                if (value)
+                    this.openModal();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        FeatureManagementComponent.prototype.openModal = function () {
+            if (!this.providerName) {
+                throw new Error('providerName is required.');
+            }
+            this.getFeatures();
+        };
+        FeatureManagementComponent.prototype.getFeatures = function () {
+            var _this = this;
+            this.service.get(this.providerName, this.providerKey).subscribe(function (res) {
+                _this.groups = res.groups.map(function (_b) {
+                    var name = _b.name, displayName = _b.displayName;
+                    return ({ name: name, displayName: displayName });
+                });
+                _this.selectedGroupDisplayName = _this.groups[0].displayName;
+                _this.features = res.groups.reduce(function (acc, val) {
+                    var _b;
+                    return (Object.assign(Object.assign({}, acc), (_b = {}, _b[val.name] = mapFeatures(val.features, document.body.dir), _b)));
+                }, {});
+            });
+        };
+        FeatureManagementComponent.prototype.save = function () {
+            var _this = this;
+            if (this.modalBusy)
+                return;
+            var changedFeatures = [];
+            Object.keys(this.features).forEach(function (key) {
+                _this.features[key].forEach(function (feature) {
+                    if (feature.value !== feature.initialValue)
+                        changedFeatures.push({ name: feature.name, value: feature.value });
+                });
+            });
+            if (!changedFeatures.length) {
+                this.visible = false;
+                return;
+            }
+            this.modalBusy = true;
+            this.service
+                .update(this.providerName, this.providerKey, { features: changedFeatures })
+                .pipe(operators.finalize(function () { return (_this.modalBusy = false); }))
+                .subscribe(function () {
+                _this.visible = false;
+                if (!_this.providerKey) {
+                    // to refresh host's features
+                    _this.store.dispatch(new i1.GetAppConfiguration());
+                }
+            });
+        };
+        FeatureManagementComponent.prototype.onCheckboxClick = function (val, feature) {
+            if (val) {
+                this.checkToggleAncestors(feature);
+            }
+            else {
+                this.uncheckToggleDescendants(feature);
+            }
+        };
+        FeatureManagementComponent.prototype.uncheckToggleDescendants = function (feature) {
+            var _this = this;
+            this.findAllDescendantsOfByType(feature, ValueTypes.ToggleStringValueType).forEach(function (node) { return _this.setFeatureValue(node, false); });
+        };
+        FeatureManagementComponent.prototype.checkToggleAncestors = function (feature) {
+            var _this = this;
+            this.findAllAncestorsOfByType(feature, ValueTypes.ToggleStringValueType).forEach(function (node) { return _this.setFeatureValue(node, true); });
+        };
+        FeatureManagementComponent.prototype.findAllAncestorsOfByType = function (feature, type) {
+            var parent = this.findParentByType(feature, type);
+            var ancestors = [];
+            while (parent) {
+                ancestors.push(parent);
+                parent = this.findParentByType(parent, type);
+            }
+            return ancestors;
+        };
+        FeatureManagementComponent.prototype.findAllDescendantsOfByType = function (feature, type) {
+            var descendants = [];
+            var queue = [feature];
+            while (queue.length) {
+                var node = queue.pop();
+                var newDescendants = this.findChildrenByType(node, type);
+                descendants.push.apply(descendants, __spread(newDescendants));
+                queue.push.apply(queue, __spread(newDescendants));
+            }
+            return descendants;
+        };
+        FeatureManagementComponent.prototype.findParentByType = function (feature, type) {
+            return this.getCurrentGroup().find(function (f) { return f.valueType.name === type && f.name === feature.parentName; });
+        };
+        FeatureManagementComponent.prototype.findChildrenByType = function (feature, type) {
+            return this.getCurrentGroup().filter(function (f) { return f.valueType.name === type && f.parentName === feature.name; });
+        };
+        FeatureManagementComponent.prototype.getCurrentGroup = function () {
+            var _a;
+            return (_a = this.features[this.selectedGroupDisplayName]) !== null && _a !== void 0 ? _a : [];
+        };
+        FeatureManagementComponent.prototype.setFeatureValue = function (feature, val) {
+            feature.value = val;
+        };
+        return FeatureManagementComponent;
+    }());
+    FeatureManagementComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-feature-management',
+                    template: "<abp-modal *ngIf=\"visible\" size=\"lg\" [(visible)]=\"visible\" [busy]=\"modalBusy\">\r\n  <ng-template #abpHeader>\r\n    <h3>{{ 'AbpFeatureManagement::Features' | abpLocalization }}</h3>\r\n  </ng-template>\r\n\r\n  <ng-template #abpBody>\r\n    <div class=\"row\">\r\n      <div class=\"col-md-4\">\r\n        <ul\r\n          ngbNav\r\n          #nav=\"ngbNav\"\r\n          [(activeId)]=\"selectedGroupDisplayName\"\r\n          class=\"nav-pills\"\r\n          orientation=\"vertical\"\r\n        >\r\n          <li\r\n            *ngFor=\"let group of groups; trackBy: track.by('name')\"\r\n            [ngbNavItem]=\"group.displayName\"\r\n          >\r\n            <a ngbNavLink>{{ group.displayName }}</a>\r\n            <ng-template ngbNavContent>\r\n              <h4>{{ selectedGroupDisplayName }}</h4>\r\n              <hr class=\"mt-2 mb-3\" />\r\n\r\n              <div\r\n                class=\"mt-2\"\r\n                *ngFor=\"let feature of features[group.name]; let i = index; trackBy: track.by('id')\"\r\n                [ngStyle]=\"feature.style\"\r\n                [ngSwitch]=\"feature.valueType?.name\"\r\n                (keyup.enter)=\"save()\"\r\n              >\r\n                <ng-container *ngSwitchCase=\"valueTypes.ToggleStringValueType\">\r\n                  <div class=\"custom-checkbox custom-control\">\r\n                    <input\r\n                      class=\"custom-control-input\"\r\n                      type=\"checkbox\"\r\n                      [id]=\"feature.name\"\r\n                      [(ngModel)]=\"feature.value\"\r\n                      (ngModelChange)=\"onCheckboxClick($event, feature)\"\r\n                    />\r\n\r\n                    <label class=\"custom-control-label\" [htmlFor]=\"feature.name\">{{\r\n                      feature.displayName\r\n                    }}</label>\r\n                    <ng-container\r\n                      *ngTemplateOutlet=\"descTmp; context: { $implicit: feature.description }\"\r\n                    ></ng-container>\r\n                  </div>\r\n                </ng-container>\r\n                <ng-container *ngSwitchCase=\"valueTypes.FreeTextStringValueType\">\r\n                  <div class=\"form-group\">\r\n                    <label [htmlFor]=\"feature.name\">{{ feature.displayName }}</label>\r\n                    <input\r\n                      class=\"form-control\"\r\n                      type=\"text\"\r\n                      [id]=\"feature.name\"\r\n                      [(ngModel)]=\"feature.value\"\r\n                      [abpFeatureManagementFreeText]=\"feature\"\r\n                    />\r\n\r\n                    <ng-container\r\n                      *ngTemplateOutlet=\"descTmp; context: { $implicit: feature.description }\"\r\n                    ></ng-container>\r\n                  </div>\r\n                </ng-container>\r\n                <ng-container *ngSwitchCase=\"valueTypes.SelectionStringValueType\">\r\n                  <ng-container *ngIf=\"feature.valueType.itemSource?.items?.length\">\r\n                    <div class=\"form-group\">\r\n                      <label [htmlFor]=\"feature.name\">{{ feature.displayName }}</label>\r\n                      <select\r\n                        class=\"form-control custom-select\"\r\n                        [id]=\"feature.name\"\r\n                        [(ngModel)]=\"feature.value\"\r\n                      >\r\n                        <option\r\n                          *ngFor=\"\r\n                            let item of feature.valueType.itemSource?.items;\r\n                            trackBy: track.by('value')\r\n                          \"\r\n                          [ngValue]=\"item.value\"\r\n                        >\r\n                          {{\r\n                            item.displayText?.resourceName + '::' + item.displayText?.name\r\n                              | abpLocalization\r\n                          }}</option\r\n                        >\r\n                      </select>\r\n                      <ng-container\r\n                        *ngTemplateOutlet=\"descTmp; context: { $implicit: feature.description }\"\r\n                      ></ng-container>\r\n                    </div>\r\n                  </ng-container>\r\n                </ng-container>\r\n                <ng-container *ngSwitchDefault>{{ feature.displayName }}</ng-container>\r\n              </div>\r\n            </ng-template>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n\r\n      <ng-template #descTmp let-description>\r\n        <small *ngIf=\"description\" class=\"form-text text-muted\">{{ description }}</small>\r\n      </ng-template>\r\n\r\n      <div class=\"col-md-8\"><div [ngbNavOutlet]=\"nav\"></div></div>\r\n\r\n      <div class=\"mx-3\" *ngIf=\"!groups.length\">\r\n        {{ 'AbpFeatureManagement::NoFeatureFoundMessage' | abpLocalization }}\r\n      </div>\r\n    </div>\r\n  </ng-template>\r\n\r\n  <ng-template #abpFooter>\r\n    <button #abpClose type=\"button\" class=\"btn btn-secondary\">\r\n      {{ 'AbpFeatureManagement::Cancel' | abpLocalization }}\r\n    </button>\r\n    <abp-button\r\n      *ngIf=\"groups.length\"\r\n      iconClass=\"fa fa-check\"\r\n      [disabled]=\"modalBusy\"\r\n      (click)=\"save()\"\r\n    >\r\n      {{ 'AbpFeatureManagement::Save' | abpLocalization }}\r\n    </abp-button>\r\n  </ng-template>\r\n</abp-modal>\r\n",
+                    exportAs: 'abpFeatureManagement'
+                },] }
+    ];
+    FeatureManagementComponent.ctorParameters = function () { return [
+        { type: i1.TrackByService },
+        { type: FeaturesService },
+        { type: i2.Store }
+    ]; };
+    FeatureManagementComponent.propDecorators = {
+        providerKey: [{ type: i0.Input }],
+        providerName: [{ type: i0.Input }],
+        visible: [{ type: i0.Input }],
+        visibleChange: [{ type: i0.Output }]
+    };
+    function mapFeatures(features, dir) {
+        var margin = "margin-" + (dir === 'rtl' ? 'right' : 'left') + ".px";
+        return features.map(function (feature) {
+            var _b;
+            var _a;
+            var value = ((_a = feature.valueType) === null || _a === void 0 ? void 0 : _a.name) === ValueTypes.ToggleStringValueType
+                ? (feature.value || '').toLowerCase() === 'true'
+                : feature.value;
+            return Object.assign(Object.assign({}, feature), { value: value, initialValue: value, style: (_b = {}, _b[margin] = feature.depth * 20, _b) });
+        });
+    }
+
+    /**
+     * @deprecated To be deleted in v4.0.
+     */
     var GetFeatures = /** @class */ (function () {
         function GetFeatures(payload) {
             this.payload = payload;
@@ -303,6 +539,9 @@
         return GetFeatures;
     }());
     GetFeatures.type = '[FeatureManagement] Get Features';
+    /**
+     * @deprecated To be deleted in v4.0.
+     */
     var UpdateFeatures = /** @class */ (function () {
         function UpdateFeatures(payload) {
             this.payload = payload;
@@ -311,7 +550,10 @@
     }());
     UpdateFeatures.type = '[FeatureManagement] Update Features';
 
-    exports.ɵd = /** @class */ (function () {
+    /**
+     * @deprecated Use FeaturesService instead. To be deleted in v4.0.
+     */
+    var FeatureManagementService = /** @class */ (function () {
         function FeatureManagementService(rest, store) {
             this.rest = rest;
             this.store = store;
@@ -339,15 +581,21 @@
         };
         return FeatureManagementService;
     }());
-    exports.ɵd.ɵprov = i0.ɵɵdefineInjectable({ factory: function FeatureManagementService_Factory() { return new exports.ɵd(i0.ɵɵinject(i1.RestService), i0.ɵɵinject(i2.Store)); }, token: exports.ɵd, providedIn: "root" });
-    exports.ɵd = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __metadata("design:paramtypes", [i1.RestService, i2.Store])
-    ], exports.ɵd);
+    FeatureManagementService.ɵprov = i0.ɵɵdefineInjectable({ factory: function FeatureManagementService_Factory() { return new FeatureManagementService(i0.ɵɵinject(i1.RestService), i0.ɵɵinject(i2.Store)); }, token: FeatureManagementService, providedIn: "root" });
+    FeatureManagementService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    FeatureManagementService.ctorParameters = function () { return [
+        { type: i1.RestService },
+        { type: i2.Store }
+    ]; };
 
-    exports.ɵc = /** @class */ (function () {
+    /**
+     * @deprecated To be deleted in v4.0.
+     */
+    exports.ɵd = /** @class */ (function () {
         function FeatureManagementState(featureManagementService) {
             this.featureManagementService = featureManagementService;
         }
@@ -359,7 +607,7 @@
             var patchState = _a.patchState;
             var payload = _b.payload;
             return this.featureManagementService.getFeatures(payload).pipe(operators.tap(function (_a) {
-                var features = _a.features;
+                var _b = _a.features, features = _b === void 0 ? [] : _b;
                 return patchState({
                     features: features,
                 });
@@ -371,148 +619,70 @@
         };
         return FeatureManagementState;
     }());
+    exports.ɵd.decorators = [
+        { type: i0.Injectable }
+    ];
+    exports.ɵd.ctorParameters = function () { return [
+        { type: FeatureManagementService }
+    ]; };
     __decorate([
         i2.Action(GetFeatures),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, GetFeatures]),
         __metadata("design:returntype", void 0)
-    ], exports.ɵc.prototype, "getFeatures", null);
+    ], exports.ɵd.prototype, "getFeatures", null);
     __decorate([
         i2.Action(UpdateFeatures),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, UpdateFeatures]),
         __metadata("design:returntype", void 0)
-    ], exports.ɵc.prototype, "updateFeatures", null);
+    ], exports.ɵd.prototype, "updateFeatures", null);
     __decorate([
         i2.Selector(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
-    ], exports.ɵc, "getFeatures", null);
-    exports.ɵc = __decorate([
+    ], exports.ɵd, "getFeatures", null);
+    exports.ɵd = __decorate([
         i2.State({
             name: 'FeatureManagementState',
             defaults: { features: {} },
         }),
-        i0.Injectable(),
-        __metadata("design:paramtypes", [exports.ɵd])
-    ], exports.ɵc);
+        __metadata("design:paramtypes", [FeatureManagementService])
+    ], exports.ɵd);
 
-    exports.ɵa = /** @class */ (function () {
-        function FeatureManagementComponent(store) {
-            this.store = store;
-            this.visibleChange = new i0.EventEmitter();
-            this.modalBusy = false;
-        }
-        Object.defineProperty(FeatureManagementComponent.prototype, "visible", {
-            get: function () {
-                return this._visible;
-            },
-            set: function (value) {
-                this._visible = value;
-                this.visibleChange.emit(value);
-                if (value)
-                    this.openModal();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        FeatureManagementComponent.prototype.openModal = function () {
-            if (!this.providerKey || !this.providerName) {
-                throw new Error('Provider Key and Provider Name are required.');
-            }
-            this.getFeatures();
-        };
-        FeatureManagementComponent.prototype.getFeatures = function () {
-            var _this = this;
-            this.store
-                .dispatch(new GetFeatures({
-                providerKey: this.providerKey,
-                providerName: this.providerName,
-            }))
-                .pipe(operators.pluck('FeatureManagementState', 'features'))
-                .subscribe(function (features) {
-                _this.buildForm(features);
-            });
-        };
-        FeatureManagementComponent.prototype.buildForm = function (features) {
-            var formGroupObj = {};
-            for (var i = 0; i < features.length; i++) {
-                formGroupObj[i] = new forms.FormControl(features[i].value === 'false' ? null : features[i].value);
-            }
-            this.form = new forms.FormGroup(formGroupObj);
-        };
-        FeatureManagementComponent.prototype.save = function () {
-            var _this = this;
-            if (this.modalBusy)
-                return;
-            this.modalBusy = true;
-            var features = this.store.selectSnapshot(exports.ɵc.getFeatures);
-            features = features.map(function (feature, i) { return (Object.assign(Object.assign({}, feature), { value: _this.form.value[i] })); });
-            this.store
-                .dispatch(new UpdateFeatures({
-                providerKey: this.providerKey,
-                providerName: this.providerName,
-                features: features,
-            }))
-                .pipe(operators.finalize(function () { return (_this.modalBusy = false); }))
-                .subscribe(function () {
-                _this.visible = false;
-            });
-        };
-        return FeatureManagementComponent;
-    }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵa.prototype, "providerKey", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵa.prototype, "providerName", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], exports.ɵa.prototype, "visible", null);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵa.prototype, "visibleChange", void 0);
-    __decorate([
-        i2.Select(exports.ɵc.getFeatures),
-        __metadata("design:type", rxjs.Observable)
-    ], exports.ɵa.prototype, "features$", void 0);
-    exports.ɵa = __decorate([
-        i0.Component({
-            selector: 'abp-feature-management',
-            template: "<abp-modal size=\"md\" [(visible)]=\"visible\" [busy]=\"modalBusy\">\r\n  <ng-template #abpHeader>\r\n    <h3>{{ 'AbpFeatureManagement::Features' | abpLocalization }}</h3>\r\n  </ng-template>\r\n\r\n  <ng-template #abpBody>\r\n    <form *ngIf=\"form\" (ngSubmit)=\"save()\" [formGroup]=\"form\" validateOnSubmit>\r\n      <div\r\n        class=\"row my-3\"\r\n        *ngFor=\"let feature of features$ | async; let i = index\"\r\n        [ngSwitch]=\"feature.valueType.name\"\r\n      >\r\n        <div class=\"mr-2\">{{ feature.displayName }}</div>\r\n        <div *ngSwitchCase=\"'ToggleStringValueType'\">\r\n          <input type=\"checkbox\" name=\"feature.name\" [formControlName]=\"i\" />\r\n        </div>\r\n        <div *ngSwitchCase=\"'FreeTextStringValueType'\">\r\n          <input type=\"text\" name=\"feature.name\" [formControlName]=\"i\" />\r\n        </div>\r\n      </div>\r\n      <div *ngIf=\"!(features$ | async)?.length\">\r\n        {{ 'AbpFeatureManagement::NoFeatureFoundMessage' | abpLocalization }}\r\n      </div>\r\n    </form>\r\n  </ng-template>\r\n\r\n  <ng-template #abpFooter>\r\n    <ng-container *ngIf=\"(features$ | async)?.length\">\r\n      <button #abpClose type=\"button\" class=\"btn btn-secondary\">\r\n        {{ 'AbpFeatureManagement::Cancel' | abpLocalization }}\r\n      </button>\r\n      <abp-button iconClass=\"fa fa-check\" [disabled]=\"form?.invalid || modalBusy\" (click)=\"save()\">\r\n        {{ 'AbpFeatureManagement::Save' | abpLocalization }}\r\n      </abp-button>\r\n    </ng-container>\r\n  </ng-template>\r\n</abp-modal>\r\n",
-            exportAs: 'abpFeatureManagement'
-        }),
-        __metadata("design:paramtypes", [i2.Store])
-    ], exports.ɵa);
-
-    exports.FeatureManagementModule = /** @class */ (function () {
+    var exported = [FeatureManagementComponent, FreeTextInputDirective];
+    var FeatureManagementModule = /** @class */ (function () {
         function FeatureManagementModule() {
         }
         return FeatureManagementModule;
     }());
-    exports.FeatureManagementModule = __decorate([
-        i0.NgModule({
-            declarations: [exports.ɵa],
-            imports: [i1.CoreModule, ng_theme_shared.ThemeSharedModule, i2.NgxsModule.forFeature([exports.ɵc])],
-            exports: [exports.ɵa],
-        })
-    ], exports.FeatureManagementModule);
+    FeatureManagementModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    declarations: __spread(exported),
+                    imports: [
+                        i1.CoreModule,
+                        ng_theme_shared.ThemeSharedModule,
+                        ngBootstrap.NgbNavModule,
+                        i2.NgxsModule.forFeature([exports.ɵd]),
+                    ],
+                    exports: __spread(exported),
+                },] }
+    ];
 
     /**
      * Generated bundle index. Do not edit.
      */
 
-    exports.FeatureManagementComponent = exports.ɵa;
-    exports.ɵb = exports.ɵc;
-    exports.ɵe = GetFeatures;
-    exports.ɵf = UpdateFeatures;
+    exports.FeatureManagementComponent = FeatureManagementComponent;
+    exports.FeatureManagementModule = FeatureManagementModule;
+    exports.FeaturesService = FeaturesService;
+    exports.ɵa = FeatureManagementComponent;
+    exports.ɵb = FeaturesService;
+    exports.ɵc = FreeTextInputDirective;
+    exports.ɵe = FeatureManagementService;
+    exports.ɵf = GetFeatures;
+    exports.ɵg = UpdateFeatures;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

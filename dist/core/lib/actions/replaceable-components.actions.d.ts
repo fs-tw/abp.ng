@@ -1,6 +1,6 @@
 import { ReplaceableComponents } from '../models/replaceable-components';
 /**
- * @see usage: https://github.com/abpframework/abp/pull/2522#issue-358333183
+ * @deprecated To be deleted in v4.0. Use ReplaceableComponentsService instead. See the doc (https://docs.abp.io/en/abp/latest/UI/Angular/Component-Replacement)
  */
 export declare class AddReplaceableComponent {
     payload: ReplaceableComponents.ReplaceableComponent;

@@ -1,14 +1,12 @@
-import { __decorate } from "tslib";
 import { Component } from '@angular/core';
-let RouterOutletComponent = class RouterOutletComponent {
-};
-RouterOutletComponent = __decorate([
-    Component({
-        selector: 'abp-router-outlet',
-        template: `
+export class RouterOutletComponent {
+}
+RouterOutletComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-router-outlet',
+                template: `
     <router-outlet></router-outlet>
   `
-    })
-], RouterOutletComponent);
-export { RouterOutletComponent };
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicm91dGVyLW91dGxldC5jb21wb25lbnQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi9wYWNrYWdlcy9jb3JlL3NyYy9saWIvY29tcG9uZW50cy9yb3V0ZXItb3V0bGV0LmNvbXBvbmVudC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQUEsT0FBTyxFQUFFLFNBQVMsRUFBRSxNQUFNLGVBQWUsQ0FBQztBQVExQyxJQUFhLHFCQUFxQixHQUFsQyxNQUFhLHFCQUFxQjtDQUFHLENBQUE7QUFBeEIscUJBQXFCO0lBTmpDLFNBQVMsQ0FBQztRQUNULFFBQVEsRUFBRSxtQkFBbUI7UUFDN0IsUUFBUSxFQUFFOztHQUVUO0tBQ0YsQ0FBQztHQUNXLHFCQUFxQixDQUFHO1NBQXhCLHFCQUFxQiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IENvbXBvbmVudCB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xyXG5cclxuQENvbXBvbmVudCh7XHJcbiAgc2VsZWN0b3I6ICdhYnAtcm91dGVyLW91dGxldCcsXHJcbiAgdGVtcGxhdGU6IGBcclxuICAgIDxyb3V0ZXItb3V0bGV0Pjwvcm91dGVyLW91dGxldD5cclxuICBgLFxyXG59KVxyXG5leHBvcnQgY2xhc3MgUm91dGVyT3V0bGV0Q29tcG9uZW50IHt9XHJcbiJdfQ==
+            },] }
+];
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicm91dGVyLW91dGxldC5jb21wb25lbnQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi9wYWNrYWdlcy9jb3JlL3NyYy9saWIvY29tcG9uZW50cy9yb3V0ZXItb3V0bGV0LmNvbXBvbmVudC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxPQUFPLEVBQUUsU0FBUyxFQUFFLE1BQU0sZUFBZSxDQUFDO0FBUTFDLE1BQU0sT0FBTyxxQkFBcUI7OztZQU5qQyxTQUFTLFNBQUM7Z0JBQ1QsUUFBUSxFQUFFLG1CQUFtQjtnQkFDN0IsUUFBUSxFQUFFOztHQUVUO2FBQ0YiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBDb21wb25lbnQgfSBmcm9tICdAYW5ndWxhci9jb3JlJztcclxuXHJcbkBDb21wb25lbnQoe1xyXG4gIHNlbGVjdG9yOiAnYWJwLXJvdXRlci1vdXRsZXQnLFxyXG4gIHRlbXBsYXRlOiBgXHJcbiAgICA8cm91dGVyLW91dGxldD48L3JvdXRlci1vdXRsZXQ+XHJcbiAgYCxcclxufSlcclxuZXhwb3J0IGNsYXNzIFJvdXRlck91dGxldENvbXBvbmVudCB7fVxyXG4iXX0=

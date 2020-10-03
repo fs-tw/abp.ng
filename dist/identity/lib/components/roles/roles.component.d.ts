@@ -1,20 +1,20 @@
-import { ListService } from '@abp/ng.core';
+import { ListService, PagedAndSortedResultRequestDto } from '@abp/ng.core';
 import { ePermissionManagementComponents } from '@abp/ng.permission-management';
 import { ConfirmationService } from '@abp/ng.theme.shared';
 import { ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Identity } from '../../models/identity';
+import { IdentityRoleDto } from '../../proxy/identity/models';
 export declare class RolesComponent implements OnInit {
-    readonly list: ListService;
+    readonly list: ListService<PagedAndSortedResultRequestDto>;
     private confirmationService;
     private fb;
     private store;
-    data$: Observable<Identity.RoleItem[]>;
+    data$: Observable<IdentityRoleDto[]>;
     totalCount$: Observable<number>;
     form: FormGroup;
-    selected: Identity.RoleItem;
+    selected: IdentityRoleDto;
     isModalVisible: boolean;
     visiblePermissions: boolean;
     providerKey: string;
@@ -22,7 +22,7 @@ export declare class RolesComponent implements OnInit {
     permissionManagementKey: ePermissionManagementComponents;
     formRef: ElementRef<HTMLFormElement>;
     onVisiblePermissionChange: (event: any) => void;
-    constructor(list: ListService, confirmationService: ConfirmationService, fb: FormBuilder, store: Store);
+    constructor(list: ListService<PagedAndSortedResultRequestDto>, confirmationService: ConfirmationService, fb: FormBuilder, store: Store);
     ngOnInit(): void;
     buildForm(): void;
     openModal(): void;

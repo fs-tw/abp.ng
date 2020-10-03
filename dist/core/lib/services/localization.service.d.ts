@@ -22,6 +22,9 @@ export declare class LocalizationService {
      * @param interpolateParams Values to interpolate
      */
     get(key: string | Config.LocalizationWithDefault, ...interpolateParams: string[]): Observable<string>;
+    getResource(resourceName: string): Observable<{
+        [key: string]: string;
+    }>;
     /**
      * Returns localized text with the given interpolation parameters in current language.
      * @param key Localization key to replace with localized text

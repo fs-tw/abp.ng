@@ -33,7 +33,9 @@
               "packages/core/tsconfig.lib.json",
               "packages/core/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -70,7 +72,9 @@
               "packages/theme-shared/tsconfig.lib.json",
               "packages/theme-shared/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -107,7 +111,9 @@
               "packages/components/tsconfig.lib.json",
               "packages/components/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -144,7 +150,9 @@
               "packages/theme-basic/tsconfig.lib.json",
               "packages/theme-basic/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -181,7 +189,9 @@
               "packages/account/tsconfig.lib.json",
               "packages/account/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -254,7 +264,9 @@
               "packages/identity/tsconfig.lib.json",
               "packages/identity/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -390,8 +402,12 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["packages/schematics/tsconfig.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "packages/schematics/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -530,7 +546,9 @@
               "apps/tmpl/dev-app/tsconfig.prod.json",
               "apps/tmpl/dev-app/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -581,7 +599,9 @@
               "node_modules/qrious/dist/qrious.min.js"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["node_modules/"]
+              "includePaths": [
+                "node_modules/"
+              ]
             }
           },
           "configurations": {
@@ -680,7 +700,10 @@
               "libs/tmpl/theme-core/tsconfig.lib.json",
               "libs/tmpl/theme-core/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/tmpl/theme-core/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/tmpl/theme-core/**/*"
+            ]
           }
         },
         "test": {
@@ -718,7 +741,10 @@
               "libs/tmpl/theme-ng-alain/tsconfig.lib.json",
               "libs/tmpl/theme-ng-alain/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/tmpl/theme-ng-alain/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/tmpl/theme-ng-alain/**"
+            ]
           }
         },
         "test": {
@@ -755,7 +781,10 @@
               "libs/tmpl/account/tsconfig.lib.json",
               "libs/tmpl/account/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/tmpl/account/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/tmpl/account/**/*"
+            ]
           }
         },
         "test": {
@@ -793,7 +822,10 @@
               "libs/tmpl/identity/tsconfig.lib.json",
               "libs/tmpl/identity/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/tmpl/identity/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/tmpl/identity/**/*"
+            ]
           }
         },
         "test": {

@@ -143,9 +143,7 @@
               "apps/tmpl/dev-app/tsconfig.prod.json",
               "apps/tmpl/dev-app/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -196,9 +194,7 @@
               "node_modules/qrious/dist/qrious.min.js"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "node_modules/"
-              ]
+              "includePaths": ["node_modules/"]
             }
           },
           "configurations": {
@@ -264,6 +260,6 @@
           }
         }
       }
-    }    
+    }
   }
 }

@@ -1,24 +1,40 @@
-import { ABP } from '@abp/ng.core';
+import { ABP, PagedResultDto } from '@abp/ng.core';
+import { IdentityRoleDto, IdentityUserDto } from '../proxy/identity/models';
 export declare namespace Identity {
     interface State {
-        roles: RoleResponse;
-        users: UserResponse;
-        selectedRole: RoleItem;
-        selectedUser: UserItem;
-        selectedUserRoles: RoleItem[];
+        roles: PagedResultDto<IdentityRoleDto>;
+        users: PagedResultDto<IdentityUserDto>;
+        selectedRole: IdentityRoleDto;
+        selectedUser: IdentityUserDto;
+        selectedUserRoles: IdentityRoleDto[];
     }
+    /**
+     * @deprecated To be deleted in v4.0.
+     */
     type RoleResponse = ABP.PagedResponse<RoleItem>;
+    /**
+     * @deprecated To be deleted in v4.0.
+     */
     interface RoleSaveRequest {
         name: string;
         isDefault: boolean;
         isPublic: boolean;
     }
+    /**
+     * @deprecated To be deleted in v4.0.
+     */
     interface RoleItem extends RoleSaveRequest {
         isStatic: boolean;
         concurrencyStamp: string;
         id: string;
     }
+    /**
+     * @deprecated To be deleted in v4.0.
+     */
     type UserResponse = ABP.PagedResponse<UserItem>;
+    /**
+     * @deprecated To be deleted in v4.0.
+     */
     interface UserItem extends User {
         tenantId: string;
         emailConfirmed: boolean;
@@ -27,6 +43,9 @@ export declare namespace Identity {
         concurrencyStamp: string;
         id: string;
     }
+    /**
+     * @deprecated To be deleted in v4.0.
+     */
     interface User {
         userName: string;
         name: string;
@@ -36,6 +55,9 @@ export declare namespace Identity {
         twoFactorEnabled: true;
         lockoutEnabled: true;
     }
+    /**
+     * @deprecated To be deleted in v4.0.
+     */
     interface UserSaveRequest extends User {
         password: string;
         roleNames: string[];

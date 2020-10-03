@@ -1,22 +1,22 @@
-import { __decorate, __metadata, __rest, __param, __awaiter } from 'tslib';
-import { ChangeDetectorRef, Input, Component, Injector, Injectable, InjectionToken, ɵɵdefineInjectable, ɵɵinject, Inject, INJECTOR, Optional, NgZone, SkipSelf, Directive, ElementRef, EventEmitter, Output, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, Self, Renderer2, ComponentFactoryResolver, Pipe, NgModule, LOCALE_ID, APP_INITIALIZER, NgModuleFactory, Compiler, ApplicationRef } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, Input, Injectable, InjectionToken, ɵɵdefineInjectable, ɵɵinject, Inject, INJECTOR, Optional, NgZone, SkipSelf, Directive, ElementRef, EventEmitter, Output, HostBinding, TemplateRef, ViewContainerRef, IterableDiffers, Self, isDevMode, Renderer2, ComponentFactoryResolver, Pipe, NgModule, LOCALE_ID, APP_INITIALIZER, NgModuleFactory, Compiler, ApplicationRef } from '@angular/core';
 import { Router, PRIMARY_OUTLET, ActivatedRoute, NavigationEnd, RouterModule } from '@angular/router';
-import { ofActionSuccessful, Action, Selector, State, Store, Actions, createSelector, actionMatcher, InitState, UpdateState, setValue, NgxsModule, NGXS_PLUGINS } from '@ngxs/store';
-import { fromEvent, of, throwError, from, noop as noop$1, BehaviorSubject, Subscription, Subject, Observable, concat, ReplaySubject } from 'rxjs';
-import { take, tap, switchMap, catchError, map, distinctUntilChanged, debounceTime, filter, finalize, takeUntil, retryWhen, delay, shareReplay } from 'rxjs/operators';
+import { __rest, __decorate, __metadata, __awaiter } from 'tslib';
+import { ofActionSuccessful, Store, Actions, Action, Selector, State, createSelector, actionMatcher, InitState, UpdateState, setValue, NgxsModule, NGXS_PLUGINS } from '@ngxs/store';
+import { fromEvent, of, throwError, from, noop as noop$1, BehaviorSubject, Subject, Subscription, Observable, concat, ReplaySubject } from 'rxjs';
+import { take, tap, switchMap, catchError, filter, map, distinctUntilChanged, debounceTime, finalize, takeUntil, retryWhen, delay, shareReplay } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import snq from 'snq';
 import { OAuthService, OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { registerLocaleData, CommonModule, APP_BASE_HREF } from '@angular/common';
 import { Navigate, NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import clone from 'just-clone';
+import compare from 'just-compare';
 import { FormGroupDirective, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxsStoragePluginModule, NGXS_STORAGE_PLUGIN_OPTIONS } from '@ngxs/storage-plugin';
-import compare from 'just-compare';
 
 // Not an abstract class on purpose. Do not change!
 // tslint:disable-next-line: use-component-selector
-let AbstractNgModelComponent = class AbstractNgModelComponent {
+class AbstractNgModelComponent {
     constructor(injector) {
         this.injector = injector;
         this.valueFn = value => value;
@@ -55,32 +55,20 @@ let AbstractNgModelComponent = class AbstractNgModelComponent {
     setDisabledState(isDisabled) {
         this.disabled = isDisabled;
     }
+}
+AbstractNgModelComponent.decorators = [
+    { type: Component, args: [{ template: '' },] }
+];
+AbstractNgModelComponent.ctorParameters = () => [
+    { type: Injector }
+];
+AbstractNgModelComponent.propDecorators = {
+    disabled: [{ type: Input }],
+    readonly: [{ type: Input }],
+    valueFn: [{ type: Input }],
+    valueLimitFn: [{ type: Input }],
+    value: [{ type: Input }]
 };
-__decorate([
-    Input(),
-    __metadata("design:type", Boolean)
-], AbstractNgModelComponent.prototype, "disabled", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Boolean)
-], AbstractNgModelComponent.prototype, "readonly", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Function)
-], AbstractNgModelComponent.prototype, "valueFn", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Function)
-], AbstractNgModelComponent.prototype, "valueLimitFn", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Object),
-    __metadata("design:paramtypes", [Object])
-], AbstractNgModelComponent.prototype, "value", null);
-AbstractNgModelComponent = __decorate([
-    Component({ template: '' }),
-    __metadata("design:paramtypes", [Injector])
-], AbstractNgModelComponent);
 
 class GetAppConfiguration {
 }
@@ -121,8 +109,9 @@ class ChangePassword {
 }
 ChangePassword.type = '[Profile] Change Password';
 
+// tslint:disable: max-line-length
 /**
- * @see usage: https://github.com/abpframework/abp/pull/2522#issue-358333183
+ * @deprecated To be deleted in v4.0. Use ReplaceableComponentsService instead. See the doc (https://docs.abp.io/en/abp/latest/UI/Angular/Component-Replacement)
  */
 class AddReplaceableComponent {
     constructor(payload, reload) {
@@ -258,6 +247,14 @@ let SessionState = SessionState_1 = class SessionState {
         });
     }
 };
+SessionState.decorators = [
+    { type: Injectable }
+];
+SessionState.ctorParameters = () => [
+    { type: OAuthService },
+    { type: Store },
+    { type: Actions }
+];
 __decorate([
     Action(SetLanguage),
     __metadata("design:type", Function),
@@ -305,7 +302,6 @@ SessionState = SessionState_1 = __decorate([
         name: 'SessionState',
         defaults: { sessionDetail: { openedTabCount: 0 } },
     }),
-    Injectable(),
     __metadata("design:paramtypes", [OAuthService, Store, Actions])
 ], SessionState);
 
@@ -399,6 +395,12 @@ let ConfigState = ConfigState_1 = class ConfigState {
         });
         return selector;
     }
+    static getLocalizationResource(resourceName) {
+        const selector = createSelector([ConfigState_1], (state) => {
+            return state.localization.values[resourceName];
+        });
+        return selector;
+    }
     static getLocalization(key, ...interpolateParams) {
         if (!key)
             key = '';
@@ -455,14 +457,14 @@ let ConfigState = ConfigState_1 = class ConfigState {
         return this.http
             .get(`${api}/api/abp/application-configuration`)
             .pipe(tap(configuration => patchState(Object.assign({}, configuration))), switchMap(configuration => {
-            let defaultLang = configuration.setting.values['Abp.Localization.DefaultLanguage'];
-            if (defaultLang.includes(';')) {
-                defaultLang = defaultLang.split(';')[0];
+            let lang = configuration.localization.currentCulture.cultureName;
+            if (lang.includes(';')) {
+                lang = lang.split(';')[0];
             }
-            document.documentElement.setAttribute('lang', configuration.localization.currentCulture.cultureName);
+            document.documentElement.setAttribute('lang', lang);
             return this.store.selectSnapshot(SessionState.getLanguage)
                 ? of(null)
-                : dispatch(new SetLanguage(defaultLang, false));
+                : dispatch(new SetLanguage(lang, false));
         }), catchError((err) => {
             dispatch(new RestOccurError(err));
             return throwError(err);
@@ -472,6 +474,13 @@ let ConfigState = ConfigState_1 = class ConfigState {
         return patchState({ environment });
     }
 };
+ConfigState.decorators = [
+    { type: Injectable }
+];
+ConfigState.ctorParameters = () => [
+    { type: HttpClient },
+    { type: Store }
+];
 __decorate([
     Action(GetAppConfiguration),
     __metadata("design:type", Function),
@@ -501,7 +510,6 @@ ConfigState = ConfigState_1 = __decorate([
         name: 'ConfigState',
         defaults: {},
     }),
-    Injectable(),
     __metadata("design:paramtypes", [HttpClient, Store])
 ], ConfigState);
 
@@ -568,7 +576,7 @@ function coreOptionsFactory(_a) {
     return Object.assign(Object.assign({}, options), { cultureNameLocaleFileMap: Object.assign(Object.assign({}, localesMapping), cultureNameLocaleFileMap) });
 }
 
-let RestService = class RestService {
+class RestService {
     constructor(options, http, store) {
         this.options = options;
         this.http = http;
@@ -601,16 +609,18 @@ let RestService = class RestService {
         })), options))
             .pipe(catchError(err => (skipHandleError ? throwError(err) : this.handleError(err))));
     }
-};
+}
 RestService.ɵprov = ɵɵdefineInjectable({ factory: function RestService_Factory() { return new RestService(ɵɵinject(CORE_OPTIONS), ɵɵinject(HttpClient), ɵɵinject(Store)); }, token: RestService, providedIn: "root" });
-RestService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __param(0, Inject(CORE_OPTIONS)),
-    __metadata("design:paramtypes", [Object, HttpClient,
-        Store])
-], RestService);
+RestService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+RestService.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [CORE_OPTIONS,] }] },
+    { type: HttpClient },
+    { type: Store }
+];
 
 const oAuthStorage = localStorage;
 class AuthFlowStrategy {
@@ -697,7 +707,7 @@ const AUTH_FLOW_STRATEGY = {
         return new AuthPasswordFlowStrategy(injector);
     },
 };
-function clearOAuthStorage(storage) {
+function clearOAuthStorage(storage = oAuthStorage) {
     const keys = [
         'access_token',
         'id_token',
@@ -726,7 +736,7 @@ function shouldStorageClear(clientId, storage) {
     return shouldClear;
 }
 
-let AuthService = class AuthService {
+class AuthService {
     constructor(actions, injector, rest, oAuthService, store, options) {
         this.actions = actions;
         this.injector = injector;
@@ -774,19 +784,21 @@ let AuthService = class AuthService {
     initLogin() {
         this.strategy.login();
     }
-};
+}
 AuthService.ɵprov = ɵɵdefineInjectable({ factory: function AuthService_Factory() { return new AuthService(ɵɵinject(Actions), ɵɵinject(INJECTOR), ɵɵinject(RestService), ɵɵinject(OAuthService), ɵɵinject(Store), ɵɵinject("ACCOUNT_OPTIONS", 8)); }, token: AuthService, providedIn: "root" });
-AuthService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __param(5, Optional()), __param(5, Inject('ACCOUNT_OPTIONS')),
-    __metadata("design:paramtypes", [Actions,
-        Injector,
-        RestService,
-        OAuthService,
-        Store, Object])
-], AuthService);
+AuthService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+AuthService.ctorParameters = () => [
+    { type: Actions },
+    { type: Injector },
+    { type: RestService },
+    { type: OAuthService },
+    { type: Store },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: ['ACCOUNT_OPTIONS',] }] }
+];
 
 function deepMerge(target, source) {
     if (isObjectAndNotArray(target) && isObjectAndNotArray(source)) {
@@ -848,7 +860,7 @@ function mergeEnvironments(local, remote, config) {
     }
 }
 
-let MultiTenancyService = class MultiTenancyService {
+class MultiTenancyService {
     constructor(restService, store) {
         this.restService = restService;
         this.store = store;
@@ -873,12 +885,15 @@ let MultiTenancyService = class MultiTenancyService {
     findTenantById(id, headers) {
         return this.restService.request({ url: `/api/abp/multi-tenancy/tenants/by-id/${id}`, method: 'GET', headers }, { apiName: this.apiName });
     }
-};
+}
 MultiTenancyService.ɵprov = ɵɵdefineInjectable({ factory: function MultiTenancyService_Factory() { return new MultiTenancyService(ɵɵinject(RestService), ɵɵinject(Store)); }, token: MultiTenancyService, providedIn: "root" });
-MultiTenancyService = __decorate([
-    Injectable({ providedIn: 'root' }),
-    __metadata("design:paramtypes", [RestService, Store])
-], MultiTenancyService);
+MultiTenancyService.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root' },] }
+];
+MultiTenancyService.ctorParameters = () => [
+    { type: RestService },
+    { type: Store }
+];
 
 const tenancyPlaceholder = '{0}';
 function getCurrentTenancyName(appBaseUrl) {
@@ -942,7 +957,7 @@ function getInitialData(injector) {
 function checkAccessToken(store, injector) {
     const oAuth = injector.get(OAuthService);
     if (oAuth.hasValidAccessToken() && !store.selectSnapshot(ConfigState.getDeep('currentUser.id'))) {
-        oAuth.logOut();
+        clearOAuthStorage();
     }
 }
 function localeInitializer(injector) {
@@ -1013,7 +1028,7 @@ function createLocalizationFinder(localization) {
     };
 }
 
-let LocalizationService = class LocalizationService {
+class LocalizationService {
     constructor(actions, store, injector, ngZone, otherInstance) {
         this.actions = actions;
         this.store = store;
@@ -1030,7 +1045,7 @@ let LocalizationService = class LocalizationService {
         return this.store.selectSnapshot(state => state.SessionState.language);
     }
     get languageChange() {
-        return this.actions.pipe(ofActionSuccessful(SetLanguage));
+        return this.actions.pipe(ofActionSuccessful(SetLanguage), filter((action) => action.dispatchAppConfiguration !== false));
     }
     listenToSetLanguage() {
         this.languageChange.subscribe(({ payload }) => this.registerLocale(payload));
@@ -1056,6 +1071,9 @@ let LocalizationService = class LocalizationService {
     get(key, ...interpolateParams) {
         return this.store.select(ConfigState.getLocalization(key, ...interpolateParams));
     }
+    getResource(resourceName) {
+        return this.store.select(ConfigState.getLocalizationResource(resourceName));
+    }
     /**
      * Returns localized text with the given interpolation parameters in current language.
      * @param key Localization key to replace with localized text
@@ -1078,18 +1096,109 @@ let LocalizationService = class LocalizationService {
         const localization = this.store.selectSnapshot(ConfigState.getOne('localization'));
         return createLocalizerWithFallback(localization)(resourceNames, keys, defaultValue);
     }
-};
+}
 LocalizationService.ɵprov = ɵɵdefineInjectable({ factory: function LocalizationService_Factory() { return new LocalizationService(ɵɵinject(Actions), ɵɵinject(Store), ɵɵinject(INJECTOR), ɵɵinject(NgZone), ɵɵinject(LocalizationService, 12)); }, token: LocalizationService, providedIn: "root" });
-LocalizationService = __decorate([
-    Injectable({ providedIn: 'root' }),
-    __param(4, Optional()),
-    __param(4, SkipSelf()),
-    __metadata("design:paramtypes", [Actions,
-        Store,
-        Injector,
-        NgZone,
-        LocalizationService])
-], LocalizationService);
+LocalizationService.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root' },] }
+];
+LocalizationService.ctorParameters = () => [
+    { type: Actions },
+    { type: Store },
+    { type: Injector },
+    { type: NgZone },
+    { type: LocalizationService, decorators: [{ type: Optional }, { type: SkipSelf }] }
+];
+
+class InternalStore {
+    constructor(initialState) {
+        this.initialState = initialState;
+        this.state$ = new BehaviorSubject(this.initialState);
+        this.update$ = new Subject();
+        this.sliceState = (selector, compareFn = compare) => this.state$.pipe(map(selector), distinctUntilChanged(compareFn));
+        this.sliceUpdate = (selector, filterFn = (x) => x !== undefined) => this.update$.pipe(map(selector), filter(filterFn));
+    }
+    get state() {
+        return this.state$.value;
+    }
+    patch(state) {
+        this.state$.next(deepMerge(this.state, state));
+        this.update$.next(state);
+    }
+    reset() {
+        this.patch(this.initialState);
+    }
+}
+
+function findRoute(routes, path) {
+    const node = routes.find(route => route.path === path);
+    return node || path === '/'
+        ? node
+        : findRoute(routes, path
+            .split('/')
+            .slice(0, -1)
+            .join('/'));
+}
+function getRoutePath(router, url = router.url) {
+    const emptyGroup = { segments: [] };
+    const primaryGroup = router.parseUrl(url).root.children[PRIMARY_OUTLET];
+    return '/' + (primaryGroup || emptyGroup).segments.map(({ path }) => path).join('/');
+}
+function reloadRoute(router, ngZone) {
+    const { shouldReuseRoute } = router.routeReuseStrategy;
+    const setRouteReuse = (reuse) => {
+        router.routeReuseStrategy.shouldReuseRoute = reuse;
+    };
+    setRouteReuse(() => false);
+    router.navigated = false;
+    ngZone.run(() => __awaiter(this, void 0, void 0, function* () {
+        yield router.navigateByUrl(router.url).catch(noop);
+        setRouteReuse(shouldReuseRoute);
+    }));
+}
+
+class ReplaceableComponentsService {
+    constructor(ngZone, router) {
+        this.ngZone = ngZone;
+        this.router = router;
+        this.store = new InternalStore([]);
+    }
+    get replaceableComponents$() {
+        return this.store.sliceState(state => state);
+    }
+    get replaceableComponents() {
+        return this.store.state;
+    }
+    get onUpdate$() {
+        return this.store.sliceUpdate(state => state);
+    }
+    add(replaceableComponent, reload) {
+        const replaceableComponents = [...this.store.state];
+        const index = replaceableComponents.findIndex(component => component.key === replaceableComponent.key);
+        if (index > -1) {
+            replaceableComponents[index] = replaceableComponent;
+        }
+        else {
+            replaceableComponents.push(replaceableComponent);
+        }
+        this.store.patch(replaceableComponents);
+        if (reload)
+            reloadRoute(this.router, this.ngZone);
+    }
+    get(replaceableComponentKey) {
+        return this.replaceableComponents.find(component => component.key === replaceableComponentKey);
+    }
+    get$(replaceableComponentKey) {
+        return this.replaceableComponents$.pipe(map(components => components.find(component => component.key === replaceableComponentKey)));
+    }
+}
+ReplaceableComponentsService.ɵprov = ɵɵdefineInjectable({ factory: function ReplaceableComponentsService_Factory() { return new ReplaceableComponentsService(ɵɵinject(NgZone), ɵɵinject(Router)); }, token: ReplaceableComponentsService, providedIn: "root" });
+ReplaceableComponentsService.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root' },] }
+];
+ReplaceableComponentsService.ctorParameters = () => [
+    { type: NgZone },
+    { type: Router }
+];
 
 function pushValueTo(array) {
     return (element) => {
@@ -1115,6 +1224,8 @@ function createTreeFromList(list, keySelector, parentKeySelector, valueMapper) {
         const id = keySelector(row);
         const parentId = parentKeySelector(row);
         const node = map.get(id);
+        if (!node)
+            return;
         if (parentId) {
             const parent = map.get(parentId);
             if (!parent)
@@ -1163,7 +1274,16 @@ class AbstractTreeService {
         return createTreeFromList(items, item => item[this.id], item => item[this.parentId], item => BaseTreeNode.create(item));
     }
     filterWith(setOrMap) {
-        return this._flat$.value.filter(item => !setOrMap.has(item[this.id]) && !setOrMap.has(item[this.parentId]));
+        return this._flat$.value.filter(item => !setOrMap.has(item[this.id]));
+    }
+    findItemsToRemove(set) {
+        return this._flat$.value.reduce((acc, item) => {
+            if (!acc.has(item[this.parentId]))
+                return acc;
+            const childSet = new Set([item[this.id]]);
+            const children = this.findItemsToRemove(childSet);
+            return new Set([...acc, ...children]);
+        }, set);
     }
     publish(flatItems, visibleItems) {
         this._flat$.next(flatItems);
@@ -1199,7 +1319,8 @@ class AbstractTreeService {
     remove(identifiers) {
         const set = new Set();
         identifiers.forEach(id => set.add(id));
-        const flatItems = this.filterWith(set);
+        const setToRemove = this.findItemsToRemove(set);
+        const flatItems = this.filterWith(setToRemove);
         const visibleItems = flatItems.filter(item => !this.hide(item));
         return this.publish(flatItems, visibleItems);
     }
@@ -1212,7 +1333,7 @@ class AbstractTreeService {
                 : this.search(params, node.children), null);
     }
 }
-let AbstractNavTreeService = class AbstractNavTreeService extends AbstractTreeService {
+class AbstractNavTreeService extends AbstractTreeService {
     constructor(actions, store) {
         super();
         this.actions = actions;
@@ -1248,25 +1369,28 @@ let AbstractNavTreeService = class AbstractNavTreeService extends AbstractTreeSe
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
-};
-AbstractNavTreeService = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [Actions, Store])
-], AbstractNavTreeService);
-let RoutesService = class RoutesService extends AbstractNavTreeService {
-};
+}
+AbstractNavTreeService.decorators = [
+    { type: Injectable }
+];
+AbstractNavTreeService.ctorParameters = () => [
+    { type: Actions },
+    { type: Store }
+];
+class RoutesService extends AbstractNavTreeService {
+}
 RoutesService.ɵprov = ɵɵdefineInjectable({ factory: function RoutesService_Factory() { return new RoutesService(ɵɵinject(Actions), ɵɵinject(Store)); }, token: RoutesService, providedIn: "root" });
-RoutesService = __decorate([
-    Injectable({ providedIn: 'root' })
-], RoutesService);
-let SettingTabsService = class SettingTabsService extends AbstractNavTreeService {
-};
+RoutesService.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root' },] }
+];
+class SettingTabsService extends AbstractNavTreeService {
+}
 SettingTabsService.ɵprov = ɵɵdefineInjectable({ factory: function SettingTabsService_Factory() { return new SettingTabsService(ɵɵinject(Actions), ɵɵinject(Store)); }, token: SettingTabsService, providedIn: "root" });
-SettingTabsService = __decorate([
-    Injectable({ providedIn: 'root' })
-], SettingTabsService);
+SettingTabsService.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root' },] }
+];
 
-let SubscriptionService = class SubscriptionService {
+class SubscriptionService {
     constructor() {
         this.subscription = new Subscription();
     }
@@ -1297,95 +1421,15 @@ let SubscriptionService = class SubscriptionService {
         this.subscription.unsubscribe();
         this.subscription = new Subscription();
     }
-};
-SubscriptionService = __decorate([
-    Injectable()
-], SubscriptionService);
-
-var ReplaceableComponentsState_1;
-let ReplaceableComponentsState = ReplaceableComponentsState_1 = class ReplaceableComponentsState {
-    constructor(ngZone, router) {
-        this.ngZone = ngZone;
-        this.router = router;
-    }
-    static getAll({ replaceableComponents, }) {
-        return replaceableComponents || [];
-    }
-    static getComponent(key) {
-        const selector = createSelector([ReplaceableComponentsState_1], (state) => {
-            return snq(() => state.replaceableComponents.find(component => component.key === key));
-        });
-        return selector;
-    }
-    // TODO: Create a shared service for route reload and more
-    reloadRoute() {
-        const { shouldReuseRoute } = this.router.routeReuseStrategy;
-        const setRouteReuse = (reuse) => {
-            this.router.routeReuseStrategy.shouldReuseRoute = reuse;
-        };
-        setRouteReuse(() => false);
-        this.router.navigated = false;
-        this.ngZone.run(() => __awaiter(this, void 0, void 0, function* () {
-            yield this.router.navigateByUrl(this.router.url).catch(noop);
-            setRouteReuse(shouldReuseRoute);
-        }));
-    }
-    replaceableComponentsAction({ getState, patchState }, { payload, reload }) {
-        let { replaceableComponents } = getState();
-        const index = snq(() => replaceableComponents.findIndex(component => component.key === payload.key), -1);
-        if (index > -1) {
-            replaceableComponents[index] = payload;
-        }
-        else {
-            replaceableComponents = [...replaceableComponents, payload];
-        }
-        patchState({
-            replaceableComponents,
-        });
-        if (reload)
-            this.reloadRoute();
-    }
-};
-__decorate([
-    Action(AddReplaceableComponent),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, AddReplaceableComponent]),
-    __metadata("design:returntype", void 0)
-], ReplaceableComponentsState.prototype, "replaceableComponentsAction", null);
-__decorate([
-    Selector(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Array)
-], ReplaceableComponentsState, "getAll", null);
-ReplaceableComponentsState = ReplaceableComponentsState_1 = __decorate([
-    State({
-        name: 'ReplaceableComponentsState',
-        defaults: { replaceableComponents: [] },
-    }),
-    Injectable(),
-    __metadata("design:paramtypes", [NgZone, Router])
-], ReplaceableComponentsState);
-
-function findRoute(routes, path) {
-    const node = routes.find(route => route.path === path);
-    return node || path === '/'
-        ? node
-        : findRoute(routes, path
-            .split('/')
-            .slice(0, -1)
-            .join('/'));
 }
-function getRoutePath(router, url = router.url) {
-    const emptyGroup = { segments: [] };
-    const primaryGroup = router.parseUrl(url).root.children[PRIMARY_OUTLET];
-    return '/' + (primaryGroup || emptyGroup).segments.map(({ path }) => path).join('/');
-}
+SubscriptionService.decorators = [
+    { type: Injectable }
+];
 
-let DynamicLayoutComponent = class DynamicLayoutComponent {
-    constructor(injector, localizationService, store, subscription, dynamicLayoutComponent) {
+class DynamicLayoutComponent {
+    constructor(injector, localizationService, replaceableComponents, subscription, dynamicLayoutComponent) {
         this.localizationService = localizationService;
-        this.store = store;
+        this.replaceableComponents = replaceableComponents;
         this.subscription = subscription;
         // TODO: Consider a shared enum (eThemeSharedComponents) for known layouts
         this.layouts = new Map([
@@ -1400,6 +1444,7 @@ let DynamicLayoutComponent = class DynamicLayoutComponent {
         const router = injector.get(Router);
         const routes = injector.get(RoutesService);
         this.subscription.addOne(router.events, event => {
+            var _a;
             if (event instanceof NavigationEnd) {
                 let expectedLayout = (route.snapshot.data || {}).layout;
                 if (!expectedLayout) {
@@ -1416,7 +1461,7 @@ let DynamicLayoutComponent = class DynamicLayoutComponent {
                 if (!expectedLayout)
                     expectedLayout = "empty" /* empty */;
                 const key = this.layouts.get(expectedLayout);
-                this.layout = this.getComponent(key).component;
+                this.layout = (_a = this.getComponent(key)) === null || _a === void 0 ? void 0 : _a.component;
             }
         });
         this.listenToLanguageChange();
@@ -1428,72 +1473,75 @@ let DynamicLayoutComponent = class DynamicLayoutComponent {
         });
     }
     getComponent(key) {
-        return this.store.selectSnapshot(ReplaceableComponentsState.getComponent(key));
+        return this.replaceableComponents.get(key);
     }
-};
-DynamicLayoutComponent = __decorate([
-    Component({
-        selector: 'abp-dynamic-layout',
-        template: `
+}
+DynamicLayoutComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-dynamic-layout',
+                template: `
     <ng-container *ngTemplateOutlet="layout ? componentOutlet : routerOutlet"></ng-container>
     <ng-template #routerOutlet><router-outlet></router-outlet></ng-template>
     <ng-template #componentOutlet
       ><ng-container *ngIf="isLayoutVisible" [ngComponentOutlet]="layout"></ng-container
     ></ng-template>
   `,
-        providers: [SubscriptionService]
-    }),
-    __param(4, Optional()), __param(4, SkipSelf()),
-    __metadata("design:paramtypes", [Injector,
-        LocalizationService,
-        Store,
-        SubscriptionService,
-        DynamicLayoutComponent])
-], DynamicLayoutComponent);
+                providers: [SubscriptionService]
+            },] }
+];
+DynamicLayoutComponent.ctorParameters = () => [
+    { type: Injector },
+    { type: LocalizationService },
+    { type: ReplaceableComponentsService },
+    { type: SubscriptionService },
+    { type: DynamicLayoutComponent, decorators: [{ type: Optional }, { type: SkipSelf }] }
+];
 
-let ReplaceableRouteContainerComponent = class ReplaceableRouteContainerComponent {
-    constructor(route, store, subscription) {
+class ReplaceableRouteContainerComponent {
+    constructor(route, replaceableComponents, subscription) {
         this.route = route;
-        this.store = store;
+        this.replaceableComponents = replaceableComponents;
         this.subscription = subscription;
     }
     ngOnInit() {
         this.defaultComponent = this.route.snapshot.data.replaceableComponent.defaultComponent;
         this.componentKey = this.route.snapshot.data
             .replaceableComponent.key;
-        const component$ = this.store
-            .select(ReplaceableComponentsState.getComponent(this.componentKey))
+        const component$ = this.replaceableComponents
+            .get$(this.componentKey)
             .pipe(distinctUntilChanged());
         this.subscription.addOne(component$, (res = {}) => {
             this.externalComponent = res.component;
         });
     }
-};
-ReplaceableRouteContainerComponent = __decorate([
-    Component({
-        selector: 'abp-replaceable-route-container',
-        template: `
+}
+ReplaceableRouteContainerComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-replaceable-route-container',
+                template: `
     <ng-container *ngComponentOutlet="externalComponent || defaultComponent"></ng-container>
   `,
-        providers: [SubscriptionService]
-    }),
-    __metadata("design:paramtypes", [ActivatedRoute,
-        Store,
-        SubscriptionService])
-], ReplaceableRouteContainerComponent);
+                providers: [SubscriptionService]
+            },] }
+];
+ReplaceableRouteContainerComponent.ctorParameters = () => [
+    { type: ActivatedRoute },
+    { type: ReplaceableComponentsService },
+    { type: SubscriptionService }
+];
 
-let RouterOutletComponent = class RouterOutletComponent {
-};
-RouterOutletComponent = __decorate([
-    Component({
-        selector: 'abp-router-outlet',
-        template: `
+class RouterOutletComponent {
+}
+RouterOutletComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-router-outlet',
+                template: `
     <router-outlet></router-outlet>
   `
-    })
-], RouterOutletComponent);
+            },] }
+];
 
-let AutofocusDirective = class AutofocusDirective {
+class AutofocusDirective {
     constructor(elRef) {
         this.elRef = elRef;
         this.delay = 0;
@@ -1501,20 +1549,21 @@ let AutofocusDirective = class AutofocusDirective {
     ngAfterViewInit() {
         setTimeout(() => this.elRef.nativeElement.focus(), this.delay);
     }
+}
+AutofocusDirective.decorators = [
+    { type: Directive, args: [{
+                // tslint:disable-next-line: directive-selector
+                selector: '[autofocus]'
+            },] }
+];
+AutofocusDirective.ctorParameters = () => [
+    { type: ElementRef }
+];
+AutofocusDirective.propDecorators = {
+    delay: [{ type: Input, args: ['autofocus',] }]
 };
-__decorate([
-    Input('autofocus'),
-    __metadata("design:type", Object)
-], AutofocusDirective.prototype, "delay", void 0);
-AutofocusDirective = __decorate([
-    Directive({
-        // tslint:disable-next-line: directive-selector
-        selector: '[autofocus]'
-    }),
-    __metadata("design:paramtypes", [ElementRef])
-], AutofocusDirective);
 
-let InputEventDebounceDirective = class InputEventDebounceDirective {
+class InputEventDebounceDirective {
     constructor(el, subscription) {
         this.el = el;
         this.subscription = subscription;
@@ -1527,25 +1576,24 @@ let InputEventDebounceDirective = class InputEventDebounceDirective {
             this.debounceEvent.emit(event);
         });
     }
+}
+InputEventDebounceDirective.decorators = [
+    { type: Directive, args: [{
+                // tslint:disable-next-line: directive-selector
+                selector: '[input.debounce]',
+                providers: [SubscriptionService],
+            },] }
+];
+InputEventDebounceDirective.ctorParameters = () => [
+    { type: ElementRef },
+    { type: SubscriptionService }
+];
+InputEventDebounceDirective.propDecorators = {
+    debounce: [{ type: Input }],
+    debounceEvent: [{ type: Output, args: ['input.debounce',] }]
 };
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], InputEventDebounceDirective.prototype, "debounce", void 0);
-__decorate([
-    Output('input.debounce'),
-    __metadata("design:type", Object)
-], InputEventDebounceDirective.prototype, "debounceEvent", void 0);
-InputEventDebounceDirective = __decorate([
-    Directive({
-        // tslint:disable-next-line: directive-selector
-        selector: '[input.debounce]',
-        providers: [SubscriptionService],
-    }),
-    __metadata("design:paramtypes", [ElementRef, SubscriptionService])
-], InputEventDebounceDirective);
 
-let EllipsisDirective = class EllipsisDirective {
+class EllipsisDirective {
     constructor(cdRef, elRef) {
         this.cdRef = cdRef;
         this.elRef = elRef;
@@ -1564,41 +1612,24 @@ let EllipsisDirective = class EllipsisDirective {
         this.title = this.title || this.elRef.nativeElement.innerText;
         this.cdRef.detectChanges();
     }
+}
+EllipsisDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[abpEllipsis]',
+            },] }
+];
+EllipsisDirective.ctorParameters = () => [
+    { type: ChangeDetectorRef },
+    { type: ElementRef }
+];
+EllipsisDirective.propDecorators = {
+    width: [{ type: Input, args: ['abpEllipsis',] }],
+    title: [{ type: HostBinding, args: ['title',] }, { type: Input }],
+    enabled: [{ type: Input, args: ['abpEllipsisEnabled',] }],
+    inlineClass: [{ type: HostBinding, args: ['class.abp-ellipsis-inline',] }],
+    class: [{ type: HostBinding, args: ['class.abp-ellipsis',] }],
+    maxWidth: [{ type: HostBinding, args: ['style.max-width',] }]
 };
-__decorate([
-    Input('abpEllipsis'),
-    __metadata("design:type", String)
-], EllipsisDirective.prototype, "width", void 0);
-__decorate([
-    HostBinding('title'),
-    Input(),
-    __metadata("design:type", String)
-], EllipsisDirective.prototype, "title", void 0);
-__decorate([
-    Input('abpEllipsisEnabled'),
-    __metadata("design:type", Object)
-], EllipsisDirective.prototype, "enabled", void 0);
-__decorate([
-    HostBinding('class.abp-ellipsis-inline'),
-    __metadata("design:type", Object),
-    __metadata("design:paramtypes", [])
-], EllipsisDirective.prototype, "inlineClass", null);
-__decorate([
-    HostBinding('class.abp-ellipsis'),
-    __metadata("design:type", Object),
-    __metadata("design:paramtypes", [])
-], EllipsisDirective.prototype, "class", null);
-__decorate([
-    HostBinding('style.max-width'),
-    __metadata("design:type", Object),
-    __metadata("design:paramtypes", [])
-], EllipsisDirective.prototype, "maxWidth", null);
-EllipsisDirective = __decorate([
-    Directive({
-        selector: '[abpEllipsis]',
-    }),
-    __metadata("design:paramtypes", [ChangeDetectorRef, ElementRef])
-], EllipsisDirective);
 
 class AbpForContext {
     constructor($implicit, index, count, list) {
@@ -1614,7 +1645,7 @@ class RecordView {
         this.view = view;
     }
 }
-let ForDirective = class ForDirective {
+class ForDirective {
     constructor(tempRef, vcRef, differs) {
         this.tempRef = tempRef;
         this.vcRef = vcRef;
@@ -1712,49 +1743,29 @@ let ForDirective = class ForDirective {
                 this.projectItems(items);
         }
     }
+}
+ForDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[abpFor]',
+            },] }
+];
+ForDirective.ctorParameters = () => [
+    { type: TemplateRef },
+    { type: ViewContainerRef },
+    { type: IterableDiffers }
+];
+ForDirective.propDecorators = {
+    items: [{ type: Input, args: ['abpForOf',] }],
+    orderBy: [{ type: Input, args: ['abpForOrderBy',] }],
+    orderDir: [{ type: Input, args: ['abpForOrderDir',] }],
+    filterBy: [{ type: Input, args: ['abpForFilterBy',] }],
+    filterVal: [{ type: Input, args: ['abpForFilterVal',] }],
+    trackBy: [{ type: Input, args: ['abpForTrackBy',] }],
+    compareBy: [{ type: Input, args: ['abpForCompareBy',] }],
+    emptyRef: [{ type: Input, args: ['abpForEmptyRef',] }]
 };
-__decorate([
-    Input('abpForOf'),
-    __metadata("design:type", Array)
-], ForDirective.prototype, "items", void 0);
-__decorate([
-    Input('abpForOrderBy'),
-    __metadata("design:type", String)
-], ForDirective.prototype, "orderBy", void 0);
-__decorate([
-    Input('abpForOrderDir'),
-    __metadata("design:type", String)
-], ForDirective.prototype, "orderDir", void 0);
-__decorate([
-    Input('abpForFilterBy'),
-    __metadata("design:type", String)
-], ForDirective.prototype, "filterBy", void 0);
-__decorate([
-    Input('abpForFilterVal'),
-    __metadata("design:type", Object)
-], ForDirective.prototype, "filterVal", void 0);
-__decorate([
-    Input('abpForTrackBy'),
-    __metadata("design:type", Object)
-], ForDirective.prototype, "trackBy", void 0);
-__decorate([
-    Input('abpForCompareBy'),
-    __metadata("design:type", Function)
-], ForDirective.prototype, "compareBy", void 0);
-__decorate([
-    Input('abpForEmptyRef'),
-    __metadata("design:type", TemplateRef)
-], ForDirective.prototype, "emptyRef", void 0);
-ForDirective = __decorate([
-    Directive({
-        selector: '[abpFor]',
-    }),
-    __metadata("design:paramtypes", [TemplateRef,
-        ViewContainerRef,
-        IterableDiffers])
-], ForDirective);
 
-let FormSubmitDirective = class FormSubmitDirective {
+class FormSubmitDirective {
     constructor(formGroupDirective, host, cdRef, subscription) {
         this.formGroupDirective = formGroupDirective;
         this.host = host;
@@ -1783,31 +1794,25 @@ let FormSubmitDirective = class FormSubmitDirective {
         form.markAsDirty();
         this.cdRef.detectChanges();
     }
+}
+FormSubmitDirective.decorators = [
+    { type: Directive, args: [{
+                // tslint:disable-next-line: directive-selector
+                selector: 'form[ngSubmit][formGroup]',
+                providers: [SubscriptionService],
+            },] }
+];
+FormSubmitDirective.ctorParameters = () => [
+    { type: FormGroupDirective, decorators: [{ type: Self }] },
+    { type: ElementRef },
+    { type: ChangeDetectorRef },
+    { type: SubscriptionService }
+];
+FormSubmitDirective.propDecorators = {
+    debounce: [{ type: Input }],
+    notValidateOnSubmit: [{ type: Input }],
+    ngSubmit: [{ type: Output }]
 };
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], FormSubmitDirective.prototype, "debounce", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], FormSubmitDirective.prototype, "notValidateOnSubmit", void 0);
-__decorate([
-    Output(),
-    __metadata("design:type", Object)
-], FormSubmitDirective.prototype, "ngSubmit", void 0);
-FormSubmitDirective = __decorate([
-    Directive({
-        // tslint:disable-next-line: directive-selector
-        selector: 'form[ngSubmit][formGroup]',
-        providers: [SubscriptionService],
-    }),
-    __param(0, Self()),
-    __metadata("design:paramtypes", [FormGroupDirective,
-        ElementRef,
-        ChangeDetectorRef,
-        SubscriptionService])
-], FormSubmitDirective);
 function setDirty(controls) {
     if (Array.isArray(controls)) {
         controls.forEach(group => {
@@ -1821,7 +1826,7 @@ function setDirty(controls) {
     });
 }
 
-let InitDirective = class InitDirective {
+class InitDirective {
     constructor(elRef) {
         this.elRef = elRef;
         this.init = new EventEmitter();
@@ -1829,17 +1834,88 @@ let InitDirective = class InitDirective {
     ngAfterViewInit() {
         this.init.emit(this.elRef);
     }
+}
+InitDirective.decorators = [
+    { type: Directive, args: [{ selector: '[abpInit]' },] }
+];
+InitDirective.ctorParameters = () => [
+    { type: ElementRef }
+];
+InitDirective.propDecorators = {
+    init: [{ type: Output, args: ['abpInit',] }]
 };
-__decorate([
-    Output('abpInit'),
-    __metadata("design:type", Object)
-], InitDirective.prototype, "init", void 0);
-InitDirective = __decorate([
-    Directive({ selector: '[abpInit]' }),
-    __metadata("design:paramtypes", [ElementRef])
-], InitDirective);
 
-let ProfileService = class ProfileService {
+var ReplaceableComponentsState_1;
+function logDeprecationMsg() {
+    if (isDevMode()) {
+        console.warn(`
+     ReplacableComponentsState has been deprecated. Use ReplaceableComponentsService instead.
+     See the doc https://docs.abp.io/en/abp/latest/UI/Angular/Component-Replacement
+     `);
+    }
+}
+// tslint:disable: max-line-length
+/**
+ * @deprecated To be deleted in v4.0. Use ReplaceableComponentsService instead. See the doc (https://docs.abp.io/en/abp/latest/UI/Angular/Component-Replacement)
+ */
+let ReplaceableComponentsState = ReplaceableComponentsState_1 = class ReplaceableComponentsState {
+    constructor(service) {
+        this.service = service;
+    }
+    static getAll({ replaceableComponents, }) {
+        logDeprecationMsg();
+        return replaceableComponents || [];
+    }
+    static getComponent(key) {
+        const selector = createSelector([ReplaceableComponentsState_1], (state) => {
+            logDeprecationMsg();
+            return snq(() => state.replaceableComponents.find(component => component.key === key));
+        });
+        return selector;
+    }
+    replaceableComponentsAction({ getState, patchState }, { payload, reload }) {
+        logDeprecationMsg();
+        let { replaceableComponents } = getState();
+        const index = snq(() => replaceableComponents.findIndex(component => component.key === payload.key), -1);
+        if (index > -1) {
+            replaceableComponents[index] = payload;
+        }
+        else {
+            replaceableComponents = [...replaceableComponents, payload];
+        }
+        patchState({
+            replaceableComponents,
+        });
+        this.service.add(payload, reload);
+    }
+};
+ReplaceableComponentsState.decorators = [
+    { type: Injectable }
+];
+ReplaceableComponentsState.ctorParameters = () => [
+    { type: ReplaceableComponentsService }
+];
+__decorate([
+    Action(AddReplaceableComponent),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, AddReplaceableComponent]),
+    __metadata("design:returntype", void 0)
+], ReplaceableComponentsState.prototype, "replaceableComponentsAction", null);
+__decorate([
+    Selector(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Array)
+], ReplaceableComponentsState, "getAll", null);
+ReplaceableComponentsState = ReplaceableComponentsState_1 = __decorate([
+    State({
+        name: 'ReplaceableComponentsState',
+        defaults: { replaceableComponents: [] },
+    }),
+    __metadata("design:paramtypes", [ReplaceableComponentsService])
+], ReplaceableComponentsState);
+
+class ProfileService {
     constructor(rest) {
         this.rest = rest;
         this.apiName = 'AbpIdentity';
@@ -1872,14 +1948,16 @@ let ProfileService = class ProfileService {
             apiName: this.apiName,
         });
     }
-};
+}
 ProfileService.ɵprov = ɵɵdefineInjectable({ factory: function ProfileService_Factory() { return new ProfileService(ɵɵinject(RestService)); }, token: ProfileService, providedIn: "root" });
-ProfileService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __metadata("design:paramtypes", [RestService])
-], ProfileService);
+ProfileService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+ProfileService.ctorParameters = () => [
+    { type: RestService }
+];
 
 let ProfileState = class ProfileState {
     constructor(profileService) {
@@ -1902,6 +1980,12 @@ let ProfileState = class ProfileState {
         return this.profileService.changePassword(payload, true);
     }
 };
+ProfileState.decorators = [
+    { type: Injectable }
+];
+ProfileState.ctorParameters = () => [
+    { type: ProfileService }
+];
 __decorate([
     Action(GetProfile),
     __metadata("design:type", Function),
@@ -1931,11 +2015,10 @@ ProfileState = __decorate([
         name: 'ProfileState',
         defaults: {},
     }),
-    Injectable(),
     __metadata("design:paramtypes", [ProfileService])
 ], ProfileState);
 
-let PermissionDirective = class PermissionDirective {
+class PermissionDirective {
     constructor(elRef, renderer, store, templateRef, vcRef) {
         this.elRef = elRef;
         this.renderer = renderer;
@@ -1976,30 +2059,30 @@ let PermissionDirective = class PermissionDirective {
             this.check();
         }
     }
+}
+PermissionDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[abpPermission]',
+            },] }
+];
+PermissionDirective.ctorParameters = () => [
+    { type: ElementRef },
+    { type: Renderer2 },
+    { type: Store },
+    { type: TemplateRef, decorators: [{ type: Optional }] },
+    { type: ViewContainerRef }
+];
+PermissionDirective.propDecorators = {
+    condition: [{ type: Input, args: ['abpPermission',] }]
 };
-__decorate([
-    Input('abpPermission'),
-    __metadata("design:type", String)
-], PermissionDirective.prototype, "condition", void 0);
-PermissionDirective = __decorate([
-    Directive({
-        selector: '[abpPermission]',
-    }),
-    __param(3, Optional()),
-    __metadata("design:paramtypes", [ElementRef,
-        Renderer2,
-        Store,
-        TemplateRef,
-        ViewContainerRef])
-], PermissionDirective);
 
-let ReplaceableTemplateDirective = class ReplaceableTemplateDirective {
-    constructor(injector, templateRef, cfRes, vcRef, store, subscription) {
+class ReplaceableTemplateDirective {
+    constructor(injector, templateRef, cfRes, vcRef, replaceableComponents, subscription) {
         this.injector = injector;
         this.templateRef = templateRef;
         this.cfRes = cfRes;
         this.vcRef = vcRef;
-        this.store = store;
+        this.replaceableComponents = replaceableComponents;
         this.subscription = subscription;
         this.providedData = { inputs: {}, outputs: {} };
         this.context = {};
@@ -2014,8 +2097,8 @@ let ReplaceableTemplateDirective = class ReplaceableTemplateDirective {
         };
     }
     ngOnInit() {
-        const component$ = this.store
-            .select(ReplaceableComponentsState.getComponent(this.data.componentKey))
+        const component$ = this.replaceableComponents
+            .get$(this.data.componentKey)
             .pipe(filter((res = {}) => !this.initialized || !compare(res.component, this.externalComponent)));
         this.subscription.addOne(component$, (res = {}) => {
             this.vcRef.clear();
@@ -2084,22 +2167,23 @@ let ReplaceableTemplateDirective = class ReplaceableTemplateDirective {
         this.defaultComponentSubscriptions = {};
         this.defaultComponentRef = null;
     }
+}
+ReplaceableTemplateDirective.decorators = [
+    { type: Directive, args: [{ selector: '[abpReplaceableTemplate]', providers: [SubscriptionService] },] }
+];
+ReplaceableTemplateDirective.ctorParameters = () => [
+    { type: Injector },
+    { type: TemplateRef },
+    { type: ComponentFactoryResolver },
+    { type: ViewContainerRef },
+    { type: ReplaceableComponentsService },
+    { type: SubscriptionService }
+];
+ReplaceableTemplateDirective.propDecorators = {
+    data: [{ type: Input, args: ['abpReplaceableTemplate',] }]
 };
-__decorate([
-    Input('abpReplaceableTemplate'),
-    __metadata("design:type", Object)
-], ReplaceableTemplateDirective.prototype, "data", void 0);
-ReplaceableTemplateDirective = __decorate([
-    Directive({ selector: '[abpReplaceableTemplate]', providers: [SubscriptionService] }),
-    __metadata("design:paramtypes", [Injector,
-        TemplateRef,
-        ComponentFactoryResolver,
-        ViewContainerRef,
-        Store,
-        SubscriptionService])
-], ReplaceableTemplateDirective);
 
-let StopPropagationDirective = class StopPropagationDirective {
+class StopPropagationDirective {
     constructor(el, subscription) {
         this.el = el;
         this.subscription = subscription;
@@ -2111,25 +2195,27 @@ let StopPropagationDirective = class StopPropagationDirective {
             this.stopPropEvent.emit(event);
         });
     }
+}
+StopPropagationDirective.decorators = [
+    { type: Directive, args: [{
+                // tslint:disable-next-line: directive-selector
+                selector: '[click.stop]',
+                providers: [SubscriptionService],
+            },] }
+];
+StopPropagationDirective.ctorParameters = () => [
+    { type: ElementRef },
+    { type: SubscriptionService }
+];
+StopPropagationDirective.propDecorators = {
+    stopPropEvent: [{ type: Output, args: ['click.stop',] }]
 };
-__decorate([
-    Output('click.stop'),
-    __metadata("design:type", Object)
-], StopPropagationDirective.prototype, "stopPropEvent", void 0);
-StopPropagationDirective = __decorate([
-    Directive({
-        // tslint:disable-next-line: directive-selector
-        selector: '[click.stop]',
-        providers: [SubscriptionService],
-    }),
-    __metadata("design:paramtypes", [ElementRef, SubscriptionService])
-], StopPropagationDirective);
 
 /**
  *
  * @deprecated To be deleted in v3.3
  */
-let VisibilityDirective = class VisibilityDirective {
+class VisibilityDirective {
     constructor(elRef, renderer) {
         this.elRef = elRef;
         this.renderer = renderer;
@@ -2170,20 +2256,21 @@ let VisibilityDirective = class VisibilityDirective {
         this.renderer.removeChild(this.elRef.nativeElement.parentElement, this.elRef.nativeElement);
         this.disconnect();
     }
+}
+VisibilityDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[abpVisibility]',
+            },] }
+];
+VisibilityDirective.ctorParameters = () => [
+    { type: ElementRef, decorators: [{ type: Optional }] },
+    { type: Renderer2 }
+];
+VisibilityDirective.propDecorators = {
+    focusedElement: [{ type: Input, args: ['abpVisibility',] }]
 };
-__decorate([
-    Input('abpVisibility'),
-    __metadata("design:type", HTMLElement)
-], VisibilityDirective.prototype, "focusedElement", void 0);
-VisibilityDirective = __decorate([
-    Directive({
-        selector: '[abpVisibility]',
-    }),
-    __param(0, Optional()),
-    __metadata("design:paramtypes", [ElementRef, Renderer2])
-], VisibilityDirective);
 
-let OAuthConfigurationHandler = class OAuthConfigurationHandler {
+class OAuthConfigurationHandler {
     constructor(actions, oAuthService, options) {
         this.actions = actions;
         this.oAuthService = oAuthService;
@@ -2198,18 +2285,20 @@ let OAuthConfigurationHandler = class OAuthConfigurationHandler {
             this.oAuthService.configure(config);
         });
     }
-};
+}
 OAuthConfigurationHandler.ɵprov = ɵɵdefineInjectable({ factory: function OAuthConfigurationHandler_Factory() { return new OAuthConfigurationHandler(ɵɵinject(Actions), ɵɵinject(OAuthService), ɵɵinject(CORE_OPTIONS)); }, token: OAuthConfigurationHandler, providedIn: "root" });
-OAuthConfigurationHandler = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __param(2, Inject(CORE_OPTIONS)),
-    __metadata("design:paramtypes", [Actions,
-        OAuthService, Object])
-], OAuthConfigurationHandler);
+OAuthConfigurationHandler.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+OAuthConfigurationHandler.ctorParameters = () => [
+    { type: Actions },
+    { type: OAuthService },
+    { type: undefined, decorators: [{ type: Inject, args: [CORE_OPTIONS,] }] }
+];
 
-let RoutesHandler = class RoutesHandler {
+class RoutesHandler {
     constructor(routes, router) {
         this.routes = routes;
         this.router = router;
@@ -2228,15 +2317,17 @@ let RoutesHandler = class RoutesHandler {
             this.routes.add(routes);
         });
     }
-};
+}
 RoutesHandler.ɵprov = ɵɵdefineInjectable({ factory: function RoutesHandler_Factory() { return new RoutesHandler(ɵɵinject(RoutesService), ɵɵinject(Router, 8)); }, token: RoutesHandler, providedIn: "root" });
-RoutesHandler = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __param(1, Optional()),
-    __metadata("design:paramtypes", [RoutesService, Router])
-], RoutesHandler);
+RoutesHandler.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+RoutesHandler.ctorParameters = () => [
+    { type: RoutesService },
+    { type: Router, decorators: [{ type: Optional }] }
+];
 function flatRoutes(routes, parent) {
     if (!routes)
         return [];
@@ -2247,75 +2338,86 @@ function flatRoutes(routes, parent) {
     }, []);
 }
 
-let ApiInterceptor = class ApiInterceptor {
+class ApiInterceptor {
     constructor(oAuthService, store) {
         this.oAuthService = oAuthService;
         this.store = store;
     }
     intercept(request, next) {
         this.store.dispatch(new StartLoader(request));
-        const headers = {};
-        const token = this.oAuthService.getAccessToken();
-        if (!request.headers.has('Authorization') && token) {
-            headers['Authorization'] = `Bearer ${token}`;
-        }
-        const lang = this.store.selectSnapshot(SessionState.getLanguage);
-        if (!request.headers.has('Accept-Language') && lang) {
-            headers['Accept-Language'] = lang;
-        }
-        const tenant = this.store.selectSnapshot(SessionState.getTenant);
-        if (!request.headers.has('__tenant') && tenant) {
-            headers['__tenant'] = tenant.id;
-        }
         return next
             .handle(request.clone({
-            setHeaders: headers,
+            setHeaders: this.getAdditionalHeaders(request.headers),
         }))
             .pipe(finalize(() => this.store.dispatch(new StopLoader(request))));
     }
-};
-ApiInterceptor = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [OAuthService, Store])
-], ApiInterceptor);
+    getAdditionalHeaders(existingHeaders) {
+        const headers = {};
+        const token = this.oAuthService.getAccessToken();
+        if (!(existingHeaders === null || existingHeaders === void 0 ? void 0 : existingHeaders.has('Authorization')) && token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+        const lang = this.store.selectSnapshot(SessionState.getLanguage);
+        if (!(existingHeaders === null || existingHeaders === void 0 ? void 0 : existingHeaders.has('Accept-Language')) && lang) {
+            headers['Accept-Language'] = lang;
+        }
+        const tenant = this.store.selectSnapshot(SessionState.getTenant);
+        if (!(existingHeaders === null || existingHeaders === void 0 ? void 0 : existingHeaders.has('__tenant')) && tenant) {
+            headers['__tenant'] = tenant.id;
+        }
+        return headers;
+    }
+}
+ApiInterceptor.ɵprov = ɵɵdefineInjectable({ factory: function ApiInterceptor_Factory() { return new ApiInterceptor(ɵɵinject(OAuthService), ɵɵinject(Store)); }, token: ApiInterceptor, providedIn: "root" });
+ApiInterceptor.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+ApiInterceptor.ctorParameters = () => [
+    { type: OAuthService },
+    { type: Store }
+];
 
-let LocalizationPipe = class LocalizationPipe {
+class LocalizationPipe {
     constructor(store) {
         this.store = store;
     }
     transform(value = '', ...interpolateParams) {
         return this.store.selectSnapshot(ConfigState.getLocalization(value, ...interpolateParams.reduce((acc, val) => (Array.isArray(val) ? [...acc, ...val] : [...acc, val]), [])));
     }
-};
-LocalizationPipe = __decorate([
-    Injectable(),
-    Pipe({
-        name: 'abpLocalization',
-    }),
-    __metadata("design:paramtypes", [Store])
-], LocalizationPipe);
-let MockLocalizationPipe = class MockLocalizationPipe {
+}
+LocalizationPipe.decorators = [
+    { type: Injectable },
+    { type: Pipe, args: [{
+                name: 'abpLocalization',
+            },] }
+];
+LocalizationPipe.ctorParameters = () => [
+    { type: Store }
+];
+class MockLocalizationPipe {
     transform(value = '', ..._) {
         return typeof value === 'string' ? value : value.defaultValue;
     }
-};
-MockLocalizationPipe = __decorate([
-    Injectable(),
-    Pipe({
-        name: 'abpLocalization',
-    })
-], MockLocalizationPipe);
+}
+MockLocalizationPipe.decorators = [
+    { type: Injectable },
+    { type: Pipe, args: [{
+                name: 'abpLocalization',
+            },] }
+];
 
-let LocalizationModule = class LocalizationModule {
-};
-LocalizationModule = __decorate([
-    NgModule({
-        exports: [LocalizationPipe],
-        declarations: [LocalizationPipe],
-    })
-], LocalizationModule);
+class LocalizationModule {
+}
+LocalizationModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [LocalizationPipe],
+                declarations: [LocalizationPipe],
+            },] }
+];
 
-let SortPipe = class SortPipe {
+class SortPipe {
     transform(value, sortOrder = 'asc', sortKey) {
         sortOrder = sortOrder && sortOrder.toLowerCase();
         if (!value || (sortOrder !== 'asc' && sortOrder !== 'desc'))
@@ -2349,16 +2451,16 @@ let SortPipe = class SortPipe {
         ];
         return sortOrder === 'asc' ? sorted : sorted.reverse();
     }
-};
-SortPipe = __decorate([
-    Injectable(),
-    Pipe({
-        name: 'abpSort',
-    })
-], SortPipe);
+}
+SortPipe.decorators = [
+    { type: Injectable },
+    { type: Pipe, args: [{
+                name: 'abpSort',
+            },] }
+];
 
 const NGXS_CONFIG_PLUGIN_OPTIONS = new InjectionToken('NGXS_CONFIG_PLUGIN_OPTIONS');
-let ConfigPlugin = class ConfigPlugin {
+class ConfigPlugin {
     constructor(options) {
         this.options = options;
         this.initialized = false;
@@ -2372,12 +2474,13 @@ let ConfigPlugin = class ConfigPlugin {
         }
         return next(state, event);
     }
-};
-ConfigPlugin = __decorate([
-    Injectable(),
-    __param(0, Inject(NGXS_CONFIG_PLUGIN_OPTIONS)),
-    __metadata("design:paramtypes", [Object])
-], ConfigPlugin);
+}
+ConfigPlugin.decorators = [
+    { type: Injectable }
+];
+ConfigPlugin.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Inject, args: [NGXS_CONFIG_PLUGIN_OPTIONS,] }] }
+];
 
 class LocaleId extends String {
     constructor(localizationService) {
@@ -2412,100 +2515,100 @@ function storageFactory() {
  * but not the providers.
  * This module will be imported and exported by all others.
  */
-let BaseCoreModule = class BaseCoreModule {
-};
-BaseCoreModule = __decorate([
-    NgModule({
-        exports: [
-            CommonModule,
-            HttpClientModule,
-            FormsModule,
-            ReactiveFormsModule,
-            RouterModule,
-            AbstractNgModelComponent,
-            AutofocusDirective,
-            DynamicLayoutComponent,
-            EllipsisDirective,
-            ForDirective,
-            FormSubmitDirective,
-            InitDirective,
-            InputEventDebounceDirective,
-            PermissionDirective,
-            ReplaceableRouteContainerComponent,
-            ReplaceableTemplateDirective,
-            RouterOutletComponent,
-            SortPipe,
-            StopPropagationDirective,
-            VisibilityDirective,
-        ],
-        imports: [
-            OAuthModule,
-            CommonModule,
-            HttpClientModule,
-            FormsModule,
-            ReactiveFormsModule,
-            RouterModule,
-        ],
-        declarations: [
-            AbstractNgModelComponent,
-            AutofocusDirective,
-            DynamicLayoutComponent,
-            EllipsisDirective,
-            ForDirective,
-            FormSubmitDirective,
-            InitDirective,
-            InputEventDebounceDirective,
-            PermissionDirective,
-            ReplaceableRouteContainerComponent,
-            ReplaceableTemplateDirective,
-            RouterOutletComponent,
-            SortPipe,
-            StopPropagationDirective,
-            VisibilityDirective,
-        ],
-        entryComponents: [
-            RouterOutletComponent,
-            DynamicLayoutComponent,
-            ReplaceableRouteContainerComponent,
-        ],
-    })
-], BaseCoreModule);
+class BaseCoreModule {
+}
+BaseCoreModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [
+                    CommonModule,
+                    HttpClientModule,
+                    FormsModule,
+                    ReactiveFormsModule,
+                    RouterModule,
+                    AbstractNgModelComponent,
+                    AutofocusDirective,
+                    DynamicLayoutComponent,
+                    EllipsisDirective,
+                    ForDirective,
+                    FormSubmitDirective,
+                    InitDirective,
+                    InputEventDebounceDirective,
+                    PermissionDirective,
+                    ReplaceableRouteContainerComponent,
+                    ReplaceableTemplateDirective,
+                    RouterOutletComponent,
+                    SortPipe,
+                    StopPropagationDirective,
+                    VisibilityDirective,
+                ],
+                imports: [
+                    OAuthModule,
+                    CommonModule,
+                    HttpClientModule,
+                    FormsModule,
+                    ReactiveFormsModule,
+                    RouterModule,
+                ],
+                declarations: [
+                    AbstractNgModelComponent,
+                    AutofocusDirective,
+                    DynamicLayoutComponent,
+                    EllipsisDirective,
+                    ForDirective,
+                    FormSubmitDirective,
+                    InitDirective,
+                    InputEventDebounceDirective,
+                    PermissionDirective,
+                    ReplaceableRouteContainerComponent,
+                    ReplaceableTemplateDirective,
+                    RouterOutletComponent,
+                    SortPipe,
+                    StopPropagationDirective,
+                    VisibilityDirective,
+                ],
+                entryComponents: [
+                    RouterOutletComponent,
+                    DynamicLayoutComponent,
+                    ReplaceableRouteContainerComponent,
+                ],
+            },] }
+];
 /**
  * RootCoreModule is the module that will be used at root level
  * and it introduces imports useful at root level (e.g. NGXS)
  */
-let RootCoreModule = class RootCoreModule {
-};
-RootCoreModule = __decorate([
-    NgModule({
-        exports: [BaseCoreModule, LocalizationModule],
-        imports: [
-            BaseCoreModule,
-            LocalizationModule,
-            NgxsModule.forFeature([ReplaceableComponentsState, ProfileState, SessionState, ConfigState]),
-            NgxsRouterPluginModule.forRoot(),
-            NgxsStoragePluginModule.forRoot(),
-            OAuthModule.forRoot(),
-        ],
-    })
-], RootCoreModule);
+class RootCoreModule {
+}
+RootCoreModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [BaseCoreModule, LocalizationModule],
+                imports: [
+                    BaseCoreModule,
+                    LocalizationModule,
+                    NgxsModule.forFeature([ReplaceableComponentsState, ProfileState, SessionState, ConfigState]),
+                    NgxsRouterPluginModule.forRoot(),
+                    NgxsStoragePluginModule.forRoot(),
+                    OAuthModule.forRoot(),
+                ],
+            },] }
+];
 /**
  * TestCoreModule is the module that will be used in tests
  * and it provides mock alternatives
  */
-let TestCoreModule = class TestCoreModule {
-};
-TestCoreModule = __decorate([
-    NgModule({
-        exports: [RouterModule, BaseCoreModule, MockLocalizationPipe],
-        imports: [RouterModule.forRoot([]), BaseCoreModule],
-        declarations: [MockLocalizationPipe],
-    })
-], TestCoreModule);
+class TestCoreModule {
+}
+TestCoreModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [RouterModule, BaseCoreModule, MockLocalizationPipe],
+                imports: [RouterModule.forRoot([]), BaseCoreModule],
+                declarations: [MockLocalizationPipe],
+            },] }
+];
 /**
  * CoreModule is the module that is publicly available
  */
-let CoreModule = class CoreModule {
+class CoreModule {
     static forTest({ baseHref = '/' } = {}) {
         return {
             ngModule: TestCoreModule,
@@ -2544,7 +2647,7 @@ let CoreModule = class CoreModule {
                 },
                 {
                     provide: HTTP_INTERCEPTORS,
-                    useClass: ApiInterceptor,
+                    useExisting: ApiInterceptor,
                     multi: true,
                 },
                 {
@@ -2585,19 +2688,19 @@ let CoreModule = class CoreModule {
             ],
         };
     }
-};
-CoreModule = __decorate([
-    NgModule({
-        exports: [BaseCoreModule, LocalizationModule],
-        imports: [BaseCoreModule, LocalizationModule],
-        providers: [LocalizationPipe],
-    })
-], CoreModule);
+}
+CoreModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [BaseCoreModule, LocalizationModule],
+                imports: [BaseCoreModule, LocalizationModule],
+                providers: [LocalizationPipe],
+            },] }
+];
 function ngxsStoragePluginSerialize(data) {
     return data;
 }
 
-let AuthGuard = class AuthGuard {
+class AuthGuard {
     constructor(oauthService, injector) {
         this.oauthService = oauthService;
         this.injector = injector;
@@ -2611,16 +2714,19 @@ let AuthGuard = class AuthGuard {
         router.navigate(['/account/login'], { state: { redirectUrl: state.url } });
         return true;
     }
-};
+}
 AuthGuard.ɵprov = ɵɵdefineInjectable({ factory: function AuthGuard_Factory() { return new AuthGuard(ɵɵinject(OAuthService), ɵɵinject(INJECTOR)); }, token: AuthGuard, providedIn: "root" });
-AuthGuard = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __metadata("design:paramtypes", [OAuthService, Injector])
-], AuthGuard);
+AuthGuard.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+AuthGuard.ctorParameters = () => [
+    { type: OAuthService },
+    { type: Injector }
+];
 
-let PermissionGuard = class PermissionGuard {
+class PermissionGuard {
     constructor(router, routes, store) {
         this.router = router;
         this.routes = routes;
@@ -2640,14 +2746,18 @@ let PermissionGuard = class PermissionGuard {
             }
         }));
     }
-};
+}
 PermissionGuard.ɵprov = ɵɵdefineInjectable({ factory: function PermissionGuard_Factory() { return new PermissionGuard(ɵɵinject(Router), ɵɵinject(RoutesService), ɵɵinject(Store)); }, token: PermissionGuard, providedIn: "root" });
-PermissionGuard = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __metadata("design:paramtypes", [Router, RoutesService, Store])
-], PermissionGuard);
+PermissionGuard.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+PermissionGuard.ctorParameters = () => [
+    { type: Router },
+    { type: RoutesService },
+    { type: Store }
+];
 
 class ListResultDto {
     constructor(initialValues = {}) {
@@ -2777,7 +2887,7 @@ class FindTenantResultDto {
     }
 }
 
-let ApplicationConfigurationService = class ApplicationConfigurationService {
+class ApplicationConfigurationService {
     constructor(rest, store) {
         this.rest = rest;
         this.store = store;
@@ -2794,16 +2904,19 @@ let ApplicationConfigurationService = class ApplicationConfigurationService {
             apiName: this.apiName,
         });
     }
-};
+}
 ApplicationConfigurationService.ɵprov = ɵɵdefineInjectable({ factory: function ApplicationConfigurationService_Factory() { return new ApplicationConfigurationService(ɵɵinject(RestService), ɵɵinject(Store)); }, token: ApplicationConfigurationService, providedIn: "root" });
-ApplicationConfigurationService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __metadata("design:paramtypes", [RestService, Store])
-], ApplicationConfigurationService);
+ApplicationConfigurationService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+ApplicationConfigurationService.ctorParameters = () => [
+    { type: RestService },
+    { type: Store }
+];
 
-let ConfigStateService = class ConfigStateService {
+class ConfigStateService {
     constructor(store) {
         this.store = store;
     }
@@ -2837,34 +2950,41 @@ let ConfigStateService = class ConfigStateService {
     getLocalization(...args) {
         return this.store.selectSnapshot(ConfigState.getLocalization(...args));
     }
+    getLocalizationResource(...args) {
+        return this.store.selectSnapshot(ConfigState.getLocalizationResource(...args));
+    }
     dispatchGetAppConfiguration() {
         return this.store.dispatch(new GetAppConfiguration());
     }
     dispatchSetEnvironment(...args) {
         return this.store.dispatch(new SetEnvironment(...args));
     }
-};
+}
 ConfigStateService.ɵprov = ɵɵdefineInjectable({ factory: function ConfigStateService_Factory() { return new ConfigStateService(ɵɵinject(Store)); }, token: ConfigStateService, providedIn: "root" });
-ConfigStateService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __metadata("design:paramtypes", [Store])
-], ConfigStateService);
+ConfigStateService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+ConfigStateService.ctorParameters = () => [
+    { type: Store }
+];
 
-let ContentProjectionService = class ContentProjectionService {
+class ContentProjectionService {
     constructor(injector) {
         this.injector = injector;
     }
     projectContent(projectionStrategy, injector = this.injector) {
         return projectionStrategy.injectContent(injector);
     }
-};
+}
 ContentProjectionService.ɵprov = ɵɵdefineInjectable({ factory: function ContentProjectionService_Factory() { return new ContentProjectionService(ɵɵinject(INJECTOR)); }, token: ContentProjectionService, providedIn: "root" });
-ContentProjectionService = __decorate([
-    Injectable({ providedIn: 'root' }),
-    __metadata("design:paramtypes", [Injector])
-], ContentProjectionService);
+ContentProjectionService.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root' },] }
+];
+ContentProjectionService.ctorParameters = () => [
+    { type: Injector }
+];
 
 function getShortDateFormat(configStateService) {
     const dateTimeFormat = configStateService.getDeep('localization.currentCulture.dateTimeFormat');
@@ -2896,6 +3016,20 @@ class LazyModuleFactory extends NgModuleFactory {
         const factory = compiler.compileModuleSync(this.moduleType);
         return factory.create(injector);
     }
+}
+
+function downloadBlob(blob, filename) {
+    const blobUrl = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = blobUrl;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.dispatchEvent(new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+    }));
+    document.body.removeChild(link);
 }
 
 function isNumber(value) {
@@ -3058,7 +3192,7 @@ const takeUntilDestroy = (componentInstance, destroyMethodName = 'ngOnDestroy') 
     return source.pipe(takeUntil(componentInstance['__takeUntilDestroy']));
 };
 
-let DomInsertionService = class DomInsertionService {
+class DomInsertionService {
     constructor() {
         this.inserted = new Set();
     }
@@ -3079,13 +3213,13 @@ let DomInsertionService = class DomInsertionService {
         const hash = generateHash(content);
         return this.inserted.has(hash);
     }
-};
+}
 DomInsertionService.ɵprov = ɵɵdefineInjectable({ factory: function DomInsertionService_Factory() { return new DomInsertionService(); }, token: DomInsertionService, providedIn: "root" });
-DomInsertionService = __decorate([
-    Injectable({ providedIn: 'root' })
-], DomInsertionService);
+DomInsertionService.decorators = [
+    { type: Injectable, args: [{ providedIn: 'root' },] }
+];
 
-let LazyLoadService = class LazyLoadService {
+class LazyLoadService {
     constructor() {
         this.loaded = new Map();
     }
@@ -3102,17 +3236,17 @@ let LazyLoadService = class LazyLoadService {
         this.loaded.delete(path);
         return true;
     }
-};
+}
 LazyLoadService.ɵprov = ɵɵdefineInjectable({ factory: function LazyLoadService_Factory() { return new LazyLoadService(); }, token: LazyLoadService, providedIn: "root" });
-LazyLoadService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    })
-], LazyLoadService);
+LazyLoadService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
 
 const LIST_QUERY_DEBOUNCE_TIME = new InjectionToken('LIST_QUERY_DEBOUNCE_TIME');
 
-let ListService = class ListService {
+class ListService {
     constructor(delay) {
         this.delay = delay;
         this._filter = '';
@@ -3134,6 +3268,8 @@ let ListService = class ListService {
         this.get();
     }
     set filter(value) {
+        if (this._filter !== value)
+            this._page = 0;
         this._filter = value;
         this.get();
     }
@@ -3185,14 +3321,15 @@ let ListService = class ListService {
     ngOnDestroy() {
         this.destroy$.next();
     }
-};
-ListService = __decorate([
-    Injectable(),
-    __param(0, Optional()), __param(0, Inject(LIST_QUERY_DEBOUNCE_TIME)),
-    __metadata("design:paramtypes", [Number])
-], ListService);
+}
+ListService.decorators = [
+    { type: Injectable }
+];
+ListService.ctorParameters = () => [
+    { type: Number, decorators: [{ type: Optional }, { type: Inject, args: [LIST_QUERY_DEBOUNCE_TIME,] }] }
+];
 
-let ProfileStateService = class ProfileStateService {
+class ProfileStateService {
     constructor(store) {
         this.store = store;
     }
@@ -3208,16 +3345,18 @@ let ProfileStateService = class ProfileStateService {
     dispatchChangePassword(...args) {
         return this.store.dispatch(new ChangePassword(...args));
     }
-};
+}
 ProfileStateService.ɵprov = ɵɵdefineInjectable({ factory: function ProfileStateService_Factory() { return new ProfileStateService(ɵɵinject(Store)); }, token: ProfileStateService, providedIn: "root" });
-ProfileStateService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __metadata("design:paramtypes", [Store])
-], ProfileStateService);
+ProfileStateService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+ProfileStateService.ctorParameters = () => [
+    { type: Store }
+];
 
-let SessionStateService = class SessionStateService {
+class SessionStateService {
     constructor(store) {
         this.store = store;
     }
@@ -3242,29 +3381,31 @@ let SessionStateService = class SessionStateService {
     dispatchModifyOpenedTabCount(...args) {
         return this.store.dispatch(new ModifyOpenedTabCount(...args));
     }
-};
+}
 SessionStateService.ɵprov = ɵɵdefineInjectable({ factory: function SessionStateService_Factory() { return new SessionStateService(ɵɵinject(Store)); }, token: SessionStateService, providedIn: "root" });
-SessionStateService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __metadata("design:paramtypes", [Store])
-], SessionStateService);
+SessionStateService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+SessionStateService.ctorParameters = () => [
+    { type: Store }
+];
 
 const trackBy = (key) => (_, item) => item[key];
 const trackByDeep = (...keys) => (_, item) => keys.reduce((acc, key) => acc[key], item);
-let TrackByService = class TrackByService {
+class TrackByService {
     constructor() {
         this.by = trackBy;
         this.byDeep = trackByDeep;
     }
-};
+}
 TrackByService.ɵprov = ɵɵdefineInjectable({ factory: function TrackByService_Factory() { return new TrackByService(); }, token: TrackByService, providedIn: "root" });
-TrackByService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    })
-], TrackByService);
+TrackByService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
 
 class ContainerStrategy {
     constructor(containerRef) {
@@ -3664,5 +3805,5 @@ const AbpValidators = {
  * Generated bundle index. Do not edit.
  */
 
-export { AUTH_FLOW_STRATEGY, AbpValidators, AbstractNavTreeService, AbstractNgModelComponent, AbstractTreeService, AddReplaceableComponent, ApiInterceptor, ApplicationConfigurationService, AuditedEntityDto, AuditedEntityWithUserDto, AuthCodeFlowStrategy, AuthFlowStrategy, AuthGuard, AuthPasswordFlowStrategy, AuthService, AutofocusDirective, BaseCoreModule, BaseTreeNode, CONTAINER_STRATEGY, CONTENT_SECURITY_STRATEGY, CONTENT_STRATEGY, CONTEXT_STRATEGY, CORE_OPTIONS, CROSS_ORIGIN_STRATEGY, ChangePassword, ClearContainerStrategy, ComponentContextStrategy, ComponentProjectionStrategy, ConfigPlugin, ConfigState, ConfigStateService, ContainerStrategy, ContentProjectionService, ContentSecurityStrategy, ContentStrategy, ContextStrategy, CoreModule, CreationAuditedEntityDto, CreationAuditedEntityWithUserDto, CrossOriginStrategy, DOM_STRATEGY, DomInsertionService, DomStrategy, DynamicLayoutComponent, EllipsisDirective, EntityDto, ExtensibleAuditedEntityDto, ExtensibleAuditedEntityWithUserDto, ExtensibleCreationAuditedEntityDto, ExtensibleCreationAuditedEntityWithUserDto, ExtensibleEntityDto, ExtensibleFullAuditedEntityDto, ExtensibleFullAuditedEntityWithUserDto, ExtensibleObject, FindTenantResultDto, ForDirective, FormSubmitDirective, FullAuditedEntityDto, FullAuditedEntityWithUserDto, GetAppConfiguration, GetProfile, InitDirective, InputEventDebounceDirective, InsertIntoContainerStrategy, LIST_QUERY_DEBOUNCE_TIME, LOADING_STRATEGY, LazyLoadService, LazyModuleFactory, LimitedResultRequestDto, ListResultDto, ListService, LoadingStrategy, LocalizationModule, LocalizationPipe, LocalizationService, LooseContentSecurityStrategy, MockLocalizationPipe, ModifyOpenedTabCount, MultiTenancyService, NGXS_CONFIG_PLUGIN_OPTIONS, NoContentSecurityStrategy, NoContextStrategy, PROJECTION_STRATEGY, PagedAndSortedResultRequestDto, PagedResultDto, PagedResultRequestDto, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ProjectionStrategy, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, RestOccurError, RestService, RootComponentProjectionStrategy, RootCoreModule, RouterOutletComponent, RoutesService, ScriptContentStrategy, ScriptLoadingStrategy, SessionState, SessionStateService, SetEnvironment, SetLanguage, SetRemember, SetTenant, SettingTabsService, SortPipe, StartLoader, StopLoader, StopPropagationDirective, StyleContentStrategy, StyleLoadingStrategy, SubscriptionService, TemplateContextStrategy, TemplateProjectionStrategy, TestCoreModule, TrackByService, UpdateProfile, VisibilityDirective, checkAccessToken, coreOptionsFactory, createLocalizationPipeKeyGenerator, createLocalizer, createLocalizerWithFallback, createMapFromList, createTokenParser, createTreeFromList, deepMerge, exists, findRoute, fromLazyLoad, generateHash, generatePassword, getInitialData, getLocaleDirection, getRemoteEnv, getRoutePath, getShortDateFormat, getShortDateShortTimeFormat, getShortTimeFormat, interpolate, isArray, isNullOrUndefined, isNumber, isObject, isObjectAndNotArray, isUndefinedOrEmptyString, localeInitializer, mapEnumToOptions, ngxsStoragePluginSerialize, noop, oAuthStorage, parseTenantFromUrl, pushValueTo, registerLocale, storageFactory, takeUntilDestroy, trackBy, trackByDeep, uuid, validateCreditCard, validateMinAge, validateRange, validateRequired, validateStringLength, validateUrl, ɵ0, oAuthStorage as ɵa, AbstractNgModelComponent as ɵb, CORE_OPTIONS as ɵba, coreOptionsFactory as ɵbb, GetProfile as ɵbd, UpdateProfile as ɵbe, ChangePassword as ɵbf, SessionState as ɵbh, SetLanguage as ɵbi, SetTenant as ɵbj, ModifyOpenedTabCount as ɵbk, SetRemember as ɵbl, ConfigState as ɵbn, GetAppConfiguration as ɵbo, SetEnvironment as ɵbp, LocaleId as ɵbr, LocaleProvider as ɵbs, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbt, ConfigPlugin as ɵbu, ApiInterceptor as ɵbv, OAuthConfigurationHandler as ɵbw, noop as ɵbx, getInitialData as ɵby, localeInitializer as ɵbz, AutofocusDirective as ɵc, RoutesHandler as ɵca, AbstractTreeService as ɵcb, AbstractNavTreeService as ɵcc, RoutesService as ɵcd, DynamicLayoutComponent as ɵd, SubscriptionService as ɵe, LocalizationService as ɵf, EllipsisDirective as ɵg, ForDirective as ɵh, FormSubmitDirective as ɵi, InitDirective as ɵj, InputEventDebounceDirective as ɵk, PermissionDirective as ɵl, ReplaceableRouteContainerComponent as ɵm, ReplaceableTemplateDirective as ɵn, RouterOutletComponent as ɵo, SortPipe as ɵp, StopPropagationDirective as ɵq, VisibilityDirective as ɵr, LocalizationPipe as ɵs, MockLocalizationPipe as ɵt, ReplaceableComponentsState as ɵu, AddReplaceableComponent as ɵv, ProfileState as ɵx, ProfileService as ɵy, RestService as ɵz };
+export { AUTH_FLOW_STRATEGY, AbpValidators, AbstractNavTreeService, AbstractNgModelComponent, AbstractTreeService, AddReplaceableComponent, ApiInterceptor, ApplicationConfigurationService, AuditedEntityDto, AuditedEntityWithUserDto, AuthCodeFlowStrategy, AuthFlowStrategy, AuthGuard, AuthPasswordFlowStrategy, AuthService, AutofocusDirective, BaseCoreModule, BaseTreeNode, CONTAINER_STRATEGY, CONTENT_SECURITY_STRATEGY, CONTENT_STRATEGY, CONTEXT_STRATEGY, CORE_OPTIONS, CROSS_ORIGIN_STRATEGY, ChangePassword, ClearContainerStrategy, ComponentContextStrategy, ComponentProjectionStrategy, ConfigPlugin, ConfigState, ConfigStateService, ContainerStrategy, ContentProjectionService, ContentSecurityStrategy, ContentStrategy, ContextStrategy, CoreModule, CreationAuditedEntityDto, CreationAuditedEntityWithUserDto, CrossOriginStrategy, DOM_STRATEGY, DomInsertionService, DomStrategy, DynamicLayoutComponent, EllipsisDirective, EntityDto, ExtensibleAuditedEntityDto, ExtensibleAuditedEntityWithUserDto, ExtensibleCreationAuditedEntityDto, ExtensibleCreationAuditedEntityWithUserDto, ExtensibleEntityDto, ExtensibleFullAuditedEntityDto, ExtensibleFullAuditedEntityWithUserDto, ExtensibleObject, FindTenantResultDto, ForDirective, FormSubmitDirective, FullAuditedEntityDto, FullAuditedEntityWithUserDto, GetAppConfiguration, GetProfile, InitDirective, InputEventDebounceDirective, InsertIntoContainerStrategy, InternalStore, LIST_QUERY_DEBOUNCE_TIME, LOADING_STRATEGY, LazyLoadService, LazyModuleFactory, LimitedResultRequestDto, ListResultDto, ListService, LoadingStrategy, LocalizationModule, LocalizationPipe, LocalizationService, LooseContentSecurityStrategy, MockLocalizationPipe, ModifyOpenedTabCount, MultiTenancyService, NGXS_CONFIG_PLUGIN_OPTIONS, NoContentSecurityStrategy, NoContextStrategy, PROJECTION_STRATEGY, PagedAndSortedResultRequestDto, PagedResultDto, PagedResultRequestDto, PermissionDirective, PermissionGuard, ProfileService, ProfileState, ProfileStateService, ProjectionStrategy, ReplaceableComponentsService, ReplaceableComponentsState, ReplaceableRouteContainerComponent, ReplaceableTemplateDirective, RestOccurError, RestService, RootComponentProjectionStrategy, RootCoreModule, RouterOutletComponent, RoutesService, ScriptContentStrategy, ScriptLoadingStrategy, SessionState, SessionStateService, SetEnvironment, SetLanguage, SetRemember, SetTenant, SettingTabsService, SortPipe, StartLoader, StopLoader, StopPropagationDirective, StyleContentStrategy, StyleLoadingStrategy, SubscriptionService, TemplateContextStrategy, TemplateProjectionStrategy, TestCoreModule, TrackByService, UpdateProfile, VisibilityDirective, checkAccessToken, clearOAuthStorage, coreOptionsFactory, createLocalizationPipeKeyGenerator, createLocalizer, createLocalizerWithFallback, createMapFromList, createTokenParser, createTreeFromList, deepMerge, downloadBlob, exists, findRoute, fromLazyLoad, generateHash, generatePassword, getInitialData, getLocaleDirection, getRemoteEnv, getRoutePath, getShortDateFormat, getShortDateShortTimeFormat, getShortTimeFormat, interpolate, isArray, isNullOrUndefined, isNumber, isObject, isObjectAndNotArray, isUndefinedOrEmptyString, localeInitializer, mapEnumToOptions, ngxsStoragePluginSerialize, noop, oAuthStorage, parseTenantFromUrl, pushValueTo, registerLocale, reloadRoute, storageFactory, takeUntilDestroy, trackBy, trackByDeep, uuid, validateCreditCard, validateMinAge, validateRange, validateRequired, validateStringLength, validateUrl, ɵ0, oAuthStorage as ɵa, AbstractNgModelComponent as ɵb, RestService as ɵba, CORE_OPTIONS as ɵbb, coreOptionsFactory as ɵbc, GetProfile as ɵbe, UpdateProfile as ɵbf, ChangePassword as ɵbg, SessionState as ɵbi, SetLanguage as ɵbj, SetTenant as ɵbk, ModifyOpenedTabCount as ɵbl, SetRemember as ɵbm, ConfigState as ɵbo, GetAppConfiguration as ɵbp, SetEnvironment as ɵbq, LocaleId as ɵbs, LocaleProvider as ɵbt, NGXS_CONFIG_PLUGIN_OPTIONS as ɵbu, ConfigPlugin as ɵbv, ApiInterceptor as ɵbw, OAuthConfigurationHandler as ɵbx, noop as ɵby, getInitialData as ɵbz, AutofocusDirective as ɵc, localeInitializer as ɵca, RoutesHandler as ɵcb, AbstractTreeService as ɵcc, AbstractNavTreeService as ɵcd, RoutesService as ɵce, DynamicLayoutComponent as ɵd, SubscriptionService as ɵe, LocalizationService as ɵf, ReplaceableComponentsService as ɵg, EllipsisDirective as ɵh, ForDirective as ɵi, FormSubmitDirective as ɵj, InitDirective as ɵk, InputEventDebounceDirective as ɵl, PermissionDirective as ɵm, ReplaceableRouteContainerComponent as ɵn, ReplaceableTemplateDirective as ɵo, RouterOutletComponent as ɵp, SortPipe as ɵq, StopPropagationDirective as ɵr, VisibilityDirective as ɵs, LocalizationPipe as ɵt, MockLocalizationPipe as ɵu, ReplaceableComponentsState as ɵv, AddReplaceableComponent as ɵw, ProfileState as ɵy, ProfileService as ɵz };
 //# sourceMappingURL=abp-ng.core.js.map

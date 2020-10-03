@@ -1,6 +1,5 @@
 import { RoutesService } from '@abp/ng.core';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { __decorate } from 'tslib';
 
 const TENANT_MANAGEMENT_ROUTE_PROVIDERS = [
     { provide: APP_INITIALIZER, useFactory: configureRoutes, deps: [RoutesService], multi: true },
@@ -28,18 +27,17 @@ function configureRoutes(routes) {
     };
 }
 
-var TenantManagementConfigModule_1;
-let TenantManagementConfigModule = TenantManagementConfigModule_1 = class TenantManagementConfigModule {
+class TenantManagementConfigModule {
     static forRoot() {
         return {
-            ngModule: TenantManagementConfigModule_1,
+            ngModule: TenantManagementConfigModule,
             providers: [TENANT_MANAGEMENT_ROUTE_PROVIDERS],
         };
     }
-};
-TenantManagementConfigModule = TenantManagementConfigModule_1 = __decorate([
-    NgModule()
-], TenantManagementConfigModule);
+}
+TenantManagementConfigModule.decorators = [
+    { type: NgModule }
+];
 
 /**
  * Generated bundle index. Do not edit.

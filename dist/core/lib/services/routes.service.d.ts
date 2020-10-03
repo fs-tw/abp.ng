@@ -19,6 +19,7 @@ export declare abstract class AbstractTreeService<T extends object> {
     get visible$(): Observable<TreeNode<T>[]>;
     protected createTree(items: T[]): TreeNode<T>[];
     private filterWith;
+    private findItemsToRemove;
     private publish;
     add(items: T[]): T[];
     find(predicate: (item: TreeNode<T>) => boolean, tree?: TreeNode<T>[]): TreeNode<T> | null;

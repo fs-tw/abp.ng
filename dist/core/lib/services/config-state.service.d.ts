@@ -14,6 +14,9 @@ export declare class ConfigStateService {
     getSettings(...args: Parameters<typeof ConfigState.getSettings>): import("../models").ABP.Dictionary<string>;
     getGrantedPolicy(...args: Parameters<typeof ConfigState.getGrantedPolicy>): boolean;
     getLocalization(...args: Parameters<typeof ConfigState.getLocalization>): string;
+    getLocalizationResource(...args: Parameters<typeof ConfigState.getLocalizationResource>): {
+        [key: string]: string;
+    };
     dispatchGetAppConfiguration(): import("rxjs").Observable<any>;
     dispatchSetEnvironment(...args: ConstructorParameters<typeof SetEnvironment>): import("rxjs").Observable<any>;
 }

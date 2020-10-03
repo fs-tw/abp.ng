@@ -1,11 +1,11 @@
-import { __decorate, __metadata } from 'tslib';
 import { RestService, ListService, DynamicLayoutComponent, AuthGuard, PermissionGuard, ReplaceableRouteContainerComponent, LazyModuleFactory, CoreModule } from '@abp/ng.core';
 import { FeatureManagementModule } from '@abp/ng.feature-management';
 import { getPasswordValidators, Confirmation, ConfirmationService, ThemeSharedModule } from '@abp/ng.theme.shared';
-import { ɵɵdefineInjectable, ɵɵinject, Injectable, ViewChild, TemplateRef, Component, NgModule } from '@angular/core';
+import { ɵɵdefineInjectable, ɵɵinject, Injectable, Component, ViewChild, NgModule } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxValidateCoreModule } from '@ngx-validate/core';
-import { Action, Selector, State, Select, Store, NgxsModule } from '@ngxs/store';
+import { Action, Selector, State, Store, Select, NgxsModule } from '@ngxs/store';
+import { __decorate, __metadata } from 'tslib';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { tap, pluck, switchMap, take, finalize } from 'rxjs/operators';
@@ -42,7 +42,10 @@ class DeleteTenant {
 }
 DeleteTenant.type = '[TenantManagement] Delete Tenant';
 
-let TenantManagementService = class TenantManagementService {
+/**
+ * @deprecated Use TenantService instead. To be deleted in v4.0.
+ */
+class TenantManagementService {
     constructor(rest) {
         this.rest = rest;
         this.apiName = 'AbpTenantManagement';
@@ -123,18 +126,73 @@ let TenantManagementService = class TenantManagementService {
             apiName: this.apiName,
         });
     }
-};
+}
 TenantManagementService.ɵprov = ɵɵdefineInjectable({ factory: function TenantManagementService_Factory() { return new TenantManagementService(ɵɵinject(RestService)); }, token: TenantManagementService, providedIn: "root" });
-TenantManagementService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __metadata("design:paramtypes", [RestService])
-], TenantManagementService);
+TenantManagementService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+TenantManagementService.ctorParameters = () => [
+    { type: RestService }
+];
+
+class TenantService {
+    constructor(restService) {
+        this.restService = restService;
+        this.apiName = 'AbpTenantManagement';
+        this.create = (input) => this.restService.request({
+            method: 'POST',
+            url: '/api/multi-tenancy/tenants',
+            body: input,
+        }, { apiName: this.apiName });
+        this.delete = (id) => this.restService.request({
+            method: 'DELETE',
+            url: `/api/multi-tenancy/tenants/${id}`,
+        }, { apiName: this.apiName });
+        this.deleteDefaultConnectionString = (id) => this.restService.request({
+            method: 'DELETE',
+            url: `/api/multi-tenancy/tenants/${id}/default-connection-string`,
+        }, { apiName: this.apiName });
+        this.get = (id) => this.restService.request({
+            method: 'GET',
+            url: `/api/multi-tenancy/tenants/${id}`,
+        }, { apiName: this.apiName });
+        this.getDefaultConnectionString = (id) => this.restService.request({
+            method: 'GET',
+            responseType: 'text',
+            url: `/api/multi-tenancy/tenants/${id}/default-connection-string`,
+        }, { apiName: this.apiName });
+        this.getList = (input) => this.restService.request({
+            method: 'GET',
+            url: '/api/multi-tenancy/tenants',
+            params: { filter: input.filter, sorting: input.sorting, skipCount: input.skipCount, maxResultCount: input.maxResultCount },
+        }, { apiName: this.apiName });
+        this.update = (id, input) => this.restService.request({
+            method: 'PUT',
+            url: `/api/multi-tenancy/tenants/${id}`,
+            body: input,
+        }, { apiName: this.apiName });
+        this.updateDefaultConnectionString = (id, defaultConnectionString) => this.restService.request({
+            method: 'PUT',
+            url: `/api/multi-tenancy/tenants/${id}/default-connection-string`,
+            params: { defaultConnectionString },
+        }, { apiName: this.apiName });
+    }
+}
+TenantService.ɵprov = ɵɵdefineInjectable({ factory: function TenantService_Factory() { return new TenantService(ɵɵinject(RestService)); }, token: TenantService, providedIn: "root" });
+TenantService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+TenantService.ctorParameters = () => [
+    { type: RestService }
+];
 
 let TenantManagementState = class TenantManagementState {
-    constructor(tenantManagementService) {
-        this.tenantManagementService = tenantManagementService;
+    constructor(service) {
+        this.service = service;
     }
     static get({ result }) {
         return result.items || [];
@@ -143,25 +201,31 @@ let TenantManagementState = class TenantManagementState {
         return result.totalCount;
     }
     get({ patchState }, { payload }) {
-        return this.tenantManagementService.getTenant(payload).pipe(tap(result => patchState({
+        return this.service.getList(payload).pipe(tap(result => patchState({
             result,
         })));
     }
     getById({ patchState }, { payload }) {
-        return this.tenantManagementService.getTenantById(payload).pipe(tap(selectedItem => patchState({
+        return this.service.get(payload).pipe(tap(selectedItem => patchState({
             selectedItem,
         })));
     }
     delete(_, { payload }) {
-        return this.tenantManagementService.deleteTenant(payload);
+        return this.service.delete(payload);
     }
     add(_, { payload }) {
-        return this.tenantManagementService.createTenant(payload);
+        return this.service.create(payload);
     }
     update({ getState }, { payload }) {
-        return this.tenantManagementService.updateTenant(Object.assign(Object.assign({}, getState().selectedItem), payload));
+        return this.service.update(payload.id, Object.assign(Object.assign({}, getState().selectedItem), payload));
     }
 };
+TenantManagementState.decorators = [
+    { type: Injectable }
+];
+TenantManagementState.ctorParameters = () => [
+    { type: TenantService }
+];
 __decorate([
     Action(GetTenants),
     __metadata("design:type", Function),
@@ -209,11 +273,10 @@ TenantManagementState = __decorate([
         name: 'TenantManagementState',
         defaults: { result: {}, selectedItem: {} },
     }),
-    Injectable(),
-    __metadata("design:paramtypes", [TenantManagementService])
+    __metadata("design:paramtypes", [TenantService])
 ], TenantManagementState);
 
-let TenantsComponent = class TenantsComponent {
+class TenantsComponent {
     constructor(list, confirmationService, tenantService, fb, store) {
         this.list = list;
         this.confirmationService = confirmationService;
@@ -394,6 +457,24 @@ let TenantsComponent = class TenantsComponent {
         this.list.sortKey = prop;
         this.list.sortOrder = dir;
     }
+}
+TenantsComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-tenants',
+                template: "<div id=\"wrapper\" class=\"card\">\r\n  <div class=\"card-header\">\r\n    <div class=\"row\">\r\n      <div class=\"col col-md-6\">\r\n        <h5 class=\"card-title\">{{ 'AbpTenantManagement::Tenants' | abpLocalization }}</h5>\r\n      </div>\r\n      <div class=\"text-right col col-md-6\">\r\n        <button\r\n          *abpPermission=\"'FeatureManagement.ManageHostFeatures'\"\r\n          id=\"manage-host-features\"\r\n          class=\"btn btn-primary mr-1\"\r\n          type=\"button\"\r\n          (click)=\"openFeaturesModal(null)\"\r\n        >\r\n          <i class=\"fa fa-plus mr-1\"></i>\r\n          <span>{{ 'AbpTenantManagement::ManageHostFeatures' | abpLocalization }}</span>\r\n        </button>\r\n        <button\r\n          *abpPermission=\"'AbpTenantManagement.Tenants.Create'\"\r\n          id=\"create-tenants\"\r\n          class=\"btn btn-primary\"\r\n          type=\"button\"\r\n          (click)=\"addTenant()\"\r\n        >\r\n          <i class=\"fa fa-plus mr-1\"></i>\r\n          <span>{{ 'AbpTenantManagement::NewTenant' | abpLocalization }}</span>\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"card-body\">\r\n    <div id=\"data-tables-table-filter\" class=\"data-tables-filter\">\r\n      <div class=\"input-group\">\r\n        <input\r\n          type=\"search\"\r\n          class=\"form-control\"\r\n          [placeholder]=\"'AbpUi::PagerSearch' | abpLocalization\"\r\n          [(ngModel)]=\"list.filter\"\r\n        />\r\n      </div>\r\n    </div>\r\n\r\n    <ngx-datatable [rows]=\"data$ | async\" [count]=\"totalCount$ | async\" [list]=\"list\" default>\r\n      <ngx-datatable-column\r\n        [name]=\"'AbpTenantManagement::Actions' | abpLocalization\"\r\n        [maxWidth]=\"150\"\r\n        [sortable]=\"false\"\r\n      >\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <div ngbDropdown container=\"body\" class=\"d-inline-block\">\r\n            <button\r\n              class=\"btn btn-primary btn-sm dropdown-toggle\"\r\n              data-toggle=\"dropdown\"\r\n              aria-haspopup=\"true\"\r\n              ngbDropdownToggle\r\n            >\r\n              <i class=\"fa fa-cog mr-1\"></i>{{ 'AbpTenantManagement::Actions' | abpLocalization }}\r\n            </button>\r\n            <div ngbDropdownMenu>\r\n              <button\r\n                *abpPermission=\"'AbpTenantManagement.Tenants.Update'\"\r\n                ngbDropdownItem\r\n                (click)=\"editTenant(row.id)\"\r\n              >\r\n                {{ 'AbpTenantManagement::Edit' | abpLocalization }}\r\n              </button>\r\n              <button\r\n                *abpPermission=\"'AbpTenantManagement.Tenants.ManageConnectionStrings'\"\r\n                ngbDropdownItem\r\n                (click)=\"onEditConnectionString(row.id)\"\r\n              >\r\n                {{ 'AbpTenantManagement::Permission:ManageConnectionStrings' | abpLocalization }}\r\n              </button>\r\n              <button\r\n                *abpPermission=\"'AbpTenantManagement.Tenants.ManageFeatures'\"\r\n                ngbDropdownItem\r\n                (click)=\"openFeaturesModal(row.id)\"\r\n              >\r\n                {{ 'AbpTenantManagement::Permission:ManageFeatures' | abpLocalization }}\r\n              </button>\r\n              <button\r\n                *abpPermission=\"'AbpTenantManagement.Tenants.Delete'\"\r\n                ngbDropdownItem\r\n                (click)=\"delete(row.id, row.name)\"\r\n              >\r\n                {{ 'AbpTenantManagement::Delete' | abpLocalization }}\r\n              </button>\r\n            </div>\r\n          </div>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n      <ngx-datatable-column\r\n        [name]=\"'AbpTenantManagement::TenantName' | abpLocalization\"\r\n        prop=\"name\"\r\n      ></ngx-datatable-column>\r\n    </ngx-datatable>\r\n  </div>\r\n</div>\r\n\r\n<abp-modal size=\"md\" [(visible)]=\"isModalVisible\" [busy]=\"modalBusy\">\r\n  <ng-template #abpHeader>\r\n    <h3>{{ selectedModalContent.title | abpLocalization }}</h3>\r\n  </ng-template>\r\n\r\n  <ng-template #abpBody>\r\n    <ng-container *ngTemplateOutlet=\"selectedModalContent?.template\"></ng-container>\r\n  </ng-template>\r\n\r\n  <ng-template #abpFooter>\r\n    <button #abpClose type=\"button\" class=\"btn btn-secondary\">\r\n      {{ 'AbpTenantManagement::Cancel' | abpLocalization }}\r\n    </button>\r\n    <abp-button iconClass=\"fa fa-check\" (click)=\"save()\" [disabled]=\"isDisabledSaveButton\">{{\r\n      'AbpTenantManagement::Save' | abpLocalization\r\n    }}</abp-button>\r\n  </ng-template>\r\n</abp-modal>\r\n\r\n<ng-template #tenantModalTemplate>\r\n  <form [formGroup]=\"tenantForm\" (ngSubmit)=\"save()\" validateOnSubmit>\r\n    <div class=\"mt-2\">\r\n      <div class=\"form-group\">\r\n        <label for=\"name\">{{ 'AbpTenantManagement::TenantName' | abpLocalization }}</label>\r\n        <input type=\"text\" id=\"name\" class=\"form-control\" formControlName=\"name\" autofocus />\r\n      </div>\r\n      <div class=\"form-group\" *ngIf=\"tenantForm.controls.adminEmailAddress\">\r\n        <label for=\"name\">{{\r\n          'AbpTenantManagement::DisplayName:AdminEmailAddress' | abpLocalization\r\n        }}</label>\r\n        <input\r\n          autocomplete=\"email\"\r\n          type=\"email\"\r\n          id=\"admin-email-address\"\r\n          class=\"form-control\"\r\n          formControlName=\"adminEmailAddress\"\r\n        />\r\n      </div>\r\n      <div class=\"form-group\" *ngIf=\"tenantForm.controls.adminPassword\">\r\n        <label for=\"name\">{{\r\n          'AbpTenantManagement::DisplayName:AdminPassword' | abpLocalization\r\n        }}</label>\r\n        <input\r\n          autocomplete=\"new-password\"\r\n          type=\"password\"\r\n          id=\"admin-password\"\r\n          class=\"form-control\"\r\n          formControlName=\"adminPassword\"\r\n        />\r\n      </div>\r\n    </div>\r\n  </form>\r\n</ng-template>\r\n\r\n<ng-template #connectionStringModalTemplate>\r\n  <form [formGroup]=\"defaultConnectionStringForm\" (ngSubmit)=\"save()\" validateOnSubmit>\r\n    <div class=\"form-group\">\r\n      <div class=\"custom-checkbox custom-control mb-2\">\r\n        <input\r\n          id=\"useSharedDatabase\"\r\n          type=\"checkbox\"\r\n          class=\"custom-control-input\"\r\n          formControlName=\"useSharedDatabase\"\r\n          autofocus\r\n          (ngModelChange)=\"onSharedDatabaseChange($event)\"\r\n        />\r\n        <label for=\"useSharedDatabase\" class=\"custom-control-label\">{{\r\n          'AbpTenantManagement::DisplayName:UseSharedDatabase' | abpLocalization\r\n        }}</label>\r\n      </div>\r\n    </div>\r\n    <div class=\"form-group\" *ngIf=\"!useSharedDatabase\">\r\n      <label for=\"defaultConnectionString\">{{\r\n        'AbpTenantManagement::DisplayName:DefaultConnectionString' | abpLocalization\r\n      }}</label>\r\n      <input\r\n        type=\"text\"\r\n        id=\"defaultConnectionString\"\r\n        class=\"form-control\"\r\n        formControlName=\"defaultConnectionString\"\r\n      />\r\n    </div>\r\n  </form>\r\n</ng-template>\r\n\r\n<abp-feature-management\r\n  *abpReplaceableTemplate=\"{\r\n    inputs: {\r\n      providerName: { value: 'T' },\r\n      providerKey: { value: providerKey },\r\n      visible: { value: visibleFeatures, twoWay: true }\r\n    },\r\n    outputs: { visibleChange: onVisibleFeaturesChange },\r\n    componentKey: featureManagementKey\r\n  }\"\r\n  [(visible)]=\"visibleFeatures\"\r\n  providerName=\"T\"\r\n  [providerKey]=\"providerKey\"\r\n>\r\n</abp-feature-management>\r\n",
+                providers: [ListService]
+            },] }
+];
+TenantsComponent.ctorParameters = () => [
+    { type: ListService },
+    { type: ConfirmationService },
+    { type: TenantManagementService },
+    { type: FormBuilder },
+    { type: Store }
+];
+TenantsComponent.propDecorators = {
+    tenantModalTemplate: [{ type: ViewChild, args: ['tenantModalTemplate',] }],
+    connectionStringModalTemplate: [{ type: ViewChild, args: ['connectionStringModalTemplate',] }]
 };
 __decorate([
     Select(TenantManagementState.get),
@@ -403,26 +484,6 @@ __decorate([
     Select(TenantManagementState.getTenantsTotalCount),
     __metadata("design:type", Observable)
 ], TenantsComponent.prototype, "totalCount$", void 0);
-__decorate([
-    ViewChild('tenantModalTemplate'),
-    __metadata("design:type", TemplateRef)
-], TenantsComponent.prototype, "tenantModalTemplate", void 0);
-__decorate([
-    ViewChild('connectionStringModalTemplate'),
-    __metadata("design:type", TemplateRef)
-], TenantsComponent.prototype, "connectionStringModalTemplate", void 0);
-TenantsComponent = __decorate([
-    Component({
-        selector: 'abp-tenants',
-        template: "<div id=\"wrapper\" class=\"card\">\r\n  <div class=\"card-header\">\r\n    <div class=\"row\">\r\n      <div class=\"col col-md-6\">\r\n        <h5 class=\"card-title\">{{ 'AbpTenantManagement::Tenants' | abpLocalization }}</h5>\r\n      </div>\r\n      <div class=\"text-right col col-md-6\">\r\n        <button\r\n          *abpPermission=\"'AbpTenantManagement.Tenants.Create'\"\r\n          id=\"create-tenants\"\r\n          class=\"btn btn-primary\"\r\n          type=\"button\"\r\n          (click)=\"addTenant()\"\r\n        >\r\n          <i class=\"fa fa-plus mr-1\"></i>\r\n          <span>{{ 'AbpTenantManagement::NewTenant' | abpLocalization }}</span>\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"card-body\">\r\n    <div id=\"data-tables-table-filter\" class=\"data-tables-filter\">\r\n      <div class=\"input-group\">\r\n        <input\r\n          type=\"search\"\r\n          class=\"form-control\"\r\n          [placeholder]=\"'AbpUi::PagerSearch' | abpLocalization\"\r\n          [(ngModel)]=\"list.filter\"\r\n        />\r\n      </div>\r\n    </div>\r\n\r\n    <ngx-datatable [rows]=\"data$ | async\" [count]=\"totalCount$ | async\" [list]=\"list\" default>\r\n      <ngx-datatable-column\r\n        [name]=\"'AbpTenantManagement::Actions' | abpLocalization\"\r\n        [maxWidth]=\"150\"\r\n        [sortable]=\"false\"\r\n      >\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <div ngbDropdown container=\"body\" class=\"d-inline-block\">\r\n            <button\r\n              class=\"btn btn-primary btn-sm dropdown-toggle\"\r\n              data-toggle=\"dropdown\"\r\n              aria-haspopup=\"true\"\r\n              ngbDropdownToggle\r\n            >\r\n              <i class=\"fa fa-cog mr-1\"></i>{{ 'AbpTenantManagement::Actions' | abpLocalization }}\r\n            </button>\r\n            <div ngbDropdownMenu>\r\n              <button\r\n                *abpPermission=\"'AbpTenantManagement.Tenants.Update'\"\r\n                ngbDropdownItem\r\n                (click)=\"editTenant(row.id)\"\r\n              >\r\n                {{ 'AbpTenantManagement::Edit' | abpLocalization }}\r\n              </button>\r\n              <button\r\n                *abpPermission=\"'AbpTenantManagement.Tenants.ManageConnectionStrings'\"\r\n                ngbDropdownItem\r\n                (click)=\"onEditConnectionString(row.id)\"\r\n              >\r\n                {{ 'AbpTenantManagement::Permission:ManageConnectionStrings' | abpLocalization }}\r\n              </button>\r\n              <button\r\n                *abpPermission=\"'AbpTenantManagement.Tenants.ManageFeatures'\"\r\n                ngbDropdownItem\r\n                (click)=\"openFeaturesModal(row.id)\"\r\n              >\r\n                {{ 'AbpTenantManagement::Permission:ManageFeatures' | abpLocalization }}\r\n              </button>\r\n              <button\r\n                *abpPermission=\"'AbpTenantManagement.Tenants.Delete'\"\r\n                ngbDropdownItem\r\n                (click)=\"delete(row.id, row.name)\"\r\n              >\r\n                {{ 'AbpTenantManagement::Delete' | abpLocalization }}\r\n              </button>\r\n            </div>\r\n          </div>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n      <ngx-datatable-column\r\n        [name]=\"'AbpTenantManagement::TenantName' | abpLocalization\"\r\n        prop=\"name\"\r\n      ></ngx-datatable-column>\r\n    </ngx-datatable>\r\n  </div>\r\n</div>\r\n\r\n<abp-modal size=\"md\" [(visible)]=\"isModalVisible\" [busy]=\"modalBusy\">\r\n  <ng-template #abpHeader>\r\n    <h3>{{ selectedModalContent.title | abpLocalization }}</h3>\r\n  </ng-template>\r\n\r\n  <ng-template #abpBody>\r\n    <ng-container *ngTemplateOutlet=\"selectedModalContent?.template\"></ng-container>\r\n  </ng-template>\r\n\r\n  <ng-template #abpFooter>\r\n    <button #abpClose type=\"button\" class=\"btn btn-secondary\">\r\n      {{ 'AbpTenantManagement::Cancel' | abpLocalization }}\r\n    </button>\r\n    <abp-button iconClass=\"fa fa-check\" (click)=\"save()\" [disabled]=\"isDisabledSaveButton\">{{\r\n      'AbpTenantManagement::Save' | abpLocalization\r\n    }}</abp-button>\r\n  </ng-template>\r\n</abp-modal>\r\n\r\n<ng-template #tenantModalTemplate>\r\n  <form [formGroup]=\"tenantForm\" (ngSubmit)=\"save()\" validateOnSubmit>\r\n    <div class=\"mt-2\">\r\n      <div class=\"form-group\">\r\n        <label for=\"name\">{{ 'AbpTenantManagement::TenantName' | abpLocalization }}</label>\r\n        <input type=\"text\" id=\"name\" class=\"form-control\" formControlName=\"name\" autofocus />\r\n      </div>\r\n      <div class=\"form-group\" *ngIf=\"tenantForm.controls.adminEmailAddress\">\r\n        <label for=\"name\">{{\r\n          'AbpTenantManagement::DisplayName:AdminEmailAddress' | abpLocalization\r\n        }}</label>\r\n        <input\r\n          autocomplete=\"email\"\r\n          type=\"email\"\r\n          id=\"admin-email-address\"\r\n          class=\"form-control\"\r\n          formControlName=\"adminEmailAddress\"\r\n        />\r\n      </div>\r\n      <div class=\"form-group\" *ngIf=\"tenantForm.controls.adminPassword\">\r\n        <label for=\"name\">{{\r\n          'AbpTenantManagement::DisplayName:AdminPassword' | abpLocalization\r\n        }}</label>\r\n        <input\r\n          autocomplete=\"new-password\"\r\n          type=\"password\"\r\n          id=\"admin-password\"\r\n          class=\"form-control\"\r\n          formControlName=\"adminPassword\"\r\n        />\r\n      </div>\r\n    </div>\r\n  </form>\r\n</ng-template>\r\n\r\n<ng-template #connectionStringModalTemplate>\r\n  <form [formGroup]=\"defaultConnectionStringForm\" (ngSubmit)=\"save()\" validateOnSubmit>\r\n    <div class=\"form-group\">\r\n      <div class=\"custom-checkbox custom-control mb-2\">\r\n        <input\r\n          id=\"useSharedDatabase\"\r\n          type=\"checkbox\"\r\n          class=\"custom-control-input\"\r\n          formControlName=\"useSharedDatabase\"\r\n          autofocus\r\n          (ngModelChange)=\"onSharedDatabaseChange($event)\"\r\n        />\r\n        <label for=\"useSharedDatabase\" class=\"custom-control-label\">{{\r\n          'AbpTenantManagement::DisplayName:UseSharedDatabase' | abpLocalization\r\n        }}</label>\r\n      </div>\r\n    </div>\r\n    <div class=\"form-group\" *ngIf=\"!useSharedDatabase\">\r\n      <label for=\"defaultConnectionString\">{{\r\n        'AbpTenantManagement::DisplayName:DefaultConnectionString' | abpLocalization\r\n      }}</label>\r\n      <input\r\n        type=\"text\"\r\n        id=\"defaultConnectionString\"\r\n        class=\"form-control\"\r\n        formControlName=\"defaultConnectionString\"\r\n      />\r\n    </div>\r\n  </form>\r\n</ng-template>\r\n\r\n<abp-feature-management\r\n  *abpReplaceableTemplate=\"{\r\n    inputs: {\r\n      providerName: { value: 'T' },\r\n      providerKey: { value: providerKey },\r\n      visible: { value: visibleFeatures, twoWay: true }\r\n    },\r\n    outputs: { visibleChange: onVisibleFeaturesChange },\r\n    componentKey: featureManagementKey\r\n  }\"\r\n  [(visible)]=\"visibleFeatures\"\r\n  providerName=\"T\"\r\n  [providerKey]=\"providerKey\"\r\n>\r\n</abp-feature-management>\r\n",
-        providers: [ListService]
-    }),
-    __metadata("design:paramtypes", [ListService,
-        ConfirmationService,
-        TenantManagementService,
-        FormBuilder,
-        Store])
-], TenantsComponent);
 
 const ɵ0 = {
     requiredPolicy: 'AbpTenantManagement.Tenants',
@@ -446,44 +507,43 @@ const routes = [
         ],
     },
 ];
-let TenantManagementRoutingModule = class TenantManagementRoutingModule {
-};
-TenantManagementRoutingModule = __decorate([
-    NgModule({
-        imports: [RouterModule.forChild(routes)],
-        exports: [RouterModule],
-    })
-], TenantManagementRoutingModule);
+class TenantManagementRoutingModule {
+}
+TenantManagementRoutingModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [RouterModule.forChild(routes)],
+                exports: [RouterModule],
+            },] }
+];
 
-var TenantManagementModule_1;
-let TenantManagementModule = TenantManagementModule_1 = class TenantManagementModule {
+class TenantManagementModule {
     static forChild() {
         return {
-            ngModule: TenantManagementModule_1,
+            ngModule: TenantManagementModule,
             providers: [],
         };
     }
     static forLazy() {
-        return new LazyModuleFactory(TenantManagementModule_1.forChild());
+        return new LazyModuleFactory(TenantManagementModule.forChild());
     }
-};
-TenantManagementModule = TenantManagementModule_1 = __decorate([
-    NgModule({
-        declarations: [TenantsComponent],
-        exports: [TenantsComponent],
-        imports: [
-            TenantManagementRoutingModule,
-            NgxsModule.forFeature([TenantManagementState]),
-            NgxValidateCoreModule,
-            CoreModule,
-            ThemeSharedModule,
-            NgbDropdownModule,
-            FeatureManagementModule,
-        ],
-    })
-], TenantManagementModule);
+}
+TenantManagementModule.decorators = [
+    { type: NgModule, args: [{
+                declarations: [TenantsComponent],
+                exports: [TenantsComponent],
+                imports: [
+                    TenantManagementRoutingModule,
+                    NgxsModule.forFeature([TenantManagementState]),
+                    NgxValidateCoreModule,
+                    CoreModule,
+                    ThemeSharedModule,
+                    NgbDropdownModule,
+                    FeatureManagementModule,
+                ],
+            },] }
+];
 
-let TenantManagementStateService = class TenantManagementStateService {
+class TenantManagementStateService {
     constructor(store) {
         this.store = store;
     }
@@ -508,18 +568,20 @@ let TenantManagementStateService = class TenantManagementStateService {
     dispatchDeleteTenant(...args) {
         return this.store.dispatch(new DeleteTenant(...args));
     }
-};
+}
 TenantManagementStateService.ɵprov = ɵɵdefineInjectable({ factory: function TenantManagementStateService_Factory() { return new TenantManagementStateService(ɵɵinject(Store)); }, token: TenantManagementStateService, providedIn: "root" });
-TenantManagementStateService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __metadata("design:paramtypes", [Store])
-], TenantManagementStateService);
+TenantManagementStateService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+TenantManagementStateService.ctorParameters = () => [
+    { type: Store }
+];
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { CreateTenant, DeleteTenant, GetTenantById, GetTenants, TenantManagementModule, TenantManagementService, TenantManagementState, TenantManagementStateService, TenantsComponent, UpdateTenant, TenantsComponent as ɵa, TenantManagementState as ɵb, TenantManagementService as ɵc, GetTenants as ɵd, GetTenantById as ɵe, CreateTenant as ɵf, UpdateTenant as ɵg, DeleteTenant as ɵh, TenantManagementRoutingModule as ɵj };
+export { CreateTenant, DeleteTenant, GetTenantById, GetTenants, TenantManagementModule, TenantManagementService, TenantManagementState, TenantManagementStateService, TenantService, TenantsComponent, UpdateTenant, TenantsComponent as ɵa, TenantManagementState as ɵb, TenantService as ɵc, GetTenants as ɵd, GetTenantById as ɵe, CreateTenant as ɵf, UpdateTenant as ɵg, DeleteTenant as ɵh, TenantManagementService as ɵk, TenantManagementRoutingModule as ɵl };
 //# sourceMappingURL=abp-ng.tenant-management.js.map

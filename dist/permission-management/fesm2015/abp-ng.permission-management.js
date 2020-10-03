@@ -1,8 +1,8 @@
-import { __decorate, __metadata } from 'tslib';
 import { RestService, GetAppConfiguration, ConfigState, CoreModule } from '@abp/ng.core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
-import { ɵɵdefineInjectable, ɵɵinject, Injectable, EventEmitter, Input, Output, Component, Renderer2, NgModule } from '@angular/core';
-import { Action, Selector, State, Select, Store, NgxsModule } from '@ngxs/store';
+import { ɵɵdefineInjectable, ɵɵinject, Injectable, EventEmitter, Component, Renderer2, Input, Output, NgModule } from '@angular/core';
+import { Action, Selector, State, Store, Select, NgxsModule } from '@ngxs/store';
+import { __decorate, __metadata } from 'tslib';
 import { of, Observable } from 'rxjs';
 import { tap, map, take, switchMap, finalize, pluck } from 'rxjs/operators';
 
@@ -19,42 +19,36 @@ class UpdatePermissions {
 }
 UpdatePermissions.type = '[PermissionManagement] Update Permissions';
 
-let PermissionManagementService = class PermissionManagementService {
-    constructor(rest) {
-        this.rest = rest;
+class PermissionsService {
+    constructor(restService) {
+        this.restService = restService;
         this.apiName = 'AbpPermissionManagement';
-    }
-    getPermissions(params) {
-        const request = {
+        this.get = (providerName, providerKey) => this.restService.request({
             method: 'GET',
             url: '/api/permission-management/permissions',
-            params,
-        };
-        return this.rest.request(request, { apiName: this.apiName });
-    }
-    updatePermissions({ permissions, providerKey, providerName, }) {
-        const request = {
+            params: { providerName, providerKey },
+        }, { apiName: this.apiName });
+        this.update = (providerName, providerKey, input) => this.restService.request({
             method: 'PUT',
             url: '/api/permission-management/permissions',
-            body: { permissions },
-            params: { providerKey, providerName },
-        };
-        return this.rest.request(request, {
-            apiName: this.apiName,
-        });
+            params: { providerName, providerKey },
+            body: input,
+        }, { apiName: this.apiName });
     }
-};
-PermissionManagementService.ɵprov = ɵɵdefineInjectable({ factory: function PermissionManagementService_Factory() { return new PermissionManagementService(ɵɵinject(RestService)); }, token: PermissionManagementService, providedIn: "root" });
-PermissionManagementService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __metadata("design:paramtypes", [RestService])
-], PermissionManagementService);
+}
+PermissionsService.ɵprov = ɵɵdefineInjectable({ factory: function PermissionsService_Factory() { return new PermissionsService(ɵɵinject(RestService)); }, token: PermissionsService, providedIn: "root" });
+PermissionsService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+PermissionsService.ctorParameters = () => [
+    { type: RestService }
+];
 
 let PermissionManagementState = class PermissionManagementState {
-    constructor(permissionManagementService) {
-        this.permissionManagementService = permissionManagementService;
+    constructor(service) {
+        this.service = service;
     }
     static getPermissionGroups({ permissionRes }) {
         return permissionRes.groups || [];
@@ -62,15 +56,23 @@ let PermissionManagementState = class PermissionManagementState {
     static getEntityDisplayName({ permissionRes }) {
         return permissionRes.entityDisplayName;
     }
-    permissionManagementGet({ patchState }, { payload }) {
-        return this.permissionManagementService.getPermissions(payload).pipe(tap(permissionResponse => patchState({
+    permissionManagementGet({ patchState }, { payload: { providerKey, providerName } = {}, }) {
+        return this.service.get(providerName, providerKey).pipe(tap(permissionResponse => patchState({
             permissionRes: permissionResponse,
         })));
     }
     permissionManagementUpdate(_, { payload }) {
-        return this.permissionManagementService.updatePermissions(payload);
+        return this.service.update(payload.providerName, payload.providerKey, {
+            permissions: payload.permissions,
+        });
     }
 };
+PermissionManagementState.decorators = [
+    { type: Injectable }
+];
+PermissionManagementState.ctorParameters = () => [
+    { type: PermissionsService }
+];
 __decorate([
     Action(GetPermissions),
     __metadata("design:type", Function),
@@ -100,11 +102,10 @@ PermissionManagementState = __decorate([
         name: 'PermissionManagementState',
         defaults: { permissionRes: {} },
     }),
-    Injectable(),
-    __metadata("design:paramtypes", [PermissionManagementService])
+    __metadata("design:paramtypes", [PermissionsService])
 ], PermissionManagementState);
 
-let PermissionManagementComponent = class PermissionManagementComponent {
+class PermissionManagementComponent {
     constructor(store, renderer) {
         this.store = store;
         this.renderer = renderer;
@@ -279,28 +280,31 @@ let PermissionManagementComponent = class PermissionManagementComponent {
             return currentUser.id === this.providerKey;
         return false;
     }
+}
+PermissionManagementComponent.decorators = [
+    { type: Component, args: [{
+                selector: 'abp-permission-management',
+                template: "<abp-modal [(visible)]=\"visible\" (init)=\"initModal()\" [busy]=\"modalBusy\">\r\n  <ng-container *ngIf=\"{ entityName: entityName$ | async } as data\">\r\n    <ng-template #abpHeader>\r\n      <h4>\r\n        {{ 'AbpPermissionManagement::Permissions' | abpLocalization }} - {{ data.entityName }}\r\n      </h4>\r\n    </ng-template>\r\n    <ng-template #abpBody>\r\n      <div class=\"custom-checkbox custom-control mb-2\">\r\n        <input\r\n          type=\"checkbox\"\r\n          id=\"select-all-in-all-tabs\"\r\n          name=\"select-all-in-all-tabs\"\r\n          class=\"custom-control-input\"\r\n          [(ngModel)]=\"selectAllTab\"\r\n          (click)=\"onClickSelectAll()\"\r\n        />\r\n        <label class=\"custom-control-label\" for=\"select-all-in-all-tabs\">{{\r\n          'AbpPermissionManagement::SelectAllInAllTabs' | abpLocalization\r\n        }}</label>\r\n      </div>\r\n\r\n      <hr class=\"mt-2 mb-2\" />\r\n      <div class=\"row\">\r\n        <div class=\"overflow-scroll col-md-4\">\r\n          <ul class=\"nav nav-pills flex-column\">\r\n            <li *ngFor=\"let group of groups$ | async; trackBy: trackByFn\" class=\"nav-item\">\r\n              <a\r\n                *ngIf=\"{ assignedCount: getAssignedCount(group.name) } as data\"\r\n                class=\"nav-link pointer\"\r\n                [class.active]=\"selectedGroup?.name === group?.name\"\r\n                (click)=\"onChangeGroup(group)\"\r\n              >\r\n                <div [class.font-weight-bold]=\"data.assignedCount\">\r\n                  {{ group?.displayName }}\r\n                  <span>({{ data.assignedCount }})</span>\r\n                </div>\r\n              </a>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"col-md-8 overflow-scroll\">\r\n          <h4>{{ selectedGroup?.displayName }}</h4>\r\n          <hr class=\"mt-2 mb-3\" />\r\n          <div class=\"pl-1 pt-1\">\r\n            <div class=\"custom-checkbox custom-control mb-2\">\r\n              <input\r\n                type=\"checkbox\"\r\n                id=\"select-all-in-this-tabs\"\r\n                name=\"select-all-in-this-tabs\"\r\n                class=\"custom-control-input\"\r\n                [(ngModel)]=\"selectThisTab\"\r\n                (click)=\"onClickSelectThisTab()\"\r\n              />\r\n              <label class=\"custom-control-label\" for=\"select-all-in-this-tabs\">{{\r\n                'AbpPermissionManagement::SelectAllInThisTab' | abpLocalization\r\n              }}</label>\r\n            </div>\r\n            <hr class=\"mb-3\" />\r\n            <div\r\n              *ngFor=\"\r\n                let permission of selectedGroupPermissions$ | async;\r\n                let i = index;\r\n                trackBy: trackByFn\r\n              \"\r\n              [ngStyle]=\"permission.style\"\r\n              class=\"custom-checkbox custom-control mb-2\"\r\n            >\r\n              <input\r\n                #permissionCheckbox\r\n                type=\"checkbox\"\r\n                [checked]=\"getChecked(permission.name)\"\r\n                [value]=\"getChecked(permission.name)\"\r\n                [attr.id]=\"permission.name\"\r\n                class=\"custom-control-input\"\r\n                [disabled]=\"isGrantedByOtherProviderName(permission.grantedProviders)\"\r\n              />\r\n              <label\r\n                class=\"custom-control-label\"\r\n                [attr.for]=\"permission.name\"\r\n                (click)=\"onClickCheckbox(permission, permissionCheckbox.value)\"\r\n                >{{ permission.displayName }}\r\n                <ng-container *ngIf=\"!hideBadges\">\r\n                  <span\r\n                    *ngFor=\"let provider of permission.grantedProviders\"\r\n                    class=\"badge badge-light\"\r\n                    >{{ provider.providerName }}: {{ provider.providerKey }}</span\r\n                  >\r\n                </ng-container>\r\n              </label>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </ng-template>\r\n    <ng-template #abpFooter>\r\n      <button type=\"button\" class=\"btn btn-secondary\" #abpClose>\r\n        {{ 'AbpIdentity::Cancel' | abpLocalization }}\r\n      </button>\r\n      <abp-button iconClass=\"fa fa-check\" (click)=\"submit()\">{{\r\n        'AbpIdentity::Save' | abpLocalization\r\n      }}</abp-button>\r\n    </ng-template>\r\n  </ng-container>\r\n</abp-modal>\r\n",
+                exportAs: 'abpPermissionManagement',
+                styles: [`
+      .overflow-scroll {
+        max-height: 70vh;
+        overflow-y: scroll;
+      }
+    `]
+            },] }
+];
+PermissionManagementComponent.ctorParameters = () => [
+    { type: Store },
+    { type: Renderer2 }
+];
+PermissionManagementComponent.propDecorators = {
+    providerName: [{ type: Input }],
+    providerKey: [{ type: Input }],
+    hideBadges: [{ type: Input }],
+    visible: [{ type: Input }],
+    visibleChange: [{ type: Output }]
 };
-__decorate([
-    Input(),
-    __metadata("design:type", String)
-], PermissionManagementComponent.prototype, "providerName", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", String)
-], PermissionManagementComponent.prototype, "providerKey", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Object)
-], PermissionManagementComponent.prototype, "hideBadges", void 0);
-__decorate([
-    Input(),
-    __metadata("design:type", Boolean),
-    __metadata("design:paramtypes", [Boolean])
-], PermissionManagementComponent.prototype, "visible", null);
-__decorate([
-    Output(),
-    __metadata("design:type", Object)
-], PermissionManagementComponent.prototype, "visibleChange", void 0);
 __decorate([
     Select(PermissionManagementState.getPermissionGroups),
     __metadata("design:type", Observable)
@@ -309,20 +313,6 @@ __decorate([
     Select(PermissionManagementState.getEntityDisplayName),
     __metadata("design:type", Observable)
 ], PermissionManagementComponent.prototype, "entityName$", void 0);
-PermissionManagementComponent = __decorate([
-    Component({
-        selector: 'abp-permission-management',
-        template: "<abp-modal [(visible)]=\"visible\" (init)=\"initModal()\" [busy]=\"modalBusy\">\r\n  <ng-container *ngIf=\"{ entityName: entityName$ | async } as data\">\r\n    <ng-template #abpHeader>\r\n      <h4>\r\n        {{ 'AbpPermissionManagement::Permissions' | abpLocalization }} - {{ data.entityName }}\r\n      </h4>\r\n    </ng-template>\r\n    <ng-template #abpBody>\r\n      <div class=\"custom-checkbox custom-control mb-2\">\r\n        <input\r\n          type=\"checkbox\"\r\n          id=\"select-all-in-all-tabs\"\r\n          name=\"select-all-in-all-tabs\"\r\n          class=\"custom-control-input\"\r\n          [(ngModel)]=\"selectAllTab\"\r\n          (click)=\"onClickSelectAll()\"\r\n        />\r\n        <label class=\"custom-control-label\" for=\"select-all-in-all-tabs\">{{\r\n          'AbpPermissionManagement::SelectAllInAllTabs' | abpLocalization\r\n        }}</label>\r\n      </div>\r\n\r\n      <hr class=\"mt-2 mb-2\" />\r\n      <div class=\"row\">\r\n        <div class=\"overflow-scroll col-md-4\">\r\n          <ul class=\"nav nav-pills flex-column\">\r\n            <li *ngFor=\"let group of groups$ | async; trackBy: trackByFn\" class=\"nav-item\">\r\n              <a\r\n                *ngIf=\"{ assignedCount: getAssignedCount(group.name) } as data\"\r\n                class=\"nav-link pointer\"\r\n                [class.active]=\"selectedGroup?.name === group?.name\"\r\n                (click)=\"onChangeGroup(group)\"\r\n              >\r\n                <div [class.font-weight-bold]=\"data.assignedCount\">\r\n                  {{ group?.displayName }}\r\n                  <span>({{ data.assignedCount }})</span>\r\n                </div>\r\n              </a>\r\n            </li>\r\n          </ul>\r\n        </div>\r\n        <div class=\"col-md-8 overflow-scroll\">\r\n          <h4>{{ selectedGroup?.displayName }}</h4>\r\n          <hr class=\"mt-2 mb-3\" />\r\n          <div class=\"pl-1 pt-1\">\r\n            <div class=\"custom-checkbox custom-control mb-2\">\r\n              <input\r\n                type=\"checkbox\"\r\n                id=\"select-all-in-this-tabs\"\r\n                name=\"select-all-in-this-tabs\"\r\n                class=\"custom-control-input\"\r\n                [(ngModel)]=\"selectThisTab\"\r\n                (click)=\"onClickSelectThisTab()\"\r\n              />\r\n              <label class=\"custom-control-label\" for=\"select-all-in-this-tabs\">{{\r\n                'AbpPermissionManagement::SelectAllInThisTab' | abpLocalization\r\n              }}</label>\r\n            </div>\r\n            <hr class=\"mb-3\" />\r\n            <div\r\n              *ngFor=\"\r\n                let permission of selectedGroupPermissions$ | async;\r\n                let i = index;\r\n                trackBy: trackByFn\r\n              \"\r\n              [ngStyle]=\"permission.style\"\r\n              class=\"custom-checkbox custom-control mb-2\"\r\n            >\r\n              <input\r\n                #permissionCheckbox\r\n                type=\"checkbox\"\r\n                [checked]=\"getChecked(permission.name)\"\r\n                [value]=\"getChecked(permission.name)\"\r\n                [attr.id]=\"permission.name\"\r\n                class=\"custom-control-input\"\r\n                [disabled]=\"isGrantedByOtherProviderName(permission.grantedProviders)\"\r\n              />\r\n              <label\r\n                class=\"custom-control-label\"\r\n                [attr.for]=\"permission.name\"\r\n                (click)=\"onClickCheckbox(permission, permissionCheckbox.value)\"\r\n                >{{ permission.displayName }}\r\n                <ng-container *ngIf=\"!hideBadges\">\r\n                  <span\r\n                    *ngFor=\"let provider of permission.grantedProviders\"\r\n                    class=\"badge badge-light\"\r\n                    >{{ provider.providerName }}: {{ provider.providerKey }}</span\r\n                  >\r\n                </ng-container>\r\n              </label>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </ng-template>\r\n    <ng-template #abpFooter>\r\n      <button type=\"button\" class=\"btn btn-secondary\" #abpClose>\r\n        {{ 'AbpIdentity::Cancel' | abpLocalization }}\r\n      </button>\r\n      <abp-button iconClass=\"fa fa-check\" (click)=\"submit()\">{{\r\n        'AbpIdentity::Save' | abpLocalization\r\n      }}</abp-button>\r\n    </ng-template>\r\n  </ng-container>\r\n</abp-modal>\r\n",
-        exportAs: 'abpPermissionManagement',
-        styles: [`
-      .overflow-scroll {
-        max-height: 70vh;
-        overflow-y: scroll;
-      }
-    `]
-    }),
-    __metadata("design:paramtypes", [Store, Renderer2])
-], PermissionManagementComponent);
 function findMargin(permissions, permission) {
     const parentPermission = permissions.find(per => per.name === permission.parentName);
     if (parentPermission && parentPermission.parentName) {
@@ -335,17 +325,52 @@ function getPermissions(groups) {
     return groups.reduce((acc, val) => [...acc, ...val.permissions], []);
 }
 
-let PermissionManagementModule = class PermissionManagementModule {
-};
-PermissionManagementModule = __decorate([
-    NgModule({
-        declarations: [PermissionManagementComponent],
-        imports: [CoreModule, ThemeSharedModule, NgxsModule.forFeature([PermissionManagementState])],
-        exports: [PermissionManagementComponent],
-    })
-], PermissionManagementModule);
+class PermissionManagementModule {
+}
+PermissionManagementModule.decorators = [
+    { type: NgModule, args: [{
+                declarations: [PermissionManagementComponent],
+                imports: [CoreModule, ThemeSharedModule, NgxsModule.forFeature([PermissionManagementState])],
+                exports: [PermissionManagementComponent],
+            },] }
+];
 
-let PermissionManagementStateService = class PermissionManagementStateService {
+class PermissionManagementService {
+    constructor(rest) {
+        this.rest = rest;
+        this.apiName = 'AbpPermissionManagement';
+    }
+    getPermissions(params) {
+        const request = {
+            method: 'GET',
+            url: '/api/permission-management/permissions',
+            params,
+        };
+        return this.rest.request(request, { apiName: this.apiName });
+    }
+    updatePermissions({ permissions, providerKey, providerName, }) {
+        const request = {
+            method: 'PUT',
+            url: '/api/permission-management/permissions',
+            body: { permissions },
+            params: { providerKey, providerName },
+        };
+        return this.rest.request(request, {
+            apiName: this.apiName,
+        });
+    }
+}
+PermissionManagementService.ɵprov = ɵɵdefineInjectable({ factory: function PermissionManagementService_Factory() { return new PermissionManagementService(ɵɵinject(RestService)); }, token: PermissionManagementService, providedIn: "root" });
+PermissionManagementService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+PermissionManagementService.ctorParameters = () => [
+    { type: RestService }
+];
+
+class PermissionManagementStateService {
     constructor(store) {
         this.store = store;
     }
@@ -361,14 +386,16 @@ let PermissionManagementStateService = class PermissionManagementStateService {
     dispatchUpdatePermissions(...args) {
         return this.store.dispatch(new UpdatePermissions(...args));
     }
-};
+}
 PermissionManagementStateService.ɵprov = ɵɵdefineInjectable({ factory: function PermissionManagementStateService_Factory() { return new PermissionManagementStateService(ɵɵinject(Store)); }, token: PermissionManagementStateService, providedIn: "root" });
-PermissionManagementStateService = __decorate([
-    Injectable({
-        providedIn: 'root',
-    }),
-    __metadata("design:paramtypes", [Store])
-], PermissionManagementStateService);
+PermissionManagementStateService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root',
+            },] }
+];
+PermissionManagementStateService.ctorParameters = () => [
+    { type: Store }
+];
 
 /*
  * Public API Surface of permission-management
@@ -378,5 +405,5 @@ PermissionManagementStateService = __decorate([
  * Generated bundle index. Do not edit.
  */
 
-export { GetPermissions, PermissionManagementComponent, PermissionManagementModule, PermissionManagementService, PermissionManagementState, PermissionManagementStateService, UpdatePermissions, PermissionManagementComponent as ɵa, PermissionManagementState as ɵb, PermissionManagementService as ɵc, GetPermissions as ɵd, UpdatePermissions as ɵe };
+export { GetPermissions, PermissionManagementComponent, PermissionManagementModule, PermissionManagementService, PermissionManagementState, PermissionManagementStateService, PermissionsService, UpdatePermissions, PermissionManagementComponent as ɵa, PermissionManagementState as ɵb, PermissionsService as ɵc, GetPermissions as ɵd, UpdatePermissions as ɵe };
 //# sourceMappingURL=abp-ng.permission-management.js.map

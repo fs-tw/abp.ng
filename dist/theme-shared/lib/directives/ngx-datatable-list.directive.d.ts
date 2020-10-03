@@ -6,11 +6,13 @@ export declare class NgxDatatableListDirective implements OnChanges, OnDestroy, 
     private cdRef;
     private localizationService;
     private subscription;
+    private querySubscription;
     list: ListService;
     constructor(table: DatatableComponent, cdRef: ChangeDetectorRef, localizationService: LocalizationService);
     private setInitialValues;
     private subscribeToPage;
     private subscribeToSort;
+    private subscribeToQuery;
     ngOnChanges({ list }: SimpleChanges): void;
     ngOnDestroy(): void;
     ngOnInit(): void;

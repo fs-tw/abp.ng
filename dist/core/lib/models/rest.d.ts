@@ -26,7 +26,7 @@ export declare namespace Rest {
             [param: string]: any;
         };
         reportProgress?: boolean;
-        responseType?: ResponseType;
+        responseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
         url: string;
         withCredentials?: boolean;
     }

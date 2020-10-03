@@ -1,7 +1,6 @@
 import { RoutesService, SettingTabsService } from '@abp/ng.core';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { debounceTime, map } from 'rxjs/operators';
-import { __decorate } from 'tslib';
 
 const SETTING_MANAGEMENT_ROUTE_PROVIDERS = [
     { provide: APP_INITIALIZER, useFactory: configureRoutes, deps: [RoutesService], multi: true },
@@ -34,18 +33,17 @@ function hideRoutes(routes, tabs) {
     };
 }
 
-var SettingManagementConfigModule_1;
-let SettingManagementConfigModule = SettingManagementConfigModule_1 = class SettingManagementConfigModule {
+class SettingManagementConfigModule {
     static forRoot() {
         return {
-            ngModule: SettingManagementConfigModule_1,
+            ngModule: SettingManagementConfigModule,
             providers: [SETTING_MANAGEMENT_ROUTE_PROVIDERS],
         };
     }
-};
-SettingManagementConfigModule = SettingManagementConfigModule_1 = __decorate([
-    NgModule()
-], SettingManagementConfigModule);
+}
+SettingManagementConfigModule.decorators = [
+    { type: NgModule }
+];
 
 /**
  * Generated bundle index. Do not edit.

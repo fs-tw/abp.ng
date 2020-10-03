@@ -1,9 +1,9 @@
-import { Identity } from '../models/identity';
-import { ABP } from '@abp/ng.core';
+import { PagedAndSortedResultRequestDto } from '@abp/ng.core';
+import { GetIdentityUsersInput, IdentityRoleCreateDto, IdentityRoleUpdateDto, IdentityUserCreateDto, IdentityUserUpdateDto } from '../proxy/identity/models';
 export declare class GetRoles {
-    payload?: ABP.PageQueryParams;
+    payload?: PagedAndSortedResultRequestDto;
     static readonly type = "[Identity] Get Roles";
-    constructor(payload?: ABP.PageQueryParams);
+    constructor(payload?: PagedAndSortedResultRequestDto);
 }
 export declare class GetRoleById {
     payload: string;
@@ -16,19 +16,23 @@ export declare class DeleteRole {
     constructor(payload: string);
 }
 export declare class CreateRole {
-    payload: Identity.RoleSaveRequest;
+    payload: IdentityRoleCreateDto;
     static readonly type = "[Identity] Create Role";
-    constructor(payload: Identity.RoleSaveRequest);
+    constructor(payload: IdentityRoleCreateDto);
 }
 export declare class UpdateRole {
-    payload: Identity.RoleItem;
+    payload: IdentityRoleUpdateDto & {
+        id: string;
+    };
     static readonly type = "[Identity] Update Role";
-    constructor(payload: Identity.RoleItem);
+    constructor(payload: IdentityRoleUpdateDto & {
+        id: string;
+    });
 }
 export declare class GetUsers {
-    payload?: ABP.PageQueryParams;
+    payload?: GetIdentityUsersInput;
     static readonly type = "[Identity] Get Users";
-    constructor(payload?: ABP.PageQueryParams);
+    constructor(payload?: GetIdentityUsersInput);
 }
 export declare class GetUserById {
     payload: string;
@@ -41,16 +45,16 @@ export declare class DeleteUser {
     constructor(payload: string);
 }
 export declare class CreateUser {
-    payload: Identity.UserSaveRequest;
+    payload: IdentityUserCreateDto;
     static readonly type = "[Identity] Create User";
-    constructor(payload: Identity.UserSaveRequest);
+    constructor(payload: IdentityUserCreateDto);
 }
 export declare class UpdateUser {
-    payload: Identity.UserSaveRequest & {
+    payload: IdentityUserUpdateDto & {
         id: string;
     };
     static readonly type = "[Identity] Update User";
-    constructor(payload: Identity.UserSaveRequest & {
+    constructor(payload: IdentityUserUpdateDto & {
         id: string;
     });
 }

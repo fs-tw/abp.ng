@@ -1,10 +1,9 @@
 import { Store } from '@ngxs/store';
-import { ABP } from '@abp/ng.core';
 import { GetTenants, GetTenantById, CreateTenant, UpdateTenant, DeleteTenant } from '../actions';
 export declare class TenantManagementStateService {
     private store;
     constructor(store: Store);
-    get(): ABP.BasicItem[];
+    get(): import("../proxy").TenantDto[];
     getTenantsTotalCount(): number;
     dispatchGetTenants(...args: ConstructorParameters<typeof GetTenants>): import("rxjs").Observable<any>;
     dispatchGetTenantById(...args: ConstructorParameters<typeof GetTenantById>): import("rxjs").Observable<any>;

@@ -1,4 +1,3 @@
-import { __decorate } from 'tslib';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { RoutesService } from '@abp/ng.core';
 
@@ -35,18 +34,17 @@ function configureRoutes(routes) {
     };
 }
 
-var IdentityConfigModule_1;
-let IdentityConfigModule = IdentityConfigModule_1 = class IdentityConfigModule {
+class IdentityConfigModule {
     static forRoot() {
         return {
-            ngModule: IdentityConfigModule_1,
+            ngModule: IdentityConfigModule,
             providers: [IDENTITY_ROUTE_PROVIDERS],
         };
     }
-};
-IdentityConfigModule = IdentityConfigModule_1 = __decorate([
-    NgModule()
-], IdentityConfigModule);
+}
+IdentityConfigModule.decorators = [
+    { type: NgModule }
+];
 
 /**
  * Generated bundle index. Do not edit.

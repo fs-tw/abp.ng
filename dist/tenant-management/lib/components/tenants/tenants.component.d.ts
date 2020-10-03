@@ -1,10 +1,11 @@
-import { ABP, ListService } from '@abp/ng.core';
+import { ListService, PagedResultDto } from '@abp/ng.core';
 import { eFeatureManagementComponents } from '@abp/ng.feature-management';
 import { ConfirmationService } from '@abp/ng.theme.shared';
 import { OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { GetTenantsInput, TenantDto } from '../../proxy/models';
 import { TenantManagementService } from '../../services/tenant-management.service';
 interface SelectedModalContent {
     type: 'saveConnStr' | 'saveTenant';
@@ -12,14 +13,14 @@ interface SelectedModalContent {
     template: TemplateRef<any>;
 }
 export declare class TenantsComponent implements OnInit {
-    readonly list: ListService;
+    readonly list: ListService<GetTenantsInput>;
     private confirmationService;
     private tenantService;
     private fb;
     private store;
-    data$: Observable<ABP.BasicItem[]>;
+    data$: Observable<PagedResultDto<TenantDto>>;
     totalCount$: Observable<number>;
-    selected: ABP.BasicItem;
+    selected: TenantDto;
     tenantForm: FormGroup;
     defaultConnectionStringForm: FormGroup;
     defaultConnectionString: string;
@@ -37,7 +38,7 @@ export declare class TenantsComponent implements OnInit {
     connectionStringModalTemplate: TemplateRef<any>;
     get isDisabledSaveButton(): boolean;
     onVisibleFeaturesChange: (value: boolean) => void;
-    constructor(list: ListService, confirmationService: ConfirmationService, tenantService: TenantManagementService, fb: FormBuilder, store: Store);
+    constructor(list: ListService<GetTenantsInput>, confirmationService: ConfirmationService, tenantService: TenantManagementService, fb: FormBuilder, store: Store);
     ngOnInit(): void;
     private createTenantForm;
     private createDefaultConnectionStringForm;

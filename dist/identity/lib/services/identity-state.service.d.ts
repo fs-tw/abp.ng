@@ -6,7 +6,7 @@ export declare class IdentityStateService {
     constructor(store: Store);
     getRoles(): Identity.RoleItem[];
     getRolesTotalCount(): number;
-    getUsers(): Identity.UserItem[];
+    getUsers(): import("../proxy/identity").IdentityUserDto[];
     getUsersTotalCount(): number;
     dispatchGetRoles(...args: ConstructorParameters<typeof GetRoles>): import("rxjs").Observable<any>;
     dispatchGetRoleById(...args: ConstructorParameters<typeof GetRoleById>): import("rxjs").Observable<any>;

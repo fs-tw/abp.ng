@@ -1,14 +1,181 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/router'), require('@ngxs/store'), require('rxjs'), require('rxjs/operators'), require('@angular/common/http'), require('snq'), require('angular-oauth2-oidc'), require('@angular/common'), require('@ngxs/router-plugin'), require('just-clone'), require('@angular/forms'), require('@ngxs/storage-plugin'), require('just-compare')) :
-    typeof define === 'function' && define.amd ? define('@abp/ng.core', ['exports', '@angular/core', '@angular/router', '@ngxs/store', 'rxjs', 'rxjs/operators', '@angular/common/http', 'snq', 'angular-oauth2-oidc', '@angular/common', '@ngxs/router-plugin', 'just-clone', '@angular/forms', '@ngxs/storage-plugin', 'just-compare'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.core = {}), global.ng.core, global.ng.router, global.i1, global.rxjs, global.rxjs.operators, global.ng.common.http, global.snq, global.i3, global.ng.common, global.routerPlugin, global.clone, global.ng.forms, global.storagePlugin, global.compare));
-}(this, (function (exports, i0, i2$1, i1, rxjs, operators, i2, snq, i3, common, routerPlugin, clone, forms, storagePlugin, compare) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/router'), require('@ngxs/store'), require('rxjs'), require('rxjs/operators'), require('@angular/common/http'), require('snq'), require('angular-oauth2-oidc'), require('@angular/common'), require('@ngxs/router-plugin'), require('just-clone'), require('just-compare'), require('@angular/forms'), require('@ngxs/storage-plugin')) :
+    typeof define === 'function' && define.amd ? define('@abp/ng.core', ['exports', '@angular/core', '@angular/router', '@ngxs/store', 'rxjs', 'rxjs/operators', '@angular/common/http', 'snq', 'angular-oauth2-oidc', '@angular/common', '@ngxs/router-plugin', 'just-clone', 'just-compare', '@angular/forms', '@ngxs/storage-plugin'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.abp = global.abp || {}, global.abp.ng = global.abp.ng || {}, global.abp.ng.core = {}), global.ng.core, global.ng.router, global.i1, global.rxjs, global.rxjs.operators, global.ng.common.http, global.snq, global.i1$1, global.ng.common, global.routerPlugin, global.clone, global.compare, global.ng.forms, global.storagePlugin));
+}(this, (function (exports, i0, i1$2, i1, rxjs, operators, i2, snq, i1$1, common, routerPlugin, clone, compare, forms, storagePlugin) { 'use strict';
 
     function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
     var snq__default = /*#__PURE__*/_interopDefaultLegacy(snq);
     var clone__default = /*#__PURE__*/_interopDefaultLegacy(clone);
     var compare__default = /*#__PURE__*/_interopDefaultLegacy(compare);
+
+    // Not an abstract class on purpose. Do not change!
+    // tslint:disable-next-line: use-component-selector
+    var AbstractNgModelComponent = /** @class */ (function () {
+        function AbstractNgModelComponent(injector) {
+            this.injector = injector;
+            this.valueFn = function (value) { return value; };
+            this.valueLimitFn = function (value) { return false; };
+            // tslint:disable-next-line: deprecation
+            this.cdRef = injector.get(i0.ChangeDetectorRef);
+        }
+        Object.defineProperty(AbstractNgModelComponent.prototype, "value", {
+            get: function () {
+                return this._value || this.defaultValue;
+            },
+            set: function (value) {
+                value = this.valueFn(value, this._value);
+                if (this.valueLimitFn(value, this._value) !== false || this.readonly)
+                    return;
+                this._value = value;
+                this.notifyValueChange();
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(AbstractNgModelComponent.prototype, "defaultValue", {
+            get: function () {
+                return this._value;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        AbstractNgModelComponent.prototype.notifyValueChange = function () {
+            if (this.onChange) {
+                this.onChange(this.value);
+            }
+        };
+        AbstractNgModelComponent.prototype.writeValue = function (value) {
+            var _this = this;
+            this._value = this.valueLimitFn(value, this._value) || value;
+            setTimeout(function () { return _this.cdRef.markForCheck(); }, 0);
+        };
+        AbstractNgModelComponent.prototype.registerOnChange = function (fn) {
+            this.onChange = fn;
+        };
+        AbstractNgModelComponent.prototype.registerOnTouched = function (fn) {
+            this.onTouched = fn;
+        };
+        AbstractNgModelComponent.prototype.setDisabledState = function (isDisabled) {
+            this.disabled = isDisabled;
+        };
+        return AbstractNgModelComponent;
+    }());
+    AbstractNgModelComponent.decorators = [
+        { type: i0.Component, args: [{ template: '' },] }
+    ];
+    AbstractNgModelComponent.ctorParameters = function () { return [
+        { type: i0.Injector }
+    ]; };
+    AbstractNgModelComponent.propDecorators = {
+        disabled: [{ type: i0.Input }],
+        readonly: [{ type: i0.Input }],
+        valueFn: [{ type: i0.Input }],
+        valueLimitFn: [{ type: i0.Input }],
+        value: [{ type: i0.Input }]
+    };
+
+    var GetAppConfiguration = /** @class */ (function () {
+        function GetAppConfiguration() {
+        }
+        return GetAppConfiguration;
+    }());
+    GetAppConfiguration.type = '[Config] Get App Configuration';
+    var SetEnvironment = /** @class */ (function () {
+        function SetEnvironment(environment) {
+            this.environment = environment;
+        }
+        return SetEnvironment;
+    }());
+    SetEnvironment.type = '[Config] Set Environment';
+
+    var StartLoader = /** @class */ (function () {
+        function StartLoader(payload) {
+            this.payload = payload;
+        }
+        return StartLoader;
+    }());
+    StartLoader.type = '[Loader] Start';
+    var StopLoader = /** @class */ (function () {
+        function StopLoader(payload) {
+            this.payload = payload;
+        }
+        return StopLoader;
+    }());
+    StopLoader.type = '[Loader] Stop';
+
+    var GetProfile = /** @class */ (function () {
+        function GetProfile() {
+        }
+        return GetProfile;
+    }());
+    GetProfile.type = '[Profile] Get';
+    var UpdateProfile = /** @class */ (function () {
+        function UpdateProfile(payload) {
+            this.payload = payload;
+        }
+        return UpdateProfile;
+    }());
+    UpdateProfile.type = '[Profile] Update';
+    var ChangePassword = /** @class */ (function () {
+        function ChangePassword(payload) {
+            this.payload = payload;
+        }
+        return ChangePassword;
+    }());
+    ChangePassword.type = '[Profile] Change Password';
+
+    // tslint:disable: max-line-length
+    /**
+     * @deprecated To be deleted in v4.0. Use ReplaceableComponentsService instead. See the doc (https://docs.abp.io/en/abp/latest/UI/Angular/Component-Replacement)
+     */
+    var AddReplaceableComponent = /** @class */ (function () {
+        function AddReplaceableComponent(payload, reload) {
+            this.payload = payload;
+            this.reload = reload;
+        }
+        return AddReplaceableComponent;
+    }());
+    AddReplaceableComponent.type = '[ReplaceableComponents] Add';
+
+    var RestOccurError = /** @class */ (function () {
+        function RestOccurError(payload) {
+            this.payload = payload;
+        }
+        return RestOccurError;
+    }());
+    RestOccurError.type = '[Rest] Error';
+
+    var SetLanguage = /** @class */ (function () {
+        function SetLanguage(payload, dispatchAppConfiguration) {
+            this.payload = payload;
+            this.dispatchAppConfiguration = dispatchAppConfiguration;
+        }
+        return SetLanguage;
+    }());
+    SetLanguage.type = '[Session] Set Language';
+    var SetTenant = /** @class */ (function () {
+        function SetTenant(payload) {
+            this.payload = payload;
+        }
+        return SetTenant;
+    }());
+    SetTenant.type = '[Session] Set Tenant';
+    var ModifyOpenedTabCount = /** @class */ (function () {
+        function ModifyOpenedTabCount(operation) {
+            this.operation = operation;
+        }
+        return ModifyOpenedTabCount;
+    }());
+    ModifyOpenedTabCount.type = '[Session] Modify Opened Tab Count';
+    var SetRemember = /** @class */ (function () {
+        function SetRemember(payload) {
+            this.payload = payload;
+        }
+        return SetRemember;
+    }());
+    SetRemember.type = '[Session] Set Remember';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -29,7 +196,7 @@
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b)
-                if (b.hasOwnProperty(p))
+                if (Object.prototype.hasOwnProperty.call(b, p))
                     d[p] = b[p]; };
         return extendStatics(d, b);
     };
@@ -167,15 +334,19 @@
             return { value: op[0] ? op[1] : void 0, done: true };
         }
     }
-    function __createBinding(o, m, k, k2) {
+    var __createBinding = Object.create ? (function (o, m, k, k2) {
+        if (k2 === undefined)
+            k2 = k;
+        Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
+    }) : (function (o, m, k, k2) {
         if (k2 === undefined)
             k2 = k;
         o[k2] = m[k];
-    }
-    function __exportStar(m, exports) {
+    });
+    function __exportStar(m, o) {
         for (var p in m)
-            if (p !== "default" && !exports.hasOwnProperty(p))
-                exports[p] = m[p];
+            if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+                __createBinding(o, m, p);
     }
     function __values(o) {
         var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -274,15 +445,20 @@
         return cooked;
     }
     ;
+    var __setModuleDefault = Object.create ? (function (o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+    }) : function (o, v) {
+        o["default"] = v;
+    };
     function __importStar(mod) {
         if (mod && mod.__esModule)
             return mod;
         var result = {};
         if (mod != null)
             for (var k in mod)
-                if (Object.hasOwnProperty.call(mod, k))
-                    result[k] = mod[k];
-        result.default = mod;
+                if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+                    __createBinding(result, mod, k);
+        __setModuleDefault(result, mod);
         return result;
     }
     function __importDefault(mod) {
@@ -301,184 +477,6 @@
         privateMap.set(receiver, value);
         return value;
     }
-
-    // Not an abstract class on purpose. Do not change!
-    // tslint:disable-next-line: use-component-selector
-    exports.ɵb = /** @class */ (function () {
-        function AbstractNgModelComponent(injector) {
-            this.injector = injector;
-            this.valueFn = function (value) { return value; };
-            this.valueLimitFn = function (value) { return false; };
-            // tslint:disable-next-line: deprecation
-            this.cdRef = injector.get(i0.ChangeDetectorRef);
-        }
-        Object.defineProperty(AbstractNgModelComponent.prototype, "value", {
-            get: function () {
-                return this._value || this.defaultValue;
-            },
-            set: function (value) {
-                value = this.valueFn(value, this._value);
-                if (this.valueLimitFn(value, this._value) !== false || this.readonly)
-                    return;
-                this._value = value;
-                this.notifyValueChange();
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(AbstractNgModelComponent.prototype, "defaultValue", {
-            get: function () {
-                return this._value;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        AbstractNgModelComponent.prototype.notifyValueChange = function () {
-            if (this.onChange) {
-                this.onChange(this.value);
-            }
-        };
-        AbstractNgModelComponent.prototype.writeValue = function (value) {
-            var _this = this;
-            this._value = this.valueLimitFn(value, this._value) || value;
-            setTimeout(function () { return _this.cdRef.markForCheck(); }, 0);
-        };
-        AbstractNgModelComponent.prototype.registerOnChange = function (fn) {
-            this.onChange = fn;
-        };
-        AbstractNgModelComponent.prototype.registerOnTouched = function (fn) {
-            this.onTouched = fn;
-        };
-        AbstractNgModelComponent.prototype.setDisabledState = function (isDisabled) {
-            this.disabled = isDisabled;
-        };
-        return AbstractNgModelComponent;
-    }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Boolean)
-    ], exports.ɵb.prototype, "disabled", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Boolean)
-    ], exports.ɵb.prototype, "readonly", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Function)
-    ], exports.ɵb.prototype, "valueFn", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Function)
-    ], exports.ɵb.prototype, "valueLimitFn", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [Object])
-    ], exports.ɵb.prototype, "value", null);
-    exports.ɵb = __decorate([
-        i0.Component({ template: '' }),
-        __metadata("design:paramtypes", [i0.Injector])
-    ], exports.ɵb);
-
-    var GetAppConfiguration = /** @class */ (function () {
-        function GetAppConfiguration() {
-        }
-        return GetAppConfiguration;
-    }());
-    GetAppConfiguration.type = '[Config] Get App Configuration';
-    var SetEnvironment = /** @class */ (function () {
-        function SetEnvironment(environment) {
-            this.environment = environment;
-        }
-        return SetEnvironment;
-    }());
-    SetEnvironment.type = '[Config] Set Environment';
-
-    var StartLoader = /** @class */ (function () {
-        function StartLoader(payload) {
-            this.payload = payload;
-        }
-        return StartLoader;
-    }());
-    StartLoader.type = '[Loader] Start';
-    var StopLoader = /** @class */ (function () {
-        function StopLoader(payload) {
-            this.payload = payload;
-        }
-        return StopLoader;
-    }());
-    StopLoader.type = '[Loader] Stop';
-
-    var GetProfile = /** @class */ (function () {
-        function GetProfile() {
-        }
-        return GetProfile;
-    }());
-    GetProfile.type = '[Profile] Get';
-    var UpdateProfile = /** @class */ (function () {
-        function UpdateProfile(payload) {
-            this.payload = payload;
-        }
-        return UpdateProfile;
-    }());
-    UpdateProfile.type = '[Profile] Update';
-    var ChangePassword = /** @class */ (function () {
-        function ChangePassword(payload) {
-            this.payload = payload;
-        }
-        return ChangePassword;
-    }());
-    ChangePassword.type = '[Profile] Change Password';
-
-    /**
-     * @see usage: https://github.com/abpframework/abp/pull/2522#issue-358333183
-     */
-    var AddReplaceableComponent = /** @class */ (function () {
-        function AddReplaceableComponent(payload, reload) {
-            this.payload = payload;
-            this.reload = reload;
-        }
-        return AddReplaceableComponent;
-    }());
-    AddReplaceableComponent.type = '[ReplaceableComponents] Add';
-
-    var RestOccurError = /** @class */ (function () {
-        function RestOccurError(payload) {
-            this.payload = payload;
-        }
-        return RestOccurError;
-    }());
-    RestOccurError.type = '[Rest] Error';
-
-    var SetLanguage = /** @class */ (function () {
-        function SetLanguage(payload, dispatchAppConfiguration) {
-            this.payload = payload;
-            this.dispatchAppConfiguration = dispatchAppConfiguration;
-        }
-        return SetLanguage;
-    }());
-    SetLanguage.type = '[Session] Set Language';
-    var SetTenant = /** @class */ (function () {
-        function SetTenant(payload) {
-            this.payload = payload;
-        }
-        return SetTenant;
-    }());
-    SetTenant.type = '[Session] Set Tenant';
-    var ModifyOpenedTabCount = /** @class */ (function () {
-        function ModifyOpenedTabCount(operation) {
-            this.operation = operation;
-        }
-        return ModifyOpenedTabCount;
-    }());
-    ModifyOpenedTabCount.type = '[Session] Modify Opened Tab Count';
-    var SetRemember = /** @class */ (function () {
-        function SetRemember(payload) {
-            this.payload = payload;
-        }
-        return SetRemember;
-    }());
-    SetRemember.type = '[Session] Set Remember';
 
     function createTokenParser(format) {
         return function (string) {
@@ -502,7 +500,7 @@
     }
 
     var SessionState_1;
-    exports.ɵbh = SessionState_1 = /** @class */ (function () {
+    exports.ɵbi = SessionState_1 = /** @class */ (function () {
         function SessionState(oAuthService, store, actions) {
             var _this = this;
             this.oAuthService = oAuthService;
@@ -586,59 +584,66 @@
         };
         return SessionState;
     }());
+    exports.ɵbi.decorators = [
+        { type: i0.Injectable }
+    ];
+    exports.ɵbi.ctorParameters = function () { return [
+        { type: i1$1.OAuthService },
+        { type: i1.Store },
+        { type: i1.Actions }
+    ]; };
     __decorate([
         i1.Action(SetLanguage),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, SetLanguage]),
         __metadata("design:returntype", void 0)
-    ], exports.ɵbh.prototype, "setLanguage", null);
+    ], exports.ɵbi.prototype, "setLanguage", null);
     __decorate([
         i1.Action(SetTenant),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, SetTenant]),
         __metadata("design:returntype", void 0)
-    ], exports.ɵbh.prototype, "setTenant", null);
+    ], exports.ɵbi.prototype, "setTenant", null);
     __decorate([
         i1.Action(SetRemember),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, SetRemember]),
         __metadata("design:returntype", void 0)
-    ], exports.ɵbh.prototype, "setRemember", null);
+    ], exports.ɵbi.prototype, "setRemember", null);
     __decorate([
         i1.Action(ModifyOpenedTabCount),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, ModifyOpenedTabCount]),
         __metadata("design:returntype", void 0)
-    ], exports.ɵbh.prototype, "modifyOpenedTabCount", null);
+    ], exports.ɵbi.prototype, "modifyOpenedTabCount", null);
     __decorate([
         i1.Selector(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", String)
-    ], exports.ɵbh, "getLanguage", null);
+    ], exports.ɵbi, "getLanguage", null);
     __decorate([
         i1.Selector(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", Object)
-    ], exports.ɵbh, "getTenant", null);
+    ], exports.ɵbi, "getTenant", null);
     __decorate([
         i1.Selector(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", Object)
-    ], exports.ɵbh, "getSessionDetail", null);
-    exports.ɵbh = SessionState_1 = __decorate([
+    ], exports.ɵbi, "getSessionDetail", null);
+    exports.ɵbi = SessionState_1 = __decorate([
         i1.State({
             name: 'SessionState',
             defaults: { sessionDetail: { openedTabCount: 0 } },
         }),
-        i0.Injectable(),
-        __metadata("design:paramtypes", [i3.OAuthService, i1.Store, i1.Actions])
-    ], exports.ɵbh);
+        __metadata("design:paramtypes", [i1$1.OAuthService, i1.Store, i1.Actions])
+    ], exports.ɵbi);
 
     var ConfigState_1;
-    exports.ɵbn = ConfigState_1 = /** @class */ (function () {
+    exports.ɵbo = ConfigState_1 = /** @class */ (function () {
         function ConfigState(http, store) {
             this.http = http;
             this.store = store;
@@ -727,6 +732,12 @@
             });
             return selector;
         };
+        ConfigState.getLocalizationResource = function (resourceName) {
+            var selector = i1.createSelector([ConfigState_1], function (state) {
+                return state.localization.values[resourceName];
+            });
+            return selector;
+        };
         ConfigState.getLocalization = function (key) {
             var interpolateParams = [];
             for (var _i = 1; _i < arguments.length; _i++) {
@@ -789,14 +800,14 @@
             return this.http
                 .get(api + "/api/abp/application-configuration")
                 .pipe(operators.tap(function (configuration) { return patchState(Object.assign({}, configuration)); }), operators.switchMap(function (configuration) {
-                var defaultLang = configuration.setting.values['Abp.Localization.DefaultLanguage'];
-                if (defaultLang.includes(';')) {
-                    defaultLang = defaultLang.split(';')[0];
+                var lang = configuration.localization.currentCulture.cultureName;
+                if (lang.includes(';')) {
+                    lang = lang.split(';')[0];
                 }
-                document.documentElement.setAttribute('lang', configuration.localization.currentCulture.cultureName);
-                return _this.store.selectSnapshot(exports.ɵbh.getLanguage)
+                document.documentElement.setAttribute('lang', lang);
+                return _this.store.selectSnapshot(exports.ɵbi.getLanguage)
                     ? rxjs.of(null)
-                    : dispatch(new SetLanguage(defaultLang, false));
+                    : dispatch(new SetLanguage(lang, false));
             }), operators.catchError(function (err) {
                 dispatch(new RestOccurError(err));
                 return rxjs.throwError(err);
@@ -809,38 +820,44 @@
         };
         return ConfigState;
     }());
+    exports.ɵbo.decorators = [
+        { type: i0.Injectable }
+    ];
+    exports.ɵbo.ctorParameters = function () { return [
+        { type: i2.HttpClient },
+        { type: i1.Store }
+    ]; };
     __decorate([
         i1.Action(GetAppConfiguration),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
-    ], exports.ɵbn.prototype, "addData", null);
+    ], exports.ɵbo.prototype, "addData", null);
     __decorate([
         i1.Action(SetEnvironment),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, SetEnvironment]),
         __metadata("design:returntype", void 0)
-    ], exports.ɵbn.prototype, "setEnvironment", null);
+    ], exports.ɵbo.prototype, "setEnvironment", null);
     __decorate([
         i1.Selector(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
-    ], exports.ɵbn, "getAll", null);
+    ], exports.ɵbo, "getAll", null);
     __decorate([
         i1.Selector(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", Object)
-    ], exports.ɵbn, "getApplicationInfo", null);
-    exports.ɵbn = ConfigState_1 = __decorate([
+    ], exports.ɵbo, "getApplicationInfo", null);
+    exports.ɵbo = ConfigState_1 = __decorate([
         i1.State({
             name: 'ConfigState',
             defaults: {},
         }),
-        i0.Injectable(),
         __metadata("design:paramtypes", [i2.HttpClient, i1.Store])
-    ], exports.ɵbn);
+    ], exports.ɵbo);
 
     function noop() {
         // tslint:disable-next-line: only-arrow-functions
@@ -905,14 +922,14 @@
         return Object.assign(Object.assign({}, options), { cultureNameLocaleFileMap: Object.assign(Object.assign({}, localesMapping), cultureNameLocaleFileMap) });
     }
 
-    exports.ɵz = /** @class */ (function () {
+    var RestService = /** @class */ (function () {
         function RestService(options, http, store) {
             this.options = options;
             this.http = http;
             this.store = store;
         }
         RestService.prototype.getApiFromStore = function (apiName) {
-            return this.store.selectSnapshot(exports.ɵbn.getApiUrl(apiName));
+            return this.store.selectSnapshot(exports.ɵbo.getApiUrl(apiName));
         };
         RestService.prototype.handleError = function (err) {
             this.store.dispatch(new RestOccurError(err));
@@ -941,15 +958,17 @@
         };
         return RestService;
     }());
-    exports.ɵz.ɵprov = i0.ɵɵdefineInjectable({ factory: function RestService_Factory() { return new exports.ɵz(i0.ɵɵinject(CORE_OPTIONS), i0.ɵɵinject(i2.HttpClient), i0.ɵɵinject(i1.Store)); }, token: exports.ɵz, providedIn: "root" });
-    exports.ɵz = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __param(0, i0.Inject(CORE_OPTIONS)),
-        __metadata("design:paramtypes", [Object, i2.HttpClient,
-            i1.Store])
-    ], exports.ɵz);
+    RestService.ɵprov = i0.ɵɵdefineInjectable({ factory: function RestService_Factory() { return new RestService(i0.ɵɵinject(CORE_OPTIONS), i0.ɵɵinject(i2.HttpClient), i0.ɵɵinject(i1.Store)); }, token: RestService, providedIn: "root" });
+    RestService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    RestService.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: i0.Inject, args: [CORE_OPTIONS,] }] },
+        { type: i2.HttpClient },
+        { type: i1.Store }
+    ]; };
 
     var oAuthStorage = localStorage;
     var AuthFlowStrategy = /** @class */ (function () {
@@ -958,14 +977,14 @@
             this.injector = injector;
             this.catchError = function (err) { return _this.store.dispatch(new RestOccurError(err)); };
             this.store = injector.get(i1.Store);
-            this.oAuthService = injector.get(i3.OAuthService);
-            this.oAuthConfig = this.store.selectSnapshot(exports.ɵbn.getDeep('environment.oAuthConfig'));
+            this.oAuthService = injector.get(i1$1.OAuthService);
+            this.oAuthConfig = this.store.selectSnapshot(exports.ɵbo.getDeep('environment.oAuthConfig'));
         }
         AuthFlowStrategy.prototype.init = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var shouldClear;
                 return __generator(this, function (_a) {
-                    shouldClear = shouldStorageClear(this.store.selectSnapshot(exports.ɵbn.getDeep('environment.oAuthConfig.clientId')), oAuthStorage);
+                    shouldClear = shouldStorageClear(this.store.selectSnapshot(exports.ɵbo.getDeep('environment.oAuthConfig.clientId')), oAuthStorage);
                     if (shouldClear)
                         clearOAuthStorage(oAuthStorage);
                     this.oAuthService.configure(this.oAuthConfig);
@@ -1023,7 +1042,7 @@
             return _this;
         }
         AuthPasswordFlowStrategy.prototype.login = function () {
-            var router = this.injector.get(i2$1.Router);
+            var router = this.injector.get(i1$2.Router);
             router.navigateByUrl('/account/login');
         };
         AuthPasswordFlowStrategy.prototype.checkIfInternalAuth = function () {
@@ -1031,8 +1050,8 @@
         };
         AuthPasswordFlowStrategy.prototype.logout = function () {
             var _this = this;
-            var rest = this.injector.get(exports.ɵz);
-            var issuer = this.store.selectSnapshot(exports.ɵbn.getDeep('environment.oAuthConfig.issuer'));
+            var rest = this.injector.get(RestService);
+            var issuer = this.store.selectSnapshot(exports.ɵbo.getDeep('environment.oAuthConfig.issuer'));
             return rest
                 .request({
                 method: 'GET',
@@ -1052,6 +1071,7 @@
         },
     };
     function clearOAuthStorage(storage) {
+        if (storage === void 0) { storage = oAuthStorage; }
         var keys = [
             'access_token',
             'id_token',
@@ -1080,7 +1100,7 @@
         return shouldClear;
     }
 
-    exports.AuthService = /** @class */ (function () {
+    var AuthService = /** @class */ (function () {
         function AuthService(actions, injector, rest, oAuthService, store, options) {
             var _this = this;
             this.actions = actions;
@@ -1090,7 +1110,7 @@
             this.store = store;
             this.options = options;
             this.setStrategy = function () {
-                var flow = _this.store.selectSnapshot(exports.ɵbn.getDeep('environment.oAuthConfig.responseType')) ||
+                var flow = _this.store.selectSnapshot(exports.ɵbo.getDeep('environment.oAuthConfig.responseType')) ||
                     'password';
                 if (_this.flow === flow)
                     return;
@@ -1109,7 +1129,7 @@
             get: function () {
                 return this.strategy.isInternalAuth;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         AuthService.prototype.listenToSetEnvironment = function () {
@@ -1117,7 +1137,7 @@
         };
         AuthService.prototype.login = function (username, password) {
             var _this = this;
-            var tenant = this.store.selectSnapshot(exports.ɵbh.getTenant);
+            var tenant = this.store.selectSnapshot(exports.ɵbi.getTenant);
             return rxjs.from(this.oAuthService.fetchTokenUsingPasswordFlow(username, password, new i2.HttpHeaders(Object.assign({}, (tenant && tenant.id && { __tenant: tenant.id }))))).pipe(operators.switchMap(function () { return _this.store.dispatch(new GetAppConfiguration()); }), operators.tap(function () {
                 var redirectUrl = snq__default['default'](function () { return window.history.state.redirectUrl; }) || (_this.options || {}).redirectUrl || '/';
                 _this.store.dispatch(new routerPlugin.Navigate([redirectUrl]));
@@ -1141,18 +1161,20 @@
         };
         return AuthService;
     }());
-    exports.AuthService.ɵprov = i0.ɵɵdefineInjectable({ factory: function AuthService_Factory() { return new exports.AuthService(i0.ɵɵinject(i1.Actions), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(exports.ɵz), i0.ɵɵinject(i3.OAuthService), i0.ɵɵinject(i1.Store), i0.ɵɵinject("ACCOUNT_OPTIONS", 8)); }, token: exports.AuthService, providedIn: "root" });
-    exports.AuthService = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __param(5, i0.Optional()), __param(5, i0.Inject('ACCOUNT_OPTIONS')),
-        __metadata("design:paramtypes", [i1.Actions,
-            i0.Injector,
-            exports.ɵz,
-            i3.OAuthService,
-            i1.Store, Object])
-    ], exports.AuthService);
+    AuthService.ɵprov = i0.ɵɵdefineInjectable({ factory: function AuthService_Factory() { return new AuthService(i0.ɵɵinject(i1.Actions), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(RestService), i0.ɵɵinject(i1$1.OAuthService), i0.ɵɵinject(i1.Store), i0.ɵɵinject("ACCOUNT_OPTIONS", 8)); }, token: AuthService, providedIn: "root" });
+    AuthService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    AuthService.ctorParameters = function () { return [
+        { type: i1.Actions },
+        { type: i0.Injector },
+        { type: RestService },
+        { type: i1$1.OAuthService },
+        { type: i1.Store },
+        { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: ['ACCOUNT_OPTIONS',] }] }
+    ]; };
 
     function deepMerge(target, source) {
         if (isObjectAndNotArray(target) && isObjectAndNotArray(source)) {
@@ -1214,7 +1236,7 @@
         }
     }
 
-    exports.MultiTenancyService = /** @class */ (function () {
+    var MultiTenancyService = /** @class */ (function () {
         function MultiTenancyService(restService, store) {
             this.restService = restService;
             this.store = store;
@@ -1230,7 +1252,7 @@
                 this._domainTenant = value;
                 this.store.dispatch(new SetTenant(value));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         MultiTenancyService.prototype.findTenantByName = function (name, headers) {
@@ -1245,11 +1267,14 @@
         };
         return MultiTenancyService;
     }());
-    exports.MultiTenancyService.ɵprov = i0.ɵɵdefineInjectable({ factory: function MultiTenancyService_Factory() { return new exports.MultiTenancyService(i0.ɵɵinject(exports.ɵz), i0.ɵɵinject(i1.Store)); }, token: exports.MultiTenancyService, providedIn: "root" });
-    exports.MultiTenancyService = __decorate([
-        i0.Injectable({ providedIn: 'root' }),
-        __metadata("design:paramtypes", [exports.ɵz, i1.Store])
-    ], exports.MultiTenancyService);
+    MultiTenancyService.ɵprov = i0.ɵɵdefineInjectable({ factory: function MultiTenancyService_Factory() { return new MultiTenancyService(i0.ɵɵinject(RestService), i0.ɵɵinject(i1.Store)); }, token: MultiTenancyService, providedIn: "root" });
+    MultiTenancyService.decorators = [
+        { type: i0.Injectable, args: [{ providedIn: 'root' },] }
+    ];
+    MultiTenancyService.ctorParameters = function () { return [
+        { type: RestService },
+        { type: i1.Store }
+    ]; };
 
     var tenancyPlaceholder = '{0}';
     function getCurrentTenancyName(appBaseUrl) {
@@ -1265,8 +1290,8 @@
             var store, multiTenancyService, environment, _b, baseUrl, tenancyName;
             return __generator(this, function (_c) {
                 store = injector.get(i1.Store);
-                multiTenancyService = injector.get(exports.MultiTenancyService);
-                environment = store.selectSnapshot(exports.ɵbn.getOne('environment'));
+                multiTenancyService = injector.get(MultiTenancyService);
+                environment = store.selectSnapshot(exports.ɵbo.getOne('environment'));
                 _b = environment.application.baseUrl, baseUrl = _b === void 0 ? '' : _b;
                 tenancyName = getCurrentTenancyName(baseUrl);
                 if (tenancyName) {
@@ -1284,7 +1309,7 @@
         });
     }
     function setEnvironment(store, tenancyName) {
-        var environment = clone__default['default'](store.selectSnapshot(exports.ɵbn.getOne('environment')));
+        var environment = clone__default['default'](store.selectSnapshot(exports.ɵbo.getOne('environment')));
         if (environment.application.baseUrl) {
             environment.application.baseUrl = environment.application.baseUrl.replace(tenancyPlaceholder, tenancyName);
         }
@@ -1312,7 +1337,7 @@
                         return [4 /*yield*/, parseTenantFromUrl(injector)];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, injector.get(exports.AuthService).init()];
+                        return [4 /*yield*/, injector.get(AuthService).init()];
                     case 3:
                         _a.sent();
                         if (options.skipGetAppConfiguration)
@@ -1327,9 +1352,9 @@
         return fn;
     }
     function checkAccessToken(store, injector) {
-        var oAuth = injector.get(i3.OAuthService);
-        if (oAuth.hasValidAccessToken() && !store.selectSnapshot(exports.ɵbn.getDeep('currentUser.id'))) {
-            oAuth.logOut();
+        var oAuth = injector.get(i1$1.OAuthService);
+        if (oAuth.hasValidAccessToken() && !store.selectSnapshot(exports.ɵbo.getDeep('currentUser.id'))) {
+            clearOAuthStorage();
         }
     }
     function localeInitializer(injector) {
@@ -1400,7 +1425,7 @@
         };
     }
 
-    exports.ɵf = /** @class */ (function () {
+    var LocalizationService = /** @class */ (function () {
         function LocalizationService(actions, store, injector, ngZone, otherInstance) {
             this.actions = actions;
             this.store = store;
@@ -1417,14 +1442,14 @@
             get: function () {
                 return this.store.selectSnapshot(function (state) { return state.SessionState.language; });
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(LocalizationService.prototype, "languageChange", {
             get: function () {
-                return this.actions.pipe(i1.ofActionSuccessful(SetLanguage));
+                return this.actions.pipe(i1.ofActionSuccessful(SetLanguage), operators.filter(function (action) { return action.dispatchAppConfiguration !== false; }));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         LocalizationService.prototype.listenToSetLanguage = function () {
@@ -1436,7 +1461,7 @@
         };
         LocalizationService.prototype.registerLocale = function (locale) {
             var _this = this;
-            var router = this.injector.get(i2$1.Router);
+            var router = this.injector.get(i1$2.Router);
             var cultureNameLocaleFileMap = this.injector.get(CORE_OPTIONS).cultureNameLocaleFileMap;
             var shouldReuseRoute = router.routeReuseStrategy.shouldReuseRoute;
             router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
@@ -1465,7 +1490,10 @@
             for (var _i = 1; _i < arguments.length; _i++) {
                 interpolateParams[_i - 1] = arguments[_i];
             }
-            return this.store.select(exports.ɵbn.getLocalization.apply(exports.ɵbn, __spread([key], interpolateParams)));
+            return this.store.select(exports.ɵbo.getLocalization.apply(exports.ɵbo, __spread([key], interpolateParams)));
+        };
+        LocalizationService.prototype.getResource = function (resourceName) {
+            return this.store.select(exports.ɵbo.getLocalizationResource(resourceName));
         };
         /**
          * Returns localized text with the given interpolation parameters in current language.
@@ -1477,35 +1505,163 @@
             for (var _i = 1; _i < arguments.length; _i++) {
                 interpolateParams[_i - 1] = arguments[_i];
             }
-            return this.store.selectSnapshot(exports.ɵbn.getLocalization.apply(exports.ɵbn, __spread([key], interpolateParams)));
+            return this.store.selectSnapshot(exports.ɵbo.getLocalization.apply(exports.ɵbo, __spread([key], interpolateParams)));
         };
         LocalizationService.prototype.localize = function (resourceName, key, defaultValue) {
-            return this.store.select(exports.ɵbn.getOne('localization')).pipe(operators.map(createLocalizer), operators.map(function (localize) { return localize(resourceName, key, defaultValue); }));
+            return this.store.select(exports.ɵbo.getOne('localization')).pipe(operators.map(createLocalizer), operators.map(function (localize) { return localize(resourceName, key, defaultValue); }));
         };
         LocalizationService.prototype.localizeSync = function (resourceName, key, defaultValue) {
-            var localization = this.store.selectSnapshot(exports.ɵbn.getOne('localization'));
+            var localization = this.store.selectSnapshot(exports.ɵbo.getOne('localization'));
             return createLocalizer(localization)(resourceName, key, defaultValue);
         };
         LocalizationService.prototype.localizeWithFallback = function (resourceNames, keys, defaultValue) {
-            return this.store.select(exports.ɵbn.getOne('localization')).pipe(operators.map(createLocalizerWithFallback), operators.map(function (localizeWithFallback) { return localizeWithFallback(resourceNames, keys, defaultValue); }));
+            return this.store.select(exports.ɵbo.getOne('localization')).pipe(operators.map(createLocalizerWithFallback), operators.map(function (localizeWithFallback) { return localizeWithFallback(resourceNames, keys, defaultValue); }));
         };
         LocalizationService.prototype.localizeWithFallbackSync = function (resourceNames, keys, defaultValue) {
-            var localization = this.store.selectSnapshot(exports.ɵbn.getOne('localization'));
+            var localization = this.store.selectSnapshot(exports.ɵbo.getOne('localization'));
             return createLocalizerWithFallback(localization)(resourceNames, keys, defaultValue);
         };
         return LocalizationService;
     }());
-    exports.ɵf.ɵprov = i0.ɵɵdefineInjectable({ factory: function LocalizationService_Factory() { return new exports.ɵf(i0.ɵɵinject(i1.Actions), i0.ɵɵinject(i1.Store), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(i0.NgZone), i0.ɵɵinject(exports.ɵf, 12)); }, token: exports.ɵf, providedIn: "root" });
-    exports.ɵf = __decorate([
-        i0.Injectable({ providedIn: 'root' }),
-        __param(4, i0.Optional()),
-        __param(4, i0.SkipSelf()),
-        __metadata("design:paramtypes", [i1.Actions,
-            i1.Store,
-            i0.Injector,
-            i0.NgZone,
-            exports.ɵf])
-    ], exports.ɵf);
+    LocalizationService.ɵprov = i0.ɵɵdefineInjectable({ factory: function LocalizationService_Factory() { return new LocalizationService(i0.ɵɵinject(i1.Actions), i0.ɵɵinject(i1.Store), i0.ɵɵinject(i0.INJECTOR), i0.ɵɵinject(i0.NgZone), i0.ɵɵinject(LocalizationService, 12)); }, token: LocalizationService, providedIn: "root" });
+    LocalizationService.decorators = [
+        { type: i0.Injectable, args: [{ providedIn: 'root' },] }
+    ];
+    LocalizationService.ctorParameters = function () { return [
+        { type: i1.Actions },
+        { type: i1.Store },
+        { type: i0.Injector },
+        { type: i0.NgZone },
+        { type: LocalizationService, decorators: [{ type: i0.Optional }, { type: i0.SkipSelf }] }
+    ]; };
+
+    var InternalStore = /** @class */ (function () {
+        function InternalStore(initialState) {
+            var _this = this;
+            this.initialState = initialState;
+            this.state$ = new rxjs.BehaviorSubject(this.initialState);
+            this.update$ = new rxjs.Subject();
+            this.sliceState = function (selector, compareFn) {
+                if (compareFn === void 0) { compareFn = compare__default['default']; }
+                return _this.state$.pipe(operators.map(selector), operators.distinctUntilChanged(compareFn));
+            };
+            this.sliceUpdate = function (selector, filterFn) {
+                if (filterFn === void 0) { filterFn = function (x) { return x !== undefined; }; }
+                return _this.update$.pipe(operators.map(selector), operators.filter(filterFn));
+            };
+        }
+        Object.defineProperty(InternalStore.prototype, "state", {
+            get: function () {
+                return this.state$.value;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        InternalStore.prototype.patch = function (state) {
+            this.state$.next(deepMerge(this.state, state));
+            this.update$.next(state);
+        };
+        InternalStore.prototype.reset = function () {
+            this.patch(this.initialState);
+        };
+        return InternalStore;
+    }());
+
+    function findRoute(routes, path) {
+        var node = routes.find(function (route) { return route.path === path; });
+        return node || path === '/'
+            ? node
+            : findRoute(routes, path
+                .split('/')
+                .slice(0, -1)
+                .join('/'));
+    }
+    function getRoutePath(router, url) {
+        if (url === void 0) { url = router.url; }
+        var emptyGroup = { segments: [] };
+        var primaryGroup = router.parseUrl(url).root.children[i1$2.PRIMARY_OUTLET];
+        return '/' + (primaryGroup || emptyGroup).segments.map(function (_a) {
+            var path = _a.path;
+            return path;
+        }).join('/');
+    }
+    function reloadRoute(router, ngZone) {
+        var _this = this;
+        var shouldReuseRoute = router.routeReuseStrategy.shouldReuseRoute;
+        var setRouteReuse = function (reuse) {
+            router.routeReuseStrategy.shouldReuseRoute = reuse;
+        };
+        setRouteReuse(function () { return false; });
+        router.navigated = false;
+        ngZone.run(function () { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, router.navigateByUrl(router.url).catch(noop)];
+                    case 1:
+                        _a.sent();
+                        setRouteReuse(shouldReuseRoute);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+    }
+
+    var ReplaceableComponentsService = /** @class */ (function () {
+        function ReplaceableComponentsService(ngZone, router) {
+            this.ngZone = ngZone;
+            this.router = router;
+            this.store = new InternalStore([]);
+        }
+        Object.defineProperty(ReplaceableComponentsService.prototype, "replaceableComponents$", {
+            get: function () {
+                return this.store.sliceState(function (state) { return state; });
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(ReplaceableComponentsService.prototype, "replaceableComponents", {
+            get: function () {
+                return this.store.state;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(ReplaceableComponentsService.prototype, "onUpdate$", {
+            get: function () {
+                return this.store.sliceUpdate(function (state) { return state; });
+            },
+            enumerable: false,
+            configurable: true
+        });
+        ReplaceableComponentsService.prototype.add = function (replaceableComponent, reload) {
+            var replaceableComponents = __spread(this.store.state);
+            var index = replaceableComponents.findIndex(function (component) { return component.key === replaceableComponent.key; });
+            if (index > -1) {
+                replaceableComponents[index] = replaceableComponent;
+            }
+            else {
+                replaceableComponents.push(replaceableComponent);
+            }
+            this.store.patch(replaceableComponents);
+            if (reload)
+                reloadRoute(this.router, this.ngZone);
+        };
+        ReplaceableComponentsService.prototype.get = function (replaceableComponentKey) {
+            return this.replaceableComponents.find(function (component) { return component.key === replaceableComponentKey; });
+        };
+        ReplaceableComponentsService.prototype.get$ = function (replaceableComponentKey) {
+            return this.replaceableComponents$.pipe(operators.map(function (components) { return components.find(function (component) { return component.key === replaceableComponentKey; }); }));
+        };
+        return ReplaceableComponentsService;
+    }());
+    ReplaceableComponentsService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ReplaceableComponentsService_Factory() { return new ReplaceableComponentsService(i0.ɵɵinject(i0.NgZone), i0.ɵɵinject(i1$2.Router)); }, token: ReplaceableComponentsService, providedIn: "root" });
+    ReplaceableComponentsService.decorators = [
+        { type: i0.Injectable, args: [{ providedIn: 'root' },] }
+    ];
+    ReplaceableComponentsService.ctorParameters = function () { return [
+        { type: i0.NgZone },
+        { type: i1$2.Router }
+    ]; };
 
     function pushValueTo(array) {
         return function (element) {
@@ -1532,6 +1688,8 @@
             var id = keySelector(row);
             var parentId = parentKeySelector(row);
             var node = map.get(id);
+            if (!node)
+                return;
             if (parentId) {
                 var parent = map.get(parentId);
                 if (!parent)
@@ -1562,42 +1720,42 @@
             get: function () {
                 return this._flat$.value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(AbstractTreeService.prototype, "flat$", {
             get: function () {
                 return this._flat$.asObservable();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(AbstractTreeService.prototype, "tree", {
             get: function () {
                 return this._tree$.value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(AbstractTreeService.prototype, "tree$", {
             get: function () {
                 return this._tree$.asObservable();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(AbstractTreeService.prototype, "visible", {
             get: function () {
                 return this._visible$.value;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(AbstractTreeService.prototype, "visible$", {
             get: function () {
                 return this._visible$.asObservable();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         AbstractTreeService.prototype.createTree = function (items) {
@@ -1606,7 +1764,17 @@
         };
         AbstractTreeService.prototype.filterWith = function (setOrMap) {
             var _this = this;
-            return this._flat$.value.filter(function (item) { return !setOrMap.has(item[_this.id]) && !setOrMap.has(item[_this.parentId]); });
+            return this._flat$.value.filter(function (item) { return !setOrMap.has(item[_this.id]); });
+        };
+        AbstractTreeService.prototype.findItemsToRemove = function (set) {
+            var _this = this;
+            return this._flat$.value.reduce(function (acc, item) {
+                if (!acc.has(item[_this.parentId]))
+                    return acc;
+                var childSet = new Set([item[_this.id]]);
+                var children = _this.findItemsToRemove(childSet);
+                return new Set(__spread(acc, children));
+            }, set);
         };
         AbstractTreeService.prototype.publish = function (flatItems, visibleItems) {
             this._flat$.next(flatItems);
@@ -1647,7 +1815,8 @@
             var _this = this;
             var set = new Set();
             identifiers.forEach(function (id) { return set.add(id); });
-            var flatItems = this.filterWith(set);
+            var setToRemove = this.findItemsToRemove(set);
+            var flatItems = this.filterWith(setToRemove);
             var visibleItems = flatItems.filter(function (item) { return !_this.hide(item); });
             return this.publish(flatItems, visibleItems);
         };
@@ -1663,7 +1832,7 @@
         };
         return AbstractTreeService;
     }());
-    exports.ɵcc = /** @class */ (function (_super) {
+    var AbstractNavTreeService = /** @class */ (function (_super) {
         __extends(AbstractNavTreeService, _super);
         function AbstractNavTreeService(actions, store) {
             var _this = _super.call(this) || this;
@@ -1686,7 +1855,7 @@
         }
         AbstractNavTreeService.prototype.isGranted = function (_b) {
             var requiredPolicy = _b.requiredPolicy;
-            return this.store.selectSnapshot(exports.ɵbn.getGrantedPolicy(requiredPolicy));
+            return this.store.selectSnapshot(exports.ɵbo.getGrantedPolicy(requiredPolicy));
         };
         AbstractNavTreeService.prototype.hasChildren = function (identifier) {
             var _this = this;
@@ -1706,34 +1875,37 @@
         };
         return AbstractNavTreeService;
     }(AbstractTreeService));
-    exports.ɵcc = __decorate([
-        i0.Injectable(),
-        __metadata("design:paramtypes", [i1.Actions, i1.Store])
-    ], exports.ɵcc);
-    exports.ɵcd = /** @class */ (function (_super) {
+    AbstractNavTreeService.decorators = [
+        { type: i0.Injectable }
+    ];
+    AbstractNavTreeService.ctorParameters = function () { return [
+        { type: i1.Actions },
+        { type: i1.Store }
+    ]; };
+    var RoutesService = /** @class */ (function (_super) {
         __extends(RoutesService, _super);
         function RoutesService() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
         return RoutesService;
-    }(exports.ɵcc));
-    exports.ɵcd.ɵprov = i0.ɵɵdefineInjectable({ factory: function RoutesService_Factory() { return new exports.ɵcd(i0.ɵɵinject(i1.Actions), i0.ɵɵinject(i1.Store)); }, token: exports.ɵcd, providedIn: "root" });
-    exports.ɵcd = __decorate([
-        i0.Injectable({ providedIn: 'root' })
-    ], exports.ɵcd);
-    exports.SettingTabsService = /** @class */ (function (_super) {
+    }(AbstractNavTreeService));
+    RoutesService.ɵprov = i0.ɵɵdefineInjectable({ factory: function RoutesService_Factory() { return new RoutesService(i0.ɵɵinject(i1.Actions), i0.ɵɵinject(i1.Store)); }, token: RoutesService, providedIn: "root" });
+    RoutesService.decorators = [
+        { type: i0.Injectable, args: [{ providedIn: 'root' },] }
+    ];
+    var SettingTabsService = /** @class */ (function (_super) {
         __extends(SettingTabsService, _super);
         function SettingTabsService() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
         return SettingTabsService;
-    }(exports.ɵcc));
-    exports.SettingTabsService.ɵprov = i0.ɵɵdefineInjectable({ factory: function SettingTabsService_Factory() { return new exports.SettingTabsService(i0.ɵɵinject(i1.Actions), i0.ɵɵinject(i1.Store)); }, token: exports.SettingTabsService, providedIn: "root" });
-    exports.SettingTabsService = __decorate([
-        i0.Injectable({ providedIn: 'root' })
-    ], exports.SettingTabsService);
+    }(AbstractNavTreeService));
+    SettingTabsService.ɵprov = i0.ɵɵdefineInjectable({ factory: function SettingTabsService_Factory() { return new SettingTabsService(i0.ɵɵinject(i1.Actions), i0.ɵɵinject(i1.Store)); }, token: SettingTabsService, providedIn: "root" });
+    SettingTabsService.decorators = [
+        { type: i0.Injectable, args: [{ providedIn: 'root' },] }
+    ];
 
-    exports.ɵe = /** @class */ (function () {
+    var SubscriptionService = /** @class */ (function () {
         function SubscriptionService() {
             this.subscription = new rxjs.Subscription();
         }
@@ -1741,7 +1913,7 @@
             get: function () {
                 return this.subscription.closed;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         SubscriptionService.prototype.addOne = function (source$, nextOrObserver, error) {
@@ -1770,111 +1942,15 @@
         };
         return SubscriptionService;
     }());
-    exports.ɵe = __decorate([
-        i0.Injectable()
-    ], exports.ɵe);
+    SubscriptionService.decorators = [
+        { type: i0.Injectable }
+    ];
 
-    var ReplaceableComponentsState_1;
-    exports.ɵu = ReplaceableComponentsState_1 = /** @class */ (function () {
-        function ReplaceableComponentsState(ngZone, router) {
-            this.ngZone = ngZone;
-            this.router = router;
-        }
-        ReplaceableComponentsState.getAll = function (_a) {
-            var replaceableComponents = _a.replaceableComponents;
-            return replaceableComponents || [];
-        };
-        ReplaceableComponentsState.getComponent = function (key) {
-            var selector = i1.createSelector([ReplaceableComponentsState_1], function (state) {
-                return snq__default['default'](function () { return state.replaceableComponents.find(function (component) { return component.key === key; }); });
-            });
-            return selector;
-        };
-        // TODO: Create a shared service for route reload and more
-        ReplaceableComponentsState.prototype.reloadRoute = function () {
-            var _this = this;
-            var shouldReuseRoute = this.router.routeReuseStrategy.shouldReuseRoute;
-            var setRouteReuse = function (reuse) {
-                _this.router.routeReuseStrategy.shouldReuseRoute = reuse;
-            };
-            setRouteReuse(function () { return false; });
-            this.router.navigated = false;
-            this.ngZone.run(function () { return __awaiter(_this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.router.navigateByUrl(this.router.url).catch(noop)];
-                        case 1:
-                            _a.sent();
-                            setRouteReuse(shouldReuseRoute);
-                            return [2 /*return*/];
-                    }
-                });
-            }); });
-        };
-        ReplaceableComponentsState.prototype.replaceableComponentsAction = function (_a, _b) {
-            var getState = _a.getState, patchState = _a.patchState;
-            var payload = _b.payload, reload = _b.reload;
-            var replaceableComponents = getState().replaceableComponents;
-            var index = snq__default['default'](function () { return replaceableComponents.findIndex(function (component) { return component.key === payload.key; }); }, -1);
-            if (index > -1) {
-                replaceableComponents[index] = payload;
-            }
-            else {
-                replaceableComponents = __spread(replaceableComponents, [payload]);
-            }
-            patchState({
-                replaceableComponents: replaceableComponents,
-            });
-            if (reload)
-                this.reloadRoute();
-        };
-        return ReplaceableComponentsState;
-    }());
-    __decorate([
-        i1.Action(AddReplaceableComponent),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object, AddReplaceableComponent]),
-        __metadata("design:returntype", void 0)
-    ], exports.ɵu.prototype, "replaceableComponentsAction", null);
-    __decorate([
-        i1.Selector(),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object]),
-        __metadata("design:returntype", Array)
-    ], exports.ɵu, "getAll", null);
-    exports.ɵu = ReplaceableComponentsState_1 = __decorate([
-        i1.State({
-            name: 'ReplaceableComponentsState',
-            defaults: { replaceableComponents: [] },
-        }),
-        i0.Injectable(),
-        __metadata("design:paramtypes", [i0.NgZone, i2$1.Router])
-    ], exports.ɵu);
-
-    function findRoute(routes, path) {
-        var node = routes.find(function (route) { return route.path === path; });
-        return node || path === '/'
-            ? node
-            : findRoute(routes, path
-                .split('/')
-                .slice(0, -1)
-                .join('/'));
-    }
-    function getRoutePath(router, url) {
-        if (url === void 0) { url = router.url; }
-        var emptyGroup = { segments: [] };
-        var primaryGroup = router.parseUrl(url).root.children[i2$1.PRIMARY_OUTLET];
-        return '/' + (primaryGroup || emptyGroup).segments.map(function (_a) {
-            var path = _a.path;
-            return path;
-        }).join('/');
-    }
-
-    exports.ɵd = /** @class */ (function () {
-        function DynamicLayoutComponent(injector, localizationService, store, subscription, dynamicLayoutComponent) {
+    var DynamicLayoutComponent = /** @class */ (function () {
+        function DynamicLayoutComponent(injector, localizationService, replaceableComponents, subscription, dynamicLayoutComponent) {
             var _this = this;
             this.localizationService = localizationService;
-            this.store = store;
+            this.replaceableComponents = replaceableComponents;
             this.subscription = subscription;
             // TODO: Consider a shared enum (eThemeSharedComponents) for known layouts
             this.layouts = new Map([
@@ -1885,11 +1961,12 @@
             this.isLayoutVisible = true;
             if (dynamicLayoutComponent)
                 return;
-            var route = injector.get(i2$1.ActivatedRoute);
-            var router = injector.get(i2$1.Router);
-            var routes = injector.get(exports.ɵcd);
+            var route = injector.get(i1$2.ActivatedRoute);
+            var router = injector.get(i1$2.Router);
+            var routes = injector.get(RoutesService);
             this.subscription.addOne(router.events, function (event) {
-                if (event instanceof i2$1.NavigationEnd) {
+                var _a;
+                if (event instanceof i1$2.NavigationEnd) {
                     var expectedLayout = (route.snapshot.data || {}).layout;
                     if (!expectedLayout) {
                         var node = findRoute(routes, getRoutePath(router));
@@ -1905,7 +1982,7 @@
                     if (!expectedLayout)
                         expectedLayout = "empty" /* empty */;
                     var key = _this.layouts.get(expectedLayout);
-                    _this.layout = _this.getComponent(key).component;
+                    _this.layout = (_a = _this.getComponent(key)) === null || _a === void 0 ? void 0 : _a.component;
                 }
             });
             this.listenToLanguageChange();
@@ -1918,28 +1995,29 @@
             });
         };
         DynamicLayoutComponent.prototype.getComponent = function (key) {
-            return this.store.selectSnapshot(exports.ɵu.getComponent(key));
+            return this.replaceableComponents.get(key);
         };
         return DynamicLayoutComponent;
     }());
-    exports.ɵd = __decorate([
-        i0.Component({
-            selector: 'abp-dynamic-layout',
-            template: "\n    <ng-container *ngTemplateOutlet=\"layout ? componentOutlet : routerOutlet\"></ng-container>\n    <ng-template #routerOutlet><router-outlet></router-outlet></ng-template>\n    <ng-template #componentOutlet\n      ><ng-container *ngIf=\"isLayoutVisible\" [ngComponentOutlet]=\"layout\"></ng-container\n    ></ng-template>\n  ",
-            providers: [exports.ɵe]
-        }),
-        __param(4, i0.Optional()), __param(4, i0.SkipSelf()),
-        __metadata("design:paramtypes", [i0.Injector,
-            exports.ɵf,
-            i1.Store,
-            exports.ɵe,
-            exports.ɵd])
-    ], exports.ɵd);
+    DynamicLayoutComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-dynamic-layout',
+                    template: "\n    <ng-container *ngTemplateOutlet=\"layout ? componentOutlet : routerOutlet\"></ng-container>\n    <ng-template #routerOutlet><router-outlet></router-outlet></ng-template>\n    <ng-template #componentOutlet\n      ><ng-container *ngIf=\"isLayoutVisible\" [ngComponentOutlet]=\"layout\"></ng-container\n    ></ng-template>\n  ",
+                    providers: [SubscriptionService]
+                },] }
+    ];
+    DynamicLayoutComponent.ctorParameters = function () { return [
+        { type: i0.Injector },
+        { type: LocalizationService },
+        { type: ReplaceableComponentsService },
+        { type: SubscriptionService },
+        { type: DynamicLayoutComponent, decorators: [{ type: i0.Optional }, { type: i0.SkipSelf }] }
+    ]; };
 
-    exports.ɵm = /** @class */ (function () {
-        function ReplaceableRouteContainerComponent(route, store, subscription) {
+    var ReplaceableRouteContainerComponent = /** @class */ (function () {
+        function ReplaceableRouteContainerComponent(route, replaceableComponents, subscription) {
             this.route = route;
-            this.store = store;
+            this.replaceableComponents = replaceableComponents;
             this.subscription = subscription;
         }
         ReplaceableRouteContainerComponent.prototype.ngOnInit = function () {
@@ -1947,8 +2025,8 @@
             this.defaultComponent = this.route.snapshot.data.replaceableComponent.defaultComponent;
             this.componentKey = this.route.snapshot.data
                 .replaceableComponent.key;
-            var component$ = this.store
-                .select(exports.ɵu.getComponent(this.componentKey))
+            var component$ = this.replaceableComponents
+                .get$(this.componentKey)
                 .pipe(operators.distinctUntilChanged());
             this.subscription.addOne(component$, function (res) {
                 if (res === void 0) { res = {}; }
@@ -1957,30 +2035,32 @@
         };
         return ReplaceableRouteContainerComponent;
     }());
-    exports.ɵm = __decorate([
-        i0.Component({
-            selector: 'abp-replaceable-route-container',
-            template: "\n    <ng-container *ngComponentOutlet=\"externalComponent || defaultComponent\"></ng-container>\n  ",
-            providers: [exports.ɵe]
-        }),
-        __metadata("design:paramtypes", [i2$1.ActivatedRoute,
-            i1.Store,
-            exports.ɵe])
-    ], exports.ɵm);
+    ReplaceableRouteContainerComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-replaceable-route-container',
+                    template: "\n    <ng-container *ngComponentOutlet=\"externalComponent || defaultComponent\"></ng-container>\n  ",
+                    providers: [SubscriptionService]
+                },] }
+    ];
+    ReplaceableRouteContainerComponent.ctorParameters = function () { return [
+        { type: i1$2.ActivatedRoute },
+        { type: ReplaceableComponentsService },
+        { type: SubscriptionService }
+    ]; };
 
-    exports.ɵo = /** @class */ (function () {
+    var RouterOutletComponent = /** @class */ (function () {
         function RouterOutletComponent() {
         }
         return RouterOutletComponent;
     }());
-    exports.ɵo = __decorate([
-        i0.Component({
-            selector: 'abp-router-outlet',
-            template: "\n    <router-outlet></router-outlet>\n  "
-        })
-    ], exports.ɵo);
+    RouterOutletComponent.decorators = [
+        { type: i0.Component, args: [{
+                    selector: 'abp-router-outlet',
+                    template: "\n    <router-outlet></router-outlet>\n  "
+                },] }
+    ];
 
-    exports.ɵc = /** @class */ (function () {
+    var AutofocusDirective = /** @class */ (function () {
         function AutofocusDirective(elRef) {
             this.elRef = elRef;
             this.delay = 0;
@@ -1991,19 +2071,20 @@
         };
         return AutofocusDirective;
     }());
-    __decorate([
-        i0.Input('autofocus'),
-        __metadata("design:type", Object)
-    ], exports.ɵc.prototype, "delay", void 0);
-    exports.ɵc = __decorate([
-        i0.Directive({
-            // tslint:disable-next-line: directive-selector
-            selector: '[autofocus]'
-        }),
-        __metadata("design:paramtypes", [i0.ElementRef])
-    ], exports.ɵc);
+    AutofocusDirective.decorators = [
+        { type: i0.Directive, args: [{
+                    // tslint:disable-next-line: directive-selector
+                    selector: '[autofocus]'
+                },] }
+    ];
+    AutofocusDirective.ctorParameters = function () { return [
+        { type: i0.ElementRef }
+    ]; };
+    AutofocusDirective.propDecorators = {
+        delay: [{ type: i0.Input, args: ['autofocus',] }]
+    };
 
-    exports.ɵk = /** @class */ (function () {
+    var InputEventDebounceDirective = /** @class */ (function () {
         function InputEventDebounceDirective(el, subscription) {
             this.el = el;
             this.subscription = subscription;
@@ -2019,24 +2100,23 @@
         };
         return InputEventDebounceDirective;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵk.prototype, "debounce", void 0);
-    __decorate([
-        i0.Output('input.debounce'),
-        __metadata("design:type", Object)
-    ], exports.ɵk.prototype, "debounceEvent", void 0);
-    exports.ɵk = __decorate([
-        i0.Directive({
-            // tslint:disable-next-line: directive-selector
-            selector: '[input.debounce]',
-            providers: [exports.ɵe],
-        }),
-        __metadata("design:paramtypes", [i0.ElementRef, exports.ɵe])
-    ], exports.ɵk);
+    InputEventDebounceDirective.decorators = [
+        { type: i0.Directive, args: [{
+                    // tslint:disable-next-line: directive-selector
+                    selector: '[input.debounce]',
+                    providers: [SubscriptionService],
+                },] }
+    ];
+    InputEventDebounceDirective.ctorParameters = function () { return [
+        { type: i0.ElementRef },
+        { type: SubscriptionService }
+    ]; };
+    InputEventDebounceDirective.propDecorators = {
+        debounce: [{ type: i0.Input }],
+        debounceEvent: [{ type: i0.Output, args: ['input.debounce',] }]
+    };
 
-    exports.ɵg = /** @class */ (function () {
+    var EllipsisDirective = /** @class */ (function () {
         function EllipsisDirective(cdRef, elRef) {
             this.cdRef = cdRef;
             this.elRef = elRef;
@@ -2046,21 +2126,21 @@
             get: function () {
                 return this.enabled && this.width;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(EllipsisDirective.prototype, "class", {
             get: function () {
                 return this.enabled && !this.width;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(EllipsisDirective.prototype, "maxWidth", {
             get: function () {
                 return this.enabled && this.width ? this.width || '170px' : undefined;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         EllipsisDirective.prototype.ngAfterViewInit = function () {
@@ -2069,40 +2149,23 @@
         };
         return EllipsisDirective;
     }());
-    __decorate([
-        i0.Input('abpEllipsis'),
-        __metadata("design:type", String)
-    ], exports.ɵg.prototype, "width", void 0);
-    __decorate([
-        i0.HostBinding('title'),
-        i0.Input(),
-        __metadata("design:type", String)
-    ], exports.ɵg.prototype, "title", void 0);
-    __decorate([
-        i0.Input('abpEllipsisEnabled'),
-        __metadata("design:type", Object)
-    ], exports.ɵg.prototype, "enabled", void 0);
-    __decorate([
-        i0.HostBinding('class.abp-ellipsis-inline'),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [])
-    ], exports.ɵg.prototype, "inlineClass", null);
-    __decorate([
-        i0.HostBinding('class.abp-ellipsis'),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [])
-    ], exports.ɵg.prototype, "class", null);
-    __decorate([
-        i0.HostBinding('style.max-width'),
-        __metadata("design:type", Object),
-        __metadata("design:paramtypes", [])
-    ], exports.ɵg.prototype, "maxWidth", null);
-    exports.ɵg = __decorate([
-        i0.Directive({
-            selector: '[abpEllipsis]',
-        }),
-        __metadata("design:paramtypes", [i0.ChangeDetectorRef, i0.ElementRef])
-    ], exports.ɵg);
+    EllipsisDirective.decorators = [
+        { type: i0.Directive, args: [{
+                    selector: '[abpEllipsis]',
+                },] }
+    ];
+    EllipsisDirective.ctorParameters = function () { return [
+        { type: i0.ChangeDetectorRef },
+        { type: i0.ElementRef }
+    ]; };
+    EllipsisDirective.propDecorators = {
+        width: [{ type: i0.Input, args: ['abpEllipsis',] }],
+        title: [{ type: i0.HostBinding, args: ['title',] }, { type: i0.Input }],
+        enabled: [{ type: i0.Input, args: ['abpEllipsisEnabled',] }],
+        inlineClass: [{ type: i0.HostBinding, args: ['class.abp-ellipsis-inline',] }],
+        class: [{ type: i0.HostBinding, args: ['class.abp-ellipsis',] }],
+        maxWidth: [{ type: i0.HostBinding, args: ['style.max-width',] }]
+    };
 
     var AbpForContext = /** @class */ (function () {
         function AbpForContext($implicit, index, count, list) {
@@ -2120,7 +2183,7 @@
         }
         return RecordView;
     }());
-    exports.ɵh = /** @class */ (function () {
+    var ForDirective = /** @class */ (function () {
         function ForDirective(tempRef, vcRef, differs) {
             this.tempRef = tempRef;
             this.vcRef = vcRef;
@@ -2130,14 +2193,14 @@
             get: function () {
                 return this.compareBy || compare__default['default'];
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ForDirective.prototype, "trackByFn", {
             get: function () {
                 return this.trackBy || (function (index, item) { return item.id || index; });
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         ForDirective.prototype.iterateOverAppliedOperations = function (changes) {
@@ -2232,48 +2295,28 @@
         };
         return ForDirective;
     }());
-    __decorate([
-        i0.Input('abpForOf'),
-        __metadata("design:type", Array)
-    ], exports.ɵh.prototype, "items", void 0);
-    __decorate([
-        i0.Input('abpForOrderBy'),
-        __metadata("design:type", String)
-    ], exports.ɵh.prototype, "orderBy", void 0);
-    __decorate([
-        i0.Input('abpForOrderDir'),
-        __metadata("design:type", String)
-    ], exports.ɵh.prototype, "orderDir", void 0);
-    __decorate([
-        i0.Input('abpForFilterBy'),
-        __metadata("design:type", String)
-    ], exports.ɵh.prototype, "filterBy", void 0);
-    __decorate([
-        i0.Input('abpForFilterVal'),
-        __metadata("design:type", Object)
-    ], exports.ɵh.prototype, "filterVal", void 0);
-    __decorate([
-        i0.Input('abpForTrackBy'),
-        __metadata("design:type", Object)
-    ], exports.ɵh.prototype, "trackBy", void 0);
-    __decorate([
-        i0.Input('abpForCompareBy'),
-        __metadata("design:type", Function)
-    ], exports.ɵh.prototype, "compareBy", void 0);
-    __decorate([
-        i0.Input('abpForEmptyRef'),
-        __metadata("design:type", i0.TemplateRef)
-    ], exports.ɵh.prototype, "emptyRef", void 0);
-    exports.ɵh = __decorate([
-        i0.Directive({
-            selector: '[abpFor]',
-        }),
-        __metadata("design:paramtypes", [i0.TemplateRef,
-            i0.ViewContainerRef,
-            i0.IterableDiffers])
-    ], exports.ɵh);
+    ForDirective.decorators = [
+        { type: i0.Directive, args: [{
+                    selector: '[abpFor]',
+                },] }
+    ];
+    ForDirective.ctorParameters = function () { return [
+        { type: i0.TemplateRef },
+        { type: i0.ViewContainerRef },
+        { type: i0.IterableDiffers }
+    ]; };
+    ForDirective.propDecorators = {
+        items: [{ type: i0.Input, args: ['abpForOf',] }],
+        orderBy: [{ type: i0.Input, args: ['abpForOrderBy',] }],
+        orderDir: [{ type: i0.Input, args: ['abpForOrderDir',] }],
+        filterBy: [{ type: i0.Input, args: ['abpForFilterBy',] }],
+        filterVal: [{ type: i0.Input, args: ['abpForFilterVal',] }],
+        trackBy: [{ type: i0.Input, args: ['abpForTrackBy',] }],
+        compareBy: [{ type: i0.Input, args: ['abpForCompareBy',] }],
+        emptyRef: [{ type: i0.Input, args: ['abpForEmptyRef',] }]
+    };
 
-    exports.ɵi = /** @class */ (function () {
+    var FormSubmitDirective = /** @class */ (function () {
         function FormSubmitDirective(formGroupDirective, host, cdRef, subscription) {
             this.formGroupDirective = formGroupDirective;
             this.host = host;
@@ -2305,30 +2348,24 @@
         };
         return FormSubmitDirective;
     }());
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵi.prototype, "debounce", void 0);
-    __decorate([
-        i0.Input(),
-        __metadata("design:type", Object)
-    ], exports.ɵi.prototype, "notValidateOnSubmit", void 0);
-    __decorate([
-        i0.Output(),
-        __metadata("design:type", Object)
-    ], exports.ɵi.prototype, "ngSubmit", void 0);
-    exports.ɵi = __decorate([
-        i0.Directive({
-            // tslint:disable-next-line: directive-selector
-            selector: 'form[ngSubmit][formGroup]',
-            providers: [exports.ɵe],
-        }),
-        __param(0, i0.Self()),
-        __metadata("design:paramtypes", [forms.FormGroupDirective,
-            i0.ElementRef,
-            i0.ChangeDetectorRef,
-            exports.ɵe])
-    ], exports.ɵi);
+    FormSubmitDirective.decorators = [
+        { type: i0.Directive, args: [{
+                    // tslint:disable-next-line: directive-selector
+                    selector: 'form[ngSubmit][formGroup]',
+                    providers: [SubscriptionService],
+                },] }
+    ];
+    FormSubmitDirective.ctorParameters = function () { return [
+        { type: forms.FormGroupDirective, decorators: [{ type: i0.Self }] },
+        { type: i0.ElementRef },
+        { type: i0.ChangeDetectorRef },
+        { type: SubscriptionService }
+    ]; };
+    FormSubmitDirective.propDecorators = {
+        debounce: [{ type: i0.Input }],
+        notValidateOnSubmit: [{ type: i0.Input }],
+        ngSubmit: [{ type: i0.Output }]
+    };
     function setDirty(controls) {
         if (Array.isArray(controls)) {
             controls.forEach(function (group) {
@@ -2342,7 +2379,7 @@
         });
     }
 
-    exports.ɵj = /** @class */ (function () {
+    var InitDirective = /** @class */ (function () {
         function InitDirective(elRef) {
             this.elRef = elRef;
             this.init = new i0.EventEmitter();
@@ -2352,16 +2389,88 @@
         };
         return InitDirective;
     }());
-    __decorate([
-        i0.Output('abpInit'),
-        __metadata("design:type", Object)
-    ], exports.ɵj.prototype, "init", void 0);
-    exports.ɵj = __decorate([
-        i0.Directive({ selector: '[abpInit]' }),
-        __metadata("design:paramtypes", [i0.ElementRef])
-    ], exports.ɵj);
+    InitDirective.decorators = [
+        { type: i0.Directive, args: [{ selector: '[abpInit]' },] }
+    ];
+    InitDirective.ctorParameters = function () { return [
+        { type: i0.ElementRef }
+    ]; };
+    InitDirective.propDecorators = {
+        init: [{ type: i0.Output, args: ['abpInit',] }]
+    };
 
-    exports.ɵy = /** @class */ (function () {
+    var ReplaceableComponentsState_1;
+    function logDeprecationMsg() {
+        if (i0.isDevMode()) {
+            console.warn("\n     ReplacableComponentsState has been deprecated. Use ReplaceableComponentsService instead.\n     See the doc https://docs.abp.io/en/abp/latest/UI/Angular/Component-Replacement\n     ");
+        }
+    }
+    // tslint:disable: max-line-length
+    /**
+     * @deprecated To be deleted in v4.0. Use ReplaceableComponentsService instead. See the doc (https://docs.abp.io/en/abp/latest/UI/Angular/Component-Replacement)
+     */
+    exports.ɵv = ReplaceableComponentsState_1 = /** @class */ (function () {
+        function ReplaceableComponentsState(service) {
+            this.service = service;
+        }
+        ReplaceableComponentsState.getAll = function (_a) {
+            var replaceableComponents = _a.replaceableComponents;
+            logDeprecationMsg();
+            return replaceableComponents || [];
+        };
+        ReplaceableComponentsState.getComponent = function (key) {
+            var selector = i1.createSelector([ReplaceableComponentsState_1], function (state) {
+                logDeprecationMsg();
+                return snq__default['default'](function () { return state.replaceableComponents.find(function (component) { return component.key === key; }); });
+            });
+            return selector;
+        };
+        ReplaceableComponentsState.prototype.replaceableComponentsAction = function (_a, _b) {
+            var getState = _a.getState, patchState = _a.patchState;
+            var payload = _b.payload, reload = _b.reload;
+            logDeprecationMsg();
+            var replaceableComponents = getState().replaceableComponents;
+            var index = snq__default['default'](function () { return replaceableComponents.findIndex(function (component) { return component.key === payload.key; }); }, -1);
+            if (index > -1) {
+                replaceableComponents[index] = payload;
+            }
+            else {
+                replaceableComponents = __spread(replaceableComponents, [payload]);
+            }
+            patchState({
+                replaceableComponents: replaceableComponents,
+            });
+            this.service.add(payload, reload);
+        };
+        return ReplaceableComponentsState;
+    }());
+    exports.ɵv.decorators = [
+        { type: i0.Injectable }
+    ];
+    exports.ɵv.ctorParameters = function () { return [
+        { type: ReplaceableComponentsService }
+    ]; };
+    __decorate([
+        i1.Action(AddReplaceableComponent),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, AddReplaceableComponent]),
+        __metadata("design:returntype", void 0)
+    ], exports.ɵv.prototype, "replaceableComponentsAction", null);
+    __decorate([
+        i1.Selector(),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object]),
+        __metadata("design:returntype", Array)
+    ], exports.ɵv, "getAll", null);
+    exports.ɵv = ReplaceableComponentsState_1 = __decorate([
+        i1.State({
+            name: 'ReplaceableComponentsState',
+            defaults: { replaceableComponents: [] },
+        }),
+        __metadata("design:paramtypes", [ReplaceableComponentsService])
+    ], exports.ɵv);
+
+    var ProfileService = /** @class */ (function () {
         function ProfileService(rest) {
             this.rest = rest;
             this.apiName = 'AbpIdentity';
@@ -2397,15 +2506,17 @@
         };
         return ProfileService;
     }());
-    exports.ɵy.ɵprov = i0.ɵɵdefineInjectable({ factory: function ProfileService_Factory() { return new exports.ɵy(i0.ɵɵinject(exports.ɵz)); }, token: exports.ɵy, providedIn: "root" });
-    exports.ɵy = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __metadata("design:paramtypes", [exports.ɵz])
-    ], exports.ɵy);
+    ProfileService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ProfileService_Factory() { return new ProfileService(i0.ɵɵinject(RestService)); }, token: ProfileService, providedIn: "root" });
+    ProfileService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    ProfileService.ctorParameters = function () { return [
+        { type: RestService }
+    ]; };
 
-    exports.ɵx = /** @class */ (function () {
+    exports.ɵy = /** @class */ (function () {
         function ProfileState(profileService) {
             this.profileService = profileService;
         }
@@ -2432,40 +2543,45 @@
         };
         return ProfileState;
     }());
+    exports.ɵy.decorators = [
+        { type: i0.Injectable }
+    ];
+    exports.ɵy.ctorParameters = function () { return [
+        { type: ProfileService }
+    ]; };
     __decorate([
         i1.Action(GetProfile),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
-    ], exports.ɵx.prototype, "getProfile", null);
+    ], exports.ɵy.prototype, "getProfile", null);
     __decorate([
         i1.Action(UpdateProfile),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, UpdateProfile]),
         __metadata("design:returntype", void 0)
-    ], exports.ɵx.prototype, "updateProfile", null);
+    ], exports.ɵy.prototype, "updateProfile", null);
     __decorate([
         i1.Action(ChangePassword),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, ChangePassword]),
         __metadata("design:returntype", void 0)
-    ], exports.ɵx.prototype, "changePassword", null);
+    ], exports.ɵy.prototype, "changePassword", null);
     __decorate([
         i1.Selector(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", Object)
-    ], exports.ɵx, "getProfile", null);
-    exports.ɵx = __decorate([
+    ], exports.ɵy, "getProfile", null);
+    exports.ɵy = __decorate([
         i1.State({
             name: 'ProfileState',
             defaults: {},
         }),
-        i0.Injectable(),
-        __metadata("design:paramtypes", [exports.ɵy])
-    ], exports.ɵx);
+        __metadata("design:paramtypes", [ProfileService])
+    ], exports.ɵy);
 
-    exports.ɵl = /** @class */ (function () {
+    var PermissionDirective = /** @class */ (function () {
         function PermissionDirective(elRef, renderer, store, templateRef, vcRef) {
             this.elRef = elRef;
             this.renderer = renderer;
@@ -2479,7 +2595,7 @@
                 this.subscription.unsubscribe();
             }
             this.subscription = this.store
-                .select(exports.ɵbn.getGrantedPolicy(this.condition))
+                .select(exports.ɵbo.getGrantedPolicy(this.condition))
                 .subscribe(function (isGranted) {
                 if (_this.templateRef && isGranted) {
                     _this.vcRef.clear();
@@ -2510,30 +2626,30 @@
         };
         return PermissionDirective;
     }());
-    __decorate([
-        i0.Input('abpPermission'),
-        __metadata("design:type", String)
-    ], exports.ɵl.prototype, "condition", void 0);
-    exports.ɵl = __decorate([
-        i0.Directive({
-            selector: '[abpPermission]',
-        }),
-        __param(3, i0.Optional()),
-        __metadata("design:paramtypes", [i0.ElementRef,
-            i0.Renderer2,
-            i1.Store,
-            i0.TemplateRef,
-            i0.ViewContainerRef])
-    ], exports.ɵl);
+    PermissionDirective.decorators = [
+        { type: i0.Directive, args: [{
+                    selector: '[abpPermission]',
+                },] }
+    ];
+    PermissionDirective.ctorParameters = function () { return [
+        { type: i0.ElementRef },
+        { type: i0.Renderer2 },
+        { type: i1.Store },
+        { type: i0.TemplateRef, decorators: [{ type: i0.Optional }] },
+        { type: i0.ViewContainerRef }
+    ]; };
+    PermissionDirective.propDecorators = {
+        condition: [{ type: i0.Input, args: ['abpPermission',] }]
+    };
 
-    exports.ɵn = /** @class */ (function () {
-        function ReplaceableTemplateDirective(injector, templateRef, cfRes, vcRef, store, subscription) {
+    var ReplaceableTemplateDirective = /** @class */ (function () {
+        function ReplaceableTemplateDirective(injector, templateRef, cfRes, vcRef, replaceableComponents, subscription) {
             var _this = this;
             this.injector = injector;
             this.templateRef = templateRef;
             this.cfRes = cfRes;
             this.vcRef = vcRef;
-            this.store = store;
+            this.replaceableComponents = replaceableComponents;
             this.subscription = subscription;
             this.providedData = { inputs: {}, outputs: {} };
             this.context = {};
@@ -2549,8 +2665,8 @@
         }
         ReplaceableTemplateDirective.prototype.ngOnInit = function () {
             var _this = this;
-            var component$ = this.store
-                .select(exports.ɵu.getComponent(this.data.componentKey))
+            var component$ = this.replaceableComponents
+                .get$(this.data.componentKey)
                 .pipe(operators.filter(function (res) {
                 if (res === void 0) { res = {}; }
                 return !_this.initialized || !compare__default['default'](res.component, _this.externalComponent);
@@ -2635,21 +2751,22 @@
         };
         return ReplaceableTemplateDirective;
     }());
-    __decorate([
-        i0.Input('abpReplaceableTemplate'),
-        __metadata("design:type", Object)
-    ], exports.ɵn.prototype, "data", void 0);
-    exports.ɵn = __decorate([
-        i0.Directive({ selector: '[abpReplaceableTemplate]', providers: [exports.ɵe] }),
-        __metadata("design:paramtypes", [i0.Injector,
-            i0.TemplateRef,
-            i0.ComponentFactoryResolver,
-            i0.ViewContainerRef,
-            i1.Store,
-            exports.ɵe])
-    ], exports.ɵn);
+    ReplaceableTemplateDirective.decorators = [
+        { type: i0.Directive, args: [{ selector: '[abpReplaceableTemplate]', providers: [SubscriptionService] },] }
+    ];
+    ReplaceableTemplateDirective.ctorParameters = function () { return [
+        { type: i0.Injector },
+        { type: i0.TemplateRef },
+        { type: i0.ComponentFactoryResolver },
+        { type: i0.ViewContainerRef },
+        { type: ReplaceableComponentsService },
+        { type: SubscriptionService }
+    ]; };
+    ReplaceableTemplateDirective.propDecorators = {
+        data: [{ type: i0.Input, args: ['abpReplaceableTemplate',] }]
+    };
 
-    exports.ɵq = /** @class */ (function () {
+    var StopPropagationDirective = /** @class */ (function () {
         function StopPropagationDirective(el, subscription) {
             this.el = el;
             this.subscription = subscription;
@@ -2664,24 +2781,26 @@
         };
         return StopPropagationDirective;
     }());
-    __decorate([
-        i0.Output('click.stop'),
-        __metadata("design:type", Object)
-    ], exports.ɵq.prototype, "stopPropEvent", void 0);
-    exports.ɵq = __decorate([
-        i0.Directive({
-            // tslint:disable-next-line: directive-selector
-            selector: '[click.stop]',
-            providers: [exports.ɵe],
-        }),
-        __metadata("design:paramtypes", [i0.ElementRef, exports.ɵe])
-    ], exports.ɵq);
+    StopPropagationDirective.decorators = [
+        { type: i0.Directive, args: [{
+                    // tslint:disable-next-line: directive-selector
+                    selector: '[click.stop]',
+                    providers: [SubscriptionService],
+                },] }
+    ];
+    StopPropagationDirective.ctorParameters = function () { return [
+        { type: i0.ElementRef },
+        { type: SubscriptionService }
+    ]; };
+    StopPropagationDirective.propDecorators = {
+        stopPropEvent: [{ type: i0.Output, args: ['click.stop',] }]
+    };
 
     /**
      *
      * @deprecated To be deleted in v3.3
      */
-    exports.ɵr = /** @class */ (function () {
+    var VisibilityDirective = /** @class */ (function () {
         function VisibilityDirective(elRef, renderer) {
             this.elRef = elRef;
             this.renderer = renderer;
@@ -2725,19 +2844,20 @@
         };
         return VisibilityDirective;
     }());
-    __decorate([
-        i0.Input('abpVisibility'),
-        __metadata("design:type", HTMLElement)
-    ], exports.ɵr.prototype, "focusedElement", void 0);
-    exports.ɵr = __decorate([
-        i0.Directive({
-            selector: '[abpVisibility]',
-        }),
-        __param(0, i0.Optional()),
-        __metadata("design:paramtypes", [i0.ElementRef, i0.Renderer2])
-    ], exports.ɵr);
+    VisibilityDirective.decorators = [
+        { type: i0.Directive, args: [{
+                    selector: '[abpVisibility]',
+                },] }
+    ];
+    VisibilityDirective.ctorParameters = function () { return [
+        { type: i0.ElementRef, decorators: [{ type: i0.Optional }] },
+        { type: i0.Renderer2 }
+    ]; };
+    VisibilityDirective.propDecorators = {
+        focusedElement: [{ type: i0.Input, args: ['abpVisibility',] }]
+    };
 
-    exports.ɵbw = /** @class */ (function () {
+    var OAuthConfigurationHandler = /** @class */ (function () {
         function OAuthConfigurationHandler(actions, oAuthService, options) {
             this.actions = actions;
             this.oAuthService = oAuthService;
@@ -2758,17 +2878,19 @@
         };
         return OAuthConfigurationHandler;
     }());
-    exports.ɵbw.ɵprov = i0.ɵɵdefineInjectable({ factory: function OAuthConfigurationHandler_Factory() { return new exports.ɵbw(i0.ɵɵinject(i1.Actions), i0.ɵɵinject(i3.OAuthService), i0.ɵɵinject(CORE_OPTIONS)); }, token: exports.ɵbw, providedIn: "root" });
-    exports.ɵbw = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __param(2, i0.Inject(CORE_OPTIONS)),
-        __metadata("design:paramtypes", [i1.Actions,
-            i3.OAuthService, Object])
-    ], exports.ɵbw);
+    OAuthConfigurationHandler.ɵprov = i0.ɵɵdefineInjectable({ factory: function OAuthConfigurationHandler_Factory() { return new OAuthConfigurationHandler(i0.ɵɵinject(i1.Actions), i0.ɵɵinject(i1$1.OAuthService), i0.ɵɵinject(CORE_OPTIONS)); }, token: OAuthConfigurationHandler, providedIn: "root" });
+    OAuthConfigurationHandler.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    OAuthConfigurationHandler.ctorParameters = function () { return [
+        { type: i1.Actions },
+        { type: i1$1.OAuthService },
+        { type: undefined, decorators: [{ type: i0.Inject, args: [CORE_OPTIONS,] }] }
+    ]; };
 
-    exports.ɵca = /** @class */ (function () {
+    var RoutesHandler = /** @class */ (function () {
         function RoutesHandler(routes, router) {
             this.routes = routes;
             this.router = router;
@@ -2791,14 +2913,16 @@
         };
         return RoutesHandler;
     }());
-    exports.ɵca.ɵprov = i0.ɵɵdefineInjectable({ factory: function RoutesHandler_Factory() { return new exports.ɵca(i0.ɵɵinject(exports.ɵcd), i0.ɵɵinject(i2$1.Router, 8)); }, token: exports.ɵca, providedIn: "root" });
-    exports.ɵca = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __param(1, i0.Optional()),
-        __metadata("design:paramtypes", [exports.ɵcd, i2$1.Router])
-    ], exports.ɵca);
+    RoutesHandler.ɵprov = i0.ɵɵdefineInjectable({ factory: function RoutesHandler_Factory() { return new RoutesHandler(i0.ɵɵinject(RoutesService), i0.ɵɵinject(i1$2.Router, 8)); }, token: RoutesHandler, providedIn: "root" });
+    RoutesHandler.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    RoutesHandler.ctorParameters = function () { return [
+        { type: RoutesService },
+        { type: i1$2.Router, decorators: [{ type: i0.Optional }] }
+    ]; };
     function flatRoutes(routes, parent) {
         if (!routes)
             return [];
@@ -2809,7 +2933,7 @@
         }, []);
     }
 
-    exports.ɵbv = /** @class */ (function () {
+    var ApiInterceptor = /** @class */ (function () {
         function ApiInterceptor(oAuthService, store) {
             this.oAuthService = oAuthService;
             this.store = store;
@@ -2817,33 +2941,42 @@
         ApiInterceptor.prototype.intercept = function (request, next) {
             var _this = this;
             this.store.dispatch(new StartLoader(request));
-            var headers = {};
-            var token = this.oAuthService.getAccessToken();
-            if (!request.headers.has('Authorization') && token) {
-                headers['Authorization'] = "Bearer " + token;
-            }
-            var lang = this.store.selectSnapshot(exports.ɵbh.getLanguage);
-            if (!request.headers.has('Accept-Language') && lang) {
-                headers['Accept-Language'] = lang;
-            }
-            var tenant = this.store.selectSnapshot(exports.ɵbh.getTenant);
-            if (!request.headers.has('__tenant') && tenant) {
-                headers['__tenant'] = tenant.id;
-            }
             return next
                 .handle(request.clone({
-                setHeaders: headers,
+                setHeaders: this.getAdditionalHeaders(request.headers),
             }))
                 .pipe(operators.finalize(function () { return _this.store.dispatch(new StopLoader(request)); }));
         };
+        ApiInterceptor.prototype.getAdditionalHeaders = function (existingHeaders) {
+            var headers = {};
+            var token = this.oAuthService.getAccessToken();
+            if (!(existingHeaders === null || existingHeaders === void 0 ? void 0 : existingHeaders.has('Authorization')) && token) {
+                headers['Authorization'] = "Bearer " + token;
+            }
+            var lang = this.store.selectSnapshot(exports.ɵbi.getLanguage);
+            if (!(existingHeaders === null || existingHeaders === void 0 ? void 0 : existingHeaders.has('Accept-Language')) && lang) {
+                headers['Accept-Language'] = lang;
+            }
+            var tenant = this.store.selectSnapshot(exports.ɵbi.getTenant);
+            if (!(existingHeaders === null || existingHeaders === void 0 ? void 0 : existingHeaders.has('__tenant')) && tenant) {
+                headers['__tenant'] = tenant.id;
+            }
+            return headers;
+        };
         return ApiInterceptor;
     }());
-    exports.ɵbv = __decorate([
-        i0.Injectable(),
-        __metadata("design:paramtypes", [i3.OAuthService, i1.Store])
-    ], exports.ɵbv);
+    ApiInterceptor.ɵprov = i0.ɵɵdefineInjectable({ factory: function ApiInterceptor_Factory() { return new ApiInterceptor(i0.ɵɵinject(i1$1.OAuthService), i0.ɵɵinject(i1.Store)); }, token: ApiInterceptor, providedIn: "root" });
+    ApiInterceptor.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    ApiInterceptor.ctorParameters = function () { return [
+        { type: i1$1.OAuthService },
+        { type: i1.Store }
+    ]; };
 
-    exports.ɵs = /** @class */ (function () {
+    var LocalizationPipe = /** @class */ (function () {
         function LocalizationPipe(store) {
             this.store = store;
         }
@@ -2853,18 +2986,20 @@
             for (var _i = 1; _i < arguments.length; _i++) {
                 interpolateParams[_i - 1] = arguments[_i];
             }
-            return this.store.selectSnapshot(exports.ɵbn.getLocalization.apply(exports.ɵbn, __spread([value], interpolateParams.reduce(function (acc, val) { return (Array.isArray(val) ? __spread(acc, val) : __spread(acc, [val])); }, []))));
+            return this.store.selectSnapshot(exports.ɵbo.getLocalization.apply(exports.ɵbo, __spread([value], interpolateParams.reduce(function (acc, val) { return (Array.isArray(val) ? __spread(acc, val) : __spread(acc, [val])); }, []))));
         };
         return LocalizationPipe;
     }());
-    exports.ɵs = __decorate([
-        i0.Injectable(),
-        i0.Pipe({
-            name: 'abpLocalization',
-        }),
-        __metadata("design:paramtypes", [i1.Store])
-    ], exports.ɵs);
-    exports.ɵt = /** @class */ (function () {
+    LocalizationPipe.decorators = [
+        { type: i0.Injectable },
+        { type: i0.Pipe, args: [{
+                    name: 'abpLocalization',
+                },] }
+    ];
+    LocalizationPipe.ctorParameters = function () { return [
+        { type: i1.Store }
+    ]; };
+    var MockLocalizationPipe = /** @class */ (function () {
         function MockLocalizationPipe() {
         }
         MockLocalizationPipe.prototype.transform = function (value) {
@@ -2877,26 +3012,26 @@
         };
         return MockLocalizationPipe;
     }());
-    exports.ɵt = __decorate([
-        i0.Injectable(),
-        i0.Pipe({
-            name: 'abpLocalization',
-        })
-    ], exports.ɵt);
+    MockLocalizationPipe.decorators = [
+        { type: i0.Injectable },
+        { type: i0.Pipe, args: [{
+                    name: 'abpLocalization',
+                },] }
+    ];
 
-    exports.LocalizationModule = /** @class */ (function () {
+    var LocalizationModule = /** @class */ (function () {
         function LocalizationModule() {
         }
         return LocalizationModule;
     }());
-    exports.LocalizationModule = __decorate([
-        i0.NgModule({
-            exports: [exports.ɵs],
-            declarations: [exports.ɵs],
-        })
-    ], exports.LocalizationModule);
+    LocalizationModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    exports: [LocalizationPipe],
+                    declarations: [LocalizationPipe],
+                },] }
+    ];
 
-    exports.ɵp = /** @class */ (function () {
+    var SortPipe = /** @class */ (function () {
         function SortPipe() {
         }
         SortPipe.prototype.transform = function (value, sortOrder, sortKey) {
@@ -2931,15 +3066,15 @@
         };
         return SortPipe;
     }());
-    exports.ɵp = __decorate([
-        i0.Injectable(),
-        i0.Pipe({
-            name: 'abpSort',
-        })
-    ], exports.ɵp);
+    SortPipe.decorators = [
+        { type: i0.Injectable },
+        { type: i0.Pipe, args: [{
+                    name: 'abpSort',
+                },] }
+    ];
 
     var NGXS_CONFIG_PLUGIN_OPTIONS = new i0.InjectionToken('NGXS_CONFIG_PLUGIN_OPTIONS');
-    exports.ɵbu = /** @class */ (function () {
+    var ConfigPlugin = /** @class */ (function () {
         function ConfigPlugin(options) {
             this.options = options;
             this.initialized = false;
@@ -2955,11 +3090,12 @@
         };
         return ConfigPlugin;
     }());
-    exports.ɵbu = __decorate([
-        i0.Injectable(),
-        __param(0, i0.Inject(NGXS_CONFIG_PLUGIN_OPTIONS)),
-        __metadata("design:paramtypes", [Object])
-    ], exports.ɵbu);
+    ConfigPlugin.decorators = [
+        { type: i0.Injectable }
+    ];
+    ConfigPlugin.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: i0.Inject, args: [NGXS_CONFIG_PLUGIN_OPTIONS,] }] }
+    ]; };
 
     var LocaleId = /** @class */ (function (_super) {
         __extends(LocaleId, _super);
@@ -2980,7 +3116,7 @@
     var LocaleProvider = {
         provide: i0.LOCALE_ID,
         useClass: LocaleId,
-        deps: [exports.ɵf],
+        deps: [LocalizationService],
     };
 
     Date.prototype.toLocalISOString = function () {
@@ -2997,120 +3133,120 @@
      * but not the providers.
      * This module will be imported and exported by all others.
      */
-    exports.BaseCoreModule = /** @class */ (function () {
+    var BaseCoreModule = /** @class */ (function () {
         function BaseCoreModule() {
         }
         return BaseCoreModule;
     }());
-    exports.BaseCoreModule = __decorate([
-        i0.NgModule({
-            exports: [
-                common.CommonModule,
-                i2.HttpClientModule,
-                forms.FormsModule,
-                forms.ReactiveFormsModule,
-                i2$1.RouterModule,
-                exports.ɵb,
-                exports.ɵc,
-                exports.ɵd,
-                exports.ɵg,
-                exports.ɵh,
-                exports.ɵi,
-                exports.ɵj,
-                exports.ɵk,
-                exports.ɵl,
-                exports.ɵm,
-                exports.ɵn,
-                exports.ɵo,
-                exports.ɵp,
-                exports.ɵq,
-                exports.ɵr,
-            ],
-            imports: [
-                i3.OAuthModule,
-                common.CommonModule,
-                i2.HttpClientModule,
-                forms.FormsModule,
-                forms.ReactiveFormsModule,
-                i2$1.RouterModule,
-            ],
-            declarations: [
-                exports.ɵb,
-                exports.ɵc,
-                exports.ɵd,
-                exports.ɵg,
-                exports.ɵh,
-                exports.ɵi,
-                exports.ɵj,
-                exports.ɵk,
-                exports.ɵl,
-                exports.ɵm,
-                exports.ɵn,
-                exports.ɵo,
-                exports.ɵp,
-                exports.ɵq,
-                exports.ɵr,
-            ],
-            entryComponents: [
-                exports.ɵo,
-                exports.ɵd,
-                exports.ɵm,
-            ],
-        })
-    ], exports.BaseCoreModule);
+    BaseCoreModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    exports: [
+                        common.CommonModule,
+                        i2.HttpClientModule,
+                        forms.FormsModule,
+                        forms.ReactiveFormsModule,
+                        i1$2.RouterModule,
+                        AbstractNgModelComponent,
+                        AutofocusDirective,
+                        DynamicLayoutComponent,
+                        EllipsisDirective,
+                        ForDirective,
+                        FormSubmitDirective,
+                        InitDirective,
+                        InputEventDebounceDirective,
+                        PermissionDirective,
+                        ReplaceableRouteContainerComponent,
+                        ReplaceableTemplateDirective,
+                        RouterOutletComponent,
+                        SortPipe,
+                        StopPropagationDirective,
+                        VisibilityDirective,
+                    ],
+                    imports: [
+                        i1$1.OAuthModule,
+                        common.CommonModule,
+                        i2.HttpClientModule,
+                        forms.FormsModule,
+                        forms.ReactiveFormsModule,
+                        i1$2.RouterModule,
+                    ],
+                    declarations: [
+                        AbstractNgModelComponent,
+                        AutofocusDirective,
+                        DynamicLayoutComponent,
+                        EllipsisDirective,
+                        ForDirective,
+                        FormSubmitDirective,
+                        InitDirective,
+                        InputEventDebounceDirective,
+                        PermissionDirective,
+                        ReplaceableRouteContainerComponent,
+                        ReplaceableTemplateDirective,
+                        RouterOutletComponent,
+                        SortPipe,
+                        StopPropagationDirective,
+                        VisibilityDirective,
+                    ],
+                    entryComponents: [
+                        RouterOutletComponent,
+                        DynamicLayoutComponent,
+                        ReplaceableRouteContainerComponent,
+                    ],
+                },] }
+    ];
     /**
      * RootCoreModule is the module that will be used at root level
      * and it introduces imports useful at root level (e.g. NGXS)
      */
-    exports.RootCoreModule = /** @class */ (function () {
+    var RootCoreModule = /** @class */ (function () {
         function RootCoreModule() {
         }
         return RootCoreModule;
     }());
-    exports.RootCoreModule = __decorate([
-        i0.NgModule({
-            exports: [exports.BaseCoreModule, exports.LocalizationModule],
-            imports: [
-                exports.BaseCoreModule,
-                exports.LocalizationModule,
-                i1.NgxsModule.forFeature([exports.ɵu, exports.ɵx, exports.ɵbh, exports.ɵbn]),
-                routerPlugin.NgxsRouterPluginModule.forRoot(),
-                storagePlugin.NgxsStoragePluginModule.forRoot(),
-                i3.OAuthModule.forRoot(),
-            ],
-        })
-    ], exports.RootCoreModule);
+    RootCoreModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    exports: [BaseCoreModule, LocalizationModule],
+                    imports: [
+                        BaseCoreModule,
+                        LocalizationModule,
+                        i1.NgxsModule.forFeature([exports.ɵv, exports.ɵy, exports.ɵbi, exports.ɵbo]),
+                        routerPlugin.NgxsRouterPluginModule.forRoot(),
+                        storagePlugin.NgxsStoragePluginModule.forRoot(),
+                        i1$1.OAuthModule.forRoot(),
+                    ],
+                },] }
+    ];
     /**
      * TestCoreModule is the module that will be used in tests
      * and it provides mock alternatives
      */
-    exports.TestCoreModule = /** @class */ (function () {
+    var TestCoreModule = /** @class */ (function () {
         function TestCoreModule() {
         }
         return TestCoreModule;
     }());
-    exports.TestCoreModule = __decorate([
-        i0.NgModule({
-            exports: [i2$1.RouterModule, exports.BaseCoreModule, exports.ɵt],
-            imports: [i2$1.RouterModule.forRoot([]), exports.BaseCoreModule],
-            declarations: [exports.ɵt],
-        })
-    ], exports.TestCoreModule);
+    TestCoreModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    exports: [i1$2.RouterModule, BaseCoreModule, MockLocalizationPipe],
+                    imports: [i1$2.RouterModule.forRoot([]), BaseCoreModule],
+                    declarations: [MockLocalizationPipe],
+                },] }
+    ];
     /**
      * CoreModule is the module that is publicly available
      */
-    exports.CoreModule = /** @class */ (function () {
+    var CoreModule = /** @class */ (function () {
         function CoreModule() {
         }
         CoreModule.forTest = function (_b) {
             var _c = (_b === void 0 ? {} : _b).baseHref, baseHref = _c === void 0 ? '/' : _c;
             return {
-                ngModule: exports.TestCoreModule,
+                ngModule: TestCoreModule,
                 providers: [
                     { provide: common.APP_BASE_HREF, useValue: baseHref },
                     {
-                        provide: exports.ɵs,
-                        useClass: exports.ɵt,
+                        provide: LocalizationPipe,
+                        useClass: MockLocalizationPipe,
                     },
                 ],
             };
@@ -3119,12 +3255,12 @@
             if (options === void 0) { options = {}; }
             var _a;
             return {
-                ngModule: exports.RootCoreModule,
+                ngModule: RootCoreModule,
                 providers: [
                     LocaleProvider,
                     {
                         provide: i1.NGXS_PLUGINS,
-                        useClass: exports.ɵbu,
+                        useClass: ConfigPlugin,
                         multi: true,
                     },
                     {
@@ -3142,13 +3278,13 @@
                     },
                     {
                         provide: i2.HTTP_INTERCEPTORS,
-                        useClass: exports.ɵbv,
+                        useExisting: ApiInterceptor,
                         multi: true,
                     },
                     {
                         provide: i0.APP_INITIALIZER,
                         multi: true,
-                        deps: [exports.ɵbw],
+                        deps: [OAuthConfigurationHandler],
                         useFactory: noop,
                     },
                     {
@@ -3166,16 +3302,16 @@
                     {
                         provide: i0.APP_INITIALIZER,
                         multi: true,
-                        deps: [exports.ɵf],
+                        deps: [LocalizationService],
                         useFactory: noop,
                     },
                     {
                         provide: i0.APP_INITIALIZER,
                         multi: true,
-                        deps: [exports.ɵca],
+                        deps: [RoutesHandler],
                         useFactory: noop,
                     },
-                    { provide: i3.OAuthStorage, useFactory: storageFactory },
+                    { provide: i1$1.OAuthStorage, useFactory: storageFactory },
                     {
                         provide: storagePlugin.NGXS_STORAGE_PLUGIN_OPTIONS,
                         useValue: Object.assign(Object.assign({ storage: 0 /* LocalStorage */, serialize: JSON.stringify, deserialize: JSON.parse, beforeSerialize: ngxsStoragePluginSerialize, afterDeserialize: ngxsStoragePluginSerialize }, options.ngxsStoragePluginOptions), { key: __spread((((_a = options.ngxsStoragePluginOptions) === null || _a === void 0 ? void 0 : _a.key) || []), ['SessionState']) }),
@@ -3185,24 +3321,24 @@
         };
         return CoreModule;
     }());
-    exports.CoreModule = __decorate([
-        i0.NgModule({
-            exports: [exports.BaseCoreModule, exports.LocalizationModule],
-            imports: [exports.BaseCoreModule, exports.LocalizationModule],
-            providers: [exports.ɵs],
-        })
-    ], exports.CoreModule);
+    CoreModule.decorators = [
+        { type: i0.NgModule, args: [{
+                    exports: [BaseCoreModule, LocalizationModule],
+                    imports: [BaseCoreModule, LocalizationModule],
+                    providers: [LocalizationPipe],
+                },] }
+    ];
     function ngxsStoragePluginSerialize(data) {
         return data;
     }
 
-    exports.AuthGuard = /** @class */ (function () {
+    var AuthGuard = /** @class */ (function () {
         function AuthGuard(oauthService, injector) {
             this.oauthService = oauthService;
             this.injector = injector;
         }
         AuthGuard.prototype.canActivate = function (_, state) {
-            var router = this.injector.get(i2$1.Router);
+            var router = this.injector.get(i1$2.Router);
             var hasValidAccessToken = this.oauthService.hasValidAccessToken();
             if (hasValidAccessToken) {
                 return hasValidAccessToken;
@@ -3212,15 +3348,18 @@
         };
         return AuthGuard;
     }());
-    exports.AuthGuard.ɵprov = i0.ɵɵdefineInjectable({ factory: function AuthGuard_Factory() { return new exports.AuthGuard(i0.ɵɵinject(i3.OAuthService), i0.ɵɵinject(i0.INJECTOR)); }, token: exports.AuthGuard, providedIn: "root" });
-    exports.AuthGuard = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __metadata("design:paramtypes", [i3.OAuthService, i0.Injector])
-    ], exports.AuthGuard);
+    AuthGuard.ɵprov = i0.ɵɵdefineInjectable({ factory: function AuthGuard_Factory() { return new AuthGuard(i0.ɵɵinject(i1$1.OAuthService), i0.ɵɵinject(i0.INJECTOR)); }, token: AuthGuard, providedIn: "root" });
+    AuthGuard.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    AuthGuard.ctorParameters = function () { return [
+        { type: i1$1.OAuthService },
+        { type: i0.Injector }
+    ]; };
 
-    exports.PermissionGuard = /** @class */ (function () {
+    var PermissionGuard = /** @class */ (function () {
         function PermissionGuard(router, routes, store) {
             this.router = router;
             this.routes = routes;
@@ -3235,7 +3374,7 @@
             }
             if (!requiredPolicy)
                 return rxjs.of(true);
-            return this.store.select(exports.ɵbn.getGrantedPolicy(requiredPolicy)).pipe(operators.tap(function (access) {
+            return this.store.select(exports.ɵbo.getGrantedPolicy(requiredPolicy)).pipe(operators.tap(function (access) {
                 if (!access) {
                     _this.store.dispatch(new RestOccurError({ status: 403 }));
                 }
@@ -3243,13 +3382,17 @@
         };
         return PermissionGuard;
     }());
-    exports.PermissionGuard.ɵprov = i0.ɵɵdefineInjectable({ factory: function PermissionGuard_Factory() { return new exports.PermissionGuard(i0.ɵɵinject(i2$1.Router), i0.ɵɵinject(exports.ɵcd), i0.ɵɵinject(i1.Store)); }, token: exports.PermissionGuard, providedIn: "root" });
-    exports.PermissionGuard = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __metadata("design:paramtypes", [i2$1.Router, exports.ɵcd, i1.Store])
-    ], exports.PermissionGuard);
+    PermissionGuard.ɵprov = i0.ɵɵdefineInjectable({ factory: function PermissionGuard_Factory() { return new PermissionGuard(i0.ɵɵinject(i1$2.Router), i0.ɵɵinject(RoutesService), i0.ɵɵinject(i1.Store)); }, token: PermissionGuard, providedIn: "root" });
+    PermissionGuard.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    PermissionGuard.ctorParameters = function () { return [
+        { type: i1$2.Router },
+        { type: RoutesService },
+        { type: i1.Store }
+    ]; };
 
     var ListResultDto = /** @class */ (function () {
         function ListResultDto(initialValues) {
@@ -3437,16 +3580,16 @@
         return FindTenantResultDto;
     }());
 
-    exports.ApplicationConfigurationService = /** @class */ (function () {
+    var ApplicationConfigurationService = /** @class */ (function () {
         function ApplicationConfigurationService(rest, store) {
             this.rest = rest;
             this.store = store;
         }
         Object.defineProperty(ApplicationConfigurationService.prototype, "apiName", {
             get: function () {
-                return this.store.selectSnapshot(exports.ɵbn.getDeep('environment.application.name'));
+                return this.store.selectSnapshot(exports.ɵbo.getDeep('environment.application.name'));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         ApplicationConfigurationService.prototype.getConfiguration = function () {
@@ -3460,79 +3603,89 @@
         };
         return ApplicationConfigurationService;
     }());
-    exports.ApplicationConfigurationService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ApplicationConfigurationService_Factory() { return new exports.ApplicationConfigurationService(i0.ɵɵinject(exports.ɵz), i0.ɵɵinject(i1.Store)); }, token: exports.ApplicationConfigurationService, providedIn: "root" });
-    exports.ApplicationConfigurationService = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __metadata("design:paramtypes", [exports.ɵz, i1.Store])
-    ], exports.ApplicationConfigurationService);
+    ApplicationConfigurationService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ApplicationConfigurationService_Factory() { return new ApplicationConfigurationService(i0.ɵɵinject(RestService), i0.ɵɵinject(i1.Store)); }, token: ApplicationConfigurationService, providedIn: "root" });
+    ApplicationConfigurationService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    ApplicationConfigurationService.ctorParameters = function () { return [
+        { type: RestService },
+        { type: i1.Store }
+    ]; };
 
-    exports.ConfigStateService = /** @class */ (function () {
+    var ConfigStateService = /** @class */ (function () {
         function ConfigStateService(store) {
             this.store = store;
         }
         ConfigStateService.prototype.getAll = function () {
-            return this.store.selectSnapshot(exports.ɵbn.getAll);
+            return this.store.selectSnapshot(exports.ɵbo.getAll);
         };
         ConfigStateService.prototype.getApplicationInfo = function () {
-            return this.store.selectSnapshot(exports.ɵbn.getApplicationInfo);
+            return this.store.selectSnapshot(exports.ɵbo.getApplicationInfo);
         };
         ConfigStateService.prototype.getOne = function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            return this.store.selectSnapshot(exports.ɵbn.getOne.apply(exports.ɵbn, __spread(args)));
+            return this.store.selectSnapshot(exports.ɵbo.getOne.apply(exports.ɵbo, __spread(args)));
         };
         ConfigStateService.prototype.getDeep = function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            return this.store.selectSnapshot(exports.ɵbn.getDeep.apply(exports.ɵbn, __spread(args)));
+            return this.store.selectSnapshot(exports.ɵbo.getDeep.apply(exports.ɵbo, __spread(args)));
         };
         ConfigStateService.prototype.getApiUrl = function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            return this.store.selectSnapshot(exports.ɵbn.getApiUrl.apply(exports.ɵbn, __spread(args)));
+            return this.store.selectSnapshot(exports.ɵbo.getApiUrl.apply(exports.ɵbo, __spread(args)));
         };
         ConfigStateService.prototype.getFeature = function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            return this.store.selectSnapshot(exports.ɵbn.getFeature.apply(exports.ɵbn, __spread(args)));
+            return this.store.selectSnapshot(exports.ɵbo.getFeature.apply(exports.ɵbo, __spread(args)));
         };
         ConfigStateService.prototype.getSetting = function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            return this.store.selectSnapshot(exports.ɵbn.getSetting.apply(exports.ɵbn, __spread(args)));
+            return this.store.selectSnapshot(exports.ɵbo.getSetting.apply(exports.ɵbo, __spread(args)));
         };
         ConfigStateService.prototype.getSettings = function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            return this.store.selectSnapshot(exports.ɵbn.getSettings.apply(exports.ɵbn, __spread(args)));
+            return this.store.selectSnapshot(exports.ɵbo.getSettings.apply(exports.ɵbo, __spread(args)));
         };
         ConfigStateService.prototype.getGrantedPolicy = function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            return this.store.selectSnapshot(exports.ɵbn.getGrantedPolicy.apply(exports.ɵbn, __spread(args)));
+            return this.store.selectSnapshot(exports.ɵbo.getGrantedPolicy.apply(exports.ɵbo, __spread(args)));
         };
         ConfigStateService.prototype.getLocalization = function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
             }
-            return this.store.selectSnapshot(exports.ɵbn.getLocalization.apply(exports.ɵbn, __spread(args)));
+            return this.store.selectSnapshot(exports.ɵbo.getLocalization.apply(exports.ɵbo, __spread(args)));
+        };
+        ConfigStateService.prototype.getLocalizationResource = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            return this.store.selectSnapshot(exports.ɵbo.getLocalizationResource.apply(exports.ɵbo, __spread(args)));
         };
         ConfigStateService.prototype.dispatchGetAppConfiguration = function () {
             return this.store.dispatch(new GetAppConfiguration());
@@ -3546,15 +3699,17 @@
         };
         return ConfigStateService;
     }());
-    exports.ConfigStateService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ConfigStateService_Factory() { return new exports.ConfigStateService(i0.ɵɵinject(i1.Store)); }, token: exports.ConfigStateService, providedIn: "root" });
-    exports.ConfigStateService = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __metadata("design:paramtypes", [i1.Store])
-    ], exports.ConfigStateService);
+    ConfigStateService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ConfigStateService_Factory() { return new ConfigStateService(i0.ɵɵinject(i1.Store)); }, token: ConfigStateService, providedIn: "root" });
+    ConfigStateService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    ConfigStateService.ctorParameters = function () { return [
+        { type: i1.Store }
+    ]; };
 
-    exports.ContentProjectionService = /** @class */ (function () {
+    var ContentProjectionService = /** @class */ (function () {
         function ContentProjectionService(injector) {
             this.injector = injector;
         }
@@ -3564,11 +3719,13 @@
         };
         return ContentProjectionService;
     }());
-    exports.ContentProjectionService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ContentProjectionService_Factory() { return new exports.ContentProjectionService(i0.ɵɵinject(i0.INJECTOR)); }, token: exports.ContentProjectionService, providedIn: "root" });
-    exports.ContentProjectionService = __decorate([
-        i0.Injectable({ providedIn: 'root' }),
-        __metadata("design:paramtypes", [i0.Injector])
-    ], exports.ContentProjectionService);
+    ContentProjectionService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ContentProjectionService_Factory() { return new ContentProjectionService(i0.ɵɵinject(i0.INJECTOR)); }, token: ContentProjectionService, providedIn: "root" });
+    ContentProjectionService.decorators = [
+        { type: i0.Injectable, args: [{ providedIn: 'root' },] }
+    ];
+    ContentProjectionService.ctorParameters = function () { return [
+        { type: i0.Injector }
+    ]; };
 
     function getShortDateFormat(configStateService) {
         var dateTimeFormat = configStateService.getDeep('localization.currentCulture.dateTimeFormat');
@@ -3594,7 +3751,7 @@
             get: function () {
                 return this.moduleWithProviders.ngModule;
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         LazyModuleFactory.prototype.create = function (parentInjector) {
@@ -3608,6 +3765,20 @@
         };
         return LazyModuleFactory;
     }(i0.NgModuleFactory));
+
+    function downloadBlob(blob, filename) {
+        var blobUrl = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.dispatchEvent(new MouseEvent('click', {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+        }));
+        document.body.removeChild(link);
+    }
 
     function isNumber(value) {
         /* tslint:disable-next-line:triple-equals */
@@ -3779,7 +3950,7 @@
         };
     };
 
-    exports.DomInsertionService = /** @class */ (function () {
+    var DomInsertionService = /** @class */ (function () {
         function DomInsertionService() {
             this.inserted = new Set();
         }
@@ -3802,12 +3973,12 @@
         };
         return DomInsertionService;
     }());
-    exports.DomInsertionService.ɵprov = i0.ɵɵdefineInjectable({ factory: function DomInsertionService_Factory() { return new exports.DomInsertionService(); }, token: exports.DomInsertionService, providedIn: "root" });
-    exports.DomInsertionService = __decorate([
-        i0.Injectable({ providedIn: 'root' })
-    ], exports.DomInsertionService);
+    DomInsertionService.ɵprov = i0.ɵɵdefineInjectable({ factory: function DomInsertionService_Factory() { return new DomInsertionService(); }, token: DomInsertionService, providedIn: "root" });
+    DomInsertionService.decorators = [
+        { type: i0.Injectable, args: [{ providedIn: 'root' },] }
+    ];
 
-    exports.LazyLoadService = /** @class */ (function () {
+    var LazyLoadService = /** @class */ (function () {
         function LazyLoadService() {
             this.loaded = new Map();
         }
@@ -3827,16 +3998,16 @@
         };
         return LazyLoadService;
     }());
-    exports.LazyLoadService.ɵprov = i0.ɵɵdefineInjectable({ factory: function LazyLoadService_Factory() { return new exports.LazyLoadService(); }, token: exports.LazyLoadService, providedIn: "root" });
-    exports.LazyLoadService = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        })
-    ], exports.LazyLoadService);
+    LazyLoadService.ɵprov = i0.ɵɵdefineInjectable({ factory: function LazyLoadService_Factory() { return new LazyLoadService(); }, token: LazyLoadService, providedIn: "root" });
+    LazyLoadService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
 
     var LIST_QUERY_DEBOUNCE_TIME = new i0.InjectionToken('LIST_QUERY_DEBOUNCE_TIME');
 
-    exports.ListService = /** @class */ (function () {
+    var ListService = /** @class */ (function () {
         function ListService(delay) {
             var _this = this;
             this.delay = delay;
@@ -3863,10 +4034,12 @@
                 return this._filter;
             },
             set: function (value) {
+                if (this._filter !== value)
+                    this._page = 0;
                 this._filter = value;
                 this.get();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ListService.prototype, "maxResultCount", {
@@ -3877,7 +4050,7 @@
                 this._maxResultCount = value;
                 this.get();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ListService.prototype, "page", {
@@ -3890,7 +4063,7 @@
                 this._page = value;
                 this.get();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ListService.prototype, "sortKey", {
@@ -3901,7 +4074,7 @@
                 this._sortKey = value;
                 this.get();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ListService.prototype, "sortOrder", {
@@ -3912,7 +4085,7 @@
                 this._sortOrder = value;
                 this.get();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ListService.prototype, "query$", {
@@ -3921,14 +4094,14 @@
                     .asObservable()
                     .pipe(operators.debounceTime(this.delay || 300), operators.shareReplay({ bufferSize: 1, refCount: true }));
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         Object.defineProperty(ListService.prototype, "isLoading$", {
             get: function () {
                 return this._isLoading$.asObservable();
             },
-            enumerable: true,
+            enumerable: false,
             configurable: true
         });
         ListService.prototype.hookToQuery = function (streamCreatorCallback) {
@@ -3941,18 +4114,19 @@
         };
         return ListService;
     }());
-    exports.ListService = __decorate([
-        i0.Injectable(),
-        __param(0, i0.Optional()), __param(0, i0.Inject(LIST_QUERY_DEBOUNCE_TIME)),
-        __metadata("design:paramtypes", [Number])
-    ], exports.ListService);
+    ListService.decorators = [
+        { type: i0.Injectable }
+    ];
+    ListService.ctorParameters = function () { return [
+        { type: Number, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [LIST_QUERY_DEBOUNCE_TIME,] }] }
+    ]; };
 
-    exports.ProfileStateService = /** @class */ (function () {
+    var ProfileStateService = /** @class */ (function () {
         function ProfileStateService(store) {
             this.store = store;
         }
         ProfileStateService.prototype.getProfile = function () {
-            return this.store.selectSnapshot(exports.ɵx.getProfile);
+            return this.store.selectSnapshot(exports.ɵy.getProfile);
         };
         ProfileStateService.prototype.dispatchGetProfile = function () {
             return this.store.dispatch(new GetProfile());
@@ -3973,26 +4147,28 @@
         };
         return ProfileStateService;
     }());
-    exports.ProfileStateService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ProfileStateService_Factory() { return new exports.ProfileStateService(i0.ɵɵinject(i1.Store)); }, token: exports.ProfileStateService, providedIn: "root" });
-    exports.ProfileStateService = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __metadata("design:paramtypes", [i1.Store])
-    ], exports.ProfileStateService);
+    ProfileStateService.ɵprov = i0.ɵɵdefineInjectable({ factory: function ProfileStateService_Factory() { return new ProfileStateService(i0.ɵɵinject(i1.Store)); }, token: ProfileStateService, providedIn: "root" });
+    ProfileStateService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    ProfileStateService.ctorParameters = function () { return [
+        { type: i1.Store }
+    ]; };
 
-    exports.SessionStateService = /** @class */ (function () {
+    var SessionStateService = /** @class */ (function () {
         function SessionStateService(store) {
             this.store = store;
         }
         SessionStateService.prototype.getLanguage = function () {
-            return this.store.selectSnapshot(exports.ɵbh.getLanguage);
+            return this.store.selectSnapshot(exports.ɵbi.getLanguage);
         };
         SessionStateService.prototype.getTenant = function () {
-            return this.store.selectSnapshot(exports.ɵbh.getTenant);
+            return this.store.selectSnapshot(exports.ɵbi.getTenant);
         };
         SessionStateService.prototype.getSessionDetail = function () {
-            return this.store.selectSnapshot(exports.ɵbh.getSessionDetail);
+            return this.store.selectSnapshot(exports.ɵbi.getSessionDetail);
         };
         SessionStateService.prototype.dispatchSetLanguage = function () {
             var args = [];
@@ -4024,13 +4200,15 @@
         };
         return SessionStateService;
     }());
-    exports.SessionStateService.ɵprov = i0.ɵɵdefineInjectable({ factory: function SessionStateService_Factory() { return new exports.SessionStateService(i0.ɵɵinject(i1.Store)); }, token: exports.SessionStateService, providedIn: "root" });
-    exports.SessionStateService = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        }),
-        __metadata("design:paramtypes", [i1.Store])
-    ], exports.SessionStateService);
+    SessionStateService.ɵprov = i0.ɵɵdefineInjectable({ factory: function SessionStateService_Factory() { return new SessionStateService(i0.ɵɵinject(i1.Store)); }, token: SessionStateService, providedIn: "root" });
+    SessionStateService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
+    SessionStateService.ctorParameters = function () { return [
+        { type: i1.Store }
+    ]; };
 
     var trackBy = function (key) { return function (_, item) { return item[key]; }; };
     var trackByDeep = function () {
@@ -4040,19 +4218,19 @@
         }
         return function (_, item) { return keys.reduce(function (acc, key) { return acc[key]; }, item); };
     };
-    exports.TrackByService = /** @class */ (function () {
+    var TrackByService = /** @class */ (function () {
         function TrackByService() {
             this.by = trackBy;
             this.byDeep = trackByDeep;
         }
         return TrackByService;
     }());
-    exports.TrackByService.ɵprov = i0.ɵɵdefineInjectable({ factory: function TrackByService_Factory() { return new exports.TrackByService(); }, token: exports.TrackByService, providedIn: "root" });
-    exports.TrackByService = __decorate([
-        i0.Injectable({
-            providedIn: 'root',
-        })
-    ], exports.TrackByService);
+    TrackByService.ɵprov = i0.ɵɵdefineInjectable({ factory: function TrackByService_Factory() { return new TrackByService(); }, token: TrackByService, providedIn: "root" });
+    TrackByService.decorators = [
+        { type: i0.Injectable, args: [{
+                    providedIn: 'root',
+                },] }
+    ];
 
     var ContainerStrategy = /** @class */ (function () {
         function ContainerStrategy(containerRef) {
@@ -4521,17 +4699,21 @@
 
     exports.AUTH_FLOW_STRATEGY = AUTH_FLOW_STRATEGY;
     exports.AbpValidators = AbpValidators;
-    exports.AbstractNavTreeService = exports.ɵcc;
-    exports.AbstractNgModelComponent = exports.ɵb;
+    exports.AbstractNavTreeService = AbstractNavTreeService;
+    exports.AbstractNgModelComponent = AbstractNgModelComponent;
     exports.AbstractTreeService = AbstractTreeService;
     exports.AddReplaceableComponent = AddReplaceableComponent;
-    exports.ApiInterceptor = exports.ɵbv;
+    exports.ApiInterceptor = ApiInterceptor;
+    exports.ApplicationConfigurationService = ApplicationConfigurationService;
     exports.AuditedEntityDto = AuditedEntityDto;
     exports.AuditedEntityWithUserDto = AuditedEntityWithUserDto;
     exports.AuthCodeFlowStrategy = AuthCodeFlowStrategy;
     exports.AuthFlowStrategy = AuthFlowStrategy;
+    exports.AuthGuard = AuthGuard;
     exports.AuthPasswordFlowStrategy = AuthPasswordFlowStrategy;
-    exports.AutofocusDirective = exports.ɵc;
+    exports.AuthService = AuthService;
+    exports.AutofocusDirective = AutofocusDirective;
+    exports.BaseCoreModule = BaseCoreModule;
     exports.BaseTreeNode = BaseTreeNode;
     exports.CONTAINER_STRATEGY = CONTAINER_STRATEGY;
     exports.CONTENT_SECURITY_STRATEGY = CONTENT_SECURITY_STRATEGY;
@@ -4543,19 +4725,23 @@
     exports.ClearContainerStrategy = ClearContainerStrategy;
     exports.ComponentContextStrategy = ComponentContextStrategy;
     exports.ComponentProjectionStrategy = ComponentProjectionStrategy;
-    exports.ConfigPlugin = exports.ɵbu;
-    exports.ConfigState = exports.ɵbn;
+    exports.ConfigPlugin = ConfigPlugin;
+    exports.ConfigState = exports.ɵbo;
+    exports.ConfigStateService = ConfigStateService;
     exports.ContainerStrategy = ContainerStrategy;
+    exports.ContentProjectionService = ContentProjectionService;
     exports.ContentSecurityStrategy = ContentSecurityStrategy;
     exports.ContentStrategy = ContentStrategy;
     exports.ContextStrategy = ContextStrategy;
+    exports.CoreModule = CoreModule;
     exports.CreationAuditedEntityDto = CreationAuditedEntityDto;
     exports.CreationAuditedEntityWithUserDto = CreationAuditedEntityWithUserDto;
     exports.CrossOriginStrategy = CrossOriginStrategy;
     exports.DOM_STRATEGY = DOM_STRATEGY;
+    exports.DomInsertionService = DomInsertionService;
     exports.DomStrategy = DomStrategy;
-    exports.DynamicLayoutComponent = exports.ɵd;
-    exports.EllipsisDirective = exports.ɵg;
+    exports.DynamicLayoutComponent = DynamicLayoutComponent;
+    exports.EllipsisDirective = EllipsisDirective;
     exports.EntityDto = EntityDto;
     exports.ExtensibleAuditedEntityDto = ExtensibleAuditedEntityDto;
     exports.ExtensibleAuditedEntityWithUserDto = ExtensibleAuditedEntityWithUserDto;
@@ -4566,26 +4752,31 @@
     exports.ExtensibleFullAuditedEntityWithUserDto = ExtensibleFullAuditedEntityWithUserDto;
     exports.ExtensibleObject = ExtensibleObject;
     exports.FindTenantResultDto = FindTenantResultDto;
-    exports.ForDirective = exports.ɵh;
-    exports.FormSubmitDirective = exports.ɵi;
+    exports.ForDirective = ForDirective;
+    exports.FormSubmitDirective = FormSubmitDirective;
     exports.FullAuditedEntityDto = FullAuditedEntityDto;
     exports.FullAuditedEntityWithUserDto = FullAuditedEntityWithUserDto;
     exports.GetAppConfiguration = GetAppConfiguration;
     exports.GetProfile = GetProfile;
-    exports.InitDirective = exports.ɵj;
-    exports.InputEventDebounceDirective = exports.ɵk;
+    exports.InitDirective = InitDirective;
+    exports.InputEventDebounceDirective = InputEventDebounceDirective;
     exports.InsertIntoContainerStrategy = InsertIntoContainerStrategy;
+    exports.InternalStore = InternalStore;
     exports.LIST_QUERY_DEBOUNCE_TIME = LIST_QUERY_DEBOUNCE_TIME;
     exports.LOADING_STRATEGY = LOADING_STRATEGY;
+    exports.LazyLoadService = LazyLoadService;
     exports.LazyModuleFactory = LazyModuleFactory;
     exports.LimitedResultRequestDto = LimitedResultRequestDto;
     exports.ListResultDto = ListResultDto;
+    exports.ListService = ListService;
     exports.LoadingStrategy = LoadingStrategy;
-    exports.LocalizationPipe = exports.ɵs;
-    exports.LocalizationService = exports.ɵf;
+    exports.LocalizationModule = LocalizationModule;
+    exports.LocalizationPipe = LocalizationPipe;
+    exports.LocalizationService = LocalizationService;
     exports.LooseContentSecurityStrategy = LooseContentSecurityStrategy;
-    exports.MockLocalizationPipe = exports.ɵt;
+    exports.MockLocalizationPipe = MockLocalizationPipe;
     exports.ModifyOpenedTabCount = ModifyOpenedTabCount;
+    exports.MultiTenancyService = MultiTenancyService;
     exports.NGXS_CONFIG_PLUGIN_OPTIONS = NGXS_CONFIG_PLUGIN_OPTIONS;
     exports.NoContentSecurityStrategy = NoContentSecurityStrategy;
     exports.NoContextStrategy = NoContextStrategy;
@@ -4593,37 +4784,46 @@
     exports.PagedAndSortedResultRequestDto = PagedAndSortedResultRequestDto;
     exports.PagedResultDto = PagedResultDto;
     exports.PagedResultRequestDto = PagedResultRequestDto;
-    exports.PermissionDirective = exports.ɵl;
-    exports.ProfileService = exports.ɵy;
-    exports.ProfileState = exports.ɵx;
+    exports.PermissionDirective = PermissionDirective;
+    exports.PermissionGuard = PermissionGuard;
+    exports.ProfileService = ProfileService;
+    exports.ProfileState = exports.ɵy;
+    exports.ProfileStateService = ProfileStateService;
     exports.ProjectionStrategy = ProjectionStrategy;
-    exports.ReplaceableComponentsState = exports.ɵu;
-    exports.ReplaceableRouteContainerComponent = exports.ɵm;
-    exports.ReplaceableTemplateDirective = exports.ɵn;
+    exports.ReplaceableComponentsService = ReplaceableComponentsService;
+    exports.ReplaceableComponentsState = exports.ɵv;
+    exports.ReplaceableRouteContainerComponent = ReplaceableRouteContainerComponent;
+    exports.ReplaceableTemplateDirective = ReplaceableTemplateDirective;
     exports.RestOccurError = RestOccurError;
-    exports.RestService = exports.ɵz;
+    exports.RestService = RestService;
     exports.RootComponentProjectionStrategy = RootComponentProjectionStrategy;
-    exports.RouterOutletComponent = exports.ɵo;
-    exports.RoutesService = exports.ɵcd;
+    exports.RootCoreModule = RootCoreModule;
+    exports.RouterOutletComponent = RouterOutletComponent;
+    exports.RoutesService = RoutesService;
     exports.ScriptContentStrategy = ScriptContentStrategy;
     exports.ScriptLoadingStrategy = ScriptLoadingStrategy;
-    exports.SessionState = exports.ɵbh;
+    exports.SessionState = exports.ɵbi;
+    exports.SessionStateService = SessionStateService;
     exports.SetEnvironment = SetEnvironment;
     exports.SetLanguage = SetLanguage;
     exports.SetRemember = SetRemember;
     exports.SetTenant = SetTenant;
-    exports.SortPipe = exports.ɵp;
+    exports.SettingTabsService = SettingTabsService;
+    exports.SortPipe = SortPipe;
     exports.StartLoader = StartLoader;
     exports.StopLoader = StopLoader;
-    exports.StopPropagationDirective = exports.ɵq;
+    exports.StopPropagationDirective = StopPropagationDirective;
     exports.StyleContentStrategy = StyleContentStrategy;
     exports.StyleLoadingStrategy = StyleLoadingStrategy;
-    exports.SubscriptionService = exports.ɵe;
+    exports.SubscriptionService = SubscriptionService;
     exports.TemplateContextStrategy = TemplateContextStrategy;
     exports.TemplateProjectionStrategy = TemplateProjectionStrategy;
+    exports.TestCoreModule = TestCoreModule;
+    exports.TrackByService = TrackByService;
     exports.UpdateProfile = UpdateProfile;
-    exports.VisibilityDirective = exports.ɵr;
+    exports.VisibilityDirective = VisibilityDirective;
     exports.checkAccessToken = checkAccessToken;
+    exports.clearOAuthStorage = clearOAuthStorage;
     exports.coreOptionsFactory = coreOptionsFactory;
     exports.createLocalizationPipeKeyGenerator = createLocalizationPipeKeyGenerator;
     exports.createLocalizer = createLocalizer;
@@ -4632,6 +4832,7 @@
     exports.createTokenParser = createTokenParser;
     exports.createTreeFromList = createTreeFromList;
     exports.deepMerge = deepMerge;
+    exports.downloadBlob = downloadBlob;
     exports.exists = exists;
     exports.findRoute = findRoute;
     exports.fromLazyLoad = fromLazyLoad;
@@ -4659,6 +4860,7 @@
     exports.parseTenantFromUrl = parseTenantFromUrl;
     exports.pushValueTo = pushValueTo;
     exports.registerLocale = registerLocale;
+    exports.reloadRoute = reloadRoute;
     exports.storageFactory = storageFactory;
     exports.takeUntilDestroy = takeUntilDestroy;
     exports.trackBy = trackBy;
@@ -4672,25 +4874,53 @@
     exports.validateUrl = validateUrl;
     exports.ɵ0 = ɵ0;
     exports.ɵa = oAuthStorage;
-    exports.ɵba = CORE_OPTIONS;
-    exports.ɵbb = coreOptionsFactory;
-    exports.ɵbd = GetProfile;
-    exports.ɵbe = UpdateProfile;
-    exports.ɵbf = ChangePassword;
-    exports.ɵbi = SetLanguage;
-    exports.ɵbj = SetTenant;
-    exports.ɵbk = ModifyOpenedTabCount;
-    exports.ɵbl = SetRemember;
-    exports.ɵbo = GetAppConfiguration;
-    exports.ɵbp = SetEnvironment;
-    exports.ɵbr = LocaleId;
-    exports.ɵbs = LocaleProvider;
-    exports.ɵbt = NGXS_CONFIG_PLUGIN_OPTIONS;
-    exports.ɵbx = noop;
-    exports.ɵby = getInitialData;
-    exports.ɵbz = localeInitializer;
-    exports.ɵcb = AbstractTreeService;
-    exports.ɵv = AddReplaceableComponent;
+    exports.ɵb = AbstractNgModelComponent;
+    exports.ɵba = RestService;
+    exports.ɵbb = CORE_OPTIONS;
+    exports.ɵbc = coreOptionsFactory;
+    exports.ɵbe = GetProfile;
+    exports.ɵbf = UpdateProfile;
+    exports.ɵbg = ChangePassword;
+    exports.ɵbj = SetLanguage;
+    exports.ɵbk = SetTenant;
+    exports.ɵbl = ModifyOpenedTabCount;
+    exports.ɵbm = SetRemember;
+    exports.ɵbp = GetAppConfiguration;
+    exports.ɵbq = SetEnvironment;
+    exports.ɵbs = LocaleId;
+    exports.ɵbt = LocaleProvider;
+    exports.ɵbu = NGXS_CONFIG_PLUGIN_OPTIONS;
+    exports.ɵbv = ConfigPlugin;
+    exports.ɵbw = ApiInterceptor;
+    exports.ɵbx = OAuthConfigurationHandler;
+    exports.ɵby = noop;
+    exports.ɵbz = getInitialData;
+    exports.ɵc = AutofocusDirective;
+    exports.ɵca = localeInitializer;
+    exports.ɵcb = RoutesHandler;
+    exports.ɵcc = AbstractTreeService;
+    exports.ɵcd = AbstractNavTreeService;
+    exports.ɵce = RoutesService;
+    exports.ɵd = DynamicLayoutComponent;
+    exports.ɵe = SubscriptionService;
+    exports.ɵf = LocalizationService;
+    exports.ɵg = ReplaceableComponentsService;
+    exports.ɵh = EllipsisDirective;
+    exports.ɵi = ForDirective;
+    exports.ɵj = FormSubmitDirective;
+    exports.ɵk = InitDirective;
+    exports.ɵl = InputEventDebounceDirective;
+    exports.ɵm = PermissionDirective;
+    exports.ɵn = ReplaceableRouteContainerComponent;
+    exports.ɵo = ReplaceableTemplateDirective;
+    exports.ɵp = RouterOutletComponent;
+    exports.ɵq = SortPipe;
+    exports.ɵr = StopPropagationDirective;
+    exports.ɵs = VisibilityDirective;
+    exports.ɵt = LocalizationPipe;
+    exports.ɵu = MockLocalizationPipe;
+    exports.ɵw = AddReplaceableComponent;
+    exports.ɵz = ProfileService;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

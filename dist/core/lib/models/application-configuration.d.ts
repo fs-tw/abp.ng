@@ -55,10 +55,15 @@ export declare namespace ApplicationConfiguration {
     }
     interface CurrentUser {
         email: string;
+        emailVerified: false;
         id: string;
         isAuthenticated: boolean;
         roles: string[];
         tenantId: string;
         userName: string;
+        name: string;
+        phoneNumber: string;
+        phoneNumberVerified: boolean;
+        surName: string;
     }
 }
