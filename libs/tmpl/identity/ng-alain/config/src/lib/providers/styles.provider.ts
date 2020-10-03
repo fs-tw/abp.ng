@@ -1,6 +1,5 @@
-import { AddReplaceableComponent, CONTENT_STRATEGY, DomInsertionService } from '@abp/ng.core';
+import { ReplaceableComponentsService } from '@abp/ng.core';
 import { APP_INITIALIZER } from '@angular/core';
-import { Store } from '@ngxs/store';
 import { eIdentityComponents } from '@abp/ng.identity';
 import { UsersComponent } from '@fs/identity/ng-alain';
 import { RolesComponent } from '@fs/identity/ng-alain';
@@ -9,26 +8,24 @@ export const STYLES_PROVIDERS = [
   {
     provide: APP_INITIALIZER,
     useFactory: configureStyles,
-    deps: [Store],
+    deps: [ReplaceableComponentsService],
     multi: true,
   },
 ];
 
-export function configureStyles(store: Store) {
+export function configureStyles(replaceableComponents: ReplaceableComponentsService) {
   return () => {
-    initLayouts(store);
+    initLayouts(replaceableComponents);
   };
 }
 
-function initLayouts(store: Store) {
-  store.dispatch([
-    new AddReplaceableComponent({
-      key: eIdentityComponents.Users,
-      component: UsersComponent,
-    }),
-    new AddReplaceableComponent({
-      key: eIdentityComponents.Roles,
-      component: RolesComponent
-    })
-  ]);
+function initLayouts(replaceableComponents: ReplaceableComponentsService) {
+  replaceableComponents.add({
+    key: eIdentityComponents.Users,
+    component: UsersComponent
+  });
+  replaceableComponents.add({
+    key: eIdentityComponents.Roles,
+    component: RolesComponent
+  });  
 }

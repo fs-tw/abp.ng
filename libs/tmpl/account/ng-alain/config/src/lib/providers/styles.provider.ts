@@ -1,6 +1,5 @@
-import { AddReplaceableComponent, CONTENT_STRATEGY, DomInsertionService } from '@abp/ng.core';
+import { ReplaceableComponentsService } from '@abp/ng.core';
 import { APP_INITIALIZER } from '@angular/core';
-import { Store } from '@ngxs/store';
 import { UserLoginComponent } from '@fs/account/ng-alain';
 import { UserRegisterComponent } from '@fs/account/ng-alain';
 import { ManageProfileComponent } from '@fs/account/ng-alain';
@@ -10,19 +9,28 @@ export const STYLES_PROVIDERS = [
   {
     provide: APP_INITIALIZER,
     useFactory: configureStyles,
-    deps: [Store],
+    deps: [ReplaceableComponentsService],
     multi: true,
   },
 ];
 
-export function configureStyles(store: Store) {
+export function configureStyles(replaceableComponents: ReplaceableComponentsService) {
   return () => {
-    initLayouts(store);
+    initLayouts(replaceableComponents);
   };
 }
 
-function initLayouts(store: Store) {
-  store.dispatch(new AddReplaceableComponent({ component: UserLoginComponent, key: eAccountComponents.Login }));
-  store.dispatch(new AddReplaceableComponent({ component: UserRegisterComponent, key: eAccountComponents.Register }));
-  store.dispatch(new AddReplaceableComponent({ component: ManageProfileComponent, key: eAccountComponents.ManageProfile }));
+function initLayouts(replaceableComponents: ReplaceableComponentsService) {
+  replaceableComponents.add({
+    key: eAccountComponents.Login,
+    component: UserLoginComponent
+  });
+  replaceableComponents.add({
+    key: eAccountComponents.Register,
+    component: UserRegisterComponent
+  });
+  replaceableComponents.add({
+    key: eAccountComponents.ManageProfile,
+    component: ManageProfileComponent
+  });    
 }
