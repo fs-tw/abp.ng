@@ -46,7 +46,7 @@
               <label nz-checkbox
                      [ngModel]="getChecked(permission.name)"
                      [nzDisabled]="isGrantedByOtherProviderName(permission.grantedProviders)"
-                     (ngModelChange)="onClickCheckbox(permission)"
+                     (ngModelChange)="onClickCheckbox(permission,null)"
                      >
                 {{ permission.displayName }}
                 <span *ngFor="let provider of permission.grantedProviders">{{ provider.providerName }}: {{ provider.providerKey }}</span>

@@ -11,6 +11,40 @@ export class PermissionManagementComponent extends AbpPermissionManagementCompon
   selectAllIndeterminate = false;
   selectAllThisTabIndeterminate = false;
 
+  @Input()
+  readonly providerName: string;
+
+  @Input()
+  readonly providerKey: string;
+
+  @Input()
+  readonly hideBadges = false;
+
+  protected _visible = false;
+
+  @Input()
+  get visible(): boolean {
+    return this._visible;
+  }
+
+  set visible(value: boolean) {
+    if (value === this._visible) return;
+
+    if (value) {
+      this.openModal().subscribe(() => {
+        this._visible = true;
+        this.visibleChange.emit(true);
+      });
+    } else {
+      this.selectedGroup = null;
+      this._visible = false;
+      this.visibleChange.emit(false);
+    }
+  }
+
+  @Output() readonly visibleChange = new EventEmitter<boolean>();
+
+
   constructor(private _store: Store, private _renderer: Renderer2) {
     super(_store, _renderer);
   }

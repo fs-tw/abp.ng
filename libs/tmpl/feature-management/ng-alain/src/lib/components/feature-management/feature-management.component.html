@@ -9,14 +9,7 @@
   </ng-template>
 
   <ng-template #modalContent>
-    <ng-template #loaderRef>
-      <div class="text-center"><i class="fa fa-pulse fa-spinner"></i></div>
-    </ng-template>
-
-    <form nz-form *ngIf="form; else loaderRef" [formGroup]="form" (ngSubmit)="save()">
-
-
-      <div class="row my-3"
+      <!-- <div class="row my-3"
            *ngFor="let feature of features$ | async; let i = index"
            [ngSwitch]="feature.valueType.name">
         <div class="col-4">{{ feature.name }}</div>
@@ -26,10 +19,7 @@
         <div class="col-8" *ngSwitchCase="'FreeTextStringValueType'">
           <input type="text" name="feature.name" [formControlName]="i" />
         </div>
-      </div>
-
-
-    </form>
+      </div> -->
   </ng-template>
 
   <ng-template #modalFooter>
