@@ -149,13 +149,17 @@ import { ValidationErrorComponent } from '@fs/theme.ng-alain/basic';
     //LayoutModule,
     STWidgetModule,
     RootModule,
-    ...I18NSERVICE_MODULES,
+    // ...I18NSERVICE_MODULES,
     ...GLOBAL_THIRD_MODULES,
     ...FORM_MODULES,
   ],
   providers: [
     AlainConfigService,//Issue: https://github.com/ng-alain/ng-alain/issues/1624
-    ...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...I18NSERVICE_PROVIDES, ...APPINIT_PROVIDES],
+    ...LANG_PROVIDES,
+    // ...INTERCEPTOR_PROVIDES,
+    // ...I18NSERVICE_PROVIDES,
+    // ...APPINIT_PROVIDES
+  ],
 })
 export class ThemeNgAlainModule {
   static forRoot(options: Options = { loadCodes: false }): ModuleWithProviders<ThemeNgAlainModule> {

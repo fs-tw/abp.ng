@@ -50,7 +50,7 @@ const DIRECTIVES = [];
     AlainThemeModule,
     DelonACLModule,
     DelonFormModule,
-    TranslateModule,
+    // TranslateModule,
     ...SHARED_DELON_MODULES,
     ...SHARED_ZORRO_MODULES,
     // third libs

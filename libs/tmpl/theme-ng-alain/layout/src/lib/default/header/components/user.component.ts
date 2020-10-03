@@ -26,11 +26,11 @@ import { Select } from '@ngxs/store';
         </div>
         <!--<div nz-menu-item routerLink="/pro/account/settings">
           <i nz-icon nzType="setting" class="mr-sm"></i>
-          {{ 'menu.account.settings' | translate }}
+          menu.account.settings
         </div>
         <div nz-menu-item routerLink="/exception/trigger">
           <i nz-icon nzType="close-circle" class="mr-sm"></i>
-          {{ 'menu.account.trigger' | translate }}
+          menu.account.trigger
         </div>-->
         <li nz-menu-divider></li>
         <div nz-menu-item (click)="logout()">

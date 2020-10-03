@@ -5,7 +5,7 @@ import * as screenfull from 'screenfull';
   selector: 'header-fullscreen',
   template: `
     <i nz-icon [nzType]="status ? 'fullscreen-exit' : 'fullscreen'"></i>
-    {{ (status ? 'menu.fullscreen.exit' : 'menu.fullscreen') | translate }}
+    menu.fullscreen.exit
   `,
   // tslint:disable-next-line: no-host-metadata-property
   host: {

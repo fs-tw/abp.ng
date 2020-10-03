@@ -6,7 +6,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   selector: 'header-storage',
   template: `
     <i nz-icon nzType="tool"></i>
-    {{ 'menu.clear.local.storage' | translate }}
+    menu.clear.local.storage
   `,
   // tslint:disable-next-line: no-host-metadata-property
   host: {

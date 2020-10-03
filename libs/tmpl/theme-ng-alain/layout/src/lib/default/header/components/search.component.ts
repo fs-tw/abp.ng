@@ -9,7 +9,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostBind
         [(ngModel)]="q"
         (focus)="qFocus()"
         (blur)="qBlur()"
-        [placeholder]="'menu.search.placeholder' | translate"
+        [placeholder]="'menu.search.placeholder'"
       />
     </nz-input-group>
   `,
