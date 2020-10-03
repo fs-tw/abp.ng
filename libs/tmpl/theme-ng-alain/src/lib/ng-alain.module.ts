@@ -1,6 +1,5 @@
 // tslint:disable: no-duplicate-imports
-import { HttpClient } from '@angular/common/http';
-import { APP_INITIALIZER, LOCALE_ID, NgModule, ModuleWithProviders } from '@angular/core';
+import { LOCALE_ID, NgModule, ModuleWithProviders } from '@angular/core';
 
 // #region default language
 // 参考：https://ng-alain.com/docs/i18n
@@ -26,87 +25,20 @@ const LANG_PROVIDES = [
 ];
 // #endregion
 
-// #region i18n services
-import { I18NService } from '@fs/theme.ng-alain/core';
-import { ALAIN_I18N_TOKEN } from '@delon/theme';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-// 加载i18n语言文件
-export function I18nHttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, `assets/tmp/i18n/`, '.json');
-}
-
-const I18NSERVICE_MODULES = [
-  TranslateModule.forRoot({
-    loader: {
-      provide: TranslateLoader,
-      useFactory: I18nHttpLoaderFactory,
-      deps: [HttpClient],
-    },
-  }),
-];
-
-const I18NSERVICE_PROVIDES = [
-  { provide: ALAIN_I18N_TOKEN, useClass: I18NService, multi: false }
-];
-
-// #endregion
-
-// #region global third module
-
-const GLOBAL_THIRD_MODULES = [
-];
-
-// #endregion
-
-// #region JSON Schema form (using @delon/form)
-import { JsonSchemaModule } from '@fs/theme.ng-alain/shared';
-const FORM_MODULES = [JsonSchemaModule];
-// #endregion
-
-// #region Http Interceptors
-// import { HTTP_INTERCEPTORS } from '@angular/common/http';
-// import { DefaultInterceptor } from '@fs/theme.ng-alain/core';
-// import { SimpleInterceptor } from '@delon/auth';
-const INTERCEPTOR_PROVIDES = [
-  // { provide: HTTP_INTERCEPTORS, useClass: SimpleInterceptor, multi: true },
-  // { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
-];
-// #endregion
-
-// #region Startup Service
-import { StartupService } from '@fs/theme.ng-alain/core';
-export function StartupServiceFactory(startupService: StartupService) {
-  let fun = () => startupService.load();
-  return fun;
-}
-const APPINIT_PROVIDES = [
-  StartupService,
-  {
-    provide: APP_INITIALIZER,
-    useFactory: StartupServiceFactory,
-    deps: [StartupService],
-    multi: true,
-  },
-];
-// #endregion
 
 import { CoreModule } from '@fs/theme.ng-alain/core';
-import { GlobalConfigModule } from './global-config.module';
-//import { LayoutModule } from './layout/layout.module';
-import { STWidgetModule } from '@fs/theme.ng-alain/shared';
-
+//import { STWidgetModule } from '@fs/theme.ng-alain/shared';
 
 // #endregion
 
-// #region global third module
-import { ThemeSharedModule } from '@abp/ng.theme.shared';
+// #region root module
+import { GlobalConfigModule } from './global-config.module';
 import { NgAlainSharedModule } from '@fs/theme.ng-alain/shared';
 import { NgAlainBasicModule } from '@fs/theme.ng-alain/basic';
-import { INITIAL_PROVIDERS, INITIAL_THEME_CORE_PROVIDERS, Options, ThemeCoreModule } from '@fs/theme.core';
-import * as _ from 'lodash';
 import { NgxValidateCoreModule } from '@ngx-validate/core';
+import { ValidationErrorComponent } from '@fs/theme.ng-alain/basic';
+import { AlainConfigService } from '@delon/util';
 
 @NgModule({
   imports: [
@@ -130,43 +62,34 @@ import { NgxValidateCoreModule } from '@ngx-validate/core';
       },
       errorTemplate: ValidationErrorComponent,
     }),
-    //ThemeCoreModule.forRoot(),
+    GlobalConfigModule.forRoot(),
     NgAlainSharedModule.forRoot(),
     NgAlainBasicModule.forRoot(),
   ],
+  providers: [
+    AlainConfigService,//Issue: https://github.com/ng-alain/ng-alain/issues/1624
+  ],  
 })
 export class RootModule { }
 
 // #endregion
-import { AlainConfigService } from '@delon/util';
-import { THEMECORE_OPTIONS } from '@fs/theme.core';
-import { ValidationErrorComponent } from '@fs/theme.ng-alain/basic';
+
 
 @NgModule({
   imports: [
-    GlobalConfigModule.forRoot(),
     CoreModule,
-    //LayoutModule,
-    STWidgetModule,
-    RootModule,
-    // ...I18NSERVICE_MODULES,
-    ...GLOBAL_THIRD_MODULES,
-    ...FORM_MODULES,
+    //STWidgetModule,
+    RootModule
   ],
   providers: [
-    AlainConfigService,//Issue: https://github.com/ng-alain/ng-alain/issues/1624
-    ...LANG_PROVIDES,
-    // ...INTERCEPTOR_PROVIDES,
-    // ...I18NSERVICE_PROVIDES,
-    // ...APPINIT_PROVIDES
+    ...LANG_PROVIDES
   ],
 })
 export class ThemeNgAlainModule {
-  static forRoot(options: Options = { loadCodes: false }): ModuleWithProviders<ThemeNgAlainModule> {
+  static forRoot(): ModuleWithProviders<ThemeNgAlainModule> {
     return {
       ngModule: ThemeNgAlainModule,
       providers: [
-        { provide: THEMECORE_OPTIONS, useValue: options }
       ],
     };
   }
