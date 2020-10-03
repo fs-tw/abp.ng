@@ -3,7 +3,7 @@ import { Store, Select } from '@ngxs/store';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import * as _ from 'lodash';
-import { NotifyService } from '@fs/theme.ng-alain/core';
+import { ToasterService } from '@abp/ng.theme.shared';
 import { NzContextMenuService } from 'ng-zorro-antd';
 import { FsNgAlainTreeComponent } from '@fs/theme.ng-alain/basic';
 import { UpdateSettingsByProviderName } from '@fs/theme.core';
@@ -98,7 +98,7 @@ export class DetailComponent implements OnInit {
     private store: Store,
     private fb: FormBuilder,
     private changeDetectorRef: ChangeDetectorRef,
-    private notifyService: NotifyService,
+    private toasterService: ToasterService,
     private nzContextMenuService: NzContextMenuService,
   ) {
   }
@@ -208,9 +208,9 @@ export class DetailComponent implements OnInit {
         this.isEdited = true;
         this.visible = false;
       }
-      this.notifyService.success("資料更新成功");
+      this.toasterService.success("資料更新成功");
     }, (error) => {
-      this.notifyService.error("資料更新失敗");
+      this.toasterService.error("資料更新失敗");
     });
   }
 

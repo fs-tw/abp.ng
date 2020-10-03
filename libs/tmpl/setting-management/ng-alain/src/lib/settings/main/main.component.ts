@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { ThemeCoreState, SettingDefinitionDto, SettingValueModel, GetSettingByNameAndKey, ThemeCoreStateService } from '@fs/theme.core';
 import { Observable, Subject } from 'rxjs';
-import { NotifyService } from '@fs/theme.ng-alain/core';
+import { ToasterService } from '@abp/ng.theme.shared';
 import { finalize, takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
 
@@ -49,7 +49,7 @@ export class MainComponent implements OnInit {
   providerKey: string = null;
   constructor(
     private store: Store,
-    private notifyService: NotifyService,
+    private toasterService: ToasterService,
     private themeCoreStateService: ThemeCoreStateService
   ) {
   }
@@ -95,7 +95,7 @@ export class MainComponent implements OnInit {
       .subscribe(() => {
         this.setting(true, input);
       }, (error) => {
-        this.notifyService.error("查詢失敗");
+        this.toasterService.error("查詢失敗");
     });
   }
 
