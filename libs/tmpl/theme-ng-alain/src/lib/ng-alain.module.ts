@@ -28,7 +28,7 @@ const LANG_PROVIDES = [
 
 
 import { CoreModule } from '@fs/theme.ng-alain/core';
-import { RootModule } from './root-module';
+import { RootModule } from './root/root.module';
 
 @NgModule({
   imports: [
