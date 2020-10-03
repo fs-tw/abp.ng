@@ -1,40 +1,27 @@
-import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import { JsonObject } from '@angular-devkit/core';
-import execa = require('execa');
-import * as path from 'path';
-import { readFileSync } from 'fs';
-import { Log } from '../utils/log';
+import { chain, Rule, Tree, SchematicContext } from '@angular-devkit/schematics';
+import * as execa from 'execa'
+import { readJsonInTree } from '@nrwl/workspace';
+import { Log } from './utils/log';
 
-interface Options extends JsonObject {
-  symlinkConfig: string;
-  args: string[];
+let spinner: any;
+export default function (schema: any): Rule {
+  spinner = Log.spinner('Processing...');
+  return chain([
+    updateNx
+  ]);
 }
-let spinner = Log.spinner('Processing...');
-export default createBuilder<Options>((options, context) => {
-  return new Promise<BuilderOutput>(async (resolve) => {
-    const systemRoot = context.workspaceRoot;
-    const symlinkConfigPath = options.symlinkConfig
-      ? path.resolve(systemRoot, options.symlinkConfig)
-      : '';
-
-    let buildActions = JSON.parse(getFileContents(symlinkConfigPath));
-    Log.primary(`\nTask Executing ...`);
+const updateNx = async (host: Tree, context: SchematicContext) => {
+    let buildActions=readJsonInTree<any>(host, './symlink.json');
+    Log.primary(`Task Start.`);
     for (let i = 0; i < buildActions.length; i++) {
       let job = buildActions[i];
       await doJob(job);
     }
     Log.primary(`Task Done.`);
-
-    resolve({ success: true });
-  });
-});
-function getFileContents(file: string): string {
-  try {
-    return readFileSync(file, 'utf-8');
-  } catch {
-    throw new Error(`Could not read file '${file}'.`);
-  }
+    spinner.stop();
+    return Promise.resolve();
 }
+
 async function doJob(buildAction: any) {
 
   let buildPackages = buildAction.packages.filter((x: any) => !buildAction.ignore_packages || buildAction.ignore_packages.indexOf(x) == -1);
