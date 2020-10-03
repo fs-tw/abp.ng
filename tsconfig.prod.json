@@ -12,7 +12,7 @@
         "dist/theme-shared/*"
       ],
       "@abp/ng.components/tree": [
-        "dist/components/tree/src/public-api.ts"
+        "dist/components/tree"
       ],
       "@abp/ng.theme.basic": [
         "dist/theme-basic"

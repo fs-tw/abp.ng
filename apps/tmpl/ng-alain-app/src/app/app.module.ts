@@ -11,11 +11,11 @@ import { CoreModule } from '@abp/ng.core';
 import { environment } from '../environments/environment';
 import { SettingManagementNgAlainConfigModule } from '@fs/setting-management/ng-alain/config';
 import { TenantManagementNgAlainConfigModule } from '@fs/tenant-management/ng-alain/config';
-import { AppRoutingModule } from './app-routing.module';
 import { AccountNgAlainConfigModule } from '@fs/account/ng-alain/config';
 import { IdentityNgAlainConfigModule } from '@fs/identity/ng-alain/config';
+import { AppRoutingModule } from './app-routing.module';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
-import { SettingManagementConfigModule } from '@abp/ng.setting-management/config';
+
 
 const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
 

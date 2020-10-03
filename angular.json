@@ -674,13 +674,6 @@
       "sourceRoot": "libs/tmpl/theme-core/src",
       "prefix": "fs",
       "architect": {
-        "symlink": {
-          "builder": "./dist/tools/builder:symlink",
-          "options": {
-            "symlinkConfig": "symlink.json",
-            "args": []
-          }
-        },
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
