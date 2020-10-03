@@ -7,62 +7,16 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./permission-management.component.less'],
   templateUrl: './permission-management.component.html'
 })
-export class PermissionManagementComponent extends AbpPermissionManagementComponent
-  implements
-  PermissionManagement.PermissionManagementComponentInputs,
-  PermissionManagement.PermissionManagementComponentOutputs {
-  @Input()
-  readonly providerName: string;
-
-  @Input()
-  readonly providerKey: string;
-
-  @Input()
-  readonly hideBadges = false;
-
-  protected _visible = false;
-
-  @Input()
-  get visible(): boolean {
-    return this._visible;
-  }
-
-  set visible(value: boolean) {
-    if (value === this._visible) return;
-
-    if (value) {
-      this.openModal().subscribe(() => {
-        this._visible = true;
-        this.visibleChange.emit(true);
-      });
-    } else {
-      this.selectedGroup = null;
-      this._visible = false;
-      this.visibleChange.emit(false);
-    }
-  }
-
-  @Output() readonly visibleChange = new EventEmitter<boolean>();
-
+export class PermissionManagementComponent extends AbpPermissionManagementComponent {
   selectAllIndeterminate = false;
   selectAllThisTabIndeterminate = false;
+
   constructor(private _store: Store, private _renderer: Renderer2) {
     super(_store, _renderer);
   }
-  isGrantedByOtherProviderName(grantedProviders: PermissionManagement.GrantedProvider[]): boolean {
-    if (grantedProviders.length) {
-      return grantedProviders.findIndex(p => p.providerName !== this.providerName) > -1;
-    }
-    return false;
-  }
   onClickSelectAll() {
     this.selectAllIndeterminate = false;
-    this.permissions = this.permissions.map(permission => ({
-      ...permission,
-      isGranted: this.isGrantedByOtherProviderName(permission.grantedProviders) || this.selectAllTab,
-    }));
-
-    this.selectThisTab = this.selectAllTab;
+    super.onClickSelectAll();
   }
   onClickSelectThisTab() {
     this.selectAllThisTabIndeterminate = false;
@@ -81,25 +35,6 @@ export class PermissionManagementComponent extends AbpPermissionManagementCompon
     });
 
     this.setGrantCheckboxState();
-  }
-  onClickCheckbox(clickedPermission: PermissionManagement.Permission) {
-    if (clickedPermission.isGranted && this.isGrantedByOtherProviderName(clickedPermission.grantedProviders)) return;
-    setTimeout(() => {
-      this.permissions = this.permissions.map(per => {
-        if (clickedPermission.name === per.name) {
-          return { ...per, isGranted: !per.isGranted };
-        } else if (clickedPermission.name === per.parentName && clickedPermission.isGranted) {
-          return { ...per, isGranted: false };
-        } else if (clickedPermission.parentName === per.name && !clickedPermission.isGranted) {
-          return { ...per, isGranted: true };
-        }
-
-        return per;
-      });
-
-      this.setTabCheckboxState();
-      this.setGrantCheckboxState();
-    }, 0);
   }
   setTabCheckboxState() {
     this.selectedGroupPermissions$.pipe(take(1)).subscribe(permissions => {

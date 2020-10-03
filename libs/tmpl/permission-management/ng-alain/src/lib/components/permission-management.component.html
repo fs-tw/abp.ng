@@ -23,7 +23,14 @@
       <div class="main">
         <div class="menu">
           <ul nz-menu nzMode="inline">
-            <li *ngFor="let group of groups$ | async; trackBy: trackByFn" nz-menu-item [nzSelected]="selectedGroup?.name === group?.name" (click)="onChangeGroup(group)">{{ group?.displayName }}</li>
+            <li *ngFor="let group of groups$ | async; trackBy: trackByFn" 
+                nz-menu-item 
+                [nzSelected]="selectedGroup?.name === group?.name" 
+                (click)="onChangeGroup(group)">
+                <span *ngIf="{ assignedCount: getAssignedCount(group.name) } as data">
+                  {{ group?.displayName }}({{ data.assignedCount }})
+                </span>
+            </li>
           </ul>
         </div>
         <div class="content">
@@ -33,8 +40,8 @@
               {{'AbpPermissionManagement::SelectAllInThisTab' | abpLocalization}}
             </label>
           </nz-checkbox-wrapper>
-          <div *ngFor="let permission of selectedGroupPermissions$ | async; let i = index; trackBy: trackByFn"
-               [style.margin-left]="permission.margin + 'px'">
+          <div *ngFor="let permission of selectedGroupPermissions$ | async; let i = index; trackBy: trackByFn" 
+                [ngStyle]="permission.style">
             <nz-checkbox-wrapper>
               <label nz-checkbox
                      [ngModel]="getChecked(permission.name)"
