@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DelonACLModule } from '@delon/acl';
+// import { DelonACLModule } from '@delon/acl';
 import { DelonFormModule } from '@delon/form';
 import { AlainThemeModule } from '@delon/theme';
-import { TranslateModule } from '@ngx-translate/core';
+// import { TranslateModule } from '@ngx-translate/core';
 
 import { SHARED_DELON_MODULES } from './shared-delon.module';
 import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
@@ -30,7 +30,7 @@ const DIRECTIVES = [];
     RouterModule,
     ReactiveFormsModule,
     AlainThemeModule.forChild(),
-    DelonACLModule,
+    //DelonACLModule,
     DelonFormModule,
     ...SHARED_DELON_MODULES,
     ...SHARED_ZORRO_MODULES,
@@ -48,7 +48,7 @@ const DIRECTIVES = [];
     ReactiveFormsModule,
     RouterModule,
     AlainThemeModule,
-    DelonACLModule,
+    //DelonACLModule,
     DelonFormModule,
     // TranslateModule,
     ...SHARED_DELON_MODULES,
