@@ -6,6 +6,7 @@ import { NgxValidateCoreModule } from '@ngx-validate/core';
 import { ValidationErrorComponent } from '@fs/theme.ng-alain/basic';
 import { AlainConfigService } from '@delon/util';
 import { NgModule } from '@angular/core';
+import { ThemeCoreModule } from '@fs/theme.core';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { NgModule } from '@angular/core';
       errorTemplate: ValidationErrorComponent,
     }),
     GlobalConfigModule.forRoot(),
+    ThemeCoreModule.forRoot(),
     NgAlainSharedModule.forRoot(),
     NgAlainBasicModule.forRoot(),
   ],

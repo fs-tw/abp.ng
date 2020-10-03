@@ -25,17 +25,15 @@ export class RouterState {
   constructor() { }
 
   @Action(UpdateProfile)
-  updateProfile({ patchState, getState }: StateContext<Router.State>, { payload }: UpdateProfile) {
+  updateProfile({ patchState }: StateContext<Router.State>, { payload }: UpdateProfile) {
 
     let profile = payload;
-    // let oldValue: Router.Profile = getState().profile;
-    // let profile = { ...oldValue, ...payload };
     return patchState({
       profile
     });
   }
   @Action(UpdateProcessor)
-  UpdateProcessor({ patchState, getState }: StateContext<Router.State>, { payload }: UpdateProcessor) {
+  UpdateProcessor({ patchState }: StateContext<Router.State>, { payload }: UpdateProcessor) {
     let processor = payload;
     return patchState({
       processor

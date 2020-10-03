@@ -2,18 +2,14 @@ import { APP_INITIALIZER } from '@angular/core';
 import { Store, Actions, ofActionDispatched } from '@ngxs/store';
 import { UpdateProfile, UpdateProcessor } from '../actions/router.actions';
 import { RouterDataResolved } from '@ngxs/router-plugin';
-import {
-  AbstractNavTreeService,
-} from '@abp/ng.core';
+import { RoutesService } from '@abp/ng.core';
 import { Router as FSRouter } from '../models/router';
-import { FS } from '../models/common';
-import { WrapRoutesService } from '../services/routes.service';
 
 export const INITIAL_PROVIDERS = [
   {
     provide: APP_INITIALIZER,
     useFactory: configureInitial,
-    deps: [Store, Actions, WrapRoutesService],
+    deps: [Store, Actions, RoutesService],
     multi: true,
   },
 ];
@@ -21,21 +17,20 @@ export const INITIAL_PROVIDERS = [
 export function configureInitial(
   store: Store,
   actions$: Actions,
-  wrapRoutesService: WrapRoutesService
+  routesService: RoutesService
 ) {
   return () => {
-    initial(store, actions$, wrapRoutesService);
+    initial(store, actions$, routesService);
   };
 }
 
 function initial(
   store: Store,
   actions$: Actions,
-  wrapRoutesService: WrapRoutesService
+  routesService: RoutesService
 ) {
   actions$.pipe(ofActionDispatched(RouterDataResolved)).subscribe((r) => {
-    let real = wrapRoutesService.Proxy as AbstractNavTreeService<FS.Route>;
-    let routes = real.visible;
+    let routes = routesService.visible;
     let processor = new FSRouter.Processor(routes, r.event.state);
     store.dispatch([
       new UpdateProcessor(processor),

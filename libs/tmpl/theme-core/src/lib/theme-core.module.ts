@@ -20,7 +20,7 @@ import { themeCoreOptionsFactory } from './utils/factory-utils';
     AbpCoreModule,
     NgxsModule.forFeature([
       RouterState,
-      ThemeCoreState
+      //ThemeCoreState
     ])
   ],
   exports: [
@@ -41,7 +41,7 @@ export class ThemeCoreModule {
           deps: [THEMECORE_OPTIONS],
         },
         INITIAL_PROVIDERS,
-        INITIAL_THEME_CORE_PROVIDERS
+        //INITIAL_THEME_CORE_PROVIDERS
       ],
     };
   }

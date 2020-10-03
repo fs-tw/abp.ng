@@ -1,4 +1,4 @@
-import { CoreModule, AddReplaceableComponent, eLayoutType, LazyModuleFactory } from '@abp/ng.core';
+import { CoreModule,LazyModuleFactory } from '@abp/ng.core';
 import { NgModule, ModuleWithProviders, NgModuleFactory } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/theme.ng-alain/basic';
 import { UserLoginComponent } from './components/login/login.component';
