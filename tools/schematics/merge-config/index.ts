@@ -46,7 +46,7 @@ const updateTs = (host: Tree, context: SchematicContext) => {
     .reduce((a, b) => { return { ...a, ...b } });
   const tsJson = readJsonInTree<any>(host, 'config/tsconfig.base.json');
   tsJson.compilerOptions.paths = { ...tsJson.compilerOptions.paths, ...tss };
-  return updateJsonInTree('/tsconfig.json', json => tsJson);
+  return updateJsonInTree('/tsconfig.base.json', json => tsJson);
 }
 const updateTsProd = (host: Tree, context: SchematicContext) => {
   let tsProds = configs
