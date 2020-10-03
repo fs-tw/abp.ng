@@ -31,7 +31,13 @@
     "help": "nx help"
   },
   "private": true,
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "@fs/packages": "file:libs/packages",
+    "@nrwl/angular": "9.5.0",
+    "@nrwl/cypress": "9.5.0",
+    "@nrwl/jest": "9.5.0",
+    "@nrwl/workspace": "9.5.0",
     "@abp/utils": "^3.2.0",
     "@angular/animations": "~9.1.9",
     "@angular/common": "~9.1.9",
@@ -41,13 +47,6 @@
     "@angular/platform-browser": "~9.1.9",
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
-    "@nrwl/angular": "9.5.0",
-    "rxjs": "~6.5.4",
-    "tslib": "^1.10.0",
-    "zone.js": "^0.10.2"
-  },
-  "devDependencies": {
-    "@fs/packages": "file:libs/packages",
     "@angular-builders/jest": "^9.0.1",
     "@angular-devkit/build-angular": "~0.901.6",
     "@angular-devkit/build-ng-packagr": "~0.901.6",
@@ -56,9 +55,6 @@
     "@angular/compiler-cli": "~9.1.9",
     "@angular/language-service": "~9.1.9",
     "@angular/localize": "~9.1.9",
-    "@nrwl/cypress": "9.5.0",
-    "@nrwl/jest": "9.5.0",
-    "@nrwl/workspace": "9.5.0",
     "@types/jest": "^25.2.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
@@ -75,6 +71,9 @@
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
     "typescript": "~3.8.3",
-    "execa": "^4.0.0"
+    "execa": "^4.0.0",
+    "rxjs": "~6.5.4",
+    "tslib": "^1.10.0",
+    "zone.js": "^0.10.2"
   }
 }
