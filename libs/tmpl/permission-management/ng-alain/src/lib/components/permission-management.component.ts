@@ -16,7 +16,12 @@ export class PermissionManagementComponent extends AbpPermissionManagementCompon
   }
   onClickSelectAll() {
     this.selectAllIndeterminate = false;
-    super.onClickSelectAll();
+    this.permissions = this.permissions.map(permission => ({
+      ...permission,
+      isGranted: this.isGrantedByOtherProviderName(permission.grantedProviders) || this.selectAllTab,
+    }));
+
+    this.selectThisTab = this.selectAllTab;
   }
   onClickSelectThisTab() {
     this.selectAllThisTabIndeterminate = false;
