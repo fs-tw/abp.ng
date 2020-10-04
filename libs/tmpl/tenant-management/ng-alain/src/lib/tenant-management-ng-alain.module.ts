@@ -1,10 +1,17 @@
-import { TenantManagementModule } from '@abp/ng.tenant-management';
-import { LazyModuleFactory, CoreModule } from '@abp/ng.core';
+import { TenantManagementModule, eTenantManagementComponents } from '@abp/ng.tenant-management';
+import { LazyModuleFactory, CoreModule, ReplaceableComponentsService } from '@abp/ng.core';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders, NgModuleFactory } from '@angular/core';
 import { NgAlainBasicModule } from '@fs/theme.ng-alain/basic';
 import { TenantsComponent } from './components/tenants/tenants.component';
 import { FeatureManagementNgAlainModule } from '@fs/feature-management/ng-alain';
 import { NgxValidateCoreModule } from '@ngx-validate/core';
+
+export function initLayouts(replaceableComponents: ReplaceableComponentsService) {
+  replaceableComponents.add({
+    key: eTenantManagementComponents.Tenants,
+    component: TenantsComponent
+  });  
+}
 
 @NgModule({
   imports: [
@@ -18,10 +25,16 @@ import { NgxValidateCoreModule } from '@ngx-validate/core';
   entryComponents: [TenantsComponent]
 })
 export class TenantManagementNgAlainModule {
+  constructor(
+    private replaceableComponents: ReplaceableComponentsService
+  ) {
+    initLayouts(replaceableComponents);
+  }
   static forChild(): ModuleWithProviders<TenantManagementNgAlainModule> {
     return {
       ngModule: TenantManagementNgAlainModule,
-      providers: [],
+      providers: [
+      ],
     };
   }
 
