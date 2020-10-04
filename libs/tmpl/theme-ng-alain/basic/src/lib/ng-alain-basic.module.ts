@@ -5,6 +5,7 @@ import { BASIC_THEME_STYLES_PROVIDERS } from './providers/styles.provider';
 import { FsNgAlainTreeComponent } from './components/fs-ng-alain-tree/fs-ng-alain-tree.component';
 import { ThemeCoreModule } from '@fs/theme.core';
 import { ValidationErrorComponent } from './components/validation-error/validation-error.component';
+import { NgxValidateCoreModule } from '@ngx-validate/core';
 
 @NgModule({
     declarations:[
@@ -12,15 +13,19 @@ import { ValidationErrorComponent } from './components/validation-error/validati
         ValidationErrorComponent
     ],
     imports: [
+        NgxValidateCoreModule,
         ThemeCoreModule,
         NgAlainSharedModule,
         LayoutModule
     ],
     exports: [
-        ValidationErrorComponent,
+        NgxValidateCoreModule,
         ThemeCoreModule,
         NgAlainSharedModule,
-        FsNgAlainTreeComponent
+        LayoutModule,
+
+        FsNgAlainTreeComponent,
+        ValidationErrorComponent
     ]
 })
 export class NgAlainBasicModule { 

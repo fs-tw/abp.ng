@@ -26,7 +26,8 @@ const routes: Routes = [
     path: 'setting-management',
     loadChildren: () =>
       import('@fs/setting-management/ng-alain').then(m => m.SettingManagementNgAlainModule.forLazy()),
-  }//,
+  }
+  //,
   // {
   //   path: '',
   //   loadChildren: () =>

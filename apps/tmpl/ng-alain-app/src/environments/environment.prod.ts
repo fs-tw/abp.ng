@@ -14,7 +14,7 @@ export const environment = {
     issuer: 'https://localhost:44305',
     redirectUri: baseUrl,
     clientId: 'MyProjectName_App',
-    responseType: 'code',
+    responseType: 'password',
     scope: 'offline_access MyProjectName',
   },
   apis: {
