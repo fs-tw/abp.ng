@@ -9,10 +9,10 @@ import { NgxsModule } from '@ngxs/store';
 import { APP_ROUTE_PROVIDER } from './route.provider';
 import { CoreModule } from '@abp/ng.core';
 import { environment } from '../environments/environment';
-import { SettingManagementNgAlainConfigModule } from '@fs/setting-management/ng-alain/config';
-import { TenantManagementNgAlainConfigModule } from '@fs/tenant-management/ng-alain/config';
 import { AccountNgAlainConfigModule } from '@fs/account/ng-alain/config';
 import { IdentityNgAlainConfigModule } from '@fs/identity/ng-alain/config';
+import { TenantManagementNgAlainConfigModule } from '@fs/tenant-management/ng-alain/config';
+import { SettingManagementNgAlainConfigModule } from '@fs/setting-management/ng-alain/config';
 import { AppRoutingModule } from './app-routing.module';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 
