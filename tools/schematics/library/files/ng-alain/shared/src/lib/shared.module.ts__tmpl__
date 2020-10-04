@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { <%= projectName %>CoreModule } from '@fs/<%= fileName %>/core';
-import { NgAlainBasicModule } from '@fs/ng-alain/basic';
+import { NgAlainBasicModule } from '@fs/theme.ng-alain/basic';
 import { NgxsModule } from '@ngxs/store';
 
 

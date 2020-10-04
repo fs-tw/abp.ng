@@ -35,11 +35,11 @@
     ]
   },
   {
-    "name": "fsBaseThemes",
+    "name": "fsBaselibs",
     "sync": false,
     "ignore_packages": [],
     "packages": [
-      "fs.ng-alain"
+      "fs.theme-ng-alain"
     ]
   },
   {
@@ -60,13 +60,6 @@
       "fs.account",
       "fs.identity",
       "fs.tenant-management"
-    ]
-  },
-  {
-    "name": "fsPackages",
-    "sync": false,
-    "packages": [
-      "fs.packages"
     ]
   }
 ]

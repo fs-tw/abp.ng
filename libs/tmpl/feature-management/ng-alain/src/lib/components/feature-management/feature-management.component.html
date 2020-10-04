@@ -1,0 +1,35 @@
+<nz-modal [(nzVisible)]="visible"
+          [nzTitle]="modalTitle"
+          [nzContent]="modalContent"
+          [nzFooter]="modalFooter"
+          (nzOnCancel)="visible=false"
+>
+  <ng-template #modalTitle>
+    <h3>{{ 'AbpTenantManagement::Permission:ManageFeatures' | abpLocalization }}</h3>
+  </ng-template>
+
+  <ng-template #modalContent>
+      <!-- <div class="row my-3"
+           *ngFor="let feature of features$ | async; let i = index"
+           [ngSwitch]="feature.valueType.name">
+        <div class="col-4">{{ feature.name }}</div>
+        <div class="col-8" *ngSwitchCase="'ToggleStringValueType'">
+          <input type="checkbox" name="feature.name" [formControlName]="i" />
+        </div>
+        <div class="col-8" *ngSwitchCase="'FreeTextStringValueType'">
+          <input type="text" name="feature.name" [formControlName]="i" />
+        </div>
+      </div> -->
+  </ng-template>
+
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="visible=false">
+      {{ 'AbpFeatureManagement::Cancel' | abpLocalization }}
+    </button>
+    <button nz-button nzType="primary" (click)="save()">
+      {{
+      'AbpFeatureManagement::Save' | abpLocalization
+      }}
+    </button>
+  </ng-template>
+</nz-modal>

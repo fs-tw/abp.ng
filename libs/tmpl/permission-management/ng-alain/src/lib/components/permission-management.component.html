@@ -1,0 +1,74 @@
+<ng-container *ngIf="{ entityName: entityName$ | async } as data">
+  <nz-modal [(nzVisible)]="visible"
+            (nzAfterOpen)="initModal()"
+            [nzTitle]="modalTitle"
+            [nzContent]="modalContent"
+            [nzFooter]="modalFooter"
+            (nzOnCancel)="visible=false"
+            nzWidth="1040"
+  >
+
+    <ng-template #modalTitle>
+      {{ 'AbpPermissionManagement::Permissions' | abpLocalization }} - {{ data.entityName }}
+    </ng-template>
+
+    <ng-template #modalContent>
+      <nz-checkbox-wrapper >
+        <label nz-checkbox [(ngModel)]="selectAllTab" (ngModelChange)="onClickSelectAll()" [nzIndeterminate]="selectAllIndeterminate">
+          {{'AbpPermissionManagement::SelectAllInAllTabs' | abpLocalization}}
+        </label>
+      </nz-checkbox-wrapper>
+
+
+      <div class="main">
+        <div class="menu">
+          <ul nz-menu nzMode="inline">
+            <li *ngFor="let group of groups$ | async; trackBy: trackByFn" 
+                nz-menu-item 
+                [nzSelected]="selectedGroup?.name === group?.name" 
+                (click)="onChangeGroup(group)">
+                <span *ngIf="{ assignedCount: getAssignedCount(group.name) } as data">
+                  {{ group?.displayName }}({{ data.assignedCount }})
+                </span>
+            </li>
+          </ul>
+        </div>
+        <div class="content">
+          <div class="title">{{ selectedGroup?.displayName }}</div>
+          <nz-checkbox-wrapper>
+            <label nz-checkbox [(ngModel)]="selectThisTab" (ngModelChange)="onClickSelectThisTab()" [nzIndeterminate]="selectAllThisTabIndeterminate">
+              {{'AbpPermissionManagement::SelectAllInThisTab' | abpLocalization}}
+            </label>
+          </nz-checkbox-wrapper>
+          <div *ngFor="let permission of selectedGroupPermissions$ | async; let i = index; trackBy: trackByFn" 
+                [ngStyle]="permission.style">
+            <nz-checkbox-wrapper>
+              <label nz-checkbox
+                     [ngModel]="getChecked(permission.name)"
+                     [nzDisabled]="isGrantedByOtherProviderName(permission.grantedProviders)"
+                     (ngModelChange)="onClickCheckbox(permission,null)"
+                     >
+                {{ permission.displayName }}
+                <span *ngFor="let provider of permission.grantedProviders">{{ provider.providerName }}: {{ provider.providerKey }}</span>
+              </label>
+            </nz-checkbox-wrapper>
+          </div>
+        </div>
+      </div>
+
+    </ng-template>
+
+    <ng-template #modalFooter>
+      <button nz-button nzType="default" (click)="visible=false">
+        {{ 'AbpIdentity::Cancel' | abpLocalization }}
+      </button>
+      <button nz-button nzType="primary" (click)="submit()">
+        {{
+      'AbpIdentity::Save' | abpLocalization
+        }}
+      </button>
+    </ng-template>
+
+
+  </nz-modal>
+</ng-container>

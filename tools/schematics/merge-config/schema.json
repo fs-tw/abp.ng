@@ -3,14 +3,6 @@
   "id": "merge-config",
   "type": "object",
   "properties": {
-    "name": {
-      "type": "string",
-      "description": "Library name",
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      }
-    }
   },
-  "required": ["name"]
+  "required": []
 }

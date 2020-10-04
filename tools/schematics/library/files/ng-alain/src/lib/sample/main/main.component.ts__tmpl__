@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subject } from 'rxjs';
 import { finalize, switchMap, takeUntil } from 'rxjs/operators';
-import { NotifyService } from '@fs/ng-alain/core';
+import { NotifyService } from '@fs/theme.ng-alain/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import * as _ from 'lodash';
 
