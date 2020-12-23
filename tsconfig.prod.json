@@ -2,68 +2,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "@abp/ng.core": [
-        "dist/core"
-      ],
-      "@abp/ng.theme.shared": [
-        "dist/theme-shared"
-      ],
-      "@abp/ng.theme.shared/*": [
-        "dist/theme-shared/*"
-      ],
-      "@abp/ng.components/tree": [
-        "dist/components/tree"
-      ],
-      "@abp/ng.theme.basic": [
-        "dist/theme-basic"
-      ],
-      "@abp/ng.account": [
-        "dist/account"
-      ],
-      "@abp/ng.account/*": [
-        "dist/account/*"
-      ],
-      "@abp/ng.identity": [
-        "dist/identity"
-      ],
-      "@abp/ng.identity/*": [
-        "dist/identity/*"
-      ],
-      "@abp/ng.tenant-management": [
-        "dist/tenant-management"
-      ],
-      "@abp/ng.tenant-management/*": [
-        "dist/tenant-management/*"
-      ],
-      "@abp/ng.setting-management": [
-        "dist/setting-management"
-      ],
-      "@abp/ng.setting-management/*": [
-        "dist/setting-management/*"
-      ],
-      "@abp/ng.permission-management": [
-        "dist/permission-management"
-      ],
-      "@abp/ng.feature-management": [
-        "dist/feature-management"
-      ],
-      "@abp/ng.feature-management/*": [
-        "dist/feature-management/*"
-      ],
-      "@fs/theme.core": [
-        "dist/tmpl/theme-core"
-      ],
       "@fs/theme.ng-alain": [
-        "dist/tmpl/theme-ng-alain"
+        "dist/theme-ng-alain"
       ],
       "@fs/theme.ng-alain/*": [
-        "dist/tmpl/theme-ng-alain/*"
-      ],
-      "@fs/account": [
-        "dist/tmpl/account"
-      ],
-      "@fs/account/*": [
-        "dist/tmpl/account/*"
+        "dist/theme-ng-alain/*"
       ],
       "@fs/identity": [
         "dist/tmpl/identity"

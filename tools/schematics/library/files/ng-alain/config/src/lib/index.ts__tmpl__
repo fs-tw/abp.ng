@@ -1,2 +1,0 @@
-export * from './<%= fileName %>-config.module';
-export * from './enums/index';

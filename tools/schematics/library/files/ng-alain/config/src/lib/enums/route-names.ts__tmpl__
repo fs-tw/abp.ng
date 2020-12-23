@@ -1,4 +1,0 @@
-export const enum e<%= projectName %>RouteNames {
-  <%= projectName %> = '<%= projectName %>::FS.<%= projectName %>.Core',
-  Sample = 'ModuleName::FS.<%= projectName %>.Core.Sample',
-}

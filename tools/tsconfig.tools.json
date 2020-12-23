@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../dist/tools",
     "rootDir": ".",
@@ -7,6 +7,5 @@
     "target": "es5",
     "types": ["node"]
   },
-  "include": ["**/*.ts"],
-  "exclude": ["**/files/**"]
+  "include": ["**/*.ts"]
 }

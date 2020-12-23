@@ -19,49 +19,13 @@
     }
   },
   "projects": {
-    "abp.core": {
+    "volo.dev-app": {
       "tags": []
     },
-    "abp.theme-shared": {
+    "fs.ng-alain-app": {
       "tags": []
     },
-    "abp.components": {
-      "tags": []
-    },
-    "abp.theme-basic": {
-      "tags": []
-    },
-    "abp.account": {
-      "tags": []
-    },
-    "abp.permission-management": {
-      "tags": []
-    },
-    "abp.identity": {
-      "tags": []
-    },
-    "abp.feature-management": {
-      "tags": []
-    },
-    "abp.tenant-management": {
-      "tags": []
-    },
-    "abp.setting-management": {
-      "tags": []
-    },
-    "abp.schematics": {
-      "tags": []
-    },
-    "tmpl.dev-app": {
-      "tags": []
-    },
-    "tmpl.ng-alain-app": {
-      "tags": []
-    },
-    "fs.theme-core": {
-      "tags": []
-    },
-    "fs.theme-ng-alain": {
+    "fs.theme.ng-alain": {
       "tags": []
     },
     "fs.account": {

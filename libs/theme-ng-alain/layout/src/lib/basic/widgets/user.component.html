@@ -1,0 +1,26 @@
+<ng-template #loginBtnTpl>
+    <div class="alain-default__nav-item d-flex align-items-center px-sm" nz-dropdown nzPlacement="bottomRight"
+        (click)="initLogin()">
+        {{'AbpAccount::Login' | abpLocalization}}
+    </div>
+</ng-template>
+<ng-container *ngIf="(currentUser$ | async)?.isAuthenticated; else loginBtnTpl">
+    <div class="alain-default__nav-item d-flex align-items-center px-sm" nz-dropdown nzPlacement="bottomRight"
+        [nzDropdownMenu]="userMenu">
+        <!-- <nz-avatar [nzSrc]="user.avatar" nzSize="small" class="mr-sm"></nz-avatar> -->
+        {{ (currentUser$ | async)?.userName }}
+    </div>
+    <nz-dropdown-menu #userMenu="nzDropdownMenu">
+        <div nz-menu class="width-sm">
+            <div nz-menu-item routerLink="/account/manage-profile">
+                <i nz-icon nzType="user" class="mr-sm"></i>
+                {{ 'AbpAccount::ManageYourProfile' | abpLocalization }}
+            </div>
+            <li nz-menu-divider></li> 
+            <div nz-menu-item (click)="logout()">
+                <i nz-icon nzType="logout" class="mr-sm"></i>
+                {{ 'AbpUi::Logout' | abpLocalization }}
+            </div>
+        </div>
+    </nz-dropdown-menu>
+</ng-container>

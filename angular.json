@@ -1,453 +1,35 @@
 {
   "version": 1,
   "projects": {
-    "abp.core": {
-      "projectType": "library",
-      "root": "packages/core",
-      "sourceRoot": "packages/core/src",
-      "prefix": "abp",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "tsconfig.lib.json",
-            "project": "packages/core/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "coverage": true,
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "packages/core/tsconfig.lib.json",
-              "packages/core/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "abp.theme-shared": {
-      "projectType": "library",
-      "root": "packages/theme-shared",
-      "sourceRoot": "packages/theme-shared/src",
-      "prefix": "abp",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "tsconfig.lib.json",
-            "project": "packages/theme-shared/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "coverage": true,
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "packages/theme-shared/tsconfig.lib.json",
-              "packages/theme-shared/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "abp.components": {
-      "projectType": "library",
-      "root": "packages/components",
-      "sourceRoot": "packages/components/src",
-      "prefix": "abp",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "packages/components/tsconfig.lib.json",
-            "project": "packages/components/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "packages/components/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "coverage": true,
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "packages/components/tsconfig.lib.json",
-              "packages/components/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "abp.theme-basic": {
-      "projectType": "library",
-      "root": "packages/theme-basic",
-      "sourceRoot": "packages/theme-basic/src",
-      "prefix": "abp",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "tsconfig.lib.json",
-            "project": "packages/theme-basic/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "coverage": true,
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "packages/theme-basic/tsconfig.lib.json",
-              "packages/theme-basic/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "abp.account": {
-      "projectType": "library",
-      "root": "packages/account",
-      "sourceRoot": "packages/account/src",
-      "prefix": "abp",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "tsconfig.lib.json",
-            "project": "packages/account/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "coverage": true,
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "packages/account/tsconfig.lib.json",
-              "packages/account/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "abp.permission-management": {
-      "projectType": "library",
-      "root": "packages/permission-management",
-      "sourceRoot": "packages/permission-management/src",
-      "prefix": "abp",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "tsconfig.lib.json",
-            "project": "packages/permission-management/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "coverage": true,
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "packages/permission-management/tsconfig.lib.json",
-              "packages/permission-management/tsconfig.spec.json"
-            ]
-          }
-        }
-      }
-    },
-    "abp.identity": {
-      "projectType": "library",
-      "root": "packages/identity",
-      "sourceRoot": "packages/identity/src",
-      "prefix": "abp",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "tsconfig.lib.json",
-            "project": "packages/identity/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "coverage": true,
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "packages/identity/tsconfig.lib.json",
-              "packages/identity/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "abp.feature-management": {
-      "projectType": "library",
-      "root": "packages/feature-management",
-      "sourceRoot": "packages/feature-management/src",
-      "prefix": "abp",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "tsconfig.lib.json",
-            "project": "packages/feature-management/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "coverage": true,
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "packages/feature-management/tsconfig.lib.json",
-              "packages/feature-management/tsconfig.spec.json"
-            ]
-          }
-        }
-      }
-    },
-    "abp.tenant-management": {
-      "projectType": "library",
-      "root": "packages/tenant-management",
-      "sourceRoot": "packages/tenant-management/src",
-      "prefix": "abp",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "tsconfig.lib.json",
-            "project": "packages/tenant-management/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "coverage": true,
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "packages/tenant-management/tsconfig.lib.json",
-              "packages/tenant-management/tsconfig.spec.json"
-            ]
-          }
-        }
-      }
-    },
-    "abp.setting-management": {
-      "projectType": "library",
-      "root": "packages/setting-management",
-      "sourceRoot": "packages/setting-management/src",
-      "prefix": "abp",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "tsconfig.lib.json",
-            "project": "packages/setting-management/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "coverage": true,
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "packages/setting-management/tsconfig.lib.json",
-              "packages/setting-management/tsconfig.spec.json"
-            ]
-          }
-        }
-      }
-    },
-    "abp.schematics": {
-      "projectType": "library",
-      "root": "packages/schematics",
-      "sourceRoot": "packages/schematics/src",
-      "prefix": "abp",
-      "architect": {
-        "build": {
-          "options": {
-            "tsConfig": "packages/schematics/tsconfig.lib.json",
-            "project": "packages/schematics/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "tsConfig": "tsconfig.json",
-            "coverage": true,
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "packages/schematics/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "tmpl.dev-app": {
+    "volo.dev-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "apps/tmpl/dev-app",
-      "sourceRoot": "apps/tmpl/dev-app/src",
+      "root": "apps/dev-app",
+      "sourceRoot": "apps/dev-app/src",
       "prefix": "abp",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/tmpl/dev-app",
-            "index": "apps/tmpl/dev-app/src/index.html",
-            "main": "apps/tmpl/dev-app/src/main.ts",
-            "polyfills": "apps/tmpl/dev-app/src/polyfills.ts",
-            "tsConfig": "apps/tmpl/dev-app/tsconfig.dev.json",
+            "outputPath": "dist/dev-app",
+            "index": "apps/dev-app/src/index.html",
+            "main": "apps/dev-app/src/main.ts",
+            "polyfills": "apps/dev-app/src/polyfills.ts",
+            "tsConfig": "apps/dev-app/tsconfig.dev.json",
             "aot": true,
-            "extractCss": true,
+            "allowedCommonJsDependencies": [
+              "chart.js",
+              "js-sha256"
+            ],
             "assets": [
-              "apps/tmpl/dev-app/src/favicon.ico",
-              "apps/tmpl/dev-app/src/assets"
+              "apps/dev-app/src/favicon.ico",
+              "apps/dev-app/src/assets"
             ],
             "styles": [
-              {
-                "input": "packages/theme-shared/styles/bootstrap-rtl.min.css",
-                "inject": false,
-                "bundleName": "bootstrap-rtl.min"
-              },
-              {
-                "input": "node_modules/bootstrap/dist/css/bootstrap.min.css",
-                "inject": true,
-                "bundleName": "bootstrap-ltr.min"
-              },
               {
                 "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
                 "inject": true,
@@ -473,23 +55,32 @@
                 "inject": true,
                 "bundleName": "ngx-datatable-material"
               },
-              "apps/tmpl/dev-app/src/styles.scss"
+              {
+                "input": "node_modules/@abp/ng.theme.shared/styles/bootstrap-rtl.min.css",
+                "inject": false,
+                "bundleName": "bootstrap-rtl.min"
+              },
+              {
+                "input": "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                "inject": true,
+                "bundleName": "bootstrap-ltr.min"
+              },
+              "apps/dev-app/src/styles.scss"
             ],
             "scripts": []
           },
           "configurations": {
-            "tsConfig": "apps/tmpl/dev-app/tsconfig.prod.json",
+            "tsConfig": "apps/dev-app/tsconfig.prod.json",
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/tmpl/dev-app/src/environments/environment.ts",
-                  "with": "apps/tmpl/dev-app/src/environments/environment.prod.ts"
+                  "replace": "apps/dev-app/src/environments/environment.ts",
+                  "with": "apps/dev-app/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -508,11 +99,20 @@
               ]
             },
             "internal": {
-              "tsConfig": "apps/tmpl/dev-app/tsconfig.dev.json",
+              "tsConfig": "apps/dev-app/tsconfig.dev.json",
               "fileReplacements": [
                 {
-                  "replace": "apps/tmpl/dev-app/src/environments/environment.ts",
-                  "with": "apps/tmpl/dev-app/src/environments/environment.internal.ts"
+                  "replace": "apps/dev-app/src/environments/environment.ts",
+                  "with": "apps/dev-app/src/environments/environment.internal.ts"
+                }
+              ]
+            },
+            "regression": {
+              "tsConfig": "apps/dev-app/tsconfig.dev.json",
+              "fileReplacements": [
+                {
+                  "replace": "apps/dev-app/src/environments/environment.ts",
+                  "with": "apps/dev-app/src/environments/environment.regression.ts"
                 }
               ]
             }
@@ -521,30 +121,33 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "tmpl.dev-app:build"
+            "browserTarget": "volo.dev-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "tmpl.dev-app:build:production"
+              "browserTarget": "volo.dev-app:build:production"
             },
             "internal": {
-              "browserTarget": "tmpl.dev-app:build:internal"
+              "browserTarget": "volo.dev-app:build:internal"
+            },
+            "regression": {
+              "browserTarget": "volo.dev-app:build:regression"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tmpl.dev-app:build"
+            "browserTarget": "volo.dev-app:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/tmpl/dev-app/tsconfig.dev.json",
-              "apps/tmpl/dev-app/tsconfig.prod.json",
-              "apps/tmpl/dev-app/tsconfig.spec.json"
+              "apps/dev-app/tsconfig.dev.json",
+              "apps/dev-app/tsconfig.prod.json",
+              "apps/dev-app/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -553,10 +156,10 @@
         }
       }
     },
-    "tmpl.ng-alain-app": {
+    "fs.ng-alain-app": {
       "projectType": "application",
-      "root": "apps/tmpl/ng-alain-app",
-      "sourceRoot": "apps/tmpl/ng-alain-app/src",
+      "root": "apps/ng-alain-app",
+      "sourceRoot": "apps/ng-alain-app/src",
       "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
@@ -567,21 +170,47 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/tmpl/ng-alain-app",
-            "index": "apps/tmpl/ng-alain-app/src/index.html",
-            "main": "apps/tmpl/ng-alain-app/src/main.ts",
-            "tsConfig": "apps/tmpl/ng-alain-app/tsconfig.dev.json",
-            "polyfills": "apps/tmpl/ng-alain-app/src/polyfills.ts",
+            "outputPath": "dist/apps/ng-alain-app",
+            "index": "apps/ng-alain-app/src/index.html",
+            "main": "apps/ng-alain-app/src/main.ts",
+            "polyfills": "apps/ng-alain-app/src/polyfills.ts",
+            "tsConfig": "apps/ng-alain-app/tsconfig.dev.json",
+            "aot": true,
+            "allowedCommonJsDependencies": [
+              "chart.js",
+              "js-sha256",
+              "file-saver",
+              "@antv/path-util/lib/is-polygons-intersect",
+              "@antv/attr/lib/factory",
+              "@antv/adjust/lib/factory",
+              "@antv/component/lib/util/event",
+              "@antv/g-canvas/lib/util/arc-params"
+            ],
             "assets": [
               {
                 "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
                 "output": "/assets/"
               },
-              "apps/tmpl/ng-alain-app/src/assets",
-              "apps/tmpl/ng-alain-app/src/favicon.ico"
+              "apps/ng-alain-app/src/assets",
+              "apps/ng-alain-app/src/favicon.ico"
             ],
             "styles": [
+              {
+                "input": "node_modules/@swimlane/ngx-datatable/index.css",
+                "inject": true,
+                "bundleName": "ngx-datatable-index"
+              },
+              {
+                "input": "node_modules/@swimlane/ngx-datatable/assets/icons.css",
+                "inject": true,
+                "bundleName": "ngx-datatable-icons"
+              },
+              {
+                "input": "node_modules/@swimlane/ngx-datatable/themes/material.css",
+                "inject": true,
+                "bundleName": "ngx-datatable-material"
+              },
               {
                 "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
                 "inject": true,
@@ -592,7 +221,17 @@
                 "inject": true,
                 "bundleName": "fontawesome-v4-shims.min"
               },
-              "apps/tmpl/ng-alain-app/src/styles.less"
+              {
+                "input": "node_modules/@abp/ng.theme.shared/styles/bootstrap-rtl.min.css",
+                "inject": false,
+                "bundleName": "bootstrap-rtl.min"
+              },
+              {
+                "input": "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                "inject": true,
+                "bundleName": "bootstrap-ltr.min"
+              },
+              "apps/ng-alain-app/src/styles.less"
             ],
             "scripts": [
               "node_modules/ajv/dist/ajv.bundle.js",
@@ -605,12 +244,12 @@
             }
           },
           "configurations": {
-            "tsConfig": "apps/tmpl/ng-alain-app/tsconfig.prod.json",
+            "tsConfig": "apps/ng-alain-app/tsconfig.prod.json",
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/tmpl/ng-alain-app/src/environments/environment.ts",
-                  "with": "apps/tmpl/ng-alain-app/src/environments/environment.prod.ts"
+                  "replace": "apps/ng-alain-app/src/environments/environment.ts",
+                  "with": "apps/ng-alain-app/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -634,51 +273,39 @@
                   "maximumError": "10kb"
                 }
               ]
-            },
-            "hmr": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/tmpl/ng-alain-app/src/environments/environment.ts",
-                  "with": "apps/tmpl/ng-alain-app/src/environments/environment.hmr.ts"
-                }
-              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "tmpl.ng-alain-app:build"
+            "browserTarget": "fs.ng-alain-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "tmpl.ng-alain-app:build:production"
-            },
-            "hmr": {
-              "browserTarget": "tmpl.ng-alain-app:build:hmr",
-              "hmr": true
+              "browserTarget": "fs.ng-alain-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tmpl.ng-alain-app:build"
+            "browserTarget": "fs.ng-alain-app:build"
           }
         }
       }
     },
-    "fs.theme-core": {
+    "fs.theme.ng-alain": {
       "projectType": "library",
-      "root": "libs/tmpl/theme-core",
-      "sourceRoot": "libs/tmpl/theme-core/src",
+      "root": "libs/ng-alain",
+      "sourceRoot": "libs/theme-ng-alain/src",
       "prefix": "fs",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
             "tsConfig": "tsconfig.lib.json",
-            "project": "libs/tmpl/theme-core/ng-package.json"
+            "project": "libs/theme-ng-alain/ng-package.json"
           },
           "configurations": {
             "production": {
@@ -690,60 +317,21 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/tmpl/theme-core/tsconfig.lib.json",
-              "libs/tmpl/theme-core/tsconfig.spec.json"
+              "libs/theme-ng-alain/tsconfig.lib.json",
+              "libs/theme-ng-alain/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/tmpl/theme-core/**/*"
+              "!libs/theme-ng-alain/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/tmpl/theme-core/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {}
-    },
-    "fs.theme-ng-alain": {
-      "projectType": "library",
-      "root": "libs/tmpl/ng-alain",
-      "sourceRoot": "libs/tmpl/theme-ng-alain/src",
-      "prefix": "fs",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "tsconfig.lib.json",
-            "project": "libs/tmpl/theme-ng-alain/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/tmpl/theme-ng-alain/tsconfig.lib.json",
-              "libs/tmpl/theme-ng-alain/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/tmpl/theme-ng-alain/**"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/tmpl/theme-ng-alain/jest.config.js"
+            "jestConfig": "libs/theme-ng-alain/jest.config.js",
+            "tsConfig": "libs/theme-ng-alain/tsconfig.spec.json",
+            "setupFile": "libs/theme-ng-alain/src/test-setup.ts"
           }
         }
       },
@@ -751,44 +339,42 @@
     },
     "fs.account": {
       "projectType": "library",
-      "root": "libs/tmpl/account",
-      "sourceRoot": "libs/tmpl/account/src",
-      "prefix": "fs",
+      "root": "libs/account",
+      "sourceRoot": "libs/account/src",
+      "prefix": "abp",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "tsconfig.lib.json",
-            "project": "libs/tmpl/account/ng-package.json"
+            "tsConfig": "libs/account/tsconfig.lib.json",
+            "project": "libs/account/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "tsconfig.lib.prod.json"
+              "tsConfig": "libs/account/tsconfig.lib.prod.json"
             }
+          }
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run",
+          "options": {
+            "coverage": true,
+            "passWithNoTests": true
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/tmpl/account/tsconfig.lib.json",
-              "libs/tmpl/account/tsconfig.spec.json"
+              "libs/account/tsconfig.lib.json",
+              "libs/account/tsconfig.spec.json"
             ],
             "exclude": [
-              "**/node_modules/**",
-              "!libs/tmpl/account/**/*"
+              "**/node_modules/**"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/tmpl/account/jest.config.js",
-            "passWithNoTests": true
-          }
         }
-      },
-      "schematics": {}
+      }
     },
     "fs.identity": {
       "projectType": "library",

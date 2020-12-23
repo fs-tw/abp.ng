@@ -1,0 +1,12 @@
+{
+  "name": "root",
+  "version": "0.0.0",
+  "private": true,
+  "peerDependencies": {
+    
+  },
+  "dependencies": {
+    "ng-zorro-antd": "^11.0.0",
+    "@ngxs/logger-plugin": "^3.7.1"
+  }
+}

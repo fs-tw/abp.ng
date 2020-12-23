@@ -1,64 +1,61 @@
+# Fs
 
+This project was generated using [Nx](https://nx.dev).
 
+<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
 
-# 1.Create Backend Project
-Make sure abp cli  already updated.
-``` cmd
-abp new MyCompanyName.MyProjectName -t app --ui none
-Execute DbMigrator to generate Database (Set as statup porject at visual studio)
-Execute HttpApi.Host to host web (Set as statup porject at visual studio)
-```
- See [abp document:ABP CLI](https://docs.abp.io/en/abp/latest) to get more information.
-# 2.Angular applications
+🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
 
-``` javascript
-//prepare package
-npm install
-//start up angular
-ng serve tmpl.ng-alain-app
-//Remember:  check environment.ts url must match your backend url.
- 
-```
+## Quick Start & Documentation
 
-# How to work with abp'sourcecode
-in this repository , i try to create monorepo by [Nx](https://nx.dev) for debug all sourcecode together  , include:
-- packages folder put abp's all [libary](https://github.com/yinchang0626/abp.ng.packages) 
-- themes folder put dev default(abp) theme and other customization themes(ng-alain) 
-- apps folder put angular application projectType for every theme
-- libs folder put extend abp's packages or other libray, you can create alternative component or router for abp's package
+[Nx Documentation](https://nx.dev/angular)
 
-# Application
+[10-minute video showing all Nx features](https://nx.dev/angular/getting-started/what-is-nx)
 
-- Origin Source:[https://github.com/ng-alain/ng-alain](<https://github.com/ng-alain/ng-alain>)  
-- ng-alain-app  
-<p align="center"><img src="https://raw.githubusercontent.com/yinchang0626/abp.ng/develop/docs/ng-alain-app.png" width="900"></p>  
+[Interactive Tutorial](https://nx.dev/angular/tutorial/01-create-application)
 
+## Adding capabilities to your workspace
 
-- Origin Source:[https://github.com/abpframework/abp](<https://github.com/abpframework/abp>)  
-- dev-app
-<p align="center"><img src="https://raw.githubusercontent.com/abpframework/abp/rel-3.1/docs/en/images/bookstore-login.png"></p>  
+Nx supports many plugins which add capabilities for developing different types of applications and different tools.
 
+These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
 
-# CLI
- 
-``` cmd
-nx workspace-schematic merge-config
-```
-this command will read all `config folder`'s json file and Create or Update `angular.json`,`tsconfig.json`,`tsconfig.prod.json`,`nx.json`.
+Below are our core plugins:
 
-##  Generate an application
+- [Angular](https://angular.io)
+  - `ng add @nrwl/angular`
+- [React](https://reactjs.org)
+  - `ng add @nrwl/react`
+- Web (no framework frontends)
+  - `ng add @nrwl/web`
+- [Nest](https://nestjs.com)
+  - `ng add @nrwl/nest`
+- [Express](https://expressjs.com)
+  - `ng add @nrwl/express`
+- [Node](https://nodejs.org)
+  - `ng add @nrwl/node`
 
-TODO
+There are also many [community plugins](https://nx.dev/nx-community) you could add.
 
+## Generate an application
+
+Run `ng g @nrwl/angular:app my-app` to generate an application.
+
+> You can use any of the plugins above to generate applications as well.
+
+When using Nx, you can create multiple applications and libraries in the same workspace.
 
 ## Generate a library
 
-TODO
+Run `ng g @nrwl/angular:lib my-lib` to generate a library.
 
+> You can also use any of the plugins above to generate libraries as well.
+
+Libraries are sharable across libraries and applications. They can be imported from `@fs/mylib`.
 
 ## Development server
 
-Run `ng serve tmpl.ng-alain-app` or `ng serve tmpl.dev-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
@@ -66,17 +63,36 @@ Run `ng g component my-component --project=my-app` to generate a new component.
 
 ## Build
 
-Run `run npm build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Running unit tests
 
-TODO
+Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+
+Run `nx affected:test` to execute the unit tests affected by a change.
 
 ## Running end-to-end tests
 
-TODO
+Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
 
-# Reference
-### [Abp GitHub](https://github.com/abpframework/abp)   
-### [ng-alain GitHub](https://ng-alain.github.io/ng-alain/#/dashboard/v1)  
-### [Nx document](https://nx.dev)
+Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
+
+## Understand your workspace
+
+Run `nx dep-graph` to see a diagram of the dependencies of your projects.
+
+## Further help
+
+Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
+
+## ☁ Nx Cloud
+
+### Computation Memoization in the Cloud
+
+<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
+
+Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
+
+Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
+
+Visit [Nx Cloud](https://nx.app/) to learn more.
