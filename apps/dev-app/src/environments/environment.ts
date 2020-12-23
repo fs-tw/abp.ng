@@ -6,20 +6,20 @@ export const environment = {
   production: false,
   application: {
     baseUrl,
-    name: 'FS',
+    name: 'MyProjectName',
     logoUrl: '',
   },
   oAuthConfig: {
-    issuer: 'https://localhost:44309',
+    issuer: 'https://localhost:44305',
     redirectUri: baseUrl,
-    clientId: 'FS_App',
+    clientId: 'MyProjectName_App',
     responseType: 'password',
-    scope: 'offline_access FS',
+    scope: 'offline_access MyProjectName',
   },
   apis: {
     default: {
-      url: 'https://localhost:44309',
-      rootNamespace: 'FS',
+      url: 'https://localhost:44305',
+      rootNamespace: 'MyCompanyName.MyProjectName',
     },
   },
 } as Environment;

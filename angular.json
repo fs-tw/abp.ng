@@ -595,5 +595,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "tmpl.dev-app"
+  "defaultProject": "volo.dev-app"
 }

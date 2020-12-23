@@ -1,25 +1,25 @@
-import { Config } from '@abp/ng.core';
+import { Environment } from '@abp/ng.core';
 
 const baseUrl = 'http://localhost:4200';
 
 export const environment = {
   production: true,
-  hmr: false,
   application: {
     baseUrl,
     name: 'FS',
     logoUrl: '',
   },
   oAuthConfig: {
-    issuer: 'https://localhost:44309',
+    issuer: 'https://localhost:44305',
     redirectUri: baseUrl,
-    clientId: 'FS_App',
+    clientId: 'MyProjectName_App',
     responseType: 'code',
-    scope: 'offline_access FS',
+    scope: 'offline_access MyProjectName',
   },
   apis: {
     default: {
-      url: 'https://localhost:44309',
+      url: 'https://localhost:44356',
+      rootNamespace: 'MyCompanyName.MyProjectName',
     },
   },
-} as Config.Environment;
+} as Environment;

@@ -10,16 +10,16 @@ export const environment = {
     logoUrl: '',
   },
   oAuthConfig: {
-    issuer: 'https://localhost:44356',
+    issuer: 'https://localhost:44305',
     redirectUri: baseUrl,
-    clientId: 'FS_App',
+    clientId: 'MyProjectName_App',
     responseType: 'code',
-    scope: 'offline_access FS',
+    scope: 'offline_access MyProjectName',
   },
   apis: {
     default: {
       url: 'https://localhost:44356',
-      rootNamespace: 'FS',
+      rootNamespace: 'MyCompanyName.MyProjectName',
     },
   },
 } as Environment;
