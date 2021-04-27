@@ -1,44 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "paths": {
-      "@fs/theme.ng-alain": [
-        "dist/theme-ng-alain"
-      ],
-      "@fs/theme.ng-alain/*": [
-        "dist/theme-ng-alain/*"
-      ],
-      "@fs/identity": [
-        "dist/tmpl/identity"
-      ],
-      "@fs/identity/*": [
-        "dist/tmpl/identity/*"
-      ],
-      "@fs/permission-management": [
-        "dist/tmpl/permission-management"
-      ],
-      "@fs/permission-management/*": [
-        "dist/tmpl/permission-management/*"
-      ],
-      "@fs/tenant-management": [
-        "dist/tmpl/tenant-management"
-      ],
-      "@fs/tenant-management/*": [
-        "dist/tmpl/tenant-management/*"
-      ],
-      "@fs/feature-management": [
-        "dist/tmpl/feature-management"
-      ],
-      "@fs/feature-management/*": [
-        "dist/tmpl/feature-management/*"
-      ],
-      "@fs/setting-management": [
-        "dist/tmpl/setting-management"
-      ],
-      "@fs/setting-management/*": [
-        "dist/tmpl/setting-management/*"
-      ]
-    }
+    "paths": {}
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

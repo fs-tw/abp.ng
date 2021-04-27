@@ -1,68 +1,28 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": ".",
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "module": "esnext",
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "module": "esnext",
     "lib": [
       "es2017",
       "dom"
     ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "emitDecoratorMetadata": true,
+    "baseUrl": ".",
     "paths": {
-      "@fs/theme.ng-alain": [
-        "libs/theme-ng-alain/src/index.ts"
+      "@fs-tw/theme-alain": [
+        "libs/theme-alain/src/index.ts"
       ],
-      "@fs/theme.ng-alain/*": [
-        "libs/theme-ng-alain/*/src/index.ts"
-      ],
-      "@abp/ng.account": [
-        "libs/account/src/public-api.ts"
-      ],
-      "@abp/ng.account/config": [
-        "libs/account/config/src/public-api.ts"
-      ],
-      "@fs/identity": [
-        "libs/tmpl/identity/src/index.ts"
-      ],
-      "@fs/identity/*": [
-        "libs/tmpl/identity/*/src/index.ts"
-      ],
-      "@fs/permission-management": [
-        "libs/tmpl/permission-management/src/index.ts"
-      ],
-      "@fs/permission-management/*": [
-        "libs/tmpl/permission-management/*/src/index.ts"
-      ],
-      "@fs/tenant-management": [
-        "libs/tmpl/tenant-management/src/index.ts"
-      ],
-      "@fs/tenant-management/*": [
-        "libs/tmpl/tenant-management/*/src/index.ts"
-      ],
-      "@fs/feature-management": [
-        "libs/tmpl/feature-management/src/index.ts"
-      ],
-      "@fs/feature-management/*": [
-        "libs/tmpl/feature-management/*/src/index.ts"
-      ],
-      "@fs/setting-management": [
-        "libs/tmpl/setting-management/src/index.ts"
-      ],
-      "@fs/setting-management/*": [
-        "libs/tmpl/setting-management/*/src/index.ts"
+      "@fs-tw/theme-alain/*": [
+        "libs/theme-alain/*/src/index.ts"
       ]
     }
   },

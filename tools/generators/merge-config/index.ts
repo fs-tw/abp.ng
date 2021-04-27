@@ -1,10 +1,9 @@
 import { SchematicContext, Tree, chain, Rule } from '@angular-devkit/schematics';
 import { updateJsonInTree, readJsonInTree, NxJson } from '@nrwl/workspace';
 import { ProjectConfigFile } from './commons';
-import { symlink } from 'fs';
 
 let configs: Array<ProjectConfigFile> = [];
-export default function (schema: any): Rule {
+export default function (): Rule {
   return (host: Tree, context: SchematicContext) => {
     let files: Array<string> = [];
     host.getDir('./config').visit(f => files.push(f));
@@ -57,10 +56,10 @@ const updateTsProd = (host: Tree, context: SchematicContext) => {
   return updateJsonInTree('/tsconfig.prod.json', json => tsProdJson);
 }
 
-const updateSymLink = (host: Tree, context: SchematicContext) => {
-  let symLinks = configs
-    .map(j => j.symlink)
+const updateBuild = (host: Tree, context: SchematicContext) => {
+  let builds = configs
+    .map(j => j.build)
     .reduce((a, b) => { return !b ? a : a.concat(b) });
-  return updateJsonInTree('/symlink.json', json => symLinks);
+  return updateJsonInTree('/build.json', json => builds);
 }
 
