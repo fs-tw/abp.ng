@@ -1,6 +1,6 @@
 {
   "name": "@fs-tw/theme-alain",
-  "version": "0.0.1",
+  "version": "430.0.1",
   "peerDependencies": {
     "@angular/common": "^11.2.11",
     "@angular/core": "^11.2.11"
