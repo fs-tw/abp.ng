@@ -37,10 +37,10 @@ import { LANG_PROVIDES } from './providers/lang.provider';
 // };
 // Please refer to: https://ng.ant.design/docs/global-config/en#how-to-use
 //const ngZorroConfig: NzConfig = {};
-
+const alainModules: any[] = [AlainThemeModule.forRoot()];
 @NgModule({
   imports: [
-    AlainThemeModule.forRoot(),
+    ...alainModules
     //DelonACLModule.forRoot()
   ],
 })
