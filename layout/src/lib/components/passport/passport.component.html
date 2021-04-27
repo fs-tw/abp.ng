@@ -1,13 +1,13 @@
 <div class="container">
   <header-i18n showLangText="false" class="langs"></header-i18n>
   <div class="wrap">
-    <!-- <div class="top">
+    <div class="top">
       <div class="head">
-        <img class="logo" src="./assets/logo-color.svg" />
-        <span class="title">ng-alain</span>
+        <img class="logo" [src]="(this.environmentService.getEnvironment$() | async).application?.logoUrl || './assets/logo-color.svg'" />
+        <span class="title">{{(this.environmentService.getEnvironment$() | async).application?.name}}</span>
       </div>
-      <div class="desc">武林中最有影响力的《葵花宝典》；欲练神功，挥刀自宫</div>
-    </div> -->
+      <div class="desc">&nbsp;</div>
+    </div>
     <router-outlet></router-outlet>
     <!-- <global-footer [links]="links">
       Copyright
