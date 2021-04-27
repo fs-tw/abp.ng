@@ -22,6 +22,11 @@ import { Observable } from 'rxjs';
       <!-- <nz-avatar [nzSrc]="user.avatar" nzSize="small" class="mr-sm"></nz-avatar> -->
       {{ (currentUser$ | async)?.userName }}
     </div>
+    <div *ngIf="!(currentUser$ | async)?.isAuthenticated"
+        class="alain-default__nav-item d-flex align-items-center px-sm" nz-dropdown nzPlacement="bottomRight"
+        (click)="navigateToLogin()">
+        {{'AbpAccount::Login' | abpLocalization}}
+    </div>
     <nz-dropdown-menu #userMenu="nzDropdownMenu">
       <div nz-menu class="width-sm">
         <div nz-menu-item (click)="navigateToManageProfile()">
