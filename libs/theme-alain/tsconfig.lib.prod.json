@@ -5,6 +5,7 @@
     "declarationMap": false
   },
   "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
     "enableIvy": false
   }
 }
