@@ -8,9 +8,7 @@ export const APP_ROUTE_PROVIDER = [
 
 function configureRoutes(routesService: RoutesService) {
   return () => {
-    routesService.patch('AbpAccount::Login',{
-      layout:eLayoutType.account
-    })
+    
     routesService.add([
       {
         path: '/',
