@@ -1,0 +1,19 @@
+.listSelected {
+  background-color: #e6f2ff !important;
+}
+
+nz-list-item {
+  font-size: 15px;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+/* .bg-white:hover {
+  background-color: #2121e670 !important;
+} */
+
+.pointer {
+  cursor: pointer;
+}

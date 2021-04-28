@@ -1,0 +1,52 @@
+{
+  "order": 1002,
+  "nx": {
+    "theme-alain": {
+      "tags": []
+    }
+  },
+  "angular": {
+    "theme-alain": {
+      "projectType": "library",
+      "root": "libs/theme-alain",
+      "sourceRoot": "libs/theme-alain/src",
+      "prefix": "fs-tw",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/theme-alain/tsconfig.lib.json",
+            "project": "libs/theme-alain/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/theme-alain/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/theme-alain/src/**/*.ts",
+              "libs/theme-alain/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/theme-alain"],
+          "options": {
+            "jestConfig": "libs/theme-alain/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+
+  },
+  "tsconfig": {
+    "@fs-tw/theme-alain": ["libs/theme-alain/src/index.ts"],
+    "@fs-tw/theme-alain/*": ["libs/theme-alain/*/src/index.ts"]
+  }  
+}
