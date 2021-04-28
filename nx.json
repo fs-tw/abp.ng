@@ -1,49 +1,36 @@
 {
-  "npmScope": "fs",
-  "affected": {
-    "defaultBase": "master"
-  },
+  "npmScope": "fs-tw",
   "implicitDependencies": {
-    "angular.json": "*",
     "package.json": {
       "dependencies": "*",
       "devDependencies": "*"
     },
-    "tsconfig.json": "*",
-    "tslint.json": "*",
-    "nx.json": "*"
+    ".eslintrc.json": "*"
+  },
+  "affected": {
+    "defaultBase": "master"
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default"
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ]
+      }
     }
   },
   "projects": {
-    "volo.dev-app": {
+    "alain-app": {
       "tags": []
     },
-    "fs.ng-alain-app": {
+    "dev-app": {
       "tags": []
     },
-    "fs.theme.ng-alain": {
-      "tags": []
-    },
-    "fs.account": {
-      "tags": []
-    },
-    "fs.identity": {
-      "tags": []
-    },
-    "fs.permission-management": {
-      "tags": []
-    },
-    "fs.tenant-management": {
-      "tags": []
-    },
-    "fs.feature-management": {
-      "tags": []
-    },
-    "fs.setting-management": {
+    "theme-alain": {
       "tags": []
     }
   }

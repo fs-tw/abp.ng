@@ -1,0 +1,18 @@
+<div class="container">
+  <header-i18n showLangText="false" class="langs"></header-i18n>
+  <div class="wrap">
+    <div class="top">
+      <div class="head">
+        <img class="logo" [src]="(this.environmentService.getEnvironment$() | async).application?.logoUrl || './assets/logo-color.svg'" />
+        <span class="title">{{(this.environmentService.getEnvironment$() | async).application?.name}}</span>
+      </div>
+      <div class="desc">&nbsp;</div>
+    </div>
+    <router-outlet></router-outlet>
+    <!-- <global-footer [links]="links">
+      Copyright
+      <i nz-icon nzType="copyright"></i> 2017 <a href="//github.com/cipchk" target="_blank">卡色</a>出品
+    </global-footer> -->
+  </div>
+</div>
+<!-- <theme-btn></theme-btn> -->

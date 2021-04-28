@@ -5,9 +5,5 @@
   "angular": {
   },
   "tsconfig": {
-  },
-  "tsconfigProd": {
-  },
-  "symlink": [
-  ]
+  }
 }

@@ -1,0 +1,22 @@
+<ng-container *ngIf="actionList.length > 0">
+  <a nz-dropdown [nzDropdownMenu]="menu">
+    <span>{{ 'AbpUi::Actions' | abpLocalization }}</span>
+    <i nz-icon nzType="down"></i>
+  </a>
+
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <ng-container *ngFor="let action of actionList; trackBy: trackByFn">
+        <ng-container *abpPermission="action.permission">
+          <li nz-menu-item *ngIf="action.visible(data)">
+            <a (click)="action.action(data)">{{
+              action.text | abpLocalization
+            }}</a>
+          </li>
+        </ng-container>
+      </ng-container>
+
+
+    </ul>
+  </nz-dropdown-menu>
+</ng-container>
