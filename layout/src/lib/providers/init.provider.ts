@@ -2,6 +2,8 @@ import {
   RoutesService,
   LocalizationPipe,
   PermissionService,
+  eLayoutType,
+  EnvironmentService
 } from '@abp/ng.core';
 import { APP_INITIALIZER, inject, Injector } from '@angular/core';
 import { ResolveEnd, Router } from '@angular/router';
@@ -31,6 +33,7 @@ export function listenRouter(injector: Injector) {
   const routesService = injector.get(RoutesService);
   const menuService = injector.get(MenuService);
   const localizationPipe=injector.get(LocalizationPipe);
+  const environmentService = injector.get(EnvironmentService);
 
 
 
@@ -72,9 +75,8 @@ export function listenRouter(injector: Injector) {
     )
     .subscribe(menus=>{
       menuService.clear();
-      console.log(menus);
       let root:Menu={
-        text:'Main Menu',
+        text: environmentService.getEnvironment().application?.name,
         children:menus
       }
       menuService.add([root]);
@@ -88,5 +90,10 @@ export function listenRouter(injector: Injector) {
       //const currentUrl = decodeURI(event.state.url.split('?')[0]);
       //layoutStateService.setStore({ currentUrl });
       //layoutStateService.fetchPageNavs(event.state);
+      routesService.patch('AbpAccount::Login',{layout:eLayoutType.account});
     });
+
+
+
+    
 }

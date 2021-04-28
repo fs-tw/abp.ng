@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SettingsService, User } from '@delon/theme';
 import { LayoutDefaultOptions } from '@delon/theme/layout-default';
+import {EnvironmentService} from '@abp/ng.core';
 //import { environment } from '@env/environment';
 
 @Component({
@@ -103,5 +104,8 @@ export class LayoutBasicComponent {
     return this.settings.user;
   }
 
-  constructor(private settings: SettingsService) {}
+  constructor(private settings: SettingsService,private environmentService:EnvironmentService) {
+    this.options.logoExpanded=this.environmentService.getEnvironment().application.logoUrl;
+    this.options.logoCollapsed=this.environmentService.getEnvironment().application.logoUrl;
+  }
 }
