@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NzTableComponent, NzTableQueryParams } from 'ng-zorro-antd/table';
+import { skip } from 'rxjs/operators';
 
 @Directive({
   // tslint:disable-next-line
@@ -39,7 +40,9 @@ export class NzTableListDirective implements OnChanges, OnDestroy, OnInit {
   }
 
   private subscribeToPage() {
-    const sub = this.table.nzQueryParams.subscribe(
+    const sub = this.table.nzQueryParams
+    .pipe(skip(1))
+    .subscribe(
       (params: NzTableQueryParams) => {
         var self = this;
         var sort = params.sort
