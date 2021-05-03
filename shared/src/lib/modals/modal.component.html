@@ -1,7 +1,7 @@
 <abp-modal [visible]="visible" (visibleChange)="onVisibleChange($event)">
     <ng-template #abpHeader>
       <h5 class="modal-title" id="modal-basic-title">
-        {{ 'CmsKit::' + type | abpLocalization }}
+        {{ 'Forms::' + type | abpLocalization }}
       </h5>
     </ng-template>
     <ng-template #abpBody>
@@ -13,7 +13,7 @@
                 class="nav-link pointer"
                 [class.active]="activeTab?.startsWith(outerIndex + '-')"
                 ngbDropdownToggle
-                >{{ 'AbpIdentityServer::' + tab.title | abpLocalization }}</a
+                >{{ 'Forms::' + tab.title | abpLocalization }}</a
               >
               <div ngbDropdownMenu>
                 <div ngbDropdownItem *ngFor="let innerTab of tab.innerTabs; let innerIndex = index">
@@ -37,7 +37,7 @@
   
         <ng-template #tabTemplate let-tab let-index="index">
           <li [ngbNavItem]="index">
-            <a ngbNavLink>{{ 'CmsKit::' + tab.title | abpLocalization }}</a>
+            <a ngbNavLink>{{ 'Forms::' + tab.title | abpLocalization }}</a>
             <ng-template ngbNavContent>
               <ng-container *ngTemplateOutlet="tab.template"></ng-container>
             </ng-template>
@@ -52,7 +52,7 @@
             #item="ngbNavItem"
             (click)="nav.click(item)"
           >
-            {{ 'AbpIdentityServer::' + tab.title | abpLocalization }}
+            {{ 'Forms::' + tab.title | abpLocalization }}
             <ng-template ngbNavContent>
               <ng-container *ngTemplateOutlet="tab.template"></ng-container>
             </ng-template>
@@ -63,10 +63,10 @@
     </ng-template>
     <ng-template #abpFooter>
       <button type="button" class="btn btn-secondary" abpClose>
-        {{ 'CmsKit::Cancel' | abpLocalization }}
+        {{ 'Forms::Cancel' | abpLocalization }}
       </button>
       <abp-button iconClass="fa fa-check" (click)="onSave()" [disabled]="shouldBeDisabled()">{{
-        'CmsKit::Save' | abpLocalization
+        'Forms::Save' | abpLocalization
       }}</abp-button>
     </ng-template>
   </abp-modal>
