@@ -1,0 +1,38 @@
+<ng-container *ngIf="data$ | async as data">
+  <abp-page
+    [title]="'CmsKit::' + entityName | abpLocalization"
+    [toolbar]="data"
+  >
+    <div id="wrapper">
+      <div class="card">
+        <div class="card-body">
+          <div id="data-tables-table-filter" class="row">
+            <div class="col">
+              <div class="input-group">
+                <input
+                  type="search"
+                  class="form-control"
+                  [placeholder]="'AbpUi::PagerSearch' | abpLocalization"
+                  [(ngModel)]="list.filter"
+                />
+                <div class="input-group-append">
+                  <button class="btn btn-primary" (click)="list.get()">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <nz-extensible-table
+          [data]="data.items"
+          [recordsTotal]="data.totalCount"
+          [list]="list"
+        ></nz-extensible-table>
+      </div>
+    </div>
+  </abp-page>
+</ng-container>
