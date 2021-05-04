@@ -1,6 +1,10 @@
 {
   "name": "@fs-tw/theme-alain",
   "version": "430.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:fs-tw/abp.ng.git"
+  },
   "peerDependencies": {
     "@angular/animations": "~11.2.9",
     "@angular/common": "~11.2.9",
