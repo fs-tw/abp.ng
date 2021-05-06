@@ -13,6 +13,7 @@ import { ModalTabComponent } from './tabs/modal-tab.component';
 @Component({
   selector: 'fs-tw-modal',
   templateUrl: './modal.component.html',
+  styleUrls: ['./modal.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalComponent implements OnInit {
@@ -24,7 +25,9 @@ export class ModalComponent implements OnInit {
   @ContentChildren(ModalTabComponent)
   tabs: QueryList<ModalTabComponent>;
 
-  activeTab = '0';
+  activeTab: number = 0;
+  selectedInnerTab: ModalTabComponent;
+  selectedInnerIndex: number;
 
   constructor() { }
 
@@ -44,6 +47,12 @@ export class ModalComponent implements OnInit {
       const value = this.tabs.reduce((retVal, curr) => ({ ...retVal, ...curr.getValue() }), {});
       this.save.emit(value);
     }
+  }
+  
+  setInnerContext(outerIndex: number, tab: ModalTabComponent, innerIndex: number) {
+    this.activeTab = outerIndex;
+    this.selectedInnerTab = tab;
+    this.selectedInnerIndex = innerIndex;
   }
 
 }

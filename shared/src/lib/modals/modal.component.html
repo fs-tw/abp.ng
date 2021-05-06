@@ -1,73 +1,67 @@
 <abp-modal [visible]="visible" (visibleChange)="onVisibleChange($event)">
-    <ng-template #abpHeader>
-      <h5 class="modal-title" id="modal-basic-title">
-        {{ 'Forms::' + type | abpLocalization }}
-      </h5>
-    </ng-template>
-    <ng-template #abpBody>
-      <ul ngbNav #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs">
-        <ng-container *ngFor="let tab of tabs; let outerIndex = index">
-          <ng-container *ngIf="tab.innerTabs; else singleTab">
-            <li ngbDropdown class="nav-item">
-              <a
-                class="nav-link pointer"
-                [class.active]="activeTab?.startsWith(outerIndex + '-')"
-                ngbDropdownToggle
-                >{{ 'Forms::' + tab.title | abpLocalization }}</a
-              >
-              <div ngbDropdownMenu>
-                <div ngbDropdownItem *ngFor="let innerTab of tab.innerTabs; let innerIndex = index">
-                  <ng-container
-                    *ngTemplateOutlet="
-                      tabTemplateWithoutLink;
-                      context: { $implicit: innerTab, index: outerIndex + '-' + innerIndex }
-                    "
-                  ></ng-container>
-                </div>
-              </div>
-            </li>
-          </ng-container>
-  
-          <ng-template #singleTab>
-            <ng-container
-              *ngTemplateOutlet="tabTemplate; context: { $implicit: tab, index: outerIndex + '' }"
-            ></ng-container>
+  <ng-template #abpHeader>
+    <h5 class="modal-title" id="modal-basic-title">
+      {{ 'Forms::' + type | abpLocalization }}
+    </h5>
+  </ng-template>
+  <ng-template #abpBody>
+    <nz-tabset [(nzSelectedIndex)]="activeTab">
+      <ng-container *ngFor="let tab of tabs; let outerIndex = index">
+        <ng-container *ngIf="tab.innerTabs; else singleTab">
+          <nz-tab [nzTitle]="dropdownTitle">
+            <div *ngIf="selectedInnerTab; else innerNotSelect">
+              <ng-container
+                *ngTemplateOutlet="tabTemplateWithoutLink;
+                context: { $implicit: selectedInnerTab, index: outerIndex + '-' + selectedInnerIndex }">
+              </ng-container>
+            </div>
+            <ng-template #innerNotSelect>
+              請選擇類別
+            </ng-template>
+          </nz-tab>
+
+          <ng-template #dropdownTitle>
+            <a nz-dropdown [nzDropdownMenu]="menu">
+              <span>{{ 'Forms::' + tab.title | abpLocalization }}</span>
+              <i nz-icon nzType="down"></i>
+            </a>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <ul nz-menu nzSelectable>
+                <li nz-menu-item
+                    *ngFor="let innerTab of tab.innerTabs; let innerIndex = index"
+                    (click)="setInnerContext(outerIndex, innerTab, innerIndex)">
+                  <span>{{ 'Forms::' + innerTab.title | abpLocalization }}</span>
+                </li>
+              </ul>
+            </nz-dropdown-menu>
           </ng-template>
         </ng-container>
-  
-        <ng-template #tabTemplate let-tab let-index="index">
-          <li [ngbNavItem]="index">
-            <a ngbNavLink>{{ 'Forms::' + tab.title | abpLocalization }}</a>
-            <ng-template ngbNavContent>
-              <ng-container *ngTemplateOutlet="tab.template"></ng-container>
-            </ng-template>
-          </li>
+
+        <ng-template #singleTab>
+          <ng-container
+            *ngTemplateOutlet="tabTemplate; context: { $implicit: tab, index: outerIndex + '' }"
+          ></ng-container>
         </ng-template>
-  
-        <ng-template #tabTemplateWithoutLink let-tab let-index="index">
-          <div
-            class="pointer"
-            [class.nav-item]="false"
-            [ngbNavItem]="index"
-            #item="ngbNavItem"
-            (click)="nav.click(item)"
-          >
-            {{ 'Forms::' + tab.title | abpLocalization }}
-            <ng-template ngbNavContent>
-              <ng-container *ngTemplateOutlet="tab.template"></ng-container>
-            </ng-template>
-          </div>
-        </ng-template>
-      </ul>
-      <div [ngbNavOutlet]="nav" class="mt-2 fade-in-top"></div>
-    </ng-template>
-    <ng-template #abpFooter>
-      <button type="button" class="btn btn-secondary" abpClose>
-        {{ 'Forms::Cancel' | abpLocalization }}
-      </button>
-      <abp-button iconClass="fa fa-check" (click)="onSave()" [disabled]="shouldBeDisabled()">{{
-        'Forms::Save' | abpLocalization
-      }}</abp-button>
-    </ng-template>
-  </abp-modal>
+      </ng-container>
+
+      <ng-template #tabTemplate let-tab>
+        <nz-tab [nzTitle]="'Forms::' + tab.title | abpLocalization">
+          <ng-container *ngTemplateOutlet="tab.template"></ng-container>
+        </nz-tab>
+      </ng-template>
+
+      <ng-template #tabTemplateWithoutLink let-tab let-index="index">
+        <ng-container *ngTemplateOutlet="tab.template"></ng-container>
+      </ng-template>
+    </nz-tabset>
+  </ng-template>
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'Forms::Cancel' | abpLocalization }}
+    </button>
+    <abp-button iconClass="fa fa-check" (click)="onSave()" [disabled]="shouldBeDisabled()">{{
+      'Forms::Save' | abpLocalization
+    }}</abp-button>
+  </ng-template>
+</abp-modal>
   
