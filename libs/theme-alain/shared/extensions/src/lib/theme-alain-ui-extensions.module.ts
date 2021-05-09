@@ -13,31 +13,39 @@ import { NgxValidateCoreModule } from '@ngx-validate/core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { NzTableRowDetailDirective } from './directives/nz-table-row-detail.directive';
 import { SVModule } from '@delon/abc/sv';
+import { NzSelectDefaultDirective } from './directives/nz-select-default.directive';
+import { NzSelectLoadingComponent } from './directives/nz-select-loading.component';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
-const declarationsWithExports = [
+const PUBLIC = [
   ExtensibleTableComponent,
   NzTableRowDetailDirective,
   GridActionsComponent,
   PageToolbarComponent,
   NzTableListDirective,
-  
+  NzSelectDefaultDirective
+];
+const PRIVATE = [
+  NzSelectLoadingComponent
 ];
 
 const ZORRO_MODULES = [
   NzButtonModule,
   NzDropDownModule,
   NzIconModule,
-  NzTableModule
+  NzTableModule,
+  NzSpinModule
 ];
 
 @NgModule({
   exports: [
-    ...declarationsWithExports,
+    ...PUBLIC,
     AbpUiExtensionsModule,
     SVModule
   ],
   declarations: [
-    ...declarationsWithExports
+    ...PUBLIC,
+    ...PRIVATE
   ],
   imports: [
     CoreModule,
