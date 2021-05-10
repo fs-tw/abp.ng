@@ -25,6 +25,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('@abp/ng.setting-management').then(m => m.SettingManagementModule.forLazy()),
   },
+  {
+    path: 'theme-alain-demo',
+    loadChildren: () =>
+      import('@fs-tw/theme-alain').then(m => m.ThemeAlainDemoModule),
+  },
 ];
 
 @NgModule({

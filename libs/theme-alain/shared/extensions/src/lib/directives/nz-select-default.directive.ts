@@ -15,9 +15,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import {
-  NzSelectComponent
-} from 'ng-zorro-antd/select';
+import { NzSelectComponent } from 'ng-zorro-antd/select';
 import { tap } from 'rxjs/operators';
 import { NgModel } from '@angular/forms';
 import { NzSelectLoadingComponent } from './nz-select-loading.component';
@@ -44,18 +42,16 @@ export class NzSelectOption<R> implements NzSelectOptionInterface {
   // tslint:disable-next-line
   selector: 'nz-select[default]',
   exportAs: 'nzSelectDefault',
-  providers: [
-    ListService
-  ],
+  providers: [ListService],
 })
 export class NzSelectDefaultDirective<R = any> implements OnDestroy, OnInit {
   private subscription = new Subscription();
   private static componentRef: ComponentRef<NzSelectLoadingComponent>;
 
-  @Input() streamCreator: (
+  @Input('default') streamCreator: (
     query
   ) => Observable<PagedResultDto<NzSelectOption<R>>>;
-  @Output() selectedItemChange = new EventEmitter<NzSelectOption<R>>();
+  @Output() selectedItemChange = new EventEmitter<NzSelectOption<R>|NzSelectOption<R>[]>();
 
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   set isLoading(value: boolean) {
@@ -83,7 +79,7 @@ export class NzSelectDefaultDirective<R = any> implements OnDestroy, OnInit {
     this.select.nzShowSearch = true;
     this.select.nzAllowClear = true;
     this.select.nzServerSearch = true;
-    this.select.nzLoading=true;
+    this.select.nzLoading = true;
   }
 
   ngOnInit() {
@@ -139,8 +135,19 @@ export class NzSelectDefaultDirective<R = any> implements OnDestroy, OnInit {
       this.ngModel.update
         .pipe(
           tap(($event) => {
-            let selected = this.datas.find((x) => x.value == $event);
-            this.selectedItemChange.emit(selected);
+            let result:any;
+            if(!Array.isArray($event)){
+              result = this.datas.filter((d) => {
+                return $event===d.value;
+              });              
+            }else{
+              result = this.datas.filter((d) => {
+                return $event.includes(d.value);
+              });
+              
+            }
+            this.selectedItemChange.emit(result);
+
           })
         )
         .subscribe()
@@ -164,7 +171,6 @@ export class NzSelectDefaultDirective<R = any> implements OnDestroy, OnInit {
             );
 
             this.datas = [...this.datas, ...filtered];
-
             this.count = res.totalCount;
 
             this.select.nzOptions = this.datas;
