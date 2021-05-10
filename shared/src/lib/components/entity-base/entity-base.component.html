@@ -1,8 +1,5 @@
 <ng-container *ngIf="data$ | async as data">
-  <abp-page
-    [title]="'CmsKit::' + entityName | abpLocalization"
-    [toolbar]="data"
-  >
+  <abp-page [title]="title | abpLocalization" [toolbar]="data">
     <div id="wrapper">
       <nz-card nzType="inner" [nzTitle]="searchTemplate">
         <nz-extensible-table
@@ -15,7 +12,11 @@
       <ng-template #searchTemplate>
         <div id="data-tables-table-filter" class="row">
           <div class="col">
-            <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+            <nz-input-group
+              nzSearch
+              nzSize="large"
+              [nzAddOnAfter]="suffixButton"
+            >
               <input
                 type="search"
                 class="form-control"
