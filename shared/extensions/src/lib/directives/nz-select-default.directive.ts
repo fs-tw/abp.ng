@@ -46,12 +46,14 @@ export class NzSelectOption<R> implements NzSelectOptionInterface {
 })
 export class NzSelectDefaultDirective<R = any> implements OnDestroy, OnInit {
   private subscription = new Subscription();
-  private static componentRef: ComponentRef<NzSelectLoadingComponent>;
+  private static componentRef: ComponentRef<NzSelectLoadingComponent> = null;
 
   @Input('default') streamCreator: (
     query
   ) => Observable<PagedResultDto<NzSelectOption<R>>>;
-  @Output() selectedItemChange = new EventEmitter<NzSelectOption<R>|NzSelectOption<R>[]>();
+  @Output() selectedItemChange = new EventEmitter<
+    NzSelectOption<R> | NzSelectOption<R>[]
+  >();
 
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   set isLoading(value: boolean) {
@@ -135,19 +137,17 @@ export class NzSelectDefaultDirective<R = any> implements OnDestroy, OnInit {
       this.ngModel.update
         .pipe(
           tap(($event) => {
-            let result:any;
-            if(!Array.isArray($event)){
+            let result: any;
+            if (!Array.isArray($event)) {
               result = this.datas.filter((d) => {
-                return $event===d.value;
-              });              
-            }else{
+                return $event === d.value;
+              });
+            } else {
               result = this.datas.filter((d) => {
                 return $event.includes(d.value);
               });
-              
             }
             this.selectedItemChange.emit(result);
-
           })
         )
         .subscribe()
