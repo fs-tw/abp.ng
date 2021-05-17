@@ -11,6 +11,7 @@ import { eIdentityComponents, IdentityUserService } from '@abp/ng.identity';
   template: `
     <fs-tw-entity-base
       title="AbpIdentity::Users"
+      [list]="list"
       [streamCreator]="streamCreator"
     >
     </fs-tw-entity-base>
