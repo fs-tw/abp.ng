@@ -13,6 +13,7 @@
         *ngFor="let prop of propList; let i = index; trackBy: trackByFn"
       >
         <th
+          *ngIf="!!prop.sortable; else nonSort"
           [nzSortFn]="prop.sortable"
           [nzWidth]="prop.columnWidth + 'px'"
           [nzColumnKey]="prop.name"
@@ -20,6 +21,15 @@
         >
           {{ prop.displayName | abpLocalization }}
         </th>
+        <ng-template #nonSort>
+          <th
+            [nzWidth]="prop.columnWidth + 'px'"
+            [nzColumnKey]="prop.name"
+            [nzSortDirections]="['ascend', 'descend']"
+          >
+            {{ prop.displayName | abpLocalization }}
+          </th>
+        </ng-template>
       </ng-container>
     </tr>
   </thead>
