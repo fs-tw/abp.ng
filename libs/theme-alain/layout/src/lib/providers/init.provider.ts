@@ -3,7 +3,7 @@ import {
   LocalizationPipe,
   PermissionService,
   eLayoutType,
-  EnvironmentService
+  EnvironmentService,
 } from '@abp/ng.core';
 import { APP_INITIALIZER, inject, Injector } from '@angular/core';
 import { ResolveEnd, Router } from '@angular/router';
@@ -32,15 +32,17 @@ export function listenRouter(injector: Injector) {
   //const layoutStateService = injector.get(LayoutStateService);
   const routesService = injector.get(RoutesService);
   const menuService = injector.get(MenuService);
-  const localizationPipe=injector.get(LocalizationPipe);
+  const localizationPipe = injector.get(LocalizationPipe);
   const environmentService = injector.get(EnvironmentService);
-
-
 
   routesService.visible$
     .pipe(
+      filter(
+        (x) =>
+          x.find((y) => y.name === eThemeSharedRouteNames.Administration)
+            ?.children?.length > 0
+      ),
       map((x) => {
-        if (x.length === 0) return[];
         return x
           .filter(
             (y) =>
@@ -67,18 +69,18 @@ export function listenRouter(injector: Injector) {
                   id: c.name,
                 };
                 return children;
-              });            
+              });
 
             return node;
           });
       })
     )
-    .subscribe(menus=>{
+    .subscribe((menus) => {
       menuService.clear();
-      let root:Menu={
+      let root: Menu = {
         text: environmentService.getEnvironment().application?.name,
-        children:menus
-      }
+        children: menus,
+      };
       menuService.add([root]);
     });
 
@@ -90,10 +92,6 @@ export function listenRouter(injector: Injector) {
       //const currentUrl = decodeURI(event.state.url.split('?')[0]);
       //layoutStateService.setStore({ currentUrl });
       //layoutStateService.fetchPageNavs(event.state);
-      routesService.patch('AbpAccount::Login',{layout:eLayoutType.account});
+      routesService.patch('AbpAccount::Login', { layout: eLayoutType.account });
     });
-
-
-
-    
 }

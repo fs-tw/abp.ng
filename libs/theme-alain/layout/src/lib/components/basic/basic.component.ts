@@ -85,6 +85,7 @@ import {EnvironmentService} from '@abp/ng.core';
         </nz-dropdown-menu> -->
       </ng-template>
       <ng-template #contentTpl>
+        <breadcrumb></breadcrumb>
         <router-outlet></router-outlet>
       </ng-template>
     </layout-default>
