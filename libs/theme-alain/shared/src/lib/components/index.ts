@@ -1,1 +1,1 @@
-export * from './entity-base/index';
+export {};

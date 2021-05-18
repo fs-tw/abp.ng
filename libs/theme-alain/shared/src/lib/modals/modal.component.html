@@ -1,7 +1,7 @@
 <abp-modal [visible]="visible" (visibleChange)="onVisibleChange($event)">
   <ng-template #abpHeader>
     <h5 class="modal-title" id="modal-basic-title">
-      {{ 'Forms::' + type | abpLocalization }}
+      {{  title | abpLocalization }}
     </h5>
   </ng-template>
   <ng-template #abpBody>
@@ -22,7 +22,7 @@
 
           <ng-template #dropdownTitle>
             <a nz-dropdown [nzDropdownMenu]="menu">
-              <span>{{ 'Forms::' + tab.title | abpLocalization }}</span>
+              <span>{{ tab.title | abpLocalization }}</span>
               <i nz-icon nzType="down"></i>
             </a>
             <nz-dropdown-menu #menu="nzDropdownMenu">
@@ -30,7 +30,7 @@
                 <li nz-menu-item
                     *ngFor="let innerTab of tab.innerTabs; let innerIndex = index"
                     (click)="setInnerContext(outerIndex, innerTab, innerIndex)">
-                  <span>{{ 'Forms::' + innerTab.title | abpLocalization }}</span>
+                  <span>{{ innerTab.title | abpLocalization }}</span>
                 </li>
               </ul>
             </nz-dropdown-menu>
@@ -45,7 +45,7 @@
       </ng-container>
 
       <ng-template #tabTemplate let-tab>
-        <nz-tab [nzTitle]="'Forms::' + tab.title | abpLocalization">
+        <nz-tab [nzTitle]="tab.title | abpLocalization">
           <ng-container *ngTemplateOutlet="tab.template"></ng-container>
         </nz-tab>
       </ng-template>
@@ -57,10 +57,10 @@
   </ng-template>
   <ng-template #abpFooter>
     <button type="button" class="btn btn-secondary" abpClose>
-      {{ 'Forms::Cancel' | abpLocalization }}
+      {{ 'AbpUi::Cancel' | abpLocalization }}
     </button>
     <abp-button iconClass="fa fa-check" (click)="onSave()" [disabled]="shouldBeDisabled()">{{
-      'Forms::Save' | abpLocalization
+      'AbpUi::Save' | abpLocalization
     }}</abp-button>
   </ng-template>
 </abp-modal>
