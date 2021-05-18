@@ -13,11 +13,17 @@ import { ModalTabComponent } from './tabs/modal-tab.component';
 @Component({
   selector: 'fs-tw-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.less'],
+  styles: [
+    `
+      ::ng-deep .cdk-overlay-container {
+        z-index: 2000;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalComponent implements OnInit {
-  @Input() type: 'Create' | 'Edit' = 'Create';
+  @Input() title: string;
   @Input() visible: boolean;
   @Output() visibleChange = new EventEmitter<boolean>();
   @Output() save = new EventEmitter<any>();
@@ -29,7 +35,7 @@ export class ModalComponent implements OnInit {
   selectedInnerTab: ModalTabComponent;
   selectedInnerIndex: number;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {}
 
@@ -39,20 +45,26 @@ export class ModalComponent implements OnInit {
   }
 
   shouldBeDisabled = () => {
-    return !!this.tabs.some(tab => !tab.isValid());
+    return !!this.tabs.some((tab) => !tab.isValid());
   };
 
   onSave() {
     if (!this.shouldBeDisabled()) {
-      const value = this.tabs.reduce((retVal, curr) => ({ ...retVal, ...curr.getValue() }), {});
+      const value = this.tabs.reduce(
+        (retVal, curr) => ({ ...retVal, ...curr.getValue() }),
+        {}
+      );
       this.save.emit(value);
     }
   }
-  
-  setInnerContext(outerIndex: number, tab: ModalTabComponent, innerIndex: number) {
+
+  setInnerContext(
+    outerIndex: number,
+    tab: ModalTabComponent,
+    innerIndex: number
+  ) {
     this.activeTab = outerIndex;
     this.selectedInnerTab = tab;
     this.selectedInnerIndex = innerIndex;
   }
-
 }

@@ -4,7 +4,7 @@ import { ThemeAlainDemoRoutingModule } from './theme-alain-demo-routing.module';
 import { SelectComponent } from './components/select.component';
 import { ThemeAlainModule } from '../lib/theme-alain.module';
 import { ThemeAlainSharedModule } from '@fs-tw/theme-alain/shared';
-import { EntityBaseComponent } from './components/entity-base.component';
+//import { IdentityModule } from '@abp/ng.identity';
 
 
 @NgModule({
@@ -12,12 +12,13 @@ import { EntityBaseComponent } from './components/entity-base.component';
     CoreModule,
     ThemeAlainModule,
     ThemeAlainSharedModule,
-    ThemeAlainDemoRoutingModule
+    ThemeAlainDemoRoutingModule,
+    //IdentityModule.forChild()
   ],
   declarations:[
-    SelectComponent,
-    EntityBaseComponent
-  ]
+    SelectComponent
+  ],
+  //exports:[IdentityModule]
 })
 export class ThemeAlainDemoModule {
 }
