@@ -1,4 +1,5 @@
 import { CoreModule } from '@abp/ng.core';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +20,8 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { PageHeaderModule} from '@delon/abc/page-header'
 
 import { LayoutBasicComponent } from './components/basic/basic.component';
 import { HeaderClearStorageComponent } from './components/basic/widgets/clear-storage.component';
@@ -31,7 +34,7 @@ import { HeaderSearchComponent } from './components/basic/widgets/search.compone
 import { HeaderTaskComponent } from './components/basic/widgets/task.component';
 import { HeaderUserComponent } from './components/basic/widgets/user.component';
 import { LayoutBlankComponent } from './components/blank/blank.component';
-
+import { BreadcrumbComponent } from './components/basic/widgets/breadcrumb.component';
 const COMPONENTS = [LayoutBasicComponent, LayoutBlankComponent];
 
 const HEADERCOMPONENTS = [
@@ -49,11 +52,15 @@ const HEADERCOMPONENTS = [
 // passport
 import { LayoutPassportComponent } from './components/passport/passport.component';
 import { LAYOUT_INIT_PROVIDERS } from './providers/init.provider';
+
 const PASSPORT = [LayoutPassportComponent];
 
 @NgModule({
   imports: [
     CoreModule,
+    ThemeSharedModule,
+    NzBreadCrumbModule,
+    PageHeaderModule,
     CommonModule,
     FormsModule,
     RouterModule,
@@ -74,7 +81,7 @@ const PASSPORT = [LayoutPassportComponent];
     NzIconModule,
     NzCardModule,
   ],
-  declarations: [...COMPONENTS, ...HEADERCOMPONENTS, ...PASSPORT],
+  declarations: [...COMPONENTS, ...HEADERCOMPONENTS, ...PASSPORT, BreadcrumbComponent],
   exports: [...COMPONENTS, ...PASSPORT],
   providers:[LAYOUT_INIT_PROVIDERS]
 })
