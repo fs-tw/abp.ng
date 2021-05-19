@@ -9,7 +9,7 @@ import { FormGroup } from '@angular/forms';
 import { ModalComponent } from '../../modal.component';
 
 @Component({
-  selector: 'fs-tw-modal-info-tab',
+  selector: 'fs-modal-info-tab',
   templateUrl: './modal-info-tab.component.html',
   providers: [
     {

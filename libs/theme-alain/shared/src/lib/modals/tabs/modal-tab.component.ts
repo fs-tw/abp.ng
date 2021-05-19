@@ -1,7 +1,7 @@
 import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'fs-tw-modal-tab',
+  selector: 'fs-modal-tab',
   template: `<ng-template><ng-content></ng-content></ng-template>`
 })
 export class ModalTabComponent {
