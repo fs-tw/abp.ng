@@ -79,7 +79,7 @@ const PASSPORT = [LayoutPassportComponent];
     NzBadgeModule,
     NzAvatarModule,
     NzIconModule,
-    NzCardModule,
+    NzCardModule
   ],
   declarations: [...COMPONENTS, ...HEADERCOMPONENTS, ...PASSPORT, BreadcrumbComponent],
   exports: [...COMPONENTS, ...PASSPORT],
