@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'identity',
-    loadChildren: () => import('@abp/ng.identity').then(m => m.IdentityModule.forLazy()),
+    loadChildren: () => import('./identity-extended/identity-extended.module').then(m=>m.IdentityExtendedModule)
   },
   {
     path: 'tenant-management',
@@ -24,12 +24,7 @@ const routes: Routes = [
     path: 'setting-management',
     loadChildren: () =>
       import('@abp/ng.setting-management').then(m => m.SettingManagementModule.forLazy()),
-  },
-  {
-    path: 'theme-alain-demo',
-    loadChildren: () =>
-      import('@fs-tw/theme-alain').then(m => m.ThemeAlainDemoModule),
-  },
+  }
 ];
 
 @NgModule({

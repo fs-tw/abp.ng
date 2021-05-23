@@ -39,9 +39,7 @@ const ZORRO_MODULES = [
 
 @NgModule({
   exports: [
-    ...PUBLIC,
-    AbpUiExtensionsModule,
-    SVModule
+    ...PUBLIC
   ],
   declarations: [
     ...PUBLIC,
@@ -55,11 +53,5 @@ const ZORRO_MODULES = [
     SVModule,
     ...ZORRO_MODULES,
   ],
-})
-export class BaseThemeAlainUiExtensionsModule {}
-
-@NgModule({
-  exports: [BaseThemeAlainUiExtensionsModule],
-  imports: [BaseThemeAlainUiExtensionsModule],
 })
 export class ThemeAlainUiExtensionsModule {}
