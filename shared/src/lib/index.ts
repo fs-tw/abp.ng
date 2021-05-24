@@ -5,3 +5,4 @@ export * from './components/index';
 export * from './modals/index';
 export * from './enums/index';
 export * from './models/index';
+export * from './pipes/index';
