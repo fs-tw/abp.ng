@@ -13,6 +13,7 @@ import { FsGapComponent } from './components/fs-gap/fs-gap.component';
 import { FsVerticalAlignmentComponent } from './components/fs-vertical-alignment/fs-vertical-alignment.component';
 import { ImageUrlTempPipe } from './pipes/image-url.pipe';
 import { MapperPipe } from './pipes/mapper.pipe';
+import { AlainThemeModule } from '@delon/theme';
 
 const PUBLIC = [
   ModalComponent,
@@ -40,6 +41,7 @@ const PRIVATE = [
     ...SHARED_ABP_MODULES,
     ...SHARED_DELON_MODULES,
     ...SHARED_ZORRO_MODULES,
+    AlainThemeModule.forChild(),
     ThemeAlainUiExtensionsModule
   ],
   exports: [
