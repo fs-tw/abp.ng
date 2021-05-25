@@ -13,16 +13,14 @@ import { RouterModule } from '@angular/router';
 import { IdentityModule } from '@abp/ng.identity';
 import { IdentityExtendedComponent } from './components/identity-extended.component';
 import { RolesComponent } from './components/roles/roles.component';
+import { ThemeAlainSharedModule } from '@fs-tw/theme-alain/shared';
+
 
 @NgModule({
-  declarations: [UsersComponent, IdentityExtendedComponent, RolesComponent],
+  declarations: [IdentityExtendedComponent,UsersComponent, RolesComponent],
   imports: [
-    ThemeAlainUiExtensionsModule,
-    SharedModule,
-    PageModule,
-    UiExtensionsModule,
-    NgbDropdownModule,
     NgbNavModule,
+    ThemeAlainSharedModule,
     PermissionManagementModule,
     RouterModule.forChild([
       {

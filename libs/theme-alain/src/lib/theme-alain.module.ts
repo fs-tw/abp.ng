@@ -8,18 +8,19 @@ import { BaseRootModule } from './root/base-root.module';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { RootModule } from './root/root.module';
 import { NG_ALAIN_THEME_STYLES_PROVIDERS } from './providers/styles.provider';
-
-// @NgModule({
-//   imports: [CommonModule],
-// })
-// export class ThemeAlainModule {}
-
+import { ThemeAlainSharedModule } from '@fs-tw/theme-alain/shared';
 
 @NgModule({
   imports: [
-    CoreModule,
+    CoreModule, 
     ThemeSharedModule,
+    //ThemeAlainSharedModule,
     LayoutModule
+    
+  ],
+  exports:[
+    //ThemeAlainSharedModule,
+    //LayoutModule
   ],
   declarations: [ApplicationLayoutComponent,AccountLayoutComponent,EmptyLayoutComponent]
 })

@@ -11,11 +11,12 @@
     </div>
   
     <div class="card-body">
-      <nz-extensible-table
+      <!-- <nz-extensible-table
         [data]="data$ | async"
         [recordsTotal]="totalCount$ | async"
         [list]="list"
-      ></nz-extensible-table>
+      ></nz-extensible-table> -->
+      <st #st [data]="users" [columns]="columns"></st>
     </div>
   </div>
   

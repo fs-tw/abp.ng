@@ -25,13 +25,6 @@ import { identityToolbarActionContributors } from '../../contributors/toolbar-ac
 import { identityEntityActionContributors } from '../../contributors/entity-action-contributors';
 import { identityEntityPropContributors} from '../../contributors/entity-prop-contributors';
 import {
-  UiExtensionsModule,
-  ToolbarAction,
-  ExtensionsService,
-  getObjectExtensionEntitiesFromStore,
-  mergeWithDefaultActions,
-} from '@abp/ng.theme.shared/extensions';
-import {
   IdentityContributor,
 } from '../../providers/contributor.provider';
 
@@ -45,7 +38,7 @@ import {
       useValue: eIdentityComponents.Users,
     },
     ListService,
-    IdentityContributor,
+     IdentityContributor,
     {
       provide: IDENTITY_TOOLBAR_ACTION_CONTRIBUTORS,
       useValue: identityToolbarActionContributors,
