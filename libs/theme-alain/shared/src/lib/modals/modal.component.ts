@@ -11,7 +11,7 @@ import {
 import { ModalTabComponent } from './tabs/modal-tab.component';
 
 @Component({
-  selector: 'fs-tw-modal',
+  selector: 'fs-modal',
   templateUrl: './modal.component.html',
   styles: [
     `
