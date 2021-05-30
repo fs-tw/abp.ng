@@ -8,7 +8,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { UiExtensionsModule as AbpUiExtensionsModule } from '@abp/ng.theme.shared/extensions'
+import { UiExtensionsModule as AbpUiExtensionsModule } from '@abp/ng.theme.shared/extensions';
 import { NgxValidateCoreModule } from '@ngx-validate/core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { NzTableRowDetailDirective } from './directives/nz-table-row-detail.directive';
@@ -23,28 +23,21 @@ const PUBLIC = [
   GridActionsComponent,
   PageToolbarComponent,
   NzTableListDirective,
-  NzSelectDefaultDirective
+  NzSelectDefaultDirective,
 ];
-const PRIVATE = [
-  NzSelectLoadingComponent
-];
+const PRIVATE = [NzSelectLoadingComponent];
 
 const ZORRO_MODULES = [
   NzButtonModule,
   NzDropDownModule,
   NzIconModule,
   NzTableModule,
-  NzSpinModule
+  NzSpinModule,
 ];
 
 @NgModule({
-  exports: [
-    ...PUBLIC
-  ],
-  declarations: [
-    ...PUBLIC,
-    ...PRIVATE
-  ],
+  exports: [...PUBLIC],
+  declarations: [...PUBLIC, ...PRIVATE],
   imports: [
     CoreModule,
     ThemeSharedModule,
@@ -52,6 +45,6 @@ const ZORRO_MODULES = [
     AbpUiExtensionsModule,
     SVModule,
     ...ZORRO_MODULES,
-  ],
+  ]
 })
 export class ThemeAlainUiExtensionsModule {}
