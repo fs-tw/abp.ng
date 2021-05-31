@@ -17,7 +17,7 @@ import { ActionEvent, ActionEventHub } from '../providers/action-event.hub';
 
 export type Defaults<R = any> = {
   entityAction?: EntityAction<R>[];
-  toolbarActions?: ToolbarAction<R>[];
+  toolbarActions?: ToolbarAction<R[]>[];
   entityProps?: EntityProp<R>[];
   createFormProps?: FormProp<R>[];
   editFormProps?: FormProp<R>[];
@@ -31,16 +31,16 @@ export type Contributors<R = any> = {
   editFormContributors?: (propList: EntityPropList<R>) => void;
 };
 
-export function setDefaults(
+export function setDefaults<R>(
   injector: Injector,
   key: string,
-  defaults: Defaults
-): Subject<ActionEvent> {
+  defaults: Defaults<R>
+): Subject<ActionEvent<R>> {
   const extensions = injector.get(ExtensionsService);
 
   const actionEventHub = injector.get(ActionEventHub);
 
-  const contributors = actionEventHub.GetContributors(key);
+  const contributors = actionEventHub.GetContributors(key) ?? {};
 
   const _defaults = {
     entityAction: {},
@@ -61,7 +61,7 @@ export function setDefaults(
     createFormContributors: {},
     editFormContributors: {},
   };
-  
+
   Object.keys(contributors).forEach((p) => {
     _contributors[p] = { [key]: [contributors[p]] };
   });
@@ -102,12 +102,12 @@ export function setDefaults(
   return actionEventHub.Register(key);
 }
 
-export function setContributors(
+export function setContributors<R>(
   injector: Injector,
   key: string,
-  contributors: Contributors
+  contributors: Contributors<R>
 ) {
-  const actionEventHub = injector.get(ActionEventHub);
+  const actionEventHub: ActionEventHub<R> = injector.get(ActionEventHub);
 
   let _contributors = {
     actionContributors: {},

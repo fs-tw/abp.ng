@@ -2,26 +2,26 @@ import { Injectable, Injector } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ActionData } from '@abp/ng.theme.shared/extensions';
 import { Contributors } from '../utils/defaults.util';
-export class ActionEvent {
+export class ActionEvent<R> {
   method: string;
-  data?: ActionData<any>;
+  data?: ActionData<R>;
 }
-type Actions$ = {
-  [key: string]: Subject<ActionEvent>;
+type Actions$<R> = {
+  [key: string]: Subject<ActionEvent<R>>;
 };
-type ContributorStore = {
-  [key: string]: Contributors;
+type ContributorStore<R> = {
+  [key: string]: Contributors<R>;
 };
 
 @Injectable({
   providedIn: 'root',
 })
-export class ActionEventHub {
-  private actions$: Actions$ = {} as any;
-  private contributorStore: ContributorStore = {} as any;
+export class ActionEventHub<R> {  
+  private actions$: Actions$<R> = {} as any;
+  private contributorStore: ContributorStore<R> = {} as any;
   constructor() {}
 
-  AddContributors(key: string, contributors: Contributors) {
+  AddContributors(key: string, contributors: Contributors<R>) {
     if (!this.contributorStore[key]) {
       this.contributorStore[key] = contributors;
     }
@@ -33,12 +33,12 @@ export class ActionEventHub {
 
   Register(key: string) {
     if (!this.actions$[key]) {
-      this.actions$[key] = new Subject<ActionEvent>();
+      this.actions$[key] = new Subject<ActionEvent<R>>();
     }
     return this.actions$[key];
   }
 
-  Notify<T>(key: string, data?: ActionEvent) {
+  Notify(key: string, data?: ActionEvent<R>) {
     this.actions$[key].next(data);
   }
 }
