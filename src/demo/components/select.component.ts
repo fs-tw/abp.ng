@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IdentityUserService, GetIdentityUsersInput } from '@abp/ng.identity';
+//import { IdentityUserService, GetIdentityUsersInput } from '@abp/ng.identity';
 import { map } from 'rxjs/operators';
 import { NzSelectOption } from '@fs-tw/theme-alain/shared/extensions';
 import { forkJoin, of } from 'rxjs';
@@ -17,32 +17,32 @@ import { forkJoin, of } from 'rxjs';
   styles: [],
 })
 export class SelectComponent implements OnInit {
-  constructor(private service: IdentityUserService) {}
+  //constructor(private service: IdentityUserService) {}
   selectedUserId : Array<string>|string= ['0d379bb0-f973-05b1-d6d3-39fb93c005b6'];
-  streamCreator = (query: GetIdentityUsersInput) => {
+  //streamCreator = (query: GetIdentityUsersInput) => {
     
 
-    let getById$ = !!this.selectedUserId
-      ? this.service.get(this.selectedUserId[0])
-      : of(null);
+    // let getById$ = !!this.selectedUserId
+    //   ? this.service.get(this.selectedUserId[0])
+    //   : of(null);
 
-    let getList$ = this.service.getList(query);
+    // let getList$ = this.service.getList(query);
 
-    return forkJoin([getById$, getList$]).pipe(
-      map(([getById, getList]) => {
-        let items = getList.items;
-        if (
-          !!getById &&
-          getList.items.findIndex((x) => x.id === getById?.id) === -1
-        ) {
-          items = [getById, ...getList.items];
-        }
-        return {
-          totalCount: items.length,
-          items: items.map((y) => new NzSelectOption(y, y.id, y.name)),
-        };
-      })
-    );
+    // return forkJoin([getById$, getList$]).pipe(
+    //   map(([getById, getList]) => {
+    //     let items = getList.items;
+    //     if (
+    //       !!getById &&
+    //       getList.items.findIndex((x) => x.id === getById?.id) === -1
+    //     ) {
+    //       items = [getById, ...getList.items];
+    //     }
+    //     return {
+    //       totalCount: items.length,
+    //       items: items.map((y) => new NzSelectOption(y, y.id, y.name)),
+    //     };
+    //   })
+    // );
 
     // return this.service.getList(query).pipe(
     //   map((x) => {
@@ -53,7 +53,7 @@ export class SelectComponent implements OnInit {
     //     return result;
     //   })
     // );
-  };
+  //};
 
   onSelectChange(data) {
     console.log(data);
