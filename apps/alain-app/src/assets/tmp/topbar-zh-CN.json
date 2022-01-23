@@ -1,0 +1,177 @@
+{
+  "messagess": [
+    {
+      "id": 1,
+      "className": "活动",
+      "createdTime": "2018-11-13 09:16",
+      "title": "新品发布，最快升级你的会员等级"
+    },
+    {
+      "id": 2,
+      "className": "优惠",
+      "createdTime": "2018-11-05 10:08",
+      "title": "过季商品专场，优惠不止5折！"
+    }
+  ],
+  "navLinks": {
+    "finance": {
+      "show": true,
+      "links": [
+        {
+          "link": "/finance/bill",
+          "text": "账单",
+          "id": "finance_bill"
+        },
+        {
+          "link": "/finance/invoice",
+          "text": "发票",
+          "id": "finance_invoice"
+        },
+        {
+          "section": true,
+          "link": "/finance",
+          "text": "进入财务中心",
+          "id": "finance_more"
+        }
+      ],
+      "link": "/finance",
+      "text": "财务",
+      "id": "finance",
+      "className": "hidden-mobile"
+    },
+    "message": {
+      "messageUrl": "/notifications/inner/all/detail/",
+      "subscribe": {
+        "title": "消息接收管理",
+        "link": "/notifications/subscribe"
+      },
+      "titleText": "消息",
+      "show": true,
+      "link": "/notifications/inner/all/0",
+      "text": "查看更多",
+      "title": "站内消息通知",
+      "blankText": "您暂时没有站内消息"
+    },
+    "support": {
+      "show": true,
+      "link": "/help",
+      "text": "文档",
+      "id": "support",
+      "className": "hidden-mobile"
+    },
+    "user": {
+      "show": true,
+      "signout": {
+        "link": "/",
+        "text": "退出管理控制台",
+        "id": "signout",
+        "target": "_self"
+      },
+      "links": [
+        {
+          "className": "icon-user-info topbar-sidebar-user-info",
+          "link": "/user/basic",
+          "text": "基本资料",
+          "id": "user_info"
+        },
+        {
+          "className": "icon-topbar-certify topbar-sidebar-certify",
+          "link": "/",
+          "text": "实名认证",
+          "id": "certify"
+        },
+        {
+          "className": "icon-topbar-secure-setting topbar-sidebar-secure-setting",
+          "link": "/user/secure",
+          "text": "安全设置",
+          "id": "secure_setting"
+        },
+        {
+          "className": "icon-topbar-secure-control topbar-sidebar-secure-control",
+          "link": "/",
+          "text": "安全管控",
+          "id": "secure_control"
+        },
+        {
+          "className": "icon-topbar-ram topbar-sidebar-ram1",
+          "link": "/",
+          "text": "访问控制",
+          "id": "ram"
+        },
+        {
+          "className": "icon-topbar-accesskeys topbar-sidebar-accesskeys",
+          "link": "/",
+          "text": "accesskeys",
+          "id": "accesskeys"
+        },
+        {
+          "className": "icon-account topbar-sidebar-account",
+          "link": "/",
+          "text": "会员权益",
+          "id": "rights"
+        },
+        {
+          "className": "icon-account icon-score topbar-sidebar-score",
+          "link": "/",
+          "text": "会员积分",
+          "id": "club"
+        },
+        {
+          "className": "icon-cps topbar-sidebar-cps topbar-sidebar-yundashi",
+          "link": "/",
+          "text": "推荐返利后台",
+          "id": "ambassador"
+        }
+      ],
+      "id": "user",
+      "link": "/",
+      "linkMap": {
+        "switchRole": {
+          "link": "/",
+          "text": "切换身份",
+          "id": "switchRole",
+          "target": "_self"
+        },
+        "exitSwitchedRole": {
+          "link": "/",
+          "text": "返回登录身份",
+          "id": "exitSwitchedRole",
+          "target": "_self"
+        },
+        "signout": {
+          "link": "/",
+          "text": "退出管理控制台",
+          "id": "signOut",
+          "target": "_self"
+        }
+      },
+      "labels": {
+        "3": "子账号",
+        "4": "角色",
+        "currentAlias": "企业别名",
+        "currentName": "当前身份",
+        "loginName": "登录身份",
+        "loginAlias": "企业别名"
+      }
+    },
+    "workorder": {
+      "show": true,
+      "links": [
+        {
+          "link": "/",
+          "text": "我的工单",
+          "id": "workorder_own"
+        },
+        {
+          "navRedirect": false,
+          "link": "/",
+          "text": "提交工单",
+          "id": "workorder_add"
+        }
+      ],
+      "link": "/",
+      "text": "工单",
+      "id": "workorder"
+    }
+  }
+}

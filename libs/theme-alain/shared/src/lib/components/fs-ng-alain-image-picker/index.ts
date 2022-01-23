@@ -1,1 +1,0 @@
-export * from './fs-ng-alain-image-picker.component';

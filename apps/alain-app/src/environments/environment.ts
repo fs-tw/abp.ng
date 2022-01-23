@@ -4,21 +4,24 @@ const baseUrl = 'http://localhost:4200';
 
 export const environment = {
   production: false,
+  hmr: false,
   application: {
     baseUrl,
     name: 'MyProjectName',
+    logoUrl: '',
   },
   oAuthConfig: {
     issuer: 'https://localhost:44305',
-    redirectUri: baseUrl,
     clientId: 'MyProjectName_App',
+    dummyClientSecret: '1q2w3e*',
+    scope: 'offline_access MyProjectName',
     responseType: 'password',
-    scope: 'offline_access openid profile role email phone MyProjectName',
+    redirectUri: baseUrl,
   },
   apis: {
     default: {
       url: 'https://localhost:44305',
-      rootNamespace: 'MyCompanyName.MyProjectName',
-    },
+      rootNamespace: '',
+    }
   },
 } as Environment;

@@ -1,0 +1,230 @@
+{
+  "messagess": [{
+      "id": 1,
+      "className": "活动",
+      "createdTime": "2018-11-13 09:16",
+      "title": "新品发布，最快升级你的会员等级"
+    },
+    {
+      "id": 2,
+      "className": "优惠",
+      "createdTime": "2018-11-05 10:08",
+      "title": "过季商品专场，优惠不止5折！"
+    }
+  ],
+  "navLinks": {
+    "customHelp": {
+      "navRedirect": true,
+      "icon": "",
+      "show": false,
+      "link": "/",
+      "text": "Docs",
+      "showNew": true,
+      "id": "customHelp",
+      "title": "Documentation"
+    },
+    "enterprise": {
+      "show": true,
+      "links": [{
+          "section": true,
+          "link": "/",
+          "text": "Resource Manager",
+          "id": "resource",
+          "target": "_blank"
+        },
+        {
+          "section": true,
+          "link": "/",
+          "text": "Finance Manager",
+          "id": "efc",
+          "target": "_blank"
+        },
+        {
+          "section": true,
+          "link": "/",
+          "text": "Directory Manager",
+          "id": "directory",
+          "target": "_blank"
+        },
+        {
+          "section": true,
+          "link": "/",
+          "text": "Access Manager",
+          "id": "access",
+          "target": "_blank"
+        },
+        {
+          "section": true,
+          "link": "/",
+          "text": "Channel Platform",
+          "id": "fenxiao",
+          "target": "_blank"
+        }
+      ],
+      "link": "",
+      "text": "Ent",
+      "id": "enterprise",
+      "target": "_blank",
+      "className": "hidden-mobile"
+    },
+    "finance": {
+      "show": true,
+      "links": [
+        {
+          "link": "/finance/bill",
+          "text": "Bill",
+          "id": "finance_bill"
+        },
+        {
+          "link": "/finance/invoice",
+          "text": "Invoice",
+          "id": "finance_invoice"
+        },
+        {
+          "section": true,
+          "link": "/finance",
+          "text": "Finance Management",
+          "id": "finance_more"
+        }
+      ],
+      "link": "/finance",
+      "text": "Finance",
+      "id": "finance",
+      "className": "hidden-mobile"
+    },
+    "message": {
+      "messageUrl": "/notifications/inner/all/detail/",
+      "subscribe": {
+        "title": "Manage",
+        "link": "/notifications/subscribe"
+      },
+      "titleText": "Message",
+      "show": true,
+      "link": "/notifications/inner/all/0",
+      "text": "More",
+      "title": "Notice",
+      "blankText": "You have no notice yet."
+    },
+    "support": {
+      "show": true,
+      "link": "/help",
+      "text": "Documentation",
+      "id": "support",
+      "className": "hidden-mobile"
+    },
+    "user": {
+      "show": true,
+      "signout": {
+        "link": "/",
+        "text": "Sign out",
+        "id": "signout",
+        "target": "_self"
+      },
+      "links": [{
+          "className": "icon-user-info topbar-sidebar-user-info",
+          "link": "/user/basic",
+          "text": "User Info",
+          "id": "user_info"
+        },
+        {
+          "className": "icon-topbar-certify topbar-sidebar-certify",
+          "link": "/",
+          "text": "Certification",
+          "id": "certify"
+        },
+        {
+          "className": "icon-topbar-secure-setting topbar-sidebar-secure-setting",
+          "link": "/user/secure",
+          "text": "Security Settings",
+          "id": "secure_setting"
+        },
+        {
+          "className": "icon-topbar-secure-control topbar-sidebar-secure-control",
+          "link": "/",
+          "text": "Security Console",
+          "id": "secure_control"
+        },
+        {
+          "className": "icon-topbar-ram topbar-sidebar-ram1",
+          "link": "/",
+          "text": "RAM",
+          "id": "ram"
+        },
+        {
+          "className": "icon-topbar-accesskeys topbar-sidebar-accesskeys",
+          "link": "/",
+          "text": "accesskeys",
+          "id": "accesskeys"
+        },
+        {
+          "className": "icon-account topbar-sidebar-account",
+          "link": "/",
+          "text": "User Rights",
+          "id": "rights"
+        },
+        {
+          "className": "icon-account icon-score topbar-sidebar-score",
+          "link": "/",
+          "text": "User Club",
+          "id": "club"
+        },
+        {
+          "className": "icon-cps topbar-sidebar-cps topbar-sidebar-yundashi",
+          "link": "/",
+          "text": "Ambassador",
+          "id": "ambassador"
+        }
+      ],
+      "id": "user",
+      "link": "/",
+      "linkMap": {
+        "switchRole": {
+          "link": "/",
+          "text": "Switch Role",
+          "id": "switchRole",
+          "target": "_self"
+        },
+        "exitSwitchedRole": {
+          "link": "/",
+          "text": "Switch Back to Logon User",
+          "id": "exitSwitchedRole",
+          "target": "_self"
+        },
+        "signout": {
+          "link": "/",
+          "text": "Sign out",
+          "id": "signOut",
+          "target": "_self"
+        }
+      },
+      "labels": {
+        "3": "RAM User",
+        "4": "Role",
+        "currentAlias": "Current Alias",
+        "currentName": "Current Name",
+        "loginName": "Login Name",
+        "loginAlias": "Login Alias"
+      }
+    },
+    "workorder": {
+      "show": true,
+      "links": [{
+          "link": "/",
+          "text": "My Tickets",
+          "id": "workorder_own",
+          "target": "_blank"
+        },
+        {
+          "navRedirect": false,
+          "link": "/",
+          "text": "Open a new ticket",
+          "id": "workorder_add",
+          "target": "_blank"
+        }
+      ],
+      "link": "/",
+      "text": "Support",
+      "id": "workorder"
+    }
+  }
+}

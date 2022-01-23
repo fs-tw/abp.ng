@@ -1,0 +1,305 @@
+{
+  "nav": [{
+    "text": "About MS",
+    "left": [{
+        "text": "NG-ALAIN",
+        "list": [{
+            "text": "Data",
+            "link": "/data",
+            "tip": "NEW"
+          },
+          {
+            "text": "Component",
+            "link": "/component/antd",
+            "tip": "HOT"
+          },
+          {
+            "text": "DNS",
+            "link": "/dns/domain"
+          },
+          {
+            "text": "API",
+            "link": "/api/apis"
+          },
+          {
+            "text": "Authorize",
+            "link": "/authorize/local/grant"
+          },
+          {
+            "text": "User Settings",
+            "link": "/user"
+          },
+          {
+            "text": "Finance Center",
+            "link": "/finance"
+          },
+          {
+            "text": "Message Center",
+            "link": "/notifications/inner/all/0"
+          },
+          {
+            "text": "Smart Chat",
+            "link": "/smart"
+          },
+          {
+            "text": "Help Document",
+            "link": "/help"
+          }
+        ]
+      },
+      {
+        "text": "Category 1",
+        "list": [{
+            "text": "Link 1-1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2-2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 2",
+        "list": [{
+            "text": "Link 2-1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2-2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 3",
+        "list": [{
+            "text": "Link 3-1",
+            "link": "/"
+          },
+          {
+            "text": "Link 3-2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 4",
+        "list": [{
+            "text": "Link 4-1",
+            "link": "/"
+          },
+          {
+            "text": "Link 4-2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 5",
+        "list": [{
+            "text": "Link 5-1",
+            "link": "/"
+          },
+          {
+            "text": "Link 5-2",
+            "link": "/"
+          }
+        ]
+      }
+    ]
+  }, {
+    "text": "Left and right",
+    "leftColumn": 3,
+    "left": [{
+        "text": "Category 1",
+        "list": [{
+            "text": "Link 1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 2",
+        "list": [{
+            "text": "Link 1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 3",
+        "list": [{
+            "text": "Link 1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 4",
+        "list": [{
+            "text": "Link 1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 5",
+        "list": [{
+            "text": "Link 1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2",
+            "link": "/"
+          }
+        ]
+      }
+    ],
+    "right": [{
+        "text": "Right Category 1",
+        "list": [{
+            "text": "Link 1-1",
+            "link": "/"
+          },
+          {
+            "text": "Link 1-2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Right Category 2",
+        "list": [{
+            "text": "Link 2-1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2-2",
+            "link": "/"
+          }
+        ]
+      }
+    ]
+  }, {
+    "text": "Secondary menu 1",
+    "children": [{
+        "text": "Item 1",
+        "left": [{
+          "text": "Category 1",
+          "list": [{
+              "text": "Link 1",
+              "link": "/"
+            },
+            {
+              "text": "Link 2",
+              "link": "/"
+            }
+          ]
+        }]
+      },
+      {
+        "text": "Item 2",
+        "left": [{
+            "text": "Category 1",
+            "list": [{
+                "text": "Link 1",
+                "link": "/"
+              },
+              {
+                "text": "Link 2",
+                "link": "/"
+              }
+            ]
+          },
+          {
+            "text": "Category 2",
+            "list": [{
+                "text": "Link 1",
+                "link": "/"
+              },
+              {
+                "text": "Link 2",
+                "link": "/"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }, {
+    "text": "Secondary menu 2",
+    "children": [{
+        "text": "Item 1",
+        "left": [{
+          "text": "Category 1",
+          "list": [{
+              "text": "Link 1",
+              "link": "/"
+            },
+            {
+              "text": "Link 2",
+              "link": "/"
+            }
+          ]
+        }]
+      },
+      {
+        "text": "Item 2",
+        "left": [{
+            "text": "Category 1",
+            "list": [{
+                "text": "Link 1",
+                "link": "/"
+              },
+              {
+                "text": "Link 2",
+                "link": "/"
+              }
+            ]
+          },
+          {
+            "text": "Category 2",
+            "list": [{
+                "text": "Link 1",
+                "link": "/"
+              },
+              {
+                "text": "Link 2",
+                "link": "/"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }],
+  "navBottom": [{
+      "text": "NG-ALAIN",
+      "link": "https://ng-alain.com",
+      "target": "_blank"
+    },
+    {
+      "text": "Theme",
+      "link": "https://e.ng-alain.com/theme/ms",
+      "target": "_blank"
+    }
+  ],
+  "bottomText": "Bottom Text"
+}

@@ -4,6 +4,7 @@ const baseUrl = 'http://localhost:4200';
 
 export const environment = {
   production: true,
+  hmr: false,
   application: {
     baseUrl,
     name: 'MyProjectName',
@@ -19,7 +20,6 @@ export const environment = {
   apis: {
     default: {
       url: 'https://localhost:44305',
-      rootNamespace: 'MyCompanyName.MyProjectName',
     },
   },
 } as Environment;

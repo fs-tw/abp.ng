@@ -129,8 +129,7 @@
   "app.register.get-verification-code": "獲取驗證碼",
   "app.register.sign-in": "使用已有賬戶登錄",
   "app.register-result.msg": "妳的賬戶：{{email}} 註冊成功",
-  "app.register-result.activation-email":
-    "激活郵件已發送到妳的郵箱中，郵件有效期為24小時。請及時登錄郵箱，點擊郵件中的鏈接激活帳戶。",
+  "app.register-result.activation-email": "激活郵件已發送到妳的郵箱中，郵件有效期為24小時。請及時登錄郵箱，點擊郵件中的鏈接激活帳戶。",
   "app.register-result.back-home": "返回首頁",
   "app.register-result.view-mailbox": "檢視郵箱",
   "validation.email.required": "請輸入郵箱地址！",
@@ -148,5 +147,15 @@
   "validation.title.required": "請輸入標題",
   "validation.date.required": "請選擇起止日期",
   "validation.goal.required": "請輸入目標描述",
-  "validation.standard.required": "請輸入衡量標淮"
+  "validation.standard.required": "請輸入衡量標淮",
+  "common.list": "列錶",
+  "common.add": "添加",
+  "common.edit": "編輯",
+  "common.delete": "刪除",
+  "common.no-data": "暫無數據",
+  "common.captcha-btn.second": "秒",
+  "common.captcha-btn.send": "發送",
+  "validation.phone-number": "手機號",
+  "validation.verification-code": "驗證碼",
+  "validation.password": "密碼"
 }

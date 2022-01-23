@@ -1,0 +1,305 @@
+{
+  "nav": [{
+    "text": "关于我们",
+    "left": [{
+        "text": "NG-ALAIN",
+        "list": [{
+            "text": "数据",
+            "link": "/data",
+            "tip": "NEW"
+          },
+          {
+            "text": "组件",
+            "link": "/component/antd",
+            "tip": "HOT"
+          },
+          {
+            "text": "云解析 DNS",
+            "link": "/dns/domain"
+          },
+          {
+            "text": "API 网关",
+            "link": "/api/apis"
+          },
+          {
+            "text": "授权",
+            "link": "/authorize/local/grant"
+          },
+          {
+            "text": "用户设置",
+            "link": "/user"
+          },
+          {
+            "text": "财务中心",
+            "link": "/finance"
+          },
+          {
+            "text": "消息中心",
+            "link": "/notifications/inner/all/0"
+          },
+          {
+            "text": "智能顾问",
+            "link": "/smart"
+          },
+          {
+            "text": "帮助文档",
+            "link": "/help"
+          }
+        ]
+      },
+      {
+        "text": "Category 1",
+        "list": [{
+            "text": "Link 1-1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2-2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 2",
+        "list": [{
+            "text": "Link 2-1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2-2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 3",
+        "list": [{
+            "text": "Link 3-1",
+            "link": "/"
+          },
+          {
+            "text": "Link 3-2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 4",
+        "list": [{
+            "text": "Link 4-1",
+            "link": "/"
+          },
+          {
+            "text": "Link 4-2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 5",
+        "list": [{
+            "text": "Link 5-1",
+            "link": "/"
+          },
+          {
+            "text": "Link 5-2",
+            "link": "/"
+          }
+        ]
+      }
+    ]
+  }, {
+    "text": "左右结构",
+    "leftColumn": 3,
+    "left": [{
+        "text": "Category 1",
+        "list": [{
+            "text": "Link 1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 2",
+        "list": [{
+            "text": "Link 1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 3",
+        "list": [{
+            "text": "Link 1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 4",
+        "list": [{
+            "text": "Link 1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Category 5",
+        "list": [{
+            "text": "Link 1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2",
+            "link": "/"
+          }
+        ]
+      }
+    ],
+    "right": [{
+        "text": "Right Category 1",
+        "list": [{
+            "text": "Link 1-1",
+            "link": "/"
+          },
+          {
+            "text": "Link 1-2",
+            "link": "/"
+          }
+        ]
+      },
+      {
+        "text": "Right Category 2",
+        "list": [{
+            "text": "Link 2-1",
+            "link": "/"
+          },
+          {
+            "text": "Link 2-2",
+            "link": "/"
+          }
+        ]
+      }
+    ]
+  }, {
+    "text": "二级菜单1",
+    "children": [{
+        "text": "项一",
+        "left": [{
+          "text": "Category 1",
+          "list": [{
+              "text": "Link 1",
+              "link": "/"
+            },
+            {
+              "text": "Link 2",
+              "link": "/"
+            }
+          ]
+        }]
+      },
+      {
+        "text": "项二",
+        "left": [{
+            "text": "Category 1",
+            "list": [{
+                "text": "Link 1",
+                "link": "/"
+              },
+              {
+                "text": "Link 2",
+                "link": "/"
+              }
+            ]
+          },
+          {
+            "text": "Category 2",
+            "list": [{
+                "text": "Link 1",
+                "link": "/"
+              },
+              {
+                "text": "Link 2",
+                "link": "/"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }, {
+    "text": "二级菜单2",
+    "children": [{
+        "text": "项一",
+        "left": [{
+          "text": "Category 1",
+          "list": [{
+              "text": "Link 1",
+              "link": "/"
+            },
+            {
+              "text": "Link 2",
+              "link": "/"
+            }
+          ]
+        }]
+      },
+      {
+        "text": "项二",
+        "left": [{
+            "text": "Category 1",
+            "list": [{
+                "text": "Link 1",
+                "link": "/"
+              },
+              {
+                "text": "Link 2",
+                "link": "/"
+              }
+            ]
+          },
+          {
+            "text": "Category 2",
+            "list": [{
+                "text": "Link 1",
+                "link": "/"
+              },
+              {
+                "text": "Link 2",
+                "link": "/"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }],
+  "navBottom": [{
+      "text": "NG-ALAIN 官网",
+      "link": "https://ng-alain.com",
+      "target": "_blank"
+    },
+    {
+      "text": "主题官网",
+      "link": "https://e.ng-alain.com/theme/ms",
+      "target": "_blank"
+    }
+  ],
+  "bottomText": "底部信息"
+}

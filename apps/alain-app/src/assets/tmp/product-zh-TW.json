@@ -1,0 +1,233 @@
+{
+  "i18n": {
+    "showAll": true,
+    "keywords": "請輸入關鍵詞",
+    "allProduct": "查詢全部産品",
+    "show": true,
+    "hasResult": "以下是與“<strong>{filterTxt}</strong>”相關的産品：",
+    "noResult": "未找到與“<strong>{filterTxt}</strong>”相關的産品。",
+    "text": "産品與服務",
+    "recent": "最近訪問"
+  },
+  "categories": [{
+      "id": "ng-alain",
+      "name": "Ng Alain 服務",
+      "products": [
+        "data",
+        "component",
+        "dns",
+        "apigateway",
+        "authorize",
+        "smart",
+        "user",
+        "finance",
+        "notifications",
+        "help"
+      ]
+    },
+    {
+      "name": "基礎",
+      "id": "basic",
+      "categories": [{
+          "name": "分類一",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "分類二",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "分類三",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "分類四",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "分類五",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "分類六",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "分類七",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "分類八",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "分類九",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "分類十",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "分類十一",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "分類十二",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        }
+      ]
+    }
+  ],
+  "products": {
+    "data": {
+      "productId": "data",
+      "name": "數據",
+      "link": "/data",
+      "icon": "icon-cms",
+      "description": "",
+      "shortcut": true
+    },
+    "component": {
+      "productId": "component",
+      "name": "組件",
+      "link": "/component",
+      "icon": "icon-edas",
+      "description": "重新定義ng-zorro-antd組件風格",
+      "shortcut": true
+    },
+    "dns": {
+      "productId": "dns",
+      "name": "雲解析 DNS",
+      "link": "/dns",
+      "icon": "icon-dns",
+      "description": null,
+      "shortcut": true
+    },
+    "apigateway": {
+      "productId": "apigateway",
+      "name": "API 網關",
+      "link": "/api",
+      "icon": "icon-mq",
+      "description": "高性能、高可用的 API 托管服務，低成本開放 API",
+      "shortcut": true
+    },
+    "authorize": {
+      "productId": "authorize",
+      "name": "授權",
+      "link": "/authorize",
+      "icon": "icon-hsm",
+      "description": "",
+      "shortcut": true
+    },
+    "smart": {
+      "productId": "smart",
+      "name": "智能顧問",
+      "link": "/smart",
+      "icon": "icon-sms",
+      "description": "",
+      "shortcut": true
+    },
+    "user": {
+      "productId": "user",
+      "name": "用戶設定",
+      "link": "/user",
+      "icon": "icon-user",
+      "description": "",
+      "shortcut": true
+    },
+    "finance": {
+      "productId": "finance",
+      "name": "財務中心",
+      "link": "/finance",
+      "icon": "icon-finance",
+      "description": "",
+      "shortcut": true
+    },
+    "notifications": {
+      "productId": "notifications",
+      "name": "消息中心",
+      "link": "/notifications/inner/all/0",
+      "icon": "icon-mail",
+      "description": "",
+      "shortcut": true
+    },
+    "help": {
+      "productId": "help",
+      "name": "幫助文檔",
+      "link": "/help",
+      "icon": "icon-help",
+      "description": "",
+      "shortcut": true
+    },
+    "demo1": {
+      "productId": "demo1",
+      "name": "DEMO1",
+      "link": "/",
+      "icon": "icon-help",
+      "description": ""
+    },
+    "demo2": {
+      "productId": "demo2",
+      "name": "DEMO2",
+      "link": "/",
+      "icon": "icon-help",
+      "description": ""
+    },
+    "demo3": {
+      "productId": "demo3",
+      "name": "DEMO3",
+      "link": "/",
+      "icon": "icon-help",
+      "description": ""
+    }
+  }
+}

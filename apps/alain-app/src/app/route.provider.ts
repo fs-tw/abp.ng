@@ -1,7 +1,5 @@
 import { RoutesService, eLayoutType } from '@abp/ng.core';
-import { eThemeSharedRouteNames } from '@abp/ng.theme.shared';
 import { APP_INITIALIZER } from '@angular/core';
-
 
 export const APP_ROUTE_PROVIDER = [
   { provide: APP_INITIALIZER, useFactory: configureRoutes, deps: [RoutesService], multi: true },
@@ -9,7 +7,6 @@ export const APP_ROUTE_PROVIDER = [
 
 function configureRoutes(routesService: RoutesService) {
   return () => {
-    
     routesService.add([
       {
         path: '/',
@@ -17,7 +14,7 @@ function configureRoutes(routesService: RoutesService) {
         iconClass: 'fas fa-home',
         order: 1,
         layout: eLayoutType.application,
-      }
+      },
     ]);
   };
 }

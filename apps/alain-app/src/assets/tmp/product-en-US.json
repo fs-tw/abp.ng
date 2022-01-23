@@ -1,0 +1,233 @@
+{
+  "i18n": {
+    "showAll": true,
+    "keywords": "Entry keywords",
+    "allProduct": "Show all products",
+    "show": true,
+    "hasResult": "We find some products related to“<strong>{filterTxt}</strong>”：",
+    "noResult": "We cannot find a product related to“<strong>{filterTxt}</strong>”：",
+    "text": "Products",
+    "recent": "Recently Visited"
+  },
+  "categories": [{
+      "id": "ng-alain",
+      "name": "Ng Alain services",
+      "products": [
+        "data",
+        "component",
+        "dns",
+        "apigateway",
+        "authorize",
+        "smart",
+        "user",
+        "finance",
+        "notifications",
+        "help"
+      ]
+    },
+    {
+      "name": "Basic",
+      "id": "basic",
+      "categories": [{
+          "name": "Category 1",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "Category 2",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "Category 3",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "Category 4",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "Category 5",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "Category 6",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "Category 7",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "Category 8",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "Category 9",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "Category 10",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "Category 11",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        },
+        {
+          "name": "Category 12",
+          "products": [
+            "demo1",
+            "demo2",
+            "demo3"
+          ]
+        }
+      ]
+    }
+  ],
+  "products": {
+    "data": {
+      "productId": "data",
+      "name": "Data",
+      "link": "/data",
+      "icon": "icon-cms",
+      "description": "",
+      "shortcut": true
+    },
+    "component": {
+      "productId": "component",
+      "name": "Component",
+      "link": "/component",
+      "icon": "icon-edas",
+      "description": "重新定义ng-zorro-antd组件风格",
+      "shortcut": true
+    },
+    "dns": {
+      "productId": "dns",
+      "name": "Cloud DNS",
+      "link": "/dns",
+      "icon": "icon-dns",
+      "description": null,
+      "shortcut": true
+    },
+    "apigateway": {
+      "productId": "apigateway",
+      "name": "API Gateway",
+      "link": "/api",
+      "icon": "icon-mq",
+      "description": null,
+      "shortcut": true
+    },
+    "authorize": {
+      "productId": "authorize",
+      "name": "Authorize",
+      "link": "/authorize",
+      "icon": "icon-hsm",
+      "description": "",
+      "shortcut": true
+    },
+    "smart": {
+      "productId": "smart",
+      "name": "Smart",
+      "link": "/smart",
+      "icon": "icon-sms",
+      "description": "",
+      "shortcut": true
+    },
+    "user": {
+      "productId": "user",
+      "name": "User Settings",
+      "link": "/user",
+      "icon": "icon-user",
+      "description": "",
+      "shortcut": true
+    },
+    "finance": {
+      "productId": "finance",
+      "name": "Finance Center",
+      "link": "/finance",
+      "icon": "icon-finance",
+      "description": "",
+      "shortcut": true
+    },
+    "notifications": {
+      "productId": "notifications",
+      "name": "Message Center",
+      "link": "/notifications/inner/all/0",
+      "icon": "icon-mail",
+      "description": "",
+      "shortcut": true
+    },
+    "help": {
+      "productId": "help",
+      "name": "Help Document",
+      "link": "/help",
+      "icon": "icon-help",
+      "description": "",
+      "shortcut": true
+    },
+    "demo1": {
+      "productId": "demo1",
+      "name": "DEMO1",
+      "link": "/",
+      "icon": "icon-help",
+      "description": ""
+    },
+    "demo2": {
+      "productId": "demo2",
+      "name": "DEMO2",
+      "link": "/",
+      "icon": "icon-help",
+      "description": ""
+    },
+    "demo3": {
+      "productId": "demo3",
+      "name": "DEMO3",
+      "link": "/",
+      "icon": "icon-help",
+      "description": ""
+    }
+  }
+}

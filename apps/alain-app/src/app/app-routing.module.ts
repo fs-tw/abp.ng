@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'identity',
-    loadChildren: () => import('./identity-extended/identity-extended.module').then(m=>m.IdentityExtendedModule)
+    loadChildren: () => import('@abp/ng.identity').then(m => m.IdentityModule.forLazy()),
   },
   {
     path: 'tenant-management',
@@ -24,7 +24,7 @@ const routes: Routes = [
     path: 'setting-management',
     loadChildren: () =>
       import('@abp/ng.setting-management').then(m => m.SettingManagementModule.forLazy()),
-  }
+  },
 ];
 
 @NgModule({

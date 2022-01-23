@@ -1,14 +1,14 @@
 {
   "npmScope": "fs-tw",
+  "affected": {
+    "defaultBase": "master"
+  },
   "implicitDependencies": {
     "package.json": {
       "dependencies": "*",
       "devDependencies": "*"
     },
     ".eslintrc.json": "*"
-  },
-  "affected": {
-    "defaultBase": "master"
   },
   "tasksRunnerOptions": {
     "default": {
@@ -23,15 +23,12 @@
       }
     }
   },
-  "projects": {
-    "alain-app": {
-      "tags": []
-    },
-    "dev-app": {
-      "tags": []
-    },
-    "theme-alain": {
-      "tags": []
-    }
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   }
 }
