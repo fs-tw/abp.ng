@@ -2,7 +2,7 @@
   "name": "dev-app",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "fs-tw",
+  "prefix": "app",
   "sourceRoot": "apps/dev-app/src",
   "tags": [],
   "targets": {
@@ -16,8 +16,87 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/dev-app/tsconfig.app.json",
         "assets": ["apps/dev-app/src/favicon.ico", "apps/dev-app/src/assets"],
-        "styles": ["apps/dev-app/src/styles.scss"],
-        "scripts": []
+        "styles": [
+          {
+            "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+            "inject": true,
+            "bundleName": "fontawesome-all.min"
+          },
+          {
+            "input": "node_modules/@fortawesome/fontawesome-free/css/v4-shims.min.css",
+            "inject": true,
+            "bundleName": "fontawesome-v4-shims.min"
+          },
+          {
+            "input": "node_modules/@swimlane/ngx-datatable/index.css",
+            "inject": true,
+            "bundleName": "ngx-datatable-index"
+          },
+          {
+            "input": "node_modules/@swimlane/ngx-datatable/assets/icons.css",
+            "inject": true,
+            "bundleName": "ngx-datatable-icons"
+          },
+          {
+            "input": "node_modules/@swimlane/ngx-datatable/themes/material.css",
+            "inject": true,
+            "bundleName": "ngx-datatable-material"
+          },
+          {
+            "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/bootstrap-dim.css",
+            "inject": false,
+            "bundleName": "bootstrap-dim"
+          },
+          {
+            "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/ng-bundle.css",
+            "inject": false,
+            "bundleName": "ng-bundle"
+          },
+          {
+            "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/side-menu/layout-bundle.css",
+            "inject": false,
+            "bundleName": "layout-bundle"
+          },
+          {
+            "input": "node_modules/@abp/ng.theme.lepton-x/assets/css/abp-bundle.css",
+            "inject": false,
+            "bundleName": "abp-bundle"
+          },
+          {
+            "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/bootstrap-dim.rtl.css",
+            "inject": false,
+            "bundleName": "bootstrap-dim.rtl"
+          },
+          {
+            "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/font-bundle.css",
+            "inject": false,
+            "bundleName": "font-bundle"
+          },
+          {
+            "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/font-bundle.rtl.css",
+            "inject": false,
+            "bundleName": "font-bundle.rtl"
+          },
+          {
+            "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/ng-bundle.rtl.css",
+            "inject": false,
+            "bundleName": "ng-bundle.rtl"
+          },
+          {
+            "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/side-menu/layout-bundle.rtl.css",
+            "inject": false,
+            "bundleName": "layout-bundle.rtl"
+          },
+          {
+            "input": "node_modules/@abp/ng.theme.lepton-x/assets/css/abp-bundle.rtl.css",
+            "inject": false,
+            "bundleName": "abp-bundle.rtl"
+          },
+          "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+          "apps/dev-app/src/styles.scss"
+        ],
+        "scripts": [],
+        "allowedCommonJsDependencies": ["chart.js", "js-sha256"]
       },
       "configurations": {
         "production": {
@@ -69,20 +148,6 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/dev-app/**/*.ts", "apps/dev-app/**/*.html"]
-      }
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "apps/dev-app/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
       }
     }
   }

@@ -45,7 +45,7 @@ export async function applicationGenerator(
 
   generateFiles(tree, joinPathFragments(__dirname, `files/${options.template}`), appRoot, options);
 
-  switch (options.name) {
+  switch (options.template) {
     case 'app':
       appUpdateProjectConfigurationJson(tree, options);
       break;

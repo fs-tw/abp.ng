@@ -16,7 +16,7 @@ export async function packageAddGenerator(
     case 'app':
       packageInstallationTask = addAppToPackageJson(tree);
       break;
-    case 'app-app':
+    case 'app-pro':
       packageInstallationTask = addAppProToPackageJson(tree);
       break;
   }

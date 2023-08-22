@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
 
 @Component({
-  standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
-  selector: 'fs-tw-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'app-root',
+  template: `
+    <abp-loader-bar></abp-loader-bar>
+    <abp-dynamic-layout></abp-dynamic-layout>
+  `,
 })
-export class AppComponent {
-  title = 'dev-app';
-}
+export class AppComponent {}
