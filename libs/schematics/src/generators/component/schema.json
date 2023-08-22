@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "Component",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "componentType": {
+      "type": "string",
+      "enum": ["basic-page","setting-page", "setting-tab", "tree-page","state-page","state-tab"],
+      "description": "main page or content tab.",
+      "default": "basic-page"
+    },
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      },
+      "x-dropdown": "projects"
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "$default": {
+        "$source": "workingDirectory"
+      },
+      "description": "The path at which to create the interface that defines the directive, relative to the workspace root.",
+      "visible": false
+    }
+  },
+  "required": ["componentType", "name", "project"]
+}

@@ -1,0 +1,43 @@
+import { CoreModule, ListService } from '@abp/ng.core';
+import { EXTENSIONS_IDENTIFIER, UiExtensionsModule } from '@abp/ng.theme.shared/extensions';
+import { Component } from '@angular/core';
+import { IdentityUserDto } from '@volo/abp.ng.identity/proxy';
+import { eIdentityComponents } from '@volo/abp.ng.identity';
+import {
+  AbstractOrganizationUnitComponent,
+  OrganizationUnitConfig,
+  ORGANIZATION_UNIT_CONFIG,
+} from '../abstract-organization-unit/abstract-organization-unit.component';
+import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { Selected<%= className %>Component } from '../selected-organization-unit/selected-organization-unit.component';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { OrganizationMembersModalBodyComponent } from './organization-members-modal-body.component';
+
+@Component({
+  selector: 'app-organization-members',
+  templateUrl: './organization-members.component.html',
+  providers: [
+    ListService,
+    {
+      provide: EXTENSIONS_IDENTIFIER,
+      useValue: eIdentityComponents.OrganizationMembers,
+    },
+    {
+      provide: ORGANIZATION_UNIT_CONFIG,
+      useValue: {
+        getCurrentUnitsMethodName: 'getMembers',
+        addUnitsMethodName: 'addMembers',
+        addUnitsBodyPropName: 'userIds',
+        deleteMethodName: 'removeMember',
+        deletionLocalizationKey: 'AbpIdentity::RemoveUserFromOuWarningMessage',
+      } as OrganizationUnitConfig,
+    },
+  ],
+  standalone: true,
+  imports: [
+    CoreModule, ThemeSharedModule, UiExtensionsModule,
+    OrganizationMembersModalBodyComponent, Selected<%= className %>Component]
+})
+export class OrganizationMembersComponent extends AbstractOrganizationUnitComponent<IdentityUserDto> {
+  modalOption: NgbModalOptions = { size: 'xl' };
+}

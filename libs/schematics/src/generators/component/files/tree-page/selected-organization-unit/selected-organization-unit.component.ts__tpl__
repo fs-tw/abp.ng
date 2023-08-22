@@ -1,0 +1,13 @@
+import { Component } from '@angular/core';
+import { <%= className %>StateService } from '../<%= fileName %>-state.service';
+import { CoreModule } from '@abp/ng.core';
+
+@Component({
+  selector: 'app-selected-organization-unit',
+  templateUrl: './selected-organization-unit.component.html',
+  standalone: true,
+  imports: [CoreModule]
+})
+export class Selected<%= className %>Component {
+  constructor(public <%= propertyName %>StateService: <%= className %>StateService) { }
+}

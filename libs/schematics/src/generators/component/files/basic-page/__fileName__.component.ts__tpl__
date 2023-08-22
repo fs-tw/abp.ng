@@ -1,0 +1,108 @@
+import { CoreModule, ListService, PagedResultDto } from '@abp/ng.core';
+import { ConfirmationService, ThemeSharedModule } from '@abp/ng.theme.shared';
+import {
+  EXTENSIONS_IDENTIFIER,
+  FormPropData,
+  UiExtensionsModule,
+  generateFormFromProps,
+} from '@abp/ng.theme.shared/extensions';
+import { Component, Injector, OnInit } from '@angular/core';
+import {
+  GetIdentityRoleListInput,
+  IdentityRoleDto,
+  IdentityRoleService,
+} from '@volo/abp.ng.identity/proxy';
+import { PermissionManagementModule } from '@abp/ng.permission-management';
+import { PageModule } from '@abp/ng.components/page';
+
+import { e<%= className %>Names } from './<%= fileName %>.model';
+import { AdvancedEntityFiltersModule } from '@volo/abp.commercial.ng.ui';
+import { UntypedFormGroup } from '@angular/forms';
+import { finalize, take } from 'rxjs';
+
+@Component({
+  selector: '<%= selector %>',
+  templateUrl: './<%= fileName %>.component.html',
+  providers: [
+    ListService,
+    {
+      provide: EXTENSIONS_IDENTIFIER,
+      useValue: e<%= className %>Names.<%= className %>,
+    },
+  ],
+  standalone:true,
+  imports:[CoreModule,ThemeSharedModule,UiExtensionsModule,PermissionManagementModule,PageModule,AdvancedEntityFiltersModule]
+})
+export class <%= className %>Component implements OnInit {
+  data: PagedResultDto<IdentityRoleDto> = { items: [], totalCount: 0 };
+
+  form!: UntypedFormGroup;
+
+  selected!: IdentityRoleDto;
+
+  isModalVisible!: boolean;
+
+  modalBusy = false;
+
+  constructor(
+    public readonly list: ListService<GetIdentityRoleListInput>,
+    protected confirmationService: ConfirmationService,
+    protected service: IdentityRoleService,
+    protected injector: Injector,
+  ) {}
+
+  private hookToQuery() {
+    this.list.hookToQuery(query => this.service.getList(query)).subscribe(res => (this.data = res));
+  }
+
+  ngOnInit() {
+    this.hookToQuery();
+  }
+
+  private createForm() {
+    const data = new FormPropData(this.injector, this.selected);
+    this.form = generateFormFromProps(data);
+  }
+
+  openModal() {
+    this.createForm();
+    this.isModalVisible = true;
+  }
+
+  onAdd() {
+    this.selected = {} as IdentityRoleDto;
+    this.openModal();
+  }
+
+  onEdit(id: string) {
+    this.service
+      .get(id)
+      .pipe(take(1))
+      .subscribe(selectedRole => {
+        this.selected = selectedRole;
+        this.openModal();
+      });
+  }
+
+  save() {
+    if (!this.form.valid) return;
+    this.modalBusy = true;
+
+    const { id } = this.selected;
+
+    (id
+      ? this.service.update(id, {
+          ...this.selected,
+          ...this.form.value,
+          id: this.selected.id,
+          concurrencyStamp: this.selected.concurrencyStamp,
+        })
+      : this.service.create(this.form.value)
+    )
+      .pipe(finalize(() => (this.modalBusy = false)))
+      .subscribe(() => {
+        this.list.get();
+        this.isModalVisible = false;
+      });
+  }
+}

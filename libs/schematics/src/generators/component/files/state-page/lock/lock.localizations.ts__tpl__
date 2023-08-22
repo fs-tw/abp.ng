@@ -1,0 +1,26 @@
+export default [
+  {
+    culture: 'en',
+    resources: [
+      {
+        resourceName: '<%= className %>',
+        texts: {
+          ['Menu:Lock']: 'Lock',
+          SuccessfullySaved: 'SuccessfullySaved',
+        },
+      },
+    ],
+  },
+  {
+    culture: 'zh-Hant',
+    resources: [
+      {
+        resourceName: '<%= className %>',
+        texts: {
+          ['Menu:Lock']: 'Lock',
+          SuccessfullySaved: 'SuccessfullySaved',
+        },
+      },
+    ],
+  },
+];

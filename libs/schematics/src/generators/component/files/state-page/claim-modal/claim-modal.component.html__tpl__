@@ -1,0 +1,108 @@
+<abp-modal [(visible)]="visible" [busy]="modalBusy">
+  <ng-template #abpHeader>
+    <h5 class="modal-title">{{ 'AbpIdentity::Claims' | abpLocalization }}</h5>
+  </ng-template>
+  <ng-template #abpBody>
+    <form
+      (ngSubmit)="addClaim(ngForm)"
+      #ngForm="ngForm"
+      [formGroup]="form"
+      validateOnSubmit
+      [markAsDirtyWhenSubmit]="false"
+    >
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label" for="claimTypeSelect">{{
+              'AbpIdentity::Type' | abpLocalization
+            }}</label
+            ><select
+              autofocus
+              id="claimTypeSelect"
+              class="form-select form-control"
+              formControlName="claimType"
+              (change)="claimTypeChange()"
+            >
+              <option *ngFor="let type of claimTypes" [ngValue]="type.name">
+                {{ type.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label" for="newClaimValue">
+              {{ 'AbpIdentity::ClaimValue' | abpLocalization }}
+            </label>
+
+            <select
+              *ngIf="inputType === 'Boolean'; else otherInput"
+              autofocus
+              id="newClaimValueBool"
+              class="form-select form-control"
+              formControlName="claimValue"
+            >
+              <option ngValue="true">{{ 'AbpIdentity::True' | abpLocalization }}</option>
+              <option ngValue="false">{{ 'AbpIdentity::False' | abpLocalization }}</option>
+            </select>
+            <ng-template #otherInput>
+              <input
+                required
+                id="newClaimValue"
+                [type]="inputType"
+                class="form-control"
+                formControlName="claimValue"
+              />
+            </ng-template>
+          </div>
+        </div>
+        <div class="col-md-12 align-self-center d-grid">
+          <button class="btn btn-success" type="submit">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            {{ 'AbpIdentity::AddClaim' | abpLocalization }}
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <div class="willBeHidden mt-3" *ngIf="subjectClaims && subjectClaims.length">
+      <div class="input-group mb-3" *ngFor="let claim of subjectClaims; let i = index">
+        <div class="input-group-prepend">
+          <label class="input-group-text mw-100 h-100 fs-9">{{ claim.claimType }}</label>
+        </div>
+
+        <select
+          *ngIf="subjectClaims[i].inputType === 'Boolean'; else otherSubjectInput"
+          autofocus
+          class="form-control"
+          [(ngModel)]="subjectClaims[i].claimValue"
+        >
+          <option ngValue="true">{{ 'AbpIdentity::True' | abpLocalization }}</option>
+          <option ngValue="false">{{ 'AbpIdentity::False' | abpLocalization }}</option>
+        </select>
+
+        <ng-template #otherSubjectInput>
+          <input
+            [type]="subjectClaims[i].inputType"
+            class="form-control"
+            [(ngModel)]="subjectClaims[i].claimValue"
+            required
+          />
+        </ng-template>
+        <div class="input-group-append">
+          <button class="btn btn-danger deleteClaim" (click)="removeClaim(i)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpIdentity::Cancel' | abpLocalization }}
+    </button>
+    <abp-button iconClass="fa fa-check" (click)="save()">{{
+      'AbpIdentity::Save' | abpLocalization
+    }}</abp-button>
+  </ng-template>
+</abp-modal>

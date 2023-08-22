@@ -1,0 +1,4 @@
+export const enum e<%= className %>Names {
+  <%= className %> = '<%= className %>.<%= className %>Component',
+}
+

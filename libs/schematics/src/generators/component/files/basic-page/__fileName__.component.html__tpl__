@@ -1,0 +1,35 @@
+<abp-page [title]="'<%= className %>::PageTitle' | abpLocalization" [toolbar]="data.items">
+  <div id="<%= propertyName %>-wrapper">
+    <abp-advanced-entity-filters localizationSourceName="<%= className %>" [list]="list">
+    </abp-advanced-entity-filters>
+
+    <div class="card">
+      <abp-extensible-table
+        [data]="data.items!"
+        [recordsTotal]="data.totalCount!"
+        [list]="list"
+      ></abp-extensible-table>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [(visible)]="isModalVisible" [busy]="modalBusy">
+  <ng-template #abpHeader>
+    <h3>{{ (selected.id ? '<%= className %>::Edit' : '<%= className %>::New') | abpLocalization }}</h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" id="<%= propertyName %>Form" (ngSubmit)="save()" [validateOnSubmit]="true">
+      <abp-extensible-form [selectedRecord]="selected"></abp-extensible-form>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ '<%= className %>::Cancel' | abpLocalization }}
+    </button>
+    <abp-button iconClass="fa fa-check" buttonType="submit" formName="<%= propertyName %>Form">{{
+      '<%= className %>::Save' | abpLocalization
+    }}</abp-button>
+  </ng-template>
+</abp-modal>

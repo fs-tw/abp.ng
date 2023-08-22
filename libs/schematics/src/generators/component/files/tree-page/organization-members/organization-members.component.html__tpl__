@@ -1,0 +1,33 @@
+<div class="py-2 d-flex justify-content-between">
+  <app-selected-organization-unit></app-selected-organization-unit>
+  <button class="btn btn-sm btn-primary mb-2" (click)="openModal()">
+    <i class="fas fa-plus me-1" aria-hidden="true"></i> {{ 'AbpIdentity::AddMember' | abpLocalization }}
+  </button>
+</div>
+<abp-extensible-table
+  [data]="currentOrganizationUnits.items!"
+  [recordsTotal]="currentOrganizationUnits.totalCount!"
+  [list]="list"
+></abp-extensible-table>
+
+<abp-modal [(visible)]="isModalVisible" [busy]="isModalBusy" [options]="modalOption" >
+  <ng-template #abpHeader>
+    <h3>{{ 'AbpIdentity::SelectUsers' | abpLocalization }}</h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <app-organization-members-modal-body
+      [checkedUnits]="checkedUnits"
+      [isCheckboxDisabled]="isCheckboxDisabled"
+    ></app-organization-members-modal-body>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpIdentity::Cancel' | abpLocalization }}
+    </button>
+    <abp-button iconClass="fa fa-check" (click)="addUnits()">{{
+      'AbpIdentity::Save' | abpLocalization
+    }}</abp-button>
+  </ng-template>
+</abp-modal>

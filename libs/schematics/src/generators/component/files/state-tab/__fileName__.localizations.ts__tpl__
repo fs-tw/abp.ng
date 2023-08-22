@@ -1,0 +1,26 @@
+export default [
+  {
+    culture: 'en',
+    resources: [
+      {
+        resourceName: '<%= namePathName %>',
+        texts: {
+          ['Menu:<%= className %>']: '<%= className %>',
+          SuccessfullySaved: 'SuccessfullySaved',
+        },
+      },
+    ],
+  },
+  {
+    culture: 'zh-Hant',
+    resources: [
+      {
+        resourceName: '<%= namePathName %>',
+        texts: {
+          ['Menu:<%= className %>']: '<%= className %>',
+          SuccessfullySaved: 'SuccessfullySaved',
+        },
+      },
+    ],
+  },
+];
