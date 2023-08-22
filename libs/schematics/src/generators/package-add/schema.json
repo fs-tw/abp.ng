@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "PackageAdd",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "enum": ["app-pro", "app"],
+      "description": "",
+      "default": "app-pro",
+      "x-prompt": "What name would you like to use?"
+    }
+  },
+  "required": ["name"]
+}

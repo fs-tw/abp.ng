@@ -1,0 +1,114 @@
+<abp-page
+  [title]="'<%= className %>::PageTitle' | abpLocalization"
+>
+
+  <div class="row">
+    <div *abpPermission="''" class="col-12 col-lg-6 col-xl-5">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between">
+          <h5>
+            {{ '<%= className %>::TreeTitle' | abpLocalization }}
+          </h5>
+          <button class="btn btn-sm btn-primary" (click)="add()">
+            <i class="fas fa-plus me-1" aria-hidden="true"></i> {{ '<%= className %>::AddRoot' | abpLocalization }}
+          </button>
+        </div>
+        <div class="card-body" [abpLoading]="loading">
+          <abp-tree
+            [nodes]="nodes"
+            [(expandedKeys)]="expandedKeys"
+            [selectedNode]="selectedUnit"
+            (selectedNodeChange)="setSelectedUnit($event)"
+            [draggable]="true"
+            (dropOver)="onDrop($event)"
+          >
+            <ng-template abpTreeNodeTemplate let-node>
+              <i class="fas fa-folder fs-15px text-primary me-1" aria-hidden="true"></i>
+              {{ node.title }}
+            </ng-template>
+
+            <ng-template #menu let-node>
+              <li class="pointer" ngbDropdownItem (click)="edit(node.origin.entity)">
+                {{ '<%= className %>::Edit' | abpLocalization }}
+              </li>
+              <li class="pointer" ngbDropdownItem (click)="addSubUnit(node.origin.entity)">
+                {{ '<%= className %>::AddSub' | abpLocalization }}
+              </li>
+              <li class="pointer" ngbDropdownItem (click)="delete(node.origin.entity)">
+                {{ '<%= className %>::Delete' | abpLocalization }}
+              </li>
+            </ng-template>
+          </abp-tree>
+          <p *ngIf="!loading && !nodes?.length" class="text-muted">
+            {{ '<%= className %>::NoDatas' | abpLocalization }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *abpPermission="''"
+      class="col-12 col-lg-6 col-xl-7"
+    >
+      <ul ngbNav #nav="ngbNav" class="nav-tabs">
+        <li ngbNavItem *abpPermission="''">
+          <a ngbNavLink>{{ '<%= className %>::List' | abpLocalization }}</a>
+          <ng-template ngbNavContent>
+            <ng-container *ngIf="selectedUnit; else selectUnitMsg">
+              <app-organization-members [selectedOrganizationUnit]="selectedUnit"
+              ></app-organization-members>
+            </ng-container>
+            <ng-template #selectUnitMsg>
+              <p class="text-muted">
+                {{ '<%= className %>::SelectDataFirst' | abpLocalization }}
+              </p>
+            </ng-template>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav"></div>
+    </div>
+  </div>
+</abp-page>
+<abp-modal [(visible)]="isNodeModalVisible" [busy]="isModalBusy">
+  <ng-template #abpHeader>
+    <h3>
+      {{
+        ( nodeId
+          ? '<%= className %>::EditOrganizationUnit'
+          : '<%= className %>::NewOrganizationUnit'
+        ) | abpLocalization
+      }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <div class="mb-3" *ngIf="nodeForm.get('parentId')?.value as parentId">
+      <strong>{{
+        '<%= className %>::OrganizationUnit:Parent{0}' | abpLocalization: getParentName(parentId)
+      }}</strong>
+    </div>
+    <form [formGroup]="nodeForm" (ngSubmit)="save()" [validateOnSubmit]="true">
+      <div class="mb-3 form-group">
+        <label class="form-label"
+          >{{ '<%= className %>::DisplayName' | abpLocalization
+          }}<span class="ms-1">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          formControlName="displayName"
+        />
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ '<%= className %>::Cancel' | abpLocalization }}
+    </button>
+    <abp-button iconClass="fa fa-check" (click)="save()" [disabled]="nodeForm?.invalid">{{
+      '<%= className %>::Save' | abpLocalization
+    }}</abp-button>
+  </ng-template>
+</abp-modal>

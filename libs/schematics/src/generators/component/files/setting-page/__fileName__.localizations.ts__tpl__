@@ -1,0 +1,24 @@
+export default  [
+  {
+    "culture": "en",
+    "resources": [
+      {
+        "resourceName": "<%= className %>",
+        "texts": {
+          "PageTitle": "PageTitle"
+        }
+      }
+    ]
+  },
+  {
+    "culture": "zh-Hant",
+    "resources": [
+      {
+        "resourceName": "<%= className %>",
+        "texts": {
+          "PageTitle": "PageTitle"
+        }
+      }
+    ]
+  }
+] 

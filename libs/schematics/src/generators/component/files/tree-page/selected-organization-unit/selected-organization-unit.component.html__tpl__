@@ -1,0 +1,3 @@
+<h2 *ngIf="<%= propertyName %>StateService.getSelectedNode$() | async as selectedNode">
+  {{ selectedNode.displayName }}
+</h2>

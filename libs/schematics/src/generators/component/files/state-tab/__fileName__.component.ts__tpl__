@@ -1,0 +1,53 @@
+import {
+  collapse,
+  ThemeSharedModule,
+  ToasterService,
+} from '@abp/ng.theme.shared';
+import { Component, inject, Injector, OnInit } from '@angular/core';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup
+} from '@angular/forms';
+import { finalize } from 'rxjs/operators';
+import { PageModule } from '@abp/ng.components/page';
+import { CoreModule } from '@abp/ng.core';
+import { IdentityUserService } from '@volo/abp.ng.identity/proxy';
+import { <%= namePathName %>StateService } from '../<%= namePath %>-state.service';
+
+@Component({
+  selector: '<%= selector %>',
+  templateUrl: '<%= fileName %>.component.html',
+  animations: [collapse],
+  standalone: true,
+  imports: [CoreModule, ThemeSharedModule, PageModule],
+})
+export class <%= className %>Component implements OnInit {
+  public injector = inject(Injector);
+  private fb = inject(UntypedFormBuilder);
+  public service = inject(IdentityUserService);
+  public stateService = inject(<%= namePathName %>StateService);
+  private toasterService = inject(ToasterService);
+
+  <%= propertyName %>Form!: UntypedFormGroup;
+
+  saving = false;
+
+  ngOnInit(): void {
+    this.<%= propertyName %>Form = this.fb.group({
+    });
+  }
+
+  save() {
+    if (this.saving || this.<%= propertyName %>Form.invalid) return;
+
+    this.saving = true;
+    this.service
+      .updatePassword(this.stateService.getSelected()?.id as string, this.<%= propertyName %>Form.value)
+      .pipe(finalize(() => (this.saving = false)))
+      .subscribe(() => {
+        this.toasterService.success('Users::SuccessfullySaved');
+        this.<%= propertyName %>Form.reset();
+        this.stateService.setSelected(undefined);
+      });
+  }
+}

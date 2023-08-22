@@ -1,0 +1,33 @@
+import { inject } from '@angular/core';
+import { Routes } from '@angular/router';
+import { provide<%= className %> } from './<%= fileName %>.provide'
+import { <%= className %><%= typeClassName %> } from './<%= fileName %>.component';
+import { <%= className %>TabsService } from './<%= fileName %>-tabs.service';
+import { eEmailSettingsNames, eEmailSettingsPolicyNames } from './email-settings/email-settings.model';
+import { provideEmailSettings } from './email-settings/email-settings.provide';
+import { EmailSettingsComponent } from './email-settings/email-settings.component';
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: <%= className %><%= typeClassName %>,
+    providers: [
+      provide<%= className %>(),
+      provideEmailSettings()
+    ],
+    resolve:{
+      'tabs':()=>{
+        const tabsService = inject(<%= className %>TabsService);
+        tabsService.add([
+          {
+            name: eEmailSettingsNames.EmailSettings,
+            order: 1,
+            requiredPolicy: eEmailSettingsPolicyNames.EmailSettings,
+            component: EmailSettingsComponent,
+          },
+        ]);        
+        return tabsService.tree;
+      }
+    }        
+  },
+];
