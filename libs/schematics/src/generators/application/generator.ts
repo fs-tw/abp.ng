@@ -8,7 +8,8 @@ import {
 import { ApplicationGeneratorSchema } from './schema';
 
 import { E2eTestRunner, applicationGenerator as nxApplicationGenerator, UnitTestRunner } from '@nx/angular/generators';
-import { updateProjectConfigurationJson } from './lib/app-pro/update-project-configuration-json';
+import { updateProjectConfigurationJson as appUpdateProjectConfigurationJson } from './lib/app/update-project-configuration-json';
+import { updateProjectConfigurationJson as appProUpdateProjectConfigurationJson } from './lib/app-pro/update-project-configuration-json';
 import { packageAddGenerator } from '../package-add/generator';
 import { Styles } from '@nx/angular/src/generators/utils/types';
 
@@ -44,8 +45,13 @@ export async function applicationGenerator(
 
   generateFiles(tree, joinPathFragments(__dirname, `files/${options.template}`), appRoot, options);
 
-  if (options.name === 'app-pro') {
-    updateProjectConfigurationJson(tree, options);
+  switch (options.name) {
+    case 'app':
+      appUpdateProjectConfigurationJson(tree, options);
+      break;
+    case 'app-pro':
+      appProUpdateProjectConfigurationJson(tree, options);
+      break;
   }
 
   await formatFiles(tree);

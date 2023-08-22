@@ -6,7 +6,7 @@
   "properties": {
     "name": {
       "type": "string",
-      "enum": ["app-pro"],
+      "enum": ["app-pro", "app"],
       "description": "",
       "default": "app-pro",
       "x-prompt": "What name would you like to use?"
