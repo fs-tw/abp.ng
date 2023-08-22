@@ -3,11 +3,11 @@ import { Environment } from '@abp/ng.core';
 const baseUrl = 'http://localhost:4200';
 
 const oAuthConfig = {
-  issuer: 'https://localhost:44376/',
+  issuer: 'https://localhost:44305/',
   redirectUri: baseUrl,
-  clientId: 'FuseTheme_App',
+  clientId: 'MyProjectName_App',
   responseType: 'code',
-  scope: 'offline_access FuseTheme',
+  scope: 'offline_access MyProjectName',
   requireHttps: true,
 };
 
@@ -15,22 +15,21 @@ export const environment = {
   production: true,
   application: {
     baseUrl,
-    name: 'FuseTheme',
-    logoUrl: '',
+    name: 'MyProjectName',
   },
   oAuthConfig,
   apis: {
     default: {
-      url: 'https://localhost:44376',
-      rootNamespace: 'Further.FuseTheme',
+      url: 'https://localhost:44305',
+      rootNamespace: 'MyCompanyName.MyProjectName',
     },
     AbpAccountPublic: {
       url: oAuthConfig.issuer,
       rootNamespace: 'AbpAccountPublic',
     },
-    FuseTheme: {
-      url: 'https://localhost:44397',
-      rootNamespace: 'Further.FuseTheme',
-    },
   },
+  remoteEnv: {
+    url: '/getEnvConfig',
+    mergeStrategy: 'deepmerge'
+  }
 } as Environment;
