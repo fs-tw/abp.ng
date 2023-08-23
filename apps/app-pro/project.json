@@ -1,0 +1,217 @@
+{
+  "name": "app-pro",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/app-pro/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/app-pro",
+        "index": "apps/app-pro/src/index.html",
+        "main": "apps/app-pro/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/app-pro/tsconfig.app.json",
+        "assets": ["apps/app-pro/src/favicon.ico", "apps/app-pro/src/assets"],
+        "styles": [
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/dark.css",
+            "inject": false,
+            "bundleName": "dark"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/light.css",
+            "inject": false,
+            "bundleName": "light"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/dim.css",
+            "inject": false,
+            "bundleName": "dim"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/bootstrap-dim.css",
+            "inject": false,
+            "bundleName": "bootstrap-dim"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/bootstrap-dark.css",
+            "inject": false,
+            "bundleName": "bootstrap-dark"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/bootstrap-light.css",
+            "inject": false,
+            "bundleName": "bootstrap-light"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/ng-bundle.css",
+            "inject": false,
+            "bundleName": "ng-bundle"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/side-menu/layout-bundle.css",
+            "inject": false,
+            "bundleName": "layout-bundle"
+          },
+          {
+            "input": "node_modules/@volosoft/abp.ng.theme.lepton-x/assets/css/abp-bundle.css",
+            "inject": false,
+            "bundleName": "abp-bundle"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/dark.rtl.css",
+            "inject": false,
+            "bundleName": "dark.rtl"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/light.rtl.css",
+            "inject": false,
+            "bundleName": "light.rtl"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/dim.rtl.css",
+            "inject": false,
+            "bundleName": "dim.rtl"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/bootstrap-dim.rtl.css",
+            "inject": false,
+            "bundleName": "bootstrap-dim.rtl"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/bootstrap-dark.rtl.css",
+            "inject": false,
+            "bundleName": "bootstrap-dark.rtl"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/bootstrap-light.rtl.css",
+            "inject": false,
+            "bundleName": "bootstrap-light.rtl"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/font-bundle.css",
+            "inject": false,
+            "bundleName": "font-bundle"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/font-bundle.rtl.css",
+            "inject": false,
+            "bundleName": "font-bundle.rtl"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/ng-bundle.rtl.css",
+            "inject": false,
+            "bundleName": "ng-bundle.rtl"
+          },
+          {
+            "input": "node_modules/@volosoft/ngx-lepton-x/assets/css/side-menu/layout-bundle.rtl.css",
+            "inject": false,
+            "bundleName": "layout-bundle.rtl"
+          },
+          {
+            "input": "node_modules/@volosoft/abp.ng.theme.lepton-x/assets/css/abp-bundle.rtl.css",
+            "inject": false,
+            "bundleName": "abp-bundle.rtl"
+          },
+          {
+            "input": "node_modules/@swimlane/ngx-datatable/index.css",
+            "inject": true,
+            "bundleName": "ngx-datatable-index"
+          },
+          {
+            "input": "node_modules/@swimlane/ngx-datatable/assets/icons.css",
+            "inject": true,
+            "bundleName": "ngx-datatable-icons"
+          },
+          {
+            "input": "node_modules/@swimlane/ngx-datatable/themes/material.css",
+            "inject": true,
+            "bundleName": "ngx-datatable-material"
+          },
+          {
+            "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+            "inject": true,
+            "bundleName": "fontawesome-all.min"
+          },
+          {
+            "input": "node_modules/@fortawesome/fontawesome-free/css/v4-shims.min.css",
+            "inject": true,
+            "bundleName": "fontawesome-v4-shims.min"
+          },
+          {
+            "input": "node_modules/ng-zorro-antd/tree/style/index.min.css",
+            "inject": false,
+            "bundleName": "ng-zorro-antd-tree"
+          },
+          "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+          "node_modules/ng-zorro-antd/ng-zorro-antd.css",
+          "apps/app-pro/src/styles.scss"
+        ],
+        "scripts": [],
+        "allowedCommonJsDependencies": [
+          "@ant-design/colors",
+          "chart.js",
+          "js-sha256",
+          "@uppy/xhr-upload",
+          "@uppy/dashboard",
+          "@uppy/core"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "app-pro:build:production"
+        },
+        "development": {
+          "browserTarget": "app-pro:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "app-pro:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/app-pro/**/*.ts", "apps/app-pro/**/*.html"]
+      }
+    }
+  }
+}

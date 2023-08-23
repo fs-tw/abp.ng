@@ -1,0 +1,12 @@
+<form [formGroup]="form">
+    <ng-template [ngTemplateOutlet]="label"></ng-template>
+    <textarea
+      #field
+      nz-input
+      [id]="prop.id"
+      [readonly]="readonly"
+      [nzAutosize]="{ minRows: 3}"
+      [formControlName]="prop.name"
+      style="width: 100%;"
+    ></textarea>
+</form>

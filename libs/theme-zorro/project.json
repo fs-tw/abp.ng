@@ -1,0 +1,39 @@
+{
+  "name": "theme-zorro",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/theme-zorro/src",
+  "prefix": "fs-tw",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/theme-zorro/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/theme-zorro/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/theme-zorro/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/theme-zorro/**/*.ts",
+          "libs/theme-zorro/**/*.html",
+          "libs/theme-zorro/package.json",
+          "libs/theme-zorro/extensions/**/*.ts",
+          "libs/theme-zorro/extensions/**/*.html"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <ng-template [ngTemplateOutlet]="label"></ng-template>
+  <nz-date-picker
+    #field
+    [id]="prop.id"
+    [abpDisabled]="disabled"
+    [formControlName]="prop.name"
+    [nzShowTime]="true"
+    style="width: 100%;">
+  </nz-date-picker>
+</form>

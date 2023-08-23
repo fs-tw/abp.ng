@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <label
+    #field
+    [id]="prop.id"
+    [abpDisabled]="disabled"
+    nz-checkbox nzValue="true"
+    [formControlName]="prop.name"
+  >
+    {{prop.displayName}}
+  </label>
+</form>
