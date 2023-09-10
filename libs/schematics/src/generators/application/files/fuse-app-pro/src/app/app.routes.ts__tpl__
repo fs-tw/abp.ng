@@ -1,0 +1,71 @@
+import { Route } from '@angular/router';
+import { LayoutComponent } from '@fs-tw/theme-fuse';
+
+// @formatter:off
+/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+export const appRoutes: Route[] = [
+
+    { path: '', pathMatch: 'full', redirectTo: 'home' },
+
+    {
+        path: '',
+        component: LayoutComponent,
+        data: {
+            //layout: 'empty',
+            loadStyles: ['bootstrap.css']
+        },
+        children: [
+            {
+                path: 'example',
+                loadChildren: () =>
+                    import('./example/example.routes'),
+            },
+            {
+                path: 'home',
+                loadChildren: () =>
+                    import('./home/home.routes'),
+            },
+            {
+                path: 'account',
+                loadChildren: () =>
+                    import('@volo/abp.ng.account/public').then(m => m.AccountPublicModule.forLazy()),
+            },
+            {
+                path: 'identity',
+                loadChildren: () => import('@volo/abp.ng.identity').then(m => m.IdentityModule.forLazy())
+            },
+            {
+                path: 'language-management',
+                loadChildren: () =>
+                    import('@volo/abp.ng.language-management').then(m => m.LanguageManagementModule.forLazy()),
+            },
+            {
+                path: 'saas',
+                loadChildren: () => import('@volo/abp.ng.saas').then(m => m.SaasModule.forLazy()),
+            },
+            {
+                path: 'audit-logs',
+                loadChildren: () =>
+                    import('@volo/abp.ng.audit-logging').then(m => m.AuditLoggingModule.forLazy()),
+            },
+            {
+                path: 'openiddict',
+                loadChildren: () =>
+                    import('@volo/abp.ng.openiddictpro').then(m => m.OpeniddictproModule.forLazy()),
+            },
+            {
+                path: 'text-template-management',
+                loadChildren: () =>
+                    import('@volo/abp.ng.text-template-management').then(m =>
+                        m.TextTemplateManagementModule.forLazy()
+                    ),
+            },
+            {
+                path: 'setting-management',
+                loadChildren: () =>
+                    import('@abp/ng.setting-management').then(m => m.SettingManagementModule.forLazy()),
+            }
+        ],
+    },
+];

@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import third party library styles here.
+/* ----------------------------------------------------------------------------------------------------- */
+
+/* Perfect scrollbar */
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+
+/* Quill */
+// @import '~quill/dist/quill.snow.css';
+
+// @import 'node_modules/@fs-tw/fuse/themes/tailwind.css';
+// @import 'node_modules/@fs-tw/theme-fuse/themes/tailwind.css';

@@ -1,0 +1,284 @@
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
+
+/* You can add global styles to this file, and also import other style files */
+
+// :root .lpx-theme-dark {
+//     --lpx-logo: url('/assets/images/logo/logo-light.png');
+//     --lpx-logo-icon: url('/assets/images/logo/icon-light.png');
+// }
+
+// :root .lpx-theme-light {
+//     --lpx-logo: url('/assets/images/logo/logo-dark.png');
+//     --lpx-logo-icon: url('/assets/images/logo/icon-dark.png');
+// }
+
+
+abp-page{
+
+    @apply flex flex-col flex-auto w-full min-w-0 p-5;
+
+    &>div:first-child{
+        @apply lg:flex-nowrap mb-2 flex items-end;
+        div:first-child{
+            h1.content-header-title{
+                @apply text-3xl mb-2 md:mb-0;
+            }
+        }
+        abp-breadcrumb{
+            abp-breadcrumb-items{
+                ol{
+                    @apply mb-2 md:mb-0;
+                }
+            }
+        }
+        div:last-child > abp-page-toolbar{
+            &>div  div > button.btn-primary{
+                background-color: #0d6efd;
+            }
+        }
+    }
+
+    &>nz-card{
+        @apply mt-2 p-2 rounded-lg #{!important};
+    }
+
+    datatable-row-wrapper datatable-body-cell abp-grid-actions button{
+        background-color: #0d6efd !important;
+    }
+}
+
+e-shop-product[ng-reflect-store-id],wbat-camera{
+    @apply flex flex-col flex-auto w-full min-w-0 p-5;
+}
+
+abp-replaceable-route-container > 
+abp-roles,abp-users,abp-claims,abp-setting-management,abp-security-logs,abp-organization-units,abp-applications,
+abp-scopes,abp-languages,abp-language-texts,abp-text-templates,abp-audit-logs,abp-editions,abp-tenants {
+    @apply flex w-full;
+    div.card{
+        @apply mt-2;
+        abp-extensible-table{
+            padding:2px;
+        }
+    }
+}
+
+//abp-audit-logs 樣式修正
+abp-audit-logs>#wrapper{
+    @apply flex w-full;
+    div.card{
+        @apply px-2;
+
+        form>div>div:last-child>div{
+            margin-top: 1.75rem !important;
+        }
+        
+        button.btn-primary{
+            background-color: #0d6efd !important;
+        }
+    }
+}
+
+//abp setting 頁面 字體大小和tab margin 調整
+abp-setting-management > abp-page > div#SettingManagementWrapper{
+    .card-body > div{
+        &>div:first-child{
+            &>ul {
+                li{
+                    a{
+                        @apply text-lg;
+                    }
+                }
+            }
+        }
+
+        .ng-star-inserted{
+            h2{
+                @apply text-2xl;
+            }
+            ul{
+                @apply mb-4;
+            }
+            h4{
+                @apply text-xl;
+            }
+        }
+
+        hr{
+            @apply my-4;
+        }
+
+        button.btn-primary{
+            background-color: #0d6efd !important;
+        }
+    }
+}
+
+//abp-advanced filter 顯示
+
+abp-advanced-entity-filters-form > form{
+    visibility: visible!important;
+}
+
+//abp-advanced filter button 顏色
+
+abp-advanced-entity-filters-form > form > div > div:last-child > div{
+    &>div:last-child{
+        button.btn-primary{
+            background-color: #0d6efd;
+        }
+    }
+}
+
+// abpModel
+
+ngb-modal-window > div > div {
+
+    //modal header button
+    div:first-child{
+        &#abp-modal-header{
+            h3{
+                @apply text-2xl;
+            }
+            .btn-close{
+                background: transparent 
+                url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") 
+                center/1em auto no-repeat;
+            }
+        }
+    }
+
+    //modal body button
+    div{
+        &#abp-modal-body{
+            div:last-child{
+                button.btn-success{
+                    background-color: #198754;
+                }
+            }
+        }
+    }
+
+    //modal footer button
+    div:last-child{
+        &#abp-modal-footer{
+            &>button.btn-secondary{
+                background-color: #6c757d;
+            }
+            &>abp-button{
+                button.btn-primary{
+                    background-color: #0d6efd;
+                }
+                button.btn-success{
+                    background-color: #198754;
+                }
+            }
+        }
+    }
+}
+
+//組織下的刪除按鈕顏色
+
+abp-organization-units button{
+    background-color: #0d6efd !important;
+}
+
+//abp 提示框 icon和button顏色
+
+abp-confirmation{
+    .confirmation .confirmation-dialog{
+        border: none;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 0 10px -5px rgb(0 0 0 / 50%);
+
+        .icon-container.warning .icon{
+            stroke: #f89406;
+            color: #f89406;
+        }
+
+        .icon-container.error .icon {
+            stroke: #bd362f;
+            color: #bd362f;
+        }
+
+        .footer .confirmation-button {
+            background-color: #eee;
+            color: #777;
+        }
+    }
+}
+
+//ngb-modal-window 提示框 button顏色
+ngb-modal-window{
+    form{
+        &>:first-child>div>div>button{
+            background-color: #6c757d;
+        }
+        &>:last-child{
+            &>button{
+                background-color: #6c757d;
+            }
+            &>abp-button>button{
+                background-color: #0d6efd;
+            }
+        }
+    }
+}
+
+//abp setting button
+abp-setting-management{
+    form{
+        &>button.btn-primary{
+            background-color: #0d6efd;
+        }
+
+        &>div>div>div:last-child{
+            button.btn-primary{
+                background-color: #0d6efd;
+            }
+        }
+    }
+}
+
+
+//滑動條y軸樣式調整
+dense-layout > div > div:last-child{
+    @apply overflow-hidden;
+  
+    &>router-outlet + *{
+      @apply overflow-auto;
+
+      &::-webkit-scrollbar{
+        width: 7px;
+        height:7px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+    }
+}
+
+//nz-card 滿版
+nz-card>div{
+    @apply w-full;
+}
+
+
+abp-page  nz-table-inner-default > div {
+    overflow: auto;
+
+    &::-webkit-scrollbar{
+        width: 7px;
+        height:7px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+}

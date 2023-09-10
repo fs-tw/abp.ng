@@ -15,7 +15,7 @@
     },
     "template": {
       "type": "string",
-      "enum": ["app-pro","app"],
+      "enum": ["app-pro","app","fuse-app-pro"],
       "description": "",
       "default": "app-pro",
       "x-prompt": "What abp template do you use?"
