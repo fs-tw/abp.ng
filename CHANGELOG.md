@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-beta.3](https://github.com/fs-tw/abp.ng/compare/v1.1.0-beta.2...v1.1.0-beta.3) (2023-09-10)
+
+### Features
+
+- introduce generators for fuse ([b064b74](https://github.com/fs-tw/abp.ng/commit/b064b74cbd9d2ba549dcc11ce5362cda062b3744))
+
 # [1.1.0-beta.2](https://github.com/fs-tw/abp.ng/compare/v1.1.0-beta.1...v1.1.0-beta.2) (2023-09-10)
 
 ### Bug Fixes
