@@ -10,8 +10,7 @@ import { ApplicationGeneratorSchema } from './schema';
 import { E2eTestRunner, applicationGenerator as nxApplicationGenerator, UnitTestRunner } from '@nx/angular/generators';
 import { updateProjectConfigurationJson as appUpdateProjectConfigurationJson } from './lib/app/update-project-configuration-json';
 import { updateProjectConfigurationJson as appProUpdateProjectConfigurationJson } from './lib/app-pro/update-project-configuration-json';
-import { updateProjectConfigurationJson as fuseAppProUpdateProjectConfigurationJson } from './lib/fuse-app-pro/update-project-configuration-json';
-import { packageAddGenerator } from '../package-add/generator';
+import { packageAddGenerator } from '../package/generator';
 import { Styles } from '@nx/angular/src/generators/utils/types';
 
 export async function applicationGenerator(
@@ -40,7 +39,7 @@ export async function applicationGenerator(
     }
   }
 
-  await nxApplicationGenerator(tree, options)
+  await nxApplicationGenerator(tree, options);
 
   tree.delete(joinPathFragments(appRoot, `src/`));
 
@@ -53,9 +52,6 @@ export async function applicationGenerator(
     case 'app-pro':
       appProUpdateProjectConfigurationJson(tree, options);
       break;
-      case 'fuse-app-pro':
-        fuseAppProUpdateProjectConfigurationJson(tree, options);
-        break;      
   }
 
   await formatFiles(tree);
