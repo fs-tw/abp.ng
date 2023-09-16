@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "Extensions",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      },
+      "x-dropdown": "projects"
+    },
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "url": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "type": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What dto name would you like to use?"
+    },
+    "variable": {
+      "type": "string",
+      "enum": ["ENTITY_PROPS", "CREATE_FORM_PROPS"],
+      "description": "variable name in default.ts ",
+      "default": "ENTITY_PROPS"
+    }
+  },
+  "required": ["project", "name", "url", "type", "variable"]
+}

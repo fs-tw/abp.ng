@@ -3,7 +3,7 @@ export default [
     culture: 'en',
     resources: [
       {
-        resourceName: '<%= namePathName??className %>',
+        resourceName: '<%= featureNames.className %>',
         texts: {          
         },
       },
@@ -13,7 +13,7 @@ export default [
     culture: 'zh-Hant',
     resources: [
       {
-        resourceName: '<%= namePathName??className %>',
+        resourceName: '<%= featureNames.className %>',
         texts: {
         },
       },

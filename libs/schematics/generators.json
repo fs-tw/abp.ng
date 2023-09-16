@@ -24,6 +24,11 @@
       "factory": "./src/generators/package/generator",
       "schema": "./src/generators/package/schema.json",
       "description": "package generator"
+    },
+    "extensions": {
+      "factory": "./src/generators/extensions/generator",
+      "schema": "./src/generators/extensions/schema.json",
+      "description": "extensions generator"
     }
   }
 }

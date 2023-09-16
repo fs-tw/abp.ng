@@ -3,7 +3,7 @@ export default [
     culture: 'en',
     resources: [
       {
-        resourceName: '<%= className %>',
+        resourceName: '<%= featureNames.className %>',
         texts: {
           "PageTitle": "PageTitle",
           "New":"New",
@@ -18,7 +18,7 @@ export default [
     culture: 'zh-Hant',
     resources: [
       {
-        resourceName: '<%= className %>',
+        resourceName: '<%= featureNames.className %>',
         texts: {
           "PageTitle": "PageTitle",
           "New":"New",
