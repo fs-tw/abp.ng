@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-beta.6](https://github.com/fs-tw/abp.ng/compare/v1.1.0-beta.5...v1.1.0-beta.6) (2023-09-16)
+
+### Bug Fixes
+
+- typo ([692afd5](https://github.com/fs-tw/abp.ng/commit/692afd5aa074e079f0304660b6a9b1ed8ba7470a))
+
 # [1.1.0-beta.5](https://github.com/fs-tw/abp.ng/compare/v1.1.0-beta.4...v1.1.0-beta.5) (2023-09-16)
 
 ### Features
