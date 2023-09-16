@@ -1,31 +1,31 @@
-<abp-page [title]="'<%= className %>::PageTitle' | abpLocalization">
+<abp-page [title]="'<%= namePathName??className %>::PageTitle' | abpLocalization" [toolbar]="true">
   <div id="<%= className %>Wrapper">
     <div class="card">
       <div class="card-body">
         <div class="row">
           <div class="col-12 col-md-3 mb-2 mb-md-0">
             <ul class="nav flex-column nav-pills" id="nav-tab" role="tablist">
-              <ng-container *abpFor="let setting of settings; trackBy: trackByFn">
+              <ng-container *abpFor="let tab of tabsService.visible$ | async; trackBy: trackByFn">
                 <li
-                  (click)="selected = setting"
+                  (click)="tabsService.selected$.next(tab)"
                   class="nav-item pointer"
-                  *abpPermission="setting.requiredPolicy"
+                  *abpPermission="tab.requiredPolicy"
                 >
                   <a
                     class="nav-link"
-                    [id]="setting.name + '-tab'"
+                    [id]="tab.name + '-tab'"
                     role="tab"
-                    [class.active]="setting.name === selected.name"
-                    >{{ setting.name | abpLocalization }}</a
+                    [class.active]="tab.name === tabsService.selectedTab()?.name"
+                    >{{ tab.name | abpLocalization }}</a
                   >
                 </li>
               </ng-container>
             </ul>
           </div>
           <div class="col-12 col-md-9">
-            <div *ngIf="settings.length" class="tab-content">
-              <div class="tab-pane fade show active" [id]="selected.name + '-tab'" role="tabpanel">
-                <ng-container *ngComponentOutlet="selected.component"></ng-container>
+            <div *ngIf="tabsService.selectedTab() as selectedTab" class="tab-content">
+              <div class="tab-pane fade show active" [id]="selectedTab.name + '-tab'" role="tabpanel">
+                <ng-container *ngComponentOutlet="selectedTab.component"></ng-container>
               </div>
             </div>
           </div>

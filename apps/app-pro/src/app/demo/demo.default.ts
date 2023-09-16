@@ -15,19 +15,19 @@ import {
   ToolbarAction,
   ToolbarComponent,
 } from '@abp/ng.theme.shared/extensions';
-import { UserDropdownMenuComponent } from './user-dropdown-menu/user-dropdown-menu.component';
+import { DemoToolbarComponent } from './demo-toolbar/demo-toolbar.component';
 import { eDemoNames } from './demo.model';
 import { of } from 'rxjs';
 import { Validators } from '@angular/forms';
 import { getPasswordValidators } from '@abp/ng.theme.shared';
-import { DemoStateService } from './demo-state.service';
+import { ActivatedRoute } from '@angular/router';
 
 export const ENTITY_ACTIONS = EntityAction.createMany<IdentityUserDto>([
   {
-    text: 'User::Manage',
+    text: 'User::Details',
     action: (data) => {
-      const stateService = data.getInjected(DemoStateService);
-      stateService.setSelected(data.record);
+      const component = data.getInjected(DemoComponent);
+      component.navigate(['.', data.record.id, 'details']);
     },
     permission: '',
   },
@@ -36,14 +36,6 @@ export const ENTITY_ACTIONS = EntityAction.createMany<IdentityUserDto>([
     action: (data) => {
       const component = data.getInjected(DemoComponent);
       component.onEdit(data.record.id as string);
-    },
-    permission: 'AbpIdentity.Users.Update',
-  },
-  {
-    text: 'AbpIdentity::Claims',
-    action: (data) => {
-      const component = data.getInjected(DemoComponent);
-      component.onManageClaims(data.record.id as string);
     },
     permission: 'AbpIdentity.Users.Update',
   },
@@ -82,21 +74,21 @@ export const TOOLBAR_COMPONENTS = ToolbarComponent.createMany<
 >([
   {
     permission: 'AbpIdentity.Users.Create',
-    component: UserDropdownMenuComponent,
+    component: DemoToolbarComponent,
   },
 ]);
 export const TOOLBAR_ACTIONS = ToolbarAction.createMany<IdentityUserDto[]>([
   {
     text: 'Demo::Back',
     action: (data) => {
-      const stateService = data.getInjected(DemoStateService);
-      stateService.setSelected(undefined);
+      const component = data.getInjected(DemoComponent);
+      component.navigate(['.']);
     },
-    //permission: 'AbpIdentity.Users.Create',
     icon: 'fa fa-plus',
     visible: (data) => {
-      const stateService = data?.getInjected(DemoStateService);
-      return stateService?.getSelected() != undefined;
+      const activatedRoute = data?.getInjected(ActivatedRoute);
+      if (activatedRoute?.snapshot.url.length === undefined) return false;
+      return activatedRoute?.snapshot.url.length > 0;
     },
   },
   {
@@ -133,7 +125,8 @@ export const ENTITY_PROPS = EntityProp.createMany<IdentityUserDto>([
         `
         ${data.record.isLockedOut ? lockOutIcon : ''}
         ${!data.record.isActive ? inactiveIcon : ''}
-        <span class="${data.record.isLockedOut || !data.record.isActive ? 'opc-65' : ''
+        <span class="${
+          data.record.isLockedOut || !data.record.isActive ? 'opc-65' : ''
         }">${escapeHtmlChars(data.record.userName)}</span>`
       );
     },
@@ -149,9 +142,9 @@ export const ENTITY_PROPS = EntityProp.createMany<IdentityUserDto>([
 
       return of(
         (email || '') +
-        (emailConfirmed
-          ? `<i class="fa fa-check text-success ms-1"></i>`
-          : '')
+          (emailConfirmed
+            ? `<i class="fa fa-check text-success ms-1"></i>`
+            : '')
       );
     },
   },
@@ -179,9 +172,9 @@ export const ENTITY_PROPS = EntityProp.createMany<IdentityUserDto>([
 
       return of(
         (escapeHtmlChars(phoneNumber) || '') +
-        (phoneNumberConfirmed
-          ? `<i class="fa fa-check text-success ms-1"></i>`
-          : '')
+          (phoneNumberConfirmed
+            ? `<i class="fa fa-check text-success ms-1"></i>`
+            : '')
       );
     },
   },
@@ -257,10 +250,6 @@ export const CREATE_FORM_PROPS = FormProp.createMany<IdentityUserDto>([
     displayName: 'AbpIdentity::UserName',
     id: 'user-name',
     validators: () => [Validators.required, Validators.maxLength(256)],
-    group: {
-      name: 'A'
-    },
-
   },
   {
     type: ePropType.PasswordInputGroup,
@@ -297,9 +286,6 @@ export const CREATE_FORM_PROPS = FormProp.createMany<IdentityUserDto>([
       Validators.maxLength(256),
       Validators.email,
     ],
-    group: {
-      name: 'A'
-    }
   },
   {
     type: ePropType.String,
@@ -335,7 +321,7 @@ export const EDIT_FORM_PROPS = CREATE_FORM_PROPS.filter(
   (prop) => prop.name !== 'password'
 );
 
-export function InitialRoles(extensions: ExtensionsService) {
+export function MergeDefaultsDemo(extensions: ExtensionsService) {
   mergeWithDefaultActions(extensions.entityActions, {
     [eDemoNames.Demo]: ENTITY_ACTIONS,
   });

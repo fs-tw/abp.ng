@@ -6,7 +6,14 @@
   "properties": {
     "componentType": {
       "type": "string",
-      "enum": ["basic-page","setting-page", "setting-tab", "tree-page","state-page","state-tab"],
+      "enum": [
+        "basic-page",
+        "setting-page",
+        "setting-tab",
+        "tree-page",
+        "entity-page",
+        "modal"
+      ],
       "description": "main page or content tab.",
       "default": "basic-page"
     },

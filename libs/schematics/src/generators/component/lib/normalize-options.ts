@@ -1,5 +1,5 @@
 import type { Tree } from '@nx/devkit';
-import { readProjectConfiguration } from '@nx/devkit';
+import { names, normalizePath, readProjectConfiguration } from '@nx/devkit';
 import type { AngularProjectConfiguration } from './types';
 import { normalizeNameAndPaths } from './path';
 import { buildSelector } from './selector';
@@ -12,6 +12,11 @@ export function normalizeOptions(
   options.type ??= 'component';
   const { directory, filePath, name, path, root, sourceRoot, namePath } =
     normalizeNameAndPaths(tree, options);
+
+  const featureName = normalizePath(namePath).split('/').reverse().pop();
+  const featureNames = names(featureName === '' ? name : featureName);
+
+  const componentNames = names(options.name);
 
   const { prefix } = readProjectConfiguration(
     tree,
@@ -35,5 +40,7 @@ export function normalizeOptions(
     projectSourceRoot: sourceRoot,
     projectRoot: root,
     selector,
+    featureNames,
+    componentNames
   };
 }

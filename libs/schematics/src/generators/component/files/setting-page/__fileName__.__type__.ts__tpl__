@@ -14,19 +14,5 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class <%= className %><%= typeClassName %> {
   tabsService = inject(<%= className %>TabsService);
 
-  settings: ABP.Tab[] = [];
-
-  selected!: ABP.Tab;
-
   trackByFn: TrackByFunction<ABP.Tab> = (_, item) => item.name;
-
-  constructor() {
-    this.tabsService.visible$
-      .pipe(takeUntilDestroyed())
-      .subscribe((settings) => {
-        this.settings = settings;
-
-        if (!this.selected) this.selected = this.settings[0];
-      });
-  }
 }

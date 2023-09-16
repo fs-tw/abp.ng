@@ -1,75 +1,22 @@
-import { BaseNode, TreeAdapter, TreeModule } from '@abp/ng.components/tree';
-import {
-  ABP,
-  ConfigStateService,
-  CoreModule,
-  ListService,
-  PagedResultDto,
-  SubscriptionService,
-  TreeNode,
-} from '@abp/ng.core';
+import { CoreModule, ListService } from '@abp/ng.core';
 import {
   Confirmation,
   ConfirmationService,
   ThemeSharedModule,
   ToasterService,
 } from '@abp/ng.theme.shared';
-import {
-  EXTENSIONS_IDENTIFIER,
-  FormPropData,
-  generateFormFromProps,
-} from '@abp/ng.theme.shared/extensions';
-import {
-  Component,
-  Injector,
-  OnInit,
-  TemplateRef,
-  TrackByFunction,
-  ViewChild,
-  inject,
-} from '@angular/core';
-import {
-  AbstractControl,
-  UntypedFormArray,
-  UntypedFormBuilder,
-  UntypedFormGroup,
-} from '@angular/forms';
-import {
-  GetIdentityUsersInput,
-  IdentityRoleDto,
-  IdentityRoleService,
-  IdentityUserDto,
-  IdentityUserService,
-  OrganizationUnitDto,
-  OrganizationUnitService,
-  OrganizationUnitWithDetailsDto,
-} from '@volo/abp.ng.identity/proxy';
-import { finalize, switchMap, take, tap } from 'rxjs/operators';
+import { EXTENSIONS_IDENTIFIER } from '@abp/ng.theme.shared/extensions';
+import { Component, TrackByFunction, inject } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
+import { IdentityUserService } from '@volo/abp.ng.identity/proxy';
 import { eDemoNames } from './demo.model';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { PageModule } from '@abp/ng.components/page';
-import {
-  AdvancedEntityFiltersModule,
-  CommercialUiModule,
-} from '@volo/abp.commercial.ng.ui';
-import { PermissionManagementModule } from '@abp/ng.permission-management';
-import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommercialUiModule } from '@volo/abp.commercial.ng.ui';
 import { DemoStateService } from './demo-state.service';
-import { DemoTabsService } from './demo-tabs.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ClaimModalComponent } from './claim-modal/claim-modal.component';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NZ_ICONS } from 'ng-zorro-antd/icon';
-import {
-  StepBackwardOutline
-} from '@ant-design/icons-angular/icons';
-
-import { ExtensibleFormComponent } from '@fs-tw/theme.zorro/extensions'
-
-const icons = [StepBackwardOutline];
+import { DemoListComponent } from './demo-list/demo-list.component';
+import { DemoModalComponent } from './demo-modal/demo-modal.component';
+import { DemoDetailsComponent } from './demo-details/demo-details.component';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-demo',
@@ -79,245 +26,64 @@ const icons = [StepBackwardOutline];
     {
       provide: EXTENSIONS_IDENTIFIER,
       useValue: eDemoNames.Demo,
-    }
+    },
   ],
   standalone: true,
   imports: [
+    RouterModule,
     CoreModule,
     ThemeSharedModule,
-    AdvancedEntityFiltersModule,
     CommercialUiModule,
-    //IdentityModule,
     PageModule,
-    TreeModule,
-    PermissionManagementModule,
-    NgbDropdownModule,
-    NgbNavModule,
-    ClaimModalComponent,
-    NzIconModule,
-    NzFormModule,
-    NzInputModule,
-    NzSelectModule,
-    ExtensibleFormComponent
-  ]
+    DemoModalComponent,
+
+    DemoListComponent,
+    DemoDetailsComponent,
+  ],
 })
-export class DemoComponent implements OnInit {
+export class DemoComponent {
+  listComponent?: DemoListComponent;
+
   stateService = inject(DemoStateService);
 
-  tabsService = inject(DemoTabsService);
+  confirmationService = inject(ConfirmationService);
 
-  tabs: ABP.Tab[] = [];
+  service = inject(IdentityUserService);
 
-  selectedTab!: ABP.Tab;
+  toasterService = inject(ToasterService);
 
-  protected readonly subscription = inject(SubscriptionService);
-  readonly #roleCount = new BehaviorSubject<number>(0);
+  router = inject(Router);
 
-  protected userRoles!: IdentityRoleDto[];
-
-  data: PagedResultDto<IdentityUserDto> = { items: [], totalCount: 0 };
-
-  @ViewChild('modalContent')
-  modalContent!: TemplateRef<any>;
-
-  form!: UntypedFormGroup;
-
-  selected!: IdentityUserDto;
-
-  roles!: IdentityRoleDto[];
-
-  selectedOrganizationUnits!: OrganizationUnitDto[];
-
-  visiblePermissions = false;
-
-  providerKey!: string;
-
-  isModalVisible!: boolean;
-
-  isSetPasswordModalVisible!: boolean;
-
-  modalBusy = false;
-
-  visibleClaims = false;
-
-  claimSubject = {} as { id: string; type: 'roles' | 'users' };
-
-  filters = {} as GetIdentityUsersInput;
-
-  organization = {
-    response: {} as PagedResultDto<OrganizationUnitWithDetailsDto>,
-    nodes: [] as TreeNode<BaseNode>[],
-    checkedKeys: [] as string[],
-    expandedKeys: [] as string[],
-    selectFn: () => false,
-  };
-
-  entityDisplayName: string | undefined;
+  activatedRoute = inject(ActivatedRoute);
 
   trackByFn: TrackByFunction<AbstractControl> = (index, item) =>
     Object.keys(item)[0] || index;
 
-  private patchRoleCount(): void {
-    this.#roleCount.next(
-      this.rawRoleNames.filter((obj: any) => Object.values(obj).includes(true))
-        .length
-    );
+  demoModal = {
+    visible: false,
+    id: null,
+  } as { visible: boolean; id?: string | null };
+
+  onActive($event: object) {
+    if ($event instanceof DemoListComponent) this.listComponent = $event;
   }
 
-  private get rawRoleNames() {
-    return this.form.controls['roleNames']?.getRawValue();
+  navigate(commands: unknown[]) {
+    this.router.navigate(commands, { relativeTo: this.activatedRoute });
   }
 
-  get roleGroups(): UntypedFormGroup[] {
-    return (
-      ((this.form.get('roleNames') as UntypedFormArray)
-        ?.controls as UntypedFormGroup[]) || []
-    );
-  }
-
-  get roleCount$(): Observable<number> {
-    return this.#roleCount.asObservable();
-  }
-
-  constructor(
-    public readonly list: ListService<GetIdentityUsersInput>,
-    public confirmationService: ConfirmationService,
-    public service: IdentityUserService,
-    public fb: UntypedFormBuilder,
-    public toasterService: ToasterService,
-    public injector: Injector,
-    public configState: ConfigStateService,
-    public roleService: IdentityRoleService,
-    public organizationUnitService: OrganizationUnitService
-  ) {
-    this.tabsService.visible$.pipe(takeUntilDestroyed()).subscribe((tabs) => {
-      this.tabs = tabs.filter((x) => x.invisible !== true);
-
-      if (!this.selectedTab) this.selectedTab = this.tabs[0];
-    });
-  }
-
-  ngOnInit() {
-    this.hookToQuery();
-  }
-
-  isFromOrgUnit = (roleId: string | undefined) =>
-    this.selectedOrganizationUnits.some((org) =>
-      org.roles.some((f) => f.roleId === roleId)
-    );
-
-  clearFilters() {
-    this.filters = {} as GetIdentityUsersInput;
-  }
-
-  private hookToQuery() {
-    this.list
-      .hookToQuery((query) => {
-        return this.service.getList({
-          ...query,
-          ...this.filters,
-        });
-      })
-      .subscribe((res) => (this.data = res));
-  }
-  buildForm() {
-    const data = new FormPropData(this.injector, this.selected);
-    this.form = generateFormFromProps(data);
-
-    this.service.getAssignableRoles().subscribe(({ items }) => {
-      this.roles = items as IdentityRoleDto[];
-      this.form.addControl(
-        'roleNames',
-        this.fb.array(
-          this.roles.map((role) =>
-            this.fb.group({
-              [role.name as string]: [
-                this.selected.id
-                  ? !!this.userRoles?.find(
-                    (userRole) => userRole.id === role.id
-                  )
-                  : role.isDefault,
-              ],
-            })
-          )
-        )
-      );
-
-      this.patchRoleCount();
-      this.subscription.addOne(
-        this.form.controls['roleNames'].valueChanges,
-        () => this.patchRoleCount()
-      );
-    });
-
-    this.service.getAvailableOrganizationUnits().subscribe((res) => {
-      this.organization.response = res;
-      this.organization.nodes = new TreeAdapter(
-        res.items as BaseNode[]
-      ).getTree();
-      this.organization.expandedKeys = res.items?.map(
-        (item) => item.id
-      ) as string[];
-      this.organization.checkedKeys = this.selectedOrganizationUnits.map(
-        (unit) => unit.id
-      ) as string[];
-    });
-  }
-  openModal() {
-    this.buildForm();
-    this.isModalVisible = true;
+  loadDatas() {
+    this.listComponent?.list.get();
   }
 
   onAdd() {
-    this.selected = {} as IdentityUserDto;
-    this.userRoles = [];
-    this.selectedOrganizationUnits = [];
-    this.openModal();
+    this.demoModal.id = null;
+    this.demoModal.visible = true;
   }
 
   onEdit(id: string) {
-    this.service
-      .get(id)
-      .pipe(
-        tap((selectedUser) => (this.selected = selectedUser)),
-        switchMap(() => this.service.getRoles(id)),
-        tap((res) => (this.userRoles = res.items || [])),
-        switchMap(() => this.service.getOrganizationUnits(id)),
-        tap((res) => (this.selectedOrganizationUnits = res)),
-        take(1)
-      )
-      .subscribe(() => this.openModal());
-  }
-
-  save() {
-    if (!this.form.valid) return;
-    this.modalBusy = true;
-    const { roleNames } = this.form.value;
-    const mappedRoleNames =
-      roleNames
-        ?.filter((role: any) => !!role[Object.keys(role)[0]])
-        ?.map((role: any) => Object.keys(role)[0]) || [];
-
-    const { id } = this.selected;
-
-    (id
-      ? this.service.update(id, {
-        ...this.selected,
-        ...this.form.value,
-        roleNames: mappedRoleNames,
-        organizationUnitIds: this.organization.checkedKeys,
-      })
-      : this.service.create({
-        ...this.form.value,
-        roleNames: mappedRoleNames,
-        organizationUnitIds: this.organization.checkedKeys,
-      })
-    )
-      .pipe(finalize(() => (this.modalBusy = false)))
-      .subscribe(() => {
-        this.list.get();
-        this.isModalVisible = false;
-      });
+    this.demoModal.id = id;
+    this.demoModal.visible = true;
   }
 
   delete(id: string, userName: string) {
@@ -331,24 +97,15 @@ export class DemoComponent implements OnInit {
       )
       .subscribe((status: Confirmation.Status) => {
         if (status === Confirmation.Status.confirm) {
-          this.service.delete(id).subscribe(() => this.list.get());
+          this.service.delete(id).subscribe(() => this.loadDatas());
         }
       });
-  }
-
-  onManageClaims(id: string) {
-    this.claimSubject = {
-      id,
-      type: 'users',
-    };
-
-    this.visibleClaims = true;
   }
 
   unlock(id: string) {
     this.service.unlock(id).subscribe(() => {
       this.toasterService.success('AbpIdentity::UserUnlocked');
-      this.list.get();
+      this.loadDatas();
     });
   }
 }

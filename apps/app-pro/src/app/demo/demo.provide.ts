@@ -1,22 +1,36 @@
 import { CoreModule } from '@abp/ng.core';
 import {
+  ENVIRONMENT_INITIALIZER,
   EnvironmentProviders,
   Provider,
   importProvidersFrom,
+  inject,
 } from '@angular/core';
 import localizations from './demo.localizations';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import {
-  StepBackwardOutline
-} from '@ant-design/icons-angular/icons';
-
-const icons = [StepBackwardOutline];
+import { MergeDefaultsDemo } from './demo.default';
+import { ExtensionsService } from '@abp/ng.theme.shared/extensions';
+import { provideDemoDetails } from './demo-details/demo-details.provide';
+import { provideExternalLogin } from './external-login/external-login.provide';
 
 export const provideDemo = (): Array<Provider | EnvironmentProviders> => {
   const providers: Array<Provider | EnvironmentProviders> = [
-    importProvidersFrom(CoreModule.forChild({ localizations: localizations })),
-    importProvidersFrom(NzIconModule.forChild(icons)),
+    provideDemoDetails(),
+    provideExternalLogin(),
 
+    importProvidersFrom(CoreModule.forChild({ localizations })),
+    {
+      provide: ENVIRONMENT_INITIALIZER,
+      useValue: () => MergeDefaultsDemo(inject(ExtensionsService)),
+      multi: true,
+    },
+    // {
+    //   provide: ENVIRONMENT_INITIALIZER,
+    //   useValue: () => inject(DemoTabsService).add([
+    //     ExternalLoginTab,
+    //     DemoDetailsTab
+    //   ]),
+    //   multi: true,
+    // },
   ];
 
   return providers;

@@ -120,7 +120,7 @@ export const CREATE_FORM_PROPS = FormProp.createMany<IdentityRoleDto>([
 ]);
 export const EDIT_FORM_PROPS = CREATE_FORM_PROPS;
 
-export function Initial<%= className %>(extensions: ExtensionsService) {
+export function MergeDefaults<%= className %>(extensions: ExtensionsService) {
   mergeWithDefaultActions(
     extensions.entityActions,
     {

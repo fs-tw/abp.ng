@@ -1,16 +1,25 @@
 import { CoreModule } from '@abp/ng.core';
 import {
+  inject,
+  ENVIRONMENT_INITIALIZER,
   EnvironmentProviders,
   Provider,
   importProvidersFrom,
 } from '@angular/core';
 import localizations from './<%= fileName %>.localizations';
+import { MergeDefaults<%= className %> } from './<%= fileName %>.default';
+import { ExtensionsService } from '@abp/ng.theme.shared/extensions';
 
 export const provide<%= className %> = (): Array<
   Provider | EnvironmentProviders
 > => {
   const providers: Array<Provider | EnvironmentProviders> = [
     importProvidersFrom(CoreModule.forChild({ localizations: localizations })),
+    {
+      provide:ENVIRONMENT_INITIALIZER,
+      multi:true,
+      useValue:()=>MergeDefaults<%= className %>(inject(ExtensionsService))
+    }
   ];
 
   return providers;

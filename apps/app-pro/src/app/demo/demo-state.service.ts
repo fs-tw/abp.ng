@@ -1,27 +1,33 @@
-import { Injectable } from '@angular/core';
-import { InternalStore } from '@abp/ng.core';
+import { Injectable, computed, effect, signal } from '@angular/core';
 import { IdentityUserDto } from '@volo/abp.ng.identity/proxy';
-import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+// export interface DemoState {
+//   selectedRole: IdentityUserDto | null;
+// }
 
 @Injectable({
   providedIn: 'root',
 })
 export class DemoStateService {
-  private store = new InternalStore({} as DemoState);
-  state$ = this.store.sliceState((state) => state);
+  // private state = signal<DemoState>({ selectedRole: null });
 
-  getSelected$(): Observable<IdentityUserDto | undefined> {
-    return this.store.sliceState((state) => state.selectedUser);
-  }
+  // selectedRole = computed(() => this.state().selectedRole);
 
-  getSelected(): IdentityUserDto | undefined {
-    return this.store.state.selectedUser;
-  }
-  setSelected(selectedUser: IdentityUserDto | undefined) {
-    this.store.patch({ selectedUser });
-  }
-}
+  // selected$ = new Subject<IdentityUserDto | null>();
 
-export interface DemoState {
-  selectedUser: IdentityUserDto | undefined;
+  constructor() {
+    // this.selected$
+    //   .pipe(takeUntilDestroyed())
+    //   .subscribe((role) => {
+    //     this.state.update((state) => ({
+    //       ...state,
+    //       selectedRole: role
+    //     }));
+    //   });
+    // effect(() => {
+    //   // console.log('state changed:', this.state());
+    // });
+  }
 }

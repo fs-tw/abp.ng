@@ -2,7 +2,7 @@ export const enum e<%= className %>PolicyNames {
   <%= className %> = '',
 }
 export const enum e<%= className %>Names {
-  <%= className %> = '<%= namePathName %>::Menu:<%= className %>',
+  <%= className %> = '<%= featureNames.className %>::Menu:<%= className %>',
 }
 export interface EmailSettingsDto {
   smtpHost?: string;

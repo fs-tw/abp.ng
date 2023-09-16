@@ -43,7 +43,7 @@ export async function settingPageGenerator(
   //   addProviderToRoute(tree, options.path,options.namePath,componentNames.fileName,componentNames.className);
   // }
 
-  console.log(options, componentNames);
+  console.log(options);
 
   await formatFiles(tree);
 }

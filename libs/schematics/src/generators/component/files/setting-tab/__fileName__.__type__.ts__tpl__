@@ -63,7 +63,7 @@ export class <%= className %><%= typeClassName %> implements OnInit {
       .update(this.form.value)
       .pipe(finalize(() => (this.saving = false)))
       .subscribe(() => {
-        this.toasterService.success('<%= namePathName %>::SuccessfullySaved');
+        this.toasterService.success('<%= featureNames.className %>::SuccessfullySaved');
         this.getData();
       });
   }
@@ -87,7 +87,7 @@ export class <%= className %><%= typeClassName %> implements OnInit {
       return;
     }
      this.<%= propertyName %>Service.sendTestEmail(this.emailTestForm.value).subscribe(res => {
-      this.toasterService.success('<%= namePathName %>::SuccessfullySent');
+      this.toasterService.success('<%= featureNames.className %>::SuccessfullySent');
       this.isEmailTestModalOpen = false;
     })
       

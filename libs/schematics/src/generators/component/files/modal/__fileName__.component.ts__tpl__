@@ -1,0 +1,78 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { CoreModule, SubscriptionService } from '@abp/ng.core';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+
+@Component({
+  selector: '<%= selector %>',
+  templateUrl: './<%= fileName %>.component.html',
+  providers: [SubscriptionService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CoreModule, ThemeSharedModule],
+})
+export class <%= className %>Component implements OnChanges {
+  protected _visible = false;
+
+  @Input()
+  get visible(): boolean {
+    return this._visible;
+  }
+
+  set visible(value: boolean) {
+    if (this._visible === value) return;
+
+    this._visible = value;
+    this.visibleChange.emit(value);
+  }
+
+  @Output()
+  visibleChange = new EventEmitter<boolean>();
+
+  @Output()
+  saved = new EventEmitter<boolean>();
+
+  modalBusy = false;
+
+  form!: UntypedFormGroup;
+
+  constructor(
+    private fb: UntypedFormBuilder
+  ) {}
+
+  ngOnChanges({ visible }: SimpleChanges) {
+    if (!visible) return;
+
+    if (visible.currentValue) this.initModal();
+  }
+
+  initModal() {
+    this.buildForm();
+
+  }
+
+  save() {
+    if (this.modalBusy) return;
+
+    this.modalBusy = true;
+  }
+
+  private buildForm() {
+    this.form = this.fb.group({
+      claimType: ['', [Validators.required]],
+      claimValue: ['', [Validators.required]],
+    });
+  }
+}

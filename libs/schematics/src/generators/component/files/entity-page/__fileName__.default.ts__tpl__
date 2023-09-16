@@ -1,0 +1,340 @@
+import { LocalizationService, escapeHtmlChars } from '@abp/ng.core';
+import {
+  EntityAction,
+  EntityProp,
+  ExtensionsService,
+  FormProp,
+  ePropType,
+  mergeWithDefaultActions,
+  mergeWithDefaultProps,
+} from '@abp/ng.theme.shared/extensions';
+import { SHOW_ENTITY_HISTORY } from '@volo/abp.commercial.ng.ui';
+import { IdentityUserDto } from '@volo/abp.ng.identity/proxy';
+import { <%= componentNames.className %>Component } from './<%= fileName %>.component';
+import {
+  ToolbarAction,
+  ToolbarComponent,
+} from '@abp/ng.theme.shared/extensions';
+import { <%= componentNames.className %>ToolbarComponent } from './<%= fileName %>-toolbar/<%= fileName %>-toolbar.component';
+import { e<%= componentNames.className %>Names } from './<%= fileName %>.model';
+import { of } from 'rxjs';
+import { Validators } from '@angular/forms';
+import { getPasswordValidators } from '@abp/ng.theme.shared';
+import { ActivatedRoute } from '@angular/router';
+
+export const ENTITY_ACTIONS = EntityAction.createMany<IdentityUserDto>([
+  {
+    text: 'User::Details',
+    action: (data) => {
+      const component = data.getInjected(<%= componentNames.className %>Component);
+      component.navigate(['.',data.record.id,'details']);
+    },
+    permission: '',
+  },
+  {
+    text: 'AbpIdentity::Edit',
+    action: (data) => {
+      const component = data.getInjected(<%= componentNames.className %>Component);
+      component.onEdit(data.record.id as string);
+    },
+    permission: 'AbpIdentity.Users.Update',
+  },
+  {
+    text: 'AbpIdentity::Unlock',
+    action: (data) => {
+      const component = data.getInjected(<%= componentNames.className %>Component);
+      component.unlock(data.record.id as string);
+    },
+    permission: 'AbpIdentity.Users.Update',
+  },
+  {
+    text: 'AbpIdentity::ChangeHistory',
+    action: (data) => {
+      const showHistory = data.getInjected(SHOW_ENTITY_HISTORY);
+      showHistory(data.record.id as string, 'Volo.Abp.Identity.IdentityUser');
+    },
+    permission: 'AuditLogging.ViewChangeHistory:Volo.Abp.Identity.IdentityUser',
+    visible: (data) => Boolean(data?.getInjected(SHOW_ENTITY_HISTORY, null)),
+  },
+  {
+    text: 'AbpIdentity::Delete',
+    action: (data) => {
+      const component = data.getInjected(<%= componentNames.className %>Component);
+      component.delete(
+        data.record.id as string,
+        (data.record.name || data.record.userName) as string
+      );
+    },
+    permission: 'AbpIdentity.Users.Delete',
+  },
+]);
+
+export const TOOLBAR_COMPONENTS = ToolbarComponent.createMany<
+  IdentityUserDto[]
+>([
+  {
+    permission: 'AbpIdentity.Users.Create',
+    component: <%= componentNames.className %>ToolbarComponent,
+  },
+]);
+export const TOOLBAR_ACTIONS = ToolbarAction.createMany<IdentityUserDto[]>([
+  {
+    text: '<%= featureNames.className %>::Back',
+    action: (data) => {
+      const component = data.getInjected(<%= componentNames.className %>Component);
+      component.navigate(['.']);
+    },
+    icon: 'fa fa-plus',
+    visible: (data) => {
+      const activatedRoute = data?.getInjected(ActivatedRoute);
+      if (activatedRoute?.snapshot.url.length === undefined)
+        return false;
+      return activatedRoute?.snapshot.url.length >0;
+    },
+  },
+  {
+    text: 'AbpIdentity::NewUser',
+    action: (data) => {
+      const component = data.getInjected(<%= componentNames.className %>Component);
+      component.onAdd();
+    },
+    permission: 'AbpIdentity.Users.Create',
+    icon: 'fa fa-plus',
+  },
+]);
+
+export const ENTITY_PROPS = EntityProp.createMany<IdentityUserDto>([
+  {
+    type: ePropType.String,
+    name: 'userName',
+    displayName: 'AbpIdentity::UserName',
+    sortable: true,
+    columnWidth: 250,
+    valueResolver: (data) => {
+      const l10n = data.getInjected(LocalizationService);
+      const t = l10n.instant.bind(l10n);
+
+      const lockOutIcon = `<i title="${t(
+        'AbpIdentity::ThisUserIsLockedOutMessage'
+      )}" class="fas fa-lock text-danger me-1"></i>`;
+
+      const inactiveIcon = `<i title="${t(
+        'AbpIdentity::ThisUserIsNotActiveMessage'
+      )}" class="fas fa-ban text-danger me-1"></i>`;
+
+      return of(
+        `
+        ${data.record.isLockedOut ? lockOutIcon : ''}
+        ${!data.record.isActive ? inactiveIcon : ''}
+        <span class="${data.record.isLockedOut || !data.record.isActive ? 'opc-65' : ''
+        }">${escapeHtmlChars(data.record.userName)}</span>`
+      );
+    },
+  },
+  {
+    type: ePropType.String,
+    name: 'email',
+    displayName: 'AbpIdentity::EmailAddress',
+    sortable: true,
+    columnWidth: 300,
+    valueResolver: (data) => {
+      const { email, emailConfirmed } = data.record;
+
+      return of(
+        (email || '') +
+        (emailConfirmed
+          ? `<i class="fa fa-check text-success ms-1"></i>`
+          : '')
+      );
+    },
+  },
+  {
+    type: ePropType.String,
+    name: 'roleNames',
+    displayName: 'AbpIdentity::Roles',
+    columnWidth: 250,
+    valueResolver: (data) =>
+      of(
+        data.record.roleNames.reduce(
+          (acc, curr) => `${acc ? acc + ',' : ''} ${escapeHtmlChars(curr)}`,
+          ''
+        )
+      ),
+  },
+  {
+    type: ePropType.String,
+    name: 'phoneNumber',
+    displayName: 'AbpIdentity::PhoneNumber',
+    sortable: true,
+    columnWidth: 250,
+    valueResolver: (data) => {
+      const { phoneNumber, phoneNumberConfirmed } = data.record;
+
+      return of(
+        (escapeHtmlChars(phoneNumber) || '') +
+        (phoneNumberConfirmed
+          ? `<i class="fa fa-check text-success ms-1"></i>`
+          : '')
+      );
+    },
+  },
+  {
+    type: ePropType.String,
+    name: 'name',
+    displayName: 'AbpIdentity::Name',
+    sortable: true,
+    columnWidth: 250,
+  },
+  {
+    type: ePropType.String,
+    name: 'surname',
+    displayName: 'AbpIdentity::Surname',
+    sortable: true,
+    columnWidth: 250,
+  },
+  {
+    type: ePropType.Boolean,
+    name: 'isActive',
+    displayName: 'AbpIdentity::DisplayName:IsActive',
+    sortable: true,
+    columnWidth: 100,
+  },
+  {
+    type: ePropType.Boolean,
+    name: 'lockoutEnabled',
+    displayName: 'AbpIdentity::DisplayName:LockoutEnabled',
+    sortable: false,
+    columnWidth: 100,
+  },
+  {
+    type: ePropType.Boolean,
+    name: 'emailConfirmed',
+    displayName: 'AbpIdentity::DisplayName:EmailConfirmed',
+    sortable: true,
+    columnWidth: 100,
+  },
+  {
+    type: ePropType.Boolean,
+    name: 'twoFactorEnabled',
+    displayName: 'AbpIdentity::DisplayName:TwoFactorEnabled',
+    sortable: true,
+    columnWidth: 100,
+  },
+  {
+    type: ePropType.Number,
+    name: 'accessFailedCount',
+    displayName: 'AbpIdentity::DisplayName:AccessFailedCount',
+    sortable: true,
+    columnWidth: 100,
+  },
+  {
+    type: ePropType.DateTime,
+    name: 'creationTime',
+    displayName: 'AbpIdentity::CreationTime',
+    sortable: true,
+    columnWidth: 200,
+  },
+  {
+    type: ePropType.DateTime,
+    name: 'lastModificationTime',
+    displayName: 'AbpIdentity::LastModificationTime',
+    sortable: true,
+    columnWidth: 200,
+  },
+]);
+
+export const CREATE_FORM_PROPS = FormProp.createMany<IdentityUserDto>([
+  {
+    type: ePropType.String,
+    name: 'userName',
+    displayName: 'AbpIdentity::UserName',
+    id: 'user-name',
+    validators: () => [Validators.required, Validators.maxLength(256)],
+  },
+  {
+    type: ePropType.PasswordInputGroup,
+    name: 'password',
+    displayName: 'AbpIdentity::Password',
+    id: 'password',
+    autocomplete: 'new-password',
+    validators: (data) => [
+      Validators.required,
+      ...getPasswordValidators({ get: data.getInjected }),
+    ],
+  },
+  {
+    type: ePropType.String,
+    name: 'name',
+    displayName: 'AbpIdentity::DisplayName:Name',
+    id: 'name',
+    validators: () => [Validators.maxLength(64)],
+  },
+  {
+    type: ePropType.String,
+    name: 'surname',
+    displayName: 'AbpIdentity::DisplayName:Surname',
+    id: 'surname',
+    validators: () => [Validators.maxLength(64)],
+  },
+  {
+    type: ePropType.Email,
+    name: 'email',
+    displayName: 'AbpIdentity::EmailAddress',
+    id: 'email',
+    validators: () => [
+      Validators.required,
+      Validators.maxLength(256),
+      Validators.email,
+    ],
+  },
+  {
+    type: ePropType.String,
+    name: 'phoneNumber',
+    displayName: 'AbpIdentity::PhoneNumber',
+    id: 'phone-number',
+    validators: () => [Validators.maxLength(16)],
+  },
+  {
+    type: ePropType.Boolean,
+    name: 'isActive',
+    displayName: 'AbpIdentity::DisplayName:IsActive',
+    id: 'active-checkbox',
+    defaultValue: true,
+  },
+  {
+    type: ePropType.Boolean,
+    name: 'shouldChangePasswordOnNextLogin',
+    displayName: 'AbpIdentity::DisplayName:ShouldChangePasswordOnNextLogin',
+    id: 'shouldChangePasswordOnNextLogin',
+    defaultValue: false,
+  },
+  {
+    type: ePropType.Boolean,
+    name: 'lockoutEnabled',
+    displayName: 'AbpIdentity::DisplayName:LockoutEnabled',
+    id: 'lockout-checkbox',
+    defaultValue: true,
+  },
+]);
+
+export const EDIT_FORM_PROPS = CREATE_FORM_PROPS.filter(
+  (prop) => prop.name !== 'password'
+);
+
+export function MergeDefaults<%= componentNames.className %>(extensions: ExtensionsService) {
+  mergeWithDefaultActions(extensions.entityActions, {
+    [e<%= componentNames.className %>Names.<%= componentNames.className %>]: ENTITY_ACTIONS,
+  });
+  mergeWithDefaultActions(extensions.toolbarActions, {
+    [e<%= componentNames.className %>Names.<%= componentNames.className %>]: [...TOOLBAR_ACTIONS, ...TOOLBAR_COMPONENTS],
+  });
+  mergeWithDefaultProps(extensions.entityProps, {
+    [e<%= componentNames.className %>Names.<%= componentNames.className %>]: ENTITY_PROPS,
+  });
+  mergeWithDefaultProps(extensions.createFormProps, {
+    [e<%= componentNames.className %>Names.<%= componentNames.className %>]: CREATE_FORM_PROPS,
+  });
+  mergeWithDefaultProps(extensions.editFormProps, {
+    [e<%= componentNames.className %>Names.<%= componentNames.className %>]: EDIT_FORM_PROPS,
+  });
+}

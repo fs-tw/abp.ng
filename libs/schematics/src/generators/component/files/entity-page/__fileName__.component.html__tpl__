@@ -1,0 +1,7 @@
+<router-outlet (activate)="onActive($event)"></router-outlet>
+
+<<%= selector %>-modal
+  [(visible)]="<%= componentNames.propertyName %>Modal.visible"
+  [id]="<%= componentNames.propertyName %>Modal.id"
+  (saved)="loadDatas()"
+></<%= selector %>-modal>

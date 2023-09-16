@@ -1,0 +1,22 @@
+<abp-modal [(visible)]="visible" [busy]="modalBusy">
+  <ng-template #abpHeader>
+    <h5 class="modal-title">{{ 'featureNames.className::ModalTitle' | abpLocalization }}</h5>
+  </ng-template>
+  <ng-template #abpBody>
+    <form
+      #ngForm="ngForm"
+      [formGroup]="form"
+      validateOnSubmit
+      [markAsDirtyWhenSubmit]="false"
+    >
+    </form>
+  </ng-template>
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'featureNames.className::Cancel' | abpLocalization }}
+    </button>
+    <abp-button iconClass="fa fa-check" (click)="save()">{{
+      'featureNames.className::Save' | abpLocalization
+    }}</abp-button>
+  </ng-template>
+</abp-modal>

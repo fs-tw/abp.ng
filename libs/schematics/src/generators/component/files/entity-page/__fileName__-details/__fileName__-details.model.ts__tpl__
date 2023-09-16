@@ -1,0 +1,6 @@
+export const enum e<%= componentNames.className %>DetailsPolicyNames {
+  <%= componentNames.className %>Details = '',
+}
+export const enum e<%= componentNames.className %>DetailsNames {
+  <%= componentNames.className %>Details = '<%= featureNames.className %>::Menu:<%= componentNames.className %>Details',
+}

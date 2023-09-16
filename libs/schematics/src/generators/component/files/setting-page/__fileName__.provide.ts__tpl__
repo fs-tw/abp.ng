@@ -1,13 +1,24 @@
 import { CoreModule } from "@abp/ng.core";
-import { EnvironmentProviders, Provider, importProvidersFrom } from "@angular/core";
+import { inject, ENVIRONMENT_INITIALIZER, EnvironmentProviders, Provider, importProvidersFrom } from "@angular/core";
+import { provideEmailSettings } from './email-settings/email-settings.provide';
 import localizations from './<%= fileName %>.localizations';
+import { <%= className %>TabsService } from './<%= fileName %>-tabs.service';
+import { EmailSettingsTab } from "./email-settings/email-settings.tab";
 
 export const provide<%= className %> = (): Array<Provider | EnvironmentProviders> => {
 
   const providers: Array<Provider | EnvironmentProviders> = [
     importProvidersFrom(
-      CoreModule.forChild({ localizations: localizations })
-    )
+      CoreModule.forChild({ localizations })
+    ),
+    provideEmailSettings(),
+    {
+      provide: ENVIRONMENT_INITIALIZER,
+      useValue: () => inject(<%= className %>TabsService).add([
+        EmailSettingsTab
+      ]),
+      multi: true
+    }
   ];
 
   return providers;

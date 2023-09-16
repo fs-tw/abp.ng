@@ -3,7 +3,7 @@ export default [
     culture: 'en',
     resources: [
       {
-        resourceName: '<%= namePathName %>',
+        resourceName: '<%= featureNames.className %>',
         texts: {          
           ['Menu:<%= className %>']: '<%= className %>',
           SuccessfullySaved: 'SuccessfullySaved',
@@ -34,7 +34,7 @@ export default [
     culture: 'zh-Hant',
     resources: [
       {
-        resourceName: '<%= namePathName %>',
+        resourceName: '<%= featureNames.className %>',
         texts: {
           ['Menu:<%= className %>']: '<%= className %>',
           SuccessfullySaved: 'SuccessfullySaved',

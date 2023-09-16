@@ -1,0 +1,12 @@
+import { ABP } from '@abp/ng.core';
+import { <%= componentNames.className %>DetailsComponent } from './<%= fileName%>-details.component';
+import {
+  e<%= componentNames.className %>DetailsNames, e<%= componentNames.className %>DetailsPolicyNames
+} from './<%= fileName%>-details.model';
+
+export const <%= componentNames.className %>DetailsTab: ABP.Tab = {
+  name: e<%= componentNames.className %>DetailsNames.<%= componentNames.className %>Details,
+  order: 1,
+  requiredPolicy: e<%= componentNames.className %>DetailsPolicyNames.<%= componentNames.className %>Details,
+  component: <%= componentNames.className %>DetailsComponent,
+};

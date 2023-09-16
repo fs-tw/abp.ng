@@ -1,0 +1,240 @@
+<abp-page
+  [title]="'Roles::PageTitle' | abpLocalization"
+  [toolbar]="data().items"
+>
+  <div id="roles-wrapper">
+    <abp-advanced-entity-filters
+      [list]="list"
+      localizationSourceName="AbpIdentity"
+    >
+      <abp-advanced-entity-filters-form>
+        <form #filterForm (keyup.enter)="list.get()">
+          <div class="row">
+            <div class="col-12 col-sm-4 col-md-3">
+              <div class="mb-3">
+                <label for="roleIdFilter" class="form-label">
+                  {{ 'AbpIdentity::Role' | abpLocalization }}
+                </label>
+                <abp-lookup-select
+                  cid="roleIdFilter"
+                  lookupNameProp="name"
+                  [getFn]="roleService.getList"
+                  [(ngModel)]="filters().roleId"
+                  [ngModelOptions]="{ standalone: true }"
+                ></abp-lookup-select>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-4 col-md-3">
+              <div class="mb-3">
+                <label for="organizationUnitIdFilter" class="form-label">
+                  {{ 'AbpIdentity::OrganizationUnit' | abpLocalization }}
+                </label>
+                <abp-lookup-select
+                  cid="organizationUnitIdFilter"
+                  [getFn]="organizationUnitService.getList"
+                  [(ngModel)]="filters().organizationUnitId"
+                  [ngModelOptions]="{ standalone: true }"
+                ></abp-lookup-select>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-4 col-md-3">
+              <div class="form-group mb-3">
+                <label for="UserName" class="form-label">
+                  {{ 'AbpIdentity::UserName' | abpLocalization }}
+                </label>
+                <input
+                  type="text"
+                  id="UserName"
+                  class="form-control"
+                  [(ngModel)]="filters().userName"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-4 col-md-3">
+              <div class="form-group mb-3">
+                <label for="UserName" class="form-label">
+                  {{ 'AbpIdentity::Name' | abpLocalization }}
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  class="form-control"
+                  [(ngModel)]="filters().name"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+            <div class="col-12 col-sm-4 col-md-3">
+              <div class="form-group mb-3">
+                <label for="UserName" class="form-label">
+                  {{ 'AbpIdentity::Surname' | abpLocalization }}
+                </label>
+                <input
+                  type="text"
+                  id="surname"
+                  class="form-control"
+                  [(ngModel)]="filters().surname"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+            <div class="col-12 col-sm-4 col-md-3">
+              <div class="form-group mb-3">
+                <label for="UserName" class="form-label">
+                  {{ 'AbpIdentity::CreationDate' | abpLocalization }}
+                </label>
+                <abp-date-range-picker
+                  startDateProp="minCreationTime"
+                  endDateProp="maxCreationTime"
+                  [(ngModel)]="filters"
+                  [ngModelOptions]="{ standalone: true }"
+                >
+                </abp-date-range-picker>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-4 col-md-3">
+              <div class="form-group mb-3">
+                <label for="UserName" class="form-label">
+                  {{ 'AbpIdentity::ModificationDate' | abpLocalization }}
+                </label>
+                <abp-date-range-picker
+                  startDateProp="minModificationTime"
+                  endDateProp="maxModificationTime"
+                  [(ngModel)]="filters"
+                  [ngModelOptions]="{ standalone: true }"
+                >
+                </abp-date-range-picker>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-4 col-md-3">
+              <div class="form-group mb-3">
+                <label for="PhoneNumber" class="form-label">
+                  {{ 'AbpIdentity::PhoneNumber' | abpLocalization }}
+                </label>
+                <input
+                  type="text"
+                  id="PhoneNumber"
+                  class="form-control"
+                  [(ngModel)]="filters().phoneNumber"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-4 col-md-3">
+              <div class="form-group mb-3">
+                <label for="EmailAddress" class="form-label">
+                  {{ 'AbpIdentity::EmailAddress' | abpLocalization }}
+                </label>
+                <input
+                  type="text"
+                  id="EmailAddress"
+                  class="form-control"
+                  [(ngModel)]="filters().emailAddress"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+
+            <div class="d-flex col-auto mb-3 mb-md-0 gap-3">
+              <div class="align-self-center">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="not-active"
+                    [(ngModel)]="filters().notActive"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                  <label class="form-check-label" for="not-active">{{
+                    'AbpIdentity::NotActive' | abpLocalization
+                  }}</label>
+                </div>
+              </div>
+              <div class="align-self-center">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="email-confirmed"
+                    [(ngModel)]="filters().emailConfirmed"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                  <label class="form-check-label" for="email-confirmed">{{
+                    'AbpIdentity::EmailConfirmed' | abpLocalization
+                  }}</label>
+                </div>
+              </div>
+
+              <div class="align-self-center">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="is-locked-out"
+                    [(ngModel)]="filters().isLockedOut"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                  <label class="form-check-label" for="is-locked-out">{{
+                    'AbpIdentity::Lock' | abpLocalization
+                  }}</label>
+                </div>
+              </div>
+              <div class="align-self-center">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="is-external"
+                    [(ngModel)]="filters().isExternal"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                  <label class="form-check-label" for="is-external">{{
+                    'AbpIdentity::IsExternal' | abpLocalization
+                  }}</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-auto align-self-end mb-3">
+              <div class="row">
+                <div class="col-6 col-sm-auto d-grid">
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    (click)="clearFilters()"
+                  >
+                    <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                  </button>
+                </div>
+                <div class="col-6 col-sm-auto d-grid">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="list.get()"
+                  >
+                    <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </abp-advanced-entity-filters-form>
+    </abp-advanced-entity-filters>
+
+    <div class="card">
+      <abp-extensible-table
+        [data]="data().items!"
+        [recordsTotal]="data().totalCount!"
+        [list]="list"
+      ></abp-extensible-table>
+    </div>
+  </div>
+</abp-page>

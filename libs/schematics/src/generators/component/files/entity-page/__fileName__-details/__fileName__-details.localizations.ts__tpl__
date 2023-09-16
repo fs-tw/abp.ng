@@ -1,0 +1,22 @@
+export default [
+  {
+    culture: 'en',
+    resources: [
+      {
+        resourceName: '<%= featureNames.className %>',
+        texts: {
+        },
+      },
+    ],
+  },
+  {
+    culture: 'zh-Hant',
+    resources: [
+      {
+        resourceName: '<%= featureNames.className %>',
+        texts: {
+        },
+      },
+    ],
+  },
+];

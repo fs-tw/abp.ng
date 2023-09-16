@@ -1,25 +1,10 @@
-import { Routes } from '@angular/router';
 import { <%= className %>Component } from './<%= fileName %>.component';
 import { provide<%= className %> } from './<%= fileName %>.provide';
-import { inject } from '@angular/core';
-import {
-  ExtensionsService
-} from '@abp/ng.theme.shared/extensions';
-import { Initial<%= className %> } from './<%= fileName %>.default';
 
-export const routes: Routes = [
+export default [
   {
     path: '',
     component: <%= className %>Component,
-    providers: [provide<%= className %>()],
-    resolve: {
-      extensions: () => {
-        const extensions = inject(ExtensionsService);
-
-        Initial<%= className %>(extensions);
-           
-        return extensions;
-      },
-    },
+    providers: [provide<%= className %>()]
   },
 ];

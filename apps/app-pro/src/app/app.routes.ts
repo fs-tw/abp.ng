@@ -1,4 +1,4 @@
-import { Routes, provideRouter } from '@angular/router';
+import { Routes, provideRouter, withComponentInputBinding } from '@angular/router';
 import { RoutesService, eLayoutType } from '@abp/ng.core';
 import { APP_INITIALIZER } from '@angular/core';
 
@@ -11,9 +11,7 @@ export const routes: Routes = [
   {
     path: 'demo',
     loadChildren: () =>
-      import('./demo/demo.routes').then((m) =>
-        m.routes
-      ),
+      import('./demo/demo.routes')
   },
   {
     path: 'account',
@@ -82,7 +80,7 @@ export const routes: Routes = [
 ];
 
 export const APP_ROUTES_PROVIDER = [
-  provideRouter(routes),
+  provideRouter(routes, withComponentInputBinding()),
   {
     provide: APP_INITIALIZER,
     useFactory: configureRoutes,

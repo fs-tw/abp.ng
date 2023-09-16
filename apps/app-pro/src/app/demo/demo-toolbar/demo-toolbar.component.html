@@ -1,0 +1,11 @@
+<div ngbDropdown class="d-inline-block ngb-dropdown">
+  <button class="btn btn-primary btn-sm" id="Import" ngbDropdownToggle>
+    {{ 'Roles::Function' | abpLocalization }}
+  </button>
+
+  <div ngbDropdownMenu id="options" aria-labelledby="Import">
+    <button ngbDropdownItem (click)="toNavigate(['./external-login'])">
+      {{ 'Roles::ExternalLogin' | abpLocalization }}
+    </button>
+  </div>
+</div>

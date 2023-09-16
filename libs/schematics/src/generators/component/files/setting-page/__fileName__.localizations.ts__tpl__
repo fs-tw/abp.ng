@@ -3,7 +3,7 @@ export default  [
     "culture": "en",
     "resources": [
       {
-        "resourceName": "<%= className %>",
+        "resourceName": "<%= namePathName??className %>",
         "texts": {
           "PageTitle": "PageTitle"
         }
@@ -14,7 +14,7 @@ export default  [
     "culture": "zh-Hant",
     "resources": [
       {
-        "resourceName": "<%= className %>",
+        "resourceName": "<%= namePathName??className %>",
         "texts": {
           "PageTitle": "PageTitle"
         }

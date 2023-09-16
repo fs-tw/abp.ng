@@ -1,10 +1,12 @@
+import { Names } from "../types";
+
 export enum ComponentKind {
   SettingPage = 'setting-page',
   SettingTab = 'setting-tab',
   TreePage = 'tree-page',
-  BasicPage='basic-page',
-  StatePage='state-page',
-  StateTab='state-tab'
+  BasicPage = 'basic-page',
+  EntityPage = 'entity-page',
+  Modal = 'modal'
 
 }
 
@@ -25,5 +27,7 @@ export interface NormalizedSchema extends SettingPageGeneratorSchema {
   projectSourceRoot: string;
   projectRoot: string;
   selector: string;
-  namePath:string;
+  namePath: string;
+  featureNames: Names;
+  componentNames: Names;
 }
