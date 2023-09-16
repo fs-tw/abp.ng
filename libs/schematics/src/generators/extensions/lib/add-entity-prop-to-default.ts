@@ -36,7 +36,7 @@ export function addEntityPropToDefault(
   tree: Tree,
   fileName: string,
   type: Type & { name: string },
-  variable: Variable,
+  variable: string,
   ignoreProperties: string[] = []
 ) {
   if (!tsModule) {
