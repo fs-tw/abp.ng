@@ -63,7 +63,6 @@ export function normalizeNameAndPaths(
   const { name, path: namePath } = parseNameWithPath(options.name);
 
   const path =
-    options.path ??
     joinPathFragments(
       projectSourceRoot,
       projectType === 'application' ? 'app' : 'lib',
