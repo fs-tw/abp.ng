@@ -192,10 +192,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "app-pro:build:production"
+          "buildTarget": "app-pro:build:production"
         },
         "development": {
-          "browserTarget": "app-pro:build:development"
+          "buildTarget": "app-pro:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -203,15 +203,12 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "app-pro:build"
+        "buildTarget": "app-pro:build"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/app-pro/**/*.ts", "apps/app-pro/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     }
   }
 }
