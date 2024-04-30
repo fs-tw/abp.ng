@@ -24,7 +24,7 @@ export class UploadComponent extends WidgetComponent {
    }
 
   beforeUpload = (file: NzUploadFile): boolean => {
-    this.fileList = _.unionBy([file, ...this.fileList], 'name');;
+    this.fileList = _.unionBy([file, ...this.fileList], 'name');
     return false;
   }
 }
