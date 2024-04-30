@@ -5,18 +5,24 @@ import {
 } from '@angular/core';
 import { CoreModule } from '@abp/ng.core';
 import { environment } from '../environments/environment';
-import { registerLocale } from '@volo/abp.ng.language-management/locale';
+// import { registerLocale } from '@volo/abp.ng.language-management/locale';
+import { registerLocale } from './register-locale';
 import { AbpOAuthModule } from '@abp/ng.oauth';
 import { CommercialUiConfigModule } from '@volo/abp.commercial.ng.ui/config';
 import { AccountAdminConfigModule } from '@volo/abp.ng.account/admin/config';
 import { AccountPublicConfigModule } from '@volo/abp.ng.account/public/config';
 import { IdentityConfigModule } from '@volo/abp.ng.identity/config';
-import { InternetConnectionStatusComponent, ThemeSharedModule } from '@abp/ng.theme.shared';
+import {
+  ThemeSharedModule,
+  InternetConnectionStatusComponent,
+} from '@abp/ng.theme.shared';
 import { FeatureManagementModule } from '@abp/ng.feature-management';
 import { SettingManagementConfigModule } from '@abp/ng.setting-management/config';
 import {
+  HttpErrorComponent,
   ThemeLeptonXModule,
 } from '@volosoft/abp.ng.theme.lepton-x';
+import { AccountLayoutModule } from '@volosoft/abp.ng.theme.lepton-x/account';
 import { SideMenuLayoutModule } from '@volosoft/abp.ng.theme.lepton-x/layouts';
 import { LanguageManagementConfigModule } from '@volo/abp.ng.language-management/config';
 import { SaasConfigModule } from '@volo/abp.ng.saas/config';
@@ -52,7 +58,6 @@ export const provideApp = (): Array<Provider | EnvironmentProviders> => {
       TextTemplateManagementConfigModule.forRoot(),
       SettingManagementConfigModule.forRoot(),
 
-
       CommercialUiConfigModule.forRoot(),
       FeatureManagementModule.forRoot(),
       GdprConfigModule.forRoot({
@@ -60,9 +65,9 @@ export const provideApp = (): Array<Provider | EnvironmentProviders> => {
         cookiePolicyUrl: 'gdpr-cookie-consent/cookie',
       }),
       ThemeLeptonXModule.forRoot(),
-      SideMenuLayoutModule.forRoot()
+      SideMenuLayoutModule.forRoot(),
     ]),
-    InternetConnectionStatusComponent
+    InternetConnectionStatusComponent,
   ];
 
   // Return the providers

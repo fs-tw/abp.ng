@@ -5,13 +5,14 @@ import {
 } from '@angular/core';
 import { CoreModule } from '@abp/ng.core';
 import { environment } from '../environments/environment';
-import { registerLocale } from '@volo/abp.ng.language-management/locale';
+// import { registerLocale } from '@volo/abp.ng.language-management/locale';
+import { registerLocale } from './register-locale';
 import { AbpOAuthModule } from '@abp/ng.oauth';
 import { CommercialUiConfigModule } from '@volo/abp.commercial.ng.ui/config';
 import { AccountAdminConfigModule } from '@volo/abp.ng.account/admin/config';
 import { AccountPublicConfigModule } from '@volo/abp.ng.account/public/config';
 import { IdentityConfigModule } from '@volo/abp.ng.identity/config';
-import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { ThemeSharedModule, InternetConnectionStatusComponent } from '@abp/ng.theme.shared';
 import { FeatureManagementModule } from '@abp/ng.feature-management';
 import { SettingManagementConfigModule } from '@abp/ng.setting-management/config';
 import {
@@ -37,46 +38,34 @@ export type AbpProviderConfig = {
 export const provideApp = (): Array<Provider | EnvironmentProviders> => {
   // Base providers
   const providers: Array<Provider | EnvironmentProviders> = [
-    importProvidersFrom(
+    importProvidersFrom([
       CoreModule.forRoot({
         environment,
         registerLocaleFn: registerLocale(),
-      })
-    ),
-    importProvidersFrom(AbpOAuthModule.forRoot()),
-    importProvidersFrom(
-      ThemeSharedModule.forRoot({
-        httpErrorConfig: {
-          errorScreen: {
-            component: HttpErrorComponent,
-            forWhichErrors: [401, 403, 404, 500],
-            hideCloseIcon: true,
-          },
-        },
-      })
-    ),
-    importProvidersFrom(AccountAdminConfigModule.forRoot()),
-    importProvidersFrom(AccountPublicConfigModule.forRoot()),
-    importProvidersFrom(AccountLayoutModule.forRoot()),
-    importProvidersFrom(IdentityConfigModule.forRoot()),
+      }),
+      AbpOAuthModule.forRoot(),
+      ThemeSharedModule.forRoot(),
+      AccountAdminConfigModule.forRoot(),
+      AccountPublicConfigModule.forRoot(),
+      IdentityConfigModule.forRoot(),
+      LanguageManagementConfigModule.forRoot(),
+      SaasConfigModule.forRoot(),
+      AuditLoggingConfigModule.forRoot(),
+      OpeniddictproConfigModule.forRoot(),
+      TextTemplateManagementConfigModule.forRoot(),
+      SettingManagementConfigModule.forRoot(),
 
-    importProvidersFrom(LanguageManagementConfigModule.forRoot()),
-    importProvidersFrom(SaasConfigModule.forRoot()),
-    importProvidersFrom(AuditLoggingConfigModule.forRoot()),
-    importProvidersFrom(OpeniddictproConfigModule.forRoot()),
-    importProvidersFrom(TextTemplateManagementConfigModule.forRoot()),    
 
-    importProvidersFrom(SettingManagementConfigModule.forRoot()),
-    importProvidersFrom(ThemeLeptonXModule.forRoot()),
-    importProvidersFrom(SideMenuLayoutModule.forRoot()),
-    importProvidersFrom(CommercialUiConfigModule.forRoot()),
-    importProvidersFrom(FeatureManagementModule.forRoot()),
-    importProvidersFrom(GdprConfigModule.forRoot({
-      cookieConsent: {
+      CommercialUiConfigModule.forRoot(),
+      FeatureManagementModule.forRoot(),
+      GdprConfigModule.forRoot({
         privacyPolicyUrl: 'gdpr-cookie-consent/privacy',
         cookiePolicyUrl: 'gdpr-cookie-consent/cookie',
-      },
-    }))    
+      }),
+      ThemeLeptonXModule.forRoot(),
+      SideMenuLayoutModule.forRoot()
+    ]),
+    InternetConnectionStatusComponent
   ];
 
   // Return the providers

@@ -1,24 +1,15 @@
 import {
-  addProjectConfiguration,
   formatFiles,
-  generateFiles,
   joinPathFragments,
   Tree,
 } from '@nx/devkit';
-import * as path from 'path';
 import { LibraryGeneratorSchema } from './schema';
-import { E2eTestRunner, libraryGenerator as nxlibraryGenerator, UnitTestRunner } from '@nx/angular/generators';
+import { libraryGenerator as nxlibraryGenerator, UnitTestRunner } from '@nx/angular/generators';
 
 export async function libraryGenerator(
   tree: Tree,
   options: LibraryGeneratorSchema
 ) {
-  const libRoot = joinPathFragments(
-    'libs',
-    options.directory ?? '',
-    `${options.name}`
-  );
-
   await nxlibraryGenerator(tree, {
     ...options,
     ...{

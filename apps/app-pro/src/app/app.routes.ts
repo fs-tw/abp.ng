@@ -1,4 +1,8 @@
-import { Routes, provideRouter, withComponentInputBinding } from '@angular/router';
+import {
+  Routes,
+  provideRouter,
+  withComponentInputBinding,
+} from '@angular/router';
 import { RoutesService, eLayoutType } from '@abp/ng.core';
 import { APP_INITIALIZER } from '@angular/core';
 
@@ -8,11 +12,13 @@ export const routes: Routes = [
     pathMatch: 'full',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
-  {
-    path: 'demo',
-    loadChildren: () =>
-      import('./demo/demo.routes')
-  },
+  // {
+  //   path: 'demo',
+  //   loadChildren: () =>
+  //     import('./roles/roles.routes').then((m) =>
+  //       m.routes
+  //     ),
+  // },
   {
     path: 'account',
     loadChildren: () =>

@@ -118,6 +118,11 @@ export function updateProjectConfigurationJson(
       "bundleName": "abp-bundle.rtl"
     },
     {
+      "input": "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+      "inject": true,
+      "bundleName": "bootstrap-icons"
+    },
+    {
       "input": "node_modules/@swimlane/ngx-datatable/index.css",
       "inject": true,
       "bundleName": "ngx-datatable-index"
@@ -147,7 +152,6 @@ export function updateProjectConfigurationJson(
       "inject": false,
       "bundleName": "ng-zorro-antd-tree"
     },
-    "node_modules/bootstrap-icons/font/bootstrap-icons.css",
     `apps/${options.name}/src/styles.scss`];
 
   updateProjectConfiguration(tree, options.name, projectJson);

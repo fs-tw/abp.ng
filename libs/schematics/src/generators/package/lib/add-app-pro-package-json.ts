@@ -1,6 +1,6 @@
 import type { GeneratorCallback, Tree } from '@nx/devkit';
 import { addDependenciesToPackageJson, } from '@nx/devkit';
-import { abpVersion,leptonXVersion,angularVersion } from './versions';
+import { abpVersion, leptonXVersion, angularVersion } from './versions';
 
 export function addAppProToPackageJson(
   tree: Tree,
@@ -26,11 +26,11 @@ export function addAppProToPackageJson(
       "@volo/abp.ng.saas": abpVersion,
       "@volo/abp.ng.text-template-management": abpVersion,
       "@volosoft/abp.ng.theme.lepton-x": leptonXVersion,
-      "@angular/localize":angularVersion
+      "@angular/localize": angularVersion
     },
     {
       "@abp/ng.schematics": abpVersion,
-      "@abp/nx.generators":abpVersion
+      "@abp/nx.generators": abpVersion
     }
   );
 }

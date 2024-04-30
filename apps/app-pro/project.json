@@ -7,14 +7,15 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/app-pro",
         "index": "apps/app-pro/src/index.html",
-        "main": "apps/app-pro/src/main.ts",
+        "browser": "apps/app-pro/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/app-pro/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
         "assets": ["apps/app-pro/src/favicon.ico", "apps/app-pro/src/assets"],
         "styles": [
           {
@@ -152,7 +153,6 @@
             "inject": false,
             "bundleName": "ng-zorro-antd-tree"
           },
-          "node_modules/ng-zorro-antd/ng-zorro-antd.css",
           "apps/app-pro/src/styles.scss"
         ],
         "scripts": [],
@@ -182,12 +182,9 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true
+          "sourceMap": true
         }
       },
       "defaultConfiguration": "production"
@@ -211,8 +208,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     }
   }
 }
