@@ -6,9 +6,9 @@ import {
   importProvidersFrom,
   inject,
 } from '@angular/core';
+import { ExtensionsService } from '@abp/ng.components/extensible';
 import localizations from './<%= fileName %>.localizations';
 import { MergeDefaults<%= componentNames.className %> } from './<%= fileName %>.default';
-import { ExtensionsService } from '@abp/ng.theme.shared/extensions';
 import { provide<%= componentNames.className %>Details } from './<%= fileName %>-details/<%= fileName %>-details.provide';
 import { provideExternalLogin } from './external-login/external-login.provide';
 

@@ -18,7 +18,7 @@
   }}</label>
   <div class="mt-2 fade-in-top">
     <div class="mb-3" [formGroup]="lockForm">
-      <abp-date-time-picker [prop]="dateTimePickerProps"></abp-date-time-picker>
+      <abp-extensible-date-time-picker [prop]="dateTimePickerProps"></abp-extensible-date-time-picker>
     </div>
   </div>
 

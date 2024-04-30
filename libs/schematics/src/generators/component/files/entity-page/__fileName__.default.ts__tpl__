@@ -7,14 +7,12 @@ import {
   ePropType,
   mergeWithDefaultActions,
   mergeWithDefaultProps,
-} from '@abp/ng.theme.shared/extensions';
+  ToolbarAction,
+  ToolbarComponent
+} from '@abp/ng.components/extensible';
 import { SHOW_ENTITY_HISTORY } from '@volo/abp.commercial.ng.ui';
 import { IdentityUserDto } from '@volo/abp.ng.identity/proxy';
 import { <%= componentNames.className %>Component } from './<%= fileName %>.component';
-import {
-  ToolbarAction,
-  ToolbarComponent,
-} from '@abp/ng.theme.shared/extensions';
 import { <%= componentNames.className %>ToolbarComponent } from './<%= fileName %>-toolbar/<%= fileName %>-toolbar.component';
 import { e<%= componentNames.className %>Names } from './<%= fileName %>.model';
 import { of } from 'rxjs';

@@ -2,6 +2,6 @@
 
 <<%= selector %>-modal
   [(visible)]="<%= componentNames.propertyName %>Modal.visible"
-  [id]="<%= componentNames.propertyName %>Modal.id"
+  [id]="<%= componentNames.propertyName %>Modal.id ?? ''"
   (saved)="loadDatas()"
 ></<%= selector %>-modal>

@@ -1,13 +1,13 @@
 import { Component, Inject, inject } from '@angular/core';
+import { CoreModule } from '@abp/ng.core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { Router } from '@angular/router';
 import {
   ActionData,
   EXTENSIONS_ACTION_DATA,
 } from '@abp/ng.components/extensible';
 import { DemoComponent } from '../demo.component';
-import { CoreModule } from '@abp/ng.core';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { ThemeSharedModule } from '@abp/ng.theme.shared';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-demo-toolbar',

@@ -7,14 +7,12 @@ import {
   ePropType,
   mergeWithDefaultActions,
   mergeWithDefaultProps,
+  ToolbarAction,
+  ToolbarComponent,
 } from '@abp/ng.components/extensible';
 import { SHOW_ENTITY_HISTORY } from '@volo/abp.commercial.ng.ui';
 import { IdentityUserDto } from '@volo/abp.ng.identity/proxy';
 import { DemoComponent } from './demo.component';
-import {
-  ToolbarAction,
-  ToolbarComponent,
-} from '@abp/ng.components/extensible';
 import { DemoToolbarComponent } from './demo-toolbar/demo-toolbar.component';
 import { eDemoNames } from './demo.model';
 import { of } from 'rxjs';

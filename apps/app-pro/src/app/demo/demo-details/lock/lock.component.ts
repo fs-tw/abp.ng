@@ -13,15 +13,24 @@ import { finalize } from 'rxjs/operators';
 import { PageModule } from '@abp/ng.components/page';
 import { CoreModule } from '@abp/ng.core';
 import { IdentityUserService } from '@volo/abp.ng.identity/proxy';
+import {
+  ePropType,
+  FormProp,
+  ExtensibleDateTimePickerComponent,
+} from '@abp/ng.components/extensible';
 import { DemoDetailsStateService } from '../demo-details-state.service';
-import { ePropType, FormProp } from '@abp/ng.components/extensible';
 
 @Component({
   selector: 'app-lock',
   templateUrl: 'lock.component.html',
   animations: [collapse],
   standalone: true,
-  imports: [CoreModule, ThemeSharedModule, PageModule],
+  imports: [
+    CoreModule,
+    ThemeSharedModule,
+    PageModule,
+    ExtensibleDateTimePickerComponent,
+  ],
 })
 export class LockComponent implements OnInit {
   public injector = inject(Injector);

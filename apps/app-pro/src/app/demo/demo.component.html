@@ -2,6 +2,6 @@
 
 <app-demo-modal
   [(visible)]="demoModal.visible"
-  [id]="demoModal.id"
+  [id]="demoModal.id ?? ''"
   (saved)="loadDatas()"
 ></app-demo-modal>
