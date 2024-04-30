@@ -6,21 +6,21 @@ export const environment = {
   production: false,
   application: {
     baseUrl,
-    name: 'MyProjectName',
+    name: 'MyProjectName1',
     logoUrl: '',
   },
   oAuthConfig: {
     issuer: 'https://localhost:44301/',
     redirectUri: baseUrl,
-    clientId: 'MyProjectName_App',
+    clientId: 'MyProjectName1_App',
     responseType: 'code',
-    scope: 'offline_access MyProjectName',
+    scope: 'offline_access MyProjectName1',
     requireHttps: true,
   },
   apis: {
     default: {
       url: 'https://localhost:44300',
-      rootNamespace: 'MyCompanyName.MyProjectName',
+      rootNamespace: 'MyCompanyName.MyProjectName1',
     },
   },
 } as Environment;

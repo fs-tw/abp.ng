@@ -7,14 +7,15 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/dev-app",
         "index": "apps/dev-app/src/index.html",
-        "main": "apps/dev-app/src/main.ts",
+        "browser": "apps/dev-app/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/dev-app/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
         "assets": ["apps/dev-app/src/favicon.ico", "apps/dev-app/src/assets"],
         "styles": [
           {
@@ -115,12 +116,9 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true
+          "sourceMap": true
         }
       },
       "defaultConfiguration": "production"
@@ -144,8 +142,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     }
   }
 }
