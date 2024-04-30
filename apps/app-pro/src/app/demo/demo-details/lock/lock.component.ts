@@ -14,7 +14,7 @@ import { PageModule } from '@abp/ng.components/page';
 import { CoreModule } from '@abp/ng.core';
 import { IdentityUserService } from '@volo/abp.ng.identity/proxy';
 import { DemoDetailsStateService } from '../demo-details-state.service';
-import { ePropType, FormProp } from '@abp/ng.theme.shared/extensions';
+import { ePropType, FormProp } from '@abp/ng.components/extensible';
 
 @Component({
   selector: 'app-lock',

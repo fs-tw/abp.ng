@@ -10,7 +10,7 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import {
   FormPropData,
   generateFormFromProps,
-} from '@abp/ng.theme.shared/extensions';
+} from '@abp/ng.components/extensible';
 import {
   Component,
   EventEmitter,

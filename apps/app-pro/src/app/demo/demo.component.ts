@@ -5,7 +5,7 @@ import {
   ThemeSharedModule,
   ToasterService,
 } from '@abp/ng.theme.shared';
-import { EXTENSIONS_IDENTIFIER } from '@abp/ng.theme.shared/extensions';
+import { EXTENSIONS_IDENTIFIER } from '@abp/ng.components/extensible';
 import { Component, TrackByFunction, inject } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { IdentityUserService } from '@volo/abp.ng.identity/proxy';

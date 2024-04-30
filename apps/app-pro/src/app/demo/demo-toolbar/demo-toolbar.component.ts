@@ -2,7 +2,7 @@ import { Component, Inject, inject } from '@angular/core';
 import {
   ActionData,
   EXTENSIONS_ACTION_DATA,
-} from '@abp/ng.theme.shared/extensions';
+} from '@abp/ng.components/extensible';
 import { DemoComponent } from '../demo.component';
 import { CoreModule } from '@abp/ng.core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
