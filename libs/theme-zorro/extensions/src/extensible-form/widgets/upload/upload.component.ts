@@ -15,16 +15,13 @@ import { WidgetComponent } from '../widget.component';
     `
   ]
 })
-export class UploadComponent extends WidgetComponent implements OnInit {
+export class UploadComponent extends WidgetComponent {
 
   fileList: NzUploadFile[] = [];
 
   constructor(injector:Injector) {
     super(injector);
    }
-
-  ngOnInit(): void {
-  }
 
   beforeUpload = (file: NzUploadFile): boolean => {
     this.fileList = _.unionBy([file, ...this.fileList], 'name');;

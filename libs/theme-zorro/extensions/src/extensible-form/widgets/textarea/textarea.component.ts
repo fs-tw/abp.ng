@@ -6,13 +6,10 @@ import { WidgetComponent } from '../widget.component';
   styles: [
   ]
 })
-export class TextareaComponent extends WidgetComponent implements OnInit {
+export class TextareaComponent extends WidgetComponent {
 
   constructor(injector:Injector) {
     super(injector);
    }
-
-  ngOnInit(): void {
-  }
 
 }

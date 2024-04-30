@@ -1,4 +1,4 @@
-import { UiExtensionsModule } from '@abp/ng.theme.shared/extensions';
+import { ExtensibleModule } from '@abp/ng.components/extensible';
 import { ConfigStateService, CoreModule, TrackByService } from '@abp/ng.core';
 import {
   ChangeDetectionStrategy,
@@ -13,10 +13,10 @@ import {
   FormGroupDirective
 } from '@angular/forms';
 import { NgbDateAdapter, NgbTimeAdapter } from '@ng-bootstrap/ng-bootstrap';
-import { DateAdapter } from '@abp/ng.theme.shared/extensions';
-import { TimeAdapter } from '@abp/ng.theme.shared/extensions';
+import { DateAdapter } from '@abp/ng.theme.shared';
+import { TimeAdapter } from '@abp/ng.theme.shared';
 import { selfFactory } from './factory.util';
-import { ExtensibleFormPropComponent as AbpExtensibleFormPropComponent } from '@abp/ng.theme.shared/extensions';
+import { ExtensibleFormPropComponent as AbpExtensibleFormPropComponent } from '@abp/ng.components/extensible';
 
 @Component({
   selector: 'fs-tw-extensible-form-prop',
@@ -32,7 +32,7 @@ import { ExtensibleFormPropComponent as AbpExtensibleFormPropComponent } from '@
     { provide: NgbTimeAdapter, useClass: TimeAdapter },
   ],
   standalone: true,
-  imports: [CoreModule, UiExtensionsModule]
+  imports: [CoreModule, ExtensibleModule]
 })
 export class ExtensibleFormPropComponent extends AbpExtensibleFormPropComponent {
   constructor(
@@ -42,6 +42,6 @@ export class ExtensibleFormPropComponent extends AbpExtensibleFormPropComponent 
     _groupDirective: FormGroupDirective,
     private _injector: Injector,
   ) {
-    super(_cdRef, _track, _configState, _groupDirective, _injector);
+    super();
   }
 }

@@ -5,10 +5,8 @@ import { WidgetComponent } from '../widget.component';
   templateUrl: './hidden.component.html',
   styles: [],
 })
-export class HiddenComponent extends WidgetComponent implements OnInit {
+export class HiddenComponent extends WidgetComponent {
   constructor(injector: Injector) {
     super(injector);
   }
-
-  ngOnInit(): void {}
 }

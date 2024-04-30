@@ -8,7 +8,7 @@ import {
   SkipSelf,
 } from '@angular/core';
 import { ControlContainer } from '@angular/forms';
-import { ExtensionsService, EXTENSIONS_IDENTIFIER, UiExtensionsModule, ExtensibleFormComponent as AbpExtensibleFormComponent } from '@abp/ng.theme.shared/extensions';
+import { ExtensionsService, EXTENSIONS_IDENTIFIER, ExtensibleModule, ExtensibleFormComponent as AbpExtensibleFormComponent } from '@abp/ng.components/extensible';
 import { selfFactory } from './factory.util';
 import { ExtensibleFormPropComponent } from './extensible-form-prop.component';
 
@@ -25,7 +25,7 @@ import { ExtensibleFormPropComponent } from './extensible-form-prop.component';
     },
   ],
   standalone: true,
-  imports: [CoreModule, UiExtensionsModule, ExtensibleFormPropComponent]
+  imports: [CoreModule, ExtensibleModule, ExtensibleFormPropComponent]
 })
 export class ExtensibleFormComponent<R = any> extends AbpExtensibleFormComponent<R> {
 
@@ -36,6 +36,6 @@ export class ExtensibleFormComponent<R = any> extends AbpExtensibleFormComponent
     private _extensions: ExtensionsService,
     @Inject(EXTENSIONS_IDENTIFIER) private _identifier: string,
   ) {
-    super(_cdRef, _track, _container, _extensions, _identifier);
+    super();
   }
 }

@@ -6,13 +6,11 @@ import { WidgetComponent } from '../widget.component';
   styles: [
   ]
 })
-export class CheckboxComponent extends WidgetComponent implements OnInit {
+export class CheckboxComponent extends WidgetComponent  {
 
   constructor(injector:Injector) {
     super(injector);
    }
 
-  ngOnInit(): void {
-  }
 
 }

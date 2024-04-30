@@ -7,13 +7,13 @@ import {
   ViewChild,
 } from '@angular/core';
 import { WidgetComponent } from '../widget.component';
-import { ePropType, FormProp } from '@abp/ng.theme.shared/extensions';
+import { ePropType, FormProp } from '@abp/ng.components/extensible';
 
 @Component({
   templateUrl: './input.component.html',
   styles: [],
 })
-export class InputComponent extends WidgetComponent implements OnInit {
+export class InputComponent extends WidgetComponent {
   @ViewChild('field') field: ElementRef<HTMLElement>;
   constructor(injector: Injector) {
     super(injector);
@@ -36,6 +36,4 @@ export class InputComponent extends WidgetComponent implements OnInit {
         return 'hidden';
     }
   }
-
-  ngOnInit(): void {}
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/component-class-suffix */
 import {
   Component,
   ComponentFactoryResolver,
@@ -15,7 +16,7 @@ import {
   AbpValidators,
 } from '@abp/ng.core';
 import { FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { FormProp, PropData } from '@abp/ng.theme.shared/extensions';
+import { FormProp, PropData } from '@abp/ng.components/extensible';
 import { Observable, of } from 'rxjs';
 import { ABP } from '@abp/ng.core';
 
@@ -32,20 +33,20 @@ export class WidgetComponentRef{
   @Input()
   prop:FormProp
   @Input()
-  asterisk: string = '';
+  asterisk: string;
 }
 
 @Component({
   template: ''
 })
 export class WidgetComponent {
-  private _selfRef: ComponentRef<WidgetComponentRef> = null;
+  private _selfRef: ComponentRef<WidgetComponentRef> = null!;
 
   protected replaceableData: ReplaceableComponents.ReplaceableTemplateData<
     any,
     any
-  > = null;
-  public readonly track: TrackByService = null;
+  > = null!;
+  public readonly track: TrackByService = null!;
 
   options$: Observable<ABP.Option<any>[]> = of([]);
 
@@ -55,22 +56,26 @@ export class WidgetComponent {
 
   disabled: boolean;
 
-  asterisk: string = '';
+  asterisk: string;
 
-  get form(): FormGroup {
+  get form(): FormGroup | undefined {
     if (this.replaceableData) return this.replaceableData.inputs.form;
+    return undefined;
   }
 
-  get data(): PropData {
+  get data(): PropData | undefined {
     if (this.replaceableData) return this.replaceableData.inputs.data;
+    return undefined;
   }
 
-  get prop(): FormProp {
+  get prop(): FormProp | undefined {
     if (this.replaceableData) return this.replaceableData.inputs.prop;
+    return undefined;
   }
 
-  get first(): boolean {
+  get first(): boolean | undefined {
     if (this.replaceableData) return this.replaceableData.inputs.first;
+    return undefined;
   }
 
   get label(): TemplateRef<any> {
@@ -98,7 +103,9 @@ export class WidgetComponent {
       );
       this._selfRef = vcr.createComponent(factory);
       this._selfRef.instance.asterisk = this.asterisk;
-      this._selfRef.instance.prop = this.prop
+      if (this.prop) {
+        this._selfRef.instance.prop = this.prop;
+      }
     }
     if (this.first && this.field) {
       this.field.nativeElement.focus();
@@ -108,11 +115,11 @@ export class WidgetComponent {
   onPropChanges() {
     const { options, readonly, disabled, validators } = this.prop || {};
 
-    if (options) this.options$ = options(this.data);
+    if (options) this.options$ = options(this.data as PropData<any>); // Add type assertion here
     if (readonly) this.readonly = readonly(this.data);
     if (disabled) this.disabled = disabled(this.data);
     if (validators) {
-      this.validators = validators(this.data);
+      this.validators = validators(this.data as PropData<any> || {}); // Add type assertion here
       this.asterisk = this.validators.some(isRequired) ? '*' : '';
     }
   }

@@ -6,13 +6,11 @@ import { WidgetComponent } from '../widget.component';
   styles: [
   ]
 })
-export class DateTimeComponent extends WidgetComponent implements OnInit {
+export class DateTimeComponent extends WidgetComponent {
 
   constructor(injector:Injector) {
     super(injector);
    }
    
-  ngOnInit(): void {
-  }
 
 }

@@ -6,7 +6,7 @@ import { WidgetComponent } from '../widget.component';
   templateUrl: './multiselect.component.html',
   styles: [],
 })
-export class MultiselectComponent extends WidgetComponent implements OnInit {
+export class MultiselectComponent extends WidgetComponent {
   constructor(injector: Injector) {
     super(injector);
   }
@@ -14,6 +14,4 @@ export class MultiselectComponent extends WidgetComponent implements OnInit {
   trackByValue(index, item: ABP.Option<any>) {
     return item.value;
   }
-
-  ngOnInit(): void {}
 }
