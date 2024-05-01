@@ -3,9 +3,9 @@ import { ConfirmationService, ThemeSharedModule } from '@abp/ng.theme.shared';
 import {
   EXTENSIONS_IDENTIFIER,
   FormPropData,
-  UiExtensionsModule,
+  ExtensibleModule,
   generateFormFromProps,
-} from '@abp/ng.theme.shared/extensions';
+} from '@abp/ng.components/extensible';
 import { Component, Injector, OnInit } from '@angular/core';
 import {
   GetIdentityRoleListInput,
@@ -31,7 +31,7 @@ import { finalize, take } from 'rxjs';
     },
   ],
   standalone:true,
-  imports:[CoreModule,ThemeSharedModule,UiExtensionsModule,PermissionManagementModule,PageModule,AdvancedEntityFiltersModule]
+  imports:[CoreModule,ThemeSharedModule,ExtensibleModule,PermissionManagementModule,PageModule,AdvancedEntityFiltersModule]
 })
 export class <%= className %>Component implements OnInit {
   data: PagedResultDto<IdentityRoleDto> = { items: [], totalCount: 0 };

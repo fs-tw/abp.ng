@@ -1,11 +1,18 @@
 import { escapeHtmlChars, LocalizationService } from '@abp/ng.core';
-import { EntityProp, ePropType, ExtensionsService, FormProp, mergeWithDefaultActions, mergeWithDefaultProps } from '@abp/ng.theme.shared/extensions';
+import {
+  EntityProp,
+  ePropType,
+  ExtensionsService,
+  FormProp,
+  mergeWithDefaultActions,
+  mergeWithDefaultProps,
+  EntityAction,
+  ToolbarAction
+} from '@abp/ng.components/extensible';
 import { IdentityRoleDto } from '@volo/abp.ng.identity/proxy';
 import { of } from 'rxjs';
-import { EntityAction } from '@abp/ng.theme.shared/extensions';
 import { SHOW_ENTITY_HISTORY } from '@volo/abp.commercial.ng.ui';
 import { <%= className %>Component } from './<%= fileName %>.component';
-import { ToolbarAction } from '@abp/ng.theme.shared/extensions';
 import { e<%= className %>Names } from './<%= fileName %>.model';
 import { Validators } from '@angular/forms';
 
@@ -72,7 +79,7 @@ export const ENTITY_PROPS = EntityProp.createMany<IdentityRoleDto>([
     name: 'name',
     displayName: 'AbpIdentity::RoleName',
     sortable: true,
-    valueResolver: data => {
+    valueResolver: (data: any) => {
       const l10n = data.getInjected(LocalizationService);
       const t = l10n.instant.bind(l10n);
       const { isDefault, isPublic, name } = data.record;

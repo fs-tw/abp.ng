@@ -1,0 +1,26 @@
+<abp-page [title]="'Basic::PageTitle' | abpLocalization" [toolbar]="[]">
+  <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+    @for(tab of tabsService.visible$ | async; track tab.name) {
+    <li (click)="tabsService.select(tab)" class="nav-item">
+      <a
+        class="nav-link"
+        [id]="tab.name + '-tab'"
+        role="tab"
+        [class.active]="tab.name === tabsService.selectedTab()?.name"
+        >{{ tab.name | abpLocalization }}</a
+      >
+    </li>
+    }
+  </ul>
+  @if(tabsService.selectedTab();as selectedTab){
+  <div class="tab-content">
+    <div
+      class="tab-pane fade show active"
+      [id]="selectedTab.name + '-tab'"
+      role="tabpanel"
+    >
+      <ng-container *ngComponentOutlet="selectedTab.component"></ng-container>
+    </div>
+  </div>
+  }
+</abp-page>
