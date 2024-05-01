@@ -1,5 +1,5 @@
 import { ABP, CoreModule, ListService, PagedResultDto } from '@abp/ng.core';
-import { UiExtensionsModule } from '@abp/ng.theme.shared/extensions';
+import { ExtensibleModule } from '@abp/ng.components/extensible';
 import { Component, Input, OnInit } from '@angular/core';
 import {
   GetIdentityUsersInput,
@@ -48,7 +48,7 @@ import {
   `,
   providers: [ListService],
   standalone: true,
-  imports: [CoreModule, UiExtensionsModule]
+  imports: [CoreModule, ExtensibleModule],
 })
 export class OrganizationMembersModalBodyComponent implements OnInit {
   @Input() checkedUnits!: ABP.Dictionary<boolean>;

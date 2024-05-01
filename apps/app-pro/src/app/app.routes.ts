@@ -12,13 +12,21 @@ export const routes: Routes = [
     pathMatch: 'full',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
-  // {
-  //   path: 'demo',
-  //   loadChildren: () =>
-  //     import('./roles/roles.routes').then((m) =>
-  //       m.routes
-  //     ),
-  // },
+  {
+    path: 'demo',
+    loadChildren: () =>
+      import('./demo/demo.routes').then((m) => m.default),
+  },
+  {
+    path: 'basic',
+    loadChildren: () =>
+      import('./basic/basic.routes').then((m) => m.default),
+  },
+  {
+    path: 'tree',
+    loadChildren: () =>
+      import('./tree/tree.routes').then((m) => m.default),
+  },
   {
     path: 'account',
     loadChildren: () =>

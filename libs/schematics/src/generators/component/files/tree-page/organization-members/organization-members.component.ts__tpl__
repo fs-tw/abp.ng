@@ -1,5 +1,5 @@
 import { CoreModule, ListService } from '@abp/ng.core';
-import { EXTENSIONS_IDENTIFIER, UiExtensionsModule } from '@abp/ng.theme.shared/extensions';
+import { EXTENSIONS_IDENTIFIER, ExtensibleModule } from '@abp/ng.components/extensible';
 import { Component } from '@angular/core';
 import { IdentityUserDto } from '@volo/abp.ng.identity/proxy';
 import { eIdentityComponents } from '@volo/abp.ng.identity';
@@ -35,7 +35,7 @@ import { OrganizationMembersModalBodyComponent } from './organization-members-mo
   ],
   standalone: true,
   imports: [
-    CoreModule, ThemeSharedModule, UiExtensionsModule,
+    CoreModule, ThemeSharedModule, ExtensibleModule,
     OrganizationMembersModalBodyComponent, Selected<%= className %>Component]
 })
 export class OrganizationMembersComponent extends AbstractOrganizationUnitComponent<IdentityUserDto> {

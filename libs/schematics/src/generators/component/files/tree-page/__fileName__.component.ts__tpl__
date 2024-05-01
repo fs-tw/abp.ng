@@ -1,9 +1,7 @@
 import { BaseNode, DropEvent, TreeAdapter, TreeModule, TreeNode } from '@abp/ng.components/tree';
 import { CoreModule, ListResultDto } from '@abp/ng.core';
 import { Confirmation, ConfirmationService, ThemeSharedModule, ToasterService } from '@abp/ng.theme.shared';
-import {
-  UiExtensionsModule,
-} from '@abp/ng.theme.shared/extensions';
+import { ExtensibleModule } from '@abp/ng.components/extensible';
 import { Component, Injector, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import {
@@ -32,7 +30,7 @@ import { OrganizationMembersComponent } from './organization-members/organizatio
   standalone: true,
   imports: [
     CoreModule,
-    PageModule, TreeModule, ThemeSharedModule, NgbNavModule, NgbDropdownModule, NgxValidateCoreModule, UiExtensionsModule,
+    PageModule, TreeModule, ThemeSharedModule, NgbNavModule, NgbDropdownModule, NgxValidateCoreModule, ExtensibleModule,
     OrganizationMembersComponent]
 })
 export class <%= className %>Component implements OnInit {
