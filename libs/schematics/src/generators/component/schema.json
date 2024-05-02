@@ -7,15 +7,15 @@
     "componentType": {
       "type": "string",
       "enum": [
-        "basic-page",
-        "setting-page",
-        "setting-tab",
-        "tree-page",
-        "entity-page",
+        "basic",
+        "tabs",
+        "form",
+        "tree",
+        "entity",
         "modal"
       ],
-      "description": "main page or content tab.",
-      "default": "basic-page"
+      "default": "basic",
+      "description": "main page or content tab."
     },
     "name": {
       "type": "string",
@@ -34,14 +34,15 @@
       },
       "x-dropdown": "projects"
     },
-    "path": {
+    "pageWrap": {
+      "type": "boolean",
+      "default": true,
+      "description": "use AbpPage to wrap the content."
+    },
+    "navStyle": {
       "type": "string",
-      "format": "path",
-      "$default": {
-        "$source": "workingDirectory"
-      },
-      "description": "The path at which to create the interface that defines the directive, relative to the workspace root.",
-      "visible": false
+      "enum": ["nav-tabs", "nav-pills"],
+      "default": "nav-tabs"
     }
   },
   "required": ["componentType", "name", "project"]

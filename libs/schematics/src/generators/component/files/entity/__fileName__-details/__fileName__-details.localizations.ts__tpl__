@@ -1,0 +1,22 @@
+export default [
+  {
+    culture: 'en',
+    resources: [
+      {
+        resourceName: '<%= resourceName %>',
+        texts: {
+        },
+      },
+    ],
+  },
+  {
+    culture: 'zh-Hant',
+    resources: [
+      {
+        resourceName: '<%= resourceName %>',
+        texts: {
+        },
+      },
+    ],
+  },
+];

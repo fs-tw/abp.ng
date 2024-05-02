@@ -1,0 +1,37 @@
+import { CoreModule } from '@abp/ng.core';
+import {
+  ENVIRONMENT_INITIALIZER,
+  EnvironmentProviders,
+  Provider,
+  importProvidersFrom,
+  inject,
+} from '@angular/core';
+import { ExtensionsService } from '@abp/ng.components/extensible';
+import localizations from './<%= fileName %>.localizations';
+import { MergeDefaults<%= className %> } from './<%= fileName %>.default';
+import { provide<%= className %>Details } from './<%= fileName %>-details/<%= fileName %>-details.provide';
+import { provideExternalLogin } from './external-login/external-login.provide';
+
+export const provide<%= className %> = (): Array<Provider | EnvironmentProviders> => {
+  const providers: Array<Provider | EnvironmentProviders> = [
+    provide<%= className %>Details(),
+    provideExternalLogin(),
+
+    importProvidersFrom(CoreModule.forChild({ localizations })),
+    {
+      provide: ENVIRONMENT_INITIALIZER,
+      useValue: () => MergeDefaults<%= className %>(inject(ExtensionsService)),
+      multi: true,
+    },
+    // {
+    //   provide: ENVIRONMENT_INITIALIZER,
+    //   useValue: () => inject(<%= className %>TabsService).add([
+    //     ExternalLoginTab,
+    //     <%= className %>DetailsTab
+    //   ]),
+    //   multi: true,
+    // },
+  ];
+
+  return providers;
+};

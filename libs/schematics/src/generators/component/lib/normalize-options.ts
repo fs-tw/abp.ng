@@ -1,22 +1,16 @@
 import type { Tree } from '@nx/devkit';
-import { names, normalizePath, readProjectConfiguration } from '@nx/devkit';
+import { readProjectConfiguration } from '@nx/devkit';
 import type { AngularProjectConfiguration } from './types';
-import { normalizeNameAndPaths } from './path';
+import { normalizeNamePaths } from './normalize-name-paths';
 import { buildSelector } from './selector';
-import type { NormalizedSchema, SettingPageGeneratorSchema } from '../schema';
+import type { NormalizedSchema, ComponentGeneratorSchema } from '../schema';
 
 export function normalizeOptions(
   tree: Tree,
-  options: SettingPageGeneratorSchema
+  options: ComponentGeneratorSchema
 ): NormalizedSchema {
-  options.type ??= 'component';
-  const { directory, filePath, name, path, root, sourceRoot, namePath } =
-    normalizeNameAndPaths(tree, options);
-
-  const featureName = normalizePath(namePath).split('/').reverse().pop();
-  const featureNames = names(featureName === '' ? name : featureName);
-
-  const componentNames = names(options.name);
+  const { directory, name, path, relationPath, resourceName } =
+    normalizeNamePaths(tree, options);
 
   const { prefix } = readProjectConfiguration(
     tree,
@@ -30,17 +24,10 @@ export function normalizeOptions(
   return {
     ...options,
     name,
-    //changeDetection: options.changeDetection ?? 'Default',
-    //style: options.style ?? 'css',
-    //flat: options.flat ?? false,
     directory,
-    filePath,
     path,
-    namePath,
-    projectSourceRoot: sourceRoot,
-    projectRoot: root,
+    relationPath,
     selector,
-    featureNames,
-    componentNames
+    resourceName
   };
 }

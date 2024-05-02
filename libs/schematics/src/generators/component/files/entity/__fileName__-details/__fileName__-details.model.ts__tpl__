@@ -1,0 +1,6 @@
+export const enum e<%= className %>DetailsPolicyNames {
+  <%= className %>Details = '',
+}
+export const enum e<%= className %>DetailsNames {
+  <%= className %>Details = '<%= resourceName %>::<%= className %>Details',
+}

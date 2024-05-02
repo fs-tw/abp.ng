@@ -1,6 +1,0 @@
-export const enum eExternalLoginPolicyNames {
-  ExternalLogin = '',
-}
-export const enum eExternalLoginNames {
-  ExternalLogin = '<%= featureNames.className %>::Menu:ExternalLogin',
-}

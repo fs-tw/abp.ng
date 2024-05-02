@@ -1,0 +1,60 @@
+<% if(pageWrap){ %>
+<abp-page [title]="'<%= className %>::PageTitle' | abpLocalization" [toolbar]="[]">
+<% } %>
+
+
+<% if(navStyle == 'nav-tabs'){ %>
+  <ul class="nav nav-tabs">
+    @for(tab of tabsService.tabs(); track tab.name) {
+    <li class="nav-item" (click)="tabsService.select(tab)">
+      <a
+        class="nav-link"
+        [class.active]="tab.name === tabsService.selectedTab()?.name"
+        >{{ tab.name | abpLocalization }}</a
+      >
+    </li>
+    }
+  </ul>
+  @if(tabsService.selectedTab();as selectedTab){
+  <div class="tab-content">
+    <div class="tab-pane fade show active">
+      <ng-container *ngComponentOutlet="selectedTab.component"></ng-container>
+    </div>
+  </div>
+  }
+<% } %>
+
+<% if(navStyle == 'nav-pills'){ %>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-2 mb-md-0">
+          <ul class="nav flex-column nav-pills">
+          @for(tab of tabsService.tabs(); track tab.name) {
+          <li class="nav-item" (click)="tabsService.select(tab)">
+            <a
+              class="nav-link"
+              [class.active]="tab.name === tabsService.selectedTab()?.name"
+              >{{ tab.name | abpLocalization }}</a
+            >
+          </li>
+            }
+          </ul>
+        </div>
+        <div class="col-12 col-md-9">
+          @if(tabsService.selectedTab();as selectedTab){
+          <div class="tab-content">
+            <div class="tab-pane fade show active">
+              <ng-container *ngComponentOutlet="selectedTab.component"></ng-container>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+<% } %>
+
+<% if(pageWrap){ %>
+</abp-page>
+<% } %>

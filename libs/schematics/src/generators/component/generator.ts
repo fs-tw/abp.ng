@@ -5,32 +5,27 @@ import {
   names,
   Tree
 } from '@nx/devkit';
-import { SettingPageGeneratorSchema } from './schema';
+import { ComponentGeneratorSchema } from './schema';
 import { normalizeOptions } from './lib/normalize-options';
 
-export async function settingPageGenerator(
+export async function componentGenerator(
   tree: Tree,
-  rawOptions: SettingPageGeneratorSchema
+  rawOptions: ComponentGeneratorSchema
 ) {
 
   let options = normalizeOptions(tree, rawOptions);
   const componentNames = names(options.name);
-  const typeNames = names('component');
-  const namePathNames = names(options.namePath);
   options = {
     ...options,
     ...{
       fileName: componentNames.fileName,
       className: componentNames.className,
-      type: typeNames.fileName,
-      typeClassName: typeNames.className,
       propertyName: componentNames.propertyName,
-      constantName: componentNames.constantName,
-      namePathName: namePathNames.className,
-      tpl: '',
-      flat: true
+      tpl: ''
     }
   };
+
+  console.log(options);
 
   generateFiles(
     tree,
@@ -43,9 +38,9 @@ export async function settingPageGenerator(
   //   addProviderToRoute(tree, options.path,options.namePath,componentNames.fileName,componentNames.className);
   // }
 
-  console.log(options);
+
 
   await formatFiles(tree);
 }
 
-export default settingPageGenerator;
+export default componentGenerator;

@@ -1,0 +1,10 @@
+import { <%= className %>Component } from './<%= fileName %>.component';
+import { provide<%= className %> } from './<%= fileName %>.provide';
+
+export default [
+  {
+    path: '',
+    component: <%= className %>Component,
+    providers: [provide<%= className %>()],
+  },
+];

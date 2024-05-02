@@ -1,0 +1,54 @@
+import { CoreModule } from '@abp/ng.core';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import {
+  EXTENSIONS_IDENTIFIER,
+  ExtensibleModule,
+  ExtensionsService,
+} from '@abp/ng.components/extensible';
+import { Component, inject } from '@angular/core';
+import { PageModule } from '@abp/ng.components/page';
+
+import { e<%= className %>Names } from './<%= fileName %>.model';
+import { MergeDefaults<%= className %> } from './<%= fileName %>.default';
+import localizations from './<%= fileName %>.localizations';
+
+import { provideLocalization } from '<%= relationPath %>shared/provider_collection';
+import { TabsService } from '<%= relationPath %>shared/tabs.service';
+
+import { eEmailSettingsNames, eEmailSettingsPolicyNames } from './email-settings/email-settings.model';
+import { EmailSettingsComponent } from './email-settings/email-settings.component';
+
+@Component({
+  selector: '<%= selector %>',
+  templateUrl: './<%= fileName %>.component.html',
+  providers: [
+    TabsService,
+    provideLocalization(localizations),
+    {
+      provide: EXTENSIONS_IDENTIFIER,
+      useValue: e<%= className %>Names.<%= className %>,
+    }
+  ],
+  standalone: true,
+  imports: [
+    CoreModule,
+    ThemeSharedModule,
+    ExtensibleModule,
+    PageModule,
+  ],
+})
+export class <%= className %>Component {
+  tabsService = inject(TabsService);
+
+  constructor(
+  ) {
+    MergeDefaults<%= className %>(inject(ExtensionsService));
+
+    this.tabsService.add([{
+      name: eEmailSettingsNames.EmailSettings,
+      order: 1,
+      requiredPolicy: eEmailSettingsPolicyNames.EmailSettings,
+      component: EmailSettingsComponent,
+    }]);
+  }
+}
