@@ -13,21 +13,6 @@ export const routes: Routes = [
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
   {
-    path: 'demo',
-    loadChildren: () =>
-      import('./demo/demo.routes').then((m) => m.default),
-  },
-  {
-    path: 'basic',
-    loadChildren: () =>
-      import('./basic/basic.routes').then((m) => m.default),
-  },
-  {
-    path: 'tree',
-    loadChildren: () =>
-      import('./tree/tree.routes').then((m) => m.default),
-  },
-  {
     path: 'account',
     loadChildren: () =>
       import('@volo/abp.ng.account/public').then((m) =>

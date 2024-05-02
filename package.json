@@ -47,7 +47,8 @@
     "bootstrap-icons": "~1.8.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "0.14.4"
+    "zone.js": "0.14.4",
+    "@ngrx/signals": "^17.2.0"
   },
   "devDependencies": {
     "@abp/ng.schematics": "~8.1.1",
@@ -61,6 +62,7 @@
     "@angular/cli": "~17.3.0",
     "@angular/compiler-cli": "17.3.6",
     "@angular/language-service": "17.3.6",
+    "@ngrx/signals": "^17.2.0",
     "@nx/eslint": "18.3.4",
     "@nx/eslint-plugin": "18.3.4",
     "@nx/jest": "18.3.4",
