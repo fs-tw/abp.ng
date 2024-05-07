@@ -75,7 +75,7 @@ export const routes: Routes = [
       import('./gdpr-cookie-consent/gdpr-cookie-consent.module').then(
         (m) => m.GdprCookieConsentModule
       ),
-  },
+  }
 ];
 
 export const APP_ROUTES_PROVIDER = [

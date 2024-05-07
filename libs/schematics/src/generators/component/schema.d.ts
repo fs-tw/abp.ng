@@ -1,22 +1,19 @@
 import { Names } from "../types";
 
 export enum ComponentKind {
+  Routes = 'routes',
   Tabs = 'tabs',
-  Form = 'form',
-  Tree = 'tree',
-  Basic = 'basic',
   Entity = 'entity',
+  Tree = 'tree',
+  Form = 'form',
   Modal = 'modal'
-
 }
 
 export interface ComponentGeneratorSchema {
   componentType: ComponentKind;
   name: string;
+  directory:string;
   project: string;
-  //module?: string;
-  //path?: string;
-  //type?: string;
   selector?: string;
   prefix?: string;
   pageWrap: boolean;
@@ -24,14 +21,8 @@ export interface ComponentGeneratorSchema {
 }
 
 export interface NormalizedSchema extends ComponentGeneratorSchema {
-  directory: string;
-  //filePath: string;
-  //projectSourceRoot: string;
-  //projectRoot: string;
   selector: string;
   path: string;
-  //featureNames: Names;
-  //componentNames: Names;
   relationPath: string;
   resourceName: string;
 }

@@ -1,22 +1,41 @@
-<abp-modal [(visible)]="visible" [busy]="modalBusy">
+<abp-modal
+  [visible]="visible()"
+  (visibleChange)="visibleChange.emit($event)"
+  [busy]="modalBusy"
+>
   <ng-template #abpHeader>
-    <h5 class="modal-title">{{ 'featureNames.className::ModalTitle' | abpLocalization }}</h5>
+    <h5 class="modal-title">{{ '<%= resourceName %>::ModalTitle' | abpLocalization }}</h5>
   </ng-template>
   <ng-template #abpBody>
-    <form
-      #ngForm="ngForm"
-      [formGroup]="form"
-      validateOnSubmit
-      [markAsDirtyWhenSubmit]="false"
-    >
-    </form>
+  <% if(navStyle == 'none'){ %>
+  <form
+    #ngForm="ngForm"
+    [formGroup]="form"
+    validateOnSubmit
+    [markAsDirtyWhenSubmit]="false"
+  ></form>  
+  <% }else{ %>
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+      <li ngbNavItem>
+        <a ngbNavLink>{{ '<%= resourceName %>::ModalTitle' | abpLocalization }}</a>
+        <ng-template ngbNavContent>
+          <form
+            #ngForm="ngForm"
+            [formGroup]="form"
+            validateOnSubmit
+            [markAsDirtyWhenSubmit]="false"
+          ></form>
+        </ng-template>
+      </li>
+    </ul>
+  <% } %>
   </ng-template>
   <ng-template #abpFooter>
     <button type="button" class="btn btn-secondary" abpClose>
-      {{ 'featureNames.className::Cancel' | abpLocalization }}
+      {{ '<%= resourceName %>::Cancel' | abpLocalization }}
     </button>
     <abp-button iconClass="fa fa-check" (click)="save()">{{
-      'featureNames.className::Save' | abpLocalization
+      '<%= resourceName %>::Save' | abpLocalization
     }}</abp-button>
   </ng-template>
 </abp-modal>

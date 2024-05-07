@@ -1,0 +1,26 @@
+import { Routes } from '@angular/router';
+import { <%= className %>Component } from './<%= fileName %>.component';
+import { provide<%= className %> } from './<%= fileName %>.provide';
+
+export default [
+    {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'basic'
+  },
+  {
+    path: '',
+    component: <%= className %>Component,
+    children: [
+      //{
+      //  path: 'basic',
+      //  component: BasicComponent,
+      //},
+      //{
+      //  path: 'email-settings',
+      //  component: EmailSettingsComponent,
+      //}
+    ],    
+    providers: [provide<%= className %>()]
+  },
+] as Routes;

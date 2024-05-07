@@ -1,0 +1,54 @@
+<abp-page [title]="'<%= resourceName %>::PageTitle' | abpLocalization" [toolbar]="[]">
+<% if(navStyle == 'nav-tabs'){ %>
+  <ul class="nav nav-tabs">
+    @for(route of routesService.visible$ |async; track route.name) {
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        [routerLink]="[route.path]"
+        [routerLinkActive]="['active']"
+        >{{ route.name | abpLocalization }}</a
+      >
+    </li>
+    }
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade show active">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+<% } %>
+<% if(navStyle == 'nav-pills'){ %>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-2 mb-md-0">
+          <ul class="nav flex-column nav-pills">
+          @for(route of routesService.visible$ |async; track route.name) {
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="[route.path]"
+              [routerLinkActive]="['active']"
+              >{{ route.name | abpLocalization }}</a
+            >
+          </li>
+            }
+          </ul>
+        </div>
+        <div class="col-12 col-md-9">
+          <div class="tab-content">
+            <div class="tab-pane fade show active">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% } %>
+
+<% if(navStyle == 'none'){ %>
+  <router-outlet></router-outlet>
+<% } %>
+</abp-page>

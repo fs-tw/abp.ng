@@ -2,10 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
-  OnChanges,
   Output,
-  SimpleChanges,
+  effect,
+  input,
+  output,
 } from '@angular/core';
 import { CoreModule, SubscriptionService } from '@abp/ng.core';
 import {
@@ -14,6 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: '<%= selector %>',
@@ -21,25 +22,11 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
   providers: [SubscriptionService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CoreModule, ThemeSharedModule],
+  imports: [CoreModule, ThemeSharedModule, NgbNavModule],
 })
-export class <%= className %>Component implements OnChanges {
-  protected _visible = false;
-
-  @Input()
-  get visible(): boolean {
-    return this._visible;
-  }
-
-  set visible(value: boolean) {
-    if (this._visible === value) return;
-
-    this._visible = value;
-    this.visibleChange.emit(value);
-  }
-
-  @Output()
-  visibleChange = new EventEmitter<boolean>();
+export class <%= className %>Component {
+  visible = input(false);
+  visibleChange = output<boolean>();
 
   @Output()
   saved = new EventEmitter<boolean>();
@@ -50,12 +37,11 @@ export class <%= className %>Component implements OnChanges {
 
   constructor(
     private fb: UntypedFormBuilder
-  ) {}
-
-  ngOnChanges({ visible }: SimpleChanges) {
-    if (!visible) return;
-
-    if (visible.currentValue) this.initModal();
+  ) {
+    effect(() => {
+      if (this.visible())
+        this.initModal();
+    });    
   }
 
   initModal() {
@@ -67,6 +53,8 @@ export class <%= className %>Component implements OnChanges {
     if (this.modalBusy) return;
 
     this.modalBusy = true;
+
+    this.saved.emit(true);
   }
 
   private buildForm() {

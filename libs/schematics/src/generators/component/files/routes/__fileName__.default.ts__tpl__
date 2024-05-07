@@ -1,0 +1,28 @@
+import {
+  ExtensionsService,
+  mergeWithDefaultActions,
+  ToolbarAction
+} from '@abp/ng.components/extensible';
+import { <%= className %>Component } from './<%= fileName %>.component';
+import { e<%= className %>Names } from './<%= fileName %>.model';
+
+export const TOOLBAR_ACTIONS = ToolbarAction.createMany([
+  {
+    text: '<%= resourceName %>::New',
+    action: data => {
+      const component = data.getInjected(<%= className %>Component);
+      //component.onAdd();
+    },
+    permission: '',
+    icon: 'fa fa-plus',
+  },
+]);
+
+export function MergeDefaults<%= className %>(extensions: ExtensionsService) {
+  mergeWithDefaultActions(
+    extensions.toolbarActions,
+    {
+      [e<%= className %>Names.<%= className %>]: TOOLBAR_ACTIONS,
+    }
+  );
+}

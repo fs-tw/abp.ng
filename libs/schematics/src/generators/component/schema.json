@@ -6,15 +6,8 @@
   "properties": {
     "componentType": {
       "type": "string",
-      "enum": [
-        "basic",
-        "tabs",
-        "form",
-        "tree",
-        "entity",
-        "modal"
-      ],
-      "default": "basic",
+      "enum": ["routes", "tabs", "entity", "form", "tree", "modal"],
+      "default": "routes",
       "description": "main page or content tab."
     },
     "name": {
@@ -41,8 +34,12 @@
     },
     "navStyle": {
       "type": "string",
-      "enum": ["nav-tabs", "nav-pills"],
+      "enum": ["nav-tabs", "nav-pills", "none"],
       "default": "nav-tabs"
+    },
+    "directory": {
+      "type": "string",
+      "default": ""
     }
   },
   "required": ["componentType", "name", "project"]

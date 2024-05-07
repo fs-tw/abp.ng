@@ -4,22 +4,8 @@ import {
   names,
   readProjectConfiguration
 } from '@nx/devkit';
-import { parseNameWithPath } from './names';
-type InputOptions = {
-  name: string;
-  project: string;
-  path?: string;
-  type?: string;
-};
-
-type OutputOptions = {
-  directory: string;
-  fileName: string;
-  name: string;
-  path: string;
-  relationPath: string;
-  resourceName: string;
-};
+import { parseNameWithPath } from './parse-name-with-path';
+import { InputOptions, OutputOptions } from './types';
 
 
 export function normalizeNamePaths(
@@ -32,15 +18,15 @@ export function normalizeNamePaths(
   );
 
   const projectSourceRoot = sourceRoot ?? joinPathFragments(root, 'src');
-  const { name, path, relationPath, resourceName } = parseNameWithPath(options.name);
+  const { name, path, relationPath, resourceName } = parseNameWithPath(options);
 
-  const fullPath = joinPathFragments(
+  const directory = joinPathFragments(
     projectSourceRoot,
     projectType === 'application' ? 'app' : 'lib',
-    path
+    options.directory,
+    path,
+    name
   );
-
-  const directory = joinPathFragments(fullPath, name);
 
   const fileName = options.type
     ? `${name}.${names(options.type).fileName}`

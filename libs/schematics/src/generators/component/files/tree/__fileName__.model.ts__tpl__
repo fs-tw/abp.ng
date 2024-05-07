@@ -1,3 +1,9 @@
+export const enum e<%= className %>PolicyNames {
+  <%= className %> = '',
+}
+export const enum e<%= className %>Names {
+  <%= className %> = '<%= resourceName %>::<%= className %>',
+}
 export const enum eIdentityComponents {
   Claims = 'Identity.ClaimsComponent',
   Roles = 'Identity.RolesComponent',

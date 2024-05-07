@@ -1,338 +1,132 @@
-import { LocalizationService, escapeHtmlChars } from '@abp/ng.core';
+import { escapeHtmlChars, LocalizationService } from '@abp/ng.core';
 import {
-  EntityAction,
   EntityProp,
+  ePropType,
   ExtensionsService,
   FormProp,
-  ePropType,
   mergeWithDefaultActions,
   mergeWithDefaultProps,
-  ToolbarAction,
-  ToolbarComponent
+  EntityAction,
+  ToolbarAction
 } from '@abp/ng.components/extensible';
-import { SHOW_ENTITY_HISTORY } from '@volo/abp.commercial.ng.ui';
-import { IdentityUserDto } from '@volo/abp.ng.identity/proxy';
-import { <%= className %>Component } from './<%= fileName %>.component';
-import { <%= className %>ToolbarComponent } from './<%= fileName %>-toolbar/<%= fileName %>-toolbar.component';
-import { e<%= className %>Names } from './<%= fileName %>.model';
+import { IdentityRoleDto } from '@volo/abp.ng.identity/proxy';
 import { of } from 'rxjs';
+import { <%= className %>Component } from './<%= fileName %>.component';
+import { e<%= className %>Names } from './<%= fileName %>.model';
 import { Validators } from '@angular/forms';
-import { getPasswordValidators } from '@abp/ng.theme.shared';
-import { ActivatedRoute } from '@angular/router';
 
-export const ENTITY_ACTIONS = EntityAction.createMany<IdentityUserDto>([
-  {
-    text: 'User::Details',
-    action: (data) => {
-      const component = data.getInjected(<%= className %>Component);
-      component.navigate(['.',data.record.id,'details']);
-    },
-    permission: '',
-  },
+export const ENTITY_ACTIONS = EntityAction.createMany<IdentityRoleDto>([
   {
     text: 'AbpIdentity::Edit',
-    action: (data) => {
+    action: data => {
       const component = data.getInjected(<%= className %>Component);
-      component.onEdit(data.record.id as string);
+      component.onEdit(data.record.id || '');
     },
-    permission: 'AbpIdentity.Users.Update',
-  },
-  {
-    text: 'AbpIdentity::Unlock',
-    action: (data) => {
-      const component = data.getInjected(<%= className %>Component);
-      component.unlock(data.record.id as string);
-    },
-    permission: 'AbpIdentity.Users.Update',
-  },
-  {
-    text: 'AbpIdentity::ChangeHistory',
-    action: (data) => {
-      const showHistory = data.getInjected(SHOW_ENTITY_HISTORY);
-      showHistory(data.record.id as string, 'Volo.Abp.Identity.IdentityUser');
-    },
-    permission: 'AuditLogging.ViewChangeHistory:Volo.Abp.Identity.IdentityUser',
-    visible: (data) => Boolean(data?.getInjected(SHOW_ENTITY_HISTORY, null)),
+    permission: 'AbpIdentity.Roles.Update',
   },
   {
     text: 'AbpIdentity::Delete',
-    action: (data) => {
+    action: data => {
       const component = data.getInjected(<%= className %>Component);
-      component.delete(
-        data.record.id as string,
-        (data.record.name || data.record.userName) as string
-      );
+      component.onDelete(data.record.id || '', data.record.name || '');
     },
-    permission: 'AbpIdentity.Users.Delete',
+    permission: 'AbpIdentity.Roles.Delete',
+    visible: data => !data?.record.isStatic,
   },
 ]);
 
-export const TOOLBAR_COMPONENTS = ToolbarComponent.createMany<
-  IdentityUserDto[]
->([
+export const TOOLBAR_ACTIONS = ToolbarAction.createMany<IdentityRoleDto[]>([
   {
-    permission: 'AbpIdentity.Users.Create',
-    component: <%= className %>ToolbarComponent,
-  },
-]);
-export const TOOLBAR_ACTIONS = ToolbarAction.createMany<IdentityUserDto[]>([
-  {
-    text: '<%= resourceName %>::Back',
-    action: (data) => {
-      const component = data.getInjected(<%= className %>Component);
-      component.navigate(['.']);
-    },
-    icon: 'fa fa-plus',
-    visible: (data) => {
-      const activatedRoute = data?.getInjected(ActivatedRoute);
-      if (activatedRoute?.snapshot.url.length === undefined)
-        return false;
-      return activatedRoute?.snapshot.url.length >0;
-    },
-  },
-  {
-    text: 'AbpIdentity::NewUser',
-    action: (data) => {
+    text: 'AbpIdentity::NewRole',
+    action: data => {
       const component = data.getInjected(<%= className %>Component);
       component.onAdd();
     },
-    permission: 'AbpIdentity.Users.Create',
+    permission: 'AbpIdentity.Roles.Create',
     icon: 'fa fa-plus',
   },
 ]);
 
-export const ENTITY_PROPS = EntityProp.createMany<IdentityUserDto>([
+export const ENTITY_PROPS = EntityProp.createMany<IdentityRoleDto>([
   {
     type: ePropType.String,
-    name: 'userName',
-    displayName: 'AbpIdentity::UserName',
+    name: 'name',
+    displayName: 'AbpIdentity::RoleName',
     sortable: true,
-    columnWidth: 250,
     valueResolver: (data) => {
       const l10n = data.getInjected(LocalizationService);
       const t = l10n.instant.bind(l10n);
-
-      const lockOutIcon = `<i title="${t(
-        'AbpIdentity::ThisUserIsLockedOutMessage'
-      )}" class="fas fa-lock text-danger me-1"></i>`;
-
-      const inactiveIcon = `<i title="${t(
-        'AbpIdentity::ThisUserIsNotActiveMessage'
-      )}" class="fas fa-ban text-danger me-1"></i>`;
+      const { isDefault, isPublic, name } = data.record;
 
       return of(
-        `
-        ${data.record.isLockedOut ? lockOutIcon : ''}
-        ${!data.record.isActive ? inactiveIcon : ''}
-        <span class="${data.record.isLockedOut || !data.record.isActive ? 'opc-65' : ''
-        }">${escapeHtmlChars(data.record.userName)}</span>`
+        escapeHtmlChars(name) +
+        (isDefault
+          ? `<span class="badge rounded-pill bg-success ms-1">${t(
+            'AbpIdentity::DisplayName:IsDefault',
+          )}</span>`
+          : '') +
+        (isPublic
+          ? `<span class="badge rounded-pill bg-info ms-1">${t(
+            'AbpIdentity::DisplayName:IsPublic',
+          )}</span>`
+          : ''),
       );
     },
-  },
-  {
-    type: ePropType.String,
-    name: 'email',
-    displayName: 'AbpIdentity::EmailAddress',
-    sortable: true,
-    columnWidth: 300,
-    valueResolver: (data) => {
-      const { email, emailConfirmed } = data.record;
-
-      return of(
-        (email || '') +
-        (emailConfirmed
-          ? `<i class="fa fa-check text-success ms-1"></i>`
-          : '')
-      );
-    },
-  },
-  {
-    type: ePropType.String,
-    name: 'roleNames',
-    displayName: 'AbpIdentity::Roles',
-    columnWidth: 250,
-    valueResolver: (data) =>
-      of(
-        data.record.roleNames.reduce(
-          (acc, curr) => `${acc ? acc + ',' : ''} ${escapeHtmlChars(curr)}`,
-          ''
-        )
-      ),
-  },
-  {
-    type: ePropType.String,
-    name: 'phoneNumber',
-    displayName: 'AbpIdentity::PhoneNumber',
-    sortable: true,
-    columnWidth: 250,
-    valueResolver: (data) => {
-      const { phoneNumber, phoneNumberConfirmed } = data.record;
-
-      return of(
-        (escapeHtmlChars(phoneNumber) || '') +
-        (phoneNumberConfirmed
-          ? `<i class="fa fa-check text-success ms-1"></i>`
-          : '')
-      );
-    },
-  },
-  {
-    type: ePropType.String,
-    name: 'name',
-    displayName: 'AbpIdentity::Name',
-    sortable: true,
-    columnWidth: 250,
-  },
-  {
-    type: ePropType.String,
-    name: 'surname',
-    displayName: 'AbpIdentity::Surname',
-    sortable: true,
-    columnWidth: 250,
-  },
-  {
-    type: ePropType.Boolean,
-    name: 'isActive',
-    displayName: 'AbpIdentity::DisplayName:IsActive',
-    sortable: true,
-    columnWidth: 100,
-  },
-  {
-    type: ePropType.Boolean,
-    name: 'lockoutEnabled',
-    displayName: 'AbpIdentity::DisplayName:LockoutEnabled',
-    sortable: false,
-    columnWidth: 100,
-  },
-  {
-    type: ePropType.Boolean,
-    name: 'emailConfirmed',
-    displayName: 'AbpIdentity::DisplayName:EmailConfirmed',
-    sortable: true,
-    columnWidth: 100,
-  },
-  {
-    type: ePropType.Boolean,
-    name: 'twoFactorEnabled',
-    displayName: 'AbpIdentity::DisplayName:TwoFactorEnabled',
-    sortable: true,
-    columnWidth: 100,
-  },
-  {
-    type: ePropType.Number,
-    name: 'accessFailedCount',
-    displayName: 'AbpIdentity::DisplayName:AccessFailedCount',
-    sortable: true,
-    columnWidth: 100,
-  },
-  {
-    type: ePropType.DateTime,
-    name: 'creationTime',
-    displayName: 'AbpIdentity::CreationTime',
-    sortable: true,
-    columnWidth: 200,
-  },
-  {
-    type: ePropType.DateTime,
-    name: 'lastModificationTime',
-    displayName: 'AbpIdentity::LastModificationTime',
-    sortable: true,
-    columnWidth: 200,
   },
 ]);
 
-export const CREATE_FORM_PROPS = FormProp.createMany<IdentityUserDto>([
-  {
-    type: ePropType.String,
-    name: 'userName',
-    displayName: 'AbpIdentity::UserName',
-    id: 'user-name',
-    validators: () => [Validators.required, Validators.maxLength(256)],
-  },
-  {
-    type: ePropType.PasswordInputGroup,
-    name: 'password',
-    displayName: 'AbpIdentity::Password',
-    id: 'password',
-    autocomplete: 'new-password',
-    validators: (data) => [
-      Validators.required,
-      ...getPasswordValidators({ get: data.getInjected }),
-    ],
-  },
+export const CREATE_FORM_PROPS = FormProp.createMany<IdentityRoleDto>([
   {
     type: ePropType.String,
     name: 'name',
-    displayName: 'AbpIdentity::DisplayName:Name',
-    id: 'name',
-    validators: () => [Validators.maxLength(64)],
-  },
-  {
-    type: ePropType.String,
-    name: 'surname',
-    displayName: 'AbpIdentity::DisplayName:Surname',
-    id: 'surname',
-    validators: () => [Validators.maxLength(64)],
-  },
-  {
-    type: ePropType.Email,
-    name: 'email',
-    displayName: 'AbpIdentity::EmailAddress',
-    id: 'email',
-    validators: () => [
-      Validators.required,
-      Validators.maxLength(256),
-      Validators.email,
-    ],
-  },
-  {
-    type: ePropType.String,
-    name: 'phoneNumber',
-    displayName: 'AbpIdentity::PhoneNumber',
-    id: 'phone-number',
-    validators: () => [Validators.maxLength(16)],
+    displayName: 'AbpIdentity::RoleName',
+    id: 'role-name',
+    //disabled: (data: PropData<IdentityRoleDto>) => data.record && data.record.isStatic,
+    validators: () => [Validators.required],
   },
   {
     type: ePropType.Boolean,
-    name: 'isActive',
-    displayName: 'AbpIdentity::DisplayName:IsActive',
-    id: 'active-checkbox',
-    defaultValue: true,
-  },
-  {
-    type: ePropType.Boolean,
-    name: 'shouldChangePasswordOnNextLogin',
-    displayName: 'AbpIdentity::DisplayName:ShouldChangePasswordOnNextLogin',
-    id: 'shouldChangePasswordOnNextLogin',
+    name: 'isDefault',
+    displayName: 'AbpIdentity::DisplayName:IsDefault',
+    id: 'role-is-default',
     defaultValue: false,
   },
   {
     type: ePropType.Boolean,
-    name: 'lockoutEnabled',
-    displayName: 'AbpIdentity::DisplayName:LockoutEnabled',
-    id: 'lockout-checkbox',
-    defaultValue: true,
+    name: 'isPublic',
+    displayName: 'AbpIdentity::DisplayName:IsPublic',
+    id: 'role-is-public',
+    defaultValue: false,
   },
 ]);
-
-export const EDIT_FORM_PROPS = CREATE_FORM_PROPS.filter(
-  (prop) => prop.name !== 'password'
-);
+export const EDIT_FORM_PROPS = CREATE_FORM_PROPS;
 
 export function MergeDefaults<%= className %>(extensions: ExtensionsService) {
-  mergeWithDefaultActions(extensions.entityActions, {
-    [e<%= className %>Names.<%= className %>]: ENTITY_ACTIONS,
-  });
-  mergeWithDefaultActions(extensions.toolbarActions, {
-    [e<%= className %>Names.<%= className %>]: [...TOOLBAR_ACTIONS, ...TOOLBAR_COMPONENTS],
-  });
-  mergeWithDefaultProps(extensions.entityProps, {
-    [e<%= className %>Names.<%= className %>]: ENTITY_PROPS,
-  });
-  mergeWithDefaultProps(extensions.createFormProps, {
-    [e<%= className %>Names.<%= className %>]: CREATE_FORM_PROPS,
-  });
-  mergeWithDefaultProps(extensions.editFormProps, {
-    [e<%= className %>Names.<%= className %>]: EDIT_FORM_PROPS,
-  });
+  mergeWithDefaultActions(
+    extensions.entityActions,
+    {
+      [e<%= className %>Names.<%= className %>]: ENTITY_ACTIONS,
+    }
+  );
+  mergeWithDefaultActions(
+    extensions.toolbarActions,
+    {
+      [e<%= className %>Names.<%= className %>]: TOOLBAR_ACTIONS,
+    }
+  );
+  mergeWithDefaultProps(
+    extensions.entityProps,
+    {
+      [e<%= className %>Names.<%= className %>]: ENTITY_PROPS,
+    },
+  );
+  mergeWithDefaultProps(
+    extensions.createFormProps,
+    { [e<%= className %>Names.<%= className %>]: CREATE_FORM_PROPS }
+  );
+  mergeWithDefaultProps(
+    extensions.editFormProps,
+    { [e<%= className %>Names.<%= className %>]: EDIT_FORM_PROPS },
+
+  );
 }

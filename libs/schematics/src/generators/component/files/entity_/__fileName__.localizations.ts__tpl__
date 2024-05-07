@@ -5,7 +5,11 @@ export default [
       {
         resourceName: '<%= resourceName %>',
         texts: {
-          "PageTitle": "PageTitle"
+          PageTitle: 'PageTitle',
+          New: 'New',
+          Edit: 'Edit',
+          Cancel: 'Cancel',
+          Save: 'Save',
         },
       },
     ],
@@ -16,7 +20,11 @@ export default [
       {
         resourceName: '<%= resourceName %>',
         texts: {
-          "PageTitle": "PageTitle"
+          PageTitle: 'PageTitle',
+          New: 'New',
+          Edit: 'Edit',
+          Cancel: 'Cancel',
+          Save: 'Save',
         },
       },
     ],

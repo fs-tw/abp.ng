@@ -6,9 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { <%= className %>Service } from './<%= fileName %>.service';
-import { e<%= className %>PolicyNames, EmailSettingsDto } from './<%= fileName %>.model';
-import localizations from './<%= fileName %>.localizations';
-import { provideLocalization } from '<%= relationPath %>shared/provider_collection';
+import { EmailSettingsDto } from './<%= fileName %>.model';
 
 @Component({
   selector: '<%= selector %>',
@@ -19,14 +17,12 @@ import { provideLocalization } from '<%= relationPath %>shared/provider_collecti
     CoreModule, ThemeSharedModule, PageModule
   ],
   providers: [
-    provideLocalization(localizations),
   ]  
 })
 export class <%= className %>Component implements OnInit {
   form!: UntypedFormGroup;
   emailTestForm!: UntypedFormGroup;
   saving = false;
-  emailingPolicy = e<%= className %>PolicyNames.<%= className %>;
   isEmailTestModalOpen = false;
   modalSize:NgbModalOptions= { size:"lg"} 
 

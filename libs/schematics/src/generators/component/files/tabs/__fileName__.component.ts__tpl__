@@ -10,12 +10,9 @@ import { PageModule } from '@abp/ng.components/page';
 
 import { e<%= className %>Names } from './<%= fileName %>.model';
 import { MergeDefaults<%= className %> } from './<%= fileName %>.default';
-import localizations from './<%= fileName %>.localizations';
 
-import { provideLocalization } from '<%= relationPath %>shared/provider_collection';
 import { TabsService } from '<%= relationPath %>shared/tabs.service';
 
-import { eEmailSettingsNames, eEmailSettingsPolicyNames } from './email-settings/email-settings.model';
 import { EmailSettingsComponent } from './email-settings/email-settings.component';
 
 @Component({
@@ -23,7 +20,6 @@ import { EmailSettingsComponent } from './email-settings/email-settings.componen
   templateUrl: './<%= fileName %>.component.html',
   providers: [
     TabsService,
-    provideLocalization(localizations),
     {
       provide: EXTENSIONS_IDENTIFIER,
       useValue: e<%= className %>Names.<%= className %>,
@@ -45,9 +41,9 @@ export class <%= className %>Component {
     MergeDefaults<%= className %>(inject(ExtensionsService));
 
     this.tabsService.add([{
-      name: eEmailSettingsNames.EmailSettings,
+      name: 'AbpSettingManagement::Emailing',
       order: 1,
-      requiredPolicy: eEmailSettingsPolicyNames.EmailSettings,
+      requiredPolicy: '',
       component: EmailSettingsComponent,
     }]);
   }

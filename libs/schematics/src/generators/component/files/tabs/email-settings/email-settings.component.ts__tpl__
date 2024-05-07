@@ -13,13 +13,10 @@ import {
 import { finalize } from 'rxjs/operators';
 import { EmailSettingsService } from './email-settings.service';
 import {
-  eEmailSettingsPolicyNames,
   EmailSettingsDto,
 } from './email-settings.model';
 import { PageModule } from '@abp/ng.components/page';
 import { CoreModule } from '@abp/ng.core';
-import localizations from './email-settings.localizations';
-import { provideLocalization } from '<%= relationPath %>../shared/provider_collection';
 
 @Component({
   selector: 'app-email-settings',
@@ -28,21 +25,12 @@ import { provideLocalization } from '<%= relationPath %>../shared/provider_colle
   standalone: true,
   imports: [CoreModule, ThemeSharedModule, PageModule],
   providers: [
-    provideLocalization(localizations),
   ],
 })
 export class EmailSettingsComponent implements OnInit {
-  public static POLICY_NAMES = {
-    EmailSettings: '',
-  };
-
-  public static TAB_NAMES = {
-    EmailSettings: 'AbpSettingManagement::Menu:Emailing',
-  };
   form!: UntypedFormGroup;
   emailTestForm!: UntypedFormGroup;
   saving = false;
-  emailingPolicy = eEmailSettingsPolicyNames.EmailSettings;
   isEmailTestModalOpen = false;
   modalSize: NgbModalOptions = { size: 'lg' };
 

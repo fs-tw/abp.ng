@@ -1,26 +1,30 @@
 import { CoreModule, ListService } from '@abp/ng.core';
+import { Confirmation, ConfirmationService, ThemeSharedModule } from '@abp/ng.theme.shared';
 import {
-  Confirmation,
-  ConfirmationService,
-  ThemeSharedModule,
-  ToasterService,
-} from '@abp/ng.theme.shared';
-import { EXTENSIONS_IDENTIFIER } from '@abp/ng.components/extensible';
-import { Component, TrackByFunction, inject } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
-import { IdentityUserService } from '@volo/abp.ng.identity/proxy';
-import { e<%= className %>Names } from './<%= fileName %>.model';
+  EXTENSIONS_IDENTIFIER,
+  FormPropData,
+  ExtensibleModule,
+  generateFormFromProps,
+  ExtensionsService
+} from '@abp/ng.components/extensible';
+import { Component, Injector, inject, signal } from '@angular/core';
+import {
+  GetIdentityRoleListInput,
+  IdentityRoleDto,
+  IdentityRoleService,
+} from '@volo/abp.ng.identity/proxy';
+import { PermissionManagementModule } from '@abp/ng.permission-management';
 import { PageModule } from '@abp/ng.components/page';
-import {
-  CommercialUiModule,
-} from '@volo/abp.commercial.ng.ui';
-import { <%= className %>ListComponent } from './<%= fileName %>-list/<%= fileName %>-list.component';
-import { <%= className %>ModalComponent } from './<%= fileName %>-modal/<%= fileName %>-modal.component';
-import { <%= className %>DetailsComponent } from './<%= fileName %>-details/<%= fileName %>-details.component';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { AdvancedEntityFiltersModule } from '@volo/abp.commercial.ng.ui';
+import { UntypedFormGroup } from '@angular/forms';
+import { finalize, take } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+
+import { e<%= className %>Names } from './<%= fileName %>.model';
+import { MergeDefaults<%= className %> } from './<%= fileName %>.default';
 
 @Component({
-  selector: 'app-<%= fileName %>',
+  selector: '<%= selector %>',
   templateUrl: './<%= fileName %>.component.html',
   providers: [
     ListService,
@@ -29,83 +33,89 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
       useValue: e<%= className %>Names.<%= className %>,
     },
   ],
-  standalone: true,
-  imports: [
-    RouterModule,
-    CoreModule,
-    ThemeSharedModule,
-    CommercialUiModule,
-    PageModule,
-    <%= className %>ModalComponent,
-
-    <%= className %>ListComponent,
-    <%= className %>DetailsComponent
-  ],
+  standalone:true,
+  imports:[CoreModule,ThemeSharedModule,ExtensibleModule,PermissionManagementModule,PageModule,AdvancedEntityFiltersModule]
 })
 export class <%= className %>Component {
-  listComponent?: <%= className %>ListComponent;
-
+  list = inject(ListService<GetIdentityRoleListInput>);
   confirmationService = inject(ConfirmationService);
+  service= inject(IdentityRoleService);    
 
-  service = inject(IdentityUserService);
+  data = toSignal(this.list
+    .hookToQuery((query) => {
+      return this.service.getList({
+        ...query,
+        ...this.filters(),
+      });
+    }), { initialValue: { items: [], totalCount: 0 } });
 
-  toasterService = inject(ToasterService);
+  filters = signal<GetIdentityRoleListInput>({} as GetIdentityRoleListInput);
 
-  router = inject(Router);
+  form!: UntypedFormGroup;
 
-  activatedRoute = inject(ActivatedRoute);
+  selected!: IdentityRoleDto;
 
-  trackByFn: TrackByFunction<AbstractControl> = (index, item) =>
-    Object.keys(item)[0] || index;  
+  isModalVisible!: boolean;
 
-  <%= propertyName %>Modal = {
-    visible: false,
-    id: null
-  } as { visible: boolean; id?: string | null }
+  modalBusy = false;
 
-  onActive($event: object) {
-    if ($event instanceof <%= className %>ListComponent)
-      this.listComponent = $event;
-  }  
-
-  navigate(commands: unknown[]) {
-    this.router.navigate(commands,{ relativeTo: this.activatedRoute });
+  constructor(
+    protected injector: Injector
+  ) {
+    MergeDefaults<%= className %>(inject(ExtensionsService));
   }
 
-  loadDatas(){
-    this.listComponent?.list.get();
+  openModal() {
+    const data = new FormPropData(this.injector, this.selected);
+    this.form = generateFormFromProps(data);
+    this.isModalVisible = true;
   }
 
   onAdd() {
-    this.<%= propertyName %>Modal.id = null;
-    this.<%= propertyName %>Modal.visible = true;
+    this.selected = {} as IdentityRoleDto;
+    this.openModal();
   }
 
   onEdit(id: string) {
-    this.<%= propertyName %>Modal.id = id;
-    this.<%= propertyName %>Modal.visible = true;
-  }
-
-  delete(id: string, userName: string) {
-    this.confirmationService
-      .warn(
-        'AbpIdentity::UserDeletionConfirmationMessage',
-        'AbpIdentity::AreYouSure',
-        {
-          messageLocalizationParams: [userName],
-        }
-      )
-      .subscribe((status: Confirmation.Status) => {
-        if (status === Confirmation.Status.confirm) {
-          this.service.delete(id).subscribe(() => this.loadDatas());
-        }
+    this.service
+      .get(id)
+      .pipe(take(1))
+      .subscribe(selectedRole => {
+        this.selected = selectedRole;
+        this.openModal();
       });
   }
 
-  unlock(id: string) {
-    this.service.unlock(id).subscribe(() => {
-      this.toasterService.success('AbpIdentity::UserUnlocked');
-      this.loadDatas();
-    });
-  }
+  onDelete(id: string, roleName: string) {
+    this.confirmationService
+      .warn('AbpIdentity::RoleDeletionConfirmationMessage', 'AbpUi::AreYouSure', {
+        messageLocalizationParams: [roleName],
+      })
+      .subscribe((status: Confirmation.Status) => {
+        if (status === Confirmation.Status.confirm) {
+          this.service.delete(id).subscribe(() => this.list.get());
+        }
+      });
+  }  
+
+  save() {
+    if (!this.form.valid) return;
+    this.modalBusy = true;
+
+    const { id } = this.selected;
+
+    (id
+      ? this.service.update(id, {
+          ...this.selected,
+          ...this.form.value,
+          concurrencyStamp: this.selected.concurrencyStamp,
+        })
+      : this.service.create(this.form.value)
+    )
+      .pipe(finalize(() => (this.modalBusy = false)))
+      .subscribe(() => {
+        this.list.get();
+        this.isModalVisible = false;
+      });
+  } 
 }
