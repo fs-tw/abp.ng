@@ -44,3 +44,8 @@ export class TabsService {
 
   }
 }
+
+@Injectable()
+export class RoutesService extends AbstractNavTreeService<ABP.Route> {
+
+}
