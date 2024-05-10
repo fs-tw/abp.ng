@@ -12,8 +12,8 @@ import { e<%= className %>Names } from './<%= fileName %>.model';
 import { MergeDefaults<%= className %> } from './<%= fileName %>.default';
 import localizations from './<%= fileName %>.localizations';
 
-import { provideLocalization } from '<%= relationPath %>shared/provider_collection';
-import { RoutesService } from '<%= relationPath %>shared/tabs.service';
+import { provideLocalization } from '<%= relationPath %>../shared/provider_collection';
+import { RoutesService } from '<%= relationPath %>../shared/tabs.service';
 
 @Component({
   selector: '<%= selector %>',

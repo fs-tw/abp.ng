@@ -30,6 +30,8 @@
     "@angular/platform-browser": "17.3.6",
     "@angular/platform-browser-dynamic": "17.3.6",
     "@angular/router": "17.3.6",
+    "@ngrx/signals": "^17.2.0",
+    "@ngrx/store": "^17.2.0",
     "@nx/angular": "18.3.4",
     "@nx/devkit": "18.3.4",
     "@nx/plugin": "18.3.4",
@@ -47,8 +49,7 @@
     "bootstrap-icons": "~1.8.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "0.14.4",
-    "@ngrx/signals": "^17.2.0"
+    "zone.js": "0.14.4"
   },
   "devDependencies": {
     "@abp/ng.schematics": "~8.1.1",

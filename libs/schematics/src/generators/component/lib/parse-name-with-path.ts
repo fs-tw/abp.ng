@@ -11,15 +11,17 @@ export type NameInfo = {
 export function parseNameWithPath(option: InputOptions): NameInfo {
 
   const parsedName = normalizePath(option.name).split('/');
-  const nameLength = parsedName.length;
+  const nameLength = parsedName.filter(x => x.trim().length !== 0).length;
   const parsedDirectory = normalizePath(option.directory).split('/');
-  const DirectoryLength = parsedDirectory.length;
+  const DirectoryLength = parsedDirectory.filter(x => x.trim().length !== 0).length;
   const resourceName = names(parsedName[0]).className;
 
   const name = parsedName.pop();
   const path = parsedName.join('/');
 
-  const relationPath = [...Array(nameLength + DirectoryLength)].map(() => '../').join('');
+  console.log(nameLength, DirectoryLength);
+
+  const relationPath = [...Array(nameLength - 1 + DirectoryLength)].map(() => '../').join('');
 
   return {
     name,
