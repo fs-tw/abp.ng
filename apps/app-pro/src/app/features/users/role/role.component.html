@@ -1,0 +1,61 @@
+<abp-page
+  [title]="'Role::PageTitle' | abpLocalization"
+  [toolbar]="usersStore.roleDatas().items"
+>
+  <div id="role-wrapper">
+    <abp-advanced-entity-filters
+      localizationSourceName="Role"
+      [list]="roleListService"
+    >
+    </abp-advanced-entity-filters>
+    <!-- <h1>{{ usersStore.modal().selected?.id }}</h1> -->
+
+    <div class="card">
+      <abp-extensible-table
+        [data]="usersStore.roleDatas().items!"
+        [recordsTotal]="usersStore.roleDatas().totalCount!"
+        [list]="roleListService"
+      ></abp-extensible-table>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal
+  [(visible)]="usersStore.modal().visible"
+  [busy]="usersStore.modal.busy()"
+>
+  <ng-template #abpHeader>
+    <h3>
+      {{
+        usersStore.modal().selected?.id
+          ? ('Role::Edit' | abpLocalization)
+          : ('Role::New' | abpLocalization)
+      }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form
+      [formGroup]="form()"
+      id="roleForm"
+      (ngSubmit)="save()"
+      [validateOnSubmit]="true"
+    >
+      <abp-extensible-form
+        [selectedRecord]="usersStore.modal().selected"
+      ></abp-extensible-form>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'Role::Cancel' | abpLocalization }}
+    </button>
+    <abp-button
+      iconClass="fa fa-check"
+      buttonType="submit"
+      formName="roleForm"
+      >{{ 'Role::Save' | abpLocalization }}</abp-button
+    >
+  </ng-template>
+</abp-modal>

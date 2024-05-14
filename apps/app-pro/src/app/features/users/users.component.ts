@@ -14,7 +14,7 @@ import localizations from './users.localizations';
 
 import { provideLocalization } from '../../shared/provider_collection';
 import { RoutesService } from '../../shared/tabs.service';
-import { eUserPolicyNames } from './user/user.model';
+import { eRolePolicyNames } from './role/role.model';
 
 @Component({
   selector: 'app-users',
@@ -38,10 +38,10 @@ export class UsersComponent {
 
     this.routesService.add([
       {
-       name: 'user',
-       path: 'user',
+       name: 'role',
+       path: 'role',
        order: 1,
-       requiredPolicy: eUserPolicyNames.User,
+       requiredPolicy: eRolePolicyNames.Role,
       },
       //{
       //  name: 'basic',

@@ -1,63 +1,153 @@
-import { patchState, signalStoreFeature, type, withComputed, withHooks, withMethods, withState } from "@ngrx/signals";
-import { CallState, setError, setLoaded, setLoading } from "./call-state.feature";
+/* eslint-disable @typescript-eslint/ban-types */
+import { SignalStoreFeature, StateSignal, patchState, signalStoreFeature, withHooks, withMethods, withState } from "@ngrx/signals";
 import { ListService, PagedResultDto } from "@abp/ng.core";
-import { Observable, pipe, switchMap, tap } from "rxjs";
-import { effect, inject, runInInjectionContext, Injector } from "@angular/core";
+import { Observable, Unsubscribable, pipe, switchMap, tap } from "rxjs";
+import { inject, runInInjectionContext, Injector, Signal } from "@angular/core";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
-import { OmitQuery } from "./query.feature";
+type RxMethodInput<Input> = Input | Observable<Input> | Signal<Input>;
+type RxMethod<Input> = ((input: RxMethodInput<Input>) => Unsubscribable) & Unsubscribable;
+
+export type OmitQuery<Q> = Omit<Q, "filter" | "sorting" | "skipCount" | "maxResultCount">
+
+export function capitalize(str: string): string {
+    return str ? str[0].toUpperCase() + str.substring(1) : str;
+}
+
+export function getListServiceKeys(options: { collection?: string }) {
+    const queryKey = options.collection ? `${options.collection}Query` : 'query';
+    const listInputKey = options.collection ? `${options.collection}ListInput` : 'listInput';
+    const datasKey = options.collection ? `${options.collection}Datas` : 'datas';
+
+    const hookQueryKey = options.collection ? `hook${capitalize(options.collection)}Query` : 'hookQuery';
+    const getListServiceKey = options.collection ? `get${capitalize(options.collection)}ListService` : 'getListService';
+    const updateQueryKey = options.collection ? `update${capitalize(options.collection)}Query` : 'updateQuery';
+
+    return { queryKey, listInputKey, datasKey, hookQueryKey, getListServiceKey, updateQueryKey, };
+}
+
+export type NamedListServiceState<E, I, Collection extends string> =
+    {
+        [K in Collection as `${K}Query`]: I;
+    } & {
+        [K in Collection as `${K}ListInput`]: OmitQuery<I>;
+    } & {
+        [K in Collection as `${K}Datas`]: PagedResultDto<E>;
+    }
+
+export type NamedDataServiceMethods<I, Collection extends string> =
+    {
+        [K in Collection as `hook${Capitalize<K>}Query`]: RxMethod<void>;
+    } &
+    {
+        [K in Collection as `get${Capitalize<K>}ListService`]: () => ListService;
+    } &
+    {
+        [K in Collection as `update${Capitalize<K>}Query`]: (partialQuery: Partial<I>) => void;
+    }
+
+export type ListServiceState<E, I> = {
+    query: OmitQuery<I>;
+    listInput: I;
+    datas: PagedResultDto<E>
+}
+
+export type ListServiceMethods<I> =
+    {
+        hookQuery: RxMethod<void>;
+        getListService: () => ListService;
+        updateQuery: (partialQuery: Partial<I>) => void;
+    }
 
 
+export function withListService<E, I, Collection extends string>(
+    options: {
+        collection: Collection,
+        list: (getListInput: I) => Observable<PagedResultDto<E>>
+    },
+): SignalStoreFeature<
+    {
+        state: {},
+        // These alternatives break type inference: 
+        // state: { callState: CallState } & NamedEntityState<E, Collection>,
+        // state: NamedEntityState<E, Collection>,
+
+        signals: {},
+        methods: {},
+    },
+    {
+        state: NamedListServiceState<E, I, Collection>
+        signals: {}
+        methods: NamedDataServiceMethods<I, Collection>
+    }
+>;
 export function withListService<E, I>(
-    getList: (getListInput: I) => Observable<PagedResultDto<E>>
-) {
-    return signalStoreFeature(
-        {
-            state: type<{ callState: CallState, query: OmitQuery<I> }>()
-        },
-        withState({
-            datas: { items: [], totalCount: 0 } as PagedResultDto<E>,
-            getListInput: {} as I
-        }),
-        withMethods((store, injector = inject(Injector)) => {
-            const list = new ListService(injector);
-            return {
-                hookToQuery: rxMethod<void>(
-                    pipe(
-                        tap(() => patchState(store, setLoading())),
-                        switchMap(() => {
+    options: {
+        list: (getListInput: I) => Observable<PagedResultDto<E>>
+    },
+    //getList: (getListInput: I) => Observable<PagedResultDto<E>>
+): SignalStoreFeature<
+    {
+        state: {},
+        // These alternatives break type inference: 
+        // state: { callState: CallState } & NamedEntityState<E, Collection>,
+        // state: NamedEntityState<E, Collection>,
 
-                            return list.hookToQuery((query) => {
-                                patchState(store, setLoading());
-                                const getListInput = {
-                                    ...store.query(),
+        signals: {},
+        methods: {},
+    },
+    {
+        state: ListServiceState<E, I>
+        signals: {}
+        methods: ListServiceMethods<I>
+    }
+>;
+export function withListService<E, I, Collection extends string>(
+    options: { collection?: Collection, list: (getListInput: I) => Observable<PagedResultDto<E>> },
+) {
+    const { list } = options;
+    const { queryKey, listInputKey, datasKey, hookQueryKey, getListServiceKey, updateQueryKey } = getListServiceKeys(options);
+
+    return signalStoreFeature(
+        withState({
+            [queryKey]: {} as OmitQuery<I>,
+            [listInputKey]: {} as I,
+            [datasKey]: { items: [], totalCount: 0 } as PagedResultDto<E>
+        }),
+        withMethods((store: Record<string, any> & StateSignal<object>, injector = inject(Injector)) => {
+            const listService = new ListService(injector);
+            return {
+                [hookQueryKey]: rxMethod<void>(
+                    pipe(
+                        switchMap(() => {
+                            return listService.hookToQuery((query) => {
+                                const listInput = {
+                                    ...store[queryKey](),
                                     ...query
                                 }
-                                patchState(store, { getListInput });
-                                return runInInjectionContext(injector, () => getList(getListInput).pipe(
+                                patchState(store, { [listInputKey]: listInput });
+                                return runInInjectionContext(injector, () => list(listInput).pipe(
                                     tap(datas => {
-                                        patchState(store, { datas });
+                                        patchState(store, { [datasKey]: datas });
                                     })
                                 ))
                             });
-                        }),
-                        tap({
-                            next: () => patchState(store, setLoaded()),
-                            error: (error) => patchState(store, setError(error.message)),
-                        }),
+                        })
                     )
                 ),
-                listService: () => list,
+                [getListServiceKey]: () => listService,
+                [updateQueryKey]: (partialQuery: Partial<I>) => {
+                    const newQuery = {
+                        ...store[queryKey](),
+                        ...partialQuery
+                    };
+                    patchState(store, { [queryKey]: newQuery });
+                    listService.get();
+                },
             };
         }),
         withHooks({
-            onInit(store) {
-                store.hookToQuery();
-                effect(() => {
-                    const query = store.query();
-                    store.listService().get();
-                })
-
-
+            onInit(store: Record<string, any> & StateSignal<object>, injector = inject(Injector)) {
+                store[hookQueryKey]();
             },
 
         })

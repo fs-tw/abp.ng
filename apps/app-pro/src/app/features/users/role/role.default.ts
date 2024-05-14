@@ -11,23 +11,24 @@ import {
 } from '@abp/ng.components/extensible';
 import { IdentityRoleDto } from '@volo/abp.ng.identity/proxy';
 import { of } from 'rxjs';
-import { UserComponent } from './user.component';
-import { eUserNames } from './user.model';
+import { RoleComponent } from './role.component';
+import { eRoleNames } from './role.model';
 import { Validators } from '@angular/forms';
 
 export const ENTITY_ACTIONS = EntityAction.createMany<IdentityRoleDto>([
   {
     text: 'AbpIdentity::Edit',
     action: (data) => {
-      const component = data.getInjected(UserComponent);
+      const component = data.getInjected(RoleComponent);
       component.onEdit(data.record.id || '');
+      //console.error(component.usersStore.modal().selected);
     },
     permission: 'AbpIdentity.Roles.Update',
   },
   {
     text: 'AbpIdentity::Delete',
     action: (data) => {
-      const component = data.getInjected(UserComponent);
+      const component = data.getInjected(RoleComponent);
       component.onDelete(data.record.id || '', data.record.name || '');
     },
     permission: 'AbpIdentity.Roles.Delete',
@@ -39,7 +40,7 @@ export const TOOLBAR_ACTIONS = ToolbarAction.createMany<IdentityRoleDto[]>([
   {
     text: 'AbpIdentity::NewRole',
     action: (data) => {
-      const component = data.getInjected(UserComponent);
+      const component = data.getInjected(RoleComponent);
       component.onAdd();
     },
     permission: 'AbpIdentity.Roles.Create',
@@ -101,20 +102,20 @@ export const CREATE_FORM_PROPS = FormProp.createMany<IdentityRoleDto>([
 ]);
 export const EDIT_FORM_PROPS = CREATE_FORM_PROPS;
 
-export function MergeDefaultsUser(extensions: ExtensionsService) {
+export function MergeDefaultsRole(extensions: ExtensionsService) {
   mergeWithDefaultActions(extensions.entityActions, {
-    [eUserNames.User]: ENTITY_ACTIONS,
+    [eRoleNames.Role]: ENTITY_ACTIONS,
   });
   mergeWithDefaultActions(extensions.toolbarActions, {
-    [eUserNames.User]: TOOLBAR_ACTIONS,
+    [eRoleNames.Role]: TOOLBAR_ACTIONS,
   });
   mergeWithDefaultProps(extensions.entityProps, {
-    [eUserNames.User]: ENTITY_PROPS,
+    [eRoleNames.Role]: ENTITY_PROPS,
   });
   mergeWithDefaultProps(extensions.createFormProps, {
-    [eUserNames.User]: CREATE_FORM_PROPS,
+    [eRoleNames.Role]: CREATE_FORM_PROPS,
   });
   mergeWithDefaultProps(extensions.editFormProps, {
-    [eUserNames.User]: EDIT_FORM_PROPS,
+    [eRoleNames.Role]: EDIT_FORM_PROPS,
   });
 }
