@@ -1,0 +1,18 @@
+<input
+  ngbDatepicker
+  #datepicker="ngbDatepicker"
+  type="text"
+  class="form-control"
+  [value]="formattedValue"
+  [autoClose]="'outside'"
+  [footerTemplate]="footer"
+  (click)="datepicker.open()"
+  (change)="_onChange($event)"
+  (dateSelect)="setDate($event)"
+  (keyup.space)="datepicker.open()"
+/>
+<ng-template #footer>
+  <div class="d-flex justify-content-center">
+    <ngb-timepicker [ngModel]="time" (ngModelChange)="setTime($event)"></ngb-timepicker>
+  </div>
+</ng-template>
