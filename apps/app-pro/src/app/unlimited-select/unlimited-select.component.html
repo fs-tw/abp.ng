@@ -1,0 +1,9 @@
+<nz-select
+  style="width: 500px"
+  [ngModel]="selectedStore.selectedId()"
+  nzAllowClear
+>
+  @for(item of selectedStore.items(); track item.id){
+  <nz-option [nzValue]="item.id!" [nzLabel]="item.name"></nz-option>
+  }
+</nz-select>
