@@ -13,6 +13,12 @@ export class TodoService {
     );
   }
 
+  getTodoById(id: string): Promise<Todo> {
+    return lastValueFrom(
+      this.http.get<Todo>(`https://jsonplaceholder.typicode.com/todos/${id}`)
+    );
+  }
+
   addTodo(todo: Todo): Promise<Todo> {
     return lastValueFrom(
       this.http.post<Todo>('https://jsonplaceholder.typicode.com/todos', todo)
