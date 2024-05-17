@@ -21,6 +21,10 @@ import { APP_ROUTE_PROVIDER } from './route.provider';
 import { FeatureManagementModule } from '@abp/ng.feature-management';
 import { AbpOAuthModule } from '@abp/ng.oauth';
 import { AccountLayoutModule } from '@abp/ng.theme.lepton-x/account';
+import {
+  provideAngularQuery,
+  QueryClient,
+} from '@tanstack/angular-query-experimental';
 
 @NgModule({
   imports: [
@@ -44,7 +48,7 @@ import { AccountLayoutModule } from '@abp/ng.theme.lepton-x/account';
     InternetConnectionStatusComponent,
   ],
   declarations: [AppComponent],
-  providers: [APP_ROUTE_PROVIDER],
+  providers: [APP_ROUTE_PROVIDER, provideAngularQuery(new QueryClient())],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

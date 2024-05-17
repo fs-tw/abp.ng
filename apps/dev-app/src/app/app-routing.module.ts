@@ -31,6 +31,13 @@ const routes: Routes = [
         m.SettingManagementModule.forLazy()
       ),
   },
+  {
+    path: 'tanstack-query-demo',
+    loadChildren: () =>
+      import('./tanstack-query-demo/demo.module').then(
+        (m) => m.TanstackQueryModule
+      ),
+  },
 ];
 
 @NgModule({
