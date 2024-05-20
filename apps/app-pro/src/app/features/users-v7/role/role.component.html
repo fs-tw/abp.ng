@@ -1,19 +1,18 @@
 <abp-page
-  [title]="'Role::PageTitle' | abpLocalization"
-  [toolbar]="usersStore.roleDatas().items"
+  [title]="'UsersV7::RolePageTitle' | abpLocalization"
+  [toolbar]="usersV7Store.roleDatas().items"
 >
   <div id="role-wrapper">
     <abp-advanced-entity-filters
-      localizationSourceName="Role"
+      localizationSourceName="UsersV7"
       [list]="roleListService"
     >
     </abp-advanced-entity-filters>
-    <!-- <h1>{{ usersStore.modal().selected?.id }}</h1> -->
 
     <div class="card">
       <abp-extensible-table
-        [data]="usersStore.roleDatas().items!"
-        [recordsTotal]="usersStore.roleDatas().totalCount!"
+        [data]="usersV7Store.roleDatas().items!"
+        [recordsTotal]="usersV7Store.roleDatas().totalCount!"
         [list]="roleListService"
       ></abp-extensible-table>
     </div>
@@ -21,41 +20,41 @@
 </abp-page>
 
 <abp-modal
-  [(visible)]="usersStore.modal().visible"
-  [busy]="usersStore.modal.busy()"
+  [(visible)]="usersV7Store.roleEditModal().visible"
+  [busy]="usersV7Store.roleEditModal().busy"
 >
   <ng-template #abpHeader>
     <h3>
       {{
-        usersStore.modal().selected?.id
-          ? ('Role::Edit' | abpLocalization)
-          : ('Role::New' | abpLocalization)
+        usersV7Store.roleEditModal().selected?.id
+          ? ('AbpUi::Edit' | abpLocalization)
+          : ('AbpUi::AddNew' | abpLocalization)
       }}
     </h3>
   </ng-template>
 
   <ng-template #abpBody>
     <form
-      [formGroup]="form()"
+      [formGroup]="usersV7Store.roleForm()"
       id="roleForm"
-      (ngSubmit)="save()"
+      (ngSubmit)="usersV7Store.saveRoleEditModal(usersV7Store.roleForm())"
       [validateOnSubmit]="true"
     >
       <abp-extensible-form
-        [selectedRecord]="usersStore.modal().selected"
+        [selectedRecord]="usersV7Store.roleEditModal().selected"
       ></abp-extensible-form>
     </form>
   </ng-template>
 
   <ng-template #abpFooter>
     <button type="button" class="btn btn-secondary" abpClose>
-      {{ 'Role::Cancel' | abpLocalization }}
+      {{ 'AbpUi::Cancel' | abpLocalization }}
     </button>
     <abp-button
       iconClass="fa fa-check"
       buttonType="submit"
       formName="roleForm"
-      >{{ 'Role::Save' | abpLocalization }}</abp-button
+      >{{ 'AbpUi::Save' | abpLocalization }}</abp-button
     >
   </ng-template>
 </abp-modal>

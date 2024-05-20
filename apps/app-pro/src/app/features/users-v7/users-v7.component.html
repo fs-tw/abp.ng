@@ -1,5 +1,13 @@
-<abp-page [title]="'Users::PageTitle' | abpLocalization" [toolbar]="[]">
-  <ul class="nav nav-tabs">
+<abp-page
+  [title]="'UsersV7::UsersV7PageTitle' | abpLocalization"
+  [toolbar]="[]"
+>
+  <ul
+    class="nav nav-tabs"
+    routerLinkActive
+    #rla="routerLinkActive"
+    [hidden]="!rla.isActive"
+  >
     @for(route of routesService.visible$ |async; track route.name) {
     <li class="nav-item">
       <a

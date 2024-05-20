@@ -75,6 +75,11 @@ export const routes: Routes = [
       import('./gdpr-cookie-consent/gdpr-cookie-consent.module').then(
         (m) => m.GdprCookieConsentModule
       ),
+  },
+  {
+    path: 'users-v7',
+    loadChildren: () =>
+      import('./features/users-v7/users-v7.routes')
   }
 ];
 
