@@ -11,10 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { EmailSettingsService } from './email-settings.service';
-import {
-  EmailSettingsDto,
-} from './email-settings.model';
+import { EmailSettingsService, EmailSettingsDto } from '@abp/ng.setting-management/proxy';
 import { PageModule } from '@abp/ng.components/page';
 import { CoreModule } from '@abp/ng.core';
 
@@ -102,7 +99,7 @@ export class EmailSettingsComponent implements OnInit {
     }
     this.emailSettingsService
       .sendTestEmail(this.emailTestForm.value)
-      .subscribe((res) => {
+      .subscribe(() => {
         this.toasterService.success('AbpSettingManagement::SuccessfullySent');
         this.isEmailTestModalOpen = false;
       });

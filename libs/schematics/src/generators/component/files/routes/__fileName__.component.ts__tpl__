@@ -2,53 +2,32 @@ import { CoreModule } from '@abp/ng.core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import {
   EXTENSIONS_IDENTIFIER,
-  ExtensibleModule,
-  ExtensionsService
+  ExtensibleModule
 } from '@abp/ng.components/extensible';
 import { Component, inject } from '@angular/core';
 import { PageModule } from '@abp/ng.components/page';
-
-import { e<%= className %>Names } from './<%= fileName %>.model';
-import { MergeDefaults<%= className %> } from './<%= fileName %>.default';
-import localizations from './<%= fileName %>.localizations';
-
-import { provideLocalization } from '<%= relationPath %>../shared/provider_collection';
-import { RoutesService } from '<%= relationPath %>../shared/tabs.service';
+import { e<%= names.className %>Names } from './<%= names.fileName %>.types';
+import { <%= storeNames.className %> } from './<%= storeNames.fileName %>';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: '<%= selector %>',
-  templateUrl: './<%= fileName %>.component.html',
+  templateUrl: './<%= names.fileName %>.component.html',
   providers: [
-    RoutesService,
-    provideLocalization(localizations),    
     {
       provide: EXTENSIONS_IDENTIFIER,
-      useValue: e<%= className %>Names.<%= className %>,
+      useValue: e<%= names.className %>Names.<%= names.className %>,
     },
   ],
   standalone:true,
   imports:[CoreModule, ThemeSharedModule, ExtensibleModule, PageModule]
 })
-export class <%= className %>Component {
-  routesService = inject(RoutesService);
+export class <%= names.className %>Component {
+  <%= storeNames.propertyName %> = inject(<%= storeNames.className %>);
+  routesService = this.<%= storeNames.propertyName %>.get<%= names.className %>RoutesService();
+  activatedRoute = inject(ActivatedRoute);
 
   constructor() {
-    MergeDefaults<%= className %>(inject(ExtensionsService));
-
-    this.routesService.add([
-      //{
-      //  name: 'email-settings',
-      //  path: 'email-settings',
-      //  order: 1,
-      //  requiredPolicy: eEmailSettingsPolicyNames.EmailSettings,
-      //},
-      //{
-      //  name: 'basic',
-      //  path: 'basic',
-      //  order: 2,
-      // requiredPolicy: eBasicPolicyNames.Basic,
-      //},
-
-    ]);    
-  }
+    this.<%= storeNames.propertyName %>.hook<%= names.className %>Router(this.activatedRoute);
+  }  
 }

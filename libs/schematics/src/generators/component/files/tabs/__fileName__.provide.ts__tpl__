@@ -1,11 +1,23 @@
-import {
-  EnvironmentProviders,
-  Provider,
-} from '@angular/core';
+import { EnvironmentProviders, Provider, importProvidersFrom } from '@angular/core';
+import { CoreModule } from '@abp/ng.core';
+import { localizations } from './<%= names.fileName %>.localizations';
+import { <%= storeNames.className %> } from './<%= storeNames.fileName %>';
+import { TabsService } from '<%= sharedPath %>/tabs.service';
 
-export const provide<%= className %> = (): Array<Provider | EnvironmentProviders> => {
+export const provide<%= names.className %> = (): Array<
+  Provider | EnvironmentProviders
+> => {
   const providers: Array<Provider | EnvironmentProviders> = [
+    importProvidersFrom([
+      CoreModule.forChild({
+        localizations: localizations
+      }),
+    ]),    
+    <%= storeNames.className %>,
+    TabsService
   ];
 
   return providers;
 };
+
+

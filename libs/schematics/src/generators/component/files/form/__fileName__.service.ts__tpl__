@@ -1,11 +1,11 @@
-import type { EmailSettingsDto, SendTestEmailInput, UpdateEmailSettingsDto } from './<%= fileName %>.model';
+import type { EmailSettingsDto, SendTestEmailInput, UpdateEmailSettingsDto } from './<%= names.fileName %>.types';
 import { RestService, Rest } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
-export class <%= className %>Service {
+export class <%= names.className %>Service {
   apiName = 'SettingManagement';
   
 

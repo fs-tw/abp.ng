@@ -2,49 +2,27 @@ import { CoreModule } from '@abp/ng.core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import {
   EXTENSIONS_IDENTIFIER,
-  ExtensibleModule,
-  ExtensionsService,
+  ExtensibleModule
 } from '@abp/ng.components/extensible';
 import { Component, inject } from '@angular/core';
 import { PageModule } from '@abp/ng.components/page';
-
-import { e<%= className %>Names } from './<%= fileName %>.model';
-import { MergeDefaults<%= className %> } from './<%= fileName %>.default';
-
-import { TabsService } from '<%= relationPath %>shared/tabs.service';
-
-import { EmailSettingsComponent } from './email-settings/email-settings.component';
+import { e<%= names.className %>Names } from './<%= names.fileName %>.types';
+import { <%= storeNames.className %> } from './<%= storeNames.fileName %>';
+import { TabsService } from '<%= sharedPath %>/tabs.service';
 
 @Component({
   selector: '<%= selector %>',
-  templateUrl: './<%= fileName %>.component.html',
+  templateUrl: './<%= names.fileName %>.component.html',
   providers: [
-    TabsService,
     {
       provide: EXTENSIONS_IDENTIFIER,
-      useValue: e<%= className %>Names.<%= className %>,
-    }
+      useValue: e<%= names.className %>Names.<%= names.className %>,
+    },
   ],
-  standalone: true,
-  imports: [
-    CoreModule,
-    ThemeSharedModule,
-    ExtensibleModule,
-    PageModule,
-  ],
+  standalone:true,
+  imports:[CoreModule, ThemeSharedModule, ExtensibleModule, PageModule]
 })
-export class <%= className %>Component {
+export class <%= names.className %>Component {
   tabsService = inject(TabsService);
-
-  constructor(
-  ) {
-    MergeDefaults<%= className %>(inject(ExtensionsService));
-
-    this.tabsService.add([{
-      name: 'AbpSettingManagement::Emailing',
-      order: 1,
-      requiredPolicy: '',
-      component: EmailSettingsComponent,
-    }]);
-  }
+  <%= storeNames.propertyName %> = inject(<%= storeNames.className %>);
 }

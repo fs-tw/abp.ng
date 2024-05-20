@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { SignalStoreFeature, StateSignal, patchState, signalStoreFeature, withHooks, withMethods, withState } from "@ngrx/signals";
 import { ListService, PagedResultDto } from "@abp/ng.core";
-import { Observable, Unsubscribable, pipe, switchMap, tap } from "rxjs";
-import { inject, runInInjectionContext, Injector, Signal } from "@angular/core";
+import { Observable, pipe, switchMap, tap } from "rxjs";
+import { inject, runInInjectionContext, Injector } from "@angular/core";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
-type RxMethodInput<Input> = Input | Observable<Input> | Signal<Input>;
-type RxMethod<Input> = ((input: RxMethodInput<Input>) => Unsubscribable) & Unsubscribable;
+import { RxMethod } from "./types";
 
 export type OmitQuery<Q> = Omit<Q, "filter" | "sorting" | "skipCount" | "maxResultCount">
 
@@ -62,15 +61,12 @@ export type ListServiceMethods<I> =
 export function withListService<E, I, Collection extends string>(
     options: {
         collection: Collection,
+        ignoreHook?: boolean,
         list: (getListInput: I) => Observable<PagedResultDto<E>>
     },
 ): SignalStoreFeature<
     {
         state: {},
-        // These alternatives break type inference: 
-        // state: { callState: CallState } & NamedEntityState<E, Collection>,
-        // state: NamedEntityState<E, Collection>,
-
         signals: {},
         methods: {},
     },
@@ -82,16 +78,12 @@ export function withListService<E, I, Collection extends string>(
 >;
 export function withListService<E, I>(
     options: {
+        ignoreHook?: boolean,
         list: (getListInput: I) => Observable<PagedResultDto<E>>
     },
-    //getList: (getListInput: I) => Observable<PagedResultDto<E>>
 ): SignalStoreFeature<
     {
         state: {},
-        // These alternatives break type inference: 
-        // state: { callState: CallState } & NamedEntityState<E, Collection>,
-        // state: NamedEntityState<E, Collection>,
-
         signals: {},
         methods: {},
     },
@@ -102,9 +94,9 @@ export function withListService<E, I>(
     }
 >;
 export function withListService<E, I, Collection extends string>(
-    options: { collection?: Collection, list: (getListInput: I) => Observable<PagedResultDto<E>> },
+    options: { collection?: Collection, ignoreHook?: boolean, list: (getListInput: I) => Observable<PagedResultDto<E>> },
 ) {
-    const { list } = options;
+    const { list, ignoreHook: ignoreHook } = options;
     const { queryKey, listInputKey, datasKey, hookQueryKey, getListServiceKey, updateQueryKey } = getListServiceKeys(options);
 
     return signalStoreFeature(
@@ -147,7 +139,8 @@ export function withListService<E, I, Collection extends string>(
         }),
         withHooks({
             onInit(store: Record<string, any> & StateSignal<object>, injector = inject(Injector)) {
-                store[hookQueryKey]();
+                if (!ignoreHook)
+                    store[hookQueryKey]();
             },
 
         })

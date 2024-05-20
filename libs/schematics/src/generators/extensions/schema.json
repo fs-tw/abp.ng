@@ -41,9 +41,13 @@
     },
     "variable": {
       "type": "string",
-      "enum": ["ENTITY_PROPS", "CREATE_FORM_PROPS"],
+      "enum": ["ENTITY_PROPS", "CREATE_FORM_PROPS", "EDIT_FORM_PROPS"],
       "description": "variable name in default.ts ",
       "default": "ENTITY_PROPS"
+    },
+    "directory": {
+      "type": "string",
+      "default": ""
     }
   },
   "required": ["project", "name", "url", "type", "variable"]

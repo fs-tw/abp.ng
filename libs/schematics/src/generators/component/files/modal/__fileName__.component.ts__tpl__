@@ -18,13 +18,13 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: '<%= selector %>',
-  templateUrl: './<%= fileName %>.component.html',
+  templateUrl: './<%= names.fileName %>.component.html',
   providers: [SubscriptionService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CoreModule, ThemeSharedModule, NgbNavModule],
 })
-export class <%= className %>Component {
+export class <%= names.className %>Component {
   visible = input(false);
   visibleChange = output<boolean>();
 

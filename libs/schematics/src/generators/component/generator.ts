@@ -7,25 +7,47 @@ import {
 } from '@nx/devkit';
 import { ComponentGeneratorSchema } from './schema';
 import { normalizeOptions } from './lib/normalize-options';
+import { executeExtensions } from './lib/entity-process';
+import { postGenerateFiles, preGenerateFiles } from './lib/generate-files-process';
 
 export async function componentGenerator(
   tree: Tree,
   rawOptions: ComponentGeneratorSchema
 ) {
-
   let options = normalizeOptions(tree, rawOptions);
   const componentNames = names(options.name);
   options = {
-    ...options,
+    ...rawOptions,
+    ...{
+      rootNames: options.rootNames,
+      storeNames: options.storeNames,
+      name: options.name,
+      names: options.names,
+      componentType: options.componentType,
+      project: options.project,
+      directory: options.directory,
+      pageWrap: options.pageWrap,
+      navStyle: options.navStyle,
+      path: options.path,
+      relationPath: options.relationPath,
+      sharedPath: options.sharedPath,
+      selector: options.selector,
+      resourceName: options.resourceName,
+      prefix: options.prefix,
+      tpl: ''
+    },
     ...{
       fileName: componentNames.fileName,
       className: componentNames.className,
       propertyName: componentNames.propertyName,
-      tpl: ''
+    },
+    ...{
+      resourceNames: names(options.resourceName)
     }
   };
-
   console.log(options);
+
+  await preGenerateFiles(tree, rawOptions, options);
 
   generateFiles(
     tree,
@@ -33,11 +55,16 @@ export async function componentGenerator(
     options.directory,
     options);
 
-  if (options.path.trim().length !== 0) {
-    tree.delete(joinPathFragments(options.directory, `${options.name}.routes.ts`));
-    tree.delete(joinPathFragments(options.directory, `${options.name}.provide.ts`));
-    tree.delete(joinPathFragments(options.directory, `${options.name}.localizations.ts`));
-  }
+  await postGenerateFiles(tree, rawOptions, options);
+
+
+
+
+  // if (options.path.trim().length !== 0) {
+  //   tree.delete(joinPathFragments(options.directory, `${options.name}.routes.ts`));
+  //   tree.delete(joinPathFragments(options.directory, `${options.name}.provide.ts`));
+  //   tree.delete(joinPathFragments(options.directory, `${options.name}.localizations.ts`));
+  // }
 
   // if(options.namePath){
   //   console.log(options);

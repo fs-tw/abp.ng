@@ -1,10 +1,11 @@
-import { <%= className %>Component } from './<%= fileName %>.component';
-import { provide<%= className %> } from './<%= fileName %>.provide';
+import { Routes } from '@angular/router';
+import { <%= names.className %>Component } from './<%= names.fileName %>.component';
+import { provide<%= names.className %> } from './<%= names.fileName %>.provide';
 
 export default [
   {
     path: '',
-    component: <%= className %>Component,
-    providers: [provide<%= className %>()],
+    component: <%= names.className %>Component,
+    providers: [provide<%= names.className %>()]
   },
-];
+] as Routes;

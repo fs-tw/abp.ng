@@ -30,6 +30,7 @@
     "@angular/platform-browser": "17.3.6",
     "@angular/platform-browser-dynamic": "17.3.6",
     "@angular/router": "17.3.6",
+    "@ngrx/operators": "^17.2.0",
     "@ngrx/signals": "^17.2.0",
     "@ngrx/store": "^17.2.0",
     "@nx/angular": "18.3.4",

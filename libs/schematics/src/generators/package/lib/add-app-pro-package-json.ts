@@ -27,7 +27,8 @@ export function addAppProToPackageJson(
       "@volo/abp.ng.text-template-management": abpVersion,
       "@volosoft/abp.ng.theme.lepton-x": leptonXVersion,
       "@angular/localize": angularVersion,
-      "@ngrx/signals":ngrxVersion
+      "@ngrx/signals":ngrxVersion,
+      "@ngrx/operators":ngrxVersion
     },
     {
       "@abp/ng.schematics": abpVersion,

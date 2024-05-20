@@ -1,0 +1,24 @@
+export const localizations = [
+  {
+    culture: 'en',
+    resources: [
+      {
+        resourceName: '<%= rootNames.className %>',
+        texts: {
+          "<%= names.className %>PageTitle": "<%= names.className %>PageTitle"
+        },
+      },
+    ],
+  },
+  {
+    culture: 'zh-Hant',
+    resources: [
+      {
+        resourceName: '<%= rootNames.className %>',
+        texts: {
+          "<%= names.className %>PageTitle": "<%= names.className %>PageTitle(zh-hant)"
+        },
+      },
+    ],
+  },
+];

@@ -1,8 +1,6 @@
 <% if(pageWrap){ %>
-<abp-page [title]="'<%= className %>::PageTitle' | abpLocalization" [toolbar]="[]">
+<abp-page [title]="'<%= rootNames.className %>::<%= names.className %>PageTitle' | abpLocalization" [toolbar]="[]">
 <% } %>
-
-
 <% if(navStyle == 'nav-tabs'){ %>
   <ul class="nav nav-tabs">
     @for(tab of tabsService.tabs(); track tab.name) {
@@ -23,7 +21,6 @@
   </div>
   }
 <% } %>
-
 <% if(navStyle == 'nav-pills'){ %>
   <div class="card">
     <div class="card-body">
@@ -55,6 +52,15 @@
   </div>
 <% } %>
 
+<% if(navStyle == 'none'){ %>
+  <div class="card">
+    <div class="card-body">
+      @if(tabsService.selectedTab();as selectedTab){
+      <ng-container *ngComponentOutlet="selectedTab.component"></ng-container>
+      }
+    </div>
+  </div>
+<% } %>
 <% if(pageWrap){ %>
 </abp-page>
 <% } %>

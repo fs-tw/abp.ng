@@ -12,17 +12,16 @@ export enum ComponentKind {
 export interface ComponentGeneratorSchema {
   componentType: ComponentKind;
   name: string;
-  directory:string;
+  directory: string;
   project: string;
   selector?: string;
   prefix?: string;
   pageWrap: boolean;
   navStyle: string;
-}
 
-export interface NormalizedSchema extends ComponentGeneratorSchema {
-  selector: string;
-  path: string;
-  relationPath: string;
-  resourceName: string;
+  url: string;
+  listInputType: string;
+  entityType: string;
+  createFormType: string;
+  editFormType: string;
 }

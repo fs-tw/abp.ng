@@ -4,7 +4,7 @@
   [busy]="modalBusy"
 >
   <ng-template #abpHeader>
-    <h5 class="modal-title">{{ '<%= resourceName %>::ModalTitle' | abpLocalization }}</h5>
+    <h5 class="modal-title">{{ '<%= rootNames.className %>::ModalTitle' | abpLocalization }}</h5>
   </ng-template>
   <ng-template #abpBody>
   <% if(navStyle == 'none'){ %>
@@ -17,7 +17,7 @@
   <% }else{ %>
     <ul ngbNav #nav="ngbNav" class="nav-tabs">
       <li ngbNavItem>
-        <a ngbNavLink>{{ '<%= resourceName %>::ModalTitle' | abpLocalization }}</a>
+        <a ngbNavLink>{{ '<%= rootNames.className %>::ModalTitle' | abpLocalization }}</a>
         <ng-template ngbNavContent>
           <form
             #ngForm="ngForm"
@@ -32,10 +32,10 @@
   </ng-template>
   <ng-template #abpFooter>
     <button type="button" class="btn btn-secondary" abpClose>
-      {{ '<%= resourceName %>::Cancel' | abpLocalization }}
+      {{ 'AbpUi::Cancel' | abpLocalization }}
     </button>
     <abp-button iconClass="fa fa-check" (click)="save()">{{
-      '<%= resourceName %>::Save' | abpLocalization
+      'AbpUi::Save' | abpLocalization
     }}</abp-button>
   </ng-template>
 </abp-modal>

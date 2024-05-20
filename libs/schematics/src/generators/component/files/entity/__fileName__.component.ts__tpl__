@@ -1,121 +1,29 @@
-import { CoreModule, ListService } from '@abp/ng.core';
-import { Confirmation, ConfirmationService, ThemeSharedModule } from '@abp/ng.theme.shared';
+import { CoreModule } from '@abp/ng.core';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import {
   EXTENSIONS_IDENTIFIER,
-  FormPropData,
-  ExtensibleModule,
-  generateFormFromProps,
-  ExtensionsService
+  ExtensibleModule
 } from '@abp/ng.components/extensible';
-import { Component, Injector, inject, signal } from '@angular/core';
-import {
-  GetIdentityRoleListInput,
-  IdentityRoleDto,
-  IdentityRoleService,
-} from '@volo/abp.ng.identity/proxy';
+import { Component, inject } from '@angular/core';
 import { PermissionManagementModule } from '@abp/ng.permission-management';
 import { PageModule } from '@abp/ng.components/page';
 import { AdvancedEntityFiltersModule } from '@volo/abp.commercial.ng.ui';
-import { UntypedFormGroup } from '@angular/forms';
-import { finalize, take } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
-
-import { e<%= className %>Names } from './<%= fileName %>.model';
-import { MergeDefaults<%= className %> } from './<%= fileName %>.default';
+import { e<%= names.className %>Names } from './<%= names.fileName %>.types';
+import { <%= storeNames.className %> } from './<%= storeNames.fileName %>';
 
 @Component({
   selector: '<%= selector %>',
-  templateUrl: './<%= fileName %>.component.html',
+  templateUrl: './<%= names.fileName %>.component.html',
   providers: [
-    ListService,
     {
       provide: EXTENSIONS_IDENTIFIER,
-      useValue: e<%= className %>Names.<%= className %>,
+      useValue: e<%= names.className %>Names.<%= names.className %>,
     },
   ],
   standalone:true,
   imports:[CoreModule,ThemeSharedModule,ExtensibleModule,PermissionManagementModule,PageModule,AdvancedEntityFiltersModule]
 })
-export class <%= className %>Component {
-  list = inject(ListService<GetIdentityRoleListInput>);
-  confirmationService = inject(ConfirmationService);
-  service= inject(IdentityRoleService);    
-
-  data = toSignal(this.list
-    .hookToQuery((query) => {
-      return this.service.getList({
-        ...query,
-        ...this.filters(),
-      });
-    }), { initialValue: { items: [], totalCount: 0 } });
-
-  filters = signal<GetIdentityRoleListInput>({} as GetIdentityRoleListInput);
-
-  form!: UntypedFormGroup;
-
-  selected!: IdentityRoleDto;
-
-  isModalVisible!: boolean;
-
-  modalBusy = false;
-
-  constructor(
-    protected injector: Injector
-  ) {
-    MergeDefaults<%= className %>(inject(ExtensionsService));
-  }
-
-  openModal() {
-    const data = new FormPropData(this.injector, this.selected);
-    this.form = generateFormFromProps(data);
-    this.isModalVisible = true;
-  }
-
-  onAdd() {
-    this.selected = {} as IdentityRoleDto;
-    this.openModal();
-  }
-
-  onEdit(id: string) {
-    this.service
-      .get(id)
-      .pipe(take(1))
-      .subscribe(selectedRole => {
-        this.selected = selectedRole;
-        this.openModal();
-      });
-  }
-
-  onDelete(id: string, roleName: string) {
-    this.confirmationService
-      .warn('AbpIdentity::RoleDeletionConfirmationMessage', 'AbpUi::AreYouSure', {
-        messageLocalizationParams: [roleName],
-      })
-      .subscribe((status: Confirmation.Status) => {
-        if (status === Confirmation.Status.confirm) {
-          this.service.delete(id).subscribe(() => this.list.get());
-        }
-      });
-  }  
-
-  save() {
-    if (!this.form.valid) return;
-    this.modalBusy = true;
-
-    const { id } = this.selected;
-
-    (id
-      ? this.service.update(id, {
-          ...this.selected,
-          ...this.form.value,
-          concurrencyStamp: this.selected.concurrencyStamp,
-        })
-      : this.service.create(this.form.value)
-    )
-      .pipe(finalize(() => (this.modalBusy = false)))
-      .subscribe(() => {
-        this.list.get();
-        this.isModalVisible = false;
-      });
-  } 
+export class <%= names.className %>Component {
+  <%= storeNames.propertyName %> = inject(<%= storeNames.className %>);
+  <%= names.propertyName %>ListService = this.<%= storeNames.propertyName %>.get<%= names.className %>ListService();
 }

@@ -1,0 +1,11 @@
+import { signalStore, withHooks } from "@ngrx/signals";
+import { with<%= names.className %> } from './<%= names.fileName %>.feature';
+
+export const <%= storeNames.className %> = signalStore(
+    with<%= names.className %>(),
+    withHooks({
+        onInit() {
+            console.log('<%= storeNames.className %> initialized');
+        },
+    })
+);

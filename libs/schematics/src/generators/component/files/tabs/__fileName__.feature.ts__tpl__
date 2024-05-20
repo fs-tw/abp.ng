@@ -1,0 +1,28 @@
+import { inject } from '@angular/core';
+import { signalStoreFeature, withHooks } from "@ngrx/signals";
+import { e<%= names.className %>Names } from './<%= names.fileName %>.types';
+import { <%= names.propertyName %>Defaults } from "./<%= names.fileName %>.default";
+import { withDefaults } from "<%= sharedPath %>/defaults.feature";
+import { TabsService } from '<%= sharedPath %>/tabs.service';
+import { EmailSettingsComponent } from './email-settings/email-settings.component';
+
+export function with<%= names.className %>() {
+  return signalStoreFeature(
+    withDefaults({
+      extensionsIdentifier: e<%= names.className %>Names.<%= names.className %>,
+      defaults: <%= names.propertyName %>Defaults,
+    }),
+    withHooks({
+      onInit(store, tabsService = inject(TabsService)) {
+        tabsService.add([
+          {
+            name: 'AbpSettingManagement::Emailing',
+            order: 1,
+            requiredPolicy: '',
+            component: EmailSettingsComponent,
+          }
+        ]);
+      },
+    })    
+  );
+}

@@ -19,6 +19,11 @@
       },
       "x-prompt": "What name would you like to use?"
     },
+    "directory": {
+      "type": "string",
+      "default": "",
+      "x-priority": "important"
+    },
     "project": {
       "type": "string",
       "description": "The name of the project.",
@@ -30,16 +35,76 @@
     "pageWrap": {
       "type": "boolean",
       "default": true,
-      "description": "use AbpPage to wrap the content."
+      "description": "use in routes, entity",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
     },
     "navStyle": {
       "type": "string",
       "enum": ["nav-tabs", "nav-pills", "none"],
-      "default": "nav-tabs"
+      "default": "nav-tabs",
+      "description": "use in routes",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
     },
-    "directory": {
+
+    "url": {
       "type": "string",
-      "default": ""
+      "description": "use in entity",
+      "default": "",
+      "$default": {
+        "$source": "argv",
+        "index": 10
+      }
+    },
+    "entityServiceType": {
+      "type": "string",
+      "description": "use in entity",
+      "default": "",
+      "$default": {
+        "$source": "argv",
+        "index": 10
+      }
+    },
+    "listInputType": {
+      "type": "string",
+      "description": "use in entity",
+      "default": "",
+      "$default": {
+        "$source": "argv",
+        "index": 10
+      }
+    },
+    "entityType": {
+      "type": "string",
+      "description": "use in entity",
+      "default": "",
+      "$default": {
+        "$source": "argv",
+        "index": 10
+      }
+    },
+    "createFormType": {
+      "type": "string",
+      "description": "use in entity",
+      "default": "",
+      "$default": {
+        "$source": "argv",
+        "index": 10
+      }
+    },
+    "editFormType": {
+      "type": "string",
+      "description": "use in entity",
+      "default": "",
+      "$default": {
+        "$source": "argv",
+        "index": 10
+      }
     }
   },
   "required": ["componentType", "name", "project"]

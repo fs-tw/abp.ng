@@ -1,6 +1,13 @@
-<abp-page [title]="'<%= resourceName %>::PageTitle' | abpLocalization" [toolbar]="[]">
+<% if(pageWrap){ %>
+<abp-page [title]="'<%= rootNames.className %>::<%= names.className %>PageTitle' | abpLocalization" [toolbar]="[]">
+<% } %>
 <% if(navStyle == 'nav-tabs'){ %>
-  <ul class="nav nav-tabs">
+  <ul
+    class="nav nav-tabs"
+    routerLinkActive
+    #rla="routerLinkActive"
+    [hidden]="!rla.isActive"
+  >
     @for(route of routesService.visible$ |async; track route.name) {
     <li class="nav-item">
       <a
@@ -23,7 +30,12 @@
     <div class="card-body">
       <div class="row">
         <div class="col-12 col-md-3 mb-2 mb-md-0">
-          <ul class="nav flex-column nav-pills">
+          <ul 
+            class="nav flex-column nav-pills"
+            routerLinkActive
+            #rla="routerLinkActive"
+            [hidden]="!rla.isActive"            
+          >
           @for(route of routesService.visible$ |async; track route.name) {
           <li class="nav-item">
             <a
@@ -51,4 +63,6 @@
 <% if(navStyle == 'none'){ %>
   <router-outlet></router-outlet>
 <% } %>
+<% if(pageWrap){ %>
 </abp-page>
+<% } %>

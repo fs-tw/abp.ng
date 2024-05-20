@@ -1,15 +1,15 @@
 import type { Tree } from '@nx/devkit';
-import { readProjectConfiguration } from '@nx/devkit';
-import type { AngularProjectConfiguration } from './types';
-import { normalizeNamePaths } from './normalize-name-paths';
+import { names, readProjectConfiguration } from '@nx/devkit';
+import type { AngularProjectConfiguration } from '../../../lib/types';
+import { normalizeNamePaths } from '../../../lib/normalize-name-paths';
 import { buildSelector } from './selector';
-import type { NormalizedSchema, ComponentGeneratorSchema } from '../schema';
+import type { ComponentGeneratorSchema } from '../schema';
 
 export function normalizeOptions(
   tree: Tree,
   options: ComponentGeneratorSchema
-): NormalizedSchema {
-  const { directory, name, path, relationPath, resourceName } =
+) {
+  const { rootNames, storeNames, directory, name, path, relationPath, sharedPath, resourceName } =
     normalizeNamePaths(tree, options);
 
   const { prefix } = readProjectConfiguration(
@@ -22,12 +22,20 @@ export function normalizeOptions(
     buildSelector(tree, name, options.prefix, prefix, 'fileName');
 
   return {
-    ...options,
+    rootNames,
+    storeNames,
+    componentType: options.componentType,
+    project: options.project,
+    prefix: options.prefix ?? prefix,
+    pageWrap: options.pageWrap,
+    navStyle: options.navStyle,
     name,
+    names: names(name),
     directory,
     path,
     relationPath,
-    selector,
-    resourceName
+    sharedPath,
+    resourceName,
+    selector
   };
 }

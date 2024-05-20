@@ -5,12 +5,12 @@ import { collapse, ThemeSharedModule, ToasterService } from '@abp/ng.theme.share
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { <%= className %>Service } from './<%= fileName %>.service';
-import { EmailSettingsDto } from './<%= fileName %>.model';
+import { <%= names.className %>Service } from './<%= names.fileName %>.service';
+import { EmailSettingsDto } from './<%= names.fileName %>.types';
 
 @Component({
   selector: '<%= selector %>',
-  templateUrl: '<%= fileName %>.component.html',
+  templateUrl: '<%= names.fileName %>.component.html',
   animations: [collapse],
   standalone:true,
   imports:[
@@ -19,7 +19,7 @@ import { EmailSettingsDto } from './<%= fileName %>.model';
   providers: [
   ]  
 })
-export class <%= className %>Component implements OnInit {
+export class <%= names.className %>Component implements OnInit {
   form!: UntypedFormGroup;
   emailTestForm!: UntypedFormGroup;
   saving = false;
@@ -27,7 +27,7 @@ export class <%= className %>Component implements OnInit {
   modalSize:NgbModalOptions= { size:"lg"} 
 
   constructor(
-    private <%= propertyName %>Service: <%= className %>Service,
+    private <%= names.propertyName %>Service: <%= names.className %>Service,
     private fb: UntypedFormBuilder,
     private toasterService: ToasterService,
   ) {}
@@ -37,7 +37,7 @@ export class <%= className %>Component implements OnInit {
   }
 
   private getData() {
-    this.<%= propertyName %>Service.get().subscribe(res => {
+    this.<%= names.propertyName %>Service.get().subscribe(res => {
       this.buildForm(res);
     });
   }
@@ -60,11 +60,11 @@ export class <%= className %>Component implements OnInit {
     if (this.saving || this.form.invalid) return;
 
     this.saving = true;
-    this.<%= propertyName %>Service
+    this.<%= names.propertyName %>Service
       .update(this.form.value)
       .pipe(finalize(() => (this.saving = false)))
       .subscribe(() => {
-        this.toasterService.success('<%= resourceName %>::SuccessfullySaved');
+        this.toasterService.success('AbpUi::SuccessfullySaved');
         this.getData();
       });
   }
@@ -87,8 +87,8 @@ export class <%= className %>Component implements OnInit {
     if(this.emailTestForm.invalid){
       return;
     }
-     this.<%= propertyName %>Service.sendTestEmail(this.emailTestForm.value).subscribe(res => {
-      this.toasterService.success('<%= resourceName %>::SuccessfullySent');
+     this.<%= names.propertyName %>Service.sendTestEmail(this.emailTestForm.value).subscribe(res => {
+      this.toasterService.success('<%= rootNames.className %>::SuccessfullySent');
       this.isEmailTestModalOpen = false;
     })
       

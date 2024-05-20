@@ -1,0 +1,35 @@
+import { signalStoreFeature, withHooks } from "@ngrx/signals";
+import { e<%= names.className %>Names } from './<%= names.fileName %>.types';
+import { <%= names.propertyName %>Defaults } from "./<%= names.fileName %>.default";
+import { withDefaults } from "<%= sharedPath %>/defaults.feature";
+import { withRoutes } from '<%= sharedPath %>/routes.feature';
+
+export function with<%= names.className %>() {
+  return signalStoreFeature(
+    withDefaults({
+      extensionsIdentifier: e<%= names.className %>Names.<%= names.className %>,
+      defaults: <%= names.propertyName %>Defaults,
+    }),
+    withRoutes({
+      collection: '<%= names.propertyName %>'      
+    }),
+    withHooks({
+      onInit(store) {
+        store.add<%= names.className %>Routes([
+          //{
+          // name: 'user',
+          // path: 'user',
+          // order: 1,
+          // requiredPolicy: eUserPolicyNames.User,
+          //},
+          //{
+          //  name: 'basic',
+          //  path: 'basic',
+          //  order: 2,
+          // requiredPolicy: eBasicPolicyNames.Basic,
+          //},
+        ]);
+      },
+    })    
+  );
+}

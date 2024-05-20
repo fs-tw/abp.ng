@@ -1,29 +1,29 @@
-<h2>{{ '<%= resourceName %>::Menu:<%= className %>' | abpLocalization }}</h2>
+<h2>{{ '<%= rootNames.className %>::Menu:<%= names.className %>' | abpLocalization }}</h2>
 
 <hr class="my-3" />
 
 <form *ngIf="form" [formGroup]="form" class="abp-md-form"  (ngSubmit)="submit()" [validateOnSubmit]="true">
   <div class="mb-3 form-group">
     <label class="form-label"
-      >{{ '<%= resourceName %>::DefaultFromDisplayName' | abpLocalization
+      >{{ '<%= rootNames.className %>::DefaultFromDisplayName' | abpLocalization
       }}<span class="ms-1">*</span></label
     >
     <input type="text" class="form-control" formControlName="defaultFromDisplayName" />
   </div>
   <div class="mb-3 form-group">
     <label class="form-label"
-      >{{ '<%= resourceName %>::DefaultFromAddress' | abpLocalization
+      >{{ '<%= rootNames.className %>::DefaultFromAddress' | abpLocalization
       }}<span class="ms-1">*</span></label
     >
     <input type="text" class="form-control" formControlName="defaultFromAddress" />
   </div>
   <div class="mb-3 form-group">
-    <label class="form-label">{{ '<%= resourceName %>::SmtpHost' | abpLocalization }}</label>
+    <label class="form-label">{{ '<%= rootNames.className %>::SmtpHost' | abpLocalization }}</label>
     <input type="text" class="form-control" formControlName="smtpHost" />
   </div>
   <div class="mb-3 form-group">
     <label class="form-label"
-      >{{ '<%= resourceName %>::SmtpPort' | abpLocalization }}<span class="ms-1">*</span></label
+      >{{ '<%= rootNames.className %>::SmtpPort' | abpLocalization }}<span class="ms-1">*</span></label
     >
     <input type="number" class="form-control" formControlName="smtpPort" />
   </div>
@@ -36,7 +36,7 @@
       formControlName="smtpEnableSsl"
     />
     <label class="form-check-label" for="smtp-enable-ssl">{{
-      '<%= resourceName %>::SmtpEnableSsl' | abpLocalization
+      '<%= rootNames.className %>::SmtpEnableSsl' | abpLocalization
     }}</label>
   </div>
   <div class="form-check mb-2">
@@ -47,7 +47,7 @@
       formControlName="smtpUseDefaultCredentials"
     />
     <label class="form-check-label" for="smtp-use-default-credentials">{{
-      '<%= resourceName %>::SmtpUseDefaultCredentials' | abpLocalization
+      '<%= rootNames.className %>::SmtpUseDefaultCredentials' | abpLocalization
     }}</label>
   </div>
 
@@ -58,17 +58,17 @@
     }"
   >
     <div class="mb-3 form-group">
-      <label class="form-label">{{ '<%= resourceName %>::SmtpDomain' | abpLocalization }}</label>
+      <label class="form-label">{{ '<%= rootNames.className %>::SmtpDomain' | abpLocalization }}</label>
       <input type="text" class="form-control" formControlName="smtpDomain" />
     </div>
 
     <div class="mb-3 form-group">
-      <label class="form-label">{{ '<%= resourceName %>::SmtpUserName' | abpLocalization }}</label>
+      <label class="form-label">{{ '<%= rootNames.className %>::SmtpUserName' | abpLocalization }}</label>
       <input type="text" class="form-control" formControlName="smtpUserName" />
     </div>
 
     <div class="mb-3 form-group">
-      <label class="form-label">{{ '<%= resourceName %>::SmtpPassword' | abpLocalization }}</label>
+      <label class="form-label">{{ '<%= rootNames.className %>::SmtpPassword' | abpLocalization }}</label>
       <input type="password" class="form-control" formControlName="smtpPassword" />
     </div>
   </div>
@@ -76,7 +76,7 @@
   <hr />
 
   <button type="submit" class="btn btn-primary">
-    {{ '<%= resourceName %>::Save' | abpLocalization }}
+    {{ 'AbpUi::Save' | abpLocalization }}
   </button>
   <button
     type="button"
@@ -85,7 +85,7 @@
     *abpPermission="emailingPolicy"
   >
     <i class="fa f-send" aria-hidden="true"></i>
-    {{ '<%= resourceName %>::SendTestEmail' | abpLocalization }}
+    {{ '<%= rootNames.className %>::SendTestEmail' | abpLocalization }}
   </button>
 </form>
 
@@ -98,25 +98,25 @@
     <form [formGroup]="emailTestForm" id="emailTestForm" (ngSubmit)="emailTestFormSubmit()">
       <div class="mb-3 form-group">
         <label class="form-label">{{
-          '<%= resourceName %>::SenderEmailAddress' | abpLocalization
+          '<%= rootNames.className %>::SenderEmailAddress' | abpLocalization
         }}</label>
         <input class="form-control" formControlName="senderEmailAddress" />
       </div>
 
       <div class="mb-3 form-group">
         <label class="form-label">{{
-          '<%= resourceName %>::TargetEmailAddress' | abpLocalization
+          '<%= rootNames.className %>::TargetEmailAddress' | abpLocalization
         }}</label>
         <input class="form-control" formControlName="targetEmailAddress" />
       </div>
 
       <div class="mb-3 form-group">
-        <label class="form-label">{{ '<%= resourceName %>::Subject' | abpLocalization }}</label>
+        <label class="form-label">{{ '<%= rootNames.className %>::Subject' | abpLocalization }}</label>
         <input class="form-control" formControlName="subject" />
       </div>
 
       <div class="mb-3 form-group">
-        <label class="form-label">{{ '<%= resourceName %>::Body' | abpLocalization }}</label>
+        <label class="form-label">{{ '<%= rootNames.className %>::Body' | abpLocalization }}</label>
         <textarea class="form-control" formControlName="body"></textarea>
       </div>
     </form>
@@ -129,7 +129,7 @@
       formName="emailTestForm"
       [disabled]="emailTestForm.invalid && emailTestForm.dirty"
     >
-      <span>{{ '<%= resourceName %>::Send' | abpLocalization }}</span>
+      <span>{{ '<%= rootNames.className %>::Send' | abpLocalization }}</span>
     </abp-button>
 
     <button type="button" class="btn btn-secondary" abpClose>Close</button>
