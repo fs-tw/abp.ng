@@ -12,7 +12,6 @@
     "url": "git@github.com:fs-tw/abp.ng.git"
   },
   "dependencies": {
-    "ng-zorro-antd": "17.2.0",
     "@abp/ng.account": "~8.1.1",
     "@abp/ng.components": "~8.1.1",
     "@abp/ng.core": "~8.1.1",
@@ -38,6 +37,7 @@
     "@nx/devkit": "18.3.4",
     "@nx/plugin": "18.3.4",
     "@swc/helpers": "0.5.11",
+    "@tanstack/angular-query-experimental": "^5.37.1",
     "@volo/abp.commercial.ng.ui": "~8.1.1",
     "@volo/abp.ng.account": "~8.1.1",
     "@volo/abp.ng.audit-logging": "~8.1.1",
@@ -49,6 +49,7 @@
     "@volo/abp.ng.text-template-management": "~8.1.1",
     "@volosoft/abp.ng.theme.lepton-x": "~3.1.1",
     "bootstrap-icons": "~1.8.3",
+    "ng-zorro-antd": "17.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "0.14.4"

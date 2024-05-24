@@ -11,6 +11,10 @@ import {
   DashboardOutline,
 } from '@ant-design/icons-angular/icons';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import {
+  provideAngularQuery,
+  QueryClient,
+} from '@tanstack/angular-query-experimental';
 
 const icons = [
   MenuFoldOutline,
@@ -27,5 +31,6 @@ export const appConfig: ApplicationConfig = {
 
     { provide: NZ_I18N, useValue: zh_TW },
     importProvidersFrom(NzIconModule.forRoot(icons)),
+    provideAngularQuery(new QueryClient()),
   ],
 };
