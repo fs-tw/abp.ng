@@ -64,6 +64,9 @@ export function addEntityPropToDefault(
     visitAllChildren: true,
   });
 
+  if (entityPropNodes.length === 0)
+    return;
+
 
 
   const _ignoreProperties = [

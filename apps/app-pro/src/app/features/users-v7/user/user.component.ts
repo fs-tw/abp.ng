@@ -1,21 +1,18 @@
 import { CoreModule } from '@abp/ng.core';
-import {
-  Confirmation,
-  ConfirmationService,
-  ThemeSharedModule,
-} from '@abp/ng.theme.shared';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import {
   EXTENSIONS_IDENTIFIER,
   ExtensibleModule,
+  FormPropData,
+  generateFormFromProps,
 } from '@abp/ng.components/extensible';
-import { Component, inject } from '@angular/core';
-import { IdentityRoleService } from '@volo/abp.ng.identity/proxy';
+import { Component, Inject, Injector, inject } from '@angular/core';
 import { PermissionManagementModule } from '@abp/ng.permission-management';
 import { PageModule } from '@abp/ng.components/page';
 import { AdvancedEntityFiltersModule } from '@volo/abp.commercial.ng.ui';
-
 import { eUserNames } from './user.types';
 import { UsersV7Store } from './../users-v7.store';
+import { IdentityUserCreateDto } from '@volo/abp.ng.identity/proxy';
 
 @Component({
   selector: 'app-user',
@@ -39,35 +36,6 @@ import { UsersV7Store } from './../users-v7.store';
 export class UserComponent {
   usersV7Store = inject(UsersV7Store);
   userListService = this.usersV7Store.getUserListService();
-  confirmationService = inject(ConfirmationService);
-  service = inject(IdentityRoleService);
 
-  onAdd() {
-    this.usersV7Store.openUserEditModal(null);
-  }
-
-  onEdit(id: string) {
-    this.usersV7Store.openUserEditModal(id);
-  }
-
-  save() {
-    this.usersV7Store.saveUserEditModal(this.usersV7Store.userForm());
-    this.userListService.get();
-  }
-
-  onDelete(id: string, roleName: string) {
-    this.confirmationService
-      .warn(
-        'AbpIdentity::RoleDeletionConfirmationMessage',
-        'AbpUi::AreYouSure',
-        {
-          messageLocalizationParams: [roleName],
-        }
-      )
-      .subscribe((status: Confirmation.Status) => {
-        if (status === Confirmation.Status.confirm) {
-          this.service.delete(id).subscribe(() => this.userListService.get());
-        }
-      });
-  }
+  form = generateFormFromProps(new FormPropData(inject(Injector), {}));
 }

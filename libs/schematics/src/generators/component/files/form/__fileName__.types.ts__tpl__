@@ -1,31 +1,30 @@
-export interface EmailSettingsDto {
-  smtpHost?: string;
-  smtpPort: number;
-  smtpUserName?: string;
-  smtpPassword?: string;
-  smtpDomain?: string;
-  smtpEnableSsl: boolean;
-  smtpUseDefaultCredentials: boolean;
-  defaultFromAddress?: string;
-  defaultFromDisplayName?: string;
+import { inject } from '@angular/core';
+import { FormControl } from "@angular/forms";
+import { FormGroup } from "<%= sharedPath %>/types";
+
+export const enum e<%= names.className %>PolicyNames {
+  <%= names.className %> = '',
 }
-export interface SendTestEmailInput {
-  senderEmailAddress: string;
-  targetEmailAddress: string;
-  subject: string;
-  body?: string;
+export enum e<%= names.className %>Names {
+  <%= names.className %> = '<%= rootNames.className %>::<%= names.className %>',
+  DefaultsResourceName = '<%= rootNames.className %>',
 }
 
-export interface UpdateEmailSettingsDto {
-  smtpHost?: string;
-  smtpPort: number;
-  smtpUserName?: string;
-  smtpPassword?: string;
-  smtpDomain?: string;
-  smtpEnableSsl: boolean;
-  smtpUseDefaultCredentials: boolean;
-  defaultFromAddress: string;
-  defaultFromDisplayName: string;
+export const S = <%= entityServiceType || names.className + 'Service' %>;
+export type I = <%= listInputType || 'any' %>;
+export type R = <%= entityType || 'any' %>
+export type C = <%= createFormType || 'any' %>;
+export type U = <%= editFormType || 'any' %>
+
+export const <%= names.propertyName %>Proxy = {
+  get: (input: I) => inject(S).get(),
+  update: (input: U) => inject(S).update(input),
+};
+
+export function <%= entityType %>FormGroup() {
+  return new FormGroup<U>(
+    {
+    }
+  )
+
 }
-
-

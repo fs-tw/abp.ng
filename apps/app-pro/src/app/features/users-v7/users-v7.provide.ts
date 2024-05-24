@@ -14,7 +14,7 @@ export const provideUsersV7 = (): Array<Provider | EnvironmentProviders> => {
         localizations: localizations,
       }),
     ]),
-    UsersV7Store
+    UsersV7Store,
   ];
 
   return providers;

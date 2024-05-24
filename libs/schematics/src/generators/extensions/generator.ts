@@ -23,9 +23,10 @@ export async function extensionsGenerator(
 
   const targetType = await getEntityType(options.url, options.type);
 
+
   const fileFullName = joinPathFragments(directory, `${fileName}.default.ts`);
 
-  if(targetType)
+  if (targetType)
     addEntityPropToDefault(tree, fileFullName, targetType, _options);
 
   await formatFiles(tree);

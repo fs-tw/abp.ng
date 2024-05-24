@@ -6,7 +6,8 @@ export enum ComponentKind {
   Entity = 'entity',
   Tree = 'tree',
   Form = 'form',
-  Modal = 'modal'
+  Modal = 'modal',
+  NzSelect = 'nz-select',
 }
 
 export interface ComponentGeneratorSchema {

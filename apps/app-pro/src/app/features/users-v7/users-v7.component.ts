@@ -24,11 +24,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UsersV7Component {
   usersV7Store = inject(UsersV7Store);
-  routesService = this.usersV7Store.getRoutesService();
+  routesService = this.usersV7Store.getUsersV7RoutesService();
   activatedRoute = inject(ActivatedRoute);
 
   constructor() {
-    this.usersV7Store.hookRouter(this.activatedRoute);
+    this.usersV7Store.hookUsersV7Router(this.activatedRoute);
   }
-
 }

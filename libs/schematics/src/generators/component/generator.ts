@@ -7,7 +7,6 @@ import {
 } from '@nx/devkit';
 import { ComponentGeneratorSchema } from './schema';
 import { normalizeOptions } from './lib/normalize-options';
-import { executeExtensions } from './lib/entity-process';
 import { postGenerateFiles, preGenerateFiles } from './lib/generate-files-process';
 
 export async function componentGenerator(
@@ -45,6 +44,7 @@ export async function componentGenerator(
       resourceNames: names(options.resourceName)
     }
   };
+
   console.log(options);
 
   await preGenerateFiles(tree, rawOptions, options);

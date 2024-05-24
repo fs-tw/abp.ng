@@ -1,0 +1,37 @@
+import { Validators } from '@angular/forms';
+import {
+  ePropType,
+  FormProp
+} from '@abp/ng.components/extensible';
+import { e<%= names.className %>Names, U } from './<%= names.fileName %>.types';
+
+const resourceName = e<%= names.className %>Names.DefaultsResourceName;
+
+export const CREATE_FORM_PROPS = FormProp.createMany<U>([
+  {
+    type: ePropType.String,
+    name: 'id',
+    displayName: '',
+    id: 'id',
+    visible: () => false,
+    //disabled: (data: PropData<IdentityRoleDto>) => data.record && data.record.isStatic,
+    //validators: () => [Validators.required],
+  }
+]);
+
+export const EDIT_FORM_PROPS = FormProp.createMany<U>([
+  {
+    type: ePropType.String,
+    name: 'id',
+    displayName: '',
+    id: 'id',
+    visible: () => false,
+    //disabled: (data: PropData<IdentityRoleDto>) => data.record && data.record.isStatic,
+    //validators: () => [Validators.required],
+  }
+]);
+
+export const <%= names.propertyName %>Defaults = {
+  createFormProps: CREATE_FORM_PROPS,
+  editFormProps: EDIT_FORM_PROPS
+}

@@ -6,9 +6,8 @@ import {
   EntityAction,
   ToolbarAction,
 } from '@abp/ng.components/extensible';
-import { UserComponent } from './user.component';
 import { eUserNames, R } from './user.types';
-import { ActivatedRoute, Router } from '@angular/router';
+import { UsersV7Store } from './../users-v7.store';
 
 const resourceName = eUserNames.DefaultsResourceName;
 
@@ -16,19 +15,18 @@ export const ENTITY_ACTIONS = EntityAction.createMany<R>([
   {
     text: 'AbpUi::Edit',
     action: (data) => {
-      const component = data.getInjected(UserComponent);
-      component.onEdit(data.record.id || '');
+      const usersV7Store = data.getInjected(UsersV7Store);
+      usersV7Store.openUserEditModal(data.record.id || '');
     },
     permission: '',
   },
   {
     text: 'AbpUi::Delete',
     action: (data) => {
-      const component = data.getInjected(UserComponent);
-      component.onDelete(data.record.id || '', data.record.name || '');
+      const usersV7Store = data.getInjected(UsersV7Store);
+      usersV7Store.deleteUser(data.record);
     },
     permission: '',
-    visible: (data) => true,
   },
 ]);
 
@@ -36,11 +34,10 @@ export const TOOLBAR_ACTIONS = ToolbarAction.createMany<R[]>([
   {
     text: 'AbpUi::AddNew',
     action: (data) => {
-      data.getInjected(Router).navigate(['../user-form'], { relativeTo: data.getInjected(ActivatedRoute) });
-      // const component = data.getInjected(UserComponent);
-      // component.onAdd();
+      const usersV7Store = data.getInjected(UsersV7Store);
+      usersV7Store.openUserEditModal(null);
     },
-    //permission: 'AbpIdentity.Roles.Create',
+    permission: '',
     icon: 'fa fa-plus',
   },
 ]);
@@ -210,6 +207,7 @@ export const CREATE_FORM_PROPS = FormProp.createMany<R>([
     name: 'userName',
     type: ePropType.String,
     displayName: `${resourceName}::UserName`,
+    defaultValue: undefined,
     validators: () => [Validators.required],
   },
   {
@@ -217,6 +215,7 @@ export const CREATE_FORM_PROPS = FormProp.createMany<R>([
     name: 'name',
     type: ePropType.String,
     displayName: `${resourceName}::Name`,
+    defaultValue: undefined,
     validators: () => [],
   },
   {
@@ -224,6 +223,7 @@ export const CREATE_FORM_PROPS = FormProp.createMany<R>([
     name: 'surname',
     type: ePropType.String,
     displayName: `${resourceName}::Surname`,
+    defaultValue: undefined,
     validators: () => [],
   },
   {
@@ -231,6 +231,7 @@ export const CREATE_FORM_PROPS = FormProp.createMany<R>([
     name: 'email',
     type: ePropType.String,
     displayName: `${resourceName}::Email`,
+    defaultValue: undefined,
     validators: () => [Validators.required],
   },
   {
@@ -238,6 +239,7 @@ export const CREATE_FORM_PROPS = FormProp.createMany<R>([
     name: 'phoneNumber',
     type: ePropType.String,
     displayName: `${resourceName}::PhoneNumber`,
+    defaultValue: undefined,
     validators: () => [],
   },
   {
@@ -245,6 +247,7 @@ export const CREATE_FORM_PROPS = FormProp.createMany<R>([
     name: 'isActive',
     type: ePropType.Boolean,
     displayName: `${resourceName}::IsActive`,
+    defaultValue: false,
     validators: () => [],
   },
   {
@@ -252,6 +255,7 @@ export const CREATE_FORM_PROPS = FormProp.createMany<R>([
     name: 'shouldChangePasswordOnNextLogin',
     type: ePropType.Boolean,
     displayName: `${resourceName}::ShouldChangePasswordOnNextLogin`,
+    defaultValue: false,
     validators: () => [],
   },
   {
@@ -259,6 +263,7 @@ export const CREATE_FORM_PROPS = FormProp.createMany<R>([
     name: 'lockoutEnabled',
     type: ePropType.Boolean,
     displayName: `${resourceName}::LockoutEnabled`,
+    defaultValue: false,
     validators: () => [],
   },
   {
@@ -266,6 +271,7 @@ export const CREATE_FORM_PROPS = FormProp.createMany<R>([
     name: 'password',
     type: ePropType.String,
     displayName: `${resourceName}::Password`,
+    defaultValue: undefined,
     validators: () => [Validators.required],
   },
   {
@@ -273,6 +279,7 @@ export const CREATE_FORM_PROPS = FormProp.createMany<R>([
     name: 'sendConfirmationEmail',
     type: ePropType.Boolean,
     displayName: `${resourceName}::SendConfirmationEmail`,
+    defaultValue: false,
     validators: () => [],
   },
   {
@@ -280,6 +287,7 @@ export const CREATE_FORM_PROPS = FormProp.createMany<R>([
     name: 'emailConfirmed',
     type: ePropType.Boolean,
     displayName: `${resourceName}::EmailConfirmed`,
+    defaultValue: false,
     validators: () => [],
   },
   {
@@ -287,6 +295,7 @@ export const CREATE_FORM_PROPS = FormProp.createMany<R>([
     name: 'phoneNumberConfirmed',
     type: ePropType.Boolean,
     displayName: `${resourceName}::PhoneNumberConfirmed`,
+    defaultValue: false,
     validators: () => [],
   },
 ]);
@@ -305,6 +314,7 @@ export const EDIT_FORM_PROPS = FormProp.createMany<R>([
     name: 'userName',
     type: ePropType.String,
     displayName: `${resourceName}::UserName`,
+    defaultValue: undefined,
     validators: () => [Validators.required],
   },
   {
@@ -312,6 +322,7 @@ export const EDIT_FORM_PROPS = FormProp.createMany<R>([
     name: 'name',
     type: ePropType.String,
     displayName: `${resourceName}::Name`,
+    defaultValue: undefined,
     validators: () => [],
   },
   {
@@ -319,6 +330,7 @@ export const EDIT_FORM_PROPS = FormProp.createMany<R>([
     name: 'surname',
     type: ePropType.String,
     displayName: `${resourceName}::Surname`,
+    defaultValue: undefined,
     validators: () => [],
   },
   {
@@ -326,6 +338,7 @@ export const EDIT_FORM_PROPS = FormProp.createMany<R>([
     name: 'email',
     type: ePropType.String,
     displayName: `${resourceName}::Email`,
+    defaultValue: undefined,
     validators: () => [Validators.required],
   },
   {
@@ -333,6 +346,7 @@ export const EDIT_FORM_PROPS = FormProp.createMany<R>([
     name: 'phoneNumber',
     type: ePropType.String,
     displayName: `${resourceName}::PhoneNumber`,
+    defaultValue: undefined,
     validators: () => [],
   },
   {
@@ -340,6 +354,7 @@ export const EDIT_FORM_PROPS = FormProp.createMany<R>([
     name: 'isActive',
     type: ePropType.Boolean,
     displayName: `${resourceName}::IsActive`,
+    defaultValue: false,
     validators: () => [],
   },
   {
@@ -347,6 +362,7 @@ export const EDIT_FORM_PROPS = FormProp.createMany<R>([
     name: 'shouldChangePasswordOnNextLogin',
     type: ePropType.Boolean,
     displayName: `${resourceName}::ShouldChangePasswordOnNextLogin`,
+    defaultValue: false,
     validators: () => [],
   },
   {
@@ -354,6 +370,7 @@ export const EDIT_FORM_PROPS = FormProp.createMany<R>([
     name: 'lockoutEnabled',
     type: ePropType.Boolean,
     displayName: `${resourceName}::LockoutEnabled`,
+    defaultValue: false,
     validators: () => [],
   },
   {
@@ -361,6 +378,7 @@ export const EDIT_FORM_PROPS = FormProp.createMany<R>([
     name: 'emailConfirmed',
     type: ePropType.Boolean,
     displayName: `${resourceName}::EmailConfirmed`,
+    defaultValue: false,
     validators: () => [],
   },
   {
@@ -368,6 +386,7 @@ export const EDIT_FORM_PROPS = FormProp.createMany<R>([
     name: 'phoneNumberConfirmed',
     type: ePropType.Boolean,
     displayName: `${resourceName}::PhoneNumberConfirmed`,
+    defaultValue: false,
     validators: () => [],
   },
 ]);

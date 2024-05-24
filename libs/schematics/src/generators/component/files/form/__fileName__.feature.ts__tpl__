@@ -1,0 +1,13 @@
+import { signalStoreFeature } from "@ngrx/signals";
+import { e<%= names.className %>Names, <%= names.propertyName %>Proxy, R } from './<%= names.fileName %>.types';
+import { <%= names.propertyName %>Defaults } from "./<%= names.fileName %>.default";
+import { withDefaults } from "<%= sharedPath %>/defaults.feature";
+
+export function with<%= names.className %>() {
+  return signalStoreFeature(
+    withDefaults({
+      extensionsIdentifier: e<%= names.className %>Names.<%= names.className %>,
+      defaults: <%= names.propertyName %>Defaults,
+    }) 
+  );
+}

@@ -6,7 +6,15 @@
   "properties": {
     "componentType": {
       "type": "string",
-      "enum": ["routes", "tabs", "entity", "form", "tree", "modal"],
+      "enum": [
+        "routes",
+        "tabs",
+        "entity",
+        "form",
+        "tree",
+        "modal",
+        "nz-select"
+      ],
       "default": "routes",
       "description": "main page or content tab."
     },

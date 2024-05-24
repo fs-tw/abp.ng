@@ -1,0 +1,26 @@
+import { signalStoreFeature } from "@ngrx/signals";
+import { <%= names.propertyName %>Proxy } from "./<%= names.fileName %>.types";
+import { withSelected } from "<%= sharedPath %>/selected.feature";
+import { withListService } from "<%= sharedPath %>/list.feature";
+import { withSelect } from "<%= sharedPath %>/select.feature";
+
+export function with<%= names.className %>(){
+    return signalStoreFeature(
+        withListService({
+            collection: '<%= names.propertyName %>',
+            list: <%= names.propertyName %>Proxy.list,
+            ignoreHook: true
+        }),
+        withSelected({
+            collection: '<%= names.propertyName %>',
+            get: <%= names.propertyName %>Proxy.get
+        }),
+        withSelect({
+            collection: '<%= names.propertyName %>',
+            filterColumn: 'filter',
+            sortKey: 'creationTime',
+            sortOrder: 'desc',
+            list: <%= names.propertyName %>Proxy.list,
+        })
+    )
+}

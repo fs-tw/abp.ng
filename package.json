@@ -12,6 +12,7 @@
     "url": "git@github.com:fs-tw/abp.ng.git"
   },
   "dependencies": {
+    "ng-zorro-antd": "17.2.0",
     "@abp/ng.account": "~8.1.1",
     "@abp/ng.components": "~8.1.1",
     "@abp/ng.core": "~8.1.1",

@@ -100,17 +100,33 @@ export function configureRoutes(routes: RoutesService) {
         path: '/',
         name: 'Home',
         iconClass: 'fas fa-home',
-        order: 1,
+        order: 0,
         layout: eLayoutType.application,
       },
       {
-        path: '/demo',
+        path: '/users-v7',
         name: 'Demo',
         iconClass: 'fas fa-chart-line',
-        order: 2,
+        order: 1,
         layout: eLayoutType.application,
         //requiredPolicy: 'Further.Dashboard.Host  || Further.Dashboard.Tenant',
       },
+      {
+        name: 'Demo-email-settings-form',
+        path: '/users-v7/email-settings-form',
+        order: 2,
+        requiredPolicy: '',
+        layout: eLayoutType.application,
+        parentName: 'Demo',
+      },
+      {
+        name: 'Demo-user',
+        path: '/users-v7/user',
+        order: 3,
+        requiredPolicy: '',
+        layout: eLayoutType.application,
+        parentName: 'Demo',
+      }
     ]);
   };
 }

@@ -5,7 +5,7 @@ export const localizations = [
       {
         resourceName: 'UsersV7',
         texts: {
-          PageTitle: 'UsersV7PageTitle',
+          UsersV7PageTitle: 'UsersV7PageTitle',
         },
       },
     ],
@@ -16,7 +16,7 @@ export const localizations = [
       {
         resourceName: 'UsersV7',
         texts: {
-          PageTitle: 'UsersV7PageTitle',
+          UsersV7PageTitle: 'UsersV7PageTitle(zh-hant)',
         },
       },
     ],

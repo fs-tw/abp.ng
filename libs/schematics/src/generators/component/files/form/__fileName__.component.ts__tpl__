@@ -1,58 +1,53 @@
 import { PageModule } from '@abp/ng.components/page';
 import { CoreModule } from '@abp/ng.core';
-import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { collapse, ThemeSharedModule, ToasterService } from '@abp/ng.theme.shared';
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  collapse,
+  ThemeSharedModule,
+  ToasterService,
+} from '@abp/ng.theme.shared';
+import { Component, inject, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+} from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { <%= names.className %>Service } from './<%= names.fileName %>.service';
-import { EmailSettingsDto } from './<%= names.fileName %>.types';
+import { ExtensibleModule } from '@abp/ng.components/extensible';
+import { ExtensionsIdentifierDirective, ExtensionsIdentifierRenderDirective } from '<%= sharedPath %>/extensions-identifier.directive';
+import { <%= entityType %>FormGroup, U, e<%= names.className %>Names, S } from './email-settings-form.types';
 
 @Component({
   selector: '<%= selector %>',
   templateUrl: '<%= names.fileName %>.component.html',
   animations: [collapse],
   standalone:true,
-  imports:[
-    CoreModule, ThemeSharedModule, PageModule
+  imports: [CoreModule, ThemeSharedModule, PageModule, ExtensibleModule,
+    ExtensionsIdentifierDirective,
+    ExtensionsIdentifierRenderDirective
   ],
   providers: [
   ]  
 })
 export class <%= names.className %>Component implements OnInit {
-  form!: UntypedFormGroup;
-  emailTestForm!: UntypedFormGroup;
+  public get e<%= names.className %>Names(): typeof e<%= names.className %>Names {
+    return e<%= names.className %>Names;
+  }
+  service = inject(S);
+  form = inject(FormBuilder).group(EmailSettingsDtoFormGroup().controls);
+  
   saving = false;
-  isEmailTestModalOpen = false;
-  modalSize:NgbModalOptions= { size:"lg"} 
 
   constructor(
-    private <%= names.propertyName %>Service: <%= names.className %>Service,
-    private fb: UntypedFormBuilder,
-    private toasterService: ToasterService,
-  ) {}
+    private toasterService: ToasterService
+  ) {
+  }
 
   ngOnInit() {
+    
     this.getData();
   }
 
   private getData() {
-    this.<%= names.propertyName %>Service.get().subscribe(res => {
-      this.buildForm(res);
-    });
-  }
-
-  private buildForm(emailSettings: EmailSettingsDto) {
-    this.form = this.fb.group({
-      defaultFromDisplayName: [emailSettings.defaultFromDisplayName, [Validators.required]],
-      defaultFromAddress: [emailSettings.defaultFromAddress, [Validators.required]],
-      smtpHost: [emailSettings.smtpHost],
-      smtpPort: [emailSettings.smtpPort, [Validators.required]],
-      smtpEnableSsl: [emailSettings.smtpEnableSsl],
-      smtpUseDefaultCredentials: [emailSettings.smtpUseDefaultCredentials],
-      smtpDomain: [emailSettings.smtpDomain],
-      smtpUserName: [emailSettings.smtpUserName],
-      smtpPassword: [emailSettings.smtpPassword],
+    this.service.get().subscribe((res) => {
+      this.form.patchValue(res);
     });
   }
 
@@ -60,38 +55,13 @@ export class <%= names.className %>Component implements OnInit {
     if (this.saving || this.form.invalid) return;
 
     this.saving = true;
-    this.<%= names.propertyName %>Service
-      .update(this.form.value)
+    this.service
+      .update(this.form.value as U)
       .pipe(finalize(() => (this.saving = false)))
       .subscribe(() => {
         this.toasterService.success('AbpUi::SuccessfullySaved');
         this.getData();
       });
-  }
-  openSendEmailModal() {
-    this.buildEmailTestForm();
-    this.isEmailTestModalOpen = true;
-  }
 
-  buildEmailTestForm() {
-    this.emailTestForm = this.fb.group({
-      senderEmailAddress: ['', [Validators.required, Validators.email]],
-      targetEmailAddress: ['', [Validators.required, Validators.email]],
-      subject: ['', [Validators.required]],
-      body: [''],
-    });
   }
-
-  emailTestFormSubmit() {
-
-    if(this.emailTestForm.invalid){
-      return;
-    }
-     this.<%= names.propertyName %>Service.sendTestEmail(this.emailTestForm.value).subscribe(res => {
-      this.toasterService.success('<%= rootNames.className %>::SuccessfullySent');
-      this.isEmailTestModalOpen = false;
-    })
-      
-  }
-
 }

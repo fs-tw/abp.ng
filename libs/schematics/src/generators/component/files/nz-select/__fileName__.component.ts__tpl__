@@ -1,0 +1,20 @@
+import { CoreModule } from '@abp/ng.core';
+import {
+  ThemeSharedModule,
+} from '@abp/ng.theme.shared';
+import { Component, inject } from '@angular/core';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { <%= names.className %>Store } from './<%= names.fileName %>.store';
+
+@Component({
+  selector: '<%= selector %>',
+  templateUrl: './<%= names.fileName %>.component.html',
+    providers: [
+    <%= names.className %>Store
+  ],
+  standalone: true,
+  imports: [CoreModule, ThemeSharedModule, NzSelectModule],
+})
+export class <%= names.className %>Component {
+  <%= names.propertyName %>Store = inject(<%= names.className %>Store);
+}

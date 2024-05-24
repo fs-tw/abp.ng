@@ -153,6 +153,16 @@
             "inject": false,
             "bundleName": "ng-zorro-antd-tree"
           },
+          {
+            "input": "node_modules/ng-zorro-antd/src/style/index.min.css",
+            "inject": true,
+            "bundleName": "ng-zorro-antd"
+          },
+          {
+            "input": "node_modules/ng-zorro-antd/select/style/index.min.css",
+            "inject": true,
+            "bundleName": "ng-zorro-antd-select"
+          },
           "apps/app-pro/src/styles.scss"
         ],
         "scripts": [],

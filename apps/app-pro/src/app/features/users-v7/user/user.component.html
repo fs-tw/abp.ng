@@ -37,12 +37,13 @@
     <form
       [formGroup]="usersV7Store.userForm()"
       id="userForm"
-      (ngSubmit)="save()"
+      (ngSubmit)="usersV7Store.saveUserEditModal(usersV7Store.userForm())"
       [validateOnSubmit]="true"
     >
       <abp-extensible-form
         [selectedRecord]="usersV7Store.userEditModal().selected"
-      ></abp-extensible-form>
+      >
+      </abp-extensible-form>
     </form>
   </ng-template>
 

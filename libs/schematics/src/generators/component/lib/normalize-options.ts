@@ -9,6 +9,32 @@ export function normalizeOptions(
   tree: Tree,
   options: ComponentGeneratorSchema
 ) {
+
+  switch (options.componentType) {
+    case 'routes':
+      break;
+    case 'entity':
+      break;
+    case 'form':
+      if (!options.name.endsWith('-form')) {
+        options.name += '-form';
+      }      
+      break;
+    case 'modal':
+      break;
+    case 'tabs':
+      break;
+    case 'tree':
+      break;
+    case 'nz-select':
+      if (!options.name.endsWith('-select')) {
+        options.name += '-select';
+      }
+      break;
+  }
+
+
+
   const { rootNames, storeNames, directory, name, path, relationPath, sharedPath, resourceName } =
     normalizeNamePaths(tree, options);
 
@@ -20,6 +46,7 @@ export function normalizeOptions(
   const selector =
     options.selector ??
     buildSelector(tree, name, options.prefix, prefix, 'fileName');
+
 
   return {
     rootNames,

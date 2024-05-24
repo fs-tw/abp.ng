@@ -1,5 +1,5 @@
 import { inject } from "@angular/core";
-import { Proxy } from '<%= sharedPath %>/types';
+import { ICrudProxy } from '<%= sharedPath %>/types';
 
 export const enum e<%= names.className %>PolicyNames {
   <%= names.className %> = '',
@@ -15,7 +15,7 @@ export type R = <%= entityType || 'any' %>
 export type C = <%= createFormType || 'any' %>;
 export type U = <%= editFormType || 'any' %>
 
-export const <%= names.propertyName %>Proxy: Proxy<I, R, C, U> = {
+export const <%= names.propertyName %>Proxy: ICrudProxy<I, R, C, U> = {
   list: (getListInput) => inject(S).getList(getListInput),
   get: (id: string) => inject(S).get(id),
   create: (data) =>
