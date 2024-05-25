@@ -1,10 +1,12 @@
 import {
   Routes,
   provideRouter,
-  withComponentInputBinding,
+  withComponentInputBinding
 } from '@angular/router';
-import { RoutesService, eLayoutType } from '@abp/ng.core';
+import { ReplaceableComponentsService, RoutesService, eLayoutType } from '@abp/ng.core';
 import { APP_INITIALIZER } from '@angular/core';
+import { eThemeLeptonXComponents } from '@volosoft/abp.ng.theme.lepton-x';
+import { NavbarRoutesComponent } from './shared/components/navbar-routes';
 
 export const routes: Routes = [
   {
@@ -91,6 +93,12 @@ export const APP_ROUTES_PROVIDER = [
     deps: [RoutesService],
     multi: true,
   },
+  {
+    provide: APP_INITIALIZER,
+    useFactory: replaceableComponent,
+    deps: [ReplaceableComponentsService],
+    multi: true,
+  },
 ];
 
 export function configureRoutes(routes: RoutesService) {
@@ -111,22 +119,15 @@ export function configureRoutes(routes: RoutesService) {
         layout: eLayoutType.application,
         //requiredPolicy: 'Further.Dashboard.Host  || Further.Dashboard.Tenant',
       },
-      {
-        name: 'Demo-email-settings-form',
-        path: '/users-v7/email-settings-form',
-        order: 2,
-        requiredPolicy: '',
-        layout: eLayoutType.application,
-        parentName: 'Demo',
-      },
-      {
-        name: 'Demo-user',
-        path: '/users-v7/user',
-        order: 3,
-        requiredPolicy: '',
-        layout: eLayoutType.application,
-        parentName: 'Demo',
-      }
     ]);
   };
+}
+
+function replaceableComponent(replaceableComponentsService: ReplaceableComponentsService) {
+  return () => {
+    replaceableComponentsService.add({
+      key: eThemeLeptonXComponents.Routes,
+      component: NavbarRoutesComponent,
+    });
+  }
 }
