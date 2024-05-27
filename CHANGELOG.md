@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/fs-tw/abp.ng/compare/v1.1.0...v1.2.0) (2024-05-27)
+
+### Features
+
+- introduct Routes Feature from RouteService ([dc60544](https://github.com/fs-tw/abp.ng/commit/dc605442e88a61196de18393f4cf9f3f53a7c5d9))
+- replace NavbarRoutesComponent for fix selected error when match part of url but not full ([34d64b9](https://github.com/fs-tw/abp.ng/commit/34d64b984875e486cde2ea8b367756309a8fa1c4))
+
 # [1.1.0-beta.7](https://github.com/fs-tw/abp.ng/compare/v1.1.0-beta.6...v1.1.0-beta.7) (2023-12-26)
 
 ### Bug Fixes
