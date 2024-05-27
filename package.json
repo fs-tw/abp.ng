@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build-libs": "nx run-many --skip-nx-cache=true --target=build --projects=schematics",
-    "publish-libs": "lerna version --conventional-commits --conventional-prerelease --preid beta --yes & npm run build-libs & lerna publish from-package --yes"
+    "publish-libs": "lerna version --conventional-commits --yes & npm run build-libs & lerna publish from-package --yes"
   },
   "private": true,
   "repository": {
