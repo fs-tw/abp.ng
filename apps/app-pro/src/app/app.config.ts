@@ -1,8 +1,12 @@
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import {
+  ApplicationConfig,
+  LOCALE_ID,
+  importProvidersFrom,
+} from '@angular/core';
 import { provideApp } from './app.provide';
 import { APP_ROUTES_PROVIDER } from './app.routes';
-import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { zh_TW } from 'ng-zorro-antd/i18n';
 import {
   MenuFoldOutline,
@@ -24,8 +28,22 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     APP_ROUTES_PROVIDER,
     provideApp(),
-
-    { provide: NZ_I18N, useValue: zh_TW },
+    {
+      provide: NZ_I18N,
+      useFactory: (localId: {
+        localizationService: { latestLang: string };
+      }) => {
+        switch (localId.localizationService.latestLang) {
+          case 'en':
+            return en_US;
+          case 'zh_Hant':
+            return zh_TW;
+          default:
+            return zh_TW;
+        }
+      },
+      deps: [LOCALE_ID],
+    },
     importProvidersFrom(NzIconModule.forRoot(icons)),
   ],
 };

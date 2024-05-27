@@ -16,17 +16,13 @@ export function parseNameWithPath(option: InputOptions) {
     }
   };
 
+  const name = parsedName.pop();
+
   const storeNames = {
-    ...names(parsedName[0] + '.store'),
-    ...{
-      fileName: joinPathFragments(getRelationPath(nameLength - 1), names(parsedName[0] + '.store').fileName)
-    }
+    ...names(name + '.store')
   };
 
-  const name = parsedName.pop();
   const path = parsedName.join('/');
-
-
 
   const relationPath = getRelationPath(nameLength - 1 + directoryLength);
 

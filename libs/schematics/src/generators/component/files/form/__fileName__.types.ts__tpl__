@@ -1,6 +1,4 @@
 import { inject } from '@angular/core';
-import { FormControl } from "@angular/forms";
-import { FormGroup } from "<%= sharedPath %>/types";
 
 export const enum e<%= names.className %>PolicyNames {
   <%= names.className %> = '',
@@ -17,14 +15,6 @@ export type C = <%= createFormType || 'any' %>;
 export type U = <%= editFormType || 'any' %>
 
 export const <%= names.propertyName %>Proxy = {
-  get: (input: I) => inject(S).get(),
-  update: (input: U) => inject(S).update(input),
+  fill: (input: I | void) => inject(S).get(input),
+  send: (input: C) => inject(S).update(input),
 };
-
-export function <%= entityType %>FormGroup() {
-  return new FormGroup<U>(
-    {
-    }
-  )
-
-}

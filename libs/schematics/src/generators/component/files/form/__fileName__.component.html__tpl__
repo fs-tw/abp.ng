@@ -2,8 +2,12 @@
 
 <hr class="my-3" />
 
-<form *ngIf="form" [formGroup]="form" (ngSubmit)="submit()" [validateOnSubmit]="true">
-    <ng-container *appExtensionsIdentifier="e<%= names.className %>Names.<%= names.className %>">
+<form 
+  [formGroup]="form" 
+  (ngSubmit)="<%= names.propertyName %>Store.send<%= names.className %>()" 
+  [validateOnSubmit]="true"
+>
+  <ng-container *appExtensionsIdentifier="e<%= names.className %>Names.<%= names.className %>">
     <abp-extensible-form [selectedRecord]="{}"> </abp-extensible-form>
   </ng-container>
 

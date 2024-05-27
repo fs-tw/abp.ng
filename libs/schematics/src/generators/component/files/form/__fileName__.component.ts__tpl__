@@ -2,66 +2,33 @@ import { PageModule } from '@abp/ng.components/page';
 import { CoreModule } from '@abp/ng.core';
 import {
   collapse,
-  ThemeSharedModule,
-  ToasterService,
+  ThemeSharedModule
 } from '@abp/ng.theme.shared';
-import { Component, inject, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-} from '@angular/forms';
-import { finalize } from 'rxjs/operators';
+import { Component, inject } from '@angular/core';
 import { ExtensibleModule } from '@abp/ng.components/extensible';
 import { ExtensionsIdentifierDirective, ExtensionsIdentifierRenderDirective } from '<%= sharedPath %>/extensions-identifier.directive';
-import { <%= entityType %>FormGroup, U, e<%= names.className %>Names, S } from './email-settings-form.types';
+import { e<%= names.className %>Names } from './<%= names.fileName %>.types';
+import { <%= names.className %>Store } from './<%= names.fileName %>.store';
 
 @Component({
   selector: '<%= selector %>',
   templateUrl: '<%= names.fileName %>.component.html',
   animations: [collapse],
   standalone:true,
-  imports: [CoreModule, ThemeSharedModule, PageModule, ExtensibleModule,
+  imports: [
+    CoreModule, ThemeSharedModule, PageModule, ExtensibleModule,
     ExtensionsIdentifierDirective,
     ExtensionsIdentifierRenderDirective
   ],
   providers: [
+    <%= names.className %>Store
   ]  
 })
-export class <%= names.className %>Component implements OnInit {
+export class <%= names.className %>Component {
   public get e<%= names.className %>Names(): typeof e<%= names.className %>Names {
     return e<%= names.className %>Names;
   }
-  service = inject(S);
-  form = inject(FormBuilder).group(EmailSettingsDtoFormGroup().controls);
+  <%= names.propertyName %>Store = inject(<%= names.className %>Store);
+  form = this.<%= names.propertyName %>Store.get<%= names.className %>();
   
-  saving = false;
-
-  constructor(
-    private toasterService: ToasterService
-  ) {
-  }
-
-  ngOnInit() {
-    
-    this.getData();
-  }
-
-  private getData() {
-    this.service.get().subscribe((res) => {
-      this.form.patchValue(res);
-    });
-  }
-
-  submit() {
-    if (this.saving || this.form.invalid) return;
-
-    this.saving = true;
-    this.service
-      .update(this.form.value as U)
-      .pipe(finalize(() => (this.saving = false)))
-      .subscribe(() => {
-        this.toasterService.success('AbpUi::SuccessfullySaved');
-        this.getData();
-      });
-
-  }
 }

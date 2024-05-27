@@ -1,0 +1,47 @@
+<ul class="lpx-nav-menu">
+  @if (groupedItems()) {
+    @for (item of groupedItems(); track item) {
+      <ng-container
+        *ngTemplateOutlet="groupText; context: { $implicit: item }"
+      ></ng-container>
+
+      @for (navbarItem of item.items; track navbarItem) {
+        <ng-container
+          *ngTemplateOutlet="itemTemplate; context: { $implicit: navbarItem }"
+        ></ng-container>
+      }
+    }
+  } @else {
+    <ng-container *ngTemplateOutlet="defaultRoute"></ng-container>
+  }
+</ul>
+
+<ng-template #defaultRoute>
+  @for (item of navbarItems(); track item) {
+    <ng-container
+      *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"
+    ></ng-container>
+  }
+</ng-template>
+
+<ng-template #groupText let-item>
+  @if (item.items.length) {
+    <li class="group-menu-item hidden-in-hover-trigger">
+      {{ item.group | lpxTranslate | async }}
+    </li>
+  }
+</ng-template>
+
+<ng-template #itemTemplate let-item>
+  <li
+    class="outer-menu-item"
+    *lpxVisible="!item.visible || item.visible(item, injector)"
+  >
+    <lpx-sub-navbar
+      [item]="item"
+      (expand)="onSubnavbarExpand($event, navbarItems())"
+      (routeClick)="onRouteClick($event, navbarItems())"
+      [routerItem]="routerItem()"
+    ></lpx-sub-navbar>
+  </li>
+</ng-template>

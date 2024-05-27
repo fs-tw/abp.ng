@@ -18,6 +18,8 @@ import { TabsService } from '<%= sharedPath %>/tabs.service';
       provide: EXTENSIONS_IDENTIFIER,
       useValue: e<%= names.className %>Names.<%= names.className %>,
     },
+    TabsService,
+    <%= storeNames.className %>
   ],
   standalone:true,
   imports:[CoreModule, ThemeSharedModule, ExtensibleModule, PageModule]

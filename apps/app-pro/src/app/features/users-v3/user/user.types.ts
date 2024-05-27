@@ -1,14 +1,13 @@
 import { inject } from '@angular/core';
 import { ICrudProxy } from '../../../shared/types';
-import { GetIdentityUsersInput, IdentityUserCreateDto, IdentityUserDto, IdentityUserService, IdentityUserUpdateDto } from '@volo/abp.ng.identity/proxy';
-import { AuditLogsService } from '@volo/abp.ng.audit-logging/proxy'
+import { IdentityUserService, GetIdentityUsersInput, IdentityUserDto, IdentityUserCreateDto, IdentityUserUpdateDto } from '@volo/abp.ng.identity/proxy';
 
 export const enum eUserPolicyNames {
   User = '',
 }
 export const enum eUserNames {
-  User = 'UsersV7::User',
-  DefaultsResourceName = 'UsersV7',
+  User = 'UsersV3::User',
+  DefaultsResourceName = 'UsersV3',
 }
 
 const S = IdentityUserService;

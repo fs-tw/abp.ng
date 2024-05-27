@@ -1,0 +1,21 @@
+<h2>{{ 'UsersV3::Menu:EmailSettingForm' | abpLocalization }}</h2>
+
+<hr class="my-3" />
+
+<form
+  [formGroup]="form"
+  (ngSubmit)="emailSettingFormStore.sendEmailSettingForm()"
+  [validateOnSubmit]="true"
+>
+  <ng-container
+    *appExtensionsIdentifier="eEmailSettingFormNames.EmailSettingForm"
+  >
+    <abp-extensible-form [selectedRecord]="{}"> </abp-extensible-form>
+  </ng-container>
+
+  <hr />
+
+  <button type="submit" class="btn btn-primary">
+    {{ 'AbpUi::Save' | abpLocalization }}
+  </button>
+</form>

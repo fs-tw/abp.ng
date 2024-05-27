@@ -7,7 +7,7 @@ import {
   ToolbarAction,
 } from '@abp/ng.components/extensible';
 import { eUserNames, R } from './user.types';
-import { UsersV7Store } from './../users-v7.store';
+import { UserStore } from './user.store';
 
 const resourceName = eUserNames.DefaultsResourceName;
 
@@ -15,16 +15,16 @@ export const ENTITY_ACTIONS = EntityAction.createMany<R>([
   {
     text: 'AbpUi::Edit',
     action: (data) => {
-      const usersV7Store = data.getInjected(UsersV7Store);
-      usersV7Store.openUserEditModal(data.record.id || '');
+      const userStore = data.getInjected(UserStore);
+      userStore.openUserEditModal(data.record.id || '');
     },
     permission: '',
   },
   {
     text: 'AbpUi::Delete',
     action: (data) => {
-      const usersV7Store = data.getInjected(UsersV7Store);
-      usersV7Store.deleteUser(data.record);
+      const userStore = data.getInjected(UserStore);
+      userStore.deleteUser(data.record);
     },
     permission: '',
   },
@@ -34,8 +34,8 @@ export const TOOLBAR_ACTIONS = ToolbarAction.createMany<R[]>([
   {
     text: 'AbpUi::AddNew',
     action: (data) => {
-      const usersV7Store = data.getInjected(UsersV7Store);
-      usersV7Store.openUserEditModal(null);
+      const userStore = data.getInjected(UserStore);
+      userStore.openUserEditModal(null);
     },
     permission: '',
     icon: 'fa fa-plus',

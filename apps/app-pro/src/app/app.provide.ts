@@ -2,7 +2,7 @@ import {
   EnvironmentProviders,
   importProvidersFrom,
   Provider,
-  LOCALE_ID
+  LOCALE_ID,
 } from '@angular/core';
 import { CoreModule } from '@abp/ng.core';
 import { environment } from '../environments/environment';
@@ -19,11 +19,7 @@ import {
 } from '@abp/ng.theme.shared';
 import { FeatureManagementModule } from '@abp/ng.feature-management';
 import { SettingManagementConfigModule } from '@abp/ng.setting-management/config';
-import {
-  HttpErrorComponent,
-  ThemeLeptonXModule,
-} from '@volosoft/abp.ng.theme.lepton-x';
-import { AccountLayoutModule } from '@volosoft/abp.ng.theme.lepton-x/account';
+import { ThemeLeptonXModule } from '@volosoft/abp.ng.theme.lepton-x';
 import { SideMenuLayoutModule } from '@volosoft/abp.ng.theme.lepton-x/layouts';
 import { LanguageManagementConfigModule } from '@volo/abp.ng.language-management/config';
 import { SaasConfigModule } from '@volo/abp.ng.saas/config';
@@ -31,9 +27,6 @@ import { AuditLoggingConfigModule } from '@volo/abp.ng.audit-logging/config';
 import { OpeniddictproConfigModule } from '@volo/abp.ng.openiddictpro/config';
 import { TextTemplateManagementConfigModule } from '@volo/abp.ng.text-template-management/config';
 import { GdprConfigModule } from '@volo/abp.ng.gdpr/config';
-import zh from '@angular/common/locales/zh';
-import en from '@angular/common/locales/en';
-import { zh_TW, en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
 
 export type AbpProviderConfig = {
   // config?: Config;
@@ -70,25 +63,8 @@ export const provideApp = (): Array<Provider | EnvironmentProviders> => {
       }),
       ThemeLeptonXModule.forRoot(),
       SideMenuLayoutModule.forRoot(),
-      
     ]),
     InternetConnectionStatusComponent,
-    {
-      provide: NZ_I18N,
-      useFactory: (localId: {
-        localizationService: { latestLang: string };
-      }) => {
-        switch (localId.localizationService.latestLang) {
-          case 'en':
-            return en_US;
-          case 'zh_Hant':
-            return zh_TW;
-          default:
-            return zh_TW;
-        }
-      },
-      deps: [LOCALE_ID],
-    },
   ];
 
   // Return the providers

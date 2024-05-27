@@ -111,7 +111,6 @@
     type="button"
     (click)="openSendEmailModal()"
     class="btn btn-primary mx-2"
-    *abpPermission="emailingPolicy"
   >
     <i class="fa f-send" aria-hidden="true"></i>
     {{ 'AbpSettingManagement::SendTestEmail' | abpLocalization }}

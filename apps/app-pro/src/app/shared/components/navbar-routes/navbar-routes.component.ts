@@ -12,7 +12,16 @@ import {
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoutesService, getItemsFromGroup, GroupedNavbarItems, LpxNavbarItem, LpxNavbarModule, NavbarService, LpxVisibleDirective } from '@volo/ngx-lepton-x.core';
+import {
+  RoutesService,
+  getItemsFromGroup,
+  GroupedNavbarItems,
+  LpxNavbarItem,
+  LpxNavbarModule,
+  NavbarService,
+  LpxVisibleDirective,
+  LpxTranslateModule,
+} from '@volo/ngx-lepton-x.core';
 
 export type NavbarItemsType = LpxNavbarItem[] | null | undefined;
 export type NavbarGroupItemsType = GroupedNavbarItems[] | null | undefined;
@@ -26,8 +35,9 @@ export type NavbarGroupItemsType = GroupedNavbarItems[] | null | undefined;
     CoreModule,
     ThemeSharedModule,
     LpxNavbarModule,
-    LpxVisibleDirective
-  ]
+    LpxVisibleDirective,
+    LpxTranslateModule,
+  ],
 })
 export class NavbarRoutesComponent {
   protected readonly injector = inject(Injector);
@@ -50,23 +60,29 @@ export class NavbarRoutesComponent {
     }
 
     return getItemsFromGroup<GroupedNavbarItems, LpxNavbarItem>(
-      this.groupedItems() || [],
+      this.groupedItems() || []
     );
   });
 
-  constructor(
-  ) {
+  constructor() {
     this.fixNavbarItemsByRouter();
   }
 
   private isExpandedOrSelected = (item: LpxNavbarItem): boolean =>
     !!(item.expanded || item.selected);
 
-  private isActive = (path: string) => this.router?.isActive(this.router.createUrlTree([path], {
-    relativeTo: this.activatedRoute
-  }), {
-    paths: 'subset', queryParams: 'subset', fragment: 'ignored', matrixParams: 'ignored'
-  });
+  private isActive = (path: string) =>
+    this.router?.isActive(
+      this.router.createUrlTree([path], {
+        relativeTo: this.activatedRoute,
+      }),
+      {
+        paths: 'subset',
+        queryParams: 'subset',
+        fragment: 'ignored',
+        matrixParams: 'ignored',
+      }
+    );
 
   onSubnavbarExpand(menuItem: LpxNavbarItem, menuItems: NavbarItemsType): void {
     if (menuItem.expanded) {
@@ -84,7 +100,7 @@ export class NavbarRoutesComponent {
   onRouteClick(menuItem: LpxNavbarItem, menuItems: NavbarItemsType): void {
     const expandedItems = menuItems?.filter(this.isExpandedOrSelected);
     const expandedGroupItems = this.itemsFromGroup()?.filter(
-      this.isExpandedOrSelected,
+      this.isExpandedOrSelected
     );
 
     const items = expandedGroupItems || expandedItems;
@@ -97,8 +113,7 @@ export class NavbarRoutesComponent {
         }, [])
         ?.filter(
           (item) =>
-            !this.checkChildrenIncludesItem(item, menuItem) &&
-            item !== menuItem,
+            !this.checkChildrenIncludesItem(item, menuItem) && item !== menuItem
         )
         .forEach((item) => {
           item.selected = false;
@@ -111,7 +126,7 @@ export class NavbarRoutesComponent {
 
   checkChildrenIncludesItem(
     item: LpxNavbarItem,
-    menuItem: LpxNavbarItem,
+    menuItem: LpxNavbarItem
   ): boolean {
     return (
       item.children?.reduce(
@@ -119,7 +134,7 @@ export class NavbarRoutesComponent {
           acc ||
           child === menuItem ||
           this.checkChildrenIncludesItem(child, menuItem),
-        false,
+        false
       ) || false
     );
   }
@@ -142,31 +157,25 @@ export class NavbarRoutesComponent {
 
       this.fixNavbarItems(
         currentNavigation,
-        this.navbarItems() as LpxNavbarItem[],
+        this.navbarItems() as LpxNavbarItem[]
       );
     });
   }
 
   fixNavbarItems(currentUrl: string, items: LpxNavbarItem[]): void {
-
     items?.forEach((item) => {
       if (item.children?.length) {
-
         item.expanded = this.hasUrlInChildren(item, currentUrl);
         this.fixNavbarItems(currentUrl, item.children);
       } else if (item.link && item.link !== '/') {
         item.selected = this.isActive(item.link);
-      }
-      else {
+      } else {
         item.selected = item.link === currentUrl;
       }
-
-    }
-    );
+    });
   }
 
   hasUrlInChildren(item: LpxNavbarItem, url: string): boolean {
-
     if (item.link && item.link === url) {
       return true;
     }
@@ -187,5 +196,3 @@ export class NavbarRoutesComponent {
     return false;
   }
 }
-
-

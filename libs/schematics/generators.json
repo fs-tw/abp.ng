@@ -15,11 +15,6 @@
       "schema": "./src/generators/library/schema.json",
       "description": "library generator"
     },
-    "package-add": {
-      "factory": "./src/generators/package-add/generator",
-      "schema": "./src/generators/package-add/schema.json",
-      "description": "package-add generator"
-    },
     "package": {
       "factory": "./src/generators/package/generator",
       "schema": "./src/generators/package/schema.json",

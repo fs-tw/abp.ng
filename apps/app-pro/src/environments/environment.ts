@@ -15,7 +15,7 @@ export const environment = {
   production: false,
   application: {
     baseUrl,
-    name: 'MyProjectName1_App',
+    name: 'MyProjectName1',
   },
   oAuthConfig,
   apis: {

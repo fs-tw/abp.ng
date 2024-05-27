@@ -1,9 +1,13 @@
 import {
   Routes,
   provideRouter,
-  withComponentInputBinding
+  withComponentInputBinding,
 } from '@angular/router';
-import { ReplaceableComponentsService, RoutesService, eLayoutType } from '@abp/ng.core';
+import {
+  ReplaceableComponentsService,
+  RoutesService,
+  eLayoutType,
+} from '@abp/ng.core';
 import { APP_INITIALIZER } from '@angular/core';
 import { eThemeLeptonXComponents } from '@volosoft/abp.ng.theme.lepton-x';
 import { NavbarRoutesComponent } from './shared/components/navbar-routes';
@@ -79,10 +83,10 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'users-v7',
+    path: 'users-v3',
     loadChildren: () =>
-      import('./features/users-v7/users-v7.routes')
-  }
+      import('./features/users-v3/users-v3.routes')
+  },
 ];
 
 export const APP_ROUTES_PROVIDER = [
@@ -112,22 +116,23 @@ export function configureRoutes(routes: RoutesService) {
         layout: eLayoutType.application,
       },
       {
-        path: '/users-v7',
-        name: 'Demo',
-        iconClass: 'fas fa-chart-line',
-        order: 1,
+        path: '/users-v3',
+        name: 'Users-v3',
+        iconClass: 'fas fa-home',
+        order: 2,
         layout: eLayoutType.application,
-        //requiredPolicy: 'Further.Dashboard.Host  || Further.Dashboard.Tenant',
       },
     ]);
   };
 }
 
-function replaceableComponent(replaceableComponentsService: ReplaceableComponentsService) {
+function replaceableComponent(
+  replaceableComponentsService: ReplaceableComponentsService
+) {
   return () => {
     replaceableComponentsService.add({
       key: eThemeLeptonXComponents.Routes,
       component: NavbarRoutesComponent,
     });
-  }
+  };
 }

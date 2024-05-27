@@ -3,11 +3,11 @@ import { Environment } from '@abp/ng.core';
 const baseUrl = 'http://localhost:4200';
 
 const oAuthConfig = {
-  issuer: 'https://localhost:44344/',
+  issuer: 'https://localhost:44305/',
   redirectUri: baseUrl,
-  clientId: 'Further_App',
+  clientId: 'MyProjectName_App',
   responseType: 'code',
-  scope: 'offline_access Further',
+  scope: 'offline_access MyProjectName',
   requireHttps: true,
 };
 
@@ -15,13 +15,13 @@ export const environment = {
   production: true,
   application: {
     baseUrl,
-    name: 'Further',
+    name: 'MyProjectName',
   },
   oAuthConfig,
   apis: {
     default: {
-      url: 'https://localhost:44316',
-      rootNamespace: 'Further',
+      url: 'https://localhost:44305',
+      rootNamespace: 'MyCompanyName.MyProjectName',
     },
     AbpAccountPublic: {
       url: oAuthConfig.issuer,
@@ -30,6 +30,6 @@ export const environment = {
   },
   remoteEnv: {
     url: '/getEnvConfig',
-    mergeStrategy: 'deepmerge'
-  }
+    mergeStrategy: 'deepmerge',
+  },
 } as Environment;

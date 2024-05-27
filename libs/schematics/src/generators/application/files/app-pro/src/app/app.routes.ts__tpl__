@@ -1,6 +1,12 @@
-import { Routes, provideRouter, withComponentInputBinding } from '@angular/router';
-import { RoutesService, eLayoutType } from '@abp/ng.core';
+import {
+  Routes,
+  provideRouter,
+  withComponentInputBinding
+} from '@angular/router';
+import { ReplaceableComponentsService, RoutesService, eLayoutType } from '@abp/ng.core';
 import { APP_INITIALIZER } from '@angular/core';
+import { eThemeLeptonXComponents } from '@volosoft/abp.ng.theme.lepton-x';
+import { NavbarRoutesComponent } from './shared/components/navbar-routes';
 
 export const routes: Routes = [
   {
@@ -8,13 +14,6 @@ export const routes: Routes = [
     pathMatch: 'full',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
-  // {
-  //   path: 'demo',
-  //   loadChildren: () =>
-  //     import('./roles/roles.routes').then((m) =>
-  //       m.routes
-  //     ),
-  // },
   {
     path: 'account',
     loadChildren: () =>
@@ -24,7 +23,8 @@ export const routes: Routes = [
   },
   {
     path: 'gdpr',
-    loadChildren: () => import('@volo/abp.ng.gdpr').then(m => m.GdprModule.forLazy()),
+    loadChildren: () =>
+      import('@volo/abp.ng.gdpr').then((m) => m.GdprModule.forLazy()),
   },
   {
     path: 'identity',
@@ -75,9 +75,9 @@ export const routes: Routes = [
     path: 'gdpr-cookie-consent',
     loadChildren: () =>
       import('./gdpr-cookie-consent/gdpr-cookie-consent.module').then(
-        m => m.GdprCookieConsentModule
+        (m) => m.GdprCookieConsentModule
       ),
-  },
+  }
 ];
 
 export const APP_ROUTES_PROVIDER = [
@@ -86,6 +86,12 @@ export const APP_ROUTES_PROVIDER = [
     provide: APP_INITIALIZER,
     useFactory: configureRoutes,
     deps: [RoutesService],
+    multi: true,
+  },
+  {
+    provide: APP_INITIALIZER,
+    useFactory: replaceableComponent,
+    deps: [ReplaceableComponentsService],
     multi: true,
   },
 ];
@@ -97,17 +103,18 @@ export function configureRoutes(routes: RoutesService) {
         path: '/',
         name: 'Home',
         iconClass: 'fas fa-home',
-        order: 1,
+        order: 0,
         layout: eLayoutType.application,
-      },
-      {
-        path: '/demo',
-        name: 'Demo',
-        iconClass: 'fas fa-chart-line',
-        order: 2,
-        layout: eLayoutType.application,
-        //requiredPolicy: 'Further.Dashboard.Host  || Further.Dashboard.Tenant',
-      },
+      }
     ]);
   };
+}
+
+function replaceableComponent(replaceableComponentsService: ReplaceableComponentsService) {
+  return () => {
+    replaceableComponentsService.add({
+      key: eThemeLeptonXComponents.Routes,
+      component: NavbarRoutesComponent,
+    });
+  }
 }

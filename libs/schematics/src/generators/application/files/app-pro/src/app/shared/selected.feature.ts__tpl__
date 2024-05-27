@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Injector, inject, runInInjectionContext } from '@angular/core';
+import { Injector, effect, inject, runInInjectionContext } from '@angular/core';
 import {
   SignalStoreFeature,
   StateSignal,
@@ -93,7 +93,10 @@ export function withSelected<E, Collection extends string>(
   const { selectedKey, updateSelectedKey } = getSelectedKeys(options);
   return signalStoreFeature(
     withState({
-      [selectedKey]: {} as Selected<E>
+      [selectedKey]: {
+        id: '',
+        entity: null
+      } as Selected<E>
     }),
     withMethods((store: Record<string, any> & StateSignal<object>) => {
       return {
@@ -102,7 +105,7 @@ export function withSelected<E, Collection extends string>(
             ...store[selectedKey](),
             ...partialSelected
           };
-          patchState(store, { selected: newSelected });
+          patchState(store, { [selectedKey]: newSelected });
         },
 
       }
@@ -113,12 +116,13 @@ export function withSelected<E, Collection extends string>(
         const hookSelectedId = rxMethod<void>(
           pipe(
             switchMap(() => {
-              if (store[selectedKey]().id === null) {
+              const id = store[selectedKey]().id || '';
+              if (id === '') {
                 store[updateSelectedKey]({ entity: null });
                 return of(null);
               }
               else {
-                return runInInjectionContext(injector, () => get(store[selectedKey]().id || '').pipe(
+                return runInInjectionContext(injector, () => get(id).pipe(
                   tap(data => {
                     store[updateSelectedKey]({ entity: data });
                   })));

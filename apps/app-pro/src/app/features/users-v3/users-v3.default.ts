@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { ToolbarAction } from '@abp/ng.components/extensible';
-import { UsersV7Store } from './users-v7.store';
+import { UsersV3Store } from './users-v3.store';
 
 export const TOOLBAR_ACTIONS = ToolbarAction.createMany([
   {
@@ -11,13 +11,13 @@ export const TOOLBAR_ACTIONS = ToolbarAction.createMany([
     permission: '',
     icon: 'fa fa-arrow-left',
     visible: (data) => {
-      const usersV7Store = data?.getInjected(UsersV7Store);
-      const isMatch = usersV7Store?.usersV7Routes.IsMatch() as boolean;
+      const usersV3Store = data?.getInjected(UsersV3Store);
+      const isMatch = usersV3Store?.usersV3Routes.IsMatch() as boolean;
       return !isMatch;
     },
   },
 ]);
 
-export const usersV7Defaults = {
+export const usersV3Defaults = {
   toolbarActions: TOOLBAR_ACTIONS,
 };

@@ -56,7 +56,7 @@ export async function postGenerateFiles(
         names: { name: string; className: string; propertyName: string; constantName: string; fileName: string; };
         directory: string; path: string; relationPath: string; sharedPath: string; resourceName: string; selector: string;
     }) {
-    let ignoreDeleteStore = false;
+    //let ignoreDeleteStore = false;
     switch (options.componentType) {
         case 'routes':
             break;
@@ -64,7 +64,8 @@ export async function postGenerateFiles(
             await executeExtensions(tree, rawOptions);
             break;
         case 'form':
-            await executeExtensions(tree, rawOptions);            
+            //  ignoreDeleteStore = true;
+            await executeExtensions(tree, rawOptions);
             break;
         case 'modal':
             break;
@@ -73,14 +74,14 @@ export async function postGenerateFiles(
         case 'tree':
             break;
         case 'nz-select':
-            ignoreDeleteStore = true;
+            //     ignoreDeleteStore = true;
             break;
     }
     if (options.path.trim().length !== 0) {
         tree.delete(joinPathFragments(options.directory, `${options.names.name}.localizations.ts`));
 
-        if (!ignoreDeleteStore)
-            tree.delete(joinPathFragments(options.directory, `${options.names.name}.store.ts`));
+        //  if (!ignoreDeleteStore)
+        //      tree.delete(joinPathFragments(options.directory, `${options.names.name}.store.ts`));
 
         tree.delete(joinPathFragments(options.directory, `${options.names.name}.provide.ts`));
         tree.delete(joinPathFragments(options.directory, `${options.names.name}.routes.ts`));

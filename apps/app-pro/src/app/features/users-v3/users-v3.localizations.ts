@@ -3,9 +3,9 @@ export const localizations = [
     culture: 'en',
     resources: [
       {
-        resourceName: 'UsersV7',
+        resourceName: 'UsersV3',
         texts: {
-          UsersV7PageTitle: 'UsersV7PageTitle',
+          UsersV3PageTitle: 'UsersV3PageTitle',
         },
       },
     ],
@@ -14,9 +14,9 @@ export const localizations = [
     culture: 'zh-Hant',
     resources: [
       {
-        resourceName: 'UsersV7',
+        resourceName: 'UsersV3',
         texts: {
-          UsersV7PageTitle: 'UsersV7PageTitle(zh-hant)',
+          UsersV3PageTitle: 'UsersV3PageTitle(zh-hant)',
         },
       },
     ],

@@ -41,7 +41,8 @@ export async function componentGenerator(
       propertyName: componentNames.propertyName,
     },
     ...{
-      resourceNames: names(options.resourceName)
+      resourceNames: names(options.resourceName),
+      //names_: names
     }
   };
 

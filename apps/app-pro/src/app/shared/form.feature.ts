@@ -1,5 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { SignalStoreFeature, patchState, signalStoreFeature, withHooks, withMethods, withState } from '@ngrx/signals';
+import {
+  SignalStoreFeature,
+  patchState,
+  signalStoreFeature,
+  withHooks,
+  withMethods,
+  withState,
+} from '@ngrx/signals';
 import { Observable, filter, mergeMap, of, pipe, tap } from 'rxjs';
 import { Injector, inject, runInInjectionContext } from '@angular/core';
 import { Form, FormGroup, RxMethod } from './types';
@@ -13,93 +20,90 @@ export function capitalize(str: string): string {
 }
 
 export function getFormKeys(options: { collection?: string }) {
-  const savingKey = options.collection ? `${options.collection}Saving` : 'saving';
+  const savingKey = options.collection
+    ? `${options.collection}Saving`
+    : 'saving';
 
-  const getFormKey = options.collection ? `get${capitalize(options.collection)}Form` : 'getForm';
-  const fillFormKey = options.collection ? `fill${capitalize(options.collection)}Form` : 'fillForm';
-  const sendFormKey = options.collection ? `send${capitalize(options.collection)}Form` : 'sendForm';
-
+  const getFormKey = options.collection
+    ? `get${capitalize(options.collection)}Form`
+    : 'getForm';
+  const fillFormKey = options.collection
+    ? `fill${capitalize(options.collection)}Form`
+    : 'fillForm';
+  const sendFormKey = options.collection
+    ? `send${capitalize(options.collection)}Form`
+    : 'sendForm';
 
   return { savingKey, getFormKey, fillFormKey, sendFormKey };
 }
 
-export type NamedFormState<Collection extends string> =
-  {
-    [K in Collection as `${K}Saving`]: boolean;
-  }
+export type NamedFormState<Collection extends string> = {
+  [K in Collection as `${K}Saving`]: boolean;
+};
 
-export type NamedFormMethods<U, Collection extends string> =
-  {
-    [K in Collection as `get${Capitalize<K>}Form`]: () => Form<U>;
-  } &
-  {
-    [K in Collection as `fill${Capitalize<K>}Form`]: RxMethod<void>;
-  } &
-  {
-    [K in Collection as `send${Capitalize<K>}Form`]: RxMethod<void>;
-  }
+export type NamedFormMethods<C, Collection extends string> = {
+  [K in Collection as `get${Capitalize<K>}Form`]: () => Form<C>;
+} & {
+  [K in Collection as `fill${Capitalize<K>}Form`]: RxMethod<void>;
+} & {
+  [K in Collection as `send${Capitalize<K>}Form`]: RxMethod<void>;
+};
 export type FormState = {
   saving: boolean;
-}
+};
 
-export type FormMethods<U> =
+export type FormMethods<C> = {
+  getForm: () => Form<C>;
+  fillForm: RxMethod<void>;
+  sendForm: RxMethod<void>;
+};
+export function withForm<I, R, C, Collection extends string>(options: {
+  collection: Collection;
+  formGroup: FormGroup<C>;
+  fill?(input: I | void): Observable<R>;
+  send(input: C): Observable<void>;
+}): SignalStoreFeature<
   {
-    getForm: () => Form<U>;
-    fillForm: RxMethod<void>;
-    sendForm: RxMethod<void>;
-  }
-export function withForm<I, R, U, Collection extends string>(
-  options: {
-    collection: Collection,
-    formGroup: FormGroup<U>,
-    fill?(input: I | void): Observable<R>,
-    send(input: U): Observable<void>,
-  }
-): SignalStoreFeature<
-  {
-    state: {},
-    signals: {},
-    methods: {},
+    state: {};
+    signals: {};
+    methods: {};
   },
   {
-    state: NamedFormState<Collection>
-    signals: {}
-    methods: NamedFormMethods<U, Collection>
+    state: NamedFormState<Collection>;
+    signals: {};
+    methods: NamedFormMethods<C, Collection>;
   }
 >;
-export function withForm<I, R, U>(
-  options: {
-    formGroup: FormGroup<U>
-    fill?(input: I | void): Observable<R>,
-    send(input: U): Observable<void>,
-  }
-): SignalStoreFeature<
+export function withForm<I, R, U>(options: {
+  formGroup: FormGroup<U>;
+  fill?(input: I | void): Observable<R>;
+  send(input: U): Observable<void>;
+}): SignalStoreFeature<
   {
-    state: {},
-    signals: {},
-    methods: {},
+    state: {};
+    signals: {};
+    methods: {};
   },
   {
-    state: FormState,
-    signals: {},
-    methods: FormMethods<R>
+    state: FormState;
+    signals: {};
+    methods: FormMethods<R>;
   }
 >;
 
-export function withForm<I, R, U, Collection extends string>(
-  options: {
-    collection?: Collection,
-    formGroup: FormGroup<U>
-    fill?(input: I | void): Observable<R>,
-    send(input: U): Observable<void>
-  }
-) {
+export function withForm<I, R, C, Collection extends string>(options: {
+  collection?: Collection;
+  formGroup: FormGroup<C>;
+  fill?(input: I | void): Observable<R>;
+  send(input: C): Observable<void>;
+}) {
   const { fill, send, formGroup } = options;
-  const { savingKey, getFormKey, fillFormKey, sendFormKey } = getFormKeys(options);
+  const { savingKey, getFormKey, fillFormKey, sendFormKey } =
+    getFormKeys(options);
   return signalStoreFeature(
     withState(() => {
       return {
-        [savingKey]: false
+        [savingKey]: false,
       };
     }),
     withMethods((store: any, injector = inject(Injector)) => {
@@ -107,11 +111,10 @@ export function withForm<I, R, U, Collection extends string>(
       const toasterService = injector.get(ToasterService);
       const form = formBuilder.group(formGroup.controls);
 
-      const _fetch = () => (fill??of)().pipe(
-        tap((datas) => form.patchValue(datas as any))
-      );
+      const _fetch = () =>
+        (fill ?? of)().pipe(tap((datas) => form.patchValue(datas as any)));
 
-      const _send = (input: U) => {
+      const _send = (input: C) => {
         return send(input).pipe(
           tapResponse({
             next: () => {
@@ -119,33 +122,36 @@ export function withForm<I, R, U, Collection extends string>(
             },
             error: (e) => {
               patchState(store, { [savingKey]: false });
-            }
+            },
           })
-        )
-      }
+        );
+      };
 
       return {
         [getFormKey]: () => {
           return form as unknown as Form<R>;
         },
         [fillFormKey]: rxMethod<void>(
+          pipe(mergeMap(() => runInInjectionContext(injector, () => _fetch())))
+        ),
+        [sendFormKey]: rxMethod<void>(
           pipe(
+            filter(() => form.valid && !store[savingKey]()),
+            tap(() => patchState(store, { [savingKey]: true })),
+            mergeMap(() =>
+              runInInjectionContext(injector, () => _send(form.value as C))
+            ),
             mergeMap(() => runInInjectionContext(injector, () => _fetch())),
-          )),
-        [sendFormKey]: rxMethod<void>(pipe(
-          filter(() => form.valid && !store[savingKey]()),
-          tap(() => patchState(store, { [savingKey]: true })),
-          mergeMap(() => runInInjectionContext(injector, () => _send(form.value as U))),
-          mergeMap(() => runInInjectionContext(injector, () => _fetch())),
-          tap(() => toasterService.success('AbpUi::SavingWithThreeDot')),
-          tap(() => patchState(store, { [savingKey]: false }))
-        ))
+            tap(() => toasterService.success('AbpUi::SavingWithThreeDot')),
+            tap(() => patchState(store, { [savingKey]: false }))
+          )
+        ),
       };
     }),
     withHooks({
       onInit(store) {
         store[fillFormKey]();
-      }
+      },
     })
-  )
+  );
 }

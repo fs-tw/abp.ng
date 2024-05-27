@@ -6,28 +6,29 @@ import {
 } from '@abp/ng.components/extensible';
 import { Component, inject } from '@angular/core';
 import { PageModule } from '@abp/ng.components/page';
-import { eUsersV7Names } from './users-v7.types';
-import { UsersV7Store } from './users-v7.store';
+import { eUsersV3Names } from './users-v3.types';
+import { UsersV3Store } from './users-v3.store';
 import { ActivatedRoute } from '@angular/router';
+import { EmailSettingsService } from '@abp/ng.setting-management/proxy'
 
 @Component({
-  selector: 'app-users-v7',
-  templateUrl: './users-v7.component.html',
+  selector: 'app-users-v3',
+  templateUrl: './users-v3.component.html',
   providers: [
     {
       provide: EXTENSIONS_IDENTIFIER,
-      useValue: eUsersV7Names.UsersV7,
+      useValue: eUsersV3Names.UsersV3,
     },
   ],
   standalone: true,
   imports: [CoreModule, ThemeSharedModule, ExtensibleModule, PageModule],
 })
-export class UsersV7Component {
-  usersV7Store = inject(UsersV7Store);
-  routesService = this.usersV7Store.getUsersV7RoutesService();
+export class UsersV3Component {
+  usersV3Store = inject(UsersV3Store);
+  routesService = this.usersV3Store.getUsersV3RoutesService();
   activatedRoute = inject(ActivatedRoute);
 
   constructor() {
-    this.usersV7Store.hookUsersV7Router(this.activatedRoute);
+    this.usersV3Store.hookUsersV3Router(this.activatedRoute);
   }
 }

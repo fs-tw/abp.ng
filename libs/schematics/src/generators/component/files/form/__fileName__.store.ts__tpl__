@@ -1,0 +1,7 @@
+import { signalStore } from '@ngrx/signals';
+import { with<%= names.className %> } from './<%= names.fileName %>.feature';
+
+
+export const <%= names.className %>Store = signalStore(
+  with<%= names.className %>()
+);
