@@ -1,0 +1,36 @@
+<h2>{{ 'UsersV7::Menu:EmailSettingsForm' | abpLocalization }}</h2>
+
+<hr class="my-3" />
+
+<form
+  [formGroup]="form"
+  (ngSubmit)="emailSettingsFormStore.sendEmailSettingsForm()"
+  [validateOnSubmit]="true"
+>
+  <ng-container
+    *appExtensionsIdentifier="eEmailSettingsFormNames.EmailSettingsFormTop"
+  >
+    <abp-extensible-form [selectedRecord]="{}"> </abp-extensible-form>
+  </ng-container>
+  
+  <div
+    [@collapse]="{
+      value: form.controls.smtpUseDefaultCredentials.value
+        ? 'collapsed'
+        : 'expanded',
+      params: { time: '200ms', easing: 'linear' }
+    }"
+  >
+    <ng-container
+      *appExtensionsIdentifier="eEmailSettingsFormNames.EmailSettingsFormBotton"
+    >
+      <abp-extensible-form [selectedRecord]="{}"> </abp-extensible-form>
+    </ng-container>
+  </div>
+
+  <hr />
+
+  <button type="submit" class="btn btn-primary">
+    {{ 'AbpUi::Save' | abpLocalization }}
+  </button>
+</form>

@@ -78,9 +78,12 @@ export const routes: Routes = [
   },
   {
     path: 'users-v7',
-    loadChildren: () =>
-      import('./features/users-v7/users-v7.routes')
-  }
+    loadChildren: () => import('./features/users-v7/users-v7.routes'),
+  },
+  {
+    path: 'users-v7-sean',
+    loadChildren: () => import('./features/users-v7-sean/users-v7.routes'),
+  },
 ];
 
 export const APP_ROUTES_PROVIDER = [
@@ -114,7 +117,7 @@ export function configureRoutes(routes: RoutesService) {
       {
         name: 'Demo-email-settings-form',
         path: '/users-v7/email-settings-form',
-        order: 2,
+        order: 1,
         requiredPolicy: '',
         layout: eLayoutType.application,
         parentName: 'Demo',
@@ -122,11 +125,35 @@ export function configureRoutes(routes: RoutesService) {
       {
         name: 'Demo-user',
         path: '/users-v7/user',
-        order: 3,
+        order: 2,
         requiredPolicy: '',
         layout: eLayoutType.application,
         parentName: 'Demo',
-      }
+      },
+      {
+        path: '/users-v7-sean',
+        name: 'Demo-Sean',
+        iconClass: 'fas fa-chart-line',
+        order: 2,
+        layout: eLayoutType.application,
+        //requiredPolicy: 'Further.Dashboard.Host  || Further.Dashboard.Tenant',
+      },
+      {
+        name: 'Demo-email-settings-form-sean',
+        path: '/users-v7-sean/email-settings-form',
+        order: 1,
+        requiredPolicy: '',
+        layout: eLayoutType.application,
+        parentName: 'Demo-Sean',
+      },
+      {
+        name: 'Demo-user-sean',
+        path: '/users-v7-sean/user',
+        order: 2,
+        requiredPolicy: '',
+        layout: eLayoutType.application,
+        parentName: 'Demo-Sean',
+      },
     ]);
   };
 }
