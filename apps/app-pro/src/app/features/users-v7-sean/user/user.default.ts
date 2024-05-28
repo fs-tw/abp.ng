@@ -35,8 +35,8 @@ export const TOOLBAR_ACTIONS = ToolbarAction.createMany<R[]>([
   {
     text: 'AbpUi::AddNew',
     action: (data) => {
-      const usersV7Store = data.getInjected(UsersV7Store);
-      usersV7Store.openUserEditModal(null);
+      const component = data.getInjected(UserComponent);
+      component.openEditModal();
     },
     permission: '',
     icon: 'fa fa-plus',

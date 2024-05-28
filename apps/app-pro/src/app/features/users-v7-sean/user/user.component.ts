@@ -11,7 +11,7 @@ import {
   FormPropData,
   generateFormFromProps,
 } from '@abp/ng.components/extensible';
-import { Component, Injector, inject } from '@angular/core';
+import { Component, Injector, inject, signal, computed } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { PermissionManagementModule } from '@abp/ng.permission-management';
 import { PageModule } from '@abp/ng.components/page';
@@ -58,7 +58,19 @@ export class UserComponent {
   confirmationService = inject(ConfirmationService);
   toaster = inject(ToasterService);
 
+  open = signal(false);
+  busy = computed(() => {
+    return (
+      this.createUserMutation.isPending() || this.updateUserMutation.isPending()
+    );
+  });
+  selected = signal<R | null>(null);
+
   newQueries = toSignal(this.listService.query$);
+
+  handleOpenChange = (open: boolean) => {
+    this.open.set(open);
+  };
 
   // Query
   userListQuery = injectQuery(() => {
@@ -123,14 +135,24 @@ export class UserComponent {
 
   form = generateFormFromProps(new FormPropData(this.injector, {}));
 
+  // open edit modal handler
+  openEditModal(user?: R) {
+    this.selected.set(user ?? null);
+    this.form = generateFormFromProps(
+      new FormPropData(this.injector, user ?? {})
+    );
+    this.open.set(true);
+  }
+
   // UI create/update user handler
-  createOrUpdateUser({ id, form }: { id?: string; form: UntypedFormGroup }) {
-    if (form.invalid) {
+  createOrUpdateUser() {
+    if (this.form.invalid) {
       return;
     }
+    const id = this.selected()?.id;
     if (id) {
       this.updateUserMutation.mutate(
-        { id, input: form.value },
+        { id, input: this.form.value },
         {
           onSuccess: () => {
             this.toaster.success('AbpIdentity::RoleUpdatedMessage');
@@ -141,9 +163,10 @@ export class UserComponent {
         }
       );
     } else {
-      this.createUserMutation.mutate(form.value, {
+      this.createUserMutation.mutate(this.form.value, {
         onSuccess: () => {
           this.toaster.success('AbpIdentity::RoleCreatedMessage');
+          this.open.set(false);
         },
         onError: () => {
           this.toaster.error('AbpIdentity::RoleCreationFailedMessage');
