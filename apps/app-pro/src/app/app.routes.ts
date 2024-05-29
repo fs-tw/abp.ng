@@ -87,6 +87,11 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./features/users-v3/users-v3.routes')
   },
+  {
+    path: 'users-v5',
+    loadChildren: () =>
+      import('./features/users-v5/users-v5.routes')
+  },
 ];
 
 export const APP_ROUTES_PROVIDER = [
@@ -120,6 +125,13 @@ export function configureRoutes(routes: RoutesService) {
         name: 'Users-v3',
         iconClass: 'fas fa-home',
         order: 2,
+        layout: eLayoutType.application,
+      },
+      {
+        path: '/users-v5',
+        name: 'Users-v5',
+        iconClass: 'fas fa-home',
+        order: 3,
         layout: eLayoutType.application,
       },
     ]);

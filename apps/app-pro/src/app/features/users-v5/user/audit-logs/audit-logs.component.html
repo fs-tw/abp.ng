@@ -1,0 +1,62 @@
+<abp-page
+  [title]="'UsersV5::AuditLogsPageTitle' | abpLocalization"
+  [toolbar]="auditLogsStore.auditLogsDatas().items"
+>
+  <div id="auditLogs-wrapper">
+    <abp-advanced-entity-filters
+      localizationSourceName="UsersV5"
+      [list]="auditLogsListService"
+    >
+    </abp-advanced-entity-filters>
+
+    <div class="card">
+      <abp-extensible-table
+        [data]="auditLogsStore.auditLogsDatas().items!"
+        [recordsTotal]="auditLogsStore.auditLogsDatas().totalCount!"
+        [list]="auditLogsListService"
+      ></abp-extensible-table>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal
+  [(visible)]="auditLogsStore.auditLogsEditModal().visible"
+  [busy]="auditLogsStore.auditLogsEditModal().busy"
+>
+  <ng-template #abpHeader>
+    <h3>
+      {{
+        auditLogsStore.auditLogsEditModal().selected?.id
+          ? ('AbpUi::Edit' | abpLocalization)
+          : ('AbpUi::AddNew' | abpLocalization)
+      }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form
+      [formGroup]="auditLogsStore.auditLogsForm()"
+      id="auditLogsForm"
+      (ngSubmit)="
+        auditLogsStore.saveAuditLogsEditModal(auditLogsStore.auditLogsForm())
+      "
+      [validateOnSubmit]="true"
+    >
+      <abp-extensible-form
+        [selectedRecord]="auditLogsStore.auditLogsEditModal().selected"
+      ></abp-extensible-form>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+    <abp-button
+      iconClass="fa fa-check"
+      buttonType="submit"
+      formName="auditLogsForm"
+      >{{ 'AbpUi::Save' | abpLocalization }}</abp-button
+    >
+  </ng-template>
+</abp-modal>
