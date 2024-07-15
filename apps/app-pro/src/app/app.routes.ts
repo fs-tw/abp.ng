@@ -82,16 +82,6 @@ export const routes: Routes = [
         (m) => m.GdprCookieConsentModule
       ),
   },
-  {
-    path: 'users-v3',
-    loadChildren: () =>
-      import('./features/users-v3/users-v3.routes')
-  },
-  {
-    path: 'users-v5',
-    loadChildren: () =>
-      import('./features/users-v5/users-v5.routes')
-  },
 ];
 
 export const APP_ROUTES_PROVIDER = [
@@ -119,21 +109,7 @@ export function configureRoutes(routes: RoutesService) {
         iconClass: 'fas fa-home',
         order: 0,
         layout: eLayoutType.application,
-      },
-      {
-        path: '/users-v3',
-        name: 'Users-v3',
-        iconClass: 'fas fa-home',
-        order: 2,
-        layout: eLayoutType.application,
-      },
-      {
-        path: '/users-v5',
-        name: 'Users-v5',
-        iconClass: 'fas fa-home',
-        order: 3,
-        layout: eLayoutType.application,
-      },
+      }
     ]);
   };
 }

@@ -1,5 +1,9 @@
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { ApplicationConfig, LOCALE_ID, importProvidersFrom } from '@angular/core';
+import {
+  ApplicationConfig,
+  LOCALE_ID,
+  importProvidersFrom,
+} from '@angular/core';
 import { provideApp } from './app.provide';
 import { APP_ROUTES_PROVIDER } from './app.routes';
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
@@ -41,6 +45,5 @@ export const appConfig: ApplicationConfig = {
       deps: [LOCALE_ID],
     },
     importProvidersFrom(NzIconModule.forRoot(icons)),
-
   ],
 };

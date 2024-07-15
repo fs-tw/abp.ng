@@ -6,8 +6,8 @@ import { patchState, signalState } from '@ngrx/signals';
 export type TabsState = {
   tabs: ABP.Tab[];
   selectedTab: ABP.Tab | null;
-}
-class NavTreeService extends AbstractNavTreeService<ABP.Tab> { }
+};
+class NavTreeService extends AbstractNavTreeService<ABP.Tab> {}
 
 @Injectable()
 export class TabsService {
@@ -22,30 +22,29 @@ export class TabsService {
   constructor(injector: Injector) {
     this.navTreeService = new NavTreeService(injector);
 
-    this.navTreeService.visible$.pipe(takeUntilDestroyed()).subscribe((tabs) => {
-      patchState(this.state, { tabs });
+    this.navTreeService.visible$
+      .pipe(takeUntilDestroyed())
+      .subscribe((tabs) => {
+        patchState(this.state, { tabs });
 
-      if (this.selectedTab() === null && tabs.length > 0) {
-        this.select(tabs[0]);
-      } else {
-        this.select(null);
-      }
-    });
+        if (this.selectedTab() === null && tabs.length > 0) {
+          this.select(tabs[0]);
+        } else {
+          this.select(null);
+        }
+      });
   }
 
   select(tab: ABP.Tab | null) {
     patchState(this.state, {
-      selectedTab: tab
+      selectedTab: tab,
     });
   }
 
   add(tabs: ABP.Tab[]) {
     this.navTreeService.add(tabs);
-
   }
 }
 
 @Injectable()
-export class RoutesService extends AbstractNavTreeService<ABP.Route> {
-
-}
+export class RoutesService extends AbstractNavTreeService<ABP.Route> {}

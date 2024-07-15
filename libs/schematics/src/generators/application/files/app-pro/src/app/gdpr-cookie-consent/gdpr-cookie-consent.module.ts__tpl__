@@ -6,6 +6,6 @@ import { GdprCookieConsentRoutingModule } from './gdpr-cookie-consent-routing.mo
 @NgModule({
   declarations: [CookiePolicyComponent, PrivacyPolicyComponent],
   imports: [GdprCookieConsentRoutingModule],
-  exports: [CookiePolicyComponent,PrivacyPolicyComponent]
+  exports: [CookiePolicyComponent, PrivacyPolicyComponent],
 })
 export class GdprCookieConsentModule {}

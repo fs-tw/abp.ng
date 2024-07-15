@@ -1,9 +1,13 @@
 import {
   Routes,
   provideRouter,
-  withComponentInputBinding
+  withComponentInputBinding,
 } from '@angular/router';
-import { ReplaceableComponentsService, RoutesService, eLayoutType } from '@abp/ng.core';
+import {
+  ReplaceableComponentsService,
+  RoutesService,
+  eLayoutType,
+} from '@abp/ng.core';
 import { APP_INITIALIZER } from '@angular/core';
 import { eThemeLeptonXComponents } from '@volosoft/abp.ng.theme.lepton-x';
 import { NavbarRoutesComponent } from './shared/components/navbar-routes';
@@ -110,11 +114,13 @@ export function configureRoutes(routes: RoutesService) {
   };
 }
 
-function replaceableComponent(replaceableComponentsService: ReplaceableComponentsService) {
+function replaceableComponent(
+  replaceableComponentsService: ReplaceableComponentsService
+) {
   return () => {
     replaceableComponentsService.add({
       key: eThemeLeptonXComponents.Routes,
       component: NavbarRoutesComponent,
     });
-  }
+  };
 }

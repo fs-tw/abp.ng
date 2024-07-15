@@ -5,9 +5,14 @@ import {
   withState,
 } from '@ngrx/signals';
 
-export type OmitQuery<Q> = Omit<Q, "filter" | "sorting" | "skipCount" | "maxResultCount">
+export type OmitQuery<Q> = Omit<
+  Q,
+  'filter' | 'sorting' | 'skipCount' | 'maxResultCount'
+>;
 
-export function withQuery<Query>(initialQuery: OmitQuery<Query> = {} as OmitQuery<Query>) {
+export function withQuery<Query>(
+  initialQuery: OmitQuery<Query> = {} as OmitQuery<Query>
+) {
   return signalStoreFeature(
     withState({ query: initialQuery }),
     withMethods((store) => {
@@ -15,15 +20,14 @@ export function withQuery<Query>(initialQuery: OmitQuery<Query> = {} as OmitQuer
         updateQuery: (partialQuery: Partial<Query>) => {
           const newQuery = {
             ...store.query(),
-            ...partialQuery
+            ...partialQuery,
           };
           patchState(store, { query: newQuery });
         },
-        test:()=>{
-          console.log('test')
-        }
-      }
+        test: () => {
+          console.log('test');
+        },
+      };
     })
   );
 }
-

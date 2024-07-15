@@ -6,9 +6,7 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { NgxValidateCoreModule } from '@ngx-validate/core';
 
 @NgModule({
-  declarations: [
-
-  ],
+  declarations: [],
   imports: [
     CoreModule,
     ThemeSharedModule,
@@ -21,8 +19,8 @@ import { NgxValidateCoreModule } from '@ngx-validate/core';
     ThemeSharedModule,
     CommercialUiModule,
     NgbDropdownModule,
-    NgxValidateCoreModule
+    NgxValidateCoreModule,
   ],
   providers: [],
 })
-export class SharedModule { }
+export class SharedModule {}

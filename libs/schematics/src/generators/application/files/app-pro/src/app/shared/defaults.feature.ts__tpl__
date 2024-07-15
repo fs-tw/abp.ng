@@ -1,27 +1,30 @@
-import { EntityAction, EntityProp, ExtensionsService, FormProp, ToolbarAction, ToolbarComponent, mergeWithDefaultActions, mergeWithDefaultProps } from '@abp/ng.components/extensible';
-import { inject } from '@angular/core';
 import {
-  signalStoreFeature,
-  withHooks,
-} from '@ngrx/signals';
+  EntityAction,
+  EntityProp,
+  ExtensionsService,
+  FormProp,
+  ToolbarAction,
+  ToolbarComponent,
+  mergeWithDefaultActions,
+  mergeWithDefaultProps,
+} from '@abp/ng.components/extensible';
+import { inject } from '@angular/core';
+import { signalStoreFeature, withHooks } from '@ngrx/signals';
 
 export type Defaults<E> = {
-  entityActions?: EntityAction<E>[],
-  toolbarActions?: ToolbarAction<E[]>[],
-  toolbarComponents?: ToolbarComponent<E[]>[],
-  entityProps?: EntityProp<E>[],
-  createFormProps?: FormProp<E>[],
-  editFormProps?: FormProp<E>[],
-}
+  entityActions?: EntityAction<E>[];
+  toolbarActions?: ToolbarAction<E[]>[];
+  toolbarComponents?: ToolbarComponent<E[]>[];
+  entityProps?: EntityProp<E>[];
+  createFormProps?: FormProp<E>[];
+  editFormProps?: FormProp<E>[];
+};
 
-export function withDefaults<E>(
-  options: {
-    extensionsIdentifier: string,
-    defaults: Defaults<E>
-  }
-) {
+export function withDefaults<E>(options: {
+  extensionsIdentifier: string;
+  defaults: Defaults<E>;
+}) {
   return signalStoreFeature(
-
     withHooks({
       onInit(store, extensionsService = inject(ExtensionsService)) {
         const { extensionsIdentifier, defaults } = options;
@@ -31,7 +34,10 @@ export function withDefaults<E>(
         });
 
         mergeWithDefaultActions(extensionsService.toolbarActions, {
-          [extensionsIdentifier]: [...defaults.toolbarComponents || [], ...defaults.toolbarActions || []],
+          [extensionsIdentifier]: [
+            ...(defaults.toolbarComponents || []),
+            ...(defaults.toolbarActions || []),
+          ],
         });
 
         mergeWithDefaultProps(extensionsService.entityProps, {
@@ -44,8 +50,6 @@ export function withDefaults<E>(
           [extensionsIdentifier]: defaults.editFormProps || [],
         });
       },
-
     })
   );
 }
-

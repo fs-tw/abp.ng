@@ -11,6 +11,6 @@ import { GdprConfigModule } from '@volo/abp.ng.gdpr/config';
     <abp-gdpr-cookie-consent></abp-gdpr-cookie-consent>
   `,
   standalone: true,
-  imports: [CoreModule, ThemeSharedModule,GdprConfigModule],
+  imports: [CoreModule, ThemeSharedModule, GdprConfigModule],
 })
 export class AppComponent {}

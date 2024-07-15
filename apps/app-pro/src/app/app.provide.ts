@@ -19,8 +19,12 @@ import {
 } from '@abp/ng.theme.shared';
 import { FeatureManagementModule } from '@abp/ng.feature-management';
 import { SettingManagementConfigModule } from '@abp/ng.setting-management/config';
-import { ThemeLeptonXModule } from '@volosoft/abp.ng.theme.lepton-x';
+import {
+  HttpErrorComponent,
+  ThemeLeptonXModule,
+} from '@volosoft/abp.ng.theme.lepton-x';
 import { SideMenuLayoutModule } from '@volosoft/abp.ng.theme.lepton-x/layouts';
+import { AccountLayoutModule } from '@volosoft/abp.ng.theme.lepton-x/account';
 import { LanguageManagementConfigModule } from '@volo/abp.ng.language-management/config';
 import { SaasConfigModule } from '@volo/abp.ng.saas/config';
 import { AuditLoggingConfigModule } from '@volo/abp.ng.audit-logging/config';
@@ -44,25 +48,33 @@ export const provideApp = (): Array<Provider | EnvironmentProviders> => {
         registerLocaleFn: registerLocale(),
       }),
       AbpOAuthModule.forRoot(),
-      ThemeSharedModule.forRoot(),
+      ThemeSharedModule.forRoot({
+        httpErrorConfig: {
+          errorScreen: {
+            component: HttpErrorComponent,
+            forWhichErrors: [401, 403, 404, 500],
+            hideCloseIcon: true,
+          },
+        },
+      }),
       AccountAdminConfigModule.forRoot(),
       AccountPublicConfigModule.forRoot(),
-      IdentityConfigModule.forRoot(),
+      OpeniddictproConfigModule.forRoot(),
       LanguageManagementConfigModule.forRoot(),
       SaasConfigModule.forRoot(),
       AuditLoggingConfigModule.forRoot(),
-      OpeniddictproConfigModule.forRoot(),
       TextTemplateManagementConfigModule.forRoot(),
-      SettingManagementConfigModule.forRoot(),
-
-      CommercialUiConfigModule.forRoot(),
-      FeatureManagementModule.forRoot(),
       GdprConfigModule.forRoot({
         privacyPolicyUrl: 'gdpr-cookie-consent/privacy',
         cookiePolicyUrl: 'gdpr-cookie-consent/cookie',
       }),
+      CommercialUiConfigModule.forRoot(),
+      IdentityConfigModule.forRoot(),
+      SettingManagementConfigModule.forRoot(),
       ThemeLeptonXModule.forRoot(),
       SideMenuLayoutModule.forRoot(),
+      AccountLayoutModule.forRoot(),
+      FeatureManagementModule.forRoot(),
     ]),
     InternetConnectionStatusComponent,
   ];
