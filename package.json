@@ -56,7 +56,7 @@
   "devDependencies": {
     "@abp/ng.schematics": "~8.2.0",
     "@abp/nx.generators": "~8.2.0",
-    "@angular-devkit/build-angular": "17.3.6",
+    "@angular-devkit/build-angular": "18.2.5",
     "@angular-devkit/core": "17.3.6",
     "@angular-devkit/schematics": "17.3.6",
     "@angular-eslint/eslint-plugin": "17.3.0",
