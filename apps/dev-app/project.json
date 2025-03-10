@@ -13,20 +13,34 @@
         "outputPath": "dist/apps/dev-app",
         "index": "apps/dev-app/src/index.html",
         "browser": "apps/dev-app/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": ["zone.js","@angular/localize/init"],
         "tsConfig": "apps/dev-app/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
         "assets": ["apps/dev-app/src/favicon.ico", "apps/dev-app/src/assets"],
         "styles": [
           {
-            "input": "node_modules/bootstrap/dist/css/bootstrap.rtl.min.css",
-            "inject": false,
-            "bundleName": "bootstrap-rtl.min"
+            "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+            "inject": true,
+            "bundleName": "fontawesome-all.min"
           },
           {
-            "input": "node_modules/bootstrap/dist/css/bootstrap.min.css",
+            "input": "node_modules/@fortawesome/fontawesome-free/css/v4-shims.min.css",
             "inject": true,
-            "bundleName": "bootstrap-ltr.min"
+            "bundleName": "fontawesome-v4-shims.min"
+          },
+          {
+            "input": "node_modules/@swimlane/ngx-datatable/index.css",
+            "inject": true,
+            "bundleName": "ngx-datatable-index"
+          },
+          {
+            "input": "node_modules/@swimlane/ngx-datatable/assets/icons.css",
+            "inject": true,
+            "bundleName": "ngx-datatable-icons"
+          },
+          {
+            "input": "node_modules/@swimlane/ngx-datatable/themes/material.css",
+            "inject": true,
+            "bundleName": "ngx-datatable-material"
           },
           {
             "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/bootstrap-dim.css",
@@ -54,6 +68,16 @@
             "bundleName": "bootstrap-dim.rtl"
           },
           {
+            "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/font-bundle.css",
+            "inject": false,
+            "bundleName": "font-bundle"
+          },
+          {
+            "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/font-bundle.rtl.css",
+            "inject": false,
+            "bundleName": "font-bundle.rtl"
+          },
+          {
             "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/ng-bundle.rtl.css",
             "inject": false,
             "bundleName": "ng-bundle.rtl"
@@ -69,54 +93,13 @@
             "bundleName": "abp-bundle.rtl"
           },
           {
-            "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/font-bundle.rtl.css",
-            "inject": false,
-            "bundleName": "font-bundle.rtl"
-          },
-          {
-            "input": "node_modules/@volo/ngx-lepton-x.lite/assets/css/font-bundle.css",
-            "inject": false,
-            "bundleName": "font-bundle"
-          },
-          {
-            "input": "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-            "inject": true,
-            "bundleName": "fontawesome-all.min"
-          },
-          {
-            "input": "node_modules/@fortawesome/fontawesome-free/css/v4-shims.min.css",
-            "inject": true,
-            "bundleName": "fontawesome-v4-shims.min"
-          },
-          {
-            "input": "node_modules/@swimlane/ngx-datatable/index.css",
-            "inject": true,
-            "bundleName": "ngx-datatable-index"
-          },
-          {
-            "input": "node_modules/@swimlane/ngx-datatable/assets/icons.css",
-            "inject": true,
-            "bundleName": "ngx-datatable-icons"
-          },
-          {
-            "input": "node_modules/@swimlane/ngx-datatable/themes/material.css",
-            "inject": true,
-            "bundleName": "ngx-datatable-material"
-          },
-          {
-            "input": "node_modules/ng-zorro-antd/tree/style/index.min.css",
-            "inject": false,
-            "bundleName": "ng-zorro-antd-tree"
-          },
-          {
             "input": "node_modules/bootstrap-icons/font/bootstrap-icons.css",
             "inject": true,
             "bundleName": "bootstrap-icons"
           },
           "apps/dev-app/src/styles.scss"
         ],
-        "scripts": [],
-        "allowedCommonJsDependencies": ["chart.js", "js-sha256"]
+        "scripts": []
       },
       "configurations": {
         "production": {
@@ -128,8 +111,8 @@
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
             }
           ],
           "outputHashing": "all"
@@ -162,6 +145,22 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/dev-app/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "dev-app:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/dev-app/browser",
+        "spa": true
+      }
     }
   }
 }

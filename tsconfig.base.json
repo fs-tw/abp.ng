@@ -15,11 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@fs-tw/schematics": ["libs/schematics/src/index.ts"],
-      "@fs-tw/theme.zorro": ["libs/theme-zorro/src/index.ts"],
-      "@fs-tw/theme.zorro/extensions": [
-        "libs/theme-zorro/extensions/src/index.ts"
-      ]
+      "@fs-tw/schematics": ["tools/schematics/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
