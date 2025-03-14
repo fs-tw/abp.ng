@@ -1,82 +1,60 @@
-# FsTw
+# 專案目標
+這個專案的主要目標是利用 ABP 框架和 NX 開發環境，快速開發符合 ABP 後端框架的前端 Angular 模組。
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+# 優勢簡述
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## 1. 與後端 API 整合
+- 開發者可以利用 ABP 框架提供的既有倉庫專案啟動，無需從零開始構建後端。
+- ABP 框架提供了豐富的 API 和服務，方便前端模組與後端進行整合。
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+# 後端準備
+本專案依賴 ABP 框架的後端程式，請開發者依照以下步驟準備後端環境：
 
-## Finish your CI setup
+1. 前往 [ABP 官方 GitHub 倉庫](https://github.com/abpframework/abp/tree/dev/templates/app-nolayers/aspnet-core)。
+2. 下載或克隆該倉庫。
+3. 依照倉庫中的說明文件，將後端專案架設起來。
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/mHDqVjd39x)
+完成後端架設後，即可開始使用本專案的前端功能模組。
 
+# 前端專案啟動
+在完成後端架設後，請依照以下步驟啟動前端專案：
 
-## Run tasks
+1. 安裝專案所需的 npm 套件：
+    npm i
 
-To run the dev server for your app, use:
+2. 啟動前端應用程式：
+    nx serve dev-app -o
 
-```sh
-npx nx serve dev-app
-```
+這樣即可在瀏覽器中開啟並使用前端應用程式。
 
-To create a production bundle:
+## 2. NX 開發環境
+- 利用 NX 開發環境建立單一倉庫（monorepo），可以同時開發多個應用和模組。
+- NX 提供了強大的工具和插件，幫助管理和構建大型項目。
 
-```sh
-npx nx build dev-app
-```
+## 3. NX Generators 功能
+- NX 的 generators 功能可以自動生成程式碼，減少手動編寫的工作量。
+- 開發者可以使用 generators 快速生成應用程式和功能模組，提升開發效率。
 
-To see all available targets to run for a project, run:
+### 使用 NX Generators
+1. 安裝 NX CLI：
+    npm install -g nx
 
-```sh
-npx nx show project dev-app
-```
+2. 使用 NX Console（Visual Studio Code 插件）：
+    - 在 Visual Studio Code 中安裝 NX Console 插件。
+    - 安裝完成後，打開 NX Console，選擇所需的 generator 類型並依照指示操作。
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+### 已開發的 Generators
+1. Package Generator
+2. Extensions Generator
+3. Component Generator
+4. Application Generator
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+這些 generators 可以幫助開發者快速生成所需的應用程式和功能模組，提升開發效率。
 
-## Add new projects
+## 4. 快速生成 CRUD 功能
+- 透過 NX generators 的執行，可以快速生成包含基本 CRUD 功能的應用程式和功能模組。
+- 這些生成的模組可以直接使用，並且可以根據需求進行擴展和自定義。
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/angular:app demo
-```
-
-To generate a new library, use:
-
-```sh
-npx nx g @nx/angular:lib mylib
-```
-
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 5. 客製化功能
+- 開發者可以在生成的基礎上，手動加入代碼，以建立更客製化的功能。
+- 這種方式既保留了自動化生成的高效性，又提供了靈活的擴展性。

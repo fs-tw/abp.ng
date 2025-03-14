@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "version": "1.2.1",
+  "packages": ["tools/schematics"],
+  "useNx": true,
+  "command": {
+    "version": {
+      "npmClientArgs": ["--legacy-peer-deps"]
+    },
+    "publish": {
+      "directory": "{workspaceRoot}/dist/{projectRoot}"
+    }
+  }
+}

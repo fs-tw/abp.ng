@@ -1,7 +1,6 @@
 {
   "name": "@fs-tw/schematics",
-  "version": "0.0.1",
-  "private": true,
+  "version": "3.0.0",
   "type": "commonjs",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
