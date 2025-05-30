@@ -8,8 +8,12 @@ import { AuthService } from '@abp/ng.core';
 
 describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
-  const mockOAuthService = jasmine.createSpyObj('OAuthService', ['hasValidAccessToken']);
-  const mockAuthService = jasmine.createSpyObj('AuthService', ['navigateToLogin']);
+  const mockOAuthService = jasmine.createSpyObj('OAuthService', [
+    'hasValidAccessToken',
+  ]);
+  const mockAuthService = jasmine.createSpyObj('AuthService', [
+    'navigateToLogin',
+  ]);
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [HomeComponent],

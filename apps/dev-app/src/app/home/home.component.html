@@ -6,11 +6,12 @@
           @if(!hasLoggedIn){
           <h3>Welcome</h3>
           <p class="lead text-muted mb-2">
-            Welcome to the application. This is a startup project based on the ABP framework. For
-            more information visit abp.io.
+            Welcome to the application. This is a startup project based on the
+            ABP framework. For more information visit abp.io.
           </p>
           <a (click)="login()" class="px-4 btn btn-primary mb-4" role="button"
-            ><i class="fa fa-sign-in"></i> {{ 'AbpAccount::Login' | abpLocalization }}</a
+            ><i class="fa fa-sign-in"></i>
+            {{ 'AbpAccount::Login' | abpLocalization }}</a
           >
           }
 
@@ -45,7 +46,9 @@
           ></ng-container>
 
           <h4>Customize Lepton Theme</h4>
-          <p class="text-muted mb-2">Learn how to customize LeptonX Theme as you wish.</p>
+          <p class="text-muted mb-2">
+            Learn how to customize LeptonX Theme as you wish.
+          </p>
           <a
             href="https://docs.abp.io/en/abp/latest/UI/Angular/Theming"
             class="btn btn-primary soft mb-5 mb-xl-0"
@@ -54,7 +57,10 @@
           >
         </div>
 
-        <img class="card-bg-image" src="assets/images/getting-started/bg-01.png" />
+        <img
+          class="card-bg-image"
+          src="assets/images/getting-started/bg-01.png"
+        />
       </div>
     </div>
   </div>
@@ -105,10 +111,14 @@
           <span class="fw-bold">ABP Lovers!</span>
         </p>
         <p class="text-muted mb-2">
-          Explore all ABP users' experiences with the ABP Framework, discover articles and videos on
-          how to use ABP, and join raffles for a chance to win surprise gifts!
+          Explore all ABP users' experiences with the ABP Framework, discover
+          articles and videos on how to use ABP, and join raffles for a chance
+          to win surprise gifts!
         </p>
-        <a class="btn btn-brand soft mb-3" href="https://community.abp.io/" target="_blank"
+        <a
+          class="btn btn-brand soft mb-3"
+          href="https://community.abp.io/"
+          target="_blank"
           >Join ABP Community</a
         >
       </div>
@@ -177,8 +187,9 @@
             <p class="text-muted mb-0">THE OFFICIAL GUIDE</p>
             <h3>Mastering ABP Framework</h3>
             <p class="text-muted">
-              Written by the creator of the ABP Framework, this book will help you gain a complete
-              understanding of the framework and modern web application development techniques.
+              Written by the creator of the ABP Framework, this book will help
+              you gain a complete understanding of the framework and modern web
+              application development techniques.
             </p>
             <div class="d-md-flex mb-2 mb-md-0">
               <a
@@ -249,7 +260,9 @@
 
 <ng-template #startingContentTemplate let-context>
   <p class="lead text-muted mb-2" [innerHTML]="context.description"></p>
-  <a [href]="context.href" class="btn btn-brand mb-4" target="_blank">{{ context.label }}</a>
+  <a [href]="context.href" class="btn btn-brand mb-4" target="_blank">{{
+    context.label
+  }}</a>
 </ng-template>
 
 <ng-template #visitLinkTemplate let-context>
@@ -258,7 +271,9 @@
       <div class="card-body pb-0">
         <div [class]="context.logo"></div>
         <p class="text-muted mb-2" [innerHTML]="context.description"></p>
-        <a [href]="context.href" class="btn btn-brand soft" target="_blank">{{ context.label }}</a>
+        <a [href]="context.href" class="btn btn-brand soft" target="_blank">{{
+          context.label
+        }}</a>
         <img [class]="context.imgClass" [src]="context.imgSrc" />
       </div>
     </div>
@@ -294,7 +309,10 @@
                   }
                   <div>{{ item.title }}</div>
                 </td>
-                <td class="text-end pe-0 opacity-25" [class.border-bottom-0]="last">
+                <td
+                  class="text-end pe-0 opacity-25"
+                  [class.border-bottom-0]="last"
+                >
                   <a [href]="item.link" target="_blank">
                     <i class="bi bi-box-arrow-up-right text-dark"></i>
                   </a>

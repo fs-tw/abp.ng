@@ -1,6 +1,6 @@
 import { provideAccountConfig } from '@abp/ng.account/config';
 import { CoreModule, provideAbpCore, withOptions } from '@abp/ng.core';
-import { registerLocale } from '@abp/ng.core/locale';
+import { registerLocale } from './register-locale';
 import { provideIdentityConfig } from '@abp/ng.identity/config';
 import { provideSettingManagementConfig } from '@abp/ng.setting-management/config';
 import { provideTenantManagementConfig } from '@abp/ng.tenant-management/config';
