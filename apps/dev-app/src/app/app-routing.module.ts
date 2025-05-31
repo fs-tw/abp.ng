@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UsersComponent } from './features/users/users.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
       import('@abp/ng.setting-management').then((m) =>
         m.SettingManagementModule.forLazy()
       ),
+  },
+  {
+    path: 'users',
+    loadChildren: () =>
+      import('./features/users/users.routes').then((m) => m.default),
   },
 ];
 

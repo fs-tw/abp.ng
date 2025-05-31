@@ -30,25 +30,25 @@
       },
       "x-prompt": "What name would you like to use?"
     },
-    "type": {
+    "entityType": {
       "type": "string",
-      "description": "",
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "What dto name would you like to use?"
+      "description": "Entity 型別名稱 (對應 ENTITY_PROPS)",
+      "x-prompt": "What entity dto name would you like to use?"
     },
-    "variable": {
+    "createFormType": {
       "type": "string",
-      "enum": ["ENTITY_PROPS", "CREATE_FORM_PROPS", "EDIT_FORM_PROPS"],
-      "description": "variable name in default.ts ",
-      "default": "ENTITY_PROPS"
+      "description": "CreateForm 型別名稱 (對應 CREATE_FORM_PROPS)",
+      "x-prompt": "What create form dto name would you like to use?"
+    },
+    "editFormType": {
+      "type": "string",
+      "description": "EditForm 型別名稱 (對應 EDIT_FORM_PROPS)",
+      "x-prompt": "What edit form dto name would you like to use?"
     },
     "directory": {
       "type": "string",
       "default": ""
     }
   },
-  "required": ["project", "name", "url", "type", "variable"]
+  "required": ["project", "name", "url"]
 }

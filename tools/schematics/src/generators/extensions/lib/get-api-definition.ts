@@ -1,4 +1,3 @@
-import got from 'got';
 import { API_DEFINITION_ENDPOINT } from '@abp/ng.schematics/constants';
 import { SchematicsException } from '@angular-devkit/schematics';
 import { interpolate } from '@abp/ng.schematics/utils';
@@ -9,6 +8,8 @@ export async function getApiDefinition(sourceUrl: string) {
   let body: ApiDefinition;
 
   try {
+    const gotModule = await import('got');
+    const got = gotModule.default;
     ({ body } = await got<ApiDefinition>(url, {
       responseType: 'json',
       searchParams: { includeTypes: true },

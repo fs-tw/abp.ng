@@ -1,8 +1,9 @@
 export interface ExtensionsGeneratorSchema {
-  directory:string;
+  directory: string;
   project: string;
   name: string;
   url: string;
-  type: string;
-  variable: string;
+  entityType?: string;
+  createFormType?: string;
+  editFormType?: string;
 }
