@@ -1,0 +1,55 @@
+import { Injector, inject, runInInjectionContext } from '@angular/core';
+import { Confirmation, ConfirmationService } from '@abp/ng.theme.shared';
+import { filter, mergeMap, tap } from 'rxjs';
+import { signalStore, withHooks, withMethods } from "@ngrx/signals";
+import { e<%= names.className %>Names, <%= names.propertyName %>Proxy, R } from './<%= names.fileName %>.types';
+import { <%= names.propertyName %>Defaults } from "./<%= names.fileName %>.default";
+import { withDefaults } from "<%= sharedPath %>/defaults.feature";
+import { withListService } from "<%= sharedPath %>/list.feature";
+import { withEditModal } from "<%= sharedPath %>/edit-modal.feature";
+
+export const <%= storeNames.className %> = signalStore(
+    withDefaults({
+      extensionsIdentifier: e<%= names.className %>Names.<%= names.className %>,
+      defaults: <%= names.propertyName %>Defaults,
+    }),
+    withListService({
+      collection: '<%= names.propertyName %>',
+      list: <%= names.propertyName %>Proxy.list
+    }),
+    withEditModal({
+      collection: '<%= names.propertyName %>',
+      extensionsIdentifier: e<%= names.className %>Names.<%= names.className %>,
+      get: <%= names.propertyName %>Proxy.get,
+      create: <%= names.propertyName %>Proxy.create,
+      update: <%= names.propertyName %>Proxy.update
+    }),
+
+    withMethods((store, confirmationService = inject(ConfirmationService), injector = inject(Injector)) => {
+      return {
+        delete<%= names.className %>: (record: R) => {
+          confirmationService
+            .warn(
+              'AbpIdentity::RoleDeletionConfirmationMessage',
+              'AbpUi::AreYouSure',
+              {
+                messageLocalizationParams: [record.name || ''],
+              }
+            )
+            .pipe(
+              filter((status: Confirmation.Status) => status === Confirmation.Status.confirm),
+              mergeMap(() =>
+                runInInjectionContext(injector, () =>
+                  <%= names.propertyName %>Proxy.delete(record.id || '').pipe(
+                    tap(() =>
+                      store.get<%= names.className %>ListService().get())
+                  ))),
+            ).subscribe();
+        }
+      }    }),
+    withHooks({
+        onInit() {
+            console.log('<%= storeNames.className %> initialized');
+        },
+    })
+);

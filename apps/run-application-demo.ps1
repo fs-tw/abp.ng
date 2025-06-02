@@ -1,0 +1,1 @@
+npx nx generate @fs-tw/schematics:application --name=dev-app --directory=apps/dev-app --no-interactive --dry-run

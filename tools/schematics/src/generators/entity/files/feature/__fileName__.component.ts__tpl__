@@ -1,0 +1,14 @@
+import { CoreModule } from '@abp/ng.core';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { Component } from '@angular/core';
+import { PermissionManagementModule } from '@abp/ng.permission-management';
+
+@Component({
+  template: `<router-outlet></router-outlet>`,
+  providers: [
+  ],
+  standalone:true,
+  imports:[CoreModule,ThemeSharedModule,PermissionManagementModule]
+})
+export class <%= names.className %>Component {
+}

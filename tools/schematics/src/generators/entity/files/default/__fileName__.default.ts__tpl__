@@ -1,0 +1,81 @@
+import { Validators } from '@angular/forms';
+import {
+  EntityProp,
+  ePropType,
+  FormProp,
+  EntityAction,
+  ToolbarAction
+} from '@abp/ng.components/extensible';
+import { e<%= names.className %>Names, R } from './<%= names.fileName %>.types';
+import { <%= storeNames.className %> } from './<%= storeNames.fileName %>';
+
+const resourceName = e<%= names.className %>Names.DefaultsResourceName;
+
+export const ENTITY_ACTIONS = EntityAction.createMany<R>([
+  {
+    text: 'AbpUi::Edit',
+    action: data => {
+      const <%= storeNames.propertyName %> = data.getInjected(<%= storeNames.className %>);
+      <%= storeNames.propertyName %>.open<%= names.className %>EditModal(data.record.id || '');
+    },
+    permission: '',
+  },
+  {
+    text: 'AbpUi::Delete',
+    action: data => {
+      const <%= storeNames.propertyName %> = data.getInjected(<%= storeNames.className %>);
+      <%= storeNames.propertyName %>.delete<%= names.className %>(data.record);
+    },
+    permission: '',
+  },
+]);
+
+export const TOOLBAR_ACTIONS = ToolbarAction.createMany<R[]>([
+  {
+    text: 'AbpUi::AddNew',
+    action: (data) => {
+      const <%= storeNames.propertyName %> = data.getInjected(<%= storeNames.className %>);
+      <%= storeNames.propertyName %>.open<%= names.className %>EditModal(null);
+    },
+    permission: '',
+    icon: 'fa fa-plus',
+  },
+]);
+
+export const ENTITY_PROPS = EntityProp.createMany<R>([
+  {
+    type: ePropType.String,
+    name: 'id',
+    displayName: '',
+    sortable: false,
+    columnVisible: () => false,
+  },
+]);
+
+export const CREATE_FORM_PROPS = FormProp.createMany<R>([
+  {
+    type: ePropType.String,
+    name: 'id',
+    displayName: '',
+    id: 'id',
+    visible: () => false
+  }
+]);
+export const EDIT_FORM_PROPS = FormProp.createMany<R>([
+  {
+    type: ePropType.String,
+    name: 'id',
+    displayName: '',
+    id: 'id',
+    visible: () => false,
+    validators: () => [Validators.required]
+  }
+]);
+
+export const <%= names.propertyName %>Defaults = {
+  entityActions: ENTITY_ACTIONS,
+  toolbarActions: TOOLBAR_ACTIONS,
+  entityProps: ENTITY_PROPS,
+  createFormProps: CREATE_FORM_PROPS,
+  editFormProps: EDIT_FORM_PROPS
+}

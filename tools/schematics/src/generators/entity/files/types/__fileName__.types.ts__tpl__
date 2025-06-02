@@ -1,0 +1,26 @@
+import { inject } from "@angular/core";
+import { ICrudProxy } from '<%= sharedPath %>/types';
+
+export const enum e<%= names.className %>PolicyNames {
+  <%= names.className %> = '',
+}
+export const enum e<%= names.className %>Names {
+  <%= names.className %> = '<%= featureNames.className %>::<%= names.className %>',
+  DefaultsResourceName = '<%= featureNames.className %>',
+}
+
+const S = <%= crudProxy.entityServiceType || names.className + 'Service' %>;
+export type I = <%= crudProxy.listInputType || 'any' %>;
+export type R = <%= crudProxy.entityType || 'any' %>
+export type C = <%= crudProxy.createFormType || 'any' %>;
+export type U = <%= crudProxy.editFormType || 'any' %>
+
+export const <%= names.propertyName %>Proxy: ICrudProxy<I, R, C, U> = {
+  list: (getListInput) => inject(S).getList(getListInput),
+  get: (id: string) => inject(S).get(id),
+  create: (data) =>
+    inject(S).create(data),
+  update: (id: string, data) =>
+    inject(S).update(id, data),
+  delete: (id: string) => inject(S).delete(id)
+};

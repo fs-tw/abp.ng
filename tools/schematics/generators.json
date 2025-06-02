@@ -14,11 +14,11 @@
       "factory": "./src/generators/component/generator",
       "schema": "./src/generators/component/schema.json",
       "description": "component generator"
-    },
-    "extensions": {
-      "factory": "./src/generators/extensions/generator",
-      "schema": "./src/generators/extensions/schema.json",
-      "description": "extensions generator"
+    },    
+    "entity": {
+      "factory": "./src/generators/entity/generator",
+      "schema": "./src/generators/entity/schema.json",
+      "description": "entity generator"
     }
   }
 }
