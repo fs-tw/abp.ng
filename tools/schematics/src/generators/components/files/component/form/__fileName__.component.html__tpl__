@@ -1,0 +1,15 @@
+<h2>{{ '<%= featureNames.className %>::Menu:<%= names.className %>' | abpLocalization }}</h2>
+
+<hr class="my-3" />
+
+<form>
+  <ng-container *appExtensionsIdentifier="">
+    <abp-extensible-form [selectedRecord]="{}"> </abp-extensible-form>
+  </ng-container>
+
+  <hr />
+
+  <button type="submit" class="btn btn-primary">
+    {{ 'AbpUi::Save' | abpLocalization }}
+  </button>
+</form>

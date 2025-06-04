@@ -3,6 +3,8 @@ import {
   generateFiles,
   joinPathFragments,
   Tree,
+  GeneratorCallback,
+  installPackagesTask,
 } from '@nx/devkit';
 import { ApplicationGeneratorSchema } from './schema';
 import {
@@ -10,11 +12,9 @@ import {
   applicationGenerator as nxApplicationGenerator,
   UnitTestRunner,
 } from '@nx/angular/generators';
-import { Styles } from '@nx/angular/src/generators/utils/types';
-import { OptionsBuilder } from '../../lib/options-builder';
-import packageGenerator from '../package/generator';
 import { updateProjectConfigurationJson as appUpdateProjectConfigurationJson } from './lib/app/update-project-configuration-json';
 import { updateOverrideInLintConfig } from '@nx/eslint/src/generators/utils/eslint-file';
+import { addAppToPackageJson } from './lib/app/add-app-package-json';
 
 export async function applicationGenerator(
   tree: Tree,
@@ -56,32 +56,40 @@ export async function applicationGenerator(
     }
   );
 
-  // 根據範本類型進行特定設定
-  if (options.template === 'app') {
-    // 更新專案配置
-    appUpdateProjectConfigurationJson(tree, options);
+  switch (options.template) {
+    case 'app':
+      // 更新專案配置
+      appUpdateProjectConfigurationJson(tree, options);
 
-    // 設定 ESLint 規則
-    updateOverrideInLintConfig(
-      tree,
-      appRoot,
-      (override) => override.files?.includes('**/*.html'),
-      (override) => ({
-        ...override,
-        rules: {
-          ...override.rules,
-          '@angular-eslint/template/click-events-have-key-events': 'off',
-          '@angular-eslint/template/interactive-supports-focus': 'off',
-        },
-      })
-    );
+      // 設定 ESLint 規則
+      updateOverrideInLintConfig(
+        tree,
+        appRoot,
+        (override) => override.files?.includes('**/*.html'),
+        (override) => ({
+          ...override,
+          rules: {
+            ...override.rules,
+            '@angular-eslint/template/click-events-have-key-events': 'off',
+            '@angular-eslint/template/interactive-supports-focus': 'off',
+          },
+        })
+      ); // 添加套件相依性
+      addAppToPackageJson(tree);
+      break;
+
+    case 'app-pro':
+      // TODO: 未來可能需要添加 pro 版本的處理邏輯
+      break;
   }
 
   // 格式化檔案
   await formatFiles(tree);
 
-  // 生成相關的套件配置
-  await packageGenerator(tree, { name: options.template });
+  // 安裝新添加的套件
+  return () => {
+    installPackagesTask(tree);
+  };
 }
 
 export default applicationGenerator;

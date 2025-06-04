@@ -1,0 +1,26 @@
+import { PageModule } from '@abp/ng.components/page';
+import { CoreModule } from '@abp/ng.core';
+import {
+  collapse,
+  ThemeSharedModule
+} from '@abp/ng.theme.shared';
+import { Component, inject } from '@angular/core';
+import { ExtensibleModule } from '@abp/ng.components/extensible';
+import { ExtensionsIdentifierDirective, ExtensionsIdentifierRenderDirective } from '<%= sharedPath %>/extensions-identifier.directive';
+
+@Component({
+  selector: '<%= selector %>',
+  templateUrl: '<%= names.fileName %>.component.html',
+  animations: [collapse],
+  standalone:true,
+  imports: [
+    CoreModule, ThemeSharedModule, PageModule, ExtensibleModule,
+    ExtensionsIdentifierDirective,
+    ExtensionsIdentifierRenderDirective
+  ],
+  providers: [
+  ]  
+})
+export class <%= names.className %>Component {
+  
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "Components",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "componentType": {
+      "type": "string",
+      "enum": ["entity", "form", "modal", "select"],
+      "default": "entity",
+      "description": ""
+    },
+    "name": {
+      "type": "string",
+      "description": "",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What name would you like to use?"
+    },
+    "directory": {
+      "type": "string",
+      "default": "",
+      "x-priority": "important"
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      },
+      "x-dropdown": "projects"
+    },
+
+    "prefix": {
+      "type": "string",
+      "description": "The prefix to apply to the generated component selector.",
+      "alias": "p",
+      "x-priority": "important"
+    },
+    "url": {
+      "type": "string",
+      "description": "The URL of the API definition endpoint.",
+      "x-priority": "important"
+    },
+    "entityType": {
+      "type": "string",
+      "description": "The entity type name for generating entity properties.",
+      "x-priority": "important"
+    },
+    "createFormType": {
+      "type": "string",
+      "description": "The create form type name for generating create form properties.",
+      "x-priority": "important"
+    },
+    "editFormType": {
+      "type": "string",
+      "description": "The edit form type name for generating edit form properties.",
+      "x-priority": "important"
+    },
+    "entityServiceType": {
+      "type": "string",
+      "description": "The service type for CRUD operations.",
+      "x-priority": "important"
+    },
+    "listInputType": {
+      "type": "string",
+      "description": "The input type for list operations.",
+      "x-priority": "important"
+    }
+  },
+  "required": ["componentType", "name", "project"]
+}

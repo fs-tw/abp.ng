@@ -1,24 +1,14 @@
 {
   "generators": {
-    "package": {
-      "factory": "./src/generators/package/generator",
-      "schema": "./src/generators/package/schema.json",
-      "description": "package generator"
-    },
     "application": {
       "factory": "./src/generators/application/generator",
       "schema": "./src/generators/application/schema.json",
       "description": "application generator"
     },
-    "component": {
-      "factory": "./src/generators/component/generator",
-      "schema": "./src/generators/component/schema.json",
-      "description": "component generator"
-    },    
-    "entity": {
-      "factory": "./src/generators/entity/generator",
-      "schema": "./src/generators/entity/schema.json",
-      "description": "entity generator"
+    "components": {
+      "factory": "./src/generators/components/generator",
+      "schema": "./src/generators/components/schema.json",
+      "description": "components generator"
     }
   }
 }

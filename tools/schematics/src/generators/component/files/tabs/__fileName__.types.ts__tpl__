@@ -1,7 +1,0 @@
-export const enum e<%= names.className %>PolicyNames {
-  <%= names.className %> = '',
-}
-export const enum e<%= names.className %>Names {
-  <%= names.className %> = '<%= rootNames.className %>::<%= names.className %>',
-}
-

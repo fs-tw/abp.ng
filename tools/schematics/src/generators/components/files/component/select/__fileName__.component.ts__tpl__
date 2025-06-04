@@ -1,0 +1,33 @@
+import { CoreModule } from '@abp/ng.core';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { Component, inject } from '@angular/core';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { <%= storeNames.className %> } from './<%= storeNames.fileName %>';
+
+@Component({
+  selector: '<%= selector %>',
+  template: `
+    <nz-select
+      style="width: 100%"
+      [ngModel]="<%= storeNames.propertyName %>.<%= names.propertyName %>Selected().id"
+      (ngModelChange)="<%= storeNames.propertyName %>.update<%= names.className %>Selected({ id: $event })"
+      [nzLoading]="<%= storeNames.propertyName %>.<%= names.propertyName %>Loading()"
+      nzAllowClear
+      nzShowSearch
+      nzServerSearch
+      (nzOnSearch)="<%= storeNames.propertyName %>.search<%= names.className %>($event)"
+      (nzScrollToBottom)="<%= storeNames.propertyName %>.loadMore<%= names.className %>()"
+>
+  @for(item of <%= storeNames.propertyName %>.<%= names.propertyName %>Items(); track item?.id){ @if(item.id &&
+          item.id){
+          <nz-option [nzValue]="item.id" [nzLabel]="item.id"></nz-option>
+          } }
+</nz-select>
+  `,
+  providers: [<%= names.className %>Store],
+  standalone: true,
+  imports: [CoreModule, ThemeSharedModule, NzSelectModule],
+})
+export class <%= names.className %>Component {
+  <%= storeNames.propertyName %> = inject(<%= storeNames.className %>);
+}
