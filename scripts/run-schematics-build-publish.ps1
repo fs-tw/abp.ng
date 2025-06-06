@@ -7,9 +7,15 @@ $npmWhoami = npm whoami --registry=https://npm.pkg.github.com
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "成功登入為: $npmWhoami" -ForegroundColor Green
+
+    # 清理舊的建置結果
+    Write-Host "`n清理舊的建置結果..." -ForegroundColor Cyan
+    Remove-Item -Path "dist/tools/schematics" -Recurse -Force -ErrorAction SilentlyContinue
+     
     # 執行建置
     Write-Host "`n開始建置 schematics..." -ForegroundColor Cyan
     nx build schematics    
+
     # 執行發布
     Write-Host "`n開始發布 schematics..." -ForegroundColor Cyan
     npx nx run schematics:nx-release-publish

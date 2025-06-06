@@ -11,8 +11,7 @@ export const enum e<%= names.className %>PolicyNames {
   <%= names.className %> = '',
 }
 export const enum e<%= names.className %>Names {
-  <%= names.className %> = '',
-  DefaultsResourceName = '',
+  <%= names.className %> = '<%= featureNames.className %>::<%= names.className %>'
 }
 
 export const <%= names.propertyName %>Proxy: ICrudProxy<I, R, C, U> = {
