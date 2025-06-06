@@ -1,3 +1,6 @@
+# 取得專案根目錄
+$projectRoot = (Get-Item $PSScriptRoot).Parent.FullName
+
 # 設定 NODE_AUTH_TOKEN 環境變數
 $env:NODE_AUTH_TOKEN = $(gh auth token)
 
@@ -10,8 +13,12 @@ if ($LASTEXITCODE -eq 0) {
 
     # 清理舊的建置結果
     Write-Host "`n清理舊的建置結果..." -ForegroundColor Cyan
-    Remove-Item -Path "dist/tools/schematics" -Recurse -Force -ErrorAction SilentlyContinue
+    Remove-Item -Path "$projectRoot\dist\tools\schematics" -Recurse -Force -ErrorAction SilentlyContinue
      
+    # 更新版本號
+    Write-Host "`n更新版本號..." -ForegroundColor Cyan
+    nx release
+
     # 執行建置
     Write-Host "`n開始建置 schematics..." -ForegroundColor Cyan
     nx build schematics    
