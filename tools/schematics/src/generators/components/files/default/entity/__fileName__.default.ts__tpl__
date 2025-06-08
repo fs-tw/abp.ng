@@ -6,10 +6,10 @@ import {
   EntityAction,
   ToolbarAction
 } from '@abp/ng.components/extensible';
-import { e<%= names.className %>Names, R } from './<%= names.fileName %>.types';
+import { R } from './<%= names.fileName %>.types';
 import { <%= storeNames.className %> } from './<%= storeNames.fileName %>';
 
-const resourceName = e<%= names.className %>Names.DefaultsResourceName;
+const resourceName = '<%= featureNames.className %>';
 
 export const ENTITY_ACTIONS = EntityAction.createMany<R>([
   {

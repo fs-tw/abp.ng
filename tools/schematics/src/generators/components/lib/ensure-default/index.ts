@@ -9,7 +9,7 @@ import {
 import { OptionsBuilder } from '../../../../lib/options-builder';
 import { getEntityType } from './api-definition';
 import { addEntityPropToDefault, Variable } from './add-entity-prop-to-default';
-import { Type } from '@abp/ng.schematics/models';
+import { ComponentKind } from '../../schema';
 
 /**
  * 確認 default 檔案是否存在，不存在則產生。
@@ -27,7 +27,8 @@ export async function ensureDefault(
     createFormType?: string;
     editFormType?: string;
     url?: string;
-  }
+  },
+  componentType: ComponentKind
 ) {
   // 使用 Builder 計算所有需要的屬性
   const builderResult = new OptionsBuilder(tree, {
@@ -60,7 +61,7 @@ export async function ensureDefault(
   if (!fileExists) {
     generateFiles(
       tree,
-      joinPathFragments(params.filesRoot, `files/default`),
+      joinPathFragments(params.filesRoot, `files/default/${componentType}`),
       directory,
       {
         names: currentNames,

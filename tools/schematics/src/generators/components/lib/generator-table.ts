@@ -3,7 +3,7 @@ import { ComponentsGeneratorSchema } from '../schema';
 import { ensureTypes, ensureDefault, ensureStore, ensureFeature } from '.';
 import { ensureComponent } from './ensure-component';
 
-export async function entityGenerator(
+export async function tableGenerator(
   tree: Tree,
   options: ComponentsGeneratorSchema,
   filesRoot: string
@@ -26,13 +26,10 @@ export async function entityGenerator(
       crudProxy: {
         entityServiceType: options.entityServiceType || '',
         listInputType: options.listInputType || '',
-        entityType: options.entityType || '',
-        createFormType: options.createFormType || '',
-        editFormType: options.editFormType || '',
       },
       filesRoot,
     },
-    'entity' // 使用 ComponentKind
+    'table' // 使用 ComponentKind
   );
 
   // 產生 default 檔案，並傳遞擴展相關的參數
@@ -49,7 +46,7 @@ export async function entityGenerator(
       editFormType: options.editFormType,
       filesRoot,
     },
-    'entity'
+    'table'
   );
 
   // 產生 store 檔案
@@ -61,7 +58,7 @@ export async function entityGenerator(
       project: options.project,
       filesRoot,
     },
-    'entity'
+    'table'
   );
 
   // 產生 component 檔案
@@ -74,7 +71,7 @@ export async function entityGenerator(
       prefix: options.prefix,
       filesRoot,
     },
-    'entity'
+    'table'
   );
 
   // 顯示生成結果
@@ -101,4 +98,4 @@ export async function entityGenerator(
   await formatFiles(tree);
 }
 
-export default entityGenerator;
+export default tableGenerator;

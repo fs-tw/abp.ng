@@ -5,6 +5,7 @@ import { ensureEntityComponent } from './entity';
 import { ensureFormComponent } from './form';
 import { ensureModalComponent } from './modal';
 import { ensureSelectComponent } from './select';
+import { ensureTableComponent } from './table';
 
 export function ensureComponent(
   tree: Tree,
@@ -14,6 +15,8 @@ export function ensureComponent(
   switch (componentType) {
     case 'entity':
       return ensureEntityComponent(tree, params);
+    case 'table':
+      return ensureTableComponent(tree, params);
     case 'form':
       return ensureFormComponent(tree, params);
     case 'modal':

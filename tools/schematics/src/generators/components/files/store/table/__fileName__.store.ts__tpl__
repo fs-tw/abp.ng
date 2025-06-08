@@ -1,0 +1,21 @@
+import { signalStore, withHooks, withMethods } from "@ngrx/signals";
+import { <%= names.propertyName %>Proxy, R } from './<%= names.fileName %>.types';
+import { <%= names.propertyName %>Defaults } from "./<%= names.fileName %>.default";
+import { withDefaults } from "<%= sharedPath %>/defaults.feature";
+import { withListService } from "<%= sharedPath %>/list.feature";
+
+export const <%= storeNames.className %> = signalStore(
+    withDefaults({
+      extensionsIdentifier: `<%= names.className %>`,
+      defaults: <%= names.propertyName %>Defaults,
+    }),
+    withListService({
+      collection: '<%= names.propertyName %>',
+      list: <%= names.propertyName %>Proxy.list
+    }),
+    withHooks({
+        onInit() {
+            console.log('<%= storeNames.className %> initialized');
+        },
+    })
+);

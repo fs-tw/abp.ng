@@ -43,25 +43,10 @@ export function ensureTypes(
   // 如果檔案不存在，產生 type 檔
   if (!fileExists) {
     // 根據組件類型決定使用哪個範本
-    let typeTemplatePath: string;
-    switch (componentType) {
-      case 'select':
-        typeTemplatePath = joinPathFragments(
-          params.filesRoot,
-          'files/types/select'
-        );
-        break;
-      case 'entity':
-      case 'form':
-      case 'modal':
-        typeTemplatePath = joinPathFragments(
-          params.filesRoot,
-          'files/types/entity'
-        );
-        break;
-      default:
-        throw new Error(`未支援的元件類型: ${componentType}`);
-    }
+    let typeTemplatePath: string = joinPathFragments(
+      params.filesRoot,
+      `files/types/${componentType}`
+    );
 
     generateFiles(tree, typeTemplatePath, directory, {
       names: currentNames,

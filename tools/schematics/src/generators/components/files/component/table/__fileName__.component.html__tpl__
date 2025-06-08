@@ -1,0 +1,15 @@
+<abp-page [title]="'<%= featureNames.className %>::<%= names.className %>PageTitle' | abpLocalization" [toolbar]="<%= storeNames.propertyName %>.<%= names.propertyName %>Datas().items">
+
+  <div id="<%= propertyName %>-wrapper">
+    <abp-advanced-entity-filters localizationSourceName="<%= featureNames.className %>" [list]="<%= names.propertyName %>ListService">
+    </abp-advanced-entity-filters>
+
+    <div class="card">
+      <abp-extensible-table
+        [data]="<%= storeNames.propertyName %>.<%= names.propertyName %>Datas().items!"
+        [recordsTotal]="<%= storeNames.propertyName %>.<%= names.propertyName %>Datas().totalCount!"
+        [list]="<%= names.propertyName %>ListService"
+      ></abp-extensible-table>
+    </div>
+  </div>
+</abp-page>
