@@ -5,6 +5,15 @@ export function findEntityType(
   apiDefinition: ApiDefinition,
   entityType: string
 ) {
+  // 先嘗試完整名稱匹配
+  if (apiDefinition.types[entityType]) {
+    return {
+      name: entityType,
+      ...apiDefinition.types[entityType],
+    };
+  }
+
+  // 如果完整名稱找不到，則嘗試匹配最後一個部分
   const targets = Object.keys(apiDefinition.types).filter(
     (key) => key.split('.').pop() === entityType.split('.').pop()
   );

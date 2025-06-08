@@ -6,7 +6,7 @@
   "properties": {
     "componentType": {
       "type": "string",
-      "enum": ["entity", "form", "modal", "select"],
+      "enum": ["entity", "form", "modal", "select", "table"],
       "default": "entity",
       "description": ""
     },

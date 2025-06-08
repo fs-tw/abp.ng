@@ -1,0 +1,54 @@
+import { Validators } from '@angular/forms';
+import {
+  EntityProp,
+  ePropType,
+  FormProp,
+  EntityAction,
+  ToolbarAction
+} from '@abp/ng.components/extensible';
+import { R } from './<%= names.fileName %>.types';
+
+const resourceName = '<%= featureNames.className %>';
+
+export const ENTITY_ACTIONS = EntityAction.createMany<R>([
+  {
+    text: 'AbpUi::Edit',
+    action: data => {
+    },
+    permission: '',
+  },
+  {
+    text: 'AbpUi::Delete',
+    action: data => {
+    },
+    permission: '',
+  },
+]);
+
+export const TOOLBAR_ACTIONS = ToolbarAction.createMany<R[]>([
+  {
+    text: 'AbpUi::AddNew',
+    action: (data) => {
+    },
+    permission: '',
+    icon: 'fa fa-plus',
+  },
+]);
+
+export const ENTITY_PROPS = EntityProp.createMany<R>([
+  {
+    type: ePropType.String,
+    name: 'id',
+    displayName: '',
+    sortable: false,
+    columnVisible: () => false,
+  },
+]);
+
+export const <%= names.propertyName %>Defaults = {
+  entityActions: ENTITY_ACTIONS,
+  toolbarActions: TOOLBAR_ACTIONS,
+  entityProps: ENTITY_PROPS,
+  createFormProps: [],
+  editFormProps: []
+}

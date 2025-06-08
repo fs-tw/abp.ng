@@ -46,24 +46,10 @@ export function ensureStore(
   // 如果檔案不存在，產生 store 檔
   if (!fileExists) {
     // 根據組件類型決定使用哪個範本
-    let storeTemplatePath: string;
-    switch (componentType) {
-      case 'select':
-        storeTemplatePath = joinPathFragments(
-          params.filesRoot,
-          'files/store/select'
-        );
-        break;
-      case 'entity':
-        storeTemplatePath = joinPathFragments(
-          params.filesRoot,
-          'files/store/entity'
-        );
-        break;
-      default:
-        // 其他類型不需要 store
-        return false;
-    }
+    let storeTemplatePath: string = joinPathFragments(
+      params.filesRoot,
+      `files/store/${componentType}`
+    );
 
     generateFiles(tree, storeTemplatePath, directory, {
       names: currentNames,

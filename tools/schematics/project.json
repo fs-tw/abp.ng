@@ -43,6 +43,13 @@
       "options": {
         "jestConfig": "tools/schematics/jest.config.ts"
       }
+    },
+    "nx-release-publish": {
+      "executor": "@nx/js:release-publish",
+      "options": {
+        "buildTarget": "schematics:build",
+        "packageRoot": "dist/tools/schematics"
+      }
     }
   }
 }

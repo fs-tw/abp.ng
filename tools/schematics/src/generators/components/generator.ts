@@ -6,6 +6,7 @@ import {
   modalGenerator,
   selectGenerator,
 } from './lib';
+import tableGenerator from './lib/generator-table';
 
 export async function componentsGenerator(
   tree: Tree,
@@ -15,6 +16,9 @@ export async function componentsGenerator(
   switch (options.componentType) {
     case 'entity':
       await entityGenerator(tree, options, __dirname);
+      break;
+    case 'table':
+      await tableGenerator(tree, options, __dirname);
       break;
     case 'form':
       await formGenerator(tree, options, __dirname);

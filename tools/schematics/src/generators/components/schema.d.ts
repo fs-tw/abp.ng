@@ -1,4 +1,4 @@
-export type ComponentKind = 'entity' | 'form' | 'modal' | 'select';
+export type ComponentKind = 'entity' | 'form' | 'modal' | 'select' | 'table';
 
 export interface ComponentsGeneratorSchema {
   componentType: ComponentKind;

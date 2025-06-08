@@ -1,6 +1,6 @@
 {
   "name": "@fs-tw/schematics",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "type": "commonjs",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
