@@ -15,6 +15,7 @@ import {
 import { updateProjectConfigurationJson as appUpdateProjectConfigurationJson } from './lib/app/update-project-configuration-json';
 import { updateOverrideInLintConfig } from '@nx/eslint/src/generators/utils/eslint-file';
 import { addAppToPackageJson } from './lib/app/add-app-package-json';
+import { addAppCoreToPackageJson } from './lib/app-core/add-app-core-package-json';
 
 export async function applicationGenerator(
   tree: Tree,
@@ -41,7 +42,9 @@ export async function applicationGenerator(
 
   // 刪除預設生成的檔案
   tree.delete(joinPathFragments(appRoot, 'src/'));
-  tree.delete(joinPathFragments(appRoot, 'public/'));
+  if (options.template !== 'app-core') {
+    tree.delete(joinPathFragments(appRoot, 'public/'));
+  }
 
   // 生成自訂範本檔案
   generateFiles(
@@ -78,8 +81,9 @@ export async function applicationGenerator(
       addAppToPackageJson(tree);
       break;
 
-    case 'app-pro':
-      // TODO: 未來可能需要添加 pro 版本的處理邏輯
+    case 'app-core':
+      // 僅啟動 ABP core 和 OAuth 配置
+      addAppCoreToPackageJson(tree);
       break;
   }
 

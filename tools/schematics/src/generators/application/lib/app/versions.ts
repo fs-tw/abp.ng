@@ -1,5 +1,5 @@
-export const angularVersion = '~19.2.14';
-export const abpVersion = '~9.1.3';
-export const leptonXVersion = '~4.1.3';
+export const angularVersion = '~20.1.8';
+export const abpVersion = '~9.3.2';
+export const leptonXVersion = '~4.3.2';
 export const bootstrapIconsVersion = '~1.8.0';
-export const ngrxVersion = '~19.2.1';
+export const ngrxVersion = '~20.0.1';

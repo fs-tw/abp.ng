@@ -1,0 +1,35 @@
+<div class="max-w-4xl mx-auto p-4">
+  <h1 class="text-2xl font-bold mb-6">ABP 驗證測試</h1>
+
+  <!-- 狀態 -->
+  <div class="mb-6" *ngIf="{auth: authStatus$ | async, token: tokenStatus$ | async} as status">
+    <h2 class="text-lg font-semibold mb-4">狀態</h2>
+    <div class="space-y-2">
+      <div>認證: <span [class]="status.auth?.class">{{ status.auth?.text }}</span></div>
+      <div>Token: <span [class]="status.token?.class">{{ status.token?.text }}</span></div>
+    </div>
+  </div>
+
+  <!-- 用戶資訊 -->
+  <div class="mb-6" *ngIf="currentUser$ | async as user">
+    <h2 class="text-lg font-semibold mb-4">用戶資訊</h2>
+    <div class="space-y-2">
+      <div>用戶名: {{ user.userName || '無' }}</div>
+      <div>信箱: {{ user.email || '無' }}</div>
+    </div>
+  </div>
+
+  <!-- 操作按鈕 -->
+  <div class="space-y-4">
+    <button class="bg-blue-500 text-white px-4 py-2 rounded mr-2" (click)="refreshStatus()">
+      重新檢查
+    </button>
+    <button class="bg-green-500 text-white px-4 py-2 rounded mr-2" (click)="testOAuthChallenge()">
+      OAuth 登入
+    </button>
+    <button class="bg-red-500 text-white px-4 py-2 rounded mr-2" (click)="logout()" 
+            *ngIf="(authStatus$ | async)?.class === 'status-success'">
+      登出
+    </button>
+  </div>
+</div>

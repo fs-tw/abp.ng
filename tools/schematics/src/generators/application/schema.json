@@ -15,7 +15,7 @@
     },
     "template": {
       "type": "string",
-      "enum": ["app"],
+      "enum": ["app", "app-core"],
       "description": "",
       "default": "app",
       "x-prompt": "What abp template do you use?"

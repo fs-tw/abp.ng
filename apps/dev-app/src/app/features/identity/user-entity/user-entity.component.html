@@ -1,0 +1,64 @@
+<abp-page
+  [title]="'Identity::UserEntityPageTitle' | abpLocalization"
+  [toolbar]="userEntityStore.userEntityDatas().items"
+>
+  <div id="userEntity-wrapper">
+    <abp-advanced-entity-filters
+      localizationSourceName="Identity"
+      [list]="userEntityListService"
+    >
+    </abp-advanced-entity-filters>
+
+    <div class="card">
+      <abp-extensible-table
+        [data]="userEntityStore.userEntityDatas().items!"
+        [recordsTotal]="userEntityStore.userEntityDatas().totalCount!"
+        [list]="userEntityListService"
+      ></abp-extensible-table>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal
+  [(visible)]="userEntityStore.userEntityEditModal().visible"
+  [busy]="userEntityStore.userEntityEditModal().busy"
+>
+  <ng-template #abpHeader>
+    <h3>
+      {{
+        userEntityStore.userEntityEditModal().selected?.id
+          ? ('AbpUi::Edit' | abpLocalization)
+          : ('AbpUi::AddNew' | abpLocalization)
+      }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form
+      [formGroup]="userEntityStore.userEntityForm()"
+      id="userEntityForm"
+      (ngSubmit)="
+        userEntityStore.saveUserEntityEditModal(
+          userEntityStore.userEntityForm()
+        )
+      "
+      [validateOnSubmit]="true"
+    >
+      <abp-extensible-form
+        [selectedRecord]="userEntityStore.userEntityEditModal().selected"
+      ></abp-extensible-form>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+    <abp-button
+      iconClass="fa fa-check"
+      buttonType="submit"
+      formName="userEntityForm"
+      >{{ 'AbpUi::Save' | abpLocalization }}</abp-button
+    >
+  </ng-template>
+</abp-modal>

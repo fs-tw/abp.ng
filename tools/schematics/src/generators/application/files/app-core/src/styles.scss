@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// SCSS 變數
+$bg-color: #f5f5f5;
+$primary-color: #333;
+$font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+$line-height: 1.6;
+$container-max-width: 1200px;
+$border-radius-lg: 0.5rem;
+
+// 基本樣式
+body {
+  background-color: $bg-color;
+  margin: 0;
+  font-family: $font-stack;
+  line-height: $line-height;
+  color: $primary-color;
+}
+
+// 基本工具類別
+.container {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.shadow {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.rounded-lg {
+  border-radius: $border-radius-lg;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+// 文字大小相關
+.text {
+  &-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+  
+  &-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+  
+  &-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+}
+
+// 字體權重
+.font {
+  &-bold {
+    font-weight: 700;
+  }
+  
+  &-semibold {
+    font-weight: 600;
+  }
+}
+
+// 間距相關
+.mb {
+  &-6 {
+    margin-bottom: 1.5rem;
+  }
+  
+  &-4 {
+    margin-bottom: 1rem;
+  }
+  
+  &-8 {
+    margin-bottom: 2rem;
+  }
+}
+
+.p {
+  &-6 {
+    padding: 1.5rem;
+  }
+}
+
+.px {
+  &-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+.py {
+  &-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+.space-y-2 > * + * {
+  margin-top: 0.5rem;
+}
+
+// 清單樣式
+.list {
+  &-disc {
+    list-style-type: disc;
+  }
+  
+  &-inside {
+    list-style-position: inside;
+  }
+}

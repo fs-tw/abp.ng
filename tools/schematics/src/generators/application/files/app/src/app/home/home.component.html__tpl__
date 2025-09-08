@@ -6,8 +6,7 @@
           @if(!hasLoggedIn){
           <h3>Welcome</h3>
           <p class="lead text-muted mb-2">
-            Welcome to the application. This is a startup project based on the ABP framework. For
-            more information visit abp.io.
+            {{ '::LongWelcomeMessage' | abpLocalization }}
           </p>
           <a (click)="login()" class="px-4 btn btn-primary mb-4" role="button"
             ><i class="fa fa-sign-in"></i> {{ 'AbpAccount::Login' | abpLocalization }}</a
@@ -22,7 +21,7 @@
                 $implicit: {
                   description:
                     'Learn how to create and run a new web application using the application startup template.',
-                  href: 'https://docs.abp.io/en/abp/latest/Getting-Started-Overall',
+                  href: 'https://abp.io/docs/latest/get-started',
                   label: 'Getting Started'
                 }
               }
@@ -37,7 +36,7 @@
                 $implicit: {
                   description:
                     'Learn how to build an ABP based web application named Acme.BookStore.',
-                  href: 'https://docs.abp.io/en/abp/latest/Tutorials/Part-1?UI=NG&DB=EF',
+                  href: 'https://abp.io/docs/latest/tutorials/book-store/part-01?UI=NG&DB=EF',
                   label: 'Explore Tutorial'
                 }
               }
@@ -47,7 +46,7 @@
           <h4>Customize Lepton Theme</h4>
           <p class="text-muted mb-2">Learn how to customize LeptonX Theme as you wish.</p>
           <a
-            href="https://docs.abp.io/en/abp/latest/UI/Angular/Theming"
+            href="https://abp.io/docs/latest/framework/ui/angular/theming"
             class="btn btn-primary soft mb-5 mb-xl-0"
             target="_blank"
             >Customize Lepton</a
@@ -68,7 +67,7 @@
               label: 'Visit Support',
               description:
                 'You can check for similar problems and solutions, or open a new topic to discuss your specific issue.',
-              href: 'https://support.abp.io/QA/Questions',
+              href: 'https://abp.io/support/questions',
               card: 'card overflow-hidden',
               imgClass: '',
               imgSrc: 'assets/images/getting-started/img-support.png',
@@ -85,7 +84,7 @@
               label: 'Visit Blog',
               description:
                 'You can find content on .NET development, cross-platform, ASP.NET application templates, ABP-related news, and more.',
-              href: 'https://blog.abp.io/abp',
+              href: 'https://abp.io/blog',
               card: 'card h-md-100 overflow-hidden',
               imgClass: 'margin-bottom: -24px',
               imgSrc: 'assets/images/getting-started/img-blog.png',
@@ -108,7 +107,7 @@
           Explore all ABP users' experiences with the ABP Framework, discover articles and videos on
           how to use ABP, and join raffles for a chance to win surprise gifts!
         </p>
-        <a class="btn btn-brand soft mb-3" href="https://community.abp.io/" target="_blank"
+        <a class="btn btn-brand soft mb-3" href="https://abp.io/community/" target="_blank"
           >Join ABP Community</a
         >
       </div>
@@ -146,7 +145,7 @@
               icon: 'bi bi-check fs-4',
               iconClass: 'rounded-circle me-2 flex-center bg-brand soft',
               title: 'Samples',
-              link: 'https://docs.abp.io/en/abp/latest/Samples/Index',
+              link: 'https://abp.io/docs/latest/Samples/Index',
             },
             {
               iconType: 'icon',
@@ -162,7 +161,7 @@
               icon: 'bi bi-check fs-4',
               iconClass: 'rounded-circle me-2 flex-center bg-brand soft',
               title: 'FAQ',
-              link: 'https://commercial.abp.io/faq',
+              link: 'https://abp.io/faq',
             },
           ]
         }
@@ -220,7 +219,7 @@
               iconType: 'image',
               icon: 'assets/images/getting-started/discord.svg',
               title: 'Discord',
-              link: 'https://community.abp.io/discord'
+              link: 'https://abp.io/community/discord'
             },
             {
               iconType: 'image',

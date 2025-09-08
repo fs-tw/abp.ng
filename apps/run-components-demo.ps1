@@ -5,7 +5,7 @@ npx nx generate @fs-tw/schematics:components `
     --name=identity/user-entity `
     --project=dev-app `
     --directory=features `
-    --url=https://localhost:44300/api/abp/api-definition?IncludeTypes=true `
+    --url=https://localhost:44305/api/abp/api-definition?IncludeTypes=true `
     --entityServiceType=IdentityUserService `
     --entityType=IdentityUserDto `
     --listInputType=GetIdentityUsersInput `
