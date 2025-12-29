@@ -4,7 +4,7 @@ import { filter, mergeMap, tap } from 'rxjs';
 import { signalStoreFeature, withMethods } from "@ngrx/signals";
 import { e<%= names.className %>Names, <%= names.propertyName %>Proxy, R } from './<%= names.fileName %>.types';
 import { <%= names.propertyName %>Defaults } from "./<%= names.fileName %>.default";
-import { withDefaults, withListService, withEditModal } from '@fs-tw/ng.shared';
+import { withDefaults, withListService, withEditModal } from '@fs-tw/ng.shared/features';
 
 export function with<%= names.className %>() {
   return signalStoreFeature(

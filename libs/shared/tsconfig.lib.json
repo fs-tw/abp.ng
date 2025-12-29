@@ -3,11 +3,10 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "declaration": true,
-    "types": ["node"]
+    "declarationMap": true,
+    "inlineSources": true,
+    "types": []
   },
-  "include": [
-    "src/**/*.ts",
-    "features/src/**/*.ts",
-    "components/src/**/*.ts"
-  ]
+  "exclude": ["**/*.spec.ts", "jest.config.ts", "**/*.test.ts"],
+  "include": ["**/*.ts"]
 }

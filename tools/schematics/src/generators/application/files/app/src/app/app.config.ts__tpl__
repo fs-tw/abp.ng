@@ -19,7 +19,7 @@ import { provideSideMenuLayout } from '@abp/ng.theme.lepton-x/layouts';
 import { provideLogo, withEnvironmentOptions } from '@volo/ngx-lepton-x.core';
 
 // ng-zorro configuration (includes i18n, icons, locale)
-import { NG_ZORRO_PROVIDERS } from '@fs-tw/ng.shared';
+import { NG_ZORRO_PROVIDERS } from '@fs-tw/ng.shared/components';
 
 export const appConfig: ApplicationConfig = {
   providers: [

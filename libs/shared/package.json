@@ -1,23 +1,6 @@
 {
   "name": "@fs-tw/ng.shared",
-  "version": "3.0.0",
-  "type": "commonjs",
-  "main": "./src/index.js",
-  "types": "./src/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./src/index.d.ts",
-      "default": "./src/index.js"
-    },
-    "./features": {
-      "types": "./features/src/index.d.ts",
-      "default": "./features/src/index.js"
-    },
-    "./components": {
-      "types": "./components/src/index.d.ts",
-      "default": "./components/src/index.js"
-    }
-  },
+  "version": "3.0.1",
   "peerDependencies": {
     "@abp/ng.core": "~10.0.1",
     "@abp/ng.components": "~10.0.1",

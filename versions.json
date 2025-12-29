@@ -3,16 +3,16 @@
   "organization": "@fs-tw",
   "packages": {
     "shared": {
-      "version": "3.0.0",
-      "enabled": true,
+      "version": "3.0.1",
+      "enabled": false,
       "path": "libs/shared",
       "distPath": "dist/libs/shared",
       "buildTarget": "shared:build",
       "packageName": "@fs-tw/ng.shared"
     },
     "schematics": {
-      "version": "3.0.0",
-      "enabled": true,
+      "version": "3.0.1",
+      "enabled": false,
       "path": "tools/schematics",
       "distPath": "dist/tools/schematics",
       "buildTarget": "schematics:build",

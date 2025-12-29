@@ -1,6 +1,6 @@
 import { signalStore, withHooks } from "@ngrx/signals";
 import { <%= names.propertyName %>Proxy } from "./<%= names.fileName %>.types";
-import { withSelected, withListService, withSelect } from '@fs-tw/ng.shared';
+import { withSelected, withListService, withSelect } from '@fs-tw/ng.shared/features';
 
 export const <%= storeNames.className %> = signalStore(
     withListService({

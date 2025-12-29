@@ -24,8 +24,8 @@ import {
   withInfiniteScroll,
   withSelected,
   withEditModal,
-  createListItemConfig,
-} from '@fs-tw/ng.shared';
+} from '@fs-tw/ng.shared/features';
+import { createListItemConfig } from '@fs-tw/ng.shared/components';
 import {
   I,
   R,

@@ -38,8 +38,8 @@ import {
   DetailTabsetComponent,
   DetailTabComponent,<% } %><% if (detailType === 'extensible-form') { %>
   NzExtensibleFormComponent,<% } %>
-  DetailHeaderConfig,
-} from '@fs-tw/ng.shared';
+  type DetailHeaderConfig,
+} from '@fs-tw/ng.shared/components';
 
 import { e<%= names.className %>Names, R } from './<%= names.fileName %>.types';
 import { <%= storeNames.className %> } from './<%= storeNames.fileName %>';
