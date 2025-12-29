@@ -1,0 +1,138 @@
+<abp-page [title]="'<%= featureNames.className %>::<%= names.className %>PageTitle' | abpLocalization">
+  <fs-split-view
+    [dataSource]="dataSource"
+    [selectedId]="store.<%= names.propertyName %>Selected().id"
+    [searchText]="searchText()"
+    [loading]="loading"
+    [dataSourceLength]="dataSourceLength"
+    [listItemConfig]="store.<%= names.propertyName %>ListItemConfig()"
+    [detailHeaderConfig]="detailHeaderConfig"
+    [selectedItem]="store.<%= names.propertyName %>Selected().entity"
+    [hasFilter]="false"
+    [noSelectionText]="'<%= featureNames.className %>::Select<%= names.className %>ToView' | abpLocalization"
+    (itemSelect)="onItemSelect($event)"
+    (searchChange)="onSearchChange($event)"
+  >
+    <!-- Filter (optional) -->
+    <!--
+    <ng-template fsSplitViewFilter>
+      <div class="filter-content">
+        <div class="filter-header">
+          <span>{{ '<%= featureNames.className %>::FilterBy' | abpLocalization }}</span>
+        </div>
+        // TODO: Add filter controls here
+        <div class="filter-actions">
+          <button nz-button nzType="primary" nzSize="small" (click)="applyFilter()">
+            {{ 'AbpUi::Search' | abpLocalization }}
+          </button>
+          <button nz-button nzSize="small" (click)="clearFilter()">
+            {{ 'AbpUi::Clear' | abpLocalization }}
+          </button>
+        </div>
+      </div>
+    </ng-template>
+    -->
+
+    <!-- Actions Button -->
+    <button fsSplitViewActions nz-button nzType="primary" nzBlock (click)="openCreateModal()">
+      {{ '<%= featureNames.className %>::AddNew' | abpLocalization }}
+    </button>
+
+    <!-- Detail Area -->
+    <div fsSplitViewDetail><% if (detailType === 'tabset') { %>
+      <fs-detail-tabset (tabChange)="onTabChange($event)">
+        <!-- Tab 1: Basic Info -->
+        <fs-detail-tab
+          title="<%= featureNames.className %>::BasicInfo"
+          [isDirty]="store.tab1IsDirty"
+          [saving]="store.isDetailSaving"
+          [loading]="store.isDetailLoading"
+          (save)="saveDetail()"
+        >
+          <!-- TODO: Add your form component here -->
+          <p>Basic info content</p>
+        </fs-detail-tab>
+
+        <!-- Tab 2: Additional Info (optional) -->
+        <!--
+        <fs-detail-tab
+          title="<%= featureNames.className %>::AdditionalInfo"
+          [isDirty]="store.tab2IsDirty"
+          [saving]="store.tab2Saving"
+          [loading]="store.tab2Loading"
+          (save)="saveTab2()"
+        >
+          <p>Additional info content</p>
+        </fs-detail-tab>
+        -->
+      </fs-detail-tabset><% } else if (detailType === 'simple') { %>
+      <!-- Simple Layout: Header + Content -->
+      <div class="detail-header">
+        <h4 class="detail-title">{{ '<%= featureNames.className %>::<%= names.className %>Settings' | abpLocalization }}</h4>
+        <div class="detail-actions">
+          <button
+            nz-button
+            nzType="primary"
+            nzSize="small"
+            [nzLoading]="store.isDetailSaving()"
+            (click)="saveDetail()"
+          >
+            <span nz-icon nzType="save"></span>
+            {{ 'AbpUi::Save' | abpLocalization }}
+          </button>
+        </div>
+      </div>
+
+      <div class="detail-content">
+        <nz-spin [nzSpinning]="store.isDetailLoading()">
+          <!-- TODO: Add your form component here -->
+          <p>Detail content</p>
+        </nz-spin>
+      </div><% } else { %>
+      <fs-detail-tabset (tabChange)="onTabChange($event)">
+        <!-- Tab 1: Basic Info with Extensible Form -->
+        <fs-detail-tab
+          title="<%= featureNames.className %>::BasicInfo"
+          [isDirty]="store.tab1IsDirty"
+          [saving]="store.isDetailSaving"
+          [loading]="store.isDetailLoading"
+          (save)="saveDetail()"
+        >
+          <nz-spin [nzSpinning]="store.isDetailLoading()">
+            @if (detailForm(); as form) {
+              <form [formGroup]="form">
+                <fs-extensible-form
+                  [selectedRecord]="store.<%= names.propertyName %>Selected().entity"
+                ></fs-extensible-form>
+              </form>
+            }
+          </nz-spin>
+        </fs-detail-tab>
+      </fs-detail-tabset><% } %>
+    </div>
+  </fs-split-view>
+</abp-page>
+
+<!-- Create Modal -->
+<nz-modal
+  [nzVisible]="store.<%= names.propertyName %>EditModal().visible"
+  [nzTitle]="'<%= featureNames.className %>::AddNew' | abpLocalization"
+  [nzOkText]="'AbpUi::Save' | abpLocalization"
+  [nzCancelText]="'AbpUi::Cancel' | abpLocalization"
+  [nzOkLoading]="store.<%= names.propertyName %>EditModal().busy"
+  (nzOnOk)="saveCreateModal()"
+  (nzOnCancel)="closeCreateModal()"
+  [nzWidth]="600"
+>
+  <ng-container *nzModalContent>
+    <nz-spin [nzSpinning]="store.<%= names.propertyName %>EditModal().busy"><% if (detailType === 'extensible-form') { %>
+      <form [formGroup]="store.<%= names.propertyName %>Form()">
+        <fs-extensible-form
+          [selectedRecord]="store.<%= names.propertyName %>EditModal().selected"
+        ></fs-extensible-form>
+      </form><% } else { %>
+      <!-- TODO: Add your form component here -->
+      <p>Create form content</p><% } %>
+    </nz-spin>
+  </ng-container>
+</nz-modal>

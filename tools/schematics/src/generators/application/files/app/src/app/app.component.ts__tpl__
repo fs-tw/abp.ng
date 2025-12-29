@@ -1,14 +1,36 @@
-import { Component } from '@angular/core';
-import { InternetConnectionStatusComponent, LoaderBarComponent } from '@abp/ng.theme.shared';
-import { DynamicLayoutComponent } from '@abp/ng.core';
+import {
+  DynamicLayoutComponent,
+  ReplaceableComponentsService,
+} from '@abp/ng.core';
+import {
+  InternetConnectionStatusComponent,
+  LoaderBarComponent,
+} from '@abp/ng.theme.shared';
+import { Component, inject } from '@angular/core';
+import { NavbarRoutesComponent } from '@fs-tw/ng.shared/components';
+import { eThemeLeptonXComponents } from '@abp/ng.theme.lepton-x';
 
 @Component({
+  standalone: true,
+  imports: [
+    LoaderBarComponent,
+    DynamicLayoutComponent,
+    InternetConnectionStatusComponent,
+  ],
   selector: 'app-root',
   template: `
     <abp-loader-bar />
     <abp-dynamic-layout />
     <abp-internet-status />
   `,
-  imports: [LoaderBarComponent, DynamicLayoutComponent, InternetConnectionStatusComponent],
 })
-export class AppComponent {}
+export class AppComponent {
+  private replaceableComponents = inject(ReplaceableComponentsService);
+
+  constructor() {
+    this.replaceableComponents.add({
+      component: NavbarRoutesComponent,
+      key: eThemeLeptonXComponents.Routes,
+    });
+  }
+}

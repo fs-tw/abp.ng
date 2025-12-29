@@ -55,3 +55,10 @@ export {
   DetailTabsetComponent,
   type BooleanGetter
 } from './detail-tabset';
+
+// Navbar Routes (requires @volo/ngx-lepton-x.core)
+export {
+  NavbarRoutesComponent,
+  type NavbarItemsType,
+  type NavbarGroupItemsType
+} from './navbar/navbar-routes.component';

@@ -6,7 +6,7 @@ import {
 } from '@abp/ng.theme.shared';
 import { Component, inject } from '@angular/core';
 import { ExtensibleModule } from '@abp/ng.components/extensible';
-import { ExtensionsIdentifierDirective, ExtensionsIdentifierRenderDirective } from '<%= sharedPath %>/extensions-identifier.directive';
+import { ExtensionsIdentifierDirective, ExtensionsIdentifierRenderDirective } from '@fs-tw/ng.shared';
 
 @Component({
   selector: '<%= selector %>',

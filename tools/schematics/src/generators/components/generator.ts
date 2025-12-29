@@ -5,6 +5,7 @@ import {
   formGenerator,
   modalGenerator,
   selectGenerator,
+  splitViewGenerator,
 } from './lib';
 import tableGenerator from './lib/generator-table';
 
@@ -28,6 +29,9 @@ export async function componentsGenerator(
       break;
     case 'select':
       await selectGenerator(tree, options, __dirname);
+      break;
+    case 'split-view':
+      await splitViewGenerator(tree, options, __dirname);
       break;
     default:
       throw new Error(`未支援的元件類型: ${options.componentType}`);

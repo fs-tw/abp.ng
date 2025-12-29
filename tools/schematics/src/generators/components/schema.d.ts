@@ -1,4 +1,6 @@
-export type ComponentKind = 'entity' | 'form' | 'modal' | 'select' | 'table';
+export type ComponentKind = 'entity' | 'form' | 'modal' | 'select' | 'table' | 'split-view';
+
+export type DetailType = 'tabset' | 'simple' | 'extensible-form';
 
 export interface ComponentsGeneratorSchema {
   componentType: ComponentKind;
@@ -13,4 +15,6 @@ export interface ComponentsGeneratorSchema {
   // CRUD 相關選項
   entityServiceType?: string;
   listInputType?: string;
+  // Split-view 相關選項
+  detailType?: DetailType;
 }

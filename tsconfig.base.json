@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@fs-tw/ng.shared": ["libs/shared/src/index.ts"],
+      "@fs-tw/ng.shared/components": ["libs/shared/components/src/index.ts"],
+      "@fs-tw/ng.shared/features": ["libs/shared/features/src/index.ts"],
       "@fs-tw/schematics": ["tools/schematics/src/index.ts"]
     }
   },
