@@ -1,0 +1,22 @@
+{
+  "registry": "https://npm.pkg.github.com",
+  "organization": "@fs-tw",
+  "packages": {
+    "shared": {
+      "version": "3.0.0",
+      "enabled": true,
+      "path": "libs/shared",
+      "distPath": "dist/libs/shared",
+      "buildTarget": "shared:build",
+      "packageName": "@fs-tw/ng.shared"
+    },
+    "schematics": {
+      "version": "3.0.0",
+      "enabled": true,
+      "path": "tools/schematics",
+      "distPath": "dist/tools/schematics",
+      "buildTarget": "schematics:build",
+      "packageName": "@fs-tw/schematics"
+    }
+  }
+}
