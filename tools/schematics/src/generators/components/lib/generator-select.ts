@@ -1,6 +1,6 @@
 import { formatFiles, Tree } from '@nx/devkit';
 import { ComponentsGeneratorSchema } from '../schema';
-import { ensureTypes, ensureDefault, ensureStore, ensureFeature } from '.';
+import { ensureTypes, ensureStore } from '.';
 import { ensureComponent } from './ensure-component';
 
 export async function selectGenerator(
@@ -8,14 +8,6 @@ export async function selectGenerator(
   options: ComponentsGeneratorSchema,
   filesRoot: string
 ) {
-  // 產生 feature 檔案（如果需要）
-  const wasFeatureCreated = ensureFeature(tree, {
-    directory: options.directory,
-    name: options.name,
-    project: options.project,
-    filesRoot,
-  });
-
   // 產生 types 檔案 - 使用 ComponentKind 參數
   const wasTypesCreated = ensureTypes(
     tree,
@@ -58,10 +50,6 @@ export async function selectGenerator(
   );
 
   // 顯示生成結果
-  if (wasFeatureCreated) {
-    console.log('已創建新的 feature 檔案');
-  }
-
   if (wasTypesCreated) {
     console.log('已創建新的 types 檔案');
   }

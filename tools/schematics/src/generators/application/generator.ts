@@ -5,6 +5,8 @@ import {
   Tree,
   GeneratorCallback,
   installPackagesTask,
+  readJson,
+  writeJson,
 } from '@nx/devkit';
 import { ApplicationGeneratorSchema } from './schema';
 import {
@@ -36,7 +38,7 @@ export async function applicationGenerator(
     style: 'scss', // 使用 SCSS 樣式
     prefix: 'app', // 使用 'app' 前綴
     routing: true, // 啟用路由
-    strict: true, // 啟用嚴格模式
+    strict: false, // 停用嚴格模式
     tags: '', // 標籤
   });
 
@@ -58,6 +60,22 @@ export async function applicationGenerator(
       tpl: '',
     }
   );
+
+  // 修改 tsconfig.json，設定 isolatedModules: false, strict: false
+  const tsconfigPath = joinPathFragments(appRoot, 'tsconfig.json');
+  if (tree.exists(tsconfigPath)) {
+    const tsconfig = readJson(tree, tsconfigPath);
+    if (tsconfig.compilerOptions) {
+      tsconfig.compilerOptions.isolatedModules = false;
+      tsconfig.compilerOptions.strict = false;
+    }
+    // 設定 Angular 編譯器選項
+    if (!tsconfig.angularCompilerOptions) {
+      tsconfig.angularCompilerOptions = {};
+    }
+    tsconfig.angularCompilerOptions.strictTemplates = false;
+    writeJson(tree, tsconfigPath, tsconfig);
+  }
 
   switch (options.template) {
     case 'app':

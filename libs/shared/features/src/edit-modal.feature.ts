@@ -198,9 +198,9 @@ export function withEditModal<E, U, C, Collection extends string>(options: {
                   return (
                     id
                       ? update(id, {
-                        ...store[editModalKey]().selected,
-                        ...form.value,
-                      })
+                          ...store[editModalKey]().selected,
+                          ...form.value,
+                        })
                       : create(form.value)
                   ).pipe(
                     tapResponse({
@@ -237,9 +237,9 @@ export function withEditModal<E, U, C, Collection extends string>(options: {
         id === null
           ? injector
           : Injector.create({
-            providers: [{ provide: EXTENSIONS_IDENTIFIER, useValue: id }],
-            parent: injector,
-          });
+              providers: [{ provide: EXTENSIONS_IDENTIFIER, useValue: id }],
+              parent: injector,
+            });
       return {
         [formKey]: computed(() => {
           const form = generateFormFromProps(

@@ -1,0 +1,191 @@
+import {
+  computed,
+  inject,
+  Injector,
+  runInInjectionContext,
+} from '@angular/core';
+import {
+  Confirmation,
+  ConfirmationService,
+  ToasterService,
+} from '@abp/ng.theme.shared';
+import { filter, finalize, mergeMap, tap } from 'rxjs';
+import {
+  patchState,
+  signalStore,
+  withComputed,
+  withHooks,
+  withMethods,
+  withState,
+} from '@ngrx/signals';
+
+import {
+  withDefaults,
+  withInfiniteScroll,
+  withSelected,
+  withEditModal,
+} from '@fs-tw/ng.shared/features';
+import { createListItemConfig } from '@fs-tw/ng.shared/components';
+import {
+  I,
+  R,
+  C,
+  U,
+  e<%= names.className %>Names,
+  <%= names.propertyName %>Proxy,
+} from './<%= fileName %>.types';
+import { <%= names.propertyName %>Defaults } from './<%= fileName %>.default';
+
+// ===== List Item Config =====
+export const <%= names.propertyName %>ListItemConfig = createListItemConfig<R>({
+  title: (item) => item.id || '', // TODO: Replace with actual title field
+  // subtitle: (item) => '',
+  // badge: (item) => null,
+});
+
+// ===== Extra State =====
+interface <%= names.className %>ExtraState {
+  isDetailSaving: boolean;
+  tab1IsDirty: boolean;
+}
+
+// ===== Store Definition =====
+export const <%= storeNames.className %> = signalStore(
+  // 1. Register ABP Extensions (formProps)
+  withDefaults({
+    extensionsIdentifier: e<%= names.className %>Names.<%= names.className %>,
+    defaults: <%= names.propertyName %>Defaults,
+  }),
+
+  // 2. Infinite Scroll (use proxy for API calls)
+  withInfiniteScroll<R, I, '<%= names.propertyName %>'>({
+    collection: '<%= names.propertyName %>',
+    pageSize: 20,
+    list: <%= names.propertyName %>Proxy.list,
+  }),
+
+  // 3. Detail Selected State (independent from Modal)
+  withSelected<R, '<%= names.propertyName %>'>({
+    collection: '<%= names.propertyName %>',
+    get: <%= names.propertyName %>Proxy.get,
+  }),
+
+  // 4. Create Modal (use withEditModal, for create only)
+  withEditModal<R, U, C, '<%= names.propertyName %>'>({
+    collection: '<%= names.propertyName %>',
+    get: <%= names.propertyName %>Proxy.get,
+    update: <%= names.propertyName %>Proxy.update,
+    create: <%= names.propertyName %>Proxy.create,
+  }),
+
+  // 5. Extra State
+  withState<<%= names.className %>ExtraState>({
+    isDetailSaving: false,
+    tab1IsDirty: false,
+  }),
+
+  // 6. Computed
+  withComputed((store) => ({
+    // List item config
+    <%= names.propertyName %>ListItemConfig: computed(() => <%= names.propertyName %>ListItemConfig),
+
+    // Detail loading state
+    isDetailLoading: computed(() => {
+      const selected = store['<%= names.propertyName %>Selected']();
+      return (
+        selected.id !== null && selected.id !== '' && selected.entity === null
+      );
+    }),
+  })),
+
+  // 7. Methods
+  withMethods(
+    (
+      store,
+      confirmationService = inject(ConfirmationService),
+      toaster = inject(ToasterService),
+      injector = inject(Injector)
+    ) => ({
+      // Create/Edit (Modal)
+      save<%= names.className %>: (formValue: C) => {
+        const selectedId = store.<%= names.propertyName %>EditModal().selectedId;
+        store.update<%= names.className %>EditModal({ busy: true });
+
+        const request$ = selectedId
+          ? runInInjectionContext(injector, () =>
+              <%= names.propertyName %>Proxy.update(selectedId, formValue as U)
+            )
+          : runInInjectionContext(injector, () =>
+              <%= names.propertyName %>Proxy.create(formValue)
+            );
+
+        request$
+          .pipe(finalize(() => store.update<%= names.className %>EditModal({ busy: false })))
+          .subscribe({
+            next: () => {
+              store.update<%= names.className %>EditModal({ visible: false });
+              store.reset<%= names.className %>DataSource();
+              toaster.success(selectedId ? '::SaveSuccess' : '::CreateSuccess');
+            },
+            error: () => toaster.error(selectedId ? '::SaveFailed' : '::CreateFailed'),
+          });
+      },
+
+      // Save Detail (right panel)
+      saveDetail: (formValue: U) => {
+        const id = store.<%= names.propertyName %>Selected().id;
+        if (!id) return;
+
+        patchState(store, { isDetailSaving: true });
+
+        runInInjectionContext(injector, () => <%= names.propertyName %>Proxy.update(id, formValue))
+          .pipe(finalize(() => patchState(store, { isDetailSaving: false })))
+          .subscribe({
+            next: (updated) => {
+              store.update<%= names.className %>Selected({ entity: updated });
+              store.reset<%= names.className %>DataSource();
+              patchState(store, { tab1IsDirty: false });
+              toaster.success('::SaveSuccess');
+            },
+            error: () => toaster.error('::SaveFailed'),
+          });
+      },
+
+      // Mark Tab 1 as dirty
+      setTab1Dirty: () => {
+        patchState(store, { tab1IsDirty: true });
+      },
+
+      // Delete entity
+      delete<%= names.className %>: (entity: R) => {
+        confirmationService
+          .warn('AbpUi::ItemWillBeDeletedMessage', 'AbpUi::AreYouSure')
+          .pipe(
+            filter((status) => status === Confirmation.Status.confirm),
+            mergeMap(() =>
+              runInInjectionContext(injector, () =>
+                <%= names.propertyName %>Proxy.delete(entity.id || '')
+              )
+            ),
+            tap(() => {
+              if (store.<%= names.propertyName %>Selected().id === entity.id) {
+                store.update<%= names.className %>Selected({ id: null, entity: null });
+              }
+              store.reset<%= names.className %>DataSource();
+              toaster.success('::DeleteSuccess');
+            })
+          )
+          .subscribe({
+            error: () => toaster.error('::DeleteFailed'),
+          });
+      },
+    })
+  ),
+
+  // 8. Lifecycle
+  withHooks({
+    onInit(store) {
+      console.log('<%= storeNames.className %> initialized');
+    },
+  })
+);

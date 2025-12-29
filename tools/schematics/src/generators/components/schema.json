@@ -6,7 +6,7 @@
   "properties": {
     "componentType": {
       "type": "string",
-      "enum": ["entity", "form", "modal", "select", "table"],
+      "enum": ["entity", "form", "modal", "select", "table", "split-view"],
       "default": "entity",
       "description": ""
     },
@@ -67,6 +67,13 @@
     "listInputType": {
       "type": "string",
       "description": "The input type for list operations.",
+      "x-priority": "important"
+    },
+    "detailType": {
+      "type": "string",
+      "enum": ["tabset", "simple", "extensible-form"],
+      "default": "tabset",
+      "description": "The detail panel type for split-view component. 'tabset' for multi-tab layout, 'simple' for single content, 'extensible-form' for ABP extensible form.",
       "x-priority": "important"
     }
   },

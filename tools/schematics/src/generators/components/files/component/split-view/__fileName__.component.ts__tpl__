@@ -1,0 +1,202 @@
+import {
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  Injector,
+  OnDestroy,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CommonModule } from '@angular/common';
+import { FormsModule<% if (detailType === 'extensible-form') { %>, ReactiveFormsModule<% } %> } from '@angular/forms';<% if (detailType === 'extensible-form') { %>
+import { UntypedFormGroup } from '@angular/forms';<% } %>
+import { CoreModule } from '@abp/ng.core';
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
+import { PageModule } from '@abp/ng.components/page';
+import {
+  EXTENSIONS_IDENTIFIER,
+  ExtensibleModule,<% if (detailType === 'extensible-form') { %>
+  generateFormFromProps,
+  FormPropData,<% } %>
+} from '@abp/ng.components/extensible';
+
+// ng-zorro
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+
+// Split View
+import {
+  SplitViewComponent,
+  SplitViewDetailDirective,
+  SplitViewActionsDirective,
+  SplitViewFilterDirective,<% if (detailType === 'tabset' || detailType === 'extensible-form') { %>
+  DetailTabsetComponent,
+  DetailTabComponent,<% } %><% if (detailType === 'extensible-form') { %>
+  NzExtensibleFormComponent,<% } %>
+  type DetailHeaderConfig,
+} from '@fs-tw/ng.shared/components';
+
+import { e<%= names.className %>Names, R } from './<%= names.fileName %>.types';
+import { <%= storeNames.className %> } from './<%= storeNames.fileName %>';
+
+@Component({
+  selector: '<%= selector %>',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    FormsModule,<% if (detailType === 'extensible-form') { %>
+    ReactiveFormsModule,<% } %>
+    CoreModule,
+    ThemeSharedModule,
+    PageModule,
+    ExtensibleModule,
+    // ng-zorro
+    NzButtonModule,
+    NzIconModule,
+    NzSpinModule,
+    NzModalModule,
+    // Split View
+    SplitViewComponent,
+    SplitViewDetailDirective,
+    SplitViewActionsDirective,
+    SplitViewFilterDirective,<% if (detailType === 'tabset' || detailType === 'extensible-form') { %>
+    DetailTabsetComponent,
+    DetailTabComponent,<% } %><% if (detailType === 'extensible-form') { %>
+    NzExtensibleFormComponent,<% } %>
+  ],
+  providers: [
+    {
+      provide: EXTENSIONS_IDENTIFIER,
+      useValue: e<%= names.className %>Names.<%= names.className %>,
+    },
+    <%= storeNames.className %>,
+  ],
+  templateUrl: './<%= names.fileName %>.component.html',
+})
+export class <%= names.className %>Component implements OnDestroy {
+  readonly store = inject(<%= storeNames.className %>);<% if (detailType === 'extensible-form') { %>
+  readonly #injector = inject(Injector);
+  readonly #destroyRef = inject(DestroyRef);<% } %>
+
+  // Detail Header Config
+  readonly detailHeaderConfig: DetailHeaderConfig<R> = {
+    title: (item) => item.id || '', // TODO: Replace with actual title field
+  };
+<% if (detailType === 'tabset' || detailType === 'simple') { %>
+  // Form values
+  // TODO: Define your form value type and create default function
+  // detailFormValue = signal<YourFormValue>(createDefaultFormValue());
+  // createFormValue = signal<YourFormValue>(createDefaultFormValue());
+
+  constructor() {
+    // When selected entity changes, update form value
+    effect(() => {
+      const entity = this.store.<%= names.propertyName %>Selected().entity;
+      if (entity) {
+        // TODO: Update detailFormValue with entity data
+        // this.detailFormValue.set({...});
+      }
+    });
+  }
+<% } else { %>
+  // Detail form (separate from modal form)
+  detailForm = signal<UntypedFormGroup | null>(null);
+
+  constructor() {
+    // When selected entity changes, regenerate detail form
+    effect(() => {
+      const entity = this.store.<%= names.propertyName %>Selected().entity;
+      if (entity) {
+        const form = generateFormFromProps(
+          new FormPropData(this.#injector, entity)
+        );
+        this.detailForm.set(form);
+
+        // Subscribe to form value changes to track dirty state
+        form.valueChanges
+          .pipe(takeUntilDestroyed(this.#destroyRef))
+          .subscribe(() => {
+            this.store.setTab1Dirty();
+          });
+      } else {
+        this.detailForm.set(null);
+      }
+    });
+  }
+<% } %>
+  // DataSource
+  readonly dataSource = this.store.get<%= names.className %>DataSource();
+  readonly listService = this.store.get<%= names.className %>ListService();
+
+  // Computed
+  searchText = computed(() => this.listService.filter || '');
+
+  // Getters
+  get loading(): boolean {
+    return this.dataSource.loading;
+  }
+
+  get dataSourceLength(): number {
+    return this.dataSource.length;
+  }
+
+  ngOnDestroy(): void {
+    this.dataSource.disconnect();
+  }
+
+  // Event Handlers
+  onItemSelect(item: R) {
+    // Only set id, withSelected will auto fetch entity
+    this.store.update<%= names.className %>Selected({ id: item.id || null });
+  }
+
+  onSearchChange(text: string) {
+    this.listService.filter = text;
+    this.store.reset<%= names.className %>DataSource();
+  }
+
+  // Create Modal
+  openCreateModal() {<% if (detailType === 'tabset' || detailType === 'simple') { %>
+    // TODO: Reset createFormValue to default
+    // this.createFormValue.set(createDefaultFormValue());<% } %>
+    this.store.open<%= names.className %>EditModal(null);
+  }
+
+  closeCreateModal() {
+    this.store.update<%= names.className %>EditModal({ visible: false });
+  }
+
+  saveCreateModal() {<% if (detailType === 'extensible-form') { %>
+    // extensible-form mode: use store method (not withEditModal's saveEditModal)
+    const form = this.store.<%= names.propertyName %>Form();
+    if (!form.valid) return;
+    this.store.save<%= names.className %>(form.value);<% } else { %>
+    // TODO: Get form value and validate before saving
+    // const value = this.createFormValue();
+    // if (!value.requiredField) return;
+    // this.store.save<%= names.className %>(value);<% } %>
+  }<% if (detailType === 'tabset' || detailType === 'extensible-form') { %>
+
+  // Tab change
+  onTabChange(index: number) {
+    // TODO: Handle tab change if needed
+  }<% } %>
+
+  // Detail save
+  saveDetail() {<% if (detailType === 'extensible-form') { %>
+    // extensible-form mode: use detail form (separate from modal form)
+    const form = this.detailForm();
+    if (!form || !form.valid) return;
+    this.store.saveDetail(form.value);<% } else { %>
+    // TODO: Get form value and validate before saving
+    // const value = this.detailFormValue();
+    // if (!value.requiredField) return;
+    // this.store.saveDetail(value);<% } %>
+  }
+}

@@ -1,5 +1,5 @@
 import { PagedResultDto } from '@abp/ng.core';
-import { Injector,Signal } from '@angular/core';
+import { Injector, Signal } from '@angular/core';
 import {
   FormArray,
   FormControl,
@@ -7,11 +7,15 @@ import {
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 export type RxMethodRef = {
-    destroy: () => void;
+  destroy: () => void;
 };
-export type RxMethod<Input> = ((input: Input | Signal<Input> | Observable<Input>, config?: {
+export type RxMethod<Input> = ((
+  input: Input | Signal<Input> | Observable<Input>,
+  config?: {
     injector?: Injector;
-}) => RxMethodRef) & RxMethodRef;
+  }
+) => RxMethodRef) &
+  RxMethodRef;
 
 export type Controls<T> = { [k in keyof T]: Form<T[k]> };
 export type Form<T> = [T] extends [boolean | number | string | null | undefined]

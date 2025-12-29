@@ -1,5 +1,5 @@
 import { inject } from "@angular/core";
-import { ICrudProxy } from '<%= sharedPath %>/types';
+import { ICrudProxy } from '@fs-tw/ng.shared/features';
 
 const S = <%= crudProxy.entityServiceType || names.className + 'Service' %>;
 export type I = <%= crudProxy.listInputType || 'any' %>;

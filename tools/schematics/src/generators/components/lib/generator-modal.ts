@@ -1,6 +1,5 @@
 import { formatFiles, Tree } from '@nx/devkit';
 import { ComponentsGeneratorSchema } from '../schema';
-import { ensureTypes, ensureDefault, ensureStore, ensureFeature } from '.';
 import { ensureComponent } from './ensure-component';
 
 export async function modalGenerator(
@@ -8,14 +7,6 @@ export async function modalGenerator(
   options: ComponentsGeneratorSchema,
   filesRoot: string
 ) {
-  // 產生 feature 檔案（如果需要）
-  const wasFeatureCreated = ensureFeature(tree, {
-    directory: options.directory,
-    name: options.name,
-    project: options.project,
-    filesRoot,
-  });
-
   // 產生 component 檔案
   const wasComponentCreated = ensureComponent(
     tree,
@@ -30,10 +21,6 @@ export async function modalGenerator(
   );
 
   // 顯示生成結果
-  if (wasFeatureCreated) {
-    console.log('已創建新的 feature 檔案');
-  }
-
   if (wasComponentCreated) {
     console.log('已創建新的 component 檔案');
   }

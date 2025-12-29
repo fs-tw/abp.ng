@@ -1,0 +1,96 @@
+import {
+  EntityProp,
+  ePropType,
+  FormProp,
+  EntityAction,
+  ToolbarAction,
+} from '@abp/ng.components/extensible';
+import { Validators } from '@angular/forms';
+import { R } from './<%= fileName %>.types';
+import { <%= storeNames.className %> } from './<%= fileName %>.store';
+
+const resourceName = '<%= featureNames.className %>';
+
+// ========== Entity Actions (Detail Header buttons) ==========
+export const ENTITY_ACTIONS = EntityAction.createMany<R>([
+  {
+    text: `AbpUi::Delete`,
+    action: (data) => {
+      const store = data.getInjected(<%= storeNames.className %>);
+      store.delete<%= names.className %>(data.record);
+    },
+    permission: '',
+    icon: 'delete',
+  },
+]);
+
+// ========== Entity Props (table columns) ==========
+export const ENTITY_PROPS = EntityProp.createMany<R>([
+  {
+    type: ePropType.String,
+    name: 'id',
+    displayName: '',
+    sortable: false,
+    columnVisible: () => false,
+  },
+  // TODO: Add your entity properties here
+  // {
+  //   type: ePropType.String,
+  //   name: 'name',
+  //   displayName: `${resourceName}::Name`,
+  //   sortable: true,
+  // },
+]);
+
+// ========== Create Form Props ==========
+export const CREATE_FORM_PROPS = FormProp.createMany<R>([
+  // TODO: Add your create form properties here
+  // {
+  //   type: ePropType.String,
+  //   name: 'name',
+  //   displayName: `${resourceName}::Name`,
+  //   id: 'name',
+  //   validators: () => [Validators.required],
+  // },
+]);
+
+// ========== Edit Form Props ==========
+export const EDIT_FORM_PROPS = FormProp.createMany<R>([
+  {
+    type: ePropType.String,
+    name: 'id',
+    displayName: '',
+    id: 'id',
+    visible: () => false,
+  },
+  // TODO: Add your edit form properties here
+  // {
+  //   type: ePropType.String,
+  //   name: 'name',
+  //   displayName: `${resourceName}::Name`,
+  //   id: 'name',
+  //   validators: () => [Validators.required],
+  // },
+]);
+
+// ========== Toolbar Actions (page top toolbar buttons) ==========
+export const TOOLBAR_ACTIONS = ToolbarAction.createMany<R[]>([
+  // {
+  //   text: `${resourceName}::Import`,
+  //   action: (data) => {
+  //     const store = data.getInjected(<%= storeNames.className %>);
+  //     // store.openImportModal();
+  //   },
+  //   permission: '',
+  //   icon: 'fa fa-upload',
+  // },
+]);
+
+// ========== Defaults Export ==========
+export const <%= names.propertyName %>Defaults = {
+  entityActions: ENTITY_ACTIONS,
+  toolbarActions: TOOLBAR_ACTIONS,
+  entityProps: ENTITY_PROPS,
+  createFormProps: CREATE_FORM_PROPS,
+  editFormProps: EDIT_FORM_PROPS,
+};

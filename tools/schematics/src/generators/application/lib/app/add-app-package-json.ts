@@ -1,6 +1,6 @@
 import type { GeneratorCallback, Tree } from '@nx/devkit';
 import { addDependenciesToPackageJson, } from '@nx/devkit';
-import { abpVersion, leptonXVersion, angularVersion, bootstrapIconsVersion, ngrxVersion } from './versions';
+import { abpVersion, leptonXVersion, angularVersion, bootstrapIconsVersion, ngrxVersion, sharedVersion } from './versions';
 
 export function addAppToPackageJson(
   tree: Tree,
@@ -20,12 +20,13 @@ export function addAppToPackageJson(
       "@abp/ng.tenant-management": abpVersion,
       "@abp/ng.theme.lepton-x": leptonXVersion,
       "@abp/ng.theme.shared": abpVersion,
-      '@volo/abp.commercial.ng.ui': abpVersion,
+      "@volo/abp.commercial.ng.ui": abpVersion,
       "@angular/animations": angularVersion,
       "@angular/localize": angularVersion,
       "bootstrap-icons": bootstrapIconsVersion,
-      "@ngrx/signals":ngrxVersion,
-      "@ngrx/operators":ngrxVersion
+      "@ngrx/signals": ngrxVersion,
+      "@ngrx/operators": ngrxVersion,
+      "@fs-tw/ng.shared": sharedVersion
     },
     {
       "@abp/ng.schematics": abpVersion,

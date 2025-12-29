@@ -6,6 +6,7 @@ import { ensureFormComponent } from './form';
 import { ensureModalComponent } from './modal';
 import { ensureSelectComponent } from './select';
 import { ensureTableComponent } from './table';
+import { ensureSplitViewComponent } from './split-view';
 
 export function ensureComponent(
   tree: Tree,
@@ -23,6 +24,8 @@ export function ensureComponent(
       return ensureModalComponent(tree, params);
     case 'select':
       return ensureSelectComponent(tree, params);
+    case 'split-view':
+      return ensureSplitViewComponent(tree, params);
     default:
       throw new Error(`未支援的元件類型: ${componentType}`);
   }

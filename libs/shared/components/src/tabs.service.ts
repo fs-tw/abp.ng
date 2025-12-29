@@ -1,4 +1,4 @@
-import { Injectable, Injector, computed } from '@angular/core';
+import { Injectable, computed } from '@angular/core';
 import { ABP, AbstractNavTreeService } from '@abp/ng.core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { patchState, signalState } from '@ngrx/signals';
@@ -7,7 +7,11 @@ export type TabsState = {
   tabs: ABP.Tab[];
   selectedTab: ABP.Tab | null;
 };
-class NavTreeService extends AbstractNavTreeService<ABP.Tab> {}
+class NavTreeService extends AbstractNavTreeService<ABP.Tab> {
+  constructor() {
+    super();
+  }
+}
 
 @Injectable()
 export class TabsService {
@@ -19,8 +23,8 @@ export class TabsService {
 
   selectedTab = computed(() => this.state().selectedTab);
 
-  constructor(injector: Injector) {
-    this.navTreeService = new NavTreeService(injector);
+  constructor() {
+    this.navTreeService = new NavTreeService();
 
     this.navTreeService.visible$
       .pipe(takeUntilDestroyed())
@@ -47,4 +51,8 @@ export class TabsService {
 }
 
 @Injectable()
-export class RoutesService extends AbstractNavTreeService<ABP.Route> {}
+export class RoutesService extends AbstractNavTreeService<ABP.Route> {
+  constructor() {
+    super();
+  }
+}

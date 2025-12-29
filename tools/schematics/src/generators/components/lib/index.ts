@@ -7,3 +7,4 @@ export * from './generator-entity';
 export * from './generator-form';
 export * from './generator-modal';
 export * from './generator-select';
+export * from './generator-split-view';
