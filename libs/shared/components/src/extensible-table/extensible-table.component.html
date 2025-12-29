@@ -1,0 +1,140 @@
+@if (isBrowser) {
+  <ngx-datatable
+  default
+  [rows]="data"
+  [count]="recordsTotal"
+  [list]="list"
+  [selectionType]="_selectionType"
+  (activate)="tableActivate.emit($event)"
+  (select)="onSelect($event)"
+  [selected]="selected"
+  (scroll)="onScroll($any($event))"
+  [scrollbarV]="infiniteScroll"
+  [style.height]="getTableHeight()"
+  [loadingIndicator]="infiniteScroll && isLoading"
+  [footerHeight]="infiniteScroll ? false : 50"
+>
+@if(selectable) {
+  <ngx-datatable-column [width]="50" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+
+    <ng-template ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected"
+      let-selectFn="selectFn">
+      @if (_selectionType !== 'single') {
+      <div class="form-check">
+        <input class="form-check-input table-check" type="checkbox" [checked]="allRowsSelected"
+          (change)="selectFn(!allRowsSelected)" />
+      </div>
+      }
+    </ng-template>
+
+    <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-isSelected="isSelected"
+      let-onCheckboxChangeFn="onCheckboxChangeFn">
+      @if(_selectionType === 'single') {
+      <div class="h-100 form-check form-check-sm form-check-custom form-check-solid">
+        <input class="form-check-input" type="radio" [checked]="isSelected" (change)="onCheckboxChangeFn($event)" />
+      </div>
+      }
+      @if (_selectionType !== 'single') {
+      <div class="h-100 form-check form-check-sm form-check-custom form-check-solid">
+        <input class="form-check-input" type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)" />
+      </div>
+      }
+    </ng-template>
+
+  </ngx-datatable-column>
+  }
+  @if (actionsTemplate || (actionList.length && hasAtLeastOnePermittedAction)) {
+    <ngx-datatable-column
+      [name]="actionsText | abpLocalization"
+      [maxWidth]="columnWidths()[0] ?? undefined"
+      [width]="columnWidths()[0] ?? 200"
+      [canAutoResize]="!columnWidths()[0]"
+      [sortable]="false"
+    >
+      <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+        <ng-container
+          *ngTemplateOutlet="actionsTemplate || gridActions; context: { $implicit: row, index: i }"
+        ></ng-container>
+        <ng-template #gridActions>
+          @if (isVisibleActions(row)) {
+            <abp-grid-actions [index]="i" [record]="row" text="AbpUi::Actions"></abp-grid-actions>
+          }
+        </ng-template>
+      </ng-template>
+    </ngx-datatable-column>
+  }
+  @for (prop of propList; track prop.name; let i = $index) {
+    <ngx-datatable-column
+      *abpVisible="prop.columnVisible(getInjected)"
+      [width]="columnWidths()[i + 1] ?? 200"
+      [canAutoResize]="!columnWidths()[i + 1]"
+      [name]="(prop.isExtra ? '::' + prop.displayName : prop.displayName) | abpLocalization"
+      [prop]="prop.name"
+      [sortable]="prop.sortable"
+    >
+      <ng-template ngx-datatable-header-template let-column="column" let-sortFn="sortFn">
+        @if (prop.tooltip) {
+          <span
+            [ngbTooltip]="prop.tooltip.text | abpLocalization"
+            [placement]="prop.tooltip.placement || 'auto'"
+            container="body"
+            [class.pointer]="prop.sortable"
+            (click)="prop.sortable && sortFn(column)"
+          >
+            {{ column.name }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+          </span>
+        } @else {
+          <span
+            [class.pointer]="prop.sortable"
+            (click)="prop.sortable && sortFn(column)"
+          >
+            {{ column.name }}
+          </span>
+        }
+      </ng-template>
+      <ng-template let-row="row" let-i="index" ngx-datatable-cell-template>
+        <ng-container *abpPermission="prop.permission; runChangeDetection: false">
+          <ng-container *abpVisible="row['_' + prop.name]?.visible">
+            @if (!row['_' + prop.name].component) {
+              @if (prop.type === 'datetime' || prop.type === 'date' || prop.type === 'time') {
+                <div
+                  [innerHTML]="
+                  !prop.isExtra
+                    ? (row['_' + prop.name]?.value | async | abpUtcToLocal:prop.type)
+                    : ('::' + (row['_' + prop.name]?.value | async | abpUtcToLocal:prop.type) | abpLocalization)
+                "
+                  (click)="
+                  prop.action && prop.action({ getInjected: getInjected, record: row, index: i })
+                "
+                  [ngClass]="entityPropTypeClasses[prop.type]"
+                  [class.pointer]="prop.action"
+                ></div>
+              } @else {
+                <div
+                  [innerHTML]="
+                  !prop.isExtra
+                    ? (row['_' + prop.name]?.value | async)
+                    : ('::' + (row['_' + prop.name]?.value | async) | abpLocalization)
+                "
+                  (click)="
+                  prop.action && prop.action({ getInjected: getInjected, record: row, index: i })
+                "
+                  [ngClass]="entityPropTypeClasses[prop.type]"
+                  [class.pointer]="prop.action"
+                ></div>
+              }
+            } @else {
+              <ng-container
+                *ngComponentOutlet="
+                  row['_' + prop.name].component;
+                  injector: row['_' + prop.name].injector
+                "
+              ></ng-container>
+            }
+          </ng-container>
+        </ng-container>
+      </ng-template>
+    </ngx-datatable-column>
+  }
+</ngx-datatable>
+}

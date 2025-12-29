@@ -14,7 +14,11 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { filter, mergeMap, pipe, tap } from 'rxjs';
 import { RxMethod } from './types';
 
-export class RoutesService extends AbstractNavTreeService<ABP.Route> { }
+export class RoutesService extends AbstractNavTreeService<ABP.Route> {
+  constructor() {
+    super();
+  }
+}
 
 export type Routes = {
   IsMatch: boolean;
@@ -84,9 +88,7 @@ export function withRoutes(options: object): SignalStoreFeature<
     methods: RoutesMethods;
   }
 >;
-export function withRoutes(options: {
-  collection?: string;
-}) {
+export function withRoutes(options: { collection?: string }) {
   const { routesKey, addRoutesKey, getRoutesServiceKey, hookRouterKey } =
     getRoutesKeys(options);
   return signalStoreFeature(
@@ -96,7 +98,7 @@ export function withRoutes(options: {
       },
     }),
     withMethods((store, injector = inject(Injector)) => {
-      const routesService = new RoutesService(injector);
+      const routesService = new RoutesService();
       return {
         [getRoutesServiceKey]: () => routesService,
         [addRoutesKey]: (items: ABP.Route[]) => {
@@ -114,9 +116,7 @@ export function withRoutes(options: {
                     let isMatch = false;
                     if (routesService?.flat.length === 0) {
                       isMatch = true;
-
-                    }
-                    else {
+                    } else {
                       isMatch = routesService?.flat.some((r) => {
                         return router?.isActive(
                           router.createUrlTree([r.path], {

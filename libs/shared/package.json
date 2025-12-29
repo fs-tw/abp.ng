@@ -1,0 +1,52 @@
+{
+  "name": "@fs-tw/ng.shared",
+  "version": "3.0.0",
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./features": {
+      "types": "./features/src/index.d.ts",
+      "default": "./features/src/index.js"
+    },
+    "./components": {
+      "types": "./components/src/index.d.ts",
+      "default": "./components/src/index.js"
+    }
+  },
+  "peerDependencies": {
+    "@abp/ng.core": "~10.0.1",
+    "@abp/ng.components": "~10.0.1",
+    "@abp/ng.theme.shared": "~10.0.1",
+    "@ngrx/signals": "~20.0.1",
+    "@ngrx/operators": "~20.0.1",
+    "@angular/core": "~20.0.0",
+    "@angular/forms": "~20.0.0",
+    "@angular/router": "~20.0.0",
+    "@angular/cdk": "~20.0.0",
+    "rxjs": "~7.8.0"
+  },
+  "optionalPeerDependencies": {
+    "ng-zorro-antd": "~20.4.0",
+    "@ng-bootstrap/ng-bootstrap": "~18.0.0",
+    "@swimlane/ngx-datatable": "~20.0.0"
+  },
+  "peerDependenciesMeta": {
+    "ng-zorro-antd": {
+      "optional": true
+    },
+    "@ng-bootstrap/ng-bootstrap": {
+      "optional": true
+    },
+    "@swimlane/ngx-datatable": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

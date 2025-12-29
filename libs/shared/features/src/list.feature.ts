@@ -139,7 +139,7 @@ export function withListService<E, I, Collection extends string>(options: {
         store: Record<string, any> & WritableStateSource<object>,
         injector = inject(Injector)
       ) => {
-        const listService = new ListService(injector);
+        const listService = new ListService();
         return {
           [hookQueryKey]: rxMethod<void>(
             pipe(
